@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -37,7 +38,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="ICountry.IsoCode"/>
         [Column(nameof(FDC.Country.IsoCode))]
         [MaxLength(FDC.Country.Lengths.ISOCode)]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Iso must be provided")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Iso Code must be provided")]
         public String IsoCode
         {
             get => this._isoCode;
@@ -87,7 +88,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="ICountry.PostCodeFormat"/>
         [Column(nameof(FDC.Country.PostCodeFormat))]
         [MaxLength(FDC.Country.Lengths.PostCodeFormat)]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Post Code DotNetFormat must be provided")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Post Code Format must be provided")]
         public String PostCodeFormat
         {
             get => this._postCodeFormat;
@@ -223,7 +224,11 @@ namespace Foundation.Models
             hashCode = hashCode * constant + EqualityComparer<EntityId>.Default.GetHashCode(LanguageId);
             hashCode = hashCode * constant + EqualityComparer<EntityId>.Default.GetHashCode(TimeZoneId);
             hashCode = hashCode * constant + EqualityComparer<EntityId>.Default.GetHashCode(WorldRegionId);
-            hashCode = hashCode * constant + EqualityComparer<Byte[]>.Default.GetHashCode(CountryFlag);
+
+            if (CountryFlag != null)
+            {
+                hashCode = hashCode * constant + StructuralComparisons.StructuralEqualityComparer.GetHashCode(CountryFlag);
+            }
 
             return hashCode;
         }
@@ -260,7 +265,7 @@ namespace Foundation.Models
                 retVal &= EqualityComparer<EntityId>.Default.Equals(left.LanguageId, right.LanguageId);
                 retVal &= EqualityComparer<EntityId>.Default.Equals(left.TimeZoneId, right.TimeZoneId);
                 retVal &= EqualityComparer<EntityId>.Default.Equals(left.WorldRegionId, right.WorldRegionId);
-                retVal &= EqualityComparer<Byte[]>.Default.Equals(left.CountryFlag, right.CountryFlag);
+                retVal &= StructuralComparisons.StructuralEqualityComparer.Equals(left.CountryFlag, left.CountryFlag);
             }
 
             return retVal;

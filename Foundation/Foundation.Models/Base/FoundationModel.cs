@@ -424,8 +424,6 @@ namespace Foundation.Models
             hashCode = hashCode * constant + EqualityComparer<DateTime?>.Default.GetHashCode(ValidFrom);
             hashCode = hashCode * constant + EqualityComparer<DateTime?>.Default.GetHashCode(ValidTo);
             hashCode = hashCode * constant + EqualityComparer<FEnums.EntityStatus>.Default.GetHashCode(EntityStatus);
-
-            //hashCode = hashCode * constant + EqualityComparer<Byte[]>.Default.GetHashCode(Timestamp);
             hashCode = hashCode * constant + StructuralComparisons.StructuralEqualityComparer.GetHashCode(Timestamp);
 
             return hashCode;
@@ -457,8 +455,6 @@ namespace Foundation.Models
                 retVal &= EqualityComparer<DateTime?>.Default.Equals(left.ValidFrom, right.ValidFrom);
                 retVal &= EqualityComparer<DateTime?>.Default.Equals(left.ValidTo, right.ValidTo);
                 retVal &= EqualityComparer<FEnums.EntityStatus>.Default.Equals(left.EntityStatus, right.EntityStatus);
-
-                //retVal &= EqualityComparer<Byte[]>.Default.Equals(left.Timestamp, right.Timestamp);
                 retVal &= StructuralComparisons.StructuralEqualityComparer.Equals(left.Timestamp, right.Timestamp);
             }
 

@@ -140,7 +140,11 @@ namespace Foundation.Models
                 hashCode = hashCode * constant + EqualityComparer<AppId>.Default.GetHashCode(ApplicationId);
                 hashCode = hashCode * constant + EqualityComparer<EntityId>.Default.GetHashCode(ConfigurationScopeId);
                 hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(Key);
-                hashCode = hashCode * constant + EqualityComparer<Object>.Default.GetHashCode(Value);
+
+                if (Value != null)
+                {
+                    hashCode = hashCode * constant + EqualityComparer<Object>.Default.GetHashCode(Value);
+                }
             }
 
             return hashCode;

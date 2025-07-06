@@ -4,12 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Common;
+using Foundation.Interfaces;
+
+using System.Collections;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
-using Foundation.Common;
-using Foundation.Interfaces;
 
 using FDC = Foundation.Common.DataColumns;
 
@@ -137,7 +138,7 @@ namespace Foundation.Models
 
         /// <inheritdoc cref="IMenuItem.Icon"/>
         [Column(nameof(FDC.MenuItem.Icon))]
-        public Byte[] Icon
+        public Byte[]? Icon
         {
             get => this._icon;
             set => this.SetPropertyValue(ref _icon, value);
@@ -241,8 +242,12 @@ namespace Foundation.Models
             hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(HelpText);
             hashCode = hashCode * constant + EqualityComparer<Boolean>.Default.GetHashCode(MultiInstance);
             hashCode = hashCode * constant + EqualityComparer<Boolean>.Default.GetHashCode(ShowInTab);
-            hashCode = hashCode * constant + EqualityComparer<Byte[]>.Default.GetHashCode(Icon);
             hashCode = hashCode * constant + EqualityComparer<Int32>.Default.GetHashCode(Depth);
+
+            if (Icon != null)
+            {
+                hashCode = hashCode * constant + StructuralComparisons.StructuralEqualityComparer.GetHashCode(Icon);
+            }
 
             return hashCode;
         }
@@ -280,8 +285,8 @@ namespace Foundation.Models
                 retVal &= EqualityComparer<String>.Default.Equals(left.HelpText, right.HelpText);
                 retVal &= EqualityComparer<Boolean>.Default.Equals(left.MultiInstance, right.MultiInstance);
                 retVal &= EqualityComparer<Boolean>.Default.Equals(left.ShowInTab, right.ShowInTab);
-                retVal &= EqualityComparer<Byte[]>.Default.Equals(left.Icon, right.Icon);
                 retVal &= EqualityComparer<Int32>.Default.Equals(left.Depth, right.Depth);
+                retVal &= StructuralComparisons.StructuralEqualityComparer.Equals(left.Icon, left.Icon);
             }
 
             return retVal;

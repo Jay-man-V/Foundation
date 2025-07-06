@@ -33,7 +33,7 @@ namespace Foundation.Interfaces
         /// <summary>
         /// The Scheduled Task that will be run by this Job
         /// </summary>
-        IScheduledTask ScheduledTask { get; set; }
+        IScheduledTask? ScheduledTask { get; set; }
 
         /// <summary>
         /// The next Date/Time the scheduled task is set to run at

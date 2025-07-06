@@ -4,11 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 using Foundation.Common;
 using Foundation.Interfaces;
+
+using Newtonsoft.Json.Linq;
+
+using System.Collections;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 using FDC = Foundation.Common.DataColumns;
 
@@ -117,12 +120,9 @@ namespace Foundation.Models
             hashCode = hashCode * constant + EqualityComparer<LogId>.Default.GetHashCode(EventLogId);
             hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(AttachmentFileName);
 
-            if (_attachment.IsNotNull())
+            if (Attachment != null)
             {
-                foreach (Byte value in _attachment)
-                {
-                    hashCode = hashCode * constant + EqualityComparer<Byte>.Default.GetHashCode(value);
-                }
+                hashCode = hashCode * constant + StructuralComparisons.StructuralEqualityComparer.GetHashCode(Attachment);
             }
 
             return hashCode;
@@ -152,7 +152,7 @@ namespace Foundation.Models
 
                 retVal &= EqualityComparer<LogId>.Default.Equals(left.EventLogId, right.EventLogId);
                 retVal &= EqualityComparer<String>.Default.Equals(left.AttachmentFileName, right.AttachmentFileName);
-                retVal &= Enumerable.SequenceEqual(left.Attachment, right.Attachment);
+                retVal &= StructuralComparisons.StructuralEqualityComparer.Equals(left.Attachment, left.Attachment);
             }
 
             return retVal;

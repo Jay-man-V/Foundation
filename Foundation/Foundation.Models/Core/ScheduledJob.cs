@@ -62,7 +62,7 @@ namespace Foundation.Models
 
         /// <inheritdoc cref="IScheduledJob.ScheduledTask"/>
         [NotMapped]
-        public IScheduledTask ScheduledTask { get; set; }
+        public IScheduledTask? ScheduledTask { get; set; }
 
         /// <inheritdoc cref="IScheduledJob.LastRunDateTime"/>
         [NotMapped]
@@ -248,7 +248,7 @@ namespace Foundation.Models
             hashCode = hashCode * constant + EqualityComparer<Boolean>.Default.GetHashCode(IsRunning);
             hashCode = hashCode * constant + EqualityComparer<Boolean>.Default.GetHashCode(FirstRun);
             hashCode = hashCode * constant + EqualityComparer<Boolean>.Default.GetHashCode(CancellationRequested);
-            hashCode = hashCode * constant + EqualityComparer<IScheduledTask>.Default.GetHashCode(ScheduledTask);
+            hashCode = hashCode * constant + EqualityComparer<IScheduledTask?>.Default.GetHashCode(ScheduledTask);
             hashCode = hashCode * constant + EqualityComparer<DateTime>.Default.GetHashCode(LastRunDateTime);
             hashCode = hashCode * constant + EqualityComparer<DateTime>.Default.GetHashCode(NextRunDateTime);
 
