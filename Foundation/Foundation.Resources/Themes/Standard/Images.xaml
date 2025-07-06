@@ -1,0 +1,97 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+>
+
+    <ImageSource x:Key="AboutIcon">pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/About_32.png</ImageSource>
+    <ImageSource x:Key="ErrorIcon">pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/Error_32.png</ImageSource>
+    <ImageSource x:Key="InformationIcon">pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/Information_32.png</ImageSource>
+    <ImageSource x:Key="QuestionIcon">pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/Question_32.png</ImageSource>
+    <ImageSource x:Key="BlankIcon">pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/None_32.png</ImageSource>
+    <ImageSource x:Key="WarningIcon">pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/Warning_32.png</ImageSource>
+    <ImageSource x:Key="CopyIcon">pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/Copy_16x.png</ImageSource>
+    <ImageSource x:Key="CutIcon">pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/Cut_16x.png</ImageSource>
+    <ImageSource x:Key="PasteIcon">pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/Paste_16x.png</ImageSource>
+
+    <Image x:Key="WindowCloseIcon" x:Shared="false" Width="16" Height="16" Source="pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/WindowActions/Close_16x16.png">
+        <Image.ToolTip>
+            <ToolTip Content="Close" />
+        </Image.ToolTip>
+    </Image>
+
+    <Image x:Key="WindowMinimiseIcon" x:Shared="false" Width="16" Height="16" Source="pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/WindowActions/Minimise_16x16.png">
+        <Image.ToolTip>
+            <ToolTip Content="Minimise" />
+        </Image.ToolTip>
+    </Image>
+
+    <Image x:Key="WindowRestoreIcon" x:Shared="false" Width="16" Height="16" Source="pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/WindowActions/Restore_16x16.png">
+        <Image.ToolTip>
+            <ToolTip Content="Restore" />
+        </Image.ToolTip>
+    </Image>
+
+    <Image x:Key="WindowMaximiseIcon" x:Shared="false" Width="16" Height="16" Source="pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/WindowActions/Maximise_16x16.png">
+        <Image.ToolTip>
+            <ToolTip Content="Maximise" />
+        </Image.ToolTip>
+    </Image>
+
+
+    <Image x:Key="CloseImage" x:Shared="false" Width="16" Height="16" Source="pack://Application:,,,/Themes/Standard/Images/WindowActions/Close_16x16.png">
+        <Image.ToolTip>
+            <ToolTip Content="Close" />
+        </Image.ToolTip>
+    </Image>
+    <Image x:Key="CopyImage" x:Shared="false" Width="16" Height="16" Source="pack://Application:,,,/Themes/Standard/Images/Copy_16x.png">
+        <Image.ToolTip>
+            <ToolTip Content="Copy" />
+        </Image.ToolTip>
+    </Image>
+    <Image x:Key="CutImage" x:Shared="false" Width="16" Height="16" Source="pack://Application:,,,/Themes/Standard/Images/Cut_16x.png">
+        <Image.ToolTip>
+            <ToolTip Content="Cut" />
+        </Image.ToolTip>
+    </Image>
+    <Image x:Key="PasteImage" x:Shared="false" Width="16" Height="16" Source="pack://Application:,,,/Themes/Standard/Images/Paste_16x.png">
+        <Image.ToolTip>
+            <ToolTip Content="Paste" />
+        </Image.ToolTip>
+    </Image>
+    <Image x:Key="RefreshImage" x:Shared="false" Width="16" Height="16" Source="pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/RefreshArrow_Green_16.png">
+        <Image.ToolTip>
+            <ToolTip Content="Refresh" />
+        </Image.ToolTip>
+    </Image>
+    <Image x:Key="ViewImage" x:Shared="false" Width="16" Height="16" Source="pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/FullView_16.png">
+        <Image.ToolTip>
+            <ToolTip Content="View" />
+        </Image.ToolTip>
+    </Image>
+    <Image x:Key="AddImage" x:Shared="false" Width="16" Height="16" Source="pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/Add_16.png">
+        <Image.ToolTip>
+            <ToolTip Content="Add" />
+        </Image.ToolTip>
+    </Image>
+    <Image x:Key="EditImage" x:Shared="false" Width="16" Height="16" Source="pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/EditRow_16.png">
+        <Image.ToolTip>
+            <ToolTip Content="Edit" />
+        </Image.ToolTip>
+    </Image>
+    <Image x:Key="DeleteImage" x:Shared="false" Width="16" Height="16" Source="pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/Delete_16.png">
+        <Image.ToolTip>
+            <ToolTip Content="Delete" />
+        </Image.ToolTip>
+    </Image>
+    <Image x:Key="ExportExcelImage" x:Shared="false" Width="16" Height="16" Source="pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/ExportToXLS_16.png">
+        <Image.ToolTip>
+            <ToolTip Content="Export to Excel" />
+        </Image.ToolTip>
+    </Image>
+    <Image x:Key="ExportCsvImage" x:Shared="false" Width="16" Height="16" Source="pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/ExportToCSV_16.png">
+        <Image.ToolTip>
+            <ToolTip Content="Export to CSV" />
+        </Image.ToolTip>
+    </Image>
+
+</ResourceDictionary>

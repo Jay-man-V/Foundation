@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BDE5F539-C707-4A70-9DAB-F596E7D7E9B0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NationalLottery.Models</RootNamespace>
+    <AssemblyName>NationalLottery.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\NationalLottery.Models.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\NationalLotteryAssemblyInfo.cs">
+      <Link>Properties\NationalLotteryAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="EuroMillionsNumbers.cs" />
+    <Compile Include="EuroMillionsResults.cs" />
+    <Compile Include="LottoNumbers.cs" />
+    <Compile Include=".base\NationalLotteryModel.cs" />
+    <Compile Include="LottoResults.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Foundation.Net\Foundation.Common\Foundation.Common.csproj">
+      <Project>{05d1c1de-89c6-4d16-bb2d-777a1811459a}</Project>
+      <Name>Foundation.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Foundation.Net\Foundation.Interfaces\Foundation.Interfaces.csproj">
+      <Project>{7e709883-c064-4c98-a8b1-9ee62b47274d}</Project>
+      <Name>Foundation.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Foundation.Net\Foundation.Models\Foundation.Models.csproj">
+      <Project>{5181b7e8-4823-45b0-8e81-c8d3228d0099}</Project>
+      <Name>Foundation.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NationalLottery.Common\NationalLottery.Common.csproj">
+      <Project>{36d21aea-cad6-4f37-af13-7046c28b20a1}</Project>
+      <Name>NationalLottery.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NationalLottery.Interfaces\NationalLottery.Interfaces.csproj">
+      <Project>{0d3ef584-b5fc-4c9a-8ed8-e7f7e0547db0}</Project>
+      <Name>NationalLottery.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

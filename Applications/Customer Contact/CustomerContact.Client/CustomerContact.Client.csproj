@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Foundation\Foundation.Interfaces\Foundation.Interfaces.csproj" />
+    <ProjectReference Include="..\..\..\Foundation\Foundation.Resources\Foundation.Resources.csproj" />
+    <ProjectReference Include="..\..\..\Foundation\Foundation.Views\Foundation.Views.csproj" />
+  </ItemGroup>
+
+</Project>

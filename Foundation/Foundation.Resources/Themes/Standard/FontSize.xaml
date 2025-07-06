@@ -1,0 +1,15 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+>
+
+    <sys:Double x:Key="HeaderFontSize">20</sys:Double>
+    <sys:Double x:Key="BreadCrumbFontSize">12</sys:Double>
+    <sys:Double x:Key="ScreenNameFontSize">18</sys:Double>
+    <sys:Double x:Key="ScreenInstructionsFontSize">14</sys:Double>
+    <sys:Double x:Key="DefaultFontSize">15</sys:Double>
+    <sys:Double x:Key="SmallHeaderFontSize">12</sys:Double>
+    <sys:Double x:Key="SmallContentFontSize">10</sys:Double>
+
+</ResourceDictionary>

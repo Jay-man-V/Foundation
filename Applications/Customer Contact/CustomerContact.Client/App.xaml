@@ -1,0 +1,25 @@
+﻿<Application
+    x:Class="CustomerContact.Client.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+>
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <ResourceDictionary Source="pack://application:,,,/Foundation.Resources;component/Themes/Standard/ColourScheme.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Foundation.Resources;component/Themes/Standard/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Foundation.Resources;component/Themes/Standard/FontSize.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Foundation.Resources;component/Themes/Standard/Images.xaml" />
+
+                <ResourceDictionary Source="pack://application:,,,/Foundation.Resources;component/Themes/Standard/Control Settings/ControlSettings.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Foundation.Resources;component/Themes/Standard/Control Settings/WindowSettings.xaml" />
+
+                <!--<ResourceDictionary Source="pack://application:,,,/Foundation.Views;component/Controls/Base/StdWindowPanel.xaml" />-->
+            </ResourceDictionary.MergedDictionaries>
+
+            <!--<converter:DateTimeToStringConverter x:Key="DateTimeToStringConverter" />-->
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

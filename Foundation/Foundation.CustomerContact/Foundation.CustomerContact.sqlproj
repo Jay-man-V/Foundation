@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>Foundation.CustomerContact</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{fe6e6a5e-a09d-4df9-ae2b-9f93ec09a1fd}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>Foundation.CustomerContact</RootNamespace>
+    <AssemblyName>Foundation.CustomerContact</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>Latin1_General_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="core\" />
+    <Folder Include="core\Tables\" />
+    <Folder Include="stg\" />
+    <Folder Include="stg\Tables\" />
+    <Folder Include="log\" />
+    <Folder Include="log\Tables\" />
+    <Folder Include="sec\" />
+    <Folder Include="sec\Tables\" />
+    <Folder Include="dbo\" />
+    <Folder Include="Security\" />
+    <Folder Include="sec\Stored Procedures\" />
+    <Folder Include="core\Stored Procedures\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Functions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="core\Tables\Country.sql" />
+    <Build Include="core\Tables\NonWorkingDay.sql" />
+    <Build Include="stg\Tables\ActiveDirectoryUser.sql" />
+    <Build Include="core\Tables\ApprovalStatus.sql" />
+    <Build Include="core\Tables\ContactType.sql" />
+    <Build Include="core\Tables\Contract.sql" />
+    <Build Include="core\Tables\ContractType.sql" />
+    <Build Include="core\Tables\TaskStatus.sql" />
+    <Build Include="core\Tables\ImageType.sql" />
+    <Build Include="core\Tables\Language.sql" />
+    <Build Include="core\Tables\NationalRegion.sql" />
+    <Build Include="core\Tables\Office.sql" />
+    <Build Include="core\Tables\OfficeWeekCalendar.sql" />
+    <Build Include="core\Tables\Status.sql" />
+    <Build Include="core\Tables\Timezone.sql" />
+    <Build Include="core\Tables\WorldRegion.sql" />
+    <Build Include="log\Tables\EventLog.sql" />
+    <Build Include="sec\Tables\LoggedOnUser.sql" />
+    <Build Include="log\Tables\LogSeverity.sql" />
+    <Build Include="log\Tables\EventLogApplication.sql" />
+    <Build Include="sec\Tables\Application.sql" />
+    <Build Include="sec\Tables\ApplicationApplicationType.sql" />
+    <Build Include="sec\Tables\ApplicationRole.sql" />
+    <Build Include="sec\Tables\ApplicationType.sql" />
+    <Build Include="sec\Tables\ApplicationUserRole.sql" />
+    <Build Include="sec\Tables\Role.sql" />
+    <Build Include="sec\Tables\UserProfile.sql" />
+    <Build Include="core\Tables\ContactDetail.sql" />
+    <Build Include="core\Tables\Currency.sql" />
+    <Build Include="Security\core.sql" />
+    <Build Include="Security\log.sql" />
+    <Build Include="Security\sec.sql" />
+    <Build Include="Security\stg.sql" />
+    <Build Include="Security\Permissions.sql" />
+    <Build Include="sec\Stored Procedures\usp_UserProfile_LoadFromActiveDirectoryUsersFromStaging.sql" />
+    <Build Include="core\Tables\ScheduleInterval.sql" />
+    <Build Include="core\Stored Procedures\usp_NonWorkingDays_GetWorkingDaysByMonth.sql" />
+    <Build Include="core\Stored Procedures\usp_NonWorkingDays_GetWorkingDays.sql" />
+    <Build Include="Security\jay.sql" />
+    <Build Include="dbo\Tables\CatalogueItem.sql" />
+    <Build Include="dbo\Tables\Catalogue.sql" />
+    <Build Include="dbo\Functions\ufn_GetListOfCalendarDates.sql" />
+    <Build Include="sec\Tables\AuthenticationToken.sql" />
+    <Build Include="core\Tables\ConfigurationScope.sql" />
+    <Build Include="core\Tables\ApplicationConfiguration.sql" />
+    <Build Include="dbo\Functions\ufn_GetNextWorkingDay.sql" />
+    <Build Include="dbo\Functions\ufn_CheckIsWorkingDayOrGetNextWorkingDay.sql" />
+    <Build Include="core\Tables\Department.sql" />
+    <Build Include="sec\Tables\PermissionMatrix.sql" />
+    <Build Include="log\Tables\ScheduledDataStatus.sql" />
+    <Build Include="log\Tables\ImportExportControl.sql" />
+    <Build Include="core\Tables\SchedulerExecutionLog.sql" />
+    <Build Include="core\Tables\ScheduledJob.sql" />
+    <Build Include="core\Tables\EntityStatus.sql" />
+    <Build Include="core\Tables\DataStatus.sql" />
+    <Build Include="dbo\Functions\ufn_IsNonWorkingDay.sql" />
+    <Build Include="dbo\Functions\ufn_GetListOfWorkingDates.sql" />
+    <Build Include="dbo\Functions\ufn_GetListOfActiveStatuses.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SqlSchemaCompare1.scmp" />
+  </ItemGroup>
+  <Import Project="..\ExtraCleanup.targets" />
+</Project>
