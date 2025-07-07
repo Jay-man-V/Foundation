@@ -5,7 +5,8 @@
 //-----------------------------------------------------------------------
 
 using System.Windows;
-
+using Foundation.Core;
+using Foundation.Interfaces;
 using Foundation.Views;
 
 namespace CustomerContact.Client
@@ -23,6 +24,10 @@ namespace CustomerContact.Client
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            ICore coreInstance = Core.Initialise(0);
+
+            IApplication application = coreInstance.Container.Get<IApplication>();
 
             TheMainWindow = new();
 

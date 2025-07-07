@@ -10,8 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Foundation\Foundation.Common\Foundation.Common.csproj" />
+    <ProjectReference Include="..\..\..\Foundation\Foundation.Core\Foundation.Core.csproj" />
     <ProjectReference Include="..\..\..\Foundation\Foundation.Interfaces\Foundation.Interfaces.csproj" />
+    <ProjectReference Include="..\..\..\Foundation\Foundation.Models\Foundation.Models.csproj" />
+    <ProjectReference Include="..\..\..\Foundation\Foundation.Resources.Wof\Foundation.Resources.Wof.csproj" />
     <ProjectReference Include="..\..\..\Foundation\Foundation.Resources\Foundation.Resources.csproj" />
+    <ProjectReference Include="..\..\..\Foundation\Foundation.Services.Application\Foundation.Services.Application.csproj" />
     <ProjectReference Include="..\..\..\Foundation\Foundation.Views\Foundation.Views.csproj" />
   </ItemGroup>
 

@@ -7,7 +7,7 @@
 using System;
 using System.Collections;
 using System.IO;
-using System.Windows.Media.Imaging;
+//using System.Windows.Media.Imaging;
 
 namespace Foundation.Common
 {

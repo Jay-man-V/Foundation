@@ -202,5 +202,11 @@ namespace Foundation.Common
                 TraceLogger.WriteMessage(logMessage.ToString());
             }
         }
+
+        /// <inheritdoc cref="IApplicationStartup.ApplicationStarting()"/>
+        public void ApplicationStarting()
+        {
+            // Does nothing
+        }
     }
 }

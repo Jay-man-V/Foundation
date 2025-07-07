@@ -51,22 +51,25 @@ namespace Foundation.Common
         /// </value>
         private Func<Boolean> CanExecuteEvaluator { get; }
 
-        /// <summary>
-        /// Occurs when changes occur that affect whether the command should execute.
-        /// </summary>
-        public event EventHandler? CanExecuteChanged
-        {
-            add { if (CanExecuteEvaluator.IsNotNull()) { CommandManager.RequerySuggested += value; } }
-            remove { if (CanExecuteEvaluator.IsNotNull()) { CommandManager.RequerySuggested -= value; } }
-        }
+        // TODO
+        public event EventHandler? CanExecuteChanged;
+        //https://stackoverflow.com/questions/34996198/the-name-commandmanager-does-not-exist-in-the-current-context-visual-studio-2
+        ///// <summary>
+        ///// Occurs when changes occur that affect whether the command should execute.
+        ///// </summary>
+        //public event EventHandler? CanExecuteChanged
+        //{
+        //    add { if (CanExecuteEvaluator.IsNotNull()) { CommandManager.RequerySuggested += value; } }
+        //    remove { if (CanExecuteEvaluator.IsNotNull()) { CommandManager.RequerySuggested -= value; } }
+        //}
 
-        /// <summary>
-        /// Raises the can execute changed.
-        /// </summary>
-        public void RaiseCanExecuteChanged()
-        {
-            CommandManager.InvalidateRequerySuggested();
-        }
+        ///// <summary>
+        ///// Raises the can execute changed.
+        ///// </summary>
+        //public void RaiseCanExecuteChanged()
+        //{
+        //    CommandManager.InvalidateRequerySuggested();
+        //}
 
         /// <summary>
         /// Defines the method that determines whether the command can execute in its current state.
@@ -151,22 +154,25 @@ namespace Foundation.Common
         /// </value>
         private Func<TCanExecute, Boolean>? CanExecuteEvaluator { get; }
 
-        /// <summary>
-        /// Occurs when changes occur that affect whether the command should execute.
-        /// </summary>
-        public event EventHandler? CanExecuteChanged
-        {
-            add { if (CanExecuteEvaluator.IsNotNull()) { CommandManager.RequerySuggested += value; } }
-            remove { if (CanExecuteEvaluator.IsNotNull()) { CommandManager.RequerySuggested -= value; } }
-        }
+        // TODO
+        public event EventHandler? CanExecuteChanged;
 
-        /// <summary>
-        /// Raises the can execute changed.
-        /// </summary>
-        public void RaiseCanExecuteChanged()
-        {
-            CommandManager.InvalidateRequerySuggested();
-        }
+        ///// <summary>
+        ///// Occurs when changes occur that affect whether the command should execute.
+        ///// </summary>
+        //public event EventHandler? CanExecuteChanged
+        //{
+        //    add { if (CanExecuteEvaluator.IsNotNull()) { CommandManager.RequerySuggested += value; } }
+        //    remove { if (CanExecuteEvaluator.IsNotNull()) { CommandManager.RequerySuggested -= value; } }
+        //}
+
+        ///// <summary>
+        ///// Raises the can execute changed.
+        ///// </summary>
+        //public void RaiseCanExecuteChanged()
+        //{
+        //    CommandManager.InvalidateRequerySuggested();
+        //}
 
         /// <summary>
         /// Defines the method that determines whether the command can execute in its current state.

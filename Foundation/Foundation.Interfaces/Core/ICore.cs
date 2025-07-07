@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Foundation.Interfaces
 {
@@ -26,17 +26,17 @@ namespace Foundation.Interfaces
         /// <summary>
         /// 
         /// </summary>
-        IIoC Container { get; }
+        [NotNull] IIoC Container { get; }
 
         /// <summary>
         /// 
         /// </summary>
-        ICore TheInstance { get; }
+        ICore? TheInstance { get; }
 
         /// <summary>
         /// 
         /// </summary>
-        ICurrentLoggedOnUser CurrentLoggedOnUser { get; }
+        ICurrentLoggedOnUser? CurrentLoggedOnUser { get; }
 
         // TODO - Future development for Cache and Crypto
         // ICache Cache { get; }

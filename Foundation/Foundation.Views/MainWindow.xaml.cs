@@ -20,6 +20,12 @@ namespace Foundation.Views
             this.StateChanged += OnStateChanged;
         }
 
+        public MainWindow(String caption)
+            : this()
+        {
+            this.Title = caption;
+        }
+
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
