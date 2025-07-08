@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 
 using System.Reflection;
+using System.Runtime.Loader;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,7 +19,7 @@ namespace Foundation.Core
     public static class DependencyInjectionSetup
     {
         private static readonly Object SyncLock = new Object();
-        internal static ServiceCollection ServiceCollection { get; private set; }
+        internal static ServiceCollection? ServiceCollection { get; private set; }
 
         /// <summary>
         /// Loads the list of assembly types from file system.
@@ -26,16 +27,21 @@ namespace Foundation.Core
         /// <returns></returns>
         private static List<Type> LoadListOfAssemblyTypesFromFileSystem(String searchPattern)
         {
-            List<Type> retVal = new List<Type>();
+            List<Type> retVal = [];
 
-            String localPath = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
-            String sourceLocationPath = Path.GetDirectoryName(localPath);
+            String localPath = Assembly.GetExecutingAssembly().Location;
+            String? sourceLocationPath = Path.GetDirectoryName(localPath);
+
+            if (sourceLocationPath == null)
+            {
+                String message = $"The assembly location '{localPath}' and its parent directory cannot be processed for all assemblies and Dependency Injection setup";
+                throw new ArgumentNullException(nameof(sourceLocationPath), message);
+            }
 
             String[] foundationAssemblyFilePaths = Directory.GetFiles(sourceLocationPath, searchPattern);
             foreach (String assemblyPath in foundationAssemblyFilePaths)
             {
-                //Assembly loadedAssembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(assemblyPath);
-                Assembly loadedAssembly = Assembly.LoadFrom(assemblyPath);
+                Assembly loadedAssembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(assemblyPath);
 
                 Type[] allTypes = loadedAssembly.GetTypes();
                 List<Type> requiredTypes = allTypes.Where(t => !t.IsAbstract &&                 // Exclude abstract classes
@@ -61,11 +67,7 @@ namespace Foundation.Core
         {
             get
             {
-                List<String> excludedTypesList = new List<String>
-                {
-                    //"Foundation.Common",
-                    "UnitTests.NetFramework.ExcludedMe"
-                };
+                List<String> excludedTypesList = ["UnitTests.NetFramework.ExcludedMe"];
 
                 return excludedTypesList;
             }
@@ -78,18 +80,18 @@ namespace Foundation.Core
         {
             get
             {
-                List<String> excludedInterfaces = new List<String>
-                {
-                    "ICommonBusinessProcess",
-                    "ICommonBusinessProcess`1",
-                    "IFoundationDataAccess",
-                    "IFoundationModel",
-                    "IFoundationModelDataAccess`1",
-                    "IFoundationObjectId",
-                    "IFoundationModelTracking",
-                    //"IGenericDataGridViewModelBase`1",
-                    "IViewModel",
-                };
+                List<String> excludedInterfaces =
+                [
+                    nameof(ICommonBusinessProcess),
+                    typeof(ICommonBusinessProcess<>).Name,
+                    nameof(IFoundationDataAccess),
+                    nameof(IFoundationModel),
+                    typeof(IFoundationModelRepository<>).Name,
+                    nameof(IFoundationObjectId),
+                    nameof(IFoundationModelTracking),
+                    typeof(IGenericDataGridViewModelBase<>).Name,
+                    nameof(IViewModel)
+                ];
 
                 return excludedInterfaces;
             }
@@ -101,8 +103,11 @@ namespace Foundation.Core
         /// <returns></returns>
         public static void ResetDependencyInjection()
         {
-            ServiceCollection.Clear();
-            ServiceCollection = null;
+            if (ServiceCollection != null)
+            {
+                ServiceCollection.Clear();
+                ServiceCollection = null;
+            }
         }
 
         /// <summary>
@@ -115,10 +120,7 @@ namespace Foundation.Core
 
             lock (SyncLock)
             {
-                if (ServiceCollection == null)
-                {
-                    ServiceCollection = new ServiceCollection();
-                }
+                ServiceCollection ??= [];
 
                 // Find all the classes we are interested in using with Dependency Injection/IoC
                 List<Type> allTypes = LoadListOfAssemblyTypesFromFileSystem(searchPattern);
@@ -145,109 +147,32 @@ namespace Foundation.Core
                 // All the others - All classes are to be considered Transient
                 List<Type> transientTypes = filteredTypes.Where(ft => ft.GetCustomAttributes<DependencyInjectionTransientAttribute>(searchInherited).Any()).OrderBy(ft => ft.Name).ToList();
 
-                foreach (Type implementationType in singletonTypes)
-                {
-                    String implementationTypeName = implementationType.FullName;
-                    List<Type> interfaceTypes = implementationType.GetInterfaces().ToList();
-                    foreach (Type interfaceType in interfaceTypes)
-                    {
-                        String interfaceFullName = interfaceType.FullName;
-                        String interfaceName = interfaceType.Name;
+                AddTypesToCollection
+                (
+                    typeNamespacePrefix,
+                    ServiceCollection,
+                    singletonTypes,
+                    (implementationType) => ServiceCollection.AddSingleton(implementationType),
+                    (interfaceType, implementationType) => ServiceCollection.AddSingleton(interfaceType, implementationType)
+                );
 
-                        Boolean excludedInterfaceCheck = !ExcludedInterfaces.Contains(interfaceName);
-                        Boolean typeFullNameCheck = interfaceFullName == null ||
-                                                    (
-                                                        !String.IsNullOrEmpty(interfaceFullName) &&
-                                                        interfaceFullName.StartsWith(typeNamespacePrefix)
-                                                    );
+                AddTypesToCollection
+                (
+                    typeNamespacePrefix,
+                    ServiceCollection,
+                    scopedTypes,
+                    (implementationType) => ServiceCollection.AddScoped(implementationType),
+                    (interfaceType, implementationType) => ServiceCollection.AddScoped(interfaceType, implementationType)
+                );
 
-                        if (excludedInterfaceCheck &&
-                            typeFullNameCheck)
-                        {
-                            //#if(DEBUG)
-                            //                            Debug.WriteLine($"Service Type: {typeInterface}. Implementation Type: {implementationType}");
-                            //#endif
-                            ServiceDescriptor sd = new ServiceDescriptor(interfaceType, implementationType);
-                            if (!ServiceCollection.Contains(sd))
-                            {
-                                ServiceCollection.AddSingleton(implementationType);
-                                ServiceCollection.AddSingleton(interfaceType, implementationType);
-                            }
-                        }
-                    }
-                }
-
-                foreach (Type implementationType in scopedTypes)
-                {
-                    List<Type> interfaceTypes = implementationType.GetInterfaces().ToList();
-                    foreach (Type interfaceType in interfaceTypes)
-                    {
-                        String implementationTypeName = implementationType.FullName;
-                        String interfaceFullName = interfaceType.FullName;
-                        String interfaceName = interfaceType.Name;
-
-                        Boolean excludedInterfaceCheck = !ExcludedInterfaces.Contains(interfaceName);
-                        Boolean typeFullNameCheck = interfaceFullName == null ||
-                                                    (
-                                                        !String.IsNullOrEmpty(interfaceFullName) &&
-                                                        interfaceFullName.StartsWith(typeNamespacePrefix)
-                                                    );
-
-                        if (excludedInterfaceCheck &&
-                            typeFullNameCheck)
-                        {
-                            //#if(DEBUG)
-                            //                            Debug.WriteLine($"Service Type: {typeInterface}. Implementation Type: {implementationType}");
-                            //#endif
-                            ServiceDescriptor sd = new ServiceDescriptor(interfaceType, implementationType);
-                            if (!ServiceCollection.Contains(sd))
-                            {
-                                ServiceCollection.AddScoped(implementationType);
-                                ServiceCollection.AddScoped(interfaceType, implementationType);
-                            }
-                        }
-                    }
-                }
-
-                foreach (Type implementationType in transientTypes)
-                {
-                    String implementationTypeName = implementationType.FullName;
-
-#if(DEBUG)
-                    if (implementationTypeName == "Foundation.Tests.Unit.Mocks.MockScheduledTask")
-                    {
-                        //Debug.WriteLine("Foundation.Tests.Unit.Mocks.MockScheduledTask");
-                    }
-#endif
-
-                    List<Type> interfaceTypes = implementationType.GetInterfaces().ToList();
-                    foreach (Type interfaceType in interfaceTypes)
-                    {
-                        String interfaceFullName = interfaceType.FullName;
-                        String interfaceName = interfaceType.Name;
-
-                        Boolean excludedInterfaceCheck = !ExcludedInterfaces.Contains(interfaceName);
-                        Boolean typeFullNameCheck = interfaceFullName != null &&
-                                                    (
-                                                        !String.IsNullOrEmpty(interfaceFullName) &&
-                                                        interfaceFullName.StartsWith(typeNamespacePrefix)
-                                                    );
-
-                        if (excludedInterfaceCheck &&
-                            typeFullNameCheck)
-                        {
-                            //#if(DEBUG)
-                            //                            Debug.WriteLine($"Service Type: {typeInterface}. Implementation Type: {implementationType}");
-                            //#endif
-                            ServiceDescriptor sd = new ServiceDescriptor(interfaceType, implementationType);
-                            if (!ServiceCollection.Contains(sd))
-                            {
-                                ServiceCollection.AddTransient(implementationType);
-                                ServiceCollection.AddTransient(interfaceType, implementationType);
-                            }
-                        }
-                    }
-                }
+                AddTypesToCollection
+                (
+                    typeNamespacePrefix,
+                    ServiceCollection,
+                    transientTypes,
+                    (implementationType) => ServiceCollection.AddTransient(implementationType),
+                    (interfaceType, implementationType) => ServiceCollection.AddTransient(interfaceType, implementationType)
+                );
 
                 /*
                  * Special setups
@@ -258,6 +183,50 @@ namespace Foundation.Core
             }
 
             return retVal;
+        }
+
+        private static void AddTypesToCollection(String typeNamespacePrefix, IServiceCollection targetServiceCollection, List<Type> sourceCollection, Action<Type> addImplementationAction, Action<Type, Type> addInterfaceWithImplementationAction)
+        {
+            foreach (Type implementationType in sourceCollection)
+            {
+                String? implementationTypeName = implementationType.FullName;
+                if (!String.IsNullOrEmpty(implementationTypeName))
+                {
+#if (DEBUG)
+                    if (implementationTypeName == "Foundation.Tests.Unit.Mocks.MockScheduledTask")
+                    {
+                        //Debug.WriteLine("Foundation.Tests.Unit.Mocks.MockScheduledTask");
+                    }
+#endif
+
+                    List<Type> interfaceTypes = implementationType.GetInterfaces().ToList();
+                    foreach (Type interfaceType in interfaceTypes)
+                    {
+                        String? interfaceFullName = interfaceType.FullName;
+                        if (!String.IsNullOrEmpty(interfaceFullName))
+                        {
+                            String interfaceName = interfaceType.Name;
+
+                            Boolean excludedInterfaceCheck = !ExcludedInterfaces.Contains(interfaceName);
+                            Boolean typeFullNameCheck = interfaceFullName.StartsWith(typeNamespacePrefix);
+
+                            if (excludedInterfaceCheck &&
+                                typeFullNameCheck)
+                            {
+#if (DEBUG)
+                                //Debug.WriteLine($"Service Type: {interfaceType}. Implementation Type: {implementationType}");
+#endif
+                                ServiceDescriptor sd = new ServiceDescriptor(interfaceType, implementationType);
+                                if (!targetServiceCollection.Contains(sd))
+                                {
+                                    addImplementationAction(implementationType);
+                                    addInterfaceWithImplementationAction(interfaceType, implementationType);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

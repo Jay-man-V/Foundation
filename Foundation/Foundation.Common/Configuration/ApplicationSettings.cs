@@ -4,7 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Configuration;
 using System.Diagnostics;
 
@@ -78,7 +77,7 @@ namespace Foundation.Common
         /// </summary>
         public static void Initialise()
         {
-            LoggingConfiguration = ConfigurationManager.GetSection(LoggingConstants.EventLoggingSection) as LoggingConfiguration;
+            Object eventLoggingSection = ConfigurationManager.GetSection(LoggingConstants.EventLoggingSection);
 
             if (LoggingConfiguration.IsNull())
             {
@@ -88,6 +87,8 @@ namespace Foundation.Common
 
                 throw configurationErrorsException;
             }
+
+            LoggingConfiguration = (LoggingConfiguration)eventLoggingSection;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Foundation.Core
     /// </summary>
     public class IoC : IIoC
     {
-        private static IServiceProvider _container;
+        private static IServiceProvider? Container { get; set; }
 //        private static IDependencyResolver _dependencyResolver;
 
         /// <summary>
@@ -43,22 +43,40 @@ namespace Foundation.Core
         /// <inheritdoc cref="IIoC.Initialise(String, String)"/>
         public void Initialise(String typeNamespacePrefix = "Foundation", String searchPattern = "Foundation.*.dll")
         {
-            _container = DependencyInjectionSetup.SetupDependencyInjection(typeNamespacePrefix, searchPattern);
+            Container = DependencyInjectionSetup.SetupDependencyInjection(typeNamespacePrefix, searchPattern);
         }
 
         /// <inheritdoc cref="IIoC.Get{TService}()"/>
-        public TService Get<TService>()
+        public TService? Get<TService>()
         {
-            TService retVal = _container.GetService<TService>();
+            if (Container == null)
+            {
+                String message = "IoC has not been initialised";
+                throw new InvalidOperationException(message);
+            }
+
+            TService? retVal = Container.GetService<TService>();
 
             return retVal;
         }
 
         /// <inheritdoc cref="IIoC.Get{TService}(String)"/>
-        public TService Get<TService>(String typeName)
+        public TService? Get<TService>(String typeName)
         {
-            Type type = Type.GetType(typeName);
-            TService retVal = (TService)_container.GetService(type);
+            TService? retVal = default;
+
+            if (Container == null)
+            {
+                String message = "IoC has not been initialised";
+                throw new InvalidOperationException(message);
+            }
+
+            Type? type = Type.GetType(typeName);
+
+            if (type != null)
+            {
+                retVal = (TService?)Container.GetService(type);
+            }
 
             return retVal;
         }
@@ -66,7 +84,13 @@ namespace Foundation.Core
         /// <inheritdoc cref="IIoC.GetAll{TService}()"/>
         public IEnumerable<TService> GetAll<TService>()
         {
-            IEnumerable<TService> retVal = _container.GetServices<TService>();
+            if (Container == null)
+            {
+                String message = "IoC has not been initialised";
+                throw new InvalidOperationException(message);
+            }
+
+            IEnumerable<TService> retVal = Container.GetServices<TService>();
 
             return retVal;
         }
@@ -74,8 +98,14 @@ namespace Foundation.Core
         /// <inheritdoc cref="IIoC.Get{TService}(String, String, Object[])"/>
         public TService Get<TService>(String assemblyName, String typeName, params Object[] args) where TService : class
         {
+            if (Container == null)
+            {
+                String message = "IoC has not been initialised";
+                throw new InvalidOperationException(message);
+            }
+
             List<Assembly> loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().OrderBy(a => a.FullName).ToList();
-            Assembly controllerAssembly = loadedAssemblies.FirstOrDefault(a => a.GetName().Name == assemblyName);
+            Assembly? controllerAssembly = loadedAssemblies.FirstOrDefault(a => a.GetName().Name == assemblyName);
 
             if (controllerAssembly == null)
             {
@@ -83,7 +113,7 @@ namespace Foundation.Core
                 throw new ArgumentNullException(nameof(assemblyName), message);
             }
 
-            Type assemblyType = controllerAssembly.GetType(typeName);
+            Type? assemblyType = controllerAssembly.GetType(typeName);
 
             if (assemblyType == null)
             {
@@ -91,7 +121,7 @@ namespace Foundation.Core
                 throw new ArgumentNullException(nameof(assemblyType), message);
             }
 
-            TService retVal = _container.GetService(assemblyType) as TService;
+            TService? retVal = Container.GetService(assemblyType) as TService;
 
             if (retVal == null)
             {

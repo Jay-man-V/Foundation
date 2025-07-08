@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+
 using Foundation.Interfaces;
 
 namespace Foundation.Core
@@ -12,7 +13,7 @@ namespace Foundation.Core
     [DependencyInjectionSingleton]
     public class Core : ICore
     {
-        private static readonly IIoC _container = new IoC();
+        private static readonly IIoC TheContainer = new IoC();
         private static AppId _applicationId;
         private static Boolean _initialised;
         private static ICore? _theInstance;
@@ -75,7 +76,7 @@ namespace Foundation.Core
         public Boolean Initialised => _initialised;
 
         /// <inheritdoc cref="ICore.Container"/>
-        public IIoC Container => _container;
+        public IIoC Container => TheContainer;
 
         /// <inheritdoc cref="ICore.TheInstance"/>
         public ICore? TheInstance => _theInstance;

@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 
 using System.Windows;
+
 using Foundation.Core;
 using Foundation.Interfaces;
 using Foundation.Views;

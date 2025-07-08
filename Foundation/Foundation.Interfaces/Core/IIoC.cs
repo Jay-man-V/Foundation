@@ -36,7 +36,7 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <typeparam name="TService"></typeparam>
         /// <returns></returns>
-        TService Get<TService>();
+        TService? Get<TService>();
 
         /// <summary>
         /// Gets the service object of the specified type.
@@ -44,7 +44,7 @@ namespace Foundation.Interfaces
         /// <typeparam name="TService"></typeparam>
         /// <param name="typeName"></param>
         /// <returns></returns>
-        TService Get<TService>(String typeName);
+        TService? Get<TService>(String typeName);
 
         /// <summary>
         /// Get an enumeration of services of type <typeparamref name="TService"/> from the <see cref="IServiceProvider"/>.
