@@ -274,8 +274,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is ContactDetail contactDetail)
+            if (obj is ContactDetail contactDetail)
             {
                 retVal = InternalEquals(this, contactDetail);
             }

@@ -4,13 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.Common;
-using Foundation.Interfaces;
-
 using System.Collections;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
+using Foundation.Common;
+using Foundation.Interfaces;
 
 using FDC = Foundation.Common.DataColumns;
 
@@ -216,8 +216,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is MenuItem menuItem)
+            if (obj is MenuItem menuItem)
             {
                 retVal = InternalEquals(this, menuItem);
             }

@@ -27,8 +27,6 @@ namespace Foundation.Common
             ApplicationId = new(1); // TODO:
 
             TraceLevel = new TraceSwitch("TraceLevelSwitch", "Default Trace Level").Level;
-
-            Initialise();
         }
 
         /// <summary>
@@ -62,33 +60,5 @@ namespace Foundation.Common
         /// The Trace Level.
         /// </value>
         public static TraceLevel TraceLevel { get; }
-
-        /// <summary>
-        /// Gets the Logging Configuration.
-        /// </summary>
-        /// <value>
-        /// The Logging Configuration.
-        /// </value>
-        public static LoggingConfiguration LoggingConfiguration { get; set; }
-
-        /// <summary>
-        /// Initialises:
-        /// <see cref="LoggingConfiguration"/>
-        /// </summary>
-        public static void Initialise()
-        {
-            Object eventLoggingSection = ConfigurationManager.GetSection(LoggingConstants.EventLoggingSection);
-
-            if (LoggingConfiguration.IsNull())
-            {
-                String errorMessage = $"Application configuration not found. Missing section '{LoggingConstants.EventLoggingSection}'";
-
-                ConfigurationErrorsException configurationErrorsException = new(errorMessage);
-
-                throw configurationErrorsException;
-            }
-
-            LoggingConfiguration = (LoggingConfiguration)eventLoggingSection;
-        }
     }
 }

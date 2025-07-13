@@ -7,13 +7,13 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
 
-                <ResourceDictionary Source="pack://application:,,,/Foundation.Resources.Wof;component/Themes/Standard/ColourScheme.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Foundation.Resources.Wof;component/Themes/Standard/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Foundation.Resources.Wof;component/Themes/Standard/FontSize.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Foundation.Resources.Wof;component/Themes/Standard/Images.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Foundation.Resources;component/Themes/Standard/ColourScheme.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Foundation.Resources;component/Themes/Standard/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Foundation.Resources;component/Themes/Standard/FontSize.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Foundation.Resources;component/Themes/Standard/Images.xaml" />
 
-                <ResourceDictionary Source="pack://application:,,,/Foundation.Resources.Wof;component/Themes/Standard/Control Settings/ControlSettings.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Foundation.Resources.Wof;component/Themes/Standard/Control Settings/WindowSettings.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Foundation.Resources;component/Themes/Standard/Control Settings/ControlSettings.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Foundation.Resources;component/Themes/Standard/Control Settings/WindowSettings.xaml" />
 
                 <!--<ResourceDictionary Source="pack://application:,,,/Foundation.Views;component/Controls/Base/StdWindowPanel.xaml" />-->
             </ResourceDictionary.MergedDictionaries>

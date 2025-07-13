@@ -96,8 +96,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is EventLogApplication eventLogApplication)
+            if (obj is EventLogApplication eventLogApplication)
             {
                 retVal = InternalEquals(this, eventLogApplication);
             }

@@ -4,7 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;
@@ -44,8 +43,18 @@ namespace Foundation.Common
         /// <summary>
         /// Initialises a new instance of the <see cref="ContextInformation"/> class.
         /// </summary>
+        /// <param name="parameterValue">The parameter values.</param>
+        public ContextInformation(Object? parameterValue)
+            : this([parameterValue ?? "<null>"])
+        {
+
+        }
+
+        /// <summary>
+        /// Initialises a new instance of the <see cref="ContextInformation"/> class.
+        /// </summary>
         /// <param name="parameterValues">The parameter values.</param>
-        public ContextInformation(params Object[]? parameterValues)
+        public ContextInformation(params Object?[] parameterValues)
         {
             // Initialise private members
             ClassName = DefaultText;
@@ -59,9 +68,16 @@ namespace Foundation.Common
             StackTrace stack = new (CaptureFileInfo);
             if (stack.FrameCount >= TargetStackFrame + 1)
             {
-                StackFrame targetStackFrame = stack.GetFrame(TargetStackFrame);
-                MethodBase callingMethod = targetStackFrame.GetMethod();
-                if (callingMethod.IsNotNull() && callingMethod.ReflectedType.IsNotNull())
+                StackFrame? targetStackFrame = stack.GetFrame(TargetStackFrame);
+                MethodBase? callingMethod = null;
+                if (targetStackFrame != null)
+                {
+                    callingMethod = targetStackFrame.GetMethod();
+                }
+
+                if (targetStackFrame != null &&
+                    callingMethod != null &&
+                    callingMethod.ReflectedType != null)
                 {
                     ClassName = callingMethod.ReflectedType.Name;
                     FileLineNumber = targetStackFrame.GetFileLineNumber().ToString();
@@ -76,10 +92,10 @@ namespace Foundation.Common
                         ParameterInfo methodParam = methodParameters[parameterIndex];
 
                         String paramType = methodParam.ParameterType.Name;
-                        String paramName = methodParam.Name;
+                        String paramName = methodParam.Name ?? "<unknown>";
                         methodArguments.Append($"{paramType} {paramName}");
 
-                        if (parameterValues.IsNotNull() &&
+                        if (parameterValues != null &&
                             parameterValues.GetUpperBound(0) >= parameterIndex)
                         {
                             String objectValue = MessageFormatter.RenderObjectValue(parameterValues[parameterIndex]);

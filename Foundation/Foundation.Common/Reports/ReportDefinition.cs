@@ -28,7 +28,7 @@ namespace Foundation.Common
             PageFooter = String.Empty;
             GeneratedOn = DateTimeService.SystemDateTimeNow;
             RequestedBy = String.Empty;
-            Columns = new();
+            Columns = [];
             DataSource = null;
         }
 

@@ -4,8 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
-
 using Foundation.Interfaces;
 
 namespace Foundation.Core
@@ -13,16 +11,10 @@ namespace Foundation.Core
     [DependencyInjectionSingleton]
     public class Core : ICore
     {
-        private static readonly IIoC TheContainer = new IoC();
-        private static AppId _applicationId;
-        private static Boolean _initialised;
-        private static ICore? _theInstance;
-        private static ICurrentLoggedOnUser? _currentLoggedOnUser;
-
-        public static void Reset()
-        {
-            _theInstance = null;
-        }
+        private static IIoC TheIoC { get; } = new IoC();
+        private static AppId TheApplicationId { get; set; }
+        private static ICore? TheInstance { get; set; }
+        private static ICurrentLoggedOnUser? TheCurrentLoggedOnUser { get; set; }
 
         /// <summary>
         /// Initialises the Core service by:
@@ -33,21 +25,18 @@ namespace Foundation.Core
         /// <param name="applicationId">The application identifier.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
         /// <param name="userProfileProcess">The user profile process.</param>
-        [return: NotNull]
         public static ICore Initialise(AppId applicationId, IRunTimeEnvironmentSettings? runTimeEnvironmentSettings = null, IUserProfileProcess? userProfileProcess = null)
         {
             // https://learn.microsoft.com/en-us/dotnet/core/extensions/generic-host?tabs=appbuilder
 
-            if (_theInstance == null)
+            if (TheInstance == null)
             {
-                _applicationId = applicationId;
+                TheApplicationId = applicationId;
 
-                _theInstance = new Core();
-                _theInstance.Container.Reset();
-                _theInstance.Container.Initialise();
+                TheInstance = new Core();
 
-                runTimeEnvironmentSettings ??= _theInstance.Container.Get<IRunTimeEnvironmentSettings>();
-                userProfileProcess ??= _theInstance.Container.Get<IUserProfileProcess>();
+                runTimeEnvironmentSettings ??= TheInstance.IoC.Get<IRunTimeEnvironmentSettings>();
+                userProfileProcess ??= TheInstance.IoC.Get<IUserProfileProcess>();
 
                 // TODO: Complete when the Business Processes are set up/migrated
                 //IUserProfile userProfile = userProfileProcess.GetLoggedOnUserProfile(applicationId);
@@ -60,28 +49,23 @@ namespace Foundation.Core
                 //_currentLoggedOnUser = new CurrentLoggedOnUser(userProfile);
 
                 // Create instances of all classes implementing the IApplicationStartup interface
-                List<IApplicationStartup> applicationStartups = _theInstance.Container.GetAll<IApplicationStartup>().ToList();
+                List<IApplicationStartup> applicationStartups = TheInstance.IoC.GetAll<IApplicationStartup>().ToList();
                 applicationStartups.ForEach(obj => obj.ApplicationStarting());
-
-                _initialised = true;
             }
 
-            return _theInstance;
+            return TheInstance;
         }
 
         /// <inheritdoc cref="ICore.ApplicationId"/>
-        public AppId ApplicationId => _applicationId;
+        public AppId ApplicationId => TheApplicationId;
 
-        /// <inheritdoc cref="ICore.Initialised"/>
-        public Boolean Initialised => _initialised;
-
-        /// <inheritdoc cref="ICore.Container"/>
-        public IIoC Container => TheContainer;
+        /// <inheritdoc cref="ICore.IoC"/>
+        public IIoC IoC => TheIoC;
 
         /// <inheritdoc cref="ICore.TheInstance"/>
-        public ICore? TheInstance => _theInstance;
+        public ICore? Instance => TheInstance;
 
         /// <inheritdoc cref="ICore.CurrentLoggedOnUser"/>
-        public ICurrentLoggedOnUser? CurrentLoggedOnUser => _currentLoggedOnUser;
+        public ICurrentLoggedOnUser? CurrentLoggedOnUser => TheCurrentLoggedOnUser;
     }
 }

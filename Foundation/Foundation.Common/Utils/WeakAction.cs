@@ -25,7 +25,7 @@ namespace Foundation.Common
         /// </summary>
         /// <param name="action">The action will be associated to this instance.</param>
         public WeakAction(Action? action)
-        : this(action.IsNull() ? null : action.Target, action)
+        : this(action == null ? null : action.Target, action)
         {
         }
 
@@ -43,7 +43,7 @@ namespace Foundation.Common
 #endif
             {
                 StaticAction = action;
-                if (target.IsNull())
+                if (target == null)
                 {
                     // Keep a reference to the target to control the WeakAction's lifetime
                     Reference = new(target);
@@ -76,7 +76,7 @@ namespace Foundation.Common
             get
             {
                 String retVal = Method.Name;
-                if (StaticAction.IsNotNull())
+                if (StaticAction != null)
                 {
 #if NETFX_CORE
                     return StaticAction.GetMethodInfo().Name;
@@ -104,7 +104,7 @@ namespace Foundation.Common
         /// <summary>
         /// Gets a value indicating whether the <see cref="WeakAction"/> is static or not
         /// </summary>
-        public Boolean IsStatic => StaticAction.IsNotNull();
+        public Boolean IsStatic => StaticAction != null;
 
         /// <summary>
         /// Gets a value indicating whether the Action's owner is still alive, or it was cleaned up
@@ -115,13 +115,13 @@ namespace Foundation.Common
             get
             {
                 Boolean retVal = false;
-                //if (StaticAction.IsNull() &&
-                //    Reference.IsNull())
+                //if (StaticAction == null &&
+                //    Reference == null)
                 //{
                 //    retVal = false;
                 //}
 
-                if (StaticAction.IsNotNull())
+                if (StaticAction != null)
                 {
                     if (Reference != null)
                     {
@@ -178,7 +178,7 @@ namespace Foundation.Common
         /// </summary>
         public void Execute()
         {
-            if (StaticAction.IsNotNull())
+            if (StaticAction != null)
             {
                 StaticAction?.Invoke();
                 return;
@@ -188,9 +188,9 @@ namespace Foundation.Common
 
             if (IsAlive)
             {
-                if (Method.IsNotNull() &&
-                    ActionReference.IsNotNull() &&
-                    ActionTarget.IsNotNull())
+                if (Method != null &&
+                    ActionReference != null &&
+                    ActionTarget != null)
                 {
                     const Object[]? parameters = null;
                     Method?.Invoke(actionTarget, parameters);

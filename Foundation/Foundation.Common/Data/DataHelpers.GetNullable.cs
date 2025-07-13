@@ -4,8 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
 namespace Foundation.Common
 {
     /// <summary>
@@ -18,13 +16,13 @@ namespace Foundation.Common
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        public static Boolean? GetNullableBooleanValue(Object value)
+        public static Boolean? GetNullableBooleanValue(Object? value)
         {
             LoggingHelpers.TraceCallEnter(value);
 
             Boolean? retVal = null;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 retVal = Convert.ToBoolean(value);
             }
@@ -39,13 +37,13 @@ namespace Foundation.Common
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        public static Double? GetNullableDoubleValue(Object value)
+        public static Double? GetNullableDoubleValue(Object? value)
         {
             LoggingHelpers.TraceCallEnter(value);
 
             Double? retVal = null;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 retVal = Convert.ToDouble(value);
             }
@@ -60,13 +58,13 @@ namespace Foundation.Common
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        public static Decimal? GetNullableDecimalValue(Object value)
+        public static Decimal? GetNullableDecimalValue(Object? value)
         {
             LoggingHelpers.TraceCallEnter(value);
 
             Decimal? retVal = null;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 retVal = Convert.ToDecimal(value);
             }
@@ -81,13 +79,13 @@ namespace Foundation.Common
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        public static Int32? GetNullableInt32Value(Object value)
+        public static Int32? GetNullableInt32Value(Object? value)
         {
             LoggingHelpers.TraceCallEnter(value);
 
             Int32? retVal = null;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 retVal = Convert.ToInt32(value);
             }
@@ -103,13 +101,13 @@ namespace Foundation.Common
         /// <param name="value">The value.</param>
         /// <param name="dateTimeKind">Kind of the date time.</param>
         /// <returns></returns>
-        public static DateTime? GetNullableDateTimeValue(Object value, DateTimeKind dateTimeKind = DateTimeKind.Utc)
+        public static DateTime? GetNullableDateTimeValue(Object? value, DateTimeKind dateTimeKind = DateTimeKind.Utc)
         {
             LoggingHelpers.TraceCallEnter(value);
 
             DateTime? retVal = null;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 retVal = DateTime.SpecifyKind(Convert.ToDateTime(value), dateTimeKind);
             }
@@ -124,15 +122,15 @@ namespace Foundation.Common
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        public static TimeSpan? GetNullableTimeSpanValue(Object value)
+        public static TimeSpan? GetNullableTimeSpanValue(Object? value)
         {
             LoggingHelpers.TraceCallEnter(value);
 
             TimeSpan? retVal = null;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
-                retVal = TimeSpan.Parse(value.ToString());
+                retVal = TimeSpan.Parse(value.ToString() ?? "00:00:00");
             }
 
             LoggingHelpers.TraceCallReturn(retVal);
@@ -145,15 +143,15 @@ namespace Foundation.Common
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        public static Guid? GetNullableGuidValue(Object value)
+        public static Guid? GetNullableGuidValue(Object? value)
         {
             LoggingHelpers.TraceCallEnter(value);
 
             Guid? retVal = null;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
-                retVal = Guid.Parse(value.ToString());
+                retVal = Guid.Parse(value.ToString() ?? Guid.Empty.ToString());
             }
 
             LoggingHelpers.TraceCallReturn(retVal);

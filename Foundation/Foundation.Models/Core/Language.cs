@@ -7,7 +7,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-using Foundation.Common;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Common.DataColumns;
@@ -112,8 +111,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is Language language)
+            if (obj is Language language)
             {
                 retVal = InternalEquals(this, language);
             }

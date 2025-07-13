@@ -4,8 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Foundation.Interfaces
 {
@@ -27,9 +26,10 @@ namespace Foundation.Interfaces
         /// <summary>
         /// Initialises the IoC setup to include the assemblies as defined by <paramref name="typeNamespacePrefix"/> and <paramref name="searchPattern"/>
         /// </summary>
+        /// <param name="serviceCollection"></param>
         /// <param name="typeNamespacePrefix"></param>
         /// <param name="searchPattern"></param>
-        void Initialise(String typeNamespacePrefix = "Foundation", String searchPattern = "Foundation.*.dll");
+        void Initialise(IServiceCollection serviceCollection, String typeNamespacePrefix = "Foundation", String searchPattern = "Foundation.*.dll");
 
         /// <summary>
         /// Get service of type <typeparamref name="TService"/> from the <see cref="IServiceProvider"/>.

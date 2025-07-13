@@ -4,8 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
 namespace Foundation.Interfaces
 {
     /// <summary>
@@ -13,6 +11,11 @@ namespace Foundation.Interfaces
     /// </summary>
     public interface IRunTimeEnvironmentSettings
     {
+        /// <summary>
+        /// The command line arguments provided to start the application
+        /// </summary>
+        String[] Arguments { get; }
+
         /// <summary>
         /// Gets the standard country code - GB
         /// </summary>

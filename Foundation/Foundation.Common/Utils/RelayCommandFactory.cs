@@ -73,9 +73,9 @@ namespace Foundation.Common
         /// <typeparam name="TExecute">The type of the parameter to execute with.</typeparam>
         /// <param name="methodToExecute">The method to execute.</param>
         /// <returns></returns>
-        public static ICommand New<TExecute>(Action<TExecute> methodToExecute)
+        public static ICommand New<TExecute>(Action<TExecute?> methodToExecute)
         {
-            ICommand retVal = new RelayCommand<TExecute>(methodToExecute, AlwaysTrue);
+            ICommand retVal = new RelayCommand<TExecute?>(methodToExecute, AlwaysTrue);
 
             return retVal;
         }
@@ -87,7 +87,7 @@ namespace Foundation.Common
         /// <param name="methodToExecute">The method to execute.</param>
         /// <param name="canExecuteEvaluator">The can execute evaluator.</param>
         /// <returns></returns>
-        public static ICommand New<TExecute>(Action<TExecute> methodToExecute, Func<Boolean> canExecuteEvaluator)
+        public static ICommand New<TExecute>(Action<TExecute?> methodToExecute, Func<Boolean> canExecuteEvaluator)
         {
             ICommand retVal = new RelayCommand<TExecute>(methodToExecute, canExecuteEvaluator);
 
@@ -102,7 +102,7 @@ namespace Foundation.Common
         /// <param name="methodToExecute">The method to execute.</param>
         /// <param name="canExecuteEvaluator">The can execute evaluator.</param>
         /// <returns></returns>
-        public static ICommand New<TExecute, TFunction>(Action<TExecute> methodToExecute, Func<TFunction, Boolean> canExecuteEvaluator)
+        public static ICommand New<TExecute, TFunction>(Action<TExecute?> methodToExecute, Func<TFunction?, Boolean> canExecuteEvaluator)
         {
             ICommand retVal = new RelayCommand<TExecute, TFunction>(methodToExecute, canExecuteEvaluator);
 

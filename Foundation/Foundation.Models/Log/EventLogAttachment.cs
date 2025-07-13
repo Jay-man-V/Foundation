@@ -4,14 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.Common;
-using Foundation.Interfaces;
-
-using Newtonsoft.Json.Linq;
-
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
+using Foundation.Common;
+using Foundation.Interfaces;
 
 using FDC = Foundation.Common.DataColumns;
 
@@ -79,9 +77,10 @@ namespace Foundation.Models
             retVal._eventLogId = this._eventLogId;
             retVal._attachmentFileName = this._attachmentFileName;
 
-            if (this._attachment.IsNotNull())
+            if (this._attachment != null)
             {
                 retVal._attachment = this._attachment.ToList().Clone().ToArray();
+                //Buffer.BlockCopy(this._attachment, 0, retVal._attachment, 0, this._attachment.Length);
             }
 
             retVal.Initialising = false;
@@ -102,8 +101,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is EventLogAttachment eventLogAttachment)
+            if (obj is EventLogAttachment eventLogAttachment)
             {
                 retVal = InternalEquals(this, eventLogAttachment);
             }
@@ -114,18 +112,10 @@ namespace Foundation.Models
         /// <inheritdoc cref="Object.GetHashCode()"/>
         public override Int32 GetHashCode()
         {
-            Int32 constant = -1521134295;
             Int32 hashCode = base.GetHashCode();
+            Int32 retVal = HashCode.Combine(hashCode, EventLogId, AttachmentFileName, Attachment);
 
-            hashCode = hashCode * constant + EqualityComparer<LogId>.Default.GetHashCode(EventLogId);
-            hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(AttachmentFileName);
-
-            if (Attachment != null)
-            {
-                hashCode = hashCode * constant + StructuralComparisons.StructuralEqualityComparer.GetHashCode(Attachment);
-            }
-
-            return hashCode;
+            return retVal;
         }
 
         /// <summary>

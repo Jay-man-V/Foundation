@@ -110,8 +110,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is Office office)
+            if (obj is Office office)
             {
                 retVal = InternalEquals(this, office);
             }

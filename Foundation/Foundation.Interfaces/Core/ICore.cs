@@ -21,17 +21,12 @@ namespace Foundation.Interfaces
         /// <summary>
         /// 
         /// </summary>
-        Boolean Initialised { get; }
+        [NotNull] IIoC IoC { get; }
 
         /// <summary>
         /// 
         /// </summary>
-        [NotNull] IIoC Container { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        ICore? TheInstance { get; }
+        ICore? Instance { get; }
 
         /// <summary>
         /// 

@@ -135,21 +135,21 @@ namespace Foundation.Common
             sb.AppendLine($"Current Thread - Culture/UI Culture: {ThreadCultureInfo}/{ThreadUiCultureInfo}");
 
             Assembly callingAssembly = Assembly.GetCallingAssembly();
-            if (callingAssembly.IsNotNull())
+            if (callingAssembly != null)
             {
                 sb.AppendLine($"Calling assembly: {callingAssembly.FullName}");
                 sb.AppendLine($"Assembly location: {callingAssembly.Location}");
             }
 
             Assembly? entryAssembly = Assembly.GetEntryAssembly();
-            if (entryAssembly.IsNotNull())
+            if (entryAssembly != null)
             {
                 sb.AppendLine($"Entry assembly: {entryAssembly.FullName}");
                 sb.AppendLine($"Assembly location: {entryAssembly.Location}");
             }
 
             Assembly executingAssembly = Assembly.GetExecutingAssembly(); 
-            if (Assembly.GetExecutingAssembly().IsNotNull())
+            if (Assembly.GetExecutingAssembly() != null)
             {
                 sb.AppendLine($"Executing assembly: {executingAssembly.FullName}");
                 sb.AppendLine($"Assembly location: {executingAssembly.Location}");

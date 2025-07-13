@@ -168,8 +168,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is LoggedOnUser loggedOnUser)
+            if (obj is LoggedOnUser loggedOnUser)
             {
                 retVal = InternalEquals(this, loggedOnUser);
             }

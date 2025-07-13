@@ -22,11 +22,11 @@ namespace Foundation.Common
         /// </summary>
         /// <param name="theEnum">The enumeration.</param>
         /// <returns>Returns the <see cref="FieldInfo"/> object</returns>
-        public static FieldInfo GetField(Enum theEnum)
+        public static FieldInfo? GetField(Enum theEnum)
         {
             Type theType = theEnum.GetType();
 
-            FieldInfo retVal = theType.GetField(theEnum.ToString());
+            FieldInfo? retVal = theType.GetField(theEnum.ToString());
 
             return retVal;
         }
@@ -39,9 +39,13 @@ namespace Foundation.Common
         /// <returns>Array of Attribute objects</returns>
         public static Object[] GetCustomAttributes(Enum theEnum, Type theType)
         {
-            FieldInfo fieldInfo = GetField(theEnum);
+            FieldInfo? fieldInfo = GetField(theEnum);
 
-            Object[] retVal = fieldInfo.GetCustomAttributes(theType, false);
+            Object[] retVal = [];
+            if (fieldInfo != null)
+            {
+                retVal = fieldInfo.GetCustomAttributes(theType, false);
+            }
 
             return retVal;
         }
@@ -97,7 +101,7 @@ namespace Foundation.Common
             DisplayAttribute[] attributes = (DisplayAttribute[])GetCustomAttributes(val, typeof(DisplayAttribute));
             if (attributes.Length > 0)
             {
-                retVal = attributes[0].Name;
+                retVal = attributes[0].Name ?? String.Empty;
             }
 
             return retVal;
@@ -153,7 +157,7 @@ namespace Foundation.Common
             DisplayFormatAttribute[] attributes = (DisplayFormatAttribute[])GetCustomAttributes(val, typeof(DisplayFormatAttribute));
             if (attributes.Length > 0)
             {
-                retVal = attributes[0].DataFormatString;
+                retVal = attributes[0].DataFormatString ?? String.Empty;
             }
             
             return retVal;

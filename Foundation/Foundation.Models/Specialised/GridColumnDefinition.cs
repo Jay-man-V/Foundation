@@ -4,8 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 
@@ -160,6 +158,7 @@ namespace Foundation.Common
                 FalseValue = "N";
             }
         }
+
 #if DEBUG
         internal void SetDataMemberName(String newDataMemberName)
         {
@@ -264,12 +263,12 @@ namespace Foundation.Common
             {
                 String retVal;
                 if (DataType == typeof(String) &&
-                    DataSource.IsNotNull())
+                    DataSource != null)
                 {
                     retVal = GridColumnTemplateNames.DropDownBoxColumnTemplate;
                 }
                 else if (DataType == typeof(Image) &&
-                         DataSource.IsNotNull())
+                         DataSource != null)
                 {
                     retVal = GridColumnTemplateNames.ImageDropDownBoxColumnTemplate;
                 }
@@ -310,7 +309,13 @@ namespace Foundation.Common
         /// </returns>
         public Object Clone()
         {
-            GridColumnDefinition retVal = Activator.CreateInstance(this.GetType()) as GridColumnDefinition;
+            GridColumnDefinition? retVal = Activator.CreateInstance(this.GetType()) as GridColumnDefinition;
+
+            if (retVal == null)
+            {
+                String message = $"The Type '{this.GetType()}' cannot be cloned but is calling {LocationUtils.GetFullyQualifiedFunctionName()}";
+                throw new InvalidOperationException(message);
+            }
 
             // Constructor parameters
             retVal.Width = this.Width;
@@ -336,43 +341,11 @@ namespace Foundation.Common
             return retVal;
         }
 
-
-        /// <inheritdoc cref="Object.Equals(Object)"/>
-        public override Boolean Equals(Object? obj)
-        {
-            Boolean retVal = false;
-
-            if (obj.IsNotNull() &&
-                obj is GridColumnDefinition gridColumnDefinition)
-            {
-                retVal = InternalEquals(this, gridColumnDefinition);
-            }
-
-            return retVal;
-        }
-
-        /// <summary>
-        /// Equals the specified other.
-        /// </summary>
-        /// <param name="other">The other.</param>
-        /// <returns></returns>
-        public Boolean Equals(GridColumnDefinition other)
-        {
-            Boolean retVal = false;
-
-            if (other.IsNotNull())
-            {
-                retVal = InternalEquals(this, other);
-            }
-
-            return retVal;
-        }
-
         /// <inheritdoc cref="Object.GetHashCode"/>
         public override Int32 GetHashCode()
         {
-            Int32 hashCode = 746720419;
             Int32 constant = -1521134295;
+            Int32 hashCode = 746720419;
 
             // Constructor parameters
             hashCode = hashCode * constant + EqualityComparer<Int32>.Default.GetHashCode(Width);
@@ -385,59 +358,31 @@ namespace Foundation.Common
             hashCode = hashCode * constant + EqualityComparer<Int32>.Default.GetHashCode(MaxInputLength);
             hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(DotNetFormat);
             hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(ExcelFormat);
-            hashCode = hashCode * constant + EqualityComparer<Object>.Default.GetHashCode(MaximumValue);
-            hashCode = hashCode * constant + EqualityComparer<Object>.Default.GetHashCode(MinimumValue);
+
+            if (MaximumValue != null)
+            {
+                hashCode = hashCode * constant + EqualityComparer<Object>.Default.GetHashCode(MaximumValue);
+            }
+
+            if (MinimumValue != null)
+            {
+                hashCode = hashCode * constant + EqualityComparer<Object>.Default.GetHashCode(MinimumValue);
+            }
+
             hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(TrueValue);
             hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(FalseValue);
-            hashCode = hashCode * constant + EqualityComparer<Object>.Default.GetHashCode(DataSource);
+
+            if (DataSource != null)
+            {
+                hashCode = hashCode * constant + EqualityComparer<Object>.Default.GetHashCode(DataSource);
+            }
+
             hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(ValueMember);
             hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(DisplayMember);
             hashCode = hashCode * constant + EqualityComparer<Boolean>.Default.GetHashCode(Visible);
             hashCode = hashCode * constant + EqualityComparer<Boolean>.Default.GetHashCode(ReadOnly);
 
             return hashCode;
-        }
-
-        /// <summary>
-        /// Implements the operator ==.
-        /// </summary>
-        /// <param name="left">The left object.</param>
-        /// <param name="right">The right object.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static Boolean operator ==(GridColumnDefinition left, GridColumnDefinition right)
-        {
-            Boolean retVal = false;
-
-            if (left.IsNotNull() &&
-                right.IsNotNull())
-            {
-                retVal = InternalEquals(left, right);
-            }
-
-            return retVal;
-        }
-
-        /// <summary>
-        /// Implements the operator !=.
-        /// </summary>
-        /// <param name="left">The left object.</param>
-        /// <param name="right">The right object.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static Boolean operator !=(GridColumnDefinition left, GridColumnDefinition right)
-        {
-            Boolean retVal = false;
-
-            if (left.IsNotNull() &&
-                right.IsNotNull())
-            {
-                retVal = !InternalEquals(left, right);
-            }
-
-            return retVal;
         }
 
         /// <summary>

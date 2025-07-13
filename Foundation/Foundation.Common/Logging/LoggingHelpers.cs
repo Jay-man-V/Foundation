@@ -38,30 +38,30 @@ namespace Foundation.Common
 
             String applicationName = ApplicationSettings.ApplicationName;
 
-            if (ApplicationSettings.LoggingConfiguration.Tracing.IsNotNull())
-            {
-                tracingPrefix = ApplicationSettings.LoggingConfiguration.Tracing.Prefix;
-            }
+            //if (ApplicationSettings.LoggingConfiguration.Tracing != null)
+            //{
+            //    tracingPrefix = ApplicationSettings.LoggingConfiguration.Tracing.Prefix;
+            //}
 
-            if (ApplicationSettings.LoggingConfiguration.Information.IsNotNull())
-            {
-                informationPrefix = ApplicationSettings.LoggingConfiguration.Information.Prefix;
-            }
+            //if (ApplicationSettings.LoggingConfiguration.Information != null)
+            //{
+            //    informationPrefix = ApplicationSettings.LoggingConfiguration.Information.Prefix;
+            //}
 
-            if (ApplicationSettings.LoggingConfiguration.Warning.IsNotNull())
-            {
-                warningPrefix = ApplicationSettings.LoggingConfiguration.Warning.Prefix;
-            }
+            //if (ApplicationSettings.LoggingConfiguration.Warning != null)
+            //{
+            //    warningPrefix = ApplicationSettings.LoggingConfiguration.Warning.Prefix;
+            //}
 
-            if (ApplicationSettings.LoggingConfiguration.Audit.IsNotNull())
-            {
-                auditPrefix = ApplicationSettings.LoggingConfiguration.Audit.Prefix;
-            }
+            //if (ApplicationSettings.LoggingConfiguration.Audit != null)
+            //{
+            //    auditPrefix = ApplicationSettings.LoggingConfiguration.Audit.Prefix;
+            //}
 
-            if (ApplicationSettings.LoggingConfiguration.Error.IsNotNull())
-            {
-                errorPrefix = ApplicationSettings.LoggingConfiguration.Error.Prefix;
-            }
+            //if (ApplicationSettings.LoggingConfiguration.Error != null)
+            //{
+            //    errorPrefix = ApplicationSettings.LoggingConfiguration.Error.Prefix;
+            //}
 
             /*
             TODO: This is where code needs to be added to use different Log Writers
@@ -120,8 +120,22 @@ namespace Foundation.Common
         /// Method to be called on entry to each 'significant' method. As a minimum ALL
         /// public methods on a class should call this.
         /// </summary>
+        /// <param name="parameterValue">Parameters passed to call to be output in trace</param>
+        public static void TraceCallEnter(Object? parameterValue)
+        {
+            if (LoggingBase.TraceSwitch.TraceVerbose)
+            {
+                ContextInformation contextInfo = new(parameterValue);
+                TraceCallEnter(contextInfo);
+            }
+        }
+
+        /// <summary>
+        /// Method to be called on entry to each 'significant' method. As a minimum ALL
+        /// public methods on a class should call this.
+        /// </summary>
         /// <param name="parameterValues">Parameters passed to call to be output in trace</param>
-        public static void TraceCallEnter(params Object[]? parameterValues)
+        public static void TraceCallEnter(params Object?[] parameterValues)
         {
             if (LoggingBase.TraceSwitch.TraceVerbose)
             {
@@ -181,7 +195,7 @@ namespace Foundation.Common
             Trace.Unindent();
             StringBuilder traceMessage = new();
             traceMessage.Append($"{nameof(TraceCallReturn)}: {contextInfo}");
-            if (returnValue.IsNotNull())
+            if (returnValue != null)
             {
                 traceMessage.Append(returnValue.GetType().Name);
                 traceMessage.Append('=');
@@ -197,7 +211,7 @@ namespace Foundation.Common
         /// <param name="logMessage">The log message.</param>
         private static void WriteLogMessage(StringBuilder logMessage)
         {
-            if (TraceLogger.IsNotNull())
+            if (TraceLogger != null)
             {
                 TraceLogger.WriteMessage(logMessage.ToString());
             }

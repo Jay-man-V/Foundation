@@ -199,8 +199,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is Country country)
+            if (obj is Country country)
             {
                 retVal = InternalEquals(this, country);
             }

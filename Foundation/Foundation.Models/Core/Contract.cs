@@ -136,8 +136,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is Contract contract)
+            if (obj is Contract contract)
             {
                 retVal = InternalEquals(this, contract);
             }

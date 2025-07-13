@@ -26,7 +26,7 @@ namespace Foundation.Common
         /// </summary>
         protected ProgressTracker()
         {
-            ProgressItems = new();
+            ProgressItems = [];
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace Foundation.Common
         public void CopyReportToClipboard()
         {
             EventHandler<CopyToClipBoardEventArgs>? handler = CopyToClipBoard;
-            if (handler.IsNotNull())
+            if (handler != null)
             {
                 StringBuilder reportString = GenerateReport();
                 CopyToClipBoardEventArgs eventArgs = new(reportString.ToString());
@@ -111,7 +111,7 @@ namespace Foundation.Common
             retVal.Append(FormatProgressItem(item));
             retVal.Append(Environment.NewLine);
 
-            if (item.History.IsNotNull())
+            if (item.History != null)
             {
                 foreach (ProgressItem childItem in item.History)
                 {

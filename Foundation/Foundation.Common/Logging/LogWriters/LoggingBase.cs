@@ -28,7 +28,7 @@ namespace Foundation.Common
             RunTimeEnvironmentSettings = runTimeEnvironmentSettings;
             DateTimeService = dateTimeService;
 
-            if (TraceSwitch.IsNull())
+            if (TraceSwitch == null)
             {
                 TraceSwitch = new("TraceLevelSwitch", String.Empty);
             }
@@ -145,7 +145,7 @@ namespace Foundation.Common
             {
                 StringBuilder traceMessage = new();
                 traceMessage.AppendLine($"{MessagePrefix}: {contextInfo} ");
-                if (args.IsNotNull() && args.Length > 0)
+                if (args != null && args.Length > 0)
                 {
                     traceMessage.AppendFormat(messageToLog, args);
                 }

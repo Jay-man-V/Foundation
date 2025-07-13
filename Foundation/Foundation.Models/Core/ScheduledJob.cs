@@ -38,8 +38,8 @@ namespace Foundation.Models
         /// </summary>
         public ScheduledJob()
         {
-            ParentScheduledJobs = new();
-            ChildScheduledJobs = new();
+            ParentScheduledJobs = [];
+            ChildScheduledJobs = [];
 
             FirstRun = true;
         }
@@ -199,8 +199,8 @@ namespace Foundation.Models
             retVal.ScheduledTask = this.ScheduledTask;
             retVal.LastRunDateTime = this.LastRunDateTime;
             retVal.NextRunDateTime = this.NextRunDateTime;
-            retVal.ParentScheduledJobs = this.ParentScheduledJobs.Clone() as List<EntityId>;
-            retVal.ChildScheduledJobs = this.ChildScheduledJobs.Clone() as List<EntityId>;
+            retVal.ParentScheduledJobs = (List<EntityId>)this.ParentScheduledJobs.Clone();
+            retVal.ChildScheduledJobs = (List<EntityId>)this.ChildScheduledJobs.Clone();
 
             retVal._name = this._name;
             retVal._scheduleIntervalId = this._scheduleIntervalId;
@@ -230,8 +230,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is ScheduledJob scheduledJob)
+            if (obj is ScheduledJob scheduledJob)
             {
                 retVal = InternalEquals(this, scheduledJob);
             }
@@ -248,9 +247,13 @@ namespace Foundation.Models
             hashCode = hashCode * constant + EqualityComparer<Boolean>.Default.GetHashCode(IsRunning);
             hashCode = hashCode * constant + EqualityComparer<Boolean>.Default.GetHashCode(FirstRun);
             hashCode = hashCode * constant + EqualityComparer<Boolean>.Default.GetHashCode(CancellationRequested);
-            hashCode = hashCode * constant + EqualityComparer<IScheduledTask?>.Default.GetHashCode(ScheduledTask);
             hashCode = hashCode * constant + EqualityComparer<DateTime>.Default.GetHashCode(LastRunDateTime);
             hashCode = hashCode * constant + EqualityComparer<DateTime>.Default.GetHashCode(NextRunDateTime);
+
+            if (ScheduledTask != null)
+            {
+                hashCode = hashCode * constant + EqualityComparer<IScheduledTask?>.Default.GetHashCode(ScheduledTask);
+            }
 
             foreach (EntityId parentTask in ParentScheduledJobs)
             {

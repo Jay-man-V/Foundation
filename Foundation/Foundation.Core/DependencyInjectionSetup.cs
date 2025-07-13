@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.IO;
 using System.Reflection;
 using System.Runtime.Loader;
 
@@ -19,7 +20,7 @@ namespace Foundation.Core
     public static class DependencyInjectionSetup
     {
         private static readonly Object SyncLock = new Object();
-        internal static ServiceCollection? ServiceCollection { get; private set; }
+        internal static IServiceCollection? ServiceCollection { get; private set; }
 
         /// <summary>
         /// Loads the list of assembly types from file system.
@@ -106,7 +107,6 @@ namespace Foundation.Core
             if (ServiceCollection != null)
             {
                 ServiceCollection.Clear();
-                ServiceCollection = null;
             }
         }
 
@@ -114,13 +114,11 @@ namespace Foundation.Core
         /// Setups the dependency injection.
         /// </summary>
         /// <returns></returns>
-        public static IServiceProvider SetupDependencyInjection(String typeNamespacePrefix, String searchPattern)
+        public static void SetupDependencyInjection(IServiceCollection serviceCollection, String typeNamespacePrefix, String searchPattern)
         {
-            ServiceProvider retVal;
-
             lock (SyncLock)
             {
-                ServiceCollection ??= [];
+                ServiceCollection = serviceCollection;
 
                 // Find all the classes we are interested in using with Dependency Injection/IoC
                 List<Type> allTypes = LoadListOfAssemblyTypesFromFileSystem(searchPattern);
@@ -178,11 +176,7 @@ namespace Foundation.Core
                  * Special setups
                  */
                 //ServiceCollection.AddScoped(typeof(SmtpClient), typeof(SmtpClient));
-
-                retVal = ServiceCollection.BuildServiceProvider();
             }
-
-            return retVal;
         }
 
         private static void AddTypesToCollection(String typeNamespacePrefix, IServiceCollection targetServiceCollection, List<Type> sourceCollection, Action<Type> addImplementationAction, Action<Type, Type> addInterfaceWithImplementationAction)

@@ -30,7 +30,7 @@ namespace Foundation.Common
 
             Index = 0;
             TimeOfEntry = DateTimeService.SystemDateTimeNow;
-            History = new();
+            History = [];
 
             EventType = eventType;
             Action = action;

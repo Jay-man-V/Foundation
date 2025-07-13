@@ -88,8 +88,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is ApplicationRole applicationRole)
+            if (obj is ApplicationRole applicationRole)
             {
                 retVal = InternalEquals(this, applicationRole);
             }

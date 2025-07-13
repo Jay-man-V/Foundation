@@ -120,8 +120,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is PermissionMatrix permissionMatrix)
+            if (obj is PermissionMatrix permissionMatrix)
             {
                 retVal = InternalEquals(this, permissionMatrix);
             }

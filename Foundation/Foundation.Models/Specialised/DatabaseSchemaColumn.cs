@@ -7,7 +7,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 
-using Foundation.Common;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Common.DataColumns.Specialised;
@@ -85,8 +84,7 @@ namespace Foundation.Models.Specialised
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is DatabaseSchemaColumn dbSchemaColumn)
+            if (obj is DatabaseSchemaColumn dbSchemaColumn)
             {
                 retVal = InternalEquals(this, dbSchemaColumn);
             }

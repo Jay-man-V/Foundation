@@ -149,8 +149,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is UserProfile userProfile)
+            if (obj is UserProfile userProfile)
             {
                 retVal = InternalEquals(this, userProfile);
             }

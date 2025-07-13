@@ -17,7 +17,7 @@ namespace Foundation.Common
         /// <param name="messageToLog">The message to log.</param>
         public static void TraceMessage(String messageToLog)
         {
-            if (LoggingBase.TraceSwitch.TraceVerbose && TraceLogger.IsNotNull())
+            if (LoggingBase.TraceSwitch.TraceVerbose && TraceLogger != null)
             {
                 ContextInformation contextInfo = new(true);
                 TraceLogger.LogMessage(contextInfo, messageToLog);
@@ -30,7 +30,7 @@ namespace Foundation.Common
         /// <param name="parameterValues">The parameter values.</param>
         public static void TraceMessage(params Object[] parameterValues)
         {
-            if (LoggingBase.TraceSwitch.TraceVerbose && TraceLogger.IsNotNull())
+            if (LoggingBase.TraceSwitch.TraceVerbose && TraceLogger != null)
             {
                 ContextInformation contextInfo = new(true);
                 TraceLogger.LogMessage(contextInfo, parameterValues);
@@ -44,7 +44,7 @@ namespace Foundation.Common
         /// <param name="parameterValues">The parameter values.</param>
         public static void TraceMessage(String messageToLog, params Object[] parameterValues)
         {
-            if (LoggingBase.TraceSwitch.TraceVerbose && TraceLogger.IsNotNull())
+            if (LoggingBase.TraceSwitch.TraceVerbose && TraceLogger != null)
             {
                 ContextInformation contextInfo = new(true);
                 TraceLogger.LogMessage(contextInfo, messageToLog, parameterValues);
@@ -57,7 +57,7 @@ namespace Foundation.Common
         /// <param name="exception">The exception.</param>
         public static void TraceMessage(Exception exception)
         {
-            if (LoggingBase.TraceSwitch.TraceVerbose && TraceLogger.IsNotNull())
+            if (LoggingBase.TraceSwitch.TraceVerbose && TraceLogger != null)
             {
                 ContextInformation contextInfo = new(true);
                 TraceLogger.LogMessage(contextInfo, exception);
@@ -72,7 +72,7 @@ namespace Foundation.Common
         /// <param name="messageValues">The message values.</param>
         public static void TraceMessage(Exception exception, String messageToLog, params Object[] messageValues)
         {
-            if (LoggingBase.TraceSwitch.TraceVerbose && TraceLogger.IsNotNull())
+            if (LoggingBase.TraceSwitch.TraceVerbose && TraceLogger != null)
             {
                 ContextInformation contextInfo = new(true);
                 TraceLogger.LogMessage(contextInfo, exception, messageToLog, messageValues);

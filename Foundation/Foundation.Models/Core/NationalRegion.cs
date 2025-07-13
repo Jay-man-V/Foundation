@@ -111,8 +111,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is NationalRegion nationalRegion)
+            if (obj is NationalRegion nationalRegion)
             {
                 retVal = InternalEquals(this, nationalRegion);
             }

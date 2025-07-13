@@ -83,8 +83,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is ApplicationApplicationType applicationApplicationType)
+            if (obj is ApplicationApplicationType applicationApplicationType)
             {
                 retVal = InternalEquals(this, applicationApplicationType);
             }

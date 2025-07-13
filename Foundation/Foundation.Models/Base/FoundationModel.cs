@@ -92,7 +92,7 @@ namespace Foundation.Models
                 _entityState = value;
                 if (_entityState == EntityState.Saved)
                 {
-                    _changedProperties = new();
+                    _changedProperties = [];
                 }
             }
         }
@@ -385,7 +385,14 @@ namespace Foundation.Models
         /// <inheritdoc cref="ICloneable.Clone"/>>
         public virtual Object Clone()
         {
-            FoundationModel retVal = (FoundationModel)Activator.CreateInstance(this.GetType());
+            FoundationModel? retVal = Activator.CreateInstance(this.GetType()) as FoundationModel;
+
+            if (retVal == null)
+            {
+                String message = $"The Type '{this.GetType()}' cannot be cloned but is calling {LocationUtils.GetFullyQualifiedFunctionName()}";
+                throw new InvalidOperationException(message);
+            }
+
             retVal.Initialising = true;
 
             retVal.Id = this.Id;

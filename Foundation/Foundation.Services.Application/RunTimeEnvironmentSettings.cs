@@ -13,6 +13,9 @@ namespace Foundation.Services.Application
     public class RunTimeEnvironmentSettings : IRunTimeEnvironmentSettings
     {
         /// <inheritdoc cref="IRunTimeEnvironmentSettings.StandardCountryCode"/>
+        public String[] Arguments => Environment.GetCommandLineArgs();
+
+        /// <inheritdoc cref="IRunTimeEnvironmentSettings.StandardCountryCode"/>
         public String StandardCountryCode => "GB";
 
         /// <inheritdoc cref="IRunTimeEnvironmentSettings.UserName"/>

@@ -25,7 +25,7 @@ namespace Foundation.Common
         //{
         //    Byte[] retVal = null;
 
-        //    if (currentValue.IsNotNull())
+        //    if (currentValue != null)
         //    {
         //        BmpBitmapEncoder encoder = new BmpBitmapEncoder();
         //        encoder.Frames.Add(BitmapFrame.Create(currentValue));

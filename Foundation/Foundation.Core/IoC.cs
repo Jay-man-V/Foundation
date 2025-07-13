@@ -4,10 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.IO;
 using System.Reflection;
-//using System.Web.Http.Dependencies;
 
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 using Foundation.Interfaces;
 
@@ -18,21 +20,35 @@ namespace Foundation.Core
     /// </summary>
     public class IoC : IIoC
     {
-        private static IServiceProvider? Container { get; set; }
-//        private static IDependencyResolver _dependencyResolver;
+        private IHost TheHost { get; set; }
+        private HostApplicationBuilder HostApplicationBuilder { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public IoC()
         {
-            Initialise();
+            HostApplicationBuilder = SetupApplicationBuilder();
 
-//            _dependencyResolver = new DependencyResolver(_container);
+            Initialise(HostApplicationBuilder.Services);
+
+            TheHost = HostApplicationBuilder.Build();
         }
 
-//        /// <inheritdoc cref="IIoC.DependencyResolver"/>
-//        public IDependencyResolver DependencyResolver => _dependencyResolver;
+        private HostApplicationBuilder SetupApplicationBuilder()
+        {
+            HostApplicationBuilderSettings settings = new()
+            {
+                Configuration = new ConfigurationManager(),
+                ContentRootPath = Directory.GetCurrentDirectory(),
+            };
+
+            settings.Configuration.AddJsonFile("appSettings.json");
+
+            HostApplicationBuilder = Host.CreateApplicationBuilder(settings);
+
+            return HostApplicationBuilder;
+        }
 
         /// <inheritdoc cref="IIoC.Reset()"/>
         public void Reset()
@@ -40,22 +56,16 @@ namespace Foundation.Core
             DependencyInjectionSetup.ResetDependencyInjection();
         }
 
-        /// <inheritdoc cref="IIoC.Initialise(String, String)"/>
-        public void Initialise(String typeNamespacePrefix = "Foundation", String searchPattern = "Foundation.*.dll")
+        /// <inheritdoc cref="IIoC.Initialise(IServiceCollection, String, String)"/>
+        public void Initialise(IServiceCollection serviceCollection, String typeNamespacePrefix = "Foundation", String searchPattern = "Foundation.*.dll")
         {
-            Container = DependencyInjectionSetup.SetupDependencyInjection(typeNamespacePrefix, searchPattern);
+            DependencyInjectionSetup.SetupDependencyInjection(serviceCollection, typeNamespacePrefix, searchPattern);
         }
 
         /// <inheritdoc cref="IIoC.Get{TService}()"/>
         public TService? Get<TService>()
         {
-            if (Container == null)
-            {
-                String message = "IoC has not been initialised";
-                throw new InvalidOperationException(message);
-            }
-
-            TService? retVal = Container.GetService<TService>();
+            TService? retVal = TheHost.Services.GetService<TService>();
 
             return retVal;
         }
@@ -65,17 +75,11 @@ namespace Foundation.Core
         {
             TService? retVal = default;
 
-            if (Container == null)
-            {
-                String message = "IoC has not been initialised";
-                throw new InvalidOperationException(message);
-            }
-
             Type? type = Type.GetType(typeName);
 
             if (type != null)
             {
-                retVal = (TService?)Container.GetService(type);
+                retVal = (TService?)TheHost.Services.GetService(type);
             }
 
             return retVal;
@@ -84,13 +88,7 @@ namespace Foundation.Core
         /// <inheritdoc cref="IIoC.GetAll{TService}()"/>
         public IEnumerable<TService> GetAll<TService>()
         {
-            if (Container == null)
-            {
-                String message = "IoC has not been initialised";
-                throw new InvalidOperationException(message);
-            }
-
-            IEnumerable<TService> retVal = Container.GetServices<TService>();
+            IEnumerable<TService> retVal = TheHost.Services.GetServices<TService>();
 
             return retVal;
         }
@@ -98,12 +96,6 @@ namespace Foundation.Core
         /// <inheritdoc cref="IIoC.Get{TService}(String, String, Object[])"/>
         public TService Get<TService>(String assemblyName, String typeName, params Object[] args) where TService : class
         {
-            if (Container == null)
-            {
-                String message = "IoC has not been initialised";
-                throw new InvalidOperationException(message);
-            }
-
             List<Assembly> loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().OrderBy(a => a.FullName).ToList();
             Assembly? controllerAssembly = loadedAssemblies.FirstOrDefault(a => a.GetName().Name == assemblyName);
 
@@ -121,7 +113,7 @@ namespace Foundation.Core
                 throw new ArgumentNullException(nameof(assemblyType), message);
             }
 
-            TService? retVal = Container.GetService(assemblyType) as TService;
+            TService? retVal = TheHost.Services.GetService(assemblyType) as TService;
 
             if (retVal == null)
             {

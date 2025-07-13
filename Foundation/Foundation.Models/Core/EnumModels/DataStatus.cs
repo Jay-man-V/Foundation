@@ -7,7 +7,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-using Foundation.Common;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Common.DataColumns;
@@ -86,8 +85,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is DataStatus dataStatus)
+            if (obj is DataStatus dataStatus)
             {
                 retVal = InternalEquals(this, dataStatus);
             }

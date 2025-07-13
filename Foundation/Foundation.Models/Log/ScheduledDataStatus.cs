@@ -101,8 +101,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is ScheduledDataStatus scheduledDataStatus)
+            if (obj is ScheduledDataStatus scheduledDataStatus)
             {
                 retVal = InternalEquals(this, scheduledDataStatus);
             }

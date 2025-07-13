@@ -4,7 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Drawing;
 using System.IO;
 
@@ -25,13 +24,13 @@ namespace Foundation.Common
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">if set to <c>true</c> [default value].</param>
         /// <returns></returns>
-        public static Boolean GetValue(Object value, Boolean defaultValue)
+        public static Boolean GetValue(Object? value, Boolean defaultValue)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
             Boolean retVal = defaultValue;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 if (Boolean.TryParse(value.ToString(), out var tempValue))
                 {
@@ -50,13 +49,13 @@ namespace Foundation.Common
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        public static Double GetValue(Object value, Double defaultValue)
+        public static Double GetValue(Object? value, Double defaultValue)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
             Double retVal = defaultValue;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 if (Double.TryParse(value.ToString(), out var tempValue))
                 {
@@ -75,13 +74,13 @@ namespace Foundation.Common
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        public static Decimal GetValue(Object value, Decimal defaultValue)
+        public static Decimal GetValue(Object? value, Decimal defaultValue)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
             Decimal retVal = defaultValue;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 if (Decimal.TryParse(value.ToString(), out var tempValue))
                 {
@@ -100,13 +99,13 @@ namespace Foundation.Common
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        public static Int32 GetValue(Object value, Int32 defaultValue)
+        public static Int32 GetValue(Object? value, Int32 defaultValue)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
             Int32 retVal = defaultValue;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 if (Int32.TryParse(value.ToString(), out var tempValue))
                 {
@@ -126,13 +125,13 @@ namespace Foundation.Common
         /// <param name="defaultValue">The default value.</param>
         /// <param name="dateTimeKind">Kind of the date time.</param>
         /// <returns></returns>
-        public static DateTime GetValue(Object value, DateTime defaultValue, DateTimeKind dateTimeKind = DateTimeKind.Utc)
+        public static DateTime GetValue(Object? value, DateTime defaultValue, DateTimeKind dateTimeKind = DateTimeKind.Utc)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
             DateTime retVal = defaultValue;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 if (DateTime.TryParse(value.ToString(), out var _))
                 {
@@ -154,13 +153,13 @@ namespace Foundation.Common
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        public static TimeSpan GetValue(Object value, TimeSpan defaultValue)
+        public static TimeSpan GetValue(Object? value, TimeSpan defaultValue)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
             TimeSpan retVal = defaultValue;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 if (TimeSpan.TryParse(value.ToString(), out var tempValue))
                 {
@@ -179,15 +178,15 @@ namespace Foundation.Common
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        public static String GetValue(Object value, String defaultValue)
+        public static String GetValue(Object? value, String defaultValue)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
             String retVal = defaultValue;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
-                String tempValue = value.ToString();
+                String tempValue = value.ToString() ?? defaultValue;
 
                 if (!String.IsNullOrEmpty(tempValue))
                 {
@@ -206,13 +205,13 @@ namespace Foundation.Common
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        public static Byte[] GetValue(Object value, Byte[] defaultValue)
+        public static Byte[] GetValue(Object? value, Byte[] defaultValue)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
             Byte[] retVal = defaultValue;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 retVal = (Byte[])value;
             }
@@ -228,13 +227,13 @@ namespace Foundation.Common
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        public static Image GetValue(Object value, Image defaultValue)
+        public static Image GetValue(Object? value, Image defaultValue)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
             Image retVal = defaultValue;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 if (value is Bitmap bitmap)
                 {
@@ -259,13 +258,13 @@ namespace Foundation.Common
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        public static Guid GetValue(Object value, Guid defaultValue)
+        public static Guid GetValue(Object? value, Guid defaultValue)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
             Guid retVal = defaultValue;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 if (Guid.TryParse(value.ToString(), out var tempValue))
                 {
@@ -284,13 +283,13 @@ namespace Foundation.Common
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        public static EntityStatus GetValue(Object value, EntityStatus defaultValue)
+        public static EntityStatus GetValue(Object? value, EntityStatus defaultValue)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
             EntityStatus retVal = defaultValue;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 Enum.TryParse(value.ToString(), out retVal);
             }
@@ -306,13 +305,13 @@ namespace Foundation.Common
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        public static FEnums.TaskStatus GetValue(Object value, FEnums.TaskStatus defaultValue)
+        public static FEnums.TaskStatus GetValue(Object? value, FEnums.TaskStatus defaultValue)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
             FEnums.TaskStatus retVal = defaultValue;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 Enum.TryParse(value.ToString(), out retVal);
             }
@@ -328,13 +327,13 @@ namespace Foundation.Common
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        public static ScheduleInterval GetValue(Object value, ScheduleInterval defaultValue)
+        public static ScheduleInterval GetValue(Object? value, ScheduleInterval defaultValue)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
             ScheduleInterval retVal = defaultValue;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 Enum.TryParse(value.ToString(), out retVal);
             }
@@ -350,13 +349,13 @@ namespace Foundation.Common
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        public static LogSeverity GetValue(Object value, LogSeverity defaultValue)
+        public static LogSeverity GetValue(Object? value, LogSeverity defaultValue)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
             LogSeverity retVal = defaultValue;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 Enum.TryParse(value.ToString(), out retVal);
             }
@@ -372,13 +371,13 @@ namespace Foundation.Common
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        public static MessageType GetValue(Object value, MessageType defaultValue)
+        public static MessageType GetValue(Object? value, MessageType defaultValue)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
             MessageType retVal = defaultValue;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 Enum.TryParse(value.ToString(), out retVal);
             }
@@ -394,13 +393,13 @@ namespace Foundation.Common
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        public static EntityId GetValue(Object value, EntityId defaultValue)
+        public static EntityId GetValue(Object? value, EntityId defaultValue)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
             EntityId retVal = defaultValue;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 Int32.TryParse(value.ToString(), out Int32 temp);
                 retVal = new(temp);
@@ -417,13 +416,13 @@ namespace Foundation.Common
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        public static AppId GetValue(Object value, AppId defaultValue)
+        public static AppId GetValue(Object? value, AppId defaultValue)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
             AppId retVal = defaultValue;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 Int32.TryParse(value.ToString(), out Int32 temp);
                 retVal = new(temp);
@@ -440,13 +439,13 @@ namespace Foundation.Common
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        public static LogId GetValue(Object value, LogId defaultValue)
+        public static LogId GetValue(Object? value, LogId defaultValue)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
             LogId retVal = defaultValue;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
                 Int32.TryParse(value.ToString(), out Int32 temp);
                 retVal = new(temp);
@@ -469,9 +468,9 @@ namespace Foundation.Common
 
             EmailAddress retVal = defaultValue;
 
-            if (value.IsNotNull())
+            if (value != null)
             {
-                retVal = new(value.ToString());
+                retVal = new(value.ToString() ?? defaultValue);
             }
 
             LoggingHelpers.TraceCallReturn(retVal);

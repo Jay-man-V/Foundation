@@ -4,8 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 using Newtonsoft.Json;
 
@@ -28,31 +28,43 @@ namespace Foundation.Common
         {
             LoggingHelpers.TraceCallEnter(value);
 
-            String retVal = Convert.ToString(value);
+            // By default, convert the value to a string first
+            String retVal = Convert.ToString(value) ?? String.Empty;
 
-            if (value.IsNativeType())
+            // TODO: Test for null value input
+
+            if (value is null)
             {
-                if (value is DateTime)
-                {
-                    DateTime localDateTime = Convert.ToDateTime(value);
-                    retVal = localDateTime.ToString(Formats.DotNet.Iso8601DateTimeMilliseconds);
-                }
-                else if (value is TimeSpan)
-                {
-                    TimeSpan localTimeSpan = TimeSpan.Parse(value.ToString());
-                    retVal = localTimeSpan.ToString();
-                }
+                retVal = String.Empty;
             }
             else
             {
-                JsonSerializerSettings jsonSerializerSettings = new()
+                if (value.IsNativeType())
                 {
-                    DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                    DateTimeZoneHandling = DateTimeZoneHandling.RoundtripKind,
-                    Formatting = Formatting.Indented,
-                };
+                    // Special formatting for the following types
+                    if (value is DateTime)
+                    {
+                        DateTime localDateTime = Convert.ToDateTime(value);
+                        retVal = localDateTime.ToString(Formats.DotNet.Iso8601DateTimeMilliseconds);
+                    }
+                    else if (value is TimeSpan)
+                    {
+                        TimeSpan localTimeSpan = TimeSpan.Parse(value.ToString() ?? "00:00:00");
+                        retVal = localTimeSpan.ToString();
+                    }
+                }
+                else
+                {
+                    // All other types, the custom ones, use JSON to serialise it
+                    JsonSerializerSettings jsonSerializerSettings = new()
+                    {
+                        DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                        DateTimeZoneHandling = DateTimeZoneHandling.RoundtripKind,
+                        Formatting = Formatting.Indented,
+                    };
 
-                retVal = JsonConvert.SerializeObject(value, jsonSerializerSettings);
+                    retVal = JsonConvert.SerializeObject(value, jsonSerializerSettings);
+                }
             }
 
             LoggingHelpers.TraceCallReturn(retVal);
@@ -66,25 +78,43 @@ namespace Foundation.Common
         /// <typeparam name="TObject"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static TObject Deserialise<TObject>(Object value)
+        [return: NotNull]
+        public static TObject Deserialise<TObject>(String? value)
         {
             LoggingHelpers.TraceCallEnter(value);
 
-            TObject retVal = default;
+            TObject retVal = default!;
 
-            if (retVal.IsNativeType() ||
-                typeof(TObject) == typeof(String))
+            if (value is not null)
             {
-                TypeConverter converter = TypeDescriptor.GetConverter(typeof(TObject));
-
-                if (converter.CanConvertFrom(typeof(String)))
+                if (retVal.IsNativeType() ||
+                    typeof(TObject) == typeof(String))
                 {
-                    retVal = (TObject)converter.ConvertFromInvariantString(value.ToString());
+                    TypeConverter converter = TypeDescriptor.GetConverter(typeof(TObject));
+
+                    if (converter.CanConvertFrom(typeof(String)))
+                    {
+                        TObject? temp = (TObject?)converter.ConvertFromInvariantString(value);
+
+                        if (temp is null)
+                        {
+                            throw new ArgumentNullException();
+                        }
+
+                        retVal = temp;
+                    }
                 }
-            }
-            else
-            {
-                retVal = JsonConvert.DeserializeObject<TObject>(value.ToString());
+                else
+                {
+                    TObject? temp = JsonConvert.DeserializeObject<TObject>(value);
+
+                    if (temp is null)
+                    {
+                        throw new ArgumentNullException();
+                    }
+
+                    retVal = temp;
+                }
             }
 
             LoggingHelpers.TraceCallReturn(retVal);

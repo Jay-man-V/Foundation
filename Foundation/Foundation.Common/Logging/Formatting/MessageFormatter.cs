@@ -7,7 +7,6 @@
 using System.Collections;
 using System.Diagnostics;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Text;
 
@@ -74,11 +73,11 @@ namespace Foundation.Common
         /// </summary>
         /// <param name="objectToRender">The Object To Render</param>
         /// <returns>The value representing <paramref name="objectToRender"/></returns>
-        public static String RenderObjectValue(Object objectToRender)
+        public static String RenderObjectValue(Object? objectToRender)
         {
             String retVal  = "<null>";
 
-            if (objectToRender.IsNotNull())
+            if (objectToRender != null)
             {
                 if (objectToRender is IList renderList)
                 {
@@ -87,14 +86,14 @@ namespace Foundation.Common
 
                     for (Int32 arrayIndex = 0; arrayIndex < renderList.Count; arrayIndex++)
                     {
-                        if (renderList[arrayIndex].IsNull())
+                        if (renderList[arrayIndex] == null)
                         {
                             renderedList.Append("<null>");
                         }
                         else
                         {
-                            Object value = renderList[arrayIndex];
-                            String renderedValue = value.ToString();
+                            Object? value = renderList[arrayIndex];
+                            String renderedValue = value?.ToString() ?? "unknown";
 
                             if (value is DateTime dateTimeValue)
                             {
@@ -114,7 +113,7 @@ namespace Foundation.Common
                 }
                 else
                 {
-                    retVal = objectToRender.ToString();
+                    retVal = objectToRender.ToString() ?? "unknown";
 
                     if (objectToRender is DateTime dateTimeValue)
                     {
@@ -137,7 +136,7 @@ namespace Foundation.Common
         {
             ExceptionOutput retVal = new(runTimeEnvironmentSettings, dateTimeService)
             {
-                ErrorSource = exception.Source,
+                ErrorSource = exception.Source ?? "unknown",
             };
 
             retVal.ErrorDetail = EnumerateException(exception, retVal);
@@ -176,38 +175,35 @@ namespace Foundation.Common
             String assemblyFileVersion = "<unknown>";
             String assemblyConfiguration = "<unknown>";
 
-            Assembly targetAssembly = loadAssemblies.FirstOrDefault(a => a.FullName.Contains(exception.Source));
-            if (targetAssembly.IsNotNull())
+            String exceptionSource = exception.Source ?? "unknown";
+            Assembly? targetAssembly = loadAssemblies.FirstOrDefault(a => a.FullName != null && a.FullName.Contains(exceptionSource));
+            if (targetAssembly != null)
             {
                 Boolean isDebugBuild = IsDebugBuild(targetAssembly);
                 assemblyBuild = isDebugBuild ? "Debug " : "Release ";
                 assemblyBuild += GetAssemblyPlatform(targetAssembly);
-                assemblyFullName = targetAssembly.FullName;
+                assemblyFullName = targetAssembly.FullName ?? "<unknown>";
                 assemblyLocation = targetAssembly.Location;
-                assemblyVersion = targetAssembly.GetName().Version.ToString();
+                assemblyVersion = $"{targetAssembly.GetName().Version}";
 
                 List<Attribute> customAttributes = targetAssembly.GetCustomAttributes().ToList();
 
-                TargetFrameworkAttribute targetFrameworkAttribute = customAttributes.FirstOrDefault(ca => ca is TargetFrameworkAttribute) as TargetFrameworkAttribute;
-                if (targetFrameworkAttribute.IsNotNull())
+                if (customAttributes.FirstOrDefault(ca => ca is TargetFrameworkAttribute) is TargetFrameworkAttribute targetFrameworkAttribute)
                 {
                     assemblyTargetFramework = $"{targetFrameworkAttribute.FrameworkDisplayName} - {targetFrameworkAttribute.FrameworkName}";
                 }
 
-                //AssemblyVersionAttribute ava = customAttributes.FirstOrDefault(ca => ca is AssemblyVersionAttribute) as AssemblyVersionAttribute;
-                //if (ava.IsNotNull())
-                //{
-                //    assemblyVersion = $"{ava.Version}";
-                //}
+                if (customAttributes.FirstOrDefault(ca => ca is AssemblyVersionAttribute) is AssemblyVersionAttribute assemblyVersionAttribute)
+                {
+                    assemblyVersion = $"{assemblyVersionAttribute.Version}";
+                }
 
-                AssemblyFileVersionAttribute assemblyFileVersionAttribute = customAttributes.FirstOrDefault(ca => ca is AssemblyFileVersionAttribute) as AssemblyFileVersionAttribute;
-                if (assemblyFileVersionAttribute.IsNotNull())
+                if (customAttributes.FirstOrDefault(ca => ca is AssemblyFileVersionAttribute) is AssemblyFileVersionAttribute assemblyFileVersionAttribute)
                 {
                     assemblyFileVersion = $"{assemblyFileVersionAttribute.Version}";
                 }
 
-                AssemblyConfigurationAttribute assemblyConfigurationAttribute = customAttributes.FirstOrDefault(ca => ca is AssemblyConfigurationAttribute) as AssemblyConfigurationAttribute;
-                if (assemblyConfigurationAttribute.IsNotNull())
+                if (customAttributes.FirstOrDefault(ca => ca is AssemblyConfigurationAttribute) is AssemblyConfigurationAttribute assemblyConfigurationAttribute)
                 {
                     assemblyConfiguration = $"{assemblyConfigurationAttribute.Configuration}";
                 }
@@ -218,8 +214,7 @@ namespace Foundation.Common
             sb.AppendLine($"Error source: {exception.Source}");
 
             sb.AppendLine($"Exception type: {exception.GetType()}");
-            String methodSource = exception.TargetSite.IsNull() ? String.Empty : exception.TargetSite.ToString();
-            sb.AppendLine($"Method source: {methodSource}");
+            sb.AppendLine($"Method source: {exception.TargetSite}");
 
             sb.AppendLine($"Assembly name: {assemblyFullName}");
             sb.AppendLine($"Assembly location: {assemblyLocation}");
@@ -232,7 +227,7 @@ namespace Foundation.Common
             sb.AppendLine("Stack trace");
             sb.AppendLine(exception.StackTrace);
 
-            if (exception.InnerException.IsNotNull())
+            if (exception.InnerException != null)
             {
                 sb.AppendLine();
                 sb.AppendLine("************************* Inner Exception Error Text **************************");

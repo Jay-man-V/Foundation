@@ -28,12 +28,14 @@ namespace CustomerContact.Client
 
             ICore coreInstance = Core.Initialise(0);
 
-            IApplication application = coreInstance.Container.Get<IApplication>();
+            IApplication? application = coreInstance.IoC.Get<IApplication>();
 
             TheMainWindow = new();
 
             this.MainWindow = TheMainWindow;
             this.MainWindow.Show();
+
+            //host.Run();
         }
     }
 }

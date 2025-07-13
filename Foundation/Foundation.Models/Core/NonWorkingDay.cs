@@ -110,8 +110,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is NonWorkingDay nonWorkingDay)
+            if (obj is NonWorkingDay nonWorkingDay)
             {
                 retVal = InternalEquals(this, nonWorkingDay);
             }

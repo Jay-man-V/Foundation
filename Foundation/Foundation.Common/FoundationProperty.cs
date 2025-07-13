@@ -4,8 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
 namespace Foundation.Common
 {
     /// <summary>
@@ -59,9 +57,15 @@ namespace Foundation.Common
         /// </returns>
         public Object Clone()
         {
-            Object?[] args = { PropertyName, OldValue, NewValue };
+            Object?[] args = [PropertyName, OldValue, NewValue];
 
-            FoundationProperty retVal = (FoundationProperty)Activator.CreateInstance(this.GetType(), args);
+            FoundationProperty? retVal = Activator.CreateInstance(this.GetType(), args) as FoundationProperty;
+
+            if (retVal == null)
+            {
+                String message = $"The Type '{this.GetType()}' cannot be cloned but is calling FoundationProperty.Clone()";
+                throw new InvalidOperationException(message);
+            }
 
             return retVal;
         }

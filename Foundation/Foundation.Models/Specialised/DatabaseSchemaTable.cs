@@ -101,8 +101,7 @@ namespace Foundation.Models.Specialised
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is DatabaseSchemaTable dbSchemaTable)
+            if (obj is DatabaseSchemaTable dbSchemaTable)
             {
                 retVal = InternalEquals(this, dbSchemaTable);
             }

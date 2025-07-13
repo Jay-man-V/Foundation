@@ -4,7 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Diagnostics;
 
 namespace Foundation.Common
@@ -21,7 +20,7 @@ namespace Foundation.Common
         public ExecutionTimer() :
             this
             (
-                new StackFrame(1).GetMethod().Name
+                new StackFrame(1)?.GetMethod()?.Name ?? String.Empty
             )
         {
         }

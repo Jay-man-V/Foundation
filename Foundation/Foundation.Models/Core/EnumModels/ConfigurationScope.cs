@@ -7,7 +7,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-using Foundation.Common;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Common.DataColumns;
@@ -97,8 +96,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is ConfigurationScope configurationScope)
+            if (obj is ConfigurationScope configurationScope)
             {
                 retVal = InternalEquals(this, configurationScope);
             }

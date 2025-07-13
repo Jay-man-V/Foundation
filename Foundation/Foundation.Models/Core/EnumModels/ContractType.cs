@@ -7,7 +7,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-using Foundation.Common;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Common.DataColumns;
@@ -87,8 +86,7 @@ namespace Foundation.Models
         {
             Boolean retVal = false;
 
-            if (obj.IsNotNull() &&
-                obj is ContractType contractType)
+            if (obj is ContractType contractType)
             {
                 retVal = InternalEquals(this, contractType);
             }
