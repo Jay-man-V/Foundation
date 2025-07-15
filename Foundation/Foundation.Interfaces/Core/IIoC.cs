@@ -36,7 +36,7 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <typeparam name="TService"></typeparam>
         /// <returns></returns>
-        TService? Get<TService>();
+        TService Get<TService>();
 
         /// <summary>
         /// Gets the service object of the specified type.
@@ -61,6 +61,6 @@ namespace Foundation.Interfaces
         /// <param name="typeName"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        TService Get<TService>(String assemblyName, String typeName, params Object[] args) where TService : class;
+        TService Get<TService>(String assemblyName, String typeName, params Object[]? args) where TService : class;
     }
 }

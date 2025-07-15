@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "england-and-wales": {
+      "type": "object",
+      "properties": {
+        "division": {
+          "type": "string"
+        },
+        "events": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "date": {
+                  "type": "string"
+                },
+                "notes": {
+                  "type": "string"
+                },
+                "bunting": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "title",
+                "date",
+                "notes",
+                "bunting"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "division",
+        "events"
+      ]
+    },
+    "northern-ireland": {
+      "type": "object",
+      "properties": {
+        "division": {
+          "type": "string"
+        },
+        "events": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "date": {
+                  "type": "string"
+                },
+                "notes": {
+                  "type": "string"
+                },
+                "bunting": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "title",
+                "date",
+                "notes",
+                "bunting"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "division",
+        "events"
+      ]
+    },
+    "scotland": {
+      "type": "object",
+      "properties": {
+        "division": {
+          "type": "string"
+        },
+        "events": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "date": {
+                  "type": "string"
+                },
+                "notes": {
+                  "type": "string"
+                },
+                "bunting": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "title",
+                "date",
+                "notes",
+                "bunting"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "division",
+        "events"
+      ]
+    }
+  },
+  "required": [
+    "england-and-wales",
+    "northern-ireland",
+    "scotland"
+  ]
+}

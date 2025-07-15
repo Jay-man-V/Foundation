@@ -333,14 +333,14 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="gridColumnDefinitions"></param>
         /// <param name="sourceData"></param>
-        void ExportToExcel(IEnumerable<IGridColumnDefinition> gridColumnDefinitions, IEnumerable sourceData);
+        void ExportToExcel(List<IGridColumnDefinition> gridColumnDefinitions, IEnumerable sourceData);
 
         /// <summary>
         /// Exports the supplied data to Csv
         /// </summary>
         /// <param name="gridColumnDefinitions"></param>
         /// <param name="sourceData"></param>
-        String ExportToCsv(IEnumerable<IGridColumnDefinition> gridColumnDefinitions, IEnumerable sourceData);
+        String ExportToCsv(List<IGridColumnDefinition> gridColumnDefinitions, IEnumerable sourceData);
 
         /// <summary>
         /// Exports the supplied data to Csv
@@ -348,7 +348,7 @@ namespace Foundation.Interfaces
         /// <param name="outputStream"></param>
         /// <param name="gridColumnDefinitions"></param>
         /// <param name="sourceData"></param>
-        void ExportToCsv(TextWriter outputStream, IEnumerable<IGridColumnDefinition> gridColumnDefinitions, IEnumerable sourceData);
+        void ExportToCsv(TextWriter outputStream, List<IGridColumnDefinition> gridColumnDefinitions, IEnumerable sourceData);
     }
 
     /// <summary>
@@ -470,7 +470,7 @@ namespace Foundation.Interfaces
         /// Loads the entities from the data store
         /// </summary>
         /// <param name="entityIds">The Ids of the entities to be loaded</param>
-        IEnumerable<TModel> Get(IEnumerable<EntityId> entityIds);
+        List<TModel> Get(List<EntityId> entityIds);
 
         /// <summary>
         /// Gets all.

@@ -19,6 +19,6 @@ namespace Foundation.Interfaces
         /// <returns>
         ///   The non-working day
         /// </returns>
-        INonWorkingDay Get(EntityId countryId, DateTime date);
+        INonWorkingDay? Get(EntityId countryId, DateTime date);
     }
 }

@@ -49,7 +49,7 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="entityIds">The entity identifiers.</param>
         /// <returns>Loaded entity</returns>
-        IEnumerable<TModel> Get(IEnumerable<EntityId> entityIds);
+        List<TModel> Get(List<EntityId> entityIds);
 
         /// <summary>
         /// Gets the specified entity.

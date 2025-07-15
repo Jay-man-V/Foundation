@@ -63,9 +63,15 @@ namespace Foundation.Core
         }
 
         /// <inheritdoc cref="IIoC.Get{TService}()"/>
-        public TService? Get<TService>()
+        public TService Get<TService>()
         {
             TService? retVal = TheHost.Services.GetService<TService>();
+
+            if (retVal == null)
+            {
+                String message = $"Unable to get instance of {typeof(TService)}";
+                throw new InvalidOperationException(message);
+            }
 
             return retVal;
         }
@@ -93,8 +99,8 @@ namespace Foundation.Core
             return retVal;
         }
 
-        /// <inheritdoc cref="IIoC.Get{TService}(String, String, Object[])"/>
-        public TService Get<TService>(String assemblyName, String typeName, params Object[] args) where TService : class
+        /// <inheritdoc cref="IIoC.Get{TService}(String, String, Object[]?)"/>
+        public TService Get<TService>(String assemblyName, String typeName, params Object[]? args) where TService : class
         {
             List<Assembly> loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().OrderBy(a => a.FullName).ToList();
             Assembly? controllerAssembly = loadedAssemblies.FirstOrDefault(a => a.GetName().Name == assemblyName);

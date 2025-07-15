@@ -4,9 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
 using Foundation.Common;
 using Foundation.Interfaces;
 
@@ -160,12 +157,12 @@ namespace Foundation.BusinessProcess
             return retVal;
         }
 
-        /// <inheritdoc cref="IEventLogProcess.GetLatest(Boolean, EntityId, String, String, String)"/>
-        public IEventLog GetLatest(Boolean isFinished, EntityId scheduledTaskId = new EntityId(), String batchName = null, String processName = null, String taskName = null)
+        /// <inheritdoc cref="IEventLogProcess.GetLatest(Boolean, EntityId, String?, String?, String?)"/>
+        public IEventLog? GetLatest(Boolean isFinished, EntityId scheduledTaskId = new EntityId(), String? batchName = null, String? processName = null, String? taskName = null)
         {
             LoggingHelpers.TraceCallEnter(isFinished, scheduledTaskId, batchName, processName, taskName);
 
-            IEventLog retVal = EntityRepository.GetLatest(isFinished, scheduledTaskId, batchName, processName, taskName);
+            IEventLog? retVal = EntityRepository.GetLatest(isFinished, scheduledTaskId, batchName, processName, taskName);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -179,7 +176,7 @@ namespace Foundation.BusinessProcess
 
             LogId retVal;
 
-            IEventLog entity = Core.Container.Get<IEventLog>();
+            IEventLog entity = Core.IoC.Get<IEventLog>();
             entity.ApplicationId = applicationId;
             entity.BatchName = batchName;
             entity.ProcessName = processName;
@@ -241,7 +238,7 @@ namespace Foundation.BusinessProcess
 
             LogId retVal;
 
-            IEventLog entity = Core.Container.Get<IEventLog>();
+            IEventLog entity = Core.IoC.Get<IEventLog>();
             entity.ApplicationId = applicationId;
             entity.ParentId = parentLogId;
             entity.BatchName = batchName;
@@ -271,7 +268,7 @@ namespace Foundation.BusinessProcess
 
             ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, DateTimeService, exception);
 
-            IEventLog entity = Core.Container.Get<IEventLog>();
+            IEventLog entity = Core.IoC.Get<IEventLog>();
             entity.ApplicationId = applicationId;
             entity.ParentId = parentLogId;
             entity.LogSeverityId = new EntityId(logSeverity.Id());

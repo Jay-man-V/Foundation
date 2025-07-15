@@ -62,7 +62,7 @@ namespace Foundation.Core
         /// <inheritdoc cref="ICore.IoC"/>
         public IIoC IoC => TheIoC;
 
-        /// <inheritdoc cref="ICore.TheInstance"/>
+        /// <inheritdoc cref="ICore.Instance"/>
         public ICore? Instance => TheInstance;
 
         /// <inheritdoc cref="ICore.CurrentLoggedOnUser"/>
