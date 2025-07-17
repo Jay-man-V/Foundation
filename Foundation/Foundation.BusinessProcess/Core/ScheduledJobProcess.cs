@@ -435,7 +435,7 @@ namespace Foundation.BusinessProcess
                 throw new InvalidOperationException("No scheduled jobs available");
             }
 
-            if (ScheduledTimers.TryGetValue(scheduledJob.Name, out ServerProcessTimer _))
+            if (ScheduledTimers.TryGetValue(scheduledJob.Name, out ServerProcessTimer? _))
             {
                 const Boolean isFinished = true;
                 EntityId scheduledJobId = scheduledJob.Id;

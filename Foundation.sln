@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerContact.Client", "Applications\Customer Contact\CustomerContact.Client\CustomerContact.Client.csproj", "{827141F8-8ED0-7931-DCF6-D0D1A66E05C8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. Solution Items", "0. Solution Items", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		FoundationAssemblyInfo.cs = FoundationAssemblyInfo.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. Database", "0. Database", "{184E8DB3-D735-4096-96AA-6068DE23C82F}"
 EndProject
@@ -30,6 +33,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.Services.Application", "Foundation\Foundation.Services.Application\Foundation.Services.Application.csproj", "{09443194-A7BB-4B4E-ADF8-1EA72A9BD888}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.BusinessProcess", "Foundation\Foundation.BusinessProcess\Foundation.BusinessProcess.csproj", "{76CD2396-B847-4EA4-B11D-E99998CA68AE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. System & Unit Tests", "4. System & Unit Tests", "{0F75674C-8A76-43AB-A4C9-A8BCA7985A33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.Tests.System", "Foundation\Foundation.Tests.System\Foundation.Tests.System.csproj", "{387907F0-9D99-0993-B664-FAFAB74B43E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.Tests.Unit", "Foundation\Foundation.Tests.Unit\Foundation.Tests.Unit.csproj", "{7D9EF13B-B9D0-9E42-1818-74D3B15AC153}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.Tests.Views", "Foundation\Foundation.Tests.Views\Foundation.Tests.Views.csproj", "{CCE22C47-7225-EAE0-5E3B-D3F7CC014FEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,12 +84,27 @@ Global
 		{76CD2396-B847-4EA4-B11D-E99998CA68AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76CD2396-B847-4EA4-B11D-E99998CA68AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76CD2396-B847-4EA4-B11D-E99998CA68AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{387907F0-9D99-0993-B664-FAFAB74B43E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{387907F0-9D99-0993-B664-FAFAB74B43E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{387907F0-9D99-0993-B664-FAFAB74B43E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{387907F0-9D99-0993-B664-FAFAB74B43E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D9EF13B-B9D0-9E42-1818-74D3B15AC153}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D9EF13B-B9D0-9E42-1818-74D3B15AC153}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D9EF13B-B9D0-9E42-1818-74D3B15AC153}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D9EF13B-B9D0-9E42-1818-74D3B15AC153}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCE22C47-7225-EAE0-5E3B-D3F7CC014FEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCE22C47-7225-EAE0-5E3B-D3F7CC014FEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCE22C47-7225-EAE0-5E3B-D3F7CC014FEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCE22C47-7225-EAE0-5E3B-D3F7CC014FEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{827141F8-8ED0-7931-DCF6-D0D1A66E05C8} = {9AE03974-FC94-423B-95C5-404A685E383D}
+		{387907F0-9D99-0993-B664-FAFAB74B43E5} = {0F75674C-8A76-43AB-A4C9-A8BCA7985A33}
+		{7D9EF13B-B9D0-9E42-1818-74D3B15AC153} = {0F75674C-8A76-43AB-A4C9-A8BCA7985A33}
+		{CCE22C47-7225-EAE0-5E3B-D3F7CC014FEE} = {0F75674C-8A76-43AB-A4C9-A8BCA7985A33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0A3FAD53-E068-46CB-B0A9-2805E076396B}
