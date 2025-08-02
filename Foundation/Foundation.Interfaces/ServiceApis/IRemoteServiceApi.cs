@@ -32,7 +32,7 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="fileTransferSettings"></param>
         /// <returns></returns>
-        Stream DownloadFile(IFileTransferSettings fileTransferSettings);
+        Stream? DownloadFile(IFileTransferSettings fileTransferSettings);
 
         /// <summary>
         /// Downloads the file from the supplied <paramref name="fileTransferSettings"/> and returns it as a <see cref="Stream"/>

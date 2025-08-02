@@ -1,0 +1,33 @@
+﻿User logon: GANYMEDE\jayes
+Error occurred on: 15-Oct-2023 12:13:50
+Culture/UI Culture: en-GB/en-GB
+Current Thread - Culture/UI Culture: en-GB/en-GB
+Calling assembly: Foundation.Tests.Unit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Assembly location: D:\Projects\JDVSoftware\TestResults\Deploy_jayes 20231015T131346\Out\Foundation.Tests.Unit.dll
+Executing assembly: Foundation.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Assembly location: D:\Projects\JDVSoftware\TestResults\Deploy_jayes 20231015T131346\Out\Foundation.Common.dll
+Environment.CurrentDirectory: D:\Projects\JDVSoftware\TestResults\Deploy_jayes 20231015T131346\Out
+Directory.GetCurrentDirectory: D:\Projects\JDVSoftware\TestResults\Deploy_jayes 20231015T131346\Out
+
+Error message: Something has broken.
+Error source: Foundation.Tests.Unit
+Server name: GANYMEDE
+Error Detail:
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Error message: Something has broken.
+Error source: Foundation.Tests.Unit
+Exception type: System.Exception
+Method source: Void NestedExceptionThirdMethod(Boolean)
+Assembly name: Foundation.Tests.Unit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Assembly location: D:\Projects\JDVSoftware\TestResults\Deploy_jayes 20231015T131346\Out\Foundation.Tests.Unit.dll
+Assembly build: Debug MSIL
+Assembly target framework: .NET Framework 4.8 - .NETFramework,Version=v4.8
+Assembly Version: 1.0.0.0
+Assembly File Version: 01.0.0.0
+Assembly Configuration: Debug
+Help link: 
+Stack trace
+   at Foundation.Tests.Unit.Foundation.Common.LoggingTests.Common.NestedExceptionThirdMethod(Boolean throwAsNew) in D:\Projects\JDVSoftware\Foundation.Net\Foundation.Tests.Unit\Foundation.Common\LoggingTests\Common.cs:line 68
+   at Foundation.Tests.Unit.Foundation.Common.LoggingTests.Common.NestedExceptionSecondMethod(Boolean throwAsNew) in D:\Projects\JDVSoftware\Foundation.Net\Foundation.Tests.Unit\Foundation.Common\LoggingTests\Common.cs:line 49
+   at Foundation.Tests.Unit.Foundation.Common.LoggingTests.Common.NestedExceptionFirstMethod(Boolean throwAsNew) in D:\Projects\JDVSoftware\Foundation.Net\Foundation.Tests.Unit\Foundation.Common\LoggingTests\Common.cs:line 30
+   at Foundation.Tests.Unit.Foundation.Common.LoggingTests.FormattingTests.ExceptionOutputTests.TestNestedException_ThrowOriginal() in D:\Projects\JDVSoftware\Foundation.Net\Foundation.Tests.Unit\Foundation.Common\LoggingTests\FormattingTests\ExceptionOutputTests.cs:line 120

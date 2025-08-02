@@ -1,0 +1,94 @@
+﻿<UserControl
+    x:Class="Foundation.Views.GenericDataGridView"
+    x:Name="ThisWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    mc:Ignorable="d"
+
+    xmlns:controls="clr-namespace:Foundation.Views"
+    xmlns:behaviors="clr-namespace:Foundation.Views"
+
+    d:DesignHeight="300"
+    d:DesignWidth="600"
+>
+    <controls:GridViewControl
+        x:Name="GridViewControl"
+        RefreshCommand="{Binding RefreshCommand}" RefreshButtonVisibility="{Binding RefreshButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" RefreshButtonEnabled="{Binding RefreshCommandEnabled}"
+        ViewCommand="{Binding ViewRecordCommand}" ViewButtonVisibility="{Binding ViewButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" ViewButtonEnabled="{Binding ViewRecordCommandEnabled}"
+        AddCommand="{Binding AddRecordCommand}" AddButtonVisibility="{Binding AddButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" AddButtonEnabled="{Binding AddRecordCommandEnabled}"
+        EditCommand="{Binding EditRecordCommand}" EditButtonVisibility="{Binding EditButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" EditButtonEnabled="{Binding EditRecordCommandEnabled}"
+        DeleteCommand="{Binding DeleteRecordCommand}" DeleteButtonVisibility="{Binding DeleteButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" DeleteButtonEnabled="{Binding DeleteRecordCommandEnabled}"
+        SelectedItem="{Binding SelectedItem}"
+        SelectedItemChangedCommand="{Binding SelectedGridItemChangedCommand}"
+        StatusBarText="{Binding StatusBarText}"
+        GridColumns="{Binding DataGridColumns}"
+        DataSource="{Binding GridDataSource}"
+        ExportGridToCsvCommand="{Binding ExportGridToCsvCommand}"
+        ExportGridToExcelCommand="{Binding ExportGridToExcelCommand}"
+    >
+        <controls:GridViewControl.CustomToolbar>
+            <ToolBar Visibility="{Binding ActionsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <controls:ButtonControl Content="{Binding Action1Name}" Visibility="{Binding HasOptionalAction1, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding Action1Command}" />
+                <controls:ButtonControl Content="{Binding Action2Name}" Visibility="{Binding HasOptionalAction2, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding Action2Command}" />
+                <controls:ButtonControl Content="{Binding Action3Name}" Visibility="{Binding HasOptionalAction3, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding Action3Command}" />
+                <controls:ButtonControl Content="{Binding Action4Name}" Visibility="{Binding HasOptionalAction4, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding Action4Command}" />
+            </ToolBar>
+        </controls:GridViewControl.CustomToolbar>
+        <controls:GridViewControl.Filter>
+            <ToolBarTray IsLocked="True" Visibility="{Binding FiltersVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <ToolBar>
+                    <controls:LabelControl Content="{Binding Filter1Name}" Visibility="{Binding HasOptionalDropDownParameter1, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <controls:ComboBoxControl
+                        Visibility="{Binding HasOptionalDropDownParameter1, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Width="120"
+                        VerticalAlignment="Center"
+                        SelectedItemChangedCommand="{Binding Filter1SelectionChangedCommand}"
+                        ItemsSource="{Binding Filter1DataSource}"
+                        DisplayMemberPath="{Binding Filter1DisplayMemberPath}"
+                        SelectedValuePath="{Binding Filter1SelectedValuePath}"
+                        SelectedItem="{Binding Filter1SelectedItem}"
+                        behaviors:ComboBoxWidthFromItemsBehaviour.ComboBoxWidthFromItems="True"
+                    />
+                    <controls:LabelControl Content="{Binding Filter2Name}" Visibility="{Binding HasOptionalDropDownParameter2, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <controls:ComboBoxControl
+                        Visibility="{Binding HasOptionalDropDownParameter2, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Width="120"
+                        VerticalAlignment="Center"
+                        SelectedItemChangedCommand="{Binding Filter2SelectionChangedCommand}"
+                        ItemsSource="{Binding Filter2DataSource}"
+                        DisplayMemberPath="{Binding Filter2DisplayMemberPath}"
+                        SelectedValuePath="{Binding Filter2SelectedValuePath}"
+                        SelectedItem="{Binding Filter2SelectedItem}"
+                        behaviors:ComboBoxWidthFromItemsBehaviour.ComboBoxWidthFromItems="True"
+                    />
+                    <controls:LabelControl Content="{Binding Filter3Name}" Visibility="{Binding HasOptionalDropDownParameter3, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <controls:ComboBoxControl
+                        Visibility="{Binding HasOptionalDropDownParameter3, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Width="120"
+                        VerticalAlignment="Center"
+                        SelectedItemChangedCommand="{Binding Filter3SelectionChangedCommand}"
+                        ItemsSource="{Binding Filter3DataSource}"
+                        DisplayMemberPath="{Binding Filter3DisplayMemberPath}"
+                        SelectedValuePath="{Binding Filter3SelectedValuePath}"
+                        SelectedItem="{Binding Filter3SelectedItem}"
+                        behaviors:ComboBoxWidthFromItemsBehaviour.ComboBoxWidthFromItems="True"
+                    />
+                    <controls:LabelControl Content="{Binding Filter4Name}" Visibility="{Binding HasOptionalDropDownParameter4, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <controls:ComboBoxControl
+                        Visibility="{Binding HasOptionalDropDownParameter4, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Width="120"
+                        VerticalAlignment="Center"
+                        SelectedItemChangedCommand="{Binding Filter4SelectionChangedCommand}"
+                        ItemsSource="{Binding Filter4DataSource}"
+                        DisplayMemberPath="{Binding Filter4DisplayMemberPath}"
+                        SelectedValuePath="{Binding Filter4SelectedValuePath}"
+                        SelectedItem="{Binding Filter4SelectedItem}"
+                        behaviors:ComboBoxWidthFromItemsBehaviour.ComboBoxWidthFromItems="True"
+                    />
+                </ToolBar>
+            </ToolBarTray>
+        </controls:GridViewControl.Filter>
+    </controls:GridViewControl>
+</UserControl>

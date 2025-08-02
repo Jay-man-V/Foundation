@@ -4,8 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
 namespace Foundation.Resources
 {
     /// <summary>

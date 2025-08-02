@@ -1,0 +1,31 @@
+{
+  "BooleanValue": true,
+  "TimeSpanValue": "1.02:03:04",
+  "DateTimeValue": "2025-04-05T18:12:14.123",
+  "GuidValue": "88701824-8375-4c0c-9d79-ceb5d3fc040d",
+  "CharValue": "Z",
+  "StringValue": "{88701824-8375-4C0C-9D79-CEB5D3FC040D}",
+  "Int16Value": 32767,
+  "UInt16Value": 65535,
+  "Int32Value": 2147483647,
+  "UInt32Value": 4294967295,
+  "Int64Value": 9223372036854775807,
+  "UInt64Value": 18446744073709551615,
+  "DecimalValue": 79228162514264337593543950335.0,
+  "DoubleValue": 1.7976931348623157E+308,
+  "SingleValue": 3.40282347E+38,
+  "ByteValue": 255,
+  "SByteValue": 127,
+  "StringList": [
+    "One",
+    "Two",
+    "Three",
+    "Four"
+  ],
+  "Int32List": [
+    1,
+    2,
+    3,
+    4
+  ]
+}

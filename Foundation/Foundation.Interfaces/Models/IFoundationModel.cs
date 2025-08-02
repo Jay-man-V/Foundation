@@ -24,7 +24,7 @@ namespace Foundation.Interfaces
         /// <value>
         /// The timestamp.
         /// </value>
-        Byte[] Timestamp { get; set; }
+        Byte[]? Timestamp { get; set; }
 
         /// <summary>
         /// Gets or sets the status.
@@ -80,7 +80,7 @@ namespace Foundation.Interfaces
         /// <value>
         /// Valid from date.
         /// </value>
-        DateTime ValidFrom { get; set; }
+        DateTime? ValidFrom { get; set; }
 
         /// <summary>
         /// Gets or sets valid to date.
@@ -88,7 +88,7 @@ namespace Foundation.Interfaces
         /// <value>
         /// Valid to date.
         /// </value>
-        DateTime ValidTo { get; set; }
+        DateTime? ValidTo { get; set; }
 
         /// <summary>
         /// Gets the property value

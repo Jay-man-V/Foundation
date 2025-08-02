@@ -1,6 +1,14 @@
-﻿using System.Runtime.InteropServices;
+﻿//-----------------------------------------------------------------------
+// <copyright file="MainWindow.xaml.cs" company="JDV Software Ltd">
+//     Copyright (c) JDV Software Ltd. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
+
+using Foundation.Interfaces;
 
 namespace Foundation.Views
 {
@@ -10,7 +18,8 @@ namespace Foundation.Views
     /// <remarks>
     /// Reference site: https://engy.us/blog/2020/01/01/implementing-a-custom-window-title-bar-in-wpf/
     /// </remarks>
-    public partial class MainWindow : Window
+    [DependencyInjectionTransient]
+    public partial class MainWindow : Window, IMainWindow
     {
         public MainWindow()
         {

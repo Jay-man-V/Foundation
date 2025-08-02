@@ -1,12 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-    <ImplicitUsings>enable</ImplicitUsings>
-      <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />

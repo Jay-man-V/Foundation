@@ -1,0 +1,35 @@
+{
+    "england-and-wales": {
+        "division": "england-and-wales",
+        "events": [
+            {
+                "title": "England and Wales - New Year’s Day",
+                "date": "2018-01-01",
+                "notes": "",
+                "bunting": true
+            }
+        ]
+    },
+    "northern-ireland": {
+        "division": "northern-ireland",
+        "events": [
+            {
+                "title": "Northern Ireland - New Year’s Day",
+                "date": "2018-01-01",
+                "notes": "",
+                "bunting": true
+            }
+        ]
+    },
+    "scotland": {
+        "division": "scotland",
+        "events": [
+            {
+                "title": "Scotland - New Year’s Day",
+                "date": "2018-01-01",
+                "notes": "",
+                "bunting": true
+            }
+        ]
+    }
+}

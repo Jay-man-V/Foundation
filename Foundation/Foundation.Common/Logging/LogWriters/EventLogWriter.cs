@@ -4,7 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Diagnostics;
 using System.Security;
 using System.Security.Principal;

@@ -4,10 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Foundation.Common
 {
@@ -25,7 +22,7 @@ namespace Foundation.Common
         /// <returns>
         ///   <c>true</c> if the specified value has members; otherwise, <c>false</c>.
         /// </returns>
-        public static Boolean HasItems<TValue>(this IList<TValue> val)
+        public static Boolean HasItems<TValue>(this IList<TValue>? val)
         {
             return (val != null && val.Any());
         }
@@ -39,7 +36,7 @@ namespace Foundation.Common
         /// <returns>
         ///   <c>true</c> if the specified value has members; otherwise, <c>false</c>.
         /// </returns>
-        public static Boolean HasItems<TValue>(this IList<TValue> val, Func<TValue, Boolean> predicate)
+        public static Boolean HasItems<TValue>(this IList<TValue>? val, Func<TValue, Boolean> predicate)
         {
             return val != null && val.Any(predicate);
         }
@@ -52,7 +49,7 @@ namespace Foundation.Common
         /// <returns>
         ///   <c>false</c> if the specified value has members; otherwise, <c>true</c>.
         /// </returns>
-        public static Boolean None<TValue>(this IList<TValue> val)
+        public static Boolean None<TValue>(this IList<TValue>? val)
         {
             return val == null || !val.Any();
         }
@@ -66,7 +63,7 @@ namespace Foundation.Common
         /// <returns>
         ///   <c>false</c> if the specified value has members; otherwise, <c>true</c>.
         /// </returns>
-        public static Boolean None<TValue>(this IList<TValue> val, Func<TValue, Boolean> predicate)
+        public static Boolean None<TValue>(this IList<TValue>? val, Func<TValue, Boolean> predicate)
         {
             return val == null || !val.Any(predicate);
         }

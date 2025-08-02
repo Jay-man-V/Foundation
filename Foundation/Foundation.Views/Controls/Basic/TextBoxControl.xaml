@@ -1,0 +1,64 @@
+﻿<TextBox
+    x:Class="Foundation.Views.TextBoxControl"
+    Name="ThisControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    mc:Ignorable="d"
+
+    HorizontalAlignment="{Binding ElementName=ThisControl, Path=HorizontalAlignment}"
+    VerticalAlignment="{Binding ElementName=ThisControl, Path=VerticalAlignment}"
+    VerticalContentAlignment="Top"
+    >
+
+    <TextBox.Resources>
+        <SolidColorBrush x:Key="GotFocusBackgroundKey" Color="Gold" />
+        <SolidColorBrush x:Key="GotFocusForegroundKey" Color="{DynamicResource {x:Static SystemColors.ControlTextColorKey}}" />
+
+        <SolidColorBrush x:Key="LostFocusBackgroundKey" Color="{DynamicResource {x:Static SystemColors.WindowColorKey}}" />
+        <SolidColorBrush x:Key="LostFocusForegroundKey" Color="{DynamicResource {x:Static SystemColors.ControlTextColorKey}}" />
+
+        <SolidColorBrush x:Key="ReadOnlyBackgroundKey" Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" />
+        <SolidColorBrush x:Key="ReadOnlyForegroundKey" Color="{DynamicResource {x:Static SystemColors.ControlTextColorKey}}" />
+    </TextBox.Resources>
+
+    <TextBox.Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=ThisControl, Path=IsReadOnly}" Value="True">
+                    <Setter Property="IsReadOnlyCaretVisible" Value="True" />
+                </DataTrigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsFocused" Value="True" />
+                        <Condition Property="IsReadOnly" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="Background" Value="{DynamicResource GotFocusBackgroundKey}" />
+                        <Setter Property="Foreground" Value="{DynamicResource GotFocusForegroundKey}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsFocused" Value="False" />
+                        <Condition Property="IsReadOnly" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="Background" Value="{DynamicResource LostFocusBackgroundKey}" />
+                        <Setter Property="Foreground" Value="{DynamicResource LostFocusForegroundKey}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsReadOnly" Value="true" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="Background" Value="{DynamicResource ReadOnlyBackgroundKey}" />
+                        <Setter Property="Foreground" Value="{DynamicResource ReadOnlyForegroundKey}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+    </TextBox.Style>
+</TextBox>

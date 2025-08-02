@@ -131,11 +131,11 @@ namespace Foundation.Models
 
         /// <inheritdoc cref="IFoundationModel.ValidFrom"/>
         [Column(nameof(FDC.FoundationEntity.ValidFrom))]
-        public DateTime ValidFrom { get; set; }
+        public DateTime? ValidFrom { get; set; }
 
         /// <inheritdoc cref="IFoundationModel.ValidTo"/>
         [Column(nameof(FDC.FoundationEntity.ValidTo))]
-        public DateTime ValidTo { get; set; }
+        public DateTime? ValidTo { get; set; }
 
         /// <inheritdoc cref="IFoundationModel.GetPropertyValue(String)"/>
         public virtual Object? GetPropertyValue(String propertyName)

@@ -13,8 +13,10 @@ namespace Foundation.Core
     {
         private static IIoC TheIoC { get; } = new IoC();
         private static AppId TheApplicationId { get; set; }
-        private static ICore? TheInstance { get; set; }
         private static ICurrentLoggedOnUser? TheCurrentLoggedOnUser { get; set; }
+
+        /// <inheritdoc cref="ICore.Instance"/>
+        public static ICore? TheInstance { get; set; }
 
         /// <summary>
         /// Initialises the Core service by:
@@ -38,15 +40,14 @@ namespace Foundation.Core
                 runTimeEnvironmentSettings ??= TheInstance.IoC.Get<IRunTimeEnvironmentSettings>();
                 userProfileProcess ??= TheInstance.IoC.Get<IUserProfileProcess>();
 
-                // TODO: Complete when the Business Processes are set up/migrated
-                //IUserProfile userProfile = userProfileProcess.GetLoggedOnUserProfile(applicationId);
+                IUserProfile userProfile = userProfileProcess.GetLoggedOnUserProfile(applicationId);
 
-                //if (userProfile == null)
-                //{
-                //    throw new UserLogonException(runTimeEnvironmentSettings.UserLogonName);
-                //}
+                if (userProfile == null)
+                {
+                    throw new UserLogonException(runTimeEnvironmentSettings.UserLogonName);
+                }
 
-                //_currentLoggedOnUser = new CurrentLoggedOnUser(userProfile);
+                TheCurrentLoggedOnUser = new CurrentLoggedOnUser(userProfile);
 
                 // Create instances of all classes implementing the IApplicationStartup interface
                 List<IApplicationStartup> applicationStartups = TheInstance.IoC.GetAll<IApplicationStartup>().ToList();

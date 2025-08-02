@@ -24,7 +24,7 @@ namespace Foundation.Interfaces
         /// <summary>
         /// The Parent View Model
         /// </summary>
-        IViewModel ParentViewModel { get; }
+        IViewModel? ParentViewModel { get; }
 
         /// <summary>
         /// Generic property to hold parameters for the View Model
@@ -35,6 +35,6 @@ namespace Foundation.Interfaces
         /// Initialises the View Model
         /// </summary>
 //        void Initialise();
-        void Initialise(IWindow targetWindow, IViewModel parentViewModel, String formTitle);
+        void Initialise(IWindow targetWindow, IViewModel? parentViewModel, String formTitle);
     }
 }

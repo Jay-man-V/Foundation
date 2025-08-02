@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Include="..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
+      <ProjectReference Include="..\Foundation.Resources\Foundation.Resources.csproj" />
+    </ItemGroup>
+
+</Project>

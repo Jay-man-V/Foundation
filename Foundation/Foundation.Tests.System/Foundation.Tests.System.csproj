@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <PropertyGroup>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
 
-    <IsPackable>false</IsPackable>
-    <IsTestProject>true</IsTestProject>
-      <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup>
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
@@ -26,6 +26,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="NUnit3TestAdapter" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Foundation.Tests.Unit\Foundation.Tests.Unit.csproj" />
   </ItemGroup>
 
   <ItemGroup>

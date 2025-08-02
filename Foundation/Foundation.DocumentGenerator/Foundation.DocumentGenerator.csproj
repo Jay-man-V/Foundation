@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Include="..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="DocumentFormat.OpenXml" Version="3.3.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Foundation.Common\Foundation.Common.csproj" />
+        <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
+    </ItemGroup>
+
+</Project>

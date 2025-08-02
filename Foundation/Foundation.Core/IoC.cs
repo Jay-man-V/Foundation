@@ -99,7 +99,7 @@ namespace Foundation.Core
             return retVal;
         }
 
-        /// <inheritdoc cref="IIoC.Get{TService}(String, String, Object[]?)"/>
+        /// <inheritdoc cref="IIoC.Get{TService}(String, String, Object[])"/>
         public TService Get<TService>(String assemblyName, String typeName, params Object[]? args) where TService : class
         {
             List<Assembly> loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().OrderBy(a => a.FullName).ToList();

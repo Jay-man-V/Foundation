@@ -8,7 +8,6 @@ using System.Windows;
 
 using Foundation.Core;
 using Foundation.Interfaces;
-using Foundation.Views;
 
 namespace CustomerContact.Client
 {
@@ -17,11 +16,6 @@ namespace CustomerContact.Client
     /// </summary>
     public partial class App : Application
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private MainWindow? TheMainWindow { get; set; }
-
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -30,12 +24,22 @@ namespace CustomerContact.Client
 
             IApplication? application = coreInstance.IoC.Get<IApplication>();
 
-            TheMainWindow = new();
+            IMainWindow theMainWindow = coreInstance.IoC.Get<IMainWindow>();
 
-            this.MainWindow = TheMainWindow;
+            IMainWindowViewModel viewModel = coreInstance.IoC.Get<IMainWindowViewModel>();
+            viewModel.Initialise(theMainWindow, null, "This shit");
+
+            theMainWindow.DataContext = viewModel;
+
+            this.MainWindow = (Window)theMainWindow;
             this.MainWindow.Show();
+        }
 
-            //host.Run();
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+
+            e.ApplicationExitCode = 0;
         }
     }
 }

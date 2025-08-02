@@ -23,15 +23,16 @@ namespace Foundation.Common
         /// <param name="dateTimeService">The date/time service.</param>
         /// <param name="requestedLogLevel">The requested log level.</param>
         /// <param name="messagePrefix">The message prefix.</param>
-        internal LoggingBase(IRunTimeEnvironmentSettings runTimeEnvironmentSettings, IDateTimeService dateTimeService, TraceLevel requestedLogLevel, String messagePrefix)
+        internal LoggingBase
+        (
+            IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
+            IDateTimeService dateTimeService,
+            TraceLevel requestedLogLevel,
+            String messagePrefix
+        )
         {
             RunTimeEnvironmentSettings = runTimeEnvironmentSettings;
             DateTimeService = dateTimeService;
-
-            if (TraceSwitch == null)
-            {
-                TraceSwitch = new("TraceLevelSwitch", String.Empty);
-            }
 
             RequestedLogLevel = requestedLogLevel;
             MessagePrefix = messagePrefix;
@@ -62,7 +63,7 @@ namespace Foundation.Common
         /// </system.diagnostics>
         /// </code>
         /// </example>
-        public static TraceSwitch TraceSwitch { get; private set; } = new ("TraceLevelSwitch", String.Empty);
+        public static TraceSwitch TraceSwitch { get; } = new("TraceLevelSwitch", String.Empty);
 
         /// <summary>
         /// Gets the requested log level.
@@ -139,7 +140,7 @@ namespace Foundation.Common
         /// <param name="contextInfo">The context information.</param>
         /// <param name="messageToLog">The message to log.</param>
         /// <param name="args">The arguments.</param>
-        public void LogMessage(ContextInformation contextInfo, String messageToLog, params Object[] args)
+        public void LogMessage(ContextInformation contextInfo, String messageToLog, params Object[]? args)
         {
             if (TraceSwitch.Level >= RequestedLogLevel)
             {

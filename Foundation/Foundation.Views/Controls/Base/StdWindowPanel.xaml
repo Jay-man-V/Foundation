@@ -1,0 +1,94 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:local="clr-namespace:Foundation.Views"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+>
+
+    <Style TargetType="{x:Type local:StdWindowPanel}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:StdWindowPanel}">
+                    <DockPanel LastChildFill="True">
+                        <DockPanel.Resources>
+                            <BooleanToVisibilityConverter x:Key="BoolToVis" />
+                            <Style x:Key="LineStyle" TargetType="Line">
+                                <Setter Property="Stroke" Value="Red" />
+                                <Setter Property="Stretch" Value="Fill" />
+                                <Setter Property="Grid.ZIndex" Value="100" />
+                                <!--<Setter Property="StrokeDashArray" Value="1" />-->
+                            </Style>
+
+                            <Style x:Key="HorizontalLineStyle" TargetType="Line" BasedOn="{StaticResource LineStyle}">
+                                <Setter Property="X2" Value="100" />
+                                <Setter Property="StrokeThickness" Value="1" />
+                                <Setter Property="VerticalAlignment" Value="Bottom" />
+                                <Setter Property="Grid.ColumnSpan" Value="{Binding Path=ColumnDefinitions.Count, RelativeSource={RelativeSource AncestorType=Grid}}" />
+                            </Style>
+
+                            <Style x:Key="VerticalLineStyle" TargetType="Line" BasedOn="{StaticResource LineStyle}">
+                                <Setter Property="Y2" Value="3" />
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                <Setter Property="Grid.RowSpan" Value="{Binding Path=RowDefinitions.Count, RelativeSource={RelativeSource AncestorType=Grid}}" />
+                            </Style>
+                        </DockPanel.Resources>
+
+                        <local:ScreenTitleControl
+                            DockPanel.Dock="Top"
+                            ScreenName="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:StdWindowPanel}}}"
+                            ScreenInstructions="{Binding Instructions, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:StdWindowPanel}}}"
+                            MessageBoxImage="{Binding MessageBoxImage, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:StdWindowPanel}}}"
+                            Visibility="{Binding Path=ScreenTitleControlVisible, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:StdWindowPanel}}, Converter={StaticResource BoolToVis}}"
+                        />
+
+                        <Border
+                            x:Name="toolBarControl"
+                            DockPanel.Dock="Top"
+                            BorderBrush="Black"
+                            BorderThickness="0,0,0,1"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Visibility="{Binding Path=ToolbarVisible, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:StdWindowPanel}}, Converter={StaticResource BoolToVis}}"
+                        >
+                            <ContentControl
+                                Content="{Binding ToolBar, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:StdWindowPanel}}}"
+                                />
+                        </Border>
+
+                        <Border
+                            x:Name="filterControl"
+                            DockPanel.Dock="Top"
+                            BorderBrush="Black"
+                            BorderThickness="0,0,0,0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Visibility="{Binding Path=FilterVisible, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:StdWindowPanel}}, Converter={StaticResource BoolToVis}}"
+                        >
+                            <ContentControl
+                                Content="{Binding Filter, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:StdWindowPanel}}}"
+                                />
+                        </Border>
+
+                        <Border
+                            x:Name="statusBarControl"
+                            DockPanel.Dock="Bottom"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Visibility="{Binding Path=StatusBarVisible, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:StdWindowPanel}}, Converter={StaticResource BoolToVis}}"
+                        >
+                            <ContentControl Content="{Binding StatusBar, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:StdWindowPanel}}}" />
+                        </Border>
+
+                        <Border
+                            x:Name="workspaceControl"
+                        >
+                            <ContentControl
+                                Content="{Binding Workspace, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:StdWindowPanel}}}"
+                            />
+                        </Border>
+
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

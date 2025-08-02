@@ -1,0 +1,73 @@
+﻿<TreeView
+    x:Class="Foundation.Views.TreeViewControl"
+    Name="ThisControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+    mc:Ignorable="d"
+    
+    xmlns:foundation="clr-namespace:Foundation.Interfaces;assembly=Foundation.Interfaces"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+
+    HorizontalAlignment="{Binding ElementName=ThisControl, Path=HorizontalAlignment}"
+    VerticalAlignment="{Binding ElementName=ThisControl, Path=VerticalAlignment}"
+    d:DesignHeight="150" d:DesignWidth="150"
+    >
+
+    <TreeView.ItemContainerStyle>
+        <Style TargetType="{x:Type TreeViewItem}">
+            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="FontWeight" Value="Bold" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </TreeView.ItemContainerStyle>
+
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="SelectedItemChanged">
+            <b:InvokeCommandAction
+                Command="{Binding TreeViewSelectedItemChanged}"
+                CommandParameter="{Binding ElementName=ThisControl, Path=SelectedItem}"/>
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
+
+    <TreeView.Resources>
+        <HierarchicalDataTemplate
+            DataType="{x:Type foundation:IMenuItem}"
+            ItemsSource="{Binding MenuItems}"
+            >
+            <!--<HierarchicalDataTemplate.Resources>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HelpText}" Value="{x:Static sys:String.Empty}">
+                                <Setter Property="ToolTip" Value="{Binding Caption}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding HelpText}" Value="{x:Null}">
+                                <Setter Property="ToolTip" Value="{Binding Caption}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </HierarchicalDataTemplate.Resources>-->
+            <TextBlock x:Name="displayItem" Text="{Binding Caption}" ToolTip="{Binding HelpText}">
+                <TextBlock.InputBindings>
+                    <MouseBinding
+                        MouseAction="LeftClick"
+                        Command="{Binding ElementName=ThisControl, Path=LeftClickCommand}"
+                        CommandParameter="{Binding .}" />
+                    <!--ElementName=thisControl, Path=LeftClickCommandParameter-->
+                    <MouseBinding
+                        MouseAction="RightClick"
+                        Command="{Binding ElementName=ThisControl, Path=RightClickCommand}"
+                        CommandParameter="{Binding .}" />
+                    <!--ElementName=thisControl, Path=RightClickCommandParameter-->
+                </TextBlock.InputBindings>
+            </TextBlock>
+        </HierarchicalDataTemplate>
+    </TreeView.Resources>
+</TreeView>

@@ -1,15 +1,25 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-      <TargetFramework>net8.0-windows</TargetFramework>
-      <Nullable>enable</Nullable>
-      <UseWPF>true</UseWPF>
-      <ImplicitUsings>enable</ImplicitUsings>
-      <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Include="..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Foundation.Common\Foundation.Common.csproj" />
+      <ProjectReference Include="..\Foundation.Core\Foundation.Core.csproj" />
+      <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
+    </ItemGroup>
 
 </Project>

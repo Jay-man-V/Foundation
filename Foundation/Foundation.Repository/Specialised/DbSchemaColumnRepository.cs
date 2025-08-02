@@ -1,0 +1,141 @@
+﻿//-----------------------------------------------------------------------
+// <copyright file="DatabaseSchemaColumnRepository.cs" company="JDV Software Ltd">
+//     Copyright (c) JDV Software Ltd. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+
+using System.Data;
+using System.Text;
+
+using Foundation.Common;
+using Foundation.DataAccess.Database;
+using Foundation.Interfaces;
+
+using FDC = Foundation.Common.DataColumns;
+
+namespace Foundation.Repository
+{
+    /// <summary>
+    /// Defines the Db Schema Column Data Access class
+    /// </summary>
+    /// <see cref="IDatabaseSchemaColumn" />
+    [DependencyInjectionTransient]
+    public class DatabaseSchemaColumnRepository : FoundationDataAccess, IDatabaseSchemaColumnRepository
+    {
+        /// <summary>
+        /// Gets the name of the entity.
+        /// </summary>
+        /// <value>
+        /// The name of the entity.
+        /// </value>
+        protected String EntityName => FDC.Specialised.DatabaseSchemaColumn.EntityName;
+
+        /// <summary>
+        /// Gets the name of the table.
+        /// </summary>
+        /// <value>
+        /// The name of the table.
+        /// </value>
+        protected String TableName => FDC.TableNames.Specialised.DbSchemaColumn;
+
+        /// <summary>
+        /// Initialises a new instance of the <see cref="DatabaseSchemaColumnRepository"/> class.
+        /// </summary>
+        /// <param name="core">The Foundation Core service.</param>
+        /// <param name="systemConfigurationService">The system configuration service.</param>
+        /// <param name="databaseProvider"></param>
+        public DatabaseSchemaColumnRepository
+        (
+            ICore core,
+            ISystemConfigurationService systemConfigurationService,
+            ISchemaDatabaseProvider databaseProvider
+        ) :
+            base
+            (
+                core,
+                systemConfigurationService,
+                databaseProvider
+            )
+        {
+            LoggingHelpers.TraceCallEnter(core, systemConfigurationService, databaseProvider);
+
+            // Does nothing
+
+            LoggingHelpers.TraceCallReturn();
+        }
+
+        /// <inheritdoc cref="IDatabaseSchemaColumnRepository.GetAllColumns(IDatabaseSchemaTable)"/>
+        public List<IDatabaseSchemaColumn> GetAllColumns(IDatabaseSchemaTable databaseSchemaTable)
+        {
+            LoggingHelpers.TraceCallEnter(databaseSchemaTable);
+
+            List<IDatabaseSchemaColumn> retVal = GetAllColumns(databaseSchemaTable.TableCatalog, databaseSchemaTable.TableSchema, databaseSchemaTable.TableName);
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDatabaseSchemaColumnRepository.GetAllColumns(String, String, String)"/>
+        public List<IDatabaseSchemaColumn> GetAllColumns(String tableCatalog, String tableSchema, String tableName)
+        {
+            LoggingHelpers.TraceCallEnter(tableCatalog, tableSchema, tableName);
+
+            List<IDatabaseSchemaColumn> retVal = new List<IDatabaseSchemaColumn>();
+
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine("SELECT");
+            sql.AppendLine("    *");
+            sql.AppendLine("FROM");
+            sql.AppendLine(TableName);
+            sql.AppendLine("WHERE");
+            sql.AppendLine($"    {FDC.Specialised.DatabaseSchemaColumn.TableCatalog} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.Specialised.DatabaseSchemaColumn.EntityName}{FDC.Specialised.DatabaseSchemaColumn.TableCatalog} AND");
+            sql.AppendLine($"    {FDC.Specialised.DatabaseSchemaColumn.TableSchema} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.Specialised.DatabaseSchemaColumn.EntityName}{FDC.Specialised.DatabaseSchemaColumn.TableSchema} AND");
+            sql.AppendLine($"    {FDC.Specialised.DatabaseSchemaColumn.TableName} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.Specialised.DatabaseSchemaColumn.EntityName}{FDC.Specialised.DatabaseSchemaColumn.TableName}");
+
+            DatabaseParameters databaseParameters = new DatabaseParameters
+            {
+                CreateParameter($"{FDC.Specialised.DatabaseSchemaColumn.EntityName}{FDC.Specialised.DatabaseSchemaColumn.TableCatalog}", tableCatalog),
+                CreateParameter($"{FDC.Specialised.DatabaseSchemaColumn.EntityName}{FDC.Specialised.DatabaseSchemaColumn.TableSchema}", tableSchema),
+                CreateParameter($"{FDC.Specialised.DatabaseSchemaColumn.EntityName}{FDC.Specialised.DatabaseSchemaColumn.TableName}", tableName),
+            };
+
+            using (IDataReader dataReader = ExecuteReader(sql.ToString(), CommandType.Text, databaseParameters))
+            {
+                while (dataReader.Read())
+                {
+                    IDatabaseSchemaColumn entity = PopulateEntity(dataReader);
+                    retVal.Add(entity);
+                }
+
+                dataReader.Close();
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Populates the entity.
+        /// </summary>
+        /// <param name="dataRecord">The data record.</param>
+        /// <returns></returns>
+        private IDatabaseSchemaColumn PopulateEntity(IDataRecord dataRecord)
+        {
+            LoggingHelpers.TraceCallEnter(dataRecord);
+
+            IDatabaseSchemaColumn retVal = Core.IoC.Get<IDatabaseSchemaColumn>();
+
+            retVal.TableName = Convert.ToString(dataRecord[FDC.Specialised.DatabaseSchemaColumn.TableName]);
+            retVal.ColumnName = Convert.ToString(dataRecord[FDC.Specialised.DatabaseSchemaColumn.ColumnName]);
+
+            String dbType = Convert.ToString(dataRecord[FDC.Specialised.DatabaseSchemaColumn.DataType]);
+            retVal.DataType = DataLogicProvider.MapDbTypeToDotNetType(dbType);
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+    }
+}

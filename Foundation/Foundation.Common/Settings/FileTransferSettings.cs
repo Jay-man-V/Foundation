@@ -4,8 +4,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Net;
+
+using Newtonsoft.Json;
 
 using Foundation.Interfaces;
 
@@ -24,5 +25,13 @@ namespace Foundation.Common
 
         /// <inheritdoc cref="IFileTransferSettings.Credentials"/>
         public ICredentials? Credentials { get; set; }
+
+        /// <inheritdoc cref="IFileTransferSettings.ToString()"/>
+        public override String ToString()
+        {
+            String retVal = JsonConvert.SerializeObject(this);
+
+            return retVal;
+        }
     }
 }

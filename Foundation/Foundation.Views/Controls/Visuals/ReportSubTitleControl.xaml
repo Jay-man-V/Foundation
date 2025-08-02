@@ -1,0 +1,95 @@
+﻿<UserControl
+    x:Class="Foundation.Views.ReportSubTitleControl"
+    Name="ThisControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+
+    mc:Ignorable="d"
+    d:DesignWidth="250"
+    >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <!-- Index -->
+            <ColumnDefinition Width="32" />
+            <!-- Title -->
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="DarkBlue">
+            <TextBlock
+                Foreground="White"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Text="{Binding Index, ElementName=ThisControl}"
+            />
+        </Border>
+
+        <!-- Title Text -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="1" />
+            </Grid.RowDefinitions>
+
+            <!-- Title Text and Comment -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="1"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Foreground="DarkBlue"
+                    VerticalAlignment="Bottom"
+                    Text="{Binding Title, ElementName=ThisControl}"
+                />
+
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Foreground="LightBlue"
+                    VerticalAlignment="Bottom"
+                    Text="{Binding SubTitle, ElementName=ThisControl}"
+                />
+
+                <!-- First line - under text only -->
+                <Grid
+                    Grid.Row="1" Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Rectangle>
+                        <Rectangle.Fill>
+                            <SolidColorBrush Color="DarkBlue" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
+            </Grid>
+
+            <Rectangle
+                Grid.Row="1">
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="LightBlue" />
+                </Rectangle.Fill>
+            </Rectangle>
+
+        </Grid>
+    </Grid>
+</UserControl>

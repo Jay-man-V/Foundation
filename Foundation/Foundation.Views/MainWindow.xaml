@@ -37,14 +37,15 @@
                 <TextBlock
                     Grid.Row="0"
 		            Grid.Column="0"
+                    HorizontalAlignment="Center"
 		            VerticalAlignment="Center"
 		            FontSize="14"
-		            Text="{Binding WindowTitle}">
+		            Text="{Binding FormTitle}">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
                             <Style.Triggers>
                                 <DataTrigger
-                                Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
+                                    Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
                                     <Setter Property="Foreground" Value="{DynamicResource WindowTitleBarInactiveText}" />
                                 </DataTrigger>
                             </Style.Triggers>

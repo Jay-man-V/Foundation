@@ -1,0 +1,51 @@
+﻿<UserControl
+    x:Class="Foundation.Views.UserDetailsPopupControl"
+    Name="ThisControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+
+    xmlns:controls="clr-namespace:Foundation.Views" 
+    mc:Ignorable="d" 
+
+    Background="{Binding ElementName=ThisControl, Path=Background}"
+
+    HorizontalAlignment="Left" VerticalAlignment="Top"
+    
+    Height="Auto" Width="200"
+    d:DesignWidth="200"
+>
+    <StackPanel
+        Name="MainDetails"
+    >
+        <controls:LabelControl
+            HorizontalAlignment="Right"
+            Content="Id" />
+        <controls:TextBoxControl IsReadOnly="True" VerticalContentAlignment="Center" Text="{Binding Data.Id, Mode=OneWay}" />
+
+        <controls:LabelControl HorizontalAlignment="Right" Content="Status" />
+        <controls:TextBoxControl
+            x:Name="StatusComboBox"
+            IsReadOnly="True"
+            VerticalContentAlignment="Center"
+            Text="{Binding EntityStatusName, Mode=OneWay}" 
+            />
+
+        <controls:LabelControl HorizontalAlignment="Right" Content="Created" />
+        <controls:TextBoxControl
+            x:Name="CreatedByComboBox"
+            IsReadOnly="True"
+            VerticalContentAlignment="Center"
+            Text="{Binding CreatedByUserProfileDisplayName, Mode=OneWay}"
+             />
+
+        <controls:LabelControl HorizontalAlignment="Right" Content="Last updated" />
+        <controls:TextBoxControl
+            x:Name="LastUpdatedByComboBox"
+            IsReadOnly="True"
+            VerticalContentAlignment="Center"
+            Text="{Binding LastUpdatedByUserProfileDisplayName, Mode=OneWay}"
+            />
+    </StackPanel>
+</UserControl>

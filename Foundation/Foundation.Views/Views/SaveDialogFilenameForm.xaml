@@ -1,0 +1,110 @@
+﻿<Window
+    x:Class="Foundation.Views.SaveDialogFilenameForm"
+    Name="ThisWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+
+    xmlns:controls="clr-namespace:Foundation.Views"
+    xmlns:common="clr-namespace:Foundation.Common;assembly=Foundation.Common"
+    xmlns:fEnums="clr-namespace:Foundation.Interfaces;assembly=Foundation.Interfaces"
+
+    mc:Ignorable="d"
+
+    ShowInTaskbar="False"
+    SizeToContent="Height"
+    WindowStyle="None"
+    ResizeMode="CanResizeWithGrip"
+    WindowStartupLocation="CenterOwner"
+    MinHeight="195" Height="250" MaxHeight="250"
+    MinWidth="350" Width="600" MaxWidth="900"
+    d:DesignHeight="195" d:DesignWidth="350"
+>
+
+    <Window.Style>
+        <Style TargetType="{x:Type Window}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding MessageBoxImage}" Value="{x:Static fEnums:MessageBoxImage.None}">
+                    <Setter Property="Background" Value="{StaticResource DefaultWindowTitleBrush}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageBoxImage}" Value="{x:Static fEnums:MessageBoxImage.Asterisk}">
+                    <Setter Property="Background" Value="{StaticResource ErrorWindowTitleBrush}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageBoxImage}" Value="{x:Static fEnums:MessageBoxImage.Error}">
+                    <Setter Property="Background" Value="{StaticResource ErrorWindowTitleBrush}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageBoxImage}" Value="{x:Static fEnums:MessageBoxImage.Exclamation}">
+                    <Setter Property="Background" Value="{StaticResource ErrorWindowTitleBrush}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageBoxImage}" Value="{x:Static fEnums:MessageBoxImage.Hand}">
+                    <Setter Property="Background" Value="{StaticResource ErrorWindowTitleBrush}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageBoxImage}" Value="{x:Static fEnums:MessageBoxImage.Information}">
+                    <Setter Property="Background" Value="{StaticResource DefaultWindowTitleBrush}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageBoxImage}" Value="{x:Static fEnums:MessageBoxImage.Question}">
+                    <Setter Property="Background" Value="{StaticResource QuestionWindowTitleBrush}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageBoxImage}" Value="{x:Static fEnums:MessageBoxImage.Stop}">
+                    <Setter Property="Background" Value="{StaticResource ErrorWindowTitleBrush}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageBoxImage}" Value="{x:Static fEnums:MessageBoxImage.Warning}">
+                    <Setter Property="Background" Value="{StaticResource WarningWindowTitleBrush}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
+
+    <controls:StdWindowPanel
+        Title="Save changes?"
+        Instructions="You have made changes to the data"
+        MessageBoxImage="Question"
+    >
+
+        <controls:StdWindowPanel.Workspace>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+
+                <controls:LabelControl
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Content="File name"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Margin="0"
+                    FontFamily="{DynamicResource DefaultFixedFontFamily}"
+                    FontSize="{DynamicResource SmallContentFontSize}"
+                />
+                <controls:TextBoxControl Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Margin="5, 0" />
+
+                <controls:LabelControl
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Content="Choose a location"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Margin="0"
+                    FontFamily="{DynamicResource DefaultFixedFontFamily}"
+                    FontSize="{DynamicResource SmallContentFontSize}"
+                />
+                <controls:ComboBoxControl Grid.Row="4" Grid.Column="0" HorizontalAlignment="Stretch" Margin="5, 0"/>
+
+                <ContentControl Grid.Row="5">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <controls:ButtonControl Content="_Save" Width="75" Height="25"  Margin="5, 0, 5, 0" />
+                        <controls:ButtonControl Content="_Cancel" Width="75" Height="25" Margin="5, 0, 5, 0" />
+                    </StackPanel>
+                </ContentControl>
+            </Grid>
+        </controls:StdWindowPanel.Workspace>
+    </controls:StdWindowPanel>
+
+</Window>

@@ -156,7 +156,7 @@ namespace Foundation.Interfaces
         /// <param name="parameterValue">The parameter value.</param>
         /// <param name="useNullForThisValue">if <paramref name="parameterValue"/> equals this value, then DbNull.Value is used instead</param>
         /// <returns>Instance of DbParameter</returns>
-        IDbDataParameter CreateParameter<TValue>(String parameterName, TValue parameterValue, TValue useNullForThisValue);
+        IDbDataParameter CreateParameter<TValue>(String parameterName, TValue? parameterValue, TValue useNullForThisValue);
 
         /// <summary>
         /// Creates the parameter.
@@ -165,7 +165,7 @@ namespace Foundation.Interfaces
         /// <param name="parameterName">Name of the parameter.</param>
         /// <param name="parameterValue">The parameter value.</param>
         /// <returns>Instance of DbParameter</returns>
-        IDbDataParameter CreateParameter<TValue>(String parameterName, TValue parameterValue);
+        IDbDataParameter CreateParameter<TValue>(String parameterName, TValue? parameterValue);
 
         /// <summary>
         /// Creates the parameter.
@@ -189,7 +189,7 @@ namespace Foundation.Interfaces
         /// <param name="parameterName">Name of the parameter.</param>
         /// <param name="parameterValue">The parameter value.</param>
         /// <returns>Instance of DbParameter</returns>
-        IDbDataParameter CreateParameter(String parameterName, IFoundationModel parameterValue);
+        IDbDataParameter CreateParameter(String parameterName, IFoundationModel? parameterValue);
 
         /// <summary>
         /// Creates the parameter.
@@ -198,7 +198,7 @@ namespace Foundation.Interfaces
         /// <param name="parameterValue">The parameter value.</param>
         /// <param name="useNullForThisValue">if <paramref name="parameterValue"/> equals this value, then DbNull.Value is used instead</param>
         /// <returns>Instance of DbParameter</returns>
-        IDbDataParameter CreateParameter(String parameterName, Object parameterValue, EntityId useNullForThisValue);
+        IDbDataParameter CreateParameter(String parameterName, Object? parameterValue, EntityId useNullForThisValue);
 
         /// <summary>
         /// Creates the parameter.
@@ -207,7 +207,7 @@ namespace Foundation.Interfaces
         /// <param name="parameterValue">The parameter value.</param>
         /// <param name="useNullForThisValue">if <paramref name="parameterValue"/> equals this value, then DbNull.Value is used instead</param>
         /// <returns>Instance of DbParameter</returns>
-        IDbDataParameter CreateParameter(String parameterName, Object parameterValue, AppId useNullForThisValue);
+        IDbDataParameter CreateParameter(String parameterName, Object? parameterValue, AppId useNullForThisValue);
 
         /// <summary>
         /// Creates the parameter.
@@ -216,7 +216,7 @@ namespace Foundation.Interfaces
         /// <param name="parameterValue">The parameter value.</param>
         /// <param name="useNullForThisValue">if <paramref name="parameterValue"/> equals this value, then DbNull.Value is used instead</param>
         /// <returns>Instance of DbParameter</returns>
-        IDbDataParameter CreateParameter(String parameterName, Object parameterValue, LogId useNullForThisValue);
+        IDbDataParameter CreateParameter(String parameterName, Object? parameterValue, LogId useNullForThisValue);
 
         /// <summary>
         /// Creates the parameter.
@@ -232,7 +232,7 @@ namespace Foundation.Interfaces
         /// <param name="parameterName">Name of the parameter.</param>
         /// <param name="parameterValue">The parameter value.</param>
         /// <returns>Instance of DbParameter</returns>
-        IDbDataParameter CreateParameter(String parameterName, EntityId parameterValue);
+        IDbDataParameter CreateParameter(String parameterName, EntityId? parameterValue);
 
         /// <summary>
         /// Creates the parameter.
@@ -248,7 +248,7 @@ namespace Foundation.Interfaces
         /// <param name="parameterName">Name of the parameter.</param>
         /// <param name="parameterValue">The parameter value.</param>
         /// <returns>Instance of DbParameter</returns>
-        IDbDataParameter CreateParameter(String parameterName, LogId parameterValue);
+        IDbDataParameter CreateParameter(String parameterName, LogId? parameterValue);
 
         /// <summary>
         /// Creates the parameter.
@@ -256,6 +256,6 @@ namespace Foundation.Interfaces
         /// <param name="parameterName">Name of the parameter.</param>
         /// <param name="parameterValue">The parameter value.</param>
         /// <returns>Instance of DbParameter</returns>
-        IDbDataParameter CreateParameter(String parameterName, EmailAddress parameterValue);
+        IDbDataParameter CreateParameter(String parameterName, EmailAddress? parameterValue);
     }
 }

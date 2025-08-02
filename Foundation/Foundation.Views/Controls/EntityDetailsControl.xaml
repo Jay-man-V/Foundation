@@ -1,0 +1,102 @@
+﻿<Expander
+    x:Class="Foundation.Views.EntityDetailsControl"
+    Name="ThisControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+
+    xmlns:controls="clr-namespace:Foundation.Views" 
+    mc:Ignorable="d" 
+
+    Background="{Binding ElementName=ThisControl, Path=Background}"
+
+    HorizontalAlignment="Left" VerticalAlignment="Top"
+    Header="Entity Details"
+    IsExpanded="True"
+    
+    Height="Auto" Width="800"
+    d:DesignWidth="800">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel
+            Grid.Row="0"
+            Name="MainDetails"
+            Margin="0,0,0,2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <controls:LabelControl
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HorizontalAlignment="Right"
+                    Content="Id" />
+                <controls:TextBoxControl Grid.Row="0" Grid.Column="1" IsReadOnly="True" VerticalContentAlignment="Center" Text="{Binding Data.Id, Mode=OneWay}" />
+
+                <controls:LabelControl Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Content="Status" />
+                <controls:TextBoxControl
+                    x:Name="StatusComboBox"
+                    Grid.Row="1" Grid.Column="1"
+                    IsReadOnly="True"
+                    VerticalContentAlignment="Center"
+                    Text="{Binding EntityStatusName, Mode=OneWay}" 
+                    />
+
+                <controls:LabelControl Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" Content="Created" />
+                <controls:TextBoxControl
+                    x:Name="CreatedByComboBox"
+                    Grid.Row="0" Grid.Column="3"
+                    IsReadOnly="True"
+                    VerticalContentAlignment="Center"
+                    Text="{Binding CreatedByUserProfileDisplayName, Mode=OneWay}"
+                     />
+                <controls:DatetimePickerControl Grid.Row="0" Grid.Column="4" SelectedDate="{Binding Data.CreatedOn, Mode=OneWay}" ShowCheckBox="False" />
+
+                <controls:LabelControl Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Content="Last updated" />
+                <controls:TextBoxControl
+                    x:Name="LastUpdatedByComboBox"
+                    Grid.Row="1" Grid.Column="3"
+                    IsReadOnly="True"
+                    VerticalContentAlignment="Center"
+                    Text="{Binding LastUpdatedByUserProfileDisplayName, Mode=OneWay}"
+                    />
+                <controls:DatetimePickerControl Grid.Row="1" Grid.Column="4" SelectedDate="{Binding Data.LastUpdatedOn, Mode=OneWay}" ShowCheckBox="False" />
+            </Grid>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Name="ValidityDetailsStackPanel">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <controls:LabelControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Left" Content="Validity" />
+
+                <controls:LabelControl Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Content="From Date" />
+                <controls:DatetimePickerControl Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Data.FromDateTime}" />
+
+                <controls:LabelControl Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Content="To Date" />
+                <controls:DatetimePickerControl Grid.Row="1" Grid.Column="3" SelectedDate="{Binding Data.ToDateTime}" />
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Expander>

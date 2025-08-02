@@ -1,0 +1,15 @@
+﻿User logon: GANYMEDE\jayes
+Error occurred on: 30-Mar-2023 18:41:24
+Culture/UI Culture: en-GB/en-GB
+Current Thread - Culture/UI Culture: en-GB/en-GB
+Executing assembly: Foundation.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Assembly location: D:\Projects\JDVSoftware\Foundation.Net\TestResults\Deploy_jayes 20230330T194119\Out\Foundation.Common.dll
+Environment.CurrentDirectory: D:\Projects\JDVSoftware\Foundation.Net\TestResults\Deploy_jayes 20230330T194119\Out
+Directory.GetCurrentDirectory: D:\Projects\JDVSoftware\Foundation.Net\TestResults\Deploy_jayes 20230330T194119\Out
+
+Error message: What else could be the error message?
+Error source: Some namespace:class:function
+Server name: GANYMEDE
+Error Detail:
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+This is the error detail

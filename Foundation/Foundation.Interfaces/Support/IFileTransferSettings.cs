@@ -4,7 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Net;
 
 namespace Foundation.Interfaces
@@ -43,5 +42,11 @@ namespace Foundation.Interfaces
         /// </para>
         /// </summary>
         ICredentials? Credentials { get; set; }
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>A string that represents the current object.</returns>
+        string? ToString();
     }
 }

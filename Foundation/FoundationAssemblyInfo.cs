@@ -6,6 +6,9 @@
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.Versioning;
+
+[assembly: SupportedOSPlatform("windows")]
 
 [assembly: AssemblyCompany("JDV Software Ltd")]
 [assembly: AssemblyCopyright("Copyright © JDV Software Ltd 2025")]

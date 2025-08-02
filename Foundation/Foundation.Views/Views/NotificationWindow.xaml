@@ -1,0 +1,232 @@
+﻿<Window
+    x:Class="Foundation.Views.NotificationWindow"
+    Name="ThisWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+    xmlns:controls="clr-namespace:Foundation.Views"
+    xmlns:fEnums="clr-namespace:Foundation.Interfaces;assembly=Foundation.Interfaces"
+
+    Title="NotificationWindow"
+
+    Height="70" Width="300" ShowInTaskbar="False"
+    WindowStyle="None" AllowsTransparency="True" 
+    Background="Transparent"
+>
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.NotSet}">
+                    <Setter Property="Foreground" Value="{DynamicResource NotificationCommonForeground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.Information}">
+                    <Setter Property="Foreground" Value="{StaticResource NotificationCommonForeground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.Success}">
+                    <Setter Property="Foreground" Value="{StaticResource NotificationCommonForeground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.Warning}">
+                    <Setter Property="Foreground" Value="{StaticResource NotificationCommonForeground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.SeriousWarning}">
+                    <Setter Property="Foreground" Value="{StaticResource NotificationCommonForeground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.Error}">
+                    <Setter Property="Foreground" Value="{StaticResource NotificationCommonForeground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.FatalError}">
+                    <Setter Property="Foreground" Value="{StaticResource NotificationCommonForeground}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{x:Type Border}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.NotSet}">
+                    <Setter Property="Background" Value="{DynamicResource NotificationNotSetBackground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.Information}">
+                    <Setter Property="Background" Value="{StaticResource NotificationInformationBackground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.Success}">
+                    <Setter Property="Background" Value="{StaticResource NotificationSuccessBackground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.Warning}">
+                    <Setter Property="Background" Value="{StaticResource NotificationWarningBackground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.SeriousWarning}">
+                    <Setter Property="Background" Value="{StaticResource NotificationSeriousWarningBackground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.Error}">
+                    <Setter Property="Background" Value="{StaticResource NotificationErrorBackground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.FatalError}">
+                    <Setter Property="Background" Value="{StaticResource NotificationFatalErrorBackground}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="LinkButton" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <TextBlock>
+                        <ContentPresenter />
+                        </TextBlock>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.NotSet}">
+                    <Setter Property="Foreground" Value="{DynamicResource NotificationCommonForeground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.Information}">
+                    <Setter Property="Foreground" Value="{StaticResource NotificationCommonForeground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.Success}">
+                    <Setter Property="Foreground" Value="{StaticResource NotificationCommonForeground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.Warning}">
+                    <Setter Property="Foreground" Value="{StaticResource NotificationCommonForeground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.SeriousWarning}">
+                    <Setter Property="Foreground" Value="{StaticResource NotificationCommonForeground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.Error}">
+                    <Setter Property="Foreground" Value="{StaticResource NotificationCommonForeground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding MessageType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:NotificationWindow}}}" Value="{x:Static fEnums:MessageType.FatalError}">
+                    <Setter Property="Foreground" Value="{StaticResource NotificationCommonForeground}" />
+                </DataTrigger>
+
+
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock TextDecorations="Underline" Text="{TemplateBinding Content}"/>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid RenderTransformOrigin="0,1">
+        <Border
+            x:Name="WindowBorder"
+            BorderThickness="2"
+            BorderBrush="DarkGray"
+            CornerRadius="7"
+        >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!--
+                Source="Resources/data_information.png"
+                Source="Resources/error20.png"
+                -->
+
+                <Image 
+                   Grid.RowSpan="2" 
+                   Width="40" Height="40" 
+                   VerticalAlignment="Top" 
+                   HorizontalAlignment="Center" Margin="0,13,0,0"
+                />
+
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="2" 
+                    Width="20"
+                    Height="20"
+                    Background="Transparent"
+                    BorderBrush="{x:Null}"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" 
+                    Cursor="Hand"
+                    Content="{StaticResource CloseImage}"
+                    MouseUp="ImageMouseUp"
+                    Click="Button_Click"
+                >
+                </Button>
+
+                <Border
+                    BorderBrush="{x:Null}"
+                    Background="Transparent"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    >
+                    <TextBlock
+                        Name="NotificationHeaderTextBlock"
+                        VerticalAlignment="Center"
+                        TextAlignment="Center"
+                        FontWeight="Bold"
+                        FontSize="15"
+                        TextWrapping="Wrap"
+                        Text="Notification Window"
+                    />
+                </Border>
+
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    FontSize="15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource LinkButton}"
+                >
+                    <TextBlock
+                        Name="NotificationMessageTextBlock"
+                        Text="Click Here to View"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap"
+                    />
+                </Button>
+            </Grid>
+        </Border>
+
+        <!-- Animation -->
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                <BeginStoryboard x:Name="StoryboardLoad">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" From="0.0" To="1.0" Duration="0:0:2" />
+                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" From="1.0" To="0.0" Duration="0:0:8" BeginTime="0:0:10" Completed="DoubleAnimationCompleted"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+
+            <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                <EventTrigger.Actions>
+                    <RemoveStoryboard BeginStoryboardName="StoryboardLoad"/>
+                    <RemoveStoryboard BeginStoryboardName="StoryboardFade"/>
+                </EventTrigger.Actions>
+            </EventTrigger>
+
+            <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                <BeginStoryboard x:Name="StoryboardFade">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" From="1.0" To="0.0" Duration="0:0:8" BeginTime="0:0:2" Completed="DoubleAnimationCompleted"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+
+        </Grid.Triggers>
+
+        <Grid.RenderTransform>
+            <ScaleTransform ScaleY="1" />
+        </Grid.RenderTransform>
+    </Grid>
+</Window>
