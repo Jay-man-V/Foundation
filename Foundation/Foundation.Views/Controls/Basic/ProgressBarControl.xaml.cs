@@ -4,8 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.Windows.Controls;
-
 namespace Foundation.Views
 {
     /// <summary>

@@ -4,8 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
 namespace Foundation.Interfaces
 {
     /// <summary>
@@ -13,15 +11,15 @@ namespace Foundation.Interfaces
     /// </summary>
     public interface IMainWindowViewModel : IViewModel
     {
-        ///// <summary>
-        ///// Holds the last raised exception
-        ///// </summary>
-        //Exception LastException { get; set; }
+        /// <summary>
+        /// Holds the last raised exception
+        /// </summary>
+        Exception LastException { get; set; }
 
-        ///// <summary>
-        ///// Displays a message box to the user containing details of the <paramref name="exception"/>
-        ///// </summary>
-        ///// <param name="exception"></param>
-        //void DisplayUnhandledExceptionMessage(Exception exception);
+        /// <summary>
+        /// Displays a message box to the user containing details of the <paramref name="exception"/>
+        /// </summary>
+        /// <param name="exception"></param>
+        void DisplayUnhandledExceptionMessage(Exception exception);
     }
 }

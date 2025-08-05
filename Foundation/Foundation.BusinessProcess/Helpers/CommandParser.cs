@@ -15,7 +15,8 @@ namespace Foundation.BusinessProcess
     /// <summary>
     /// The Command Parser class
     /// </summary>
-    public class CommandParser
+    [DependencyInjectionTransient]
+    public class CommandParser : ICommandParser
     {
         /// <summary>
         /// Constructs a new Command Parser with the supplied parameters
@@ -28,18 +29,6 @@ namespace Foundation.BusinessProcess
 
             DateTimeService = dateTimeService;
             FullCommandText = commandText;
-            Int32 pos = FullCommandText.IndexOf("=", StringComparison.InvariantCulture);
-
-            IsValid = (pos > 0);
-
-            if (IsValid)
-            {
-                CommandName = FullCommandText.Substring(0, pos).ToUpper();
-
-                Parameters = FullCommandText.Substring(pos + 1);
-            }
-
-            ValidateInput(CommandName, Parameters);
 
             LoggingHelpers.TraceCallReturn();
         }
@@ -50,7 +39,7 @@ namespace Foundation.BusinessProcess
         /// <value>
         /// The full command text.
         /// </value>
-        public String FullCommandText { get; }
+        public String FullCommandText { get; private set; }
 
         /// <summary>
         /// Returns true if ... is valid.
@@ -58,7 +47,7 @@ namespace Foundation.BusinessProcess
         /// <value>
         ///   <c>true</c> if this instance is valid; otherwise, <c>false</c>.
         /// </value>
-        public Boolean IsValid { get; }
+        public Boolean IsValid { get; private set; }
 
         /// <summary>
         /// Gets the name of the command.
@@ -66,7 +55,7 @@ namespace Foundation.BusinessProcess
         /// <value>
         /// The name of the command.
         /// </value>
-        public String CommandName { get; } = String.Empty;
+        public String CommandName { get; private set; } = String.Empty;
 
         /// <summary>
         /// Gets the parameters.
@@ -74,7 +63,7 @@ namespace Foundation.BusinessProcess
         /// <value>
         /// The parameters.
         /// </value>
-        public String Parameters { get; } = String.Empty;
+        public String Parameters { get; private set; } = String.Empty;
 
         /// <summary>
         /// Gets the execution date time.
@@ -91,6 +80,27 @@ namespace Foundation.BusinessProcess
         /// The date time service.
         /// </value>
         protected IDateTimeService DateTimeService { get; }
+
+        public void ParseCommand(String commandText)
+        {
+            LoggingHelpers.TraceCallEnter(DateTimeService, commandText);
+
+            FullCommandText = commandText;
+            Int32 pos = FullCommandText.IndexOf("=", StringComparison.InvariantCulture);
+
+            IsValid = (pos > 0);
+
+            if (IsValid)
+            {
+                CommandName = FullCommandText.Substring(0, pos).ToUpper();
+
+                Parameters = FullCommandText.Substring(pos + 1);
+            }
+
+            ValidateInput(CommandName, Parameters);
+
+            LoggingHelpers.TraceCallReturn();
+        }
 
         /// <summary>
         /// Validates the input.

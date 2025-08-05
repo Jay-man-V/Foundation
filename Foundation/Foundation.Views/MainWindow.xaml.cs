@@ -19,7 +19,7 @@ namespace Foundation.Views
     /// Reference site: https://engy.us/blog/2020/01/01/implementing-a-custom-window-title-bar-in-wpf/
     /// </remarks>
     [DependencyInjectionTransient]
-    public partial class MainWindow : Window, IMainWindow
+    public partial class MainWindow : Window, IMainWindowForm
     {
         public MainWindow()
         {

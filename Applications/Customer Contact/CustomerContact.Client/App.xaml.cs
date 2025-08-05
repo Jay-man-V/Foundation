@@ -5,33 +5,93 @@
 //-----------------------------------------------------------------------
 
 using System.Windows;
+using System.Windows.Controls;
 
+using Foundation.Common;
 using Foundation.Core;
 using Foundation.Interfaces;
+using Foundation.ViewModels;
+using Foundation.Views;
 
 namespace CustomerContact.Client
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        private ICore? CoreInstance { get; set; }
+
+        /// <summary>
+        /// Gets or sets this application.
+        /// </summary>
+        /// <value>The application.</value>
+        private static IMainWindowForm? ThisApplication { get; set; }
+
+        /// <summary>
+        /// Gets or sets the view model.
+        /// </summary>
+        /// <value>The view model.</value>
+        private static IMainWindowViewModel? ViewModel { get; set; }
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Application.Startup">Startup</see> event.
+        /// </summary>
+        /// <param name="e">A <see cref="T:System.Windows.StartupEventArgs">StartupEventArgs</see> that contains the event data.</param>
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            ICore coreInstance = Core.Initialise(0);
+            CoreInstance = Core.Initialise(ApplicationSettings.ApplicationId);
 
-            IApplication? application = coreInstance.IoC.Get<IApplication>();
+            LoggingHelpers.TraceCallEnter(e);
 
-            IMainWindow theMainWindow = coreInstance.IoC.Get<IMainWindow>();
+            ApplicationControl.ApplicationStart(DisplayUnhandledExceptionMessage);
+            Dispatcher.UnhandledException += ApplicationControl.Dispatcher_UnhandledException;
 
-            IMainWindowViewModel viewModel = coreInstance.IoC.Get<IMainWindowViewModel>();
-            viewModel.Initialise(theMainWindow, null, "This shit");
+            FrameworkElement.StyleProperty.OverrideMetadata(typeof(Window), new FrameworkPropertyMetadata
+            {
+                DefaultValue = FindResource(typeof(Window))
+            });
 
-            theMainWindow.DataContext = viewModel;
+            FrameworkElement.StyleProperty.OverrideMetadata(typeof(UserControl), new FrameworkPropertyMetadata
+            {
+                DefaultValue = FindResource(typeof(UserControl))
+            });
 
-            this.MainWindow = (Window)theMainWindow;
+            FrameworkElement.StyleProperty.OverrideMetadata(typeof(Control), new FrameworkPropertyMetadata
+            {
+                DefaultValue = FindResource(typeof(Control))
+            });
+
+            LoggingHelpers.TraceMessage("Initialising");
+
+            // Initialize the splash screen and set it as the application main window
+            IRunTimeEnvironmentSettings runTimeEnvironmentSettings = CoreInstance.IoC.Get<IRunTimeEnvironmentSettings>();
+            IDateTimeService dateTimeService = CoreInstance.IoC.Get<IDateTimeService>();
+            IWpfApplicationObjects wpfApplicationObjects = CoreInstance.IoC.Get<IWpfApplicationObjects>();
+
+            AboutSplashScreenForm splashScreen = new AboutSplashScreenForm();
+            this.MainWindow = splashScreen;
+            const Boolean isSplashScreen = true;
+            AboutSplashScreenFormViewModel splashScreenViewModel = new AboutSplashScreenFormViewModel(CoreInstance, runTimeEnvironmentSettings, dateTimeService, wpfApplicationObjects, isSplashScreen);
+            ////IAboutSplashScreenFormViewModel splashScreenViewModel = Core.Core.Instance.Container.Get<AboutSplashScreenFormViewModel>(isSplashScreen);
+
+            splashScreen.DataContext = splashScreenViewModel;
+            splashScreen.Show();
+
+            IApplication application = CoreInstance.IoC.Get<IApplication>();
+            ThisApplication = CoreInstance.IoC.Get<IMainWindowForm>();
+
+            ViewModel = CoreInstance.IoC.Get<IMainWindowViewModel>();
+            ViewModel.Initialise(ThisApplication, null, application.Name);
+
+            ThisApplication.DataContext = ViewModel;
+
+            this.MainWindow = (Window)ThisApplication;
             this.MainWindow.Show();
         }
 
@@ -40,6 +100,22 @@ namespace CustomerContact.Client
             base.OnExit(e);
 
             e.ApplicationExitCode = 0;
+        }
+
+        /// <summary>
+        /// Displays the unhandled exception message.
+        /// </summary>
+        /// <param name="exception">The exception.</param>
+        private static void DisplayUnhandledExceptionMessage(Exception exception)
+        {
+            if (ViewModel != null)
+            {
+                ViewModel.LastException = exception;
+
+                ViewModel.DisplayUnhandledExceptionMessage(exception);
+            }
+
+            ApplicationControl.LogUnhandledExceptionMessage(exception);
         }
     }
 }

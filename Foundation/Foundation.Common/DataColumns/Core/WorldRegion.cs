@@ -1,11 +1,8 @@
-﻿
-//-----------------------------------------------------------------------
+﻿//-----------------------------------------------------------------------
 // <copyright file="WorldRegion.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-
-using System;
 
 namespace Foundation.Common.DataColumns
 {

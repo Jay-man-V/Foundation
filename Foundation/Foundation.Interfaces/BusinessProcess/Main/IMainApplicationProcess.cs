@@ -4,9 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-using System.IO;
-
 namespace Foundation.Interfaces
 {
     /// <summary>

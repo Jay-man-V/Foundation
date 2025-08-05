@@ -4,7 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.DirectoryServices;
@@ -12,12 +11,9 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Principal;
 
-using NUnit.Framework;
-
 using Microsoft.Win32.SafeHandles;
 
 using Foundation.Tests.Unit.Support;
-using NSubstitute.ExceptionExtensions;
 
 namespace Foundation.Tests.Unit.NetFramework
 {
@@ -71,7 +67,7 @@ namespace Foundation.Tests.Unit.NetFramework
             Int32 nativeErrorCode = 1326;
             String message = "The user name or password is incorrect";
 
-            const Action emptyAction = null;
+            const Action? emptyAction = null;
 
 
             Win32Exception actualException = Assert.Throws<Win32Exception>(() =>
@@ -93,7 +89,7 @@ namespace Foundation.Tests.Unit.NetFramework
         {
             UserSecuritySupport.RemoveUnitTestUserOnLocalComputer();
 
-            DirectoryEntry testAccountDirectoryEntry = UserSecuritySupport.FindUserAccount(UserSecuritySupport.UnitTestAccountUserName);
+            DirectoryEntry? testAccountDirectoryEntry = UserSecuritySupport.FindUserAccount(UserSecuritySupport.UnitTestAccountUserName);
             Assert.That(testAccountDirectoryEntry, Is.Null);
 
             UserSecuritySupport.CreateTestingUserAccounts();
@@ -128,7 +124,7 @@ namespace Foundation.Tests.Unit.NetFramework
         /// <summary>
         ///
         /// </summary>
-        private void RunImpersonated(Action action, String logonDomain, String username, String password)
+        private void RunImpersonated(Action? action, String logonDomain, String username, String password)
         {
             // Call LogonUser to obtain a handle to an access token. 
             Boolean returnValue = LogonUser
@@ -153,7 +149,10 @@ namespace Foundation.Tests.Unit.NetFramework
             Debug.WriteLine("Before impersonation: " + WindowsIdentity.GetCurrent().Name);
 
             // Note: if you want to run as un-impersonated, pass 'SafeAccessTokenHandle.InvalidHandle' instead of variable 'safeAccessTokenHandle'
-            WindowsIdentity.RunImpersonated(safeAccessTokenHandle, action);
+            if (action != null)
+            {
+                WindowsIdentity.RunImpersonated(safeAccessTokenHandle, action);
+            }
 
             // Check the identity again.
             Debug.WriteLine("After impersonation: " + WindowsIdentity.GetCurrent().Name);

@@ -4,9 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-using System.Threading.Tasks;
-
 namespace Foundation.Interfaces
 {
     /// <summary>

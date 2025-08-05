@@ -1,0 +1,52 @@
+﻿//-----------------------------------------------------------------------
+// <copyright file="ApplicationRoleViewModel.cs" company="JDV Software Ltd">
+//     Copyright (c) JDV Software Ltd. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+
+using Foundation.Common;
+using Foundation.Interfaces;
+
+namespace Foundation.ViewModels
+{
+    /// <summary>
+    /// The User Interface interaction logic for Application Role maintenance
+    /// </summary>
+    /// <seealso cref="GenericDataGridViewModelBase{IApplicationRole}" />
+    [DependencyInjectionTransient]
+    public class ApplicationRoleViewModel : GenericDataGridViewModelBase<IApplicationRole>, IApplicationRoleViewModel
+    {
+        /// <summary>
+        /// Initialises a new instance of the <see cref="ApplicationRoleViewModel"/> class.
+        /// </summary>
+        /// <param name="core">The Foundation Core service.</param>
+        /// <param name="runTimeEnvironmentSettings">The runtime environment settings.</param>
+        /// <param name="dateTimeService">The date time service.</param>
+        /// <param name="wpfApplicationObjects">The wpf application objects collection.</param>
+        /// <param name="fileApi">The file service.</param>
+        /// <param name="applicationRoleProcess">The application role process.</param>
+        public ApplicationRoleViewModel
+        (
+            ICore core,
+            IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
+            IDateTimeService dateTimeService,
+            IWpfApplicationObjects wpfApplicationObjects,
+            IFileApi fileApi,
+            IApplicationRoleProcess applicationRoleProcess
+        ) :
+            base
+            (
+                core,
+                runTimeEnvironmentSettings,
+                dateTimeService,
+                wpfApplicationObjects,
+                fileApi,
+                applicationRoleProcess
+            )
+        {
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, wpfApplicationObjects, fileApi, applicationRoleProcess);
+
+            LoggingHelpers.TraceCallReturn();
+        }
+    }
+}

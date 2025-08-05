@@ -339,8 +339,12 @@ namespace Foundation.Tests.Unit.Support
 
         protected void RemoveRoleFromLoggedOnUser(ApplicationRole applicationRoleToRemove)
         {
-            IRole roleToRemove = CoreInstance.CurrentLoggedOnUser.UserProfile.Roles.FirstOrDefault(r => r.ApplicationRole == applicationRoleToRemove);
-            CoreInstance.CurrentLoggedOnUser.UserProfile.Roles.Remove(roleToRemove);
+            IRole? roleToRemove = CoreInstance.CurrentLoggedOnUser.UserProfile.Roles.FirstOrDefault(r => r.ApplicationRole == applicationRoleToRemove);
+
+            if (roleToRemove != null)
+            {
+                CoreInstance.CurrentLoggedOnUser.UserProfile.Roles.Remove(roleToRemove);
+            }
         }
 
         protected String ByteArrayToStringRepresentationForCode(Byte[] input)

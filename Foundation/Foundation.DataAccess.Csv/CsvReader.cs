@@ -60,7 +60,7 @@ namespace Foundation.DataAccess.Csv
         {
             get
             {
-                UInt64 retVal = (UInt64)InputStream.BaseStream.Length;
+                UInt64 retVal = InputStream == null ? 0 : (UInt64)InputStream.BaseStream.Length;
 
                 return retVal;
             }
@@ -74,6 +74,13 @@ namespace Foundation.DataAccess.Csv
         {
             EndOfFile = false;
             RowCounter = 0;
+
+            if (InputStream == null)
+            {
+                String message = "Stream is not in a valid state for reading from";
+                throw new InvalidOperationException(message);
+            }
+
             InputStream.BaseStream.Seek(0, SeekOrigin.Begin);
 
             StringBuilder sb = new StringBuilder();
@@ -116,7 +123,7 @@ namespace Foundation.DataAccess.Csv
                     sb.Length > 0)
                 {
                     RowCounter++;
-                    TCsvRecord retVal = (TCsvRecord)Activator.CreateInstance(typeof(TCsvRecord), RowCounter, HeaderRow, sb.ToString());
+                    TCsvRecord retVal = (TCsvRecord)Activator.CreateInstance(typeof(TCsvRecord), RowCounter, HeaderRow, sb.ToString())!;
 
                     recordEnd = false;
                     inQuotes = false;

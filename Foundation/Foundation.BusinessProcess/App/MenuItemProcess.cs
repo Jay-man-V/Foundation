@@ -4,10 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 
 using Foundation.Common;
 using Foundation.Interfaces;

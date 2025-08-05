@@ -113,7 +113,9 @@ namespace Foundation.Common
                                     Int32 or 
                                     UInt32 or 
                                     Int64 or 
-                                    UInt64 or 
+                                    UInt64 or
+                                    Int128 or
+                                    UInt128 or
                                     Decimal or 
                                     Double or 
                                     Single or 

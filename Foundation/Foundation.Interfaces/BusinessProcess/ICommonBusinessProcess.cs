@@ -4,9 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 
@@ -333,7 +331,7 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="gridColumnDefinitions"></param>
         /// <param name="sourceData"></param>
-        void ExportToExcel(List<IGridColumnDefinition> gridColumnDefinitions, IEnumerable sourceData);
+        void ExportToExcel(List<IGridColumnDefinition> gridColumnDefinitions, IEnumerable? sourceData);
 
         /// <summary>
         /// Exports the supplied data to Csv
@@ -348,7 +346,7 @@ namespace Foundation.Interfaces
         /// <param name="outputStream"></param>
         /// <param name="gridColumnDefinitions"></param>
         /// <param name="sourceData"></param>
-        void ExportToCsv(TextWriter outputStream, List<IGridColumnDefinition> gridColumnDefinitions, IEnumerable sourceData);
+        void ExportToCsv(TextWriter outputStream, List<IGridColumnDefinition> gridColumnDefinitions, IEnumerable? sourceData);
     }
 
     /// <summary>
@@ -418,7 +416,7 @@ namespace Foundation.Interfaces
         /// <param name="userProfile">The User Profile</param>
         /// <param name="entity">The entity to be viewed</param>
         /// <returns></returns>
-        Boolean CanViewRecord(IUserProfile userProfile, TModel entity);
+        Boolean CanViewRecord(IUserProfile userProfile, TModel? entity);
 
         /// <summary>
         /// Determines if the user specified by <paramref name="userProfile"/> is allowed to Edit the record
@@ -426,7 +424,7 @@ namespace Foundation.Interfaces
         /// <param name="userProfile">The User Profile</param>
         /// <param name="entity">The entity to be edited</param>
         /// <returns></returns>
-        Boolean CanEditRecord(IUserProfile userProfile, TModel entity);
+        Boolean CanEditRecord(IUserProfile userProfile, TModel? entity);
 
         /// <summary>
         /// Determines if the user specified by <paramref name="userProfile"/> is allowed to Delete the record
@@ -434,7 +432,7 @@ namespace Foundation.Interfaces
         /// <param name="userProfile">The User Profile</param>
         /// <param name="entity">The entity to be Deleted</param>
         /// <returns></returns>
-        Boolean CanDeleteRecord(IUserProfile userProfile, TModel entity);
+        Boolean CanDeleteRecord(IUserProfile userProfile, TModel? entity);
 
         /// <summary>
         /// Saves the entity to the data store

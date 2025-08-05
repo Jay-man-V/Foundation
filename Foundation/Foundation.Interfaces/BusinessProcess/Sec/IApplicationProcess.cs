@@ -30,6 +30,6 @@ namespace Foundation.Interfaces
         /// Loads the application from the data store
         /// </summary>
         /// <param name="applicationId">The Id of the application to be loaded</param>
-        IApplication Get(AppId applicationId);
+        IApplication? Get(AppId applicationId);
     }
 }

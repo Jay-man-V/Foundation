@@ -36,6 +36,13 @@ namespace Foundation.Tests.Unit.NetFramework
     [DependencyInjectionIgnore]
     public class FoundationIdentity : IIdentity
     {
+        public FoundationIdentity()
+        {
+            AuthenticationType = String.Empty;
+            IsAuthenticated = false;
+            Name = String.Empty;
+        }
+
         public String AuthenticationType { get; }
         public Boolean IsAuthenticated { get; }
         public String Name { get; }

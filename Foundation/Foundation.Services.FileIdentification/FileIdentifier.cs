@@ -4,11 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-
-using Foundation.Common;
 
 namespace Foundation.Services.FileIdentification
 {
@@ -26,12 +23,12 @@ namespace Foundation.Services.FileIdentification
             [DllImport("urlmon.dll", CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = false)]
             static extern int FindMimeFromData
             (
-                IntPtr pBC,
-                [MarshalAs(UnmanagedType.LPWStr)] String pwzUrl,
+                IntPtr pBc,
+                [MarshalAs(UnmanagedType.LPWStr)] String? pwzUrl,
                 [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.I1, SizeParamIndex = 3)]
                 Byte[] pBuffer,
                 Int32 cbSize,
-                [MarshalAs(UnmanagedType.LPWStr)] String pwzMimeProposed,
+                [MarshalAs(UnmanagedType.LPWStr)] String? pwzMimeProposed,
                 Int32 dwMimeFlags,
                 out IntPtr ppwzMimeOut,
                 Int32 dwReserved
@@ -57,7 +54,7 @@ namespace Foundation.Services.FileIdentification
                 {
 
                     FindMimeFromData(IntPtr.Zero, null, data, MimeSampleSize, null, 0, out mimeTypePointer, 0);
-                    String mime = Marshal.PtrToStringUni(mimeTypePointer);
+                    String? mime = Marshal.PtrToStringUni(mimeTypePointer);
                     return mime ?? DefaultMimeType;
                 }
                 catch (AccessViolationException e)

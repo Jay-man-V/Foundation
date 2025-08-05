@@ -4,10 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.IO;
 using System.Net.Http;
-using System.Threading.Tasks;
 
 using Foundation.Common;
 using Foundation.Interfaces;
@@ -18,25 +16,41 @@ namespace Foundation.Services.WebApi
     [DependencyInjectionTransient]
     public class RestApi : IRestApi
     {
-        private HttpMessageHandler _httpMessageHandler;
+        /// <summary>
+        /// 
+        /// </summary>
+        // /// <param name="core"></param>
+        public RestApi
+        (
+            //ICore core
+        ) :
+            this
+            (
+                //core,
+                new HttpClientHandler()
+            )
+        {
+        }
 
         /// <summary>
-        /// Gets or sets the Injected Http Message Handler
+        /// 
         /// </summary>
-        private Boolean _injectedHttpMessageHandler;
+        public RestApi
+        (
+            //ICore core,
+            HttpMessageHandler httpMessageHandler
+        )
+        {
+            //Core = core;
+            HttpMessageHandler = httpMessageHandler;
+        }
+
+        //private ICore Core { get; }
 
         /// <summary>
         /// Gets the Http Message Handler
         /// </summary>
-        internal HttpMessageHandler HttpMessageHandler
-        {
-            get => _httpMessageHandler;
-            set
-            {
-                _httpMessageHandler = value;
-                _injectedHttpMessageHandler = true;
-            }
-        }
+        private HttpMessageHandler HttpMessageHandler { get; }
 
         /// <summary>
         /// Common method for opening a new <see cref="HttpClient"/> connection
@@ -46,11 +60,6 @@ namespace Foundation.Services.WebApi
         private HttpClient OpenHttpConnection(IFileTransferSettings fileTransferSettings)
         {
             LoggingHelpers.TraceCallEnter(fileTransferSettings);
-
-            if (!_injectedHttpMessageHandler)
-            {
-                HttpMessageHandler = new HttpClientHandler();
-            }
 
             if (HttpMessageHandler is HttpClientHandler clientHandler)
             {

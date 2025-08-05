@@ -4,8 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
 namespace Foundation.Interfaces
 {
     /// <summary>
@@ -42,7 +40,7 @@ namespace Foundation.Interfaces
         /// <param name="key"></param>
         /// <param name="iv"></param>
         void GenerateKeys(String keyPassword, Byte[] salt, out Byte[] key, out Byte[] iv);
-
+/*
         /// <summary>
         /// 
         /// </summary>
@@ -65,7 +63,7 @@ namespace Foundation.Interfaces
         /// <param name="outputFolder"></param>
         /// <param name="keyName"></param>
         void GenerateKeys(String outputFolder, String keyName);
-
+*/
         /* String encryption/decryption functions */
 
         /// <summary>

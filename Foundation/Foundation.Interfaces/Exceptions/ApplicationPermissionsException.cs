@@ -4,9 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-using System.Linq;
-
 namespace Foundation.Interfaces
 {
     /// <summary>
@@ -36,7 +33,7 @@ namespace Foundation.Interfaces
         (
             String processName,
             ApplicationRole[] requiredPermissions,
-            IFoundationModel foundationModel,
+            IFoundationModel? foundationModel,
             IUserProfile userProfile
         )
             : base
@@ -63,7 +60,7 @@ namespace Foundation.Interfaces
             String username,
             String processName,
             ApplicationRole requiredPermission,
-            IFoundationModel foundationModel
+            IFoundationModel? foundationModel
         )
             : base
             (

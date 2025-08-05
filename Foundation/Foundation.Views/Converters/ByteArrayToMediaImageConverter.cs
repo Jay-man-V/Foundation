@@ -4,14 +4,11 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
-
-using Foundation.Common;
 
 namespace Foundation.Views
 {

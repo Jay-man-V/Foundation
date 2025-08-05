@@ -4,9 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -17,7 +15,7 @@ namespace Foundation.Interfaces
     /// A struct to hold an Entity Id alongside validation routines
     /// </summary>
     [DebuggerDisplay("{TheEntityId}")]
-    public readonly struct EntityId : IEquatable<EntityId>, IComparable<EntityId>
+    public readonly struct EntityId : IEquatable<EntityId>, IComparable<EntityId>, IConvertible
     {
         /// <summary>
         /// The minimum value
@@ -82,7 +80,7 @@ namespace Foundation.Interfaces
         /// <returns>
         /// New instance of <see cref="EntityId" />
         /// </returns>
-        public static EntityId FromObject(Object x)
+        public static EntityId FromObject(Object? x)
         {
             EntityId retVal = new(0);
 
@@ -205,19 +203,19 @@ namespace Foundation.Interfaces
             return retVal;
         }
 
-        ///// <summary>
-        ///// Implicit cast from an Int64 to EntityId Object
-        ///// </summary>
-        ///// <param name="x">The x.</param>
-        ///// <returns>
-        ///// The result of the conversion.
-        ///// </returns>
-        //public static implicit operator EntityId(Int64 x)
-        //{
-        //    EntityId retVal = new EntityId(x);
+        /// <summary>
+        /// Implicit cast from an Int64 to EntityId Object
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        public static implicit operator EntityId(Int64 x)
+        {
+            EntityId retVal = new EntityId(x);
 
-        //    return retVal;
-        //}
+            return retVal;
+        }
 
         ///// <summary>
         ///// Implicit cast from EntityId Object to Int64
@@ -452,6 +450,91 @@ namespace Foundation.Interfaces
 
                 return retVal;
             }
+        }
+
+        public TypeCode GetTypeCode()
+        {
+            return TypeCode.Int64;
+        }
+
+        public bool ToBoolean(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public byte ToByte(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public char ToChar(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DateTime ToDateTime(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public decimal ToDecimal(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public double ToDouble(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public short ToInt16(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int ToInt32(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public long ToInt64(IFormatProvider? provider)
+        {
+            return TheEntityId;
+        }
+
+        public sbyte ToSByte(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public float ToSingle(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string ToString(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object ToType(Type conversionType, IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ushort ToUInt16(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public uint ToUInt32(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ulong ToUInt64(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
         }
     }
 }

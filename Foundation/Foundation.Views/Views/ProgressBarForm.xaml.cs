@@ -4,9 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-using System.Windows;
-
 using Foundation.Interfaces;
 
 namespace Foundation.Views

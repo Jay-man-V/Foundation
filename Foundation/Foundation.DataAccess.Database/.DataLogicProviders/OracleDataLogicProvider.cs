@@ -4,6 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Data.Common;
+
+using Oracle.ManagedDataAccess.Client;
+
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Resources;
@@ -16,6 +20,12 @@ namespace Foundation.DataAccess.Database
     [DependencyInjectionTransient]
     internal class OracleDataLogicProvider : IDataLogicProvider
     {
+        public OracleDataLogicProvider()
+        {
+            DbProviderFactories.RegisterFactory("System.Data.OracleClient", OracleClientFactory.Instance);
+            DbProviderFactories.RegisterFactory("Oracle.DataAccess.Client", OracleClientFactory.Instance);
+        }
+
         /// <inheritdoc cref="IDataLogicProvider.ValidToDateString" />
         public String ValidToDateString => ApplicationSettings.DefaultValidToDateTime.ToString(Formats.DotNet.DateTimeMilliseconds);
 

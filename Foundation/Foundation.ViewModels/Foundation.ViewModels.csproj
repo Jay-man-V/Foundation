@@ -13,7 +13,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Foundation.Common\Foundation.Common.csproj" />
       <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
+      <ProjectReference Include="..\Foundation.Views\Foundation.Views.csproj" />
     </ItemGroup>
 
 </Project>

@@ -4,10 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using Foundation.Interfaces;
-
 namespace Foundation.Common.DataColumns
 {
     /// <summary>

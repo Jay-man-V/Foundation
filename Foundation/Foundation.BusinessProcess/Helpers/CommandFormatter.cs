@@ -4,9 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-using System.Linq;
-
 using Foundation.Common;
 using Foundation.Resources;
 
@@ -15,7 +12,7 @@ namespace Foundation.BusinessProcess
     /// <summary>
     /// The Command Parser class
     /// </summary>
-    public class CommandFormatter
+    internal class CommandFormatter
     {
         /// <summary>
         /// Constructs a new <see cref="CommandFormatter"/> with the specified parameters

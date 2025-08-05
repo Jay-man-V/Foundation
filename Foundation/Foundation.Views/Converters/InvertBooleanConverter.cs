@@ -4,11 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Globalization;
 using System.Windows.Data;
-
-using Foundation.Common;
 
 namespace Foundation.Views
 {

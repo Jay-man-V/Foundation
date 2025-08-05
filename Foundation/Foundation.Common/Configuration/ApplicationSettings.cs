@@ -4,10 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.Configuration;
 using System.Diagnostics;
 
-//using Foundation.Common.Properties;
 using Foundation.Interfaces;
 
 namespace Foundation.Common

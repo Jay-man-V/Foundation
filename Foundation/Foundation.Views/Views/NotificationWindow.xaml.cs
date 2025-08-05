@@ -4,14 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
-using Foundation.Common;
 using Foundation.Interfaces;
 
 namespace Foundation.Views

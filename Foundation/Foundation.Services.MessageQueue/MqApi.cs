@@ -4,9 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.IO;
-using System.Threading.Tasks;
 
 using Foundation.Common;
 using Foundation.Interfaces;

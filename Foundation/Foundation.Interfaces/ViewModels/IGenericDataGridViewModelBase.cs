@@ -4,9 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -232,11 +230,11 @@ namespace Foundation.Interfaces
 
         /// <summary>Gets the filter1 data source.</summary>
         /// <value>The filter1 data source.</value>
-        IEnumerable Filter1DataSource { get; }
+        IEnumerable? Filter1DataSource { get; }
 
         /// <summary>Gets or sets the filter1 selected item.</summary>
         /// <value>The filter1 selected item.</value>
-        Object Filter1SelectedItem { get; set; }
+        Object? Filter1SelectedItem { get; set; }
 
         /// <summary>Gets a value indicating whether this instance has optional drop down parameter2.</summary>
         /// <value>
@@ -261,11 +259,11 @@ namespace Foundation.Interfaces
 
         /// <summary>Gets the filter2 data source.</summary>
         /// <value>The filter2 data source.</value>
-        IEnumerable Filter2DataSource { get; }
+        IEnumerable? Filter2DataSource { get; }
 
         /// <summary>Gets or sets the filter2 selected item.</summary>
         /// <value>The filter2 selected item.</value>
-        Object Filter2SelectedItem { get; set; }
+        Object? Filter2SelectedItem { get; set; }
 
         /// <summary>Gets a value indicating whether this instance has optional drop down parameter3.</summary>
         /// <value>
@@ -290,11 +288,11 @@ namespace Foundation.Interfaces
 
         /// <summary>Gets the filter3 data source.</summary>
         /// <value>The filter3 data source.</value>
-        IEnumerable Filter3DataSource { get; }
+        IEnumerable? Filter3DataSource { get; }
 
         /// <summary>Gets or sets the filter3 selected item.</summary>
         /// <value>The filter3 selected item.</value>
-        Object Filter3SelectedItem { get; set; }
+        Object? Filter3SelectedItem { get; set; }
 
         /// <summary>Gets a value indicating whether this instance has optional drop down parameter4.</summary>
         /// <value>
@@ -319,11 +317,11 @@ namespace Foundation.Interfaces
 
         /// <summary>Gets the filter4 data source.</summary>
         /// <value>The filter4 data source.</value>
-        IEnumerable Filter4DataSource { get; }
+        IEnumerable? Filter4DataSource { get; }
 
         /// <summary>Gets or sets the filter4 selected item.</summary>
         /// <value>The filter4 selected item.</value>
-        Object Filter4SelectedItem { get; set; }
+        Object? Filter4SelectedItem { get; set; }
 
         /// <summary>Gets the filter visibility.</summary>
         /// <value>The filter visibility.</value>
@@ -335,15 +333,15 @@ namespace Foundation.Interfaces
 
         /// <summary>Gets the grid export columns.</summary>
         /// <value>The grid export columns.</value>
-        IEnumerable<IGridColumnDefinition> GridExportColumns { get; }
+        List<IGridColumnDefinition> GridExportColumns { get; }
 
         /// <summary>Gets or sets the selected item.</summary>
         /// <value>The selected item.</value>
-        TModel SelectedItem { get; set; }
+        TModel? SelectedItem { get; set; }
 
         /// <summary>Gets the grid data source.</summary>
         /// <value>The grid data source.</value>
-        List<TModel> GridDataSource { get; }
+        List<TModel>? GridDataSource { get; }
 
         /// <summary>Gets the selected grid item changed command.</summary>
         /// <value>The selected grid item changed command.</value>

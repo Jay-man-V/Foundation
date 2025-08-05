@@ -42,12 +42,13 @@ namespace Foundation.Tests.Unit.Support
     [DependencyInjectionTransient]
     public class TransientOperation : DefaultOperation, ITransientOperation
     {
+        public String? Value { get; set; }
     }
 
     [DependencyInjectionTransient]
-    public class TypeWithGenerics<TValue> : ITypeWithGenerics<TValue>
+    public class TypeWithGenerics<TValue> : ITypeWithGenerics<TValue?>
     {
-        public TValue Value { get; set; }
+        public TValue? Value { get; set; }
     }
 
     [DependencyInjectionTransient]

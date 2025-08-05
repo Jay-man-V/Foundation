@@ -4,6 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Data.Common;
+
+using MySql.Data.MySqlClient;
+
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Resources;
@@ -16,6 +20,11 @@ namespace Foundation.DataAccess.Database
     [DependencyInjectionTransient]
     internal class MySqlDataLogicProvider : IDataLogicProvider
     {
+        public MySqlDataLogicProvider()
+        {
+            DbProviderFactories.RegisterFactory("MySql.Data.MySqlClient", MySqlClientFactory.Instance);
+        }
+
         /// <inheritdoc cref="IDataLogicProvider.ValidToDateString" />
         public String ValidToDateString => ApplicationSettings.DefaultValidToDateTime.ToString(Formats.DotNet.DateTimeMilliseconds);
 

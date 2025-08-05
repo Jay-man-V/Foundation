@@ -4,9 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-using System.Threading.Tasks;
-
 using FEnums = Foundation.Interfaces;
 
 namespace Foundation.Interfaces

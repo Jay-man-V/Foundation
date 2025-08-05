@@ -4,7 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.ComponentModel.DataAnnotations;
 
 using Foundation.Interfaces;

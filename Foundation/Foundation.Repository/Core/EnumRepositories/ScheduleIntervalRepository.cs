@@ -4,8 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
 using Foundation.Common;
 using Foundation.Interfaces;
 

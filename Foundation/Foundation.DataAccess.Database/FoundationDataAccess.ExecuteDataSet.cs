@@ -47,9 +47,10 @@ namespace Foundation.DataAccess.Database
                     command.Transaction = DatabaseTransaction;
                 }
 
-                IDbDataAdapter dataAdapter = DatabaseProviderFactory.CreateDataAdapter();
+                IDbDataAdapter? dataAdapter = DatabaseProviderFactory.CreateDataAdapter();
 
-                if (databaseParameters.HasItems())
+                if (databaseParameters != null &&
+                    databaseParameters.HasItems())
                 {
                     databaseParameters.ToList().ForEach(p => command.Parameters.Add(p));
                 }

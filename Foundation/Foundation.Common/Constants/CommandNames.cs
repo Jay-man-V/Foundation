@@ -4,9 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-namespace Foundation.BusinessProcess
+namespace Foundation.Common
 {
     /// <summary>
     /// The Command Names class

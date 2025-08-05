@@ -1,15 +1,12 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SpreadsheetDocumentGenerator.cs" company="JDV Software Ltd">
+// <copyright file="SpreadsheetGenerator.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
 
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
@@ -27,13 +24,13 @@ namespace Foundation.DocumentGenerator
     [DependencyInjectionTransient]
     public class SpreadsheetGenerator : ISpreadsheetGenerator
     {
-        private NumberingFormats NumberingFormats { get; set; }
-        private SheetData SheetData { get; set; }
-        private CellFormats CellFormats { get; set; }
-        private Fonts Fonts { get; set; }
-        private Fills Fills { get; set; }
-        private Borders Borders { get; set; }
-        private CellStyleFormats CellStyleFormats { get; set; }
+        private NumberingFormats NumberingFormats { get; } = new();
+        private CellFormats CellFormats { get; } = new();
+        private SheetData? SheetData { get; set; }
+        private Fonts Fonts { get; } = new();
+        private Fills Fills { get; } = new();
+        private Borders Borders { get; } = new();
+        private CellStyleFormats CellStyleFormats { get; } = new();
 
         /// <summary>
         /// Exports the data.
@@ -114,16 +111,12 @@ namespace Foundation.DocumentGenerator
             stylesPart.Stylesheet = stylesheet;
             stylesPart.Stylesheet.Save();
 
-            NumberingFormats = new NumberingFormats();
-
-            Fonts = new Fonts();
             Fonts.Append(new DocumentFormat.OpenXml.Spreadsheet.Font() // Font index 0 - default
             {
                 FontName = new FontName { Val = StringValue.FromString("Calibri") },
                 FontSize = new FontSize { Val = DoubleValue.FromDouble(11) }
             });
 
-            Fills = new Fills();
             Fills.Append(new Fill() // Fill index 0
             {
                 PatternFill = new PatternFill { PatternType = PatternValues.None }
@@ -133,7 +126,6 @@ namespace Foundation.DocumentGenerator
                 PatternFill = new PatternFill { PatternType = PatternValues.Gray125 }
             });
 
-            Borders = new Borders();
             Borders.Append(new Border // Border index 0: no border
             {
                 LeftBorder = new LeftBorder(),
@@ -151,7 +143,6 @@ namespace Foundation.DocumentGenerator
                 DiagonalBorder = new DiagonalBorder()
             });
 
-            CellStyleFormats = new CellStyleFormats();
             CellStyleFormats.Append(new CellFormat // Cell style format index 0: no format
             {
                 NumberFormatId = 0,
@@ -162,7 +153,6 @@ namespace Foundation.DocumentGenerator
             });
             CellStyleFormats.Count = UInt32Value.FromUInt32((UInt32)CellStyleFormats.ChildElements.Count);
 
-            CellFormats = new CellFormats();
             CellFormats.Append(new CellFormat()); // Cell format index 0
 
             stylesheet.Append(NumberingFormats);
@@ -224,8 +214,8 @@ namespace Foundation.DocumentGenerator
             // Iterate over all cells getting a max char value for each column
             Dictionary<Int32, int> maxColWidth = new Dictionary<Int32, Int32>();
             List<Row> rows = sheetData.Elements<Row>().ToList();
-            UInt32[] numberStyles = { 5, 6, 7, 8 }; // Styles that will add extra chars
-            UInt32[] boldStyles = { 1, 2, 3, 4, 6, 7, 8 }; // Styles that will bold
+            UInt32[] numberStyles = [5, 6, 7, 8]; // Styles that will add extra chars
+            UInt32[] boldStyles = [1, 2, 3, 4, 6, 7, 8]; // Styles that will bold
             foreach (Row row in rows)
             {
                 Cell[] cells = row.Elements<Cell>().ToArray();
@@ -249,21 +239,17 @@ namespace Foundation.DocumentGenerator
                     if (cell.StyleIndex != null &&
                         boldStyles.Contains(cell.StyleIndex))
                     {
-                        // Add an extra char for bold - not 100% accurate but good enough for what i need.
+                        // Add an extra char for bold - not 100% accurate but good enough for what I need.
                         cellTextLength += 1;
                     }
 
-                    if (maxColWidth.ContainsKey(i))
+                    if (!maxColWidth.TryAdd(i, cellTextLength))
                     {
                         Int32 current = maxColWidth[i];
                         if (cellTextLength > current)
                         {
                             maxColWidth[i] = cellTextLength;
                         }
-                    }
-                    else
-                    {
-                        maxColWidth.Add(i, cellTextLength);
                     }
                 }
             }
@@ -291,7 +277,7 @@ namespace Foundation.DocumentGenerator
         private UInt32Value GetStyleIndexForColumn(IGridColumnDefinition gridColumnDefinition)
         {
             // First check if we find an existing NumberingFormat with the desired settings
-            DocGenNumberingFormat numberingFormat = NumberingFormats.OfType<DocGenNumberingFormat>().FirstOrDefault(format => format.GetHashCode() == gridColumnDefinition.GetHashCode());
+            DocGenNumberingFormat? numberingFormat = NumberingFormats.OfType<DocGenNumberingFormat>().FirstOrDefault(format => format.GetHashCode() == gridColumnDefinition.GetHashCode());
 
             if (numberingFormat == null)
             {
@@ -307,7 +293,7 @@ namespace Foundation.DocumentGenerator
                 NumberingFormats.Count = Convert.ToUInt32(NumberingFormats.Count());
             }
 
-            CellFormat cellFormat = CellFormats.OfType<CellFormat>().FirstOrDefault(format => format.NumberFormatId == numberingFormat.NumberFormatId);
+            CellFormat? cellFormat = CellFormats.OfType<CellFormat>().FirstOrDefault(format => format.NumberFormatId == numberingFormat.NumberFormatId);
 
             if (cellFormat == null)
             {
@@ -330,12 +316,12 @@ namespace Foundation.DocumentGenerator
             return retVal;
         }
 
-        private Cell ConvertDotNetValueToSpreadsheetValue(Object propertyValue, IGridColumnDefinition gridColumnDefinition)
+        private Cell ConvertDotNetValueToSpreadsheetValue(Object? propertyValue, IGridColumnDefinition gridColumnDefinition)
         {
             UInt32Value styleIndex = GetStyleIndexForColumn(gridColumnDefinition);
-            CellValue cellValue = null;
-            InlineString inlineString = null;
-            EnumValue<CellValues> dataType = null;
+            CellValue? cellValue = null;
+            InlineString? inlineString = null;
+            EnumValue<CellValues>? dataType = null;
 
             if (propertyValue != null)
             {
@@ -350,7 +336,7 @@ namespace Foundation.DocumentGenerator
                 else if (gridColumnDefinition.DataType.IsNumericType())
                 {
                     dataType = new EnumValue<CellValues>(CellValues.Number);
-                    cellValue = new CellValue(propertyValue.ToString());
+                    cellValue = new CellValue(propertyValue.ToString() ?? String.Empty);
                 }
                 else if (gridColumnDefinition.DataType == typeof(AppId))
                 {
@@ -384,18 +370,18 @@ namespace Foundation.DocumentGenerator
                     if (gridColumnDefinition.DataSource == null)
                     {
                         dataType = new EnumValue<CellValues>(CellValues.InlineString);
-                        inlineString = new InlineString { Text = new Text(propertyValue.ToString()) };
+                        inlineString = new InlineString { Text = new Text(propertyValue.ToString() ?? String.Empty) };
                     }
                     else
                     {
                         IList aList = (IList)gridColumnDefinition.DataSource;
                         List<IFoundationModel> foundationModels = aList.Cast<IFoundationModel>().ToList();
-                        IFoundationModel foundationModel = foundationModels.FirstOrDefault(fm => fm.Id == propertyValue);
+                        IFoundationModel? foundationModel = foundationModels.FirstOrDefault(fm => fm.Id == propertyValue);
 
-                        Object outputValue = foundationModel.GetPropertyValue(gridColumnDefinition.DisplayMember);
+                        Object outputValue = foundationModel?.GetPropertyValue(gridColumnDefinition.DisplayMember) ?? String.Empty;
 
                         dataType = new EnumValue<CellValues>(CellValues.InlineString);
-                        inlineString = new InlineString { Text = new Text(outputValue.ToString()) };
+                        inlineString = new InlineString { Text = new Text(outputValue.ToString() ?? String.Empty) };
                     }
                 }
             }
@@ -487,7 +473,7 @@ namespace Foundation.DocumentGenerator
 
                     foreach (IGridColumnDefinition gridColumnDefinition in gridColumnDefinitions)
                     {
-                        Object propertyValue = foundationModel.GetPropertyValue(gridColumnDefinition.DataMemberName);
+                        Object propertyValue = foundationModel.GetPropertyValue(gridColumnDefinition.DataMemberName) ?? String.Empty;
                         Cell cell = ConvertDotNetValueToSpreadsheetValue(propertyValue, gridColumnDefinition);
                         row.Append(cell);
                     }

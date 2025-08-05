@@ -48,8 +48,9 @@ namespace Foundation.Tests.Unit.NetFramework
         {
             FileInfo fi = new FileInfo(@"D:\Projects\Generic Entity Search.txt");
             FileSecurity fileSecurity = fi.GetAccessControl();
-            IdentityReference identityReference = fileSecurity.GetOwner(typeof(NTAccount));
-            Debug.WriteLine(identityReference.Value);
+            IdentityReference? identityReference = fileSecurity.GetOwner(typeof(NTAccount));
+
+            Debug.WriteLine(identityReference?.Value ?? "<Null>");
         }
     }
 }

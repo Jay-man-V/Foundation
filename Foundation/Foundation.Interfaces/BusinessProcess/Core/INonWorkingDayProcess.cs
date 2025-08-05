@@ -4,13 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
 namespace Foundation.Interfaces
 {
     /// <summary>
-    /// Defines the behaviour of the Non Working Business process 
+    /// Defines the behaviour of the Non-Working Business process 
     /// </summary>
     public interface INonWorkingDayProcess : ICommonBusinessProcess<INonWorkingDay>
     {
@@ -28,21 +25,21 @@ namespace Foundation.Interfaces
         /// <summary>
         /// Given the <paramref name="nonWorkingDays"/> function will create a new list of EntityIds that are Countries
         /// </summary>
-        /// <param name="nonWorkingDays">The full list of non working days</param>
+        /// <param name="nonWorkingDays">The full list of non-working days</param>
         /// <returns>List of EntityIds that are countries</returns>
         List<ICountry> GetListOfNonWorkingDayCountries(IEnumerable<INonWorkingDay> nonWorkingDays);
 
         /// <summary>
         /// Given the <paramref name="nonWorkingDays"/> function will create a new list of Strings that are Years
         /// </summary>
-        /// <param name="nonWorkingDays">The full list of non working days</param>
+        /// <param name="nonWorkingDays">The full list of non-working days</param>
         /// <returns>List of Strings that are years</returns>
         List<String> GetListOfNonWorkingDayYears(List<INonWorkingDay> nonWorkingDays);
 
         /// <summary>
         /// Given the <paramref name="nonWorkingDays"/> function will create a new list of Strings that are Descriptions
         /// </summary>
-        /// <param name="nonWorkingDays">The full list of non working days</param>
+        /// <param name="nonWorkingDays">The full list of non-working days</param>
         /// <returns>List of Strings that are descriptions</returns>
         List<String> GetListOfNonWorkingDayDescriptions(List<INonWorkingDay> nonWorkingDays);
 

@@ -64,7 +64,7 @@ namespace Foundation.Tests.Unit.Support
         /// Impersonates the unit test user account.
         /// </summary>
         /// <exception cref="SecurityException">Logon user failed</exception>
-        public static void RunFunctionUnderImpersonation(Action action,
+        public static void RunFunctionUnderImpersonation(Action? action,
                                                          String domain = UnitTestAccountDomain,
                                                          String username = UnitTestAccountUserName,
                                                          String password = UnitTestAccountPassword)
@@ -83,7 +83,10 @@ namespace Foundation.Tests.Unit.Support
                 throw new SecurityException(errorMessage);
             }
 
-            WindowsIdentity.RunImpersonated(safeAccessTokenHandle,action);
+            if (action != null)
+            {
+                WindowsIdentity.RunImpersonated(safeAccessTokenHandle, action);
+            }
         }
 
         /// <summary>

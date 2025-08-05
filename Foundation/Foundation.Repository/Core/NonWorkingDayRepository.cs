@@ -4,7 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Data;
 using System.Text;
 
@@ -60,11 +59,11 @@ namespace Foundation.Repository
         protected override String TableName => FDC.TableNames.NonWorkingDay;
 
         /// <inheritdoc cref="INonWorkingDayRepository.Get(EntityId, DateTime)"/>
-        public INonWorkingDay Get(EntityId countryId, DateTime date)
+        public INonWorkingDay? Get(EntityId countryId, DateTime date)
         {
             LoggingHelpers.TraceCallEnter(countryId, date);
 
-            INonWorkingDay retVal = null;
+            INonWorkingDay? retVal = null;
 
             StringBuilder sql = new StringBuilder();
 

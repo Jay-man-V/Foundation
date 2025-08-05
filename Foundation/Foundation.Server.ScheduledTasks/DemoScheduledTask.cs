@@ -4,8 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
 using Foundation.BusinessProcess;
 using Foundation.Common;
 using Foundation.Interfaces;

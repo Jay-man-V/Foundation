@@ -4,8 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
 namespace Foundation.Interfaces
 {
     /// <summary>
@@ -17,7 +15,7 @@ namespace Foundation.Interfaces
         /// Loads the event log from the data store
         /// </summary>
         /// <param name="logId">The Id of the event log to be loaded</param>
-        IEventLog Get(LogId logId);
+        IEventLog? Get(LogId logId);
 
         /// <summary>
         /// Retrieves the latest <seealso cref="IEventLog"/> entry for the given parameters

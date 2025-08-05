@@ -4,11 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-using System.IO;
-using System.Xml.Serialization;
-
-using Foundation.Common;
 using Foundation.Interfaces;
 
 namespace Foundation.BusinessProcess
@@ -19,11 +14,6 @@ namespace Foundation.BusinessProcess
     [DependencyInjectionTransient]
     public class MainApplicationProcess : IMainApplicationProcess
     {
-        /// <summary>
-        /// The default application definition file
-        /// </summary>
-        public const String DefaultApplicationDefinitionFile = "ApplicationDefinition.xml";
-
         /// <summary>
         /// 
         /// </summary>

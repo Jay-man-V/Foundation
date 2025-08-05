@@ -11,6 +11,5 @@ namespace Foundation.Interfaces
     /// </summary>
     public interface IApplicationApplicationTypeProcess : ICommonBusinessProcess<IApplicationApplicationType>
     {
-
     }
 }

@@ -4,6 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Data.Common;
+
+using Microsoft.Data.SqlClient;
+
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Resources;
@@ -16,6 +20,12 @@ namespace Foundation.DataAccess.Database
     [DependencyInjectionTransient]
     internal class MsSqlDataLogicProvider : IDataLogicProvider
     {
+        public MsSqlDataLogicProvider()
+        {
+            DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
+            DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", SqlClientFactory.Instance);
+        }
+
         /// <inheritdoc cref="IDataLogicProvider.ValidToDateString" />
         public String ValidToDateString => ApplicationSettings.DefaultValidToDateTime.ToString(Formats.DotNet.DateTimeMilliseconds);
 

@@ -17,6 +17,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.0" />
+      <PackageReference Include="MySql.Data" Version="9.4.0" />
+      <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.9.1" />
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\Foundation.Common\Foundation.Common.csproj" />
       <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
     </ItemGroup>

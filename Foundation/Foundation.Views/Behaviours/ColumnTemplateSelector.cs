@@ -4,11 +4,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Windows;
 using System.Windows.Controls;
 
-using Foundation.Common;
 using Foundation.Interfaces;
 
 namespace Foundation.Views

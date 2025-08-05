@@ -4,11 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Windows;
 using System.Windows.Controls;
-
-using Foundation.Common;
 
 using FEnums = Foundation.Interfaces;
 
