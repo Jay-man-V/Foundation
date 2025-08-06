@@ -72,11 +72,11 @@ namespace Foundation.Repository
         }
 
         /// <inheritdoc cref="IApplicationConfigurationRepository.Get(AppId, IUserProfile, String)"/>
-        public IApplicationConfiguration Get(AppId applicationId, IUserProfile userProfile, String key)
+        public IApplicationConfiguration? Get(AppId applicationId, IUserProfile userProfile, String key)
         {
             LoggingHelpers.TraceCallEnter(applicationId, userProfile, key);
 
-            IApplicationConfiguration retVal = default;
+            IApplicationConfiguration? retVal = default;
 
             StringBuilder sql = new StringBuilder();
 
@@ -103,12 +103,12 @@ namespace Foundation.Repository
             sql.AppendLine("WHERE");
             sql.AppendLine("    Rnk = 1");
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
+            DatabaseParameters databaseParameters =
+            [
                 FoundationDataAccess.CreateParameter($"{FDC.ApplicationConfiguration.EntityName}{FDC.ApplicationConfiguration.Key}", key),
                 FoundationDataAccess.CreateParameter($"{FDC.ApplicationConfiguration.EntityName}{FDC.ApplicationConfiguration.ApplicationId}", applicationId),
                 FoundationDataAccess.CreateParameter($"{FDC.ApplicationConfiguration.EntityName}{FDC.ApplicationConfiguration.CreatedByUserProfileId}", userProfile.Id),
-            };
+            ];
 
             using (IDataReader dataReader = FoundationDataAccess.ExecuteReader(sql.ToString(), CommandType.Text, databaseParameters))
             {
@@ -157,12 +157,12 @@ namespace Foundation.Repository
             sql.AppendLine("WHERE");
             sql.AppendLine("    Rnk = 1");
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
+            DatabaseParameters databaseParameters =
+            [
                 FoundationDataAccess.CreateParameter($"{FDC.ApplicationConfiguration.EntityName}{FDC.ApplicationConfiguration.Key}", key + "%"),
                 FoundationDataAccess.CreateParameter($"{FDC.ApplicationConfiguration.EntityName}{FDC.ApplicationConfiguration.ApplicationId}", applicationId),
                 FoundationDataAccess.CreateParameter($"{FDC.ApplicationConfiguration.EntityName}{FDC.ApplicationConfiguration.CreatedByUserProfileId}", userProfile.Id),
-            };
+            ];
 
             using (IDataReader dataReader = FoundationDataAccess.ExecuteReader(sql.ToString(), CommandType.Text, databaseParameters))
             {
@@ -247,8 +247,8 @@ namespace Foundation.Repository
             sql.AppendLine($"        source.{FDC.ApplicationConfiguration.Value}");
             sql.AppendLine("    );");
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
+            DatabaseParameters databaseParameters =
+            [
                 FoundationDataAccess.CreateParameter($"{FDC.ApplicationConfiguration.EntityName}{FDC.ApplicationConfiguration.CreatedByUserProfileId}", userProfileId),
                 FoundationDataAccess.CreateParameter($"{FDC.ApplicationConfiguration.EntityName}{FDC.ApplicationConfiguration.LastUpdatedByUserProfileId}", userProfileId),
 
@@ -256,7 +256,7 @@ namespace Foundation.Repository
                 FoundationDataAccess.CreateParameter($"{FDC.ApplicationConfiguration.EntityName}{FDC.ApplicationConfiguration.ConfigurationScopeId}", configurationScope.Id()),
                 FoundationDataAccess.CreateParameter($"{FDC.ApplicationConfiguration.EntityName}{FDC.ApplicationConfiguration.Key}", key),
                 FoundationDataAccess.CreateParameter($"{FDC.ApplicationConfiguration.EntityName}{FDC.ApplicationConfiguration.Value}", newValue),
-            };
+            ];
 
             Int32 rowsAffected = FoundationDataAccess.ExecuteNonQuery(sql.ToString(), CommandType.Text, databaseParameters);
 

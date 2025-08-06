@@ -14,7 +14,7 @@ namespace Foundation.Interfaces
         /// <summary>
         /// Holds the last raised exception
         /// </summary>
-        Exception LastException { get; set; }
+        Exception? LastException { get; set; }
 
         /// <summary>
         /// Displays a message box to the user containing details of the <paramref name="exception"/>

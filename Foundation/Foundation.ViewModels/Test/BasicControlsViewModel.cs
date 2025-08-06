@@ -125,7 +125,7 @@ namespace Foundation.ViewModels
         /// Buttons the action.
         /// </summary>
         /// <param name="o">The o.</param>
-        private void ButtonAction(Object o)
+        private void ButtonAction(Object? o)
         {
             LoggingHelpers.TraceCallEnter(o);
 
@@ -163,7 +163,7 @@ namespace Foundation.ViewModels
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void Timer_Tick(Object sender, EventArgs e)
+        private void Timer_Tick(Object? sender, EventArgs e)
         {
             LoggingHelpers.TraceCallEnter(sender, e);
 
@@ -210,15 +210,17 @@ namespace Foundation.ViewModels
         {
             LoggingHelpers.TraceCallEnter();
 
-            BackgroundWorker bgw = sender as BackgroundWorker;
-            for (Byte x = 0; x < Byte.MaxValue; x++)
+            if (sender is BackgroundWorker bgw)
             {
-                Decimal progress = ((Decimal)x / Byte.MaxValue) * 100;
-                bgw.ReportProgress((Int32)progress);
-                Thread.Sleep(10);
-            }
+                for (Byte x = 0; x < Byte.MaxValue; x++)
+                {
+                    Decimal progress = ((Decimal)x / Byte.MaxValue) * 100;
+                    bgw.ReportProgress((Int32)progress);
+                    Thread.Sleep(10);
+                }
 
-            bgw.ReportProgress(100);
+                bgw.ReportProgress(100);
+            }
 
             LoggingHelpers.TraceCallReturn();
         }

@@ -4,16 +4,18 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Common;
+using Foundation.DataAccess.Database;
+using Foundation.Interfaces;
+
+using Microsoft.IdentityModel.Tokens;
+
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Drawing;
 using System.Reflection;
 using System.Text;
-
-using Foundation.Common;
-using Foundation.DataAccess.Database;
-using Foundation.Interfaces;
 
 using FDC = Foundation.Common.DataColumns;
 using FEnums = Foundation.Interfaces;
@@ -53,6 +55,12 @@ namespace Foundation.Repository
             DateTimeService = dateTimeService;
 
             DataLogicProvider = FoundationDataAccess.DataLogicProvider;
+
+            _entityProperties = [];
+            _entityInsertColumns = String.Empty;
+            _entityInsertParametersSection = String.Empty;
+            _entityInsertParametersSection = String.Empty;
+            _entityUpdateColumnParameters = String.Empty;
 
             LoggingHelpers.TraceCallReturn();
         }
@@ -160,12 +168,12 @@ namespace Foundation.Repository
             else if (propertyInfo.PropertyType == typeof(Bitmap)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, propertyInfo.GetValue(entity), DataHelpers.DefaultImage));
             else if (propertyInfo.PropertyType == typeof(Decimal)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, propertyInfo.GetValue(entity), 0m));
             else if (propertyInfo.PropertyType.IsNumericType()) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, propertyInfo.GetValue(entity)));
-            else if (propertyInfo.PropertyType == typeof(EntityId)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, (EntityId)propertyInfo.GetValue(entity)));
-            else if (propertyInfo.PropertyType == typeof(AppId)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, (AppId)propertyInfo.GetValue(entity)));
-            else if (propertyInfo.PropertyType == typeof(LogId)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, (LogId)propertyInfo.GetValue(entity)));
-            else if (propertyInfo.PropertyType == typeof(EmailAddress)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, (EmailAddress)propertyInfo.GetValue(entity)));
-            else if (propertyInfo.PropertyType == typeof(LogSeverity)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, ((LogSeverity)propertyInfo.GetValue(entity)).Id(), -1));
-            else if (propertyInfo.PropertyType == typeof(FEnums.TaskStatus)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, ((FEnums.TaskStatus)propertyInfo.GetValue(entity)).Id()));
+            else if (propertyInfo.PropertyType == typeof(EntityId)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, (EntityId?)propertyInfo.GetValue(entity)));
+            else if (propertyInfo.PropertyType == typeof(AppId)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, (AppId?)propertyInfo.GetValue(entity)));
+            else if (propertyInfo.PropertyType == typeof(LogId)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, (LogId?)propertyInfo.GetValue(entity)));
+            else if (propertyInfo.PropertyType == typeof(EmailAddress)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, (EmailAddress?)propertyInfo.GetValue(entity)));
+            else if (propertyInfo.PropertyType == typeof(LogSeverity)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, ((LogSeverity?)propertyInfo.GetValue(entity)).Id(), -1));
+            else if (propertyInfo.PropertyType == typeof(FEnums.TaskStatus)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, ((FEnums.TaskStatus?)propertyInfo.GetValue(entity)).Id()));
             else if (propertyInfo.PropertyType == typeof(Object)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, propertyInfo.GetValue(entity)));
             else
             {
@@ -177,7 +185,7 @@ namespace Foundation.Repository
         /// <summary>
         /// The entity properties
         /// </summary>
-        private PropertyInfo[] _entityProperties;
+        private PropertyInfo[]? _entityProperties;
         /// <summary>
         /// Gets the entity properties.
         /// </summary>
@@ -257,10 +265,13 @@ namespace Foundation.Repository
         /// <param name="entity">The entity.</param>
         protected virtual void AddEntityInsertParameters(DatabaseParameters databaseParameters, TModel entity)
         {
-            foreach (PropertyInfo propertyInfo in EntityProperties)
+            foreach (PropertyInfo? propertyInfo in EntityProperties)
             {
-                String columnName = propertyInfo.GetCustomAttribute<ColumnAttribute>().Name;
-                AddParameter(propertyInfo, databaseParameters, columnName, entity);
+                if (propertyInfo.GetCustomAttribute<ColumnAttribute>() is { } columnAttribute &&
+                    !String.IsNullOrEmpty(columnAttribute.Name))
+                {
+                    AddParameter(propertyInfo, databaseParameters, columnAttribute.Name, entity);
+                }
             }
         }
 
@@ -284,9 +295,13 @@ namespace Foundation.Repository
                     foreach (PropertyInfo propertyInfo in EntityProperties.Where(ep => !ep.Name.Equals(FDC.FoundationEntity.Id)))
                     {
                         if (valueAdded) sb.AppendLine(",");
-                        String columnName = propertyInfo.GetCustomAttribute<ColumnAttribute>().Name;
-                        sb.Append($"{columnName} = {DataLogicProvider.DatabaseParameterPrefix}{columnName}");
-                        valueAdded = true;
+
+                        if (propertyInfo.GetCustomAttribute<ColumnAttribute>() is { } columnAttribute &&
+                            !String.IsNullOrEmpty(columnAttribute.Name))
+                        {
+                            sb.Append($"{columnAttribute.Name} = {DataLogicProvider.DatabaseParameterPrefix}{columnAttribute.Name}");
+                            valueAdded = true;
+                        }
                     }
 
                     sb.AppendLine();
@@ -307,8 +322,11 @@ namespace Foundation.Repository
         {
             foreach (PropertyInfo propertyInfo in EntityProperties.Where(ep => !ep.Name.Equals(FDC.FoundationEntity.Id)))
             {
-                String columnName = propertyInfo.GetCustomAttribute<ColumnAttribute>().Name;
-                AddParameter(propertyInfo, databaseParameters, columnName, entity);
+                if (propertyInfo.GetCustomAttribute<ColumnAttribute>() is { } columnAttribute &&
+                    !String.IsNullOrEmpty(columnAttribute.Name))
+                {
+                    AddParameter(propertyInfo, databaseParameters, columnAttribute.Name, entity);
+                }
             }
         }
 
@@ -540,11 +558,11 @@ namespace Foundation.Repository
         {
             LoggingHelpers.TraceCallEnter($"TableName: {TableName}", tEntityId);
 
-            TModel retVal = default;
+            TModel retVal = default!;
 
             String sql = GetSql();
 
-            IDbDataParameter dataParameter = null;
+            IDbDataParameter? dataParameter = null;
 
             if (tEntityId is EntityId entityId)
             {
@@ -559,10 +577,13 @@ namespace Foundation.Repository
                 dataParameter = FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.Id}", logId);
             }
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
+            if (dataParameter == null)
             {
-                dataParameter
-            };
+                String message = $"Unable to create Data Parameter for '{typeof(TIdType)}' with value '{tEntityId}'";
+                throw new ArgumentNullException(nameof(dataParameter), message);
+            }
+
+            DatabaseParameters databaseParameters = [dataParameter];
 
             DataTable dataTable = FoundationDataAccess.ExecuteDataTable(sql, CommandType.Text, databaseParameters);
 
@@ -586,7 +607,7 @@ namespace Foundation.Repository
         {
             LoggingHelpers.TraceCallEnter($"TableName: {TableName}", entityIds);
 
-            List<TModel> retVal = new List<TModel>();
+            List<TModel> retVal = [];
 
             String ids = String.Join(", ", entityIds.Select(e => e.ToInteger()));
 
@@ -620,7 +641,7 @@ namespace Foundation.Repository
         {
             LoggingHelpers.TraceCallEnter($"TableName: {TableName}", entityKey);
 
-            TModel retVal = default;
+            TModel retVal = default!;
 
             StringBuilder sql = new StringBuilder();
             sql.AppendLine("SELECT");
@@ -630,10 +651,10 @@ namespace Foundation.Repository
             sql.AppendLine("WHERE");
             sql.AppendLine($"    {EntityKey} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}entityKey");
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
+            DatabaseParameters databaseParameters =
+            [
                 FoundationDataAccess.CreateParameter($"{EntityName}entityKey", entityKey)
-            };
+            ];
 
             DataTable dataTable = FoundationDataAccess.ExecuteDataTable(sql.ToString(), CommandType.Text, databaseParameters);
 
@@ -1285,28 +1306,31 @@ namespace Foundation.Repository
         {
             foreach (PropertyInfo propertyInfo in EntityProperties)
             {
-                ColumnAttribute columnAttribute = propertyInfo.GetCustomAttribute<ColumnAttribute>();
-                if (propertyInfo.PropertyType == typeof(String)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultString));
-                else if (propertyInfo.PropertyType == typeof(DateTime)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultDateTime));
-                else if (propertyInfo.PropertyType == typeof(DateTime?)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultDateTime));
-                else if (propertyInfo.PropertyType == typeof(TimeSpan)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultTimeSpan));
-                else if (propertyInfo.PropertyType == typeof(Boolean)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultBoolean));
-                else if (propertyInfo.PropertyType == typeof(Byte[])) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultByteArray));
-                else if (propertyInfo.PropertyType == typeof(Image)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultImage));
-                else if (propertyInfo.PropertyType == typeof(Bitmap)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultImage));
-                else if (propertyInfo.PropertyType == typeof(Decimal)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], 0m));
-                else if (propertyInfo.PropertyType.IsNumericType()) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], -1));
-                else if (propertyInfo.PropertyType == typeof(EntityId)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultEntityId));
-                else if (propertyInfo.PropertyType == typeof(AppId)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultAppId));
-                else if (propertyInfo.PropertyType == typeof(LogId)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultLogId));
-                else if (propertyInfo.PropertyType == typeof(EmailAddress)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultEmailAddress));
-                else if (propertyInfo.PropertyType == typeof(LogSeverity)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultLogSeverity));
-                else if (propertyInfo.PropertyType == typeof(FEnums.TaskStatus)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultTaskStatus));
-                else if (propertyInfo.PropertyType == typeof(Object)) propertyInfo.SetValue(entity, dataRow[columnAttribute.Name]);
-                else
+                if (propertyInfo.GetCustomAttribute<ColumnAttribute>() is { } columnAttribute &&
+                    !String.IsNullOrEmpty(columnAttribute.Name))
                 {
-                    String errorMessage = $"{propertyInfo.PropertyType} is unknown. Unable to set the correct value";
-                    throw new ArgumentException(errorMessage);
+                    if (propertyInfo.PropertyType == typeof(String)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultString));
+                    else if (propertyInfo.PropertyType == typeof(DateTime)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultDateTime));
+                    else if (propertyInfo.PropertyType == typeof(DateTime?)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultDateTime));
+                    else if (propertyInfo.PropertyType == typeof(TimeSpan)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultTimeSpan));
+                    else if (propertyInfo.PropertyType == typeof(Boolean)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultBoolean));
+                    else if (propertyInfo.PropertyType == typeof(Byte[])) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultByteArray));
+                    else if (propertyInfo.PropertyType == typeof(Image)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultImage));
+                    else if (propertyInfo.PropertyType == typeof(Bitmap)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultImage));
+                    else if (propertyInfo.PropertyType == typeof(Decimal)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], 0m));
+                    else if (propertyInfo.PropertyType.IsNumericType()) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], -1));
+                    else if (propertyInfo.PropertyType == typeof(EntityId)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultEntityId));
+                    else if (propertyInfo.PropertyType == typeof(AppId)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultAppId));
+                    else if (propertyInfo.PropertyType == typeof(LogId)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultLogId));
+                    else if (propertyInfo.PropertyType == typeof(EmailAddress)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultEmailAddress));
+                    else if (propertyInfo.PropertyType == typeof(LogSeverity)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultLogSeverity));
+                    else if (propertyInfo.PropertyType == typeof(FEnums.TaskStatus)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRow[columnAttribute.Name], DataHelpers.DefaultTaskStatus));
+                    else if (propertyInfo.PropertyType == typeof(Object)) propertyInfo.SetValue(entity, dataRow[columnAttribute.Name]);
+                    else
+                    {
+                        String errorMessage = $"{propertyInfo.PropertyType} is unknown. Unable to set the correct value";
+                        throw new ArgumentException(errorMessage);
+                    }
                 }
             }
         }
@@ -1320,28 +1344,31 @@ namespace Foundation.Repository
         {
             foreach (PropertyInfo propertyInfo in EntityProperties)
             {
-                ColumnAttribute columnAttribute = propertyInfo.GetCustomAttribute<ColumnAttribute>();
-                if (propertyInfo.PropertyType == typeof(String)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultString));
-                else if (propertyInfo.PropertyType == typeof(DateTime)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultDateTime));
-                else if (propertyInfo.PropertyType == typeof(DateTime?)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultDateTime));
-                else if (propertyInfo.PropertyType == typeof(TimeSpan)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultTimeSpan));
-                else if (propertyInfo.PropertyType == typeof(Boolean)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultBoolean));
-                else if (propertyInfo.PropertyType == typeof(Byte[])) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultByteArray));
-                else if (propertyInfo.PropertyType == typeof(Image)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultImage));
-                else if (propertyInfo.PropertyType == typeof(Bitmap)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultImage));
-                else if (propertyInfo.PropertyType == typeof(Decimal)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], 0m));
-                else if (propertyInfo.PropertyType.IsNumericType()) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], -1));
-                else if (propertyInfo.PropertyType == typeof(EntityId)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultEntityId));
-                else if (propertyInfo.PropertyType == typeof(AppId)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultAppId));
-                else if (propertyInfo.PropertyType == typeof(LogId)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultLogId));
-                else if (propertyInfo.PropertyType == typeof(EmailAddress)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultEmailAddress));
-                else if (propertyInfo.PropertyType == typeof(LogSeverity)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultLogSeverity));
-                else if (propertyInfo.PropertyType == typeof(FEnums.TaskStatus)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultTaskStatus));
-                else if (propertyInfo.PropertyType == typeof(Object)) propertyInfo.SetValue(entity, dataRecord[columnAttribute.Name]);
-                else
+                if (propertyInfo.GetCustomAttribute<ColumnAttribute>() is { } columnAttribute &&
+                    !String.IsNullOrEmpty(columnAttribute.Name))
                 {
-                    String errorMessage = $"{propertyInfo.PropertyType} is unknown. Unable to set the correct value";
-                    throw new ArgumentException(errorMessage);
+                    if (propertyInfo.PropertyType == typeof(String)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultString));
+                    else if (propertyInfo.PropertyType == typeof(DateTime)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultDateTime));
+                    else if (propertyInfo.PropertyType == typeof(DateTime?)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultDateTime));
+                    else if (propertyInfo.PropertyType == typeof(TimeSpan)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultTimeSpan));
+                    else if (propertyInfo.PropertyType == typeof(Boolean)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultBoolean));
+                    else if (propertyInfo.PropertyType == typeof(Byte[])) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultByteArray));
+                    else if (propertyInfo.PropertyType == typeof(Image)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultImage));
+                    else if (propertyInfo.PropertyType == typeof(Bitmap)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultImage));
+                    else if (propertyInfo.PropertyType == typeof(Decimal)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], 0m));
+                    else if (propertyInfo.PropertyType.IsNumericType()) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], -1));
+                    else if (propertyInfo.PropertyType == typeof(EntityId)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultEntityId));
+                    else if (propertyInfo.PropertyType == typeof(AppId)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultAppId));
+                    else if (propertyInfo.PropertyType == typeof(LogId)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultLogId));
+                    else if (propertyInfo.PropertyType == typeof(EmailAddress)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultEmailAddress));
+                    else if (propertyInfo.PropertyType == typeof(LogSeverity)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultLogSeverity));
+                    else if (propertyInfo.PropertyType == typeof(FEnums.TaskStatus)) propertyInfo.SetValue(entity, DataHelpers.GetValue(dataRecord[columnAttribute.Name], DataHelpers.DefaultTaskStatus));
+                    else if (propertyInfo.PropertyType == typeof(Object)) propertyInfo.SetValue(entity, dataRecord[columnAttribute.Name]);
+                    else
+                    {
+                        String errorMessage = $"{propertyInfo.PropertyType} is unknown. Unable to set the correct value";
+                        throw new ArgumentException(errorMessage);
+                    }
                 }
             }
         }
@@ -1371,7 +1398,7 @@ namespace Foundation.Repository
             entity.EntityState = EntityState.Saved;
 
             entity.Id = DataHelpers.GetValue(dataRow[FDC.FoundationEntity.Id], new EntityId(0));
-            entity.Timestamp = DataHelpers.GetValue(dataRow[FDC.FoundationEntity.Timestamp], new Byte[] { 0 });
+            entity.Timestamp = DataHelpers.GetValue(dataRow[FDC.FoundationEntity.Timestamp], [ 0 ]);
             entity.EntityStatus = DataHelpers.GetValue(dataRow[FDC.FoundationEntity.StatusId], EntityStatus.Active);
             entity.CreatedByUserProfileId = DataHelpers.GetValue(dataRow[FDC.FoundationEntity.CreatedByUserProfileId], new EntityId(0));
             entity.LastUpdatedByUserProfileId = DataHelpers.GetValue(dataRow[FDC.FoundationEntity.LastUpdatedByUserProfileId], new EntityId(0));
@@ -1401,7 +1428,7 @@ namespace Foundation.Repository
             entity.EntityState = EntityState.Saved;
 
             entity.Id = DataHelpers.GetValue(dataRow[FDC.FoundationEntity.Id], new EntityId(0));
-            entity.Timestamp = DataHelpers.GetValue(dataRow[FDC.FoundationEntity.Timestamp], new Byte[] { 0 });
+            entity.Timestamp = DataHelpers.GetValue(dataRow[FDC.FoundationEntity.Timestamp], [ 0 ]);
             entity.EntityStatus = DataHelpers.GetValue(dataRow[FDC.FoundationEntity.StatusId], EntityStatus.Active);
             entity.CreatedByUserProfileId = DataHelpers.GetValue(dataRow[FDC.FoundationEntity.CreatedByUserProfileId], new EntityId(0));
             entity.LastUpdatedByUserProfileId = DataHelpers.GetValue(dataRow[FDC.FoundationEntity.LastUpdatedByUserProfileId], new EntityId(0));

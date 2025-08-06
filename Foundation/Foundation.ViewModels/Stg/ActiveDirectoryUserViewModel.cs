@@ -49,9 +49,7 @@ namespace Foundation.ViewModels
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <summary>
-        /// Refreshes the data.
-        /// </summary>
+        /// <inheritdoc cref="GenericDataGridViewModelBase{TModel}.RefreshData()"/>
         protected override List<IActiveDirectoryUser> RefreshData()
         {
             LoggingHelpers.TraceCallEnter();
@@ -73,9 +71,12 @@ namespace Foundation.ViewModels
         {
             LoggingHelpers.TraceCallEnter();
 
-            CommonBusinessProcess.Save(GridDataSource.ToList());
+            if (GridDataSource != null && GridDataSource.Any())
+            {
+                CommonBusinessProcess.Save(GridDataSource.ToList());
 
-            Action2CommandEnabled = GridDataSource.Any();
+                Action2CommandEnabled = GridDataSource.Any();
+            }
 
             LoggingHelpers.TraceCallReturn();
         }

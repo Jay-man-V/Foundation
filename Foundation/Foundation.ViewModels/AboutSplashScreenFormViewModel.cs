@@ -57,7 +57,7 @@ namespace Foundation.ViewModels
             Email = "<not set>";
             Roles = "<not set>";
 
-            Assembly entryAssembly = Assembly.GetEntryAssembly();
+            Assembly? entryAssembly = Assembly.GetEntryAssembly();
 
             if (entryAssembly != null)
             {

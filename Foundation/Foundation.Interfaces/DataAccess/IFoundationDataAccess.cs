@@ -135,7 +135,7 @@ namespace Foundation.Interfaces
         /// <param name="commandType">The <see cref="CommandType"/> of the command to be executed</param>
         /// <param name="databaseParameters">The parameters to pass to the command</param>
         /// <returns>The <see cref="object"/> result of the command</returns>
-        Object ExecuteScalar(String sql, CommandType commandType = CommandType.Text, IDatabaseParameters? databaseParameters = null);
+        Object? ExecuteScalar(String sql, CommandType commandType = CommandType.Text, IDatabaseParameters? databaseParameters = null);
 
         /// <summary>
         /// Executes the command and returns the resulting <see cref="DataSet"/>
@@ -145,7 +145,7 @@ namespace Foundation.Interfaces
         /// <param name="commandType">The <see cref="CommandType"/> of the command to be executed</param>
         /// <param name="databaseParameters">The parameters to pass to the command</param>
         /// <returns>The <see cref="Object"/> result of the command</returns>
-        Object ExecuteScalar(IDbConnection conn, String sql, CommandType commandType = CommandType.Text, IDatabaseParameters? databaseParameters = null);
+        Object? ExecuteScalar(IDbConnection conn, String sql, CommandType commandType = CommandType.Text, IDatabaseParameters? databaseParameters = null);
 
         /// <summary>
         /// Creates the parameter.

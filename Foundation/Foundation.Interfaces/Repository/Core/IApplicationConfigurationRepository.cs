@@ -29,7 +29,7 @@ namespace Foundation.Interfaces
         /// <param name="userProfile">The user profile.</param>
         /// <param name="key">The key.</param>
         /// <returns></returns>
-        IApplicationConfiguration Get(AppId applicationId, IUserProfile userProfile, String key);
+        IApplicationConfiguration? Get(AppId applicationId, IUserProfile userProfile, String key);
 
         /// <summary>
         /// Gets the group of values.

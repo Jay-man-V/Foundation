@@ -97,12 +97,12 @@ namespace Foundation.Repository
             sql.AppendLine("ORDER BY");
             sql.AppendLine($"    {FDC.PermissionMatrix.RoleId} DESC, {FDC.PermissionMatrix.Permission} ASC");
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
+            DatabaseParameters databaseParameters =
+            [
                 FoundationDataAccess.CreateParameter($"{FDC.PermissionMatrix.EntityName}{FDC.PermissionMatrix.ApplicationId}", authenticationToken.ApplicationId),
                 FoundationDataAccess.CreateParameter($"{FDC.PermissionMatrix.EntityName}{FDC.PermissionMatrix.UserProfileId}", authenticationToken.UserProfileId),
                 FoundationDataAccess.CreateParameter($"{FDC.PermissionMatrix.EntityName}{FDC.PermissionMatrix.FunctionKey}", functionKey),
-            };
+            ];
 
             Int32 recordCount = FoundationDataAccess.ExecuteGetRowCount(sql.ToString(), CommandType.Text, databaseParameters);
 

@@ -34,7 +34,6 @@ namespace Foundation.Interfaces
         /// <summary>
         /// Initialises the View Model
         /// </summary>
-//        void Initialise();
         void Initialise(IWindow targetWindow, IViewModel? parentViewModel, String formTitle);
     }
 }

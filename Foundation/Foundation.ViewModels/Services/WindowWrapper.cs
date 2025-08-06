@@ -23,7 +23,7 @@ namespace Foundation.ViewModels
             Window = Application.Current.MainWindow;
         }
 
-        private Window Window { get; }
+        private Window? Window { get; }
 
         /// <inheritdoc cref="IWindowWrapper.Close()"/>
         public void Close()

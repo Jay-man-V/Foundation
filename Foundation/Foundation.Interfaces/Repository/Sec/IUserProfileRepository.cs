@@ -19,7 +19,7 @@ namespace Foundation.Interfaces
         /// <param name="username">The username.</param>
         /// <returns>
         /// </returns>
-        IUserProfile Get(AppId applicationId, String domainName, String username);
+        IUserProfile? Get(AppId applicationId, String domainName, String username);
 
         /// <summary>
         /// Gets the specified application identifier.
@@ -28,7 +28,7 @@ namespace Foundation.Interfaces
         /// <param name="userProfileId">The user profile identifier.</param>
         /// <returns>
         /// </returns>
-        IUserProfile Get(AppId applicationId, EntityId userProfileId);
+        IUserProfile? Get(AppId applicationId, EntityId userProfileId);
 
         /// <summary>
         /// Synchronizes the active directory user data from staging.

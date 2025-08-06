@@ -53,7 +53,7 @@ namespace Foundation.ViewModels
         /// <value>
         /// The displayed window.
         /// </value>
-        public IWindow DisplayedWindow { get; set; }
+        public IWindow? DisplayedWindow { get; set; }
 
         /// <inheritdoc cref="Initialise()"/>
         public override void Initialise()

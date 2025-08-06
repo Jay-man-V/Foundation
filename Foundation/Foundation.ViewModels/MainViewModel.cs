@@ -11,7 +11,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-//using Foundation.BusinessProcess;
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Views;
@@ -23,7 +22,7 @@ namespace Foundation.ViewModels
     /// <summary>
     /// The User Interface interaction logic for Main application
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IApprovalStatus}" />
+    /// <seealso cref="IMainWindowViewModel" />
     public class MainViewModel : ViewModelBase, IMainWindowViewModel
     {
         private Boolean _enabled;
@@ -67,9 +66,12 @@ namespace Foundation.ViewModels
 
             LoggedOnUsername = Core.CurrentLoggedOnUser.Username;
             LoggedOnUserDisplayName = Core.CurrentLoggedOnUser.DisplayName;
-            Version = "<None>";
-            UserRole = "<None>";
+
+            ApplicationName = "<Not set>";
+            Database = "<Not set>";
             Environment = "Dev";
+            UserRole = "<None>";
+            Version = "<None>";
 
             foreach (IRole role in Core.CurrentLoggedOnUser.UserProfile.Roles)
             {
@@ -81,7 +83,8 @@ namespace Foundation.ViewModels
             LoggedOnUsersViewModel = new LoggedOnUserViewModel(Core, RunTimeEnvironmentSettings, DateTimeService, wpfApplicationObjects, FileApi, LoggedOnUserProcess);
             LoggedOnUsersViewModel.Initialise(targetWindow, this, "Logged on Users");
 
-            TabItems = new ObservableCollection<TabItem>();
+            _applicationMenuItems = [];
+            _tabItems = [];
 
             LoggingHelpers.TraceCallReturn();
         }
@@ -100,6 +103,12 @@ namespace Foundation.ViewModels
 
             LoggingHelpers.TraceCallReturn();
         }
+
+        /// <summary>
+        /// Gets or sets the last exception.
+        /// </summary>
+        /// <value>The last exception.</value>
+        public Exception? LastException { get; set; }
 
         /// <summary>
         /// Gets or sets the child window counter.
@@ -147,7 +156,7 @@ namespace Foundation.ViewModels
         /// <value>
         /// The menu items.
         /// </value>
-        protected List<IMenuItem> MenuItems { get; private set; }
+        protected List<IMenuItem> MenuItems { get; private set; } = [];
 
         /// <summary>
         /// Gets the application name.
@@ -299,7 +308,7 @@ namespace Foundation.ViewModels
         /// <value>
         /// The selected item.
         /// </value>
-        public Object SelectedItem { get; set; }
+        public Object? SelectedItem { get; set; }
 
         private ObservableCollection<TabItem> _tabItems;
         /// <summary>
@@ -327,45 +336,52 @@ namespace Foundation.ViewModels
             set => SetPropertyValue(ref _applicationMenuItems, value);
         }
 
-        private IMenuItem _selectedApplicationMenuItem;
+        private IMenuItem? _selectedApplicationMenuItem;
         /// <summary>
         /// Gets or sets the selected application menu item.
         /// </summary>
         /// <value>
         /// The selected application menu item.
         /// </value>
-        public IMenuItem SelectedApplicationMenuItem
+        public IMenuItem? SelectedApplicationMenuItem
         {
             get => _selectedApplicationMenuItem;
             set
             {
                 SetPropertyValue(ref _selectedApplicationMenuItem, value);
-                IEnumerable<IMenuItem> applicationMenuItems = MenuItems.Where(mi => mi.ParentMenuItemId == _selectedApplicationMenuItem.Id);
-                AvailableMenuItems = new ObservableCollection<IMenuItem>(applicationMenuItems);
+                if (_selectedApplicationMenuItem == null)
+                {
+                    AvailableMenuItems = [];
+                }
+                else
+                {
+                    IEnumerable<IMenuItem> applicationMenuItems = MenuItems.Where(mi => mi.ParentMenuItemId == _selectedApplicationMenuItem.Id);
+                    AvailableMenuItems = new ObservableCollection<IMenuItem>(applicationMenuItems);
+                }
             }
         }
 
-        private ObservableCollection<IMenuItem> _availableMenuItems;
+        private ObservableCollection<IMenuItem>? _availableMenuItems;
         /// <summary>
         /// Gets or sets the Available menu items.
         /// </summary>
         /// <value>
         /// The Available menu items.
         /// </value>
-        public ObservableCollection<IMenuItem> AvailableMenuItems
+        public ObservableCollection<IMenuItem>? AvailableMenuItems
         {
             get => _availableMenuItems;
             set => SetPropertyValue(ref _availableMenuItems, value);
         }
 
-        private BindingList<IMenuItem> _menuBarItems;
+        private BindingList<IMenuItem>? _menuBarItems;
         /// <summary>
         /// Gets or sets the menu bar items.
         /// </summary>
         /// <value>
         /// The menu bar items.
         /// </value>
-        public BindingList<IMenuItem> MenuBarItems
+        public BindingList<IMenuItem>? MenuBarItems
         {
             get => _menuBarItems;
             set => SetPropertyValue(ref _menuBarItems, value);
@@ -425,7 +441,7 @@ namespace Foundation.ViewModels
         /// Called when [save click].
         /// </summary>
         /// <param name="menuItem">The menu item.</param>
-        private void OnSave_Click(IMenuItem menuItem)
+        private void OnSave_Click(IMenuItem? menuItem)
         {
             LoggingHelpers.TraceCallEnter(menuItem);
 
@@ -438,13 +454,13 @@ namespace Foundation.ViewModels
         /// Called when [Menu selected item changed click].
         /// </summary>
         /// <param name="menuItem">The menu item.</param>
-        private void MenuSelectedItemChanged_Click(IMenuItem menuItem)
+        private void MenuSelectedItemChanged_Click(IMenuItem? menuItem)
         {
             LoggingHelpers.TraceCallEnter(menuItem);
 
             using (MouseCursor)
             {
-                Debug.Print($"{LocationUtils.GetFunctionName()} - {menuItem.Caption}");
+                Debug.Print($"{LocationUtils.GetFunctionName()} - {menuItem?.Caption}");
             }
 
             LoggingHelpers.TraceCallReturn();
@@ -454,15 +470,15 @@ namespace Foundation.ViewModels
         /// Called when [menu selection left click].
         /// </summary>
         /// <param name="menuItem">The menu item.</param>
-        private void OnMenuSelection_LeftClick(IMenuItem menuItem)
+        private void OnMenuSelection_LeftClick(IMenuItem? menuItem)
         {
             LoggingHelpers.TraceCallEnter(menuItem);
 
             using (MouseCursor)
             {
                 if (menuItem != null &&
-                    menuItem.ControllerAssembly != null &&
-                    menuItem.ViewAssembly != null)
+                    !String.IsNullOrEmpty(menuItem.ControllerAssembly) &&
+                    !String.IsNullOrEmpty(menuItem.ViewAssembly))
                 {
                     ChildWindowCounter++;
 
@@ -484,17 +500,19 @@ namespace Foundation.ViewModels
                     try
                     {
                         contentControl = Core.IoC.Get<ContentControl>(viewAssembly, viewType);
-                        IWindow targetWindow = contentControl as IWindow;
-                        viewModel.Initialise(targetWindow, this, menuItem.Caption);
-                        contentControl.DataContext = viewModel;
+                        if (contentControl is IWindow targetWindow)
+                        {
+                            viewModel.Initialise(targetWindow, this, menuItem.Caption);
+                            contentControl.DataContext = viewModel;
+                        }
                     }
                     catch (Exception exception)
                     {
                         throw new Exception($"Unable to View - {menuItem.Caption}: '{viewType}' from '{viewAssembly}'", exception);
                     }
 
-                    TabItem tabItem = null;
-                    Window window = null;
+                    TabItem? tabItem = null;
+                    Window? window = null;
 
                     if (menuItem.ShowInTab)
                     {
@@ -556,7 +574,7 @@ namespace Foundation.ViewModels
                             TabItems.Add(tabItem);
                         }
                     }
-                    else
+                    else if (window != null)
                     {
                         window.Show();
                         window.Activate();
@@ -574,13 +592,13 @@ namespace Foundation.ViewModels
         /// Called when [menu selection right click].
         /// </summary>
         /// <param name="menuItem">The menu item.</param>
-        private void OnMenuSelection_RightClick(IMenuItem menuItem)
+        private void OnMenuSelection_RightClick(IMenuItem? menuItem)
         {
             LoggingHelpers.TraceCallEnter(menuItem);
 
             using (MouseCursor)
             {
-                Debug.Print($"{LocationUtils.GetFunctionName()} - {menuItem.Caption}");
+                Debug.Print($"{LocationUtils.GetFunctionName()} - {menuItem?.Caption}");
             }
 
             LoggingHelpers.TraceCallReturn();
@@ -608,7 +626,7 @@ namespace Foundation.ViewModels
         /// Called when [sample command with argument click].
         /// </summary>
         /// <param name="obj">The object.</param>
-        private void OnSampleCmdWithArgument_Click(Object obj)
+        private void OnSampleCmdWithArgument_Click(Object? obj)
         {
             LoggingHelpers.TraceCallEnter(obj);
 
@@ -630,7 +648,6 @@ namespace Foundation.ViewModels
             using (MouseCursor)
             {
                 LoggingHelpers.TraceMessage("Opening About dialog");
-                IViewModel parentViewModel = this;
                 AboutSplashScreenForm theForm = new AboutSplashScreenForm();
                 AboutSplashScreenFormViewModel viewModel = new AboutSplashScreenFormViewModel(Core, RunTimeEnvironmentSettings, DateTimeService, WpfApplicationObjects, false);
                 theForm.DataContext = viewModel;
@@ -650,7 +667,7 @@ namespace Foundation.ViewModels
             using (MouseCursor)
             {
                 IRandomService randomService = Core.IoC.Get<IRandomService>();
-                FEnums.MessageType messageType = (FEnums.MessageType)randomService.NextInt32(1, 6);
+                MessageType messageType = (MessageType)randomService.NextInt32(1, 6);
                 String messageHeader = messageType.ToString();
                 String message = $"{messageType} Content";
                 ShowNotificationMessage(messageType, messageHeader, message);

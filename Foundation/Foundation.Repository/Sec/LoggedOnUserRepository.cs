@@ -81,12 +81,12 @@ namespace Foundation.Repository
             sql.AppendLine($"   {FDC.LoggedOnUser.ApplicationId} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.ApplicationId} AND");
             sql.AppendLine($"   {FDC.LoggedOnUser.UserProfileId} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.UserProfileId}");
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
+            DatabaseParameters databaseParameters =
+            [
                 FoundationDataAccess.CreateParameter($"{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.Command}", command, DataHelpers.DefaultString),
                 FoundationDataAccess.CreateParameter($"{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.ApplicationId}", applicationId),
                 FoundationDataAccess.CreateParameter($"{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.UserProfileId}", FDC.LoggedOnUser.UserProfileId),
-            };
+            ];
 
             FoundationDataAccess.ExecuteNonQuery(sql.ToString(), CommandType.Text, databaseParameters);
 
@@ -151,13 +151,13 @@ namespace Foundation.Repository
             sql.AppendLine($"       source.{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.LastActive}");
             sql.AppendLine("   );");
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
+            DatabaseParameters databaseParameters =
+            [
                 FoundationDataAccess.CreateParameter($"{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.CreatedByUserProfileId}", userProfile.Id),
                 FoundationDataAccess.CreateParameter($"{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.LastUpdatedByUserProfileId}", userProfile.Id),
                 FoundationDataAccess.CreateParameter($"{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.ApplicationId}", applicationId),
                 FoundationDataAccess.CreateParameter($"{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.UserProfileId}", userProfile.Id),
-            };
+            ];
 
             FoundationDataAccess.ExecuteNonQuery(sql.ToString(), CommandType.Text, databaseParameters);
 
@@ -231,10 +231,10 @@ namespace Foundation.Repository
             sql.AppendLine("ORDER BY");
             sql.AppendLine($"    {FDC.LoggedOnUser.RoleId} DESC, {FDC.LoggedOnUser.LoggedOn} ASC");
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
+            DatabaseParameters databaseParameters =
+            [
                 FoundationDataAccess.CreateParameter($"{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.ApplicationId}", applicationId),
-            };
+            ];
 
             using (IDataReader dataReader = FoundationDataAccess.ExecuteReader(sql.ToString(), CommandType.Text, databaseParameters))
             {

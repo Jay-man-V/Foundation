@@ -17,7 +17,7 @@ namespace Foundation.Interfaces
         ///// Gets or sets the cursor for the entire application.
         ///// </summary>
         ///// <returns>The override cursor or <see langword="null" /> if the <see cref="P:System.Windows.Input.Mouse.OverrideCursor" /> is not set.</returns>
-        Cursor OverrideCursor { get; set; }
+        Cursor? OverrideCursor { get; set; }
 
         /// <summary>
         /// Creates new instance of the <see cref="IMouseWrapper"/>

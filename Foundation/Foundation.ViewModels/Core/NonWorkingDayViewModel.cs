@@ -49,8 +49,9 @@ namespace Foundation.ViewModels
             LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, wpfApplicationObjects, fileApi, nonWorkingDayProcess, countryProcess);
 
             CountryProcess = countryProcess;
-
             NonWorkingDayProcess = nonWorkingDayProcess;
+
+            AllNonWorkingDays = [];
 
             // Enable Refresh from Government source only for System Support
             Action1CommandEnabled = CanUpdateNonWorkingDays();
@@ -109,51 +110,54 @@ namespace Foundation.ViewModels
         }
 
         /// <inheritdoc cref="ApplyFilter1"/>
-        protected override void ApplyFilter1(Object selectedFilter)
+        protected override void ApplyFilter1(Object? selectedFilter)
         {
             LoggingHelpers.TraceCallEnter(selectedFilter);
 
-            ICountry country = selectedFilter as ICountry;
-            String year = Filter2SelectedItem as String;
-            String descriptions = Filter3SelectedItem as String;
+            if (selectedFilter is ICountry country &&
+                Filter2SelectedItem is String year &&
+                Filter3SelectedItem is String descriptions)
+            {
+                Action1CommandEnabled = CanUpdateNonWorkingDays();
 
-            Action1CommandEnabled = CanUpdateNonWorkingDays();
+                List<INonWorkingDay> filteredData = ApplyFilter(country, year, descriptions);
 
-            List<INonWorkingDay> filteredData = ApplyFilter(country, year, descriptions);
-
-            GridDataSource = filteredData;
+                GridDataSource = filteredData;
+            }
 
             LoggingHelpers.TraceCallReturn();
         }
 
         /// <inheritdoc cref="ApplyFilter2"/>
-        protected override void ApplyFilter2(Object selectedFilter)
+        protected override void ApplyFilter2(Object? selectedFilter)
         {
             LoggingHelpers.TraceCallEnter(selectedFilter);
 
-            ICountry country = selectedFilter as ICountry;
-            String year = Filter2SelectedItem as String;
-            String descriptions = Filter3SelectedItem as String;
+            if (Filter1SelectedItem is ICountry country &&
+                selectedFilter is String year &&
+                Filter3SelectedItem is String descriptions)
+            {
+                List<INonWorkingDay> filteredData = ApplyFilter(country, year, descriptions);
 
-            List<INonWorkingDay> filteredData = ApplyFilter(country, year, descriptions);
-
-            GridDataSource = filteredData;
+                GridDataSource = filteredData;
+            }
 
             LoggingHelpers.TraceCallReturn();
         }
 
         /// <inheritdoc cref="ApplyFilter3"/>
-        protected override void ApplyFilter3(Object selectedFilter)
+        protected override void ApplyFilter3(Object? selectedFilter)
         {
             LoggingHelpers.TraceCallEnter(selectedFilter);
 
-            ICountry country = selectedFilter as ICountry;
-            String year = Filter2SelectedItem as String;
-            String descriptions = Filter3SelectedItem as String;
+            if (Filter1SelectedItem is ICountry country &&
+                Filter2SelectedItem is String year &&
+                selectedFilter is String descriptions)
+            {
+                List<INonWorkingDay> filteredData = ApplyFilter(country, year, descriptions);
 
-            List<INonWorkingDay> filteredData = ApplyFilter(country, year, descriptions);
-
-            GridDataSource = filteredData;
+                GridDataSource = filteredData;
+            }
 
             LoggingHelpers.TraceCallReturn();
         }
@@ -181,9 +185,7 @@ namespace Foundation.ViewModels
         {
             LoggingHelpers.TraceCallEnter();
 
-            ICountry country = Filter1SelectedItem as ICountry;
-
-            if (country != null)
+            if (Filter1SelectedItem is ICountry country)
             {
                 NonWorkingDayProcess.UpdateBankHolidayCalendarFromGovernmentSource(country);
 
@@ -203,10 +205,13 @@ namespace Foundation.ViewModels
         {
             LoggingHelpers.TraceCallEnter();
 
-            ICountry country = Filter1SelectedItem as ICountry;
-
-            Boolean isSystemSupport = Core.CurrentLoggedOnUser.IsSystemSupport;
-            Boolean isCountrySelected = country != null && country.Id != CountryProcess.AllId;
+            Boolean isSystemSupport = false;
+            Boolean isCountrySelected = false;
+            if (Filter1SelectedItem is ICountry country)
+            {
+                isSystemSupport = Core.CurrentLoggedOnUser.IsSystemSupport;
+                isCountrySelected = country.Id != CountryProcess.AllId;
+            }
 
             LoggingHelpers.TraceCallReturn();
 

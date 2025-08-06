@@ -81,7 +81,7 @@ namespace Foundation.Repository
         {
             LoggingHelpers.TraceCallEnter(tableCatalog, tableSchema, tableName);
 
-            List<IDatabaseSchemaColumn> retVal = new List<IDatabaseSchemaColumn>();
+            List<IDatabaseSchemaColumn> retVal = [];
 
             StringBuilder sql = new StringBuilder();
             sql.AppendLine("SELECT");
@@ -127,10 +127,10 @@ namespace Foundation.Repository
 
             IDatabaseSchemaColumn retVal = Core.IoC.Get<IDatabaseSchemaColumn>();
 
-            retVal.TableName = Convert.ToString(dataRecord[FDC.Specialised.DatabaseSchemaColumn.TableName]);
-            retVal.ColumnName = Convert.ToString(dataRecord[FDC.Specialised.DatabaseSchemaColumn.ColumnName]);
+            retVal.TableName = Convert.ToString(dataRecord[FDC.Specialised.DatabaseSchemaColumn.TableName]) ?? String.Empty;
+            retVal.ColumnName = Convert.ToString(dataRecord[FDC.Specialised.DatabaseSchemaColumn.ColumnName]) ?? String.Empty;
 
-            String dbType = Convert.ToString(dataRecord[FDC.Specialised.DatabaseSchemaColumn.DataType]);
+            String dbType = Convert.ToString(dataRecord[FDC.Specialised.DatabaseSchemaColumn.DataType]) ?? String.Empty;
             retVal.DataType = DataLogicProvider.MapDbTypeToDotNetType(dbType);
 
             LoggingHelpers.TraceCallReturn(retVal);

@@ -51,6 +51,8 @@ namespace Foundation.ViewModels
             ContractProcess = contractProcess;
             ContractTypeProcess = contractTypeProcess;
 
+            AllContracts = [];
+
             LoggingHelpers.TraceCallReturn();
         }
 
@@ -109,15 +111,16 @@ namespace Foundation.ViewModels
         }
 
         /// <inheritdoc cref="ApplyFilter1(Object)"/>
-        protected override void ApplyFilter1(Object selectedFilter)
+        protected override void ApplyFilter1(Object? selectedFilter)
         {
             LoggingHelpers.TraceCallEnter(selectedFilter);
 
-            IContractType contractType = selectedFilter as IContractType;
+            if (selectedFilter is IContractType contractType)
+            {
+                List<IContract> filteredData = ContractProcess.ApplyFilter(AllContracts, contractType);
 
-            List<IContract> filteredData = ContractProcess.ApplyFilter(AllContracts, contractType);
-
-            GridDataSource = filteredData;
+                GridDataSource = filteredData;
+            }
 
             LoggingHelpers.TraceCallReturn();
         }

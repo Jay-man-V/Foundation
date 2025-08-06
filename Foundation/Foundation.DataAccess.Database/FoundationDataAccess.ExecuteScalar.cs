@@ -17,11 +17,11 @@ namespace Foundation.DataAccess.Database
     public partial class FoundationDataAccess
     {
         /// <inheritdoc cref="IFoundationDataAccess.ExecuteScalar(String, CommandType, IDatabaseParameters?)"/>
-        public Object ExecuteScalar(String sql, CommandType commandType = CommandType.Text, IDatabaseParameters? databaseParameters = null)
+        public Object? ExecuteScalar(String sql, CommandType commandType = CommandType.Text, IDatabaseParameters? databaseParameters = null)
         {
             LoggingHelpers.TraceCallEnter(sql, commandType, databaseParameters);
 
-            Object retVal;
+            Object? retVal;
 
             using (IDbConnection conn = GetConnection())
             {
@@ -34,11 +34,11 @@ namespace Foundation.DataAccess.Database
         }
 
         /// <inheritdoc cref="IFoundationDataAccess.ExecuteScalar(IDbConnection, String, CommandType, IDatabaseParameters?)"/>
-        public Object ExecuteScalar(IDbConnection conn, String sql, CommandType commandType = CommandType.Text, IDatabaseParameters? databaseParameters = null)
+        public Object? ExecuteScalar(IDbConnection conn, String sql, CommandType commandType = CommandType.Text, IDatabaseParameters? databaseParameters = null)
         {
             LoggingHelpers.TraceCallEnter(conn, sql, commandType, databaseParameters);
 
-            Object retVal;
+            Object? retVal;
 
             using (IDbCommand command = conn.CreateCommand())
             {
@@ -47,7 +47,8 @@ namespace Foundation.DataAccess.Database
                     command.Transaction = DatabaseTransaction;
                 }
 
-                if (databaseParameters.HasItems())
+                if (databaseParameters != null &&
+                    databaseParameters.Any())
                 {
                     databaseParameters.ToList().ForEach(p => command.Parameters.Add(p));
                 }

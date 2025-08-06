@@ -11,8 +11,6 @@ using System.Windows.Input;
 using Foundation.Common;
 using Foundation.Interfaces;
 
-using FEnums = Foundation.Interfaces;
-
 namespace Foundation.ViewModels
 {
     /// <summary>
@@ -24,7 +22,7 @@ namespace Foundation.ViewModels
         /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
         /// Initialises the <see cref="ViewModelBase" /> class.
@@ -44,9 +42,9 @@ namespace Foundation.ViewModels
             LoggingHelpers.TraceCallReturn();
         }
 
-        private static List<IStatus> _statusesList;
-        private static List<IUserProfile> _userProfilesList;
-        private static List<ILoggedOnUser> _loggedOnUsersList;
+        private static List<IStatus>? _statusesList;
+        private static List<IUserProfile>? _userProfilesList;
+        private static List<ILoggedOnUser>? _loggedOnUsersList;
 
         /// <summary>
         /// Gets the Status process
@@ -142,9 +140,13 @@ namespace Foundation.ViewModels
         {
             LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, wpfApplicationObjects, formTitle);
 
-            MessageBoxImage = FEnums.MessageBoxImage.None;
+            MessageBoxImage = MessageBoxImage.None;
+            LastMessage = String.Empty;
+            LastMessageHeader = String.Empty;
+            LastMessageType = MessageType.NotSet;
 
             _formTitle = formTitle;
+            _screenInstructions = String.Empty;
 
             Core = core;
             RunTimeEnvironmentSettings = runTimeEnvironmentSettings;
@@ -160,13 +162,8 @@ namespace Foundation.ViewModels
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="targetWindow">The target window.</param>
-        /// <param name="parentViewModel">The parent view model.</param>
-        /// <param name="formTitle">The form title.</param>
-        public virtual void Initialise(IWindow targetWindow, IViewModel parentViewModel, String formTitle)
+        /// <inheritdoc cref="IViewModel.Initialise(IWindow, IViewModel?, String)"/>
+        public virtual void Initialise(IWindow targetWindow, IViewModel? parentViewModel, String formTitle)
         {
             LoggingHelpers.TraceCallEnter(targetWindow, parentViewModel, formTitle);
 
@@ -192,18 +189,12 @@ namespace Foundation.ViewModels
         /// Gets This window.
         /// </summary>
         /// <value>This window.</value>
-        public IWindow ThisWindow { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the last exception.
-        /// </summary>
-        /// <value>The last exception.</value>
-        public Exception? LastException { get; set; }
+        public IWindow? ThisWindow { get; private set; }
 
         /// <summary>
         /// The Parent View Model
         /// </summary>
-        public IViewModel ParentViewModel { get; private set; }
+        public IViewModel? ParentViewModel { get; private set; }
 
         /// <summary>
         /// Generic property to hold parameters for the View Model
@@ -358,7 +349,7 @@ namespace Foundation.ViewModels
         /// Called when [close window command].
         /// </summary>
         /// <param name="window">The window.</param>
-        protected virtual void OnCloseWindowCommand_Execute(IWindow window)
+        protected virtual void OnCloseWindowCommand_Execute(IWindow? window)
         {
             LoggingHelpers.TraceCallEnter(window);
 
@@ -425,7 +416,7 @@ namespace Foundation.ViewModels
 
             CommandManager.InvalidateRequerySuggested();
 
-            PropertyChangedEventHandler handler = PropertyChanged;
+            PropertyChangedEventHandler? handler = PropertyChanged;
             if (handler != null)
             {
                 handler.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -467,7 +458,7 @@ namespace Foundation.ViewModels
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        protected internal virtual Boolean CanExecuteParamIsNotNull(Object obj)
+        protected internal virtual Boolean CanExecuteParamIsNotNull(Object? obj)
         {
             LoggingHelpers.TraceCallEnter(obj);
 

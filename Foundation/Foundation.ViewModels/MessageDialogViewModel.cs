@@ -24,11 +24,11 @@ namespace Foundation.ViewModels
         /// </summary>
         private static class Constants
         {
-            public const String Yes = @"YES";
-            public const String No = @"NO";
-            public const String Cancel = @"CANCEL";
-            public const String Okay = @"OKAY";
-            public const String Close = @"CLOSE";
+            public const String Yes = "YES";
+            public const String No = "NO";
+            public const String Cancel = "CANCEL";
+            public const String Okay = "OKAY";
+            public const String Close = "CLOSE";
         }
 
         /// <summary>Initialises a new instance of the <see cref="MessageDialogViewModel" /> class.</summary>
@@ -160,11 +160,11 @@ namespace Foundation.ViewModels
 
         /// <summary>Gets the exception.</summary>
         /// <value>The exception.</value>
-        protected Exception Exception { get; }
+        protected Exception? Exception { get; }
 
         /// <summary>Gets the exception output.</summary>
         /// <value>The exception output.</value>
-        protected ExceptionOutput ExceptionOutput { get; }
+        protected ExceptionOutput? ExceptionOutput { get; }
 
         /// <summary>Gets or sets a value indicating whether this <see cref="MessageDialogViewModel" /> is expanded.</summary>
         /// <value>
@@ -261,7 +261,7 @@ namespace Foundation.ViewModels
 
         /// <summary>Called when [expanded collapsed event command execute].</summary>
         /// <param name="o">The o.</param>
-        private void OnExpandedCollapsedEventCommand_Execute(Object o)
+        private void OnExpandedCollapsedEventCommand_Execute(Object? o)
         {
             LoggingHelpers.TraceCallEnter(o);
 
@@ -278,7 +278,7 @@ namespace Foundation.ViewModels
 
         /// <summary>Called when [copy to clipboard command execute].</summary>
         /// <param name="o">The o.</param>
-        private void OnCopyToClipboardCommand_Execute(Object o)
+        private void OnCopyToClipboardCommand_Execute(Object? o)
         {
             LoggingHelpers.TraceCallEnter(o);
 
@@ -294,7 +294,7 @@ namespace Foundation.ViewModels
         /// <param name="window">The window.</param>
         /// <param name="buttonText">The button text.</param>
         /// <exception cref="ArgumentException"></exception>
-        private void OnButtonCommand_Execute(IWindow window, String buttonText)
+        private void OnButtonCommand_Execute(IWindow? window, String buttonText)
         {
             LoggingHelpers.TraceCallEnter(window);
 
@@ -320,7 +320,7 @@ namespace Foundation.ViewModels
 
         /// <summary>Called when [yes button command execute].</summary>
         /// <param name="o">The o.</param>
-        private void OnYesButtonCommand_Execute(IWindow o)
+        private void OnYesButtonCommand_Execute(IWindow? o)
         {
             LoggingHelpers.TraceCallEnter(o);
 
@@ -331,7 +331,7 @@ namespace Foundation.ViewModels
 
         /// <summary>Called when [no button command execute].</summary>
         /// <param name="o">The o.</param>
-        private void OnNoButtonCommand_Execute(IWindow o)
+        private void OnNoButtonCommand_Execute(IWindow? o)
         {
             LoggingHelpers.TraceCallEnter(o);
 
@@ -342,7 +342,7 @@ namespace Foundation.ViewModels
 
         /// <summary>Called when [okay button command execute].</summary>
         /// <param name="o">The o.</param>
-        private void OnOkayButtonCommand_Execute(IWindow o)
+        private void OnOkayButtonCommand_Execute(IWindow? o)
         {
             LoggingHelpers.TraceCallEnter(o);
 
@@ -353,7 +353,7 @@ namespace Foundation.ViewModels
 
         /// <summary>Called when [cancel button command execute].</summary>
         /// <param name="o">The o.</param>
-        private void OnCancelButtonCommand_Execute(IWindow o)
+        private void OnCancelButtonCommand_Execute(IWindow? o)
         {
             LoggingHelpers.TraceCallEnter(o);
 
@@ -364,7 +364,7 @@ namespace Foundation.ViewModels
 
         /// <summary>Called when [close button command execute].</summary>
         /// <param name="o">The o.</param>
-        private void OnCloseButtonCommand_Execute(IWindow o)
+        private void OnCloseButtonCommand_Execute(IWindow? o)
         {
             LoggingHelpers.TraceCallEnter(o);
 

@@ -68,11 +68,11 @@ namespace Foundation.Repository
         protected override ApplicationRole RequiredMinimumEditRole => ApplicationRole.SystemDataAdministrator;
 
         /// <inheritdoc cref="IUserProfileRepository.Get(AppId, String, String)"/>
-        public IUserProfile Get(AppId applicationId, String domainName, String username)
+        public IUserProfile? Get(AppId applicationId, String domainName, String username)
         {
             LoggingHelpers.TraceCallEnter(applicationId, domainName, username);
 
-            IUserProfile retVal = null;
+            IUserProfile? retVal = null;
 
             StringBuilder sql = new StringBuilder();
             sql.AppendLine("SELECT");
@@ -116,11 +116,11 @@ namespace Foundation.Repository
         }
 
         /// <inheritdoc cref="IUserProfileRepository.Get(AppId, EntityId)"/>
-        public IUserProfile Get(AppId applicationId, EntityId userProfileId)
+        public IUserProfile? Get(AppId applicationId, EntityId userProfileId)
         {
             LoggingHelpers.TraceCallEnter(applicationId, userProfileId);
 
-            IUserProfile retVal = null;
+            IUserProfile? retVal = default;
 
             StringBuilder sql = new StringBuilder();
             sql.AppendLine("SELECT");
@@ -138,11 +138,11 @@ namespace Foundation.Repository
             sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction} BETWEEN up.{FDC.UserProfile.ValidFrom} AND up.{FDC.UserProfile.ValidTo} AND");
             sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction} BETWEEN aur.{FDC.UserProfile.ValidFrom} AND aur.{FDC.UserProfile.ValidTo}");
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
+            DatabaseParameters databaseParameters =
+            [
                 FoundationDataAccess.CreateParameter($"{FDC.UserProfile.EntityName}{FDC.UserProfile.Id}", userProfileId),
                 FoundationDataAccess.CreateParameter($"{FDC.ApplicationUserRole.EntityName}{FDC.ApplicationUserRole.ApplicationId}", applicationId),
-            };
+            ];
 
             DataTable dataTable = FoundationDataAccess.ExecuteDataTable(sql.ToString(), CommandType.Text, databaseParameters);
 

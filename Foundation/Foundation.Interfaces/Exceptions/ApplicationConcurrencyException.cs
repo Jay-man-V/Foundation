@@ -27,7 +27,7 @@ namespace Foundation.Interfaces
             EntityId entityId,
             String entityName,
             String tableName,
-            IFoundationModel lastSavedEntity
+            IFoundationModel? lastSavedEntity
         )
             : base
             (
@@ -118,6 +118,6 @@ namespace Foundation.Interfaces
         /// <value>
         /// The last saved entity.
         /// </value>
-        public IFoundationModel LastSavedEntity { get; }
+        public IFoundationModel? LastSavedEntity { get; }
     }
 }

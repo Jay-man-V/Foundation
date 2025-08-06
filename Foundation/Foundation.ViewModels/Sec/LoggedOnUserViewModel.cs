@@ -51,6 +51,9 @@ namespace Foundation.ViewModels
         {
             LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, wpfApplicationObjects, fileApi, loggedOnUserProcess);
 
+            _externalCommandMessage = String.Empty;
+            _externalCommandName = String.Empty;
+
             LoggedOnUserProcess = loggedOnUserProcess;
 
             LoggingHelpers.TraceCallReturn();
@@ -73,7 +76,7 @@ namespace Foundation.ViewModels
         /// <value>
         /// The quit command timer.
         /// </value>
-        private DispatcherTimer QuitCommandTimer { get; set; }
+        private DispatcherTimer? QuitCommandTimer { get; set; }
 
         /// <summary>
         /// Gets the refresh button visibility.
@@ -155,7 +158,7 @@ namespace Foundation.ViewModels
 
             base.Initialise();
 
-            SelectedItem = GridDataSource.FirstOrDefault(lou => lou.CreatedByUserProfileId == Core.CurrentLoggedOnUser.Id);
+            SelectedItem = GridDataSource?.FirstOrDefault(lou => lou.CreatedByUserProfileId == Core.CurrentLoggedOnUser.Id);
 
             SetupLoggedOnUserTimer();
 
@@ -263,7 +266,7 @@ namespace Foundation.ViewModels
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void LoggedOnUserTimer_Tick(Object sender, EventArgs e)
+        private void LoggedOnUserTimer_Tick(Object? sender, EventArgs e)
         {
             LoggingHelpers.TraceCallEnter(sender, e);
 
@@ -289,7 +292,7 @@ namespace Foundation.ViewModels
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void QuitCommandTimer_Tick(Object sender, EventArgs e)
+        private void QuitCommandTimer_Tick(Object? sender, EventArgs e)
         {
             LoggingHelpers.TraceCallEnter(sender, e);
 
@@ -302,9 +305,11 @@ namespace Foundation.ViewModels
         /// Called when [send quit command execute].
         /// </summary>
         /// <param name="loggedOnUser">The logged on user.</param>
-        private void OnSendQuitCommand_Execute(ILoggedOnUser loggedOnUser)
+        private void OnSendQuitCommand_Execute(ILoggedOnUser? loggedOnUser)
         {
             LoggingHelpers.TraceCallEnter(loggedOnUser);
+
+            if (loggedOnUser == null) return;
 
             using (MouseCursor)
             {
@@ -318,9 +323,11 @@ namespace Foundation.ViewModels
         /// Called when [send abort command execute].
         /// </summary>
         /// <param name="loggedOnUser">The logged on user.</param>
-        private void OnSendAbortCommand_Execute(ILoggedOnUser loggedOnUser)
+        private void OnSendAbortCommand_Execute(ILoggedOnUser? loggedOnUser)
         {
             LoggingHelpers.TraceCallEnter(loggedOnUser);
+
+            if (loggedOnUser == null) return;
 
             using (MouseCursor)
             {
@@ -334,9 +341,11 @@ namespace Foundation.ViewModels
         /// Called when [send message command execute].
         /// </summary>
         /// <param name="loggedOnUser">The logged on user.</param>
-        private void OnSendMessageCommand_Execute(ILoggedOnUser loggedOnUser)
+        private void OnSendMessageCommand_Execute(ILoggedOnUser? loggedOnUser)
         {
             LoggingHelpers.TraceCallEnter(loggedOnUser);
+
+            if (loggedOnUser == null) return;
 
             using (MouseCursor)
             {

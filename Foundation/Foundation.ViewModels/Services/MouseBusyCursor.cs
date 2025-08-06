@@ -32,7 +32,7 @@ namespace Foundation.ViewModels
             SetBusyState(true);
         }
 
-        private IApplicationWrapper ApplicationWrapper { get; }
+        private IApplicationWrapper? ApplicationWrapper { get; }
         private IDispatcherTimerWrapper DispatcherTimerWrapper { get; }
         private IMouseWrapper MouseWrapper { get; }
 
@@ -81,7 +81,7 @@ namespace Foundation.ViewModels
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void OnDispatcherTimer_Tick(Object sender, EventArgs e)
+        private void OnDispatcherTimer_Tick(Object? sender, EventArgs e)
         {
             if (sender is DispatcherTimer dispatcherTimer)
             {

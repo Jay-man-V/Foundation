@@ -26,7 +26,7 @@ namespace Foundation.ViewModels
         }
 
         /// <inheritdoc cref="IMouseWrapper.OverrideCursor"/>
-        public Cursor OverrideCursor
+        public Cursor? OverrideCursor
         {
             get => Mouse.OverrideCursor;
             set => Mouse.OverrideCursor = value;

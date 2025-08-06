@@ -51,6 +51,8 @@ namespace Foundation.ViewModels
             MenuItemProcess = menuItemProcess;
             ApplicationProcess = applicationProcess;
 
+            AllMenuItems = [];
+
             LoggingHelpers.TraceCallReturn();
         }
 
@@ -118,31 +120,33 @@ namespace Foundation.ViewModels
         }
 
         /// <inheritdoc cref="ApplyFilter1(Object)"/>
-        protected override void ApplyFilter1(Object selectedFilter)
+        protected override void ApplyFilter1(Object? selectedFilter)
         {
             LoggingHelpers.TraceCallEnter(selectedFilter);
 
-            IApplication application = selectedFilter as IApplication;
-            IMenuItem menuItem = Filter2SelectedItem as IMenuItem;
+            if (selectedFilter is IApplication application &&
+                Filter2SelectedItem is IMenuItem menuItem)
+            {
+                List<IMenuItem> filteredData = MenuItemProcess.ApplyFilter(AllMenuItems, application, menuItem);
 
-            List<IMenuItem> filteredData = MenuItemProcess.ApplyFilter(AllMenuItems, application, menuItem);
-
-            GridDataSource = filteredData;
+                GridDataSource = filteredData;
+            }
 
             LoggingHelpers.TraceCallReturn();
         }
 
         /// <inheritdoc cref="ApplyFilter2(Object)"/>
-        protected override void ApplyFilter2(Object selectedFilter)
+        protected override void ApplyFilter2(Object? selectedFilter)
         {
             LoggingHelpers.TraceCallEnter(selectedFilter);
 
-            IApplication application = Filter1SelectedItem as IApplication;
-            IMenuItem menuItem = selectedFilter as IMenuItem;
+            if (Filter1SelectedItem is IApplication application &&
+                selectedFilter is IMenuItem menuItem)
+            {
+                List<IMenuItem> filteredData = MenuItemProcess.ApplyFilter(AllMenuItems, application, menuItem);
 
-            List<IMenuItem> filteredData = MenuItemProcess.ApplyFilter(AllMenuItems, application, menuItem);
-
-            GridDataSource = filteredData;
+                GridDataSource = filteredData;
+            }
 
             LoggingHelpers.TraceCallReturn();
         }

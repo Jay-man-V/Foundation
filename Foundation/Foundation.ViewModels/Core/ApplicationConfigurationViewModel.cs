@@ -56,6 +56,8 @@ namespace Foundation.ViewModels
             ConfigurationScopeProcess = configurationScopeProcess;
             ApplicationProcess = applicationProcess;
 
+            AllApplicationConfigurations = [];
+
             // Enable loading of a group of values
             Action1CommandEnabled = true;
 
@@ -132,49 +134,52 @@ namespace Foundation.ViewModels
         }
 
         /// <inheritdoc cref="ApplyFilter1(Object)"/>
-        protected override void ApplyFilter1(Object selectedFilter)
+        protected override void ApplyFilter1(Object? selectedFilter)
         {
             LoggingHelpers.TraceCallEnter(selectedFilter);
 
-            IConfigurationScope configurationScope = selectedFilter as IConfigurationScope;
-            IApplication application = Filter2SelectedItem as IApplication;
-            IUserProfile userProfile = Filter3SelectedItem as IUserProfile;
+            if(selectedFilter is IConfigurationScope configurationScope &&
+               Filter2SelectedItem is IApplication application &&
+               Filter3SelectedItem is IUserProfile userProfile)
+            {
+                List<IApplicationConfiguration> filteredData = ApplicationConfigurationProcess.ApplyFilter(AllApplicationConfigurations, configurationScope, application, userProfile);
 
-            List<IApplicationConfiguration> filteredData = ApplicationConfigurationProcess.ApplyFilter(AllApplicationConfigurations, configurationScope, application, userProfile);
-
-            GridDataSource = filteredData;
+                GridDataSource = filteredData;
+            }
 
             LoggingHelpers.TraceCallReturn();
         }
 
         /// <inheritdoc cref="ApplyFilter2(Object)"/>
-        protected override void ApplyFilter2(Object selectedFilter)
+        protected override void ApplyFilter2(Object? selectedFilter)
         {
             LoggingHelpers.TraceCallEnter(selectedFilter);
 
-            IConfigurationScope configurationScope = Filter1SelectedItem as IConfigurationScope;
-            IApplication application = selectedFilter as IApplication;
-            IUserProfile userProfile = Filter3SelectedItem as IUserProfile;
+            if (Filter1SelectedItem is IConfigurationScope configurationScope &&
+                selectedFilter is IApplication application &&
+                Filter3SelectedItem is IUserProfile userProfile)
+            {
+                List<IApplicationConfiguration> filteredData = ApplicationConfigurationProcess.ApplyFilter(AllApplicationConfigurations, configurationScope, application, userProfile);
 
-            List<IApplicationConfiguration> filteredData = ApplicationConfigurationProcess.ApplyFilter(AllApplicationConfigurations, configurationScope, application, userProfile);
-
-            GridDataSource = filteredData;
+                GridDataSource = filteredData;
+            }
 
             LoggingHelpers.TraceCallReturn();
         }
 
         /// <inheritdoc cref="ApplyFilter3(Object)"/>
-        protected override void ApplyFilter3(Object selectedFilter)
+        protected override void ApplyFilter3(Object? selectedFilter)
         {
             LoggingHelpers.TraceCallEnter(selectedFilter);
 
-            IConfigurationScope configurationScope = Filter1SelectedItem as IConfigurationScope;
-            IApplication application = Filter2SelectedItem as IApplication;
-            IUserProfile userProfile = selectedFilter as IUserProfile;
+            if (Filter1SelectedItem is IConfigurationScope configurationScope &&
+                Filter2SelectedItem is IApplication application &&
+                selectedFilter is IUserProfile userProfile)
+            {
+                List<IApplicationConfiguration> filteredData = ApplicationConfigurationProcess.ApplyFilter(AllApplicationConfigurations, configurationScope, application, userProfile);
 
-            List<IApplicationConfiguration> filteredData = ApplicationConfigurationProcess.ApplyFilter(AllApplicationConfigurations, configurationScope, application, userProfile);
-
-            GridDataSource = filteredData;
+                GridDataSource = filteredData;
+            }
 
             LoggingHelpers.TraceCallReturn();
         }

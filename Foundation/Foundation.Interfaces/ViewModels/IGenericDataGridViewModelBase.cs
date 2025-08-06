@@ -341,7 +341,7 @@ namespace Foundation.Interfaces
 
         /// <summary>Gets the grid data source.</summary>
         /// <value>The grid data source.</value>
-        List<TModel>? GridDataSource { get; }
+        List<TModel> GridDataSource { get; }
 
         /// <summary>Gets the selected grid item changed command.</summary>
         /// <value>The selected grid item changed command.</value>

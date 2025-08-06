@@ -171,9 +171,9 @@ namespace Foundation.Repository
             IActiveDirectoryUser retVal = Core.IoC.Get<IActiveDirectoryUser>();
 
             retVal.Name = $@"{domainName}\{directoryEntry.Name}";
-            retVal.FullName = directoryEntry.Properties[FDC.ActiveDirectoryUser.User.FullName].Value.ToString();
+            retVal.FullName = directoryEntry.Properties[FDC.ActiveDirectoryUser.User.FullName].Value?.ToString() ?? String.Empty;
 
-            Object objObjectSid = directoryEntry.Properties[FDC.ActiveDirectoryUser.User.objectSid].Value;
+            Object objObjectSid = directoryEntry.Properties[FDC.ActiveDirectoryUser.User.objectSid]?.Value ?? String.Empty;
             if (objObjectSid.GetType() == typeof(Byte[]))
             {
                 Byte[] byteArrayObjectSid = (Byte[])objObjectSid;

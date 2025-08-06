@@ -60,6 +60,7 @@ namespace Foundation.ViewModels
             _filter3SelectedItem = null;
             _filter4SelectedItem = null;
 
+            _gridDataSource = default!;
             _selectedItem = default;
 
             RefreshCommandEnabled = true;
@@ -416,9 +417,9 @@ namespace Foundation.ViewModels
             set => SetPropertyValue(ref _selectedItem, value);
         }
 
-        private List<TModel>? _gridDataSource;
+        private List<TModel> _gridDataSource;
         /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.GridDataSource"/>
-        public List<TModel>? GridDataSource
+        public List<TModel> GridDataSource
         {
             get => _gridDataSource;
             protected internal set => SetPropertyValue(ref _gridDataSource, value);
@@ -737,9 +738,8 @@ namespace Foundation.ViewModels
                         String filePath = saveFileDialogSettings.FileName;
 
                         Encoding encoding = Encoding.UTF8;
-                        const Boolean appendToFile = false;
 
-                        using (TextWriter textWriter = FileApi.OpenFileForWriting(filePath, encoding, appendToFile))
+                        using (TextWriter textWriter = FileApi.OpenFileForWriting(filePath, encoding))
                         {
                             CommonBusinessProcess.ExportToCsv(textWriter, GridExportColumns, sourceData);
                         }
@@ -828,7 +828,7 @@ namespace Foundation.ViewModels
 
             RefreshData();
 
-            Int32 rowCount = GridDataSource?.Count ?? 0;
+            Int32 rowCount = GridDataSource.Count;
 
             if (GetType() != typeof(LoggedOnUserViewModel))
             {

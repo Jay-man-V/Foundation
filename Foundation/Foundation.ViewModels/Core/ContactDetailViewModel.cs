@@ -51,6 +51,8 @@ namespace Foundation.ViewModels
             ContactDetailProcess = contactDetailProcess;
             ContactTypeProcess = contactTypeProcess;
 
+            AllContacts = [];
+
             LoggingHelpers.TraceCallReturn();
         }
 
@@ -117,31 +119,33 @@ namespace Foundation.ViewModels
         }
 
         /// <inheritdoc cref="ApplyFilter1"/>
-        protected override void ApplyFilter1(Object selectedFilter)
+        protected override void ApplyFilter1(Object? selectedFilter)
         {
             LoggingHelpers.TraceCallEnter(selectedFilter);
 
-            IContactType contactType = selectedFilter as IContactType;
-            IContactDetail parentContactDetail = Filter2SelectedItem as IContactDetail;
+            if (selectedFilter is IContactType contactType &&
+                Filter2SelectedItem is IContactDetail parentContactDetail)
+            {
+                List<IContactDetail> filteredData = ContactDetailProcess.ApplyFilter(AllContacts, contactType, parentContactDetail);
 
-            List<IContactDetail> filteredData = ContactDetailProcess.ApplyFilter(AllContacts, contactType, parentContactDetail);
-
-            GridDataSource = filteredData;
+                GridDataSource = filteredData;
+            }
 
             LoggingHelpers.TraceCallReturn();
         }
 
         /// <inheritdoc cref="ApplyFilter2"/>
-        protected override void ApplyFilter2(Object selectedFilter)
+        protected override void ApplyFilter2(Object? selectedFilter)
         {
             LoggingHelpers.TraceCallEnter(selectedFilter);
 
-            IContactType contactType = Filter1SelectedItem as IContactType;
-            IContactDetail parentContactDetail = selectedFilter as IContactDetail;
+            if (Filter1SelectedItem is IContactType contactType &&
+                selectedFilter is IContactDetail parentContactDetail)
+            {
+                List<IContactDetail> filteredData = ContactDetailProcess.ApplyFilter(AllContacts, contactType, parentContactDetail);
 
-            List<IContactDetail> filteredData = ContactDetailProcess.ApplyFilter(AllContacts, contactType, parentContactDetail);
-
-            GridDataSource = filteredData;
+                GridDataSource = filteredData;
+            }
 
             LoggingHelpers.TraceCallReturn();
         }

@@ -17,7 +17,7 @@ namespace Foundation.ViewModels
     public abstract class EntityViewModelBase<TEntity> : ViewModelBase, IEntityViewModel
         where TEntity : IFoundationModel
     {
-        private IFoundationModel _data;
+        private IFoundationModel _data = default!;
 
         /// <summary>Initialises a new instance of the <see cref="EntityViewModelBase{TEntity}" /> class.</summary>
         /// <param name="core">The Foundation Core service.</param>
@@ -73,7 +73,7 @@ namespace Foundation.ViewModels
         /// <summary>Handles the PropertyChanged event of the entity.</summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="PropertyChangedEventArgs" /> instance containing the event data.</param>
-        private void EntityOrViewModel_PropertyChanged(Object sender, PropertyChangedEventArgs e)
+        private void EntityOrViewModel_PropertyChanged(Object? sender, PropertyChangedEventArgs e)
         {
             LoggingHelpers.TraceCallEnter(sender, e);
 
@@ -82,7 +82,8 @@ namespace Foundation.ViewModels
             //  * HasChanges
             // All other changes need to be recorded
             String[] viewModelProperties = { nameof(FormTitle), nameof(HasChanges) };
-            if (!viewModelProperties.Contains(e.PropertyName))
+            if (!String.IsNullOrEmpty(e.PropertyName) &&
+                !viewModelProperties.Contains(e.PropertyName))
             {
                 HasChanges = true;
                 NotifyPropertyChanged(e.PropertyName);
@@ -103,50 +104,53 @@ namespace Foundation.ViewModels
 
         /// <summary>Gets the data.</summary>
         /// <value>The data.</value>
-        public IFoundationModel Data
+        public IFoundationModel? Data
         {
             get => _data;
             private set
             {
-                _data = value;
-                if (_data != null)
+                if (value == null)
                 {
-                    IStatus entityStatus = StatusesList.FirstOrDefault(s => s.Id == Data.StatusId);
-                    IUserProfile createdByUserProfile = UserProfilesList.FirstOrDefault(up => up.Id == Data.CreatedByUserProfileId);
-                    IUserProfile lastUpdatedByUserProfile = UserProfilesList.FirstOrDefault(up => up.Id == Data.LastUpdatedByUserProfileId);
-
-                    // Check if the matched properties are null, if they are then throw a proper exception
-                    if (entityStatus == null)
-                    {
-                        const String sourceField = nameof(IFoundationModel.StatusId);
-                        const String lookupListName = nameof(ViewModelBase.StatusesList);
-                        EntityId requestedId = Data.StatusId;
-                        IFoundationModel sourceModel = Data;
-                        throw new ValueNotInLookupListException(sourceField, lookupListName, requestedId, sourceModel);
-                    }
-
-                    if (createdByUserProfile == null)
-                    {
-                        const String sourceField = nameof(IFoundationModel.CreatedByUserProfileId);
-                        const String lookupListName = nameof(ViewModelBase.UserProfilesList);
-                        EntityId requestedId = Data.StatusId;
-                        IFoundationModel sourceModel = Data;
-                        throw new ValueNotInLookupListException(sourceField, lookupListName, requestedId, sourceModel);
-                    }
-
-                    if (lastUpdatedByUserProfile == null)
-                    {
-                        const String sourceField = nameof(IFoundationModel.LastUpdatedByUserProfileId);
-                        const String lookupListName = nameof(ViewModelBase.UserProfilesList);
-                        EntityId requestedId = Data.StatusId;
-                        IFoundationModel sourceModel = Data;
-                        throw new ValueNotInLookupListException(sourceField, lookupListName, requestedId, sourceModel);
-                    }
-
-                    EntityStatusName = entityStatus.Name;
-                    CreatedByUserProfileDisplayName = createdByUserProfile.DisplayName;
-                    LastUpdatedByUserProfileDisplayName = lastUpdatedByUserProfile.DisplayName;
+                    String message = $"{nameof(Data)} cannot be null";
+                    throw new ArgumentNullException(nameof(Data), message);
                 }
+
+                _data = value;
+                IStatus? entityStatus = StatusesList.FirstOrDefault(s => s.Id == _data.StatusId);
+                IUserProfile? createdByUserProfile = UserProfilesList.FirstOrDefault(up => up.Id == _data.CreatedByUserProfileId);
+                IUserProfile? lastUpdatedByUserProfile = UserProfilesList.FirstOrDefault(up => up.Id == _data.LastUpdatedByUserProfileId);
+
+                // Check if the matched properties are null, if they are then throw a proper exception
+                if (entityStatus == null)
+                {
+                    const String sourceField = nameof(IFoundationModel.StatusId);
+                    const String lookupListName = nameof(ViewModelBase.StatusesList);
+                    EntityId requestedId = _data.StatusId;
+                    IFoundationModel sourceModel = _data;
+                    throw new ValueNotInLookupListException(sourceField, lookupListName, requestedId, sourceModel);
+                }
+
+                if (createdByUserProfile == null)
+                {
+                    const String sourceField = nameof(IFoundationModel.CreatedByUserProfileId);
+                    const String lookupListName = nameof(ViewModelBase.UserProfilesList);
+                    EntityId requestedId = _data.StatusId;
+                    IFoundationModel sourceModel = _data;
+                    throw new ValueNotInLookupListException(sourceField, lookupListName, requestedId, sourceModel);
+                }
+
+                if (lastUpdatedByUserProfile == null)
+                {
+                    const String sourceField = nameof(IFoundationModel.LastUpdatedByUserProfileId);
+                    const String lookupListName = nameof(ViewModelBase.UserProfilesList);
+                    EntityId requestedId = _data.StatusId;
+                    IFoundationModel sourceModel = _data;
+                    throw new ValueNotInLookupListException(sourceField, lookupListName, requestedId, sourceModel);
+                }
+
+                EntityStatusName = entityStatus.Name;
+                CreatedByUserProfileDisplayName = createdByUserProfile.DisplayName;
+                LastUpdatedByUserProfileDisplayName = lastUpdatedByUserProfile.DisplayName;
             }
         }
 
@@ -163,7 +167,7 @@ namespace Foundation.ViewModels
         public String LastUpdatedByUserProfileDisplayName { get; private set; }
 
         /// <inheritdoc cref="OnCloseWindowCommand_Execute(IWindow)"/>
-        protected override void OnCloseWindowCommand_Execute(IWindow window)
+        protected override void OnCloseWindowCommand_Execute(IWindow? window)
         {
             LoggingHelpers.TraceCallEnter(window);
 

@@ -114,10 +114,10 @@ namespace Foundation.Repository
 
             IDatabaseSchemaTable retVal = Core.IoC.Get<IDatabaseSchemaTable>();
 
-            retVal.TableCatalog = Convert.ToString(dataRecord[FDC.Specialised.DatabaseSchemaTable.TableCatalog]);
-            retVal.TableSchema = Convert.ToString(dataRecord[FDC.Specialised.DatabaseSchemaTable.TableSchema]);
-            retVal.TableName = Convert.ToString(dataRecord[FDC.Specialised.DatabaseSchemaTable.TableName]);
-            retVal.TableType = Convert.ToString(dataRecord[FDC.Specialised.DatabaseSchemaTable.TableType]);
+            retVal.TableCatalog = Convert.ToString(dataRecord[FDC.Specialised.DatabaseSchemaTable.TableCatalog]) ?? String.Empty;
+            retVal.TableSchema = Convert.ToString(dataRecord[FDC.Specialised.DatabaseSchemaTable.TableSchema]) ?? String.Empty;
+            retVal.TableName = Convert.ToString(dataRecord[FDC.Specialised.DatabaseSchemaTable.TableName]) ?? String.Empty;
+            retVal.TableType = Convert.ToString(dataRecord[FDC.Specialised.DatabaseSchemaTable.TableType]) ?? String.Empty;
 
             IEnumerable<IDatabaseSchemaColumn> dbSchemaColumns = DbSchemaColumnRepository.GetAllColumns(retVal);
             retVal.SchemaColumns.ToList().AddRange(dbSchemaColumns);

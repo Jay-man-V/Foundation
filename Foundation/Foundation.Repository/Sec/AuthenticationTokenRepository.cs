@@ -107,9 +107,10 @@ namespace Foundation.Repository
                 CreateParameter($"{EntityName}{FDC.AuthenticationToken.Id}2", authenticationToken.Id),
             };
 
-            Object result = ExecuteScalar(sql.ToString(), CommandType.Text, databaseParameters);
+            Object? result = ExecuteScalar(sql.ToString(), CommandType.Text, databaseParameters);
 
-            if (DateTime.TryParse(result.ToString(), out DateTime dt))
+            if (result != null &&
+                DateTime.TryParse(result.ToString(), out DateTime dt))
             {
                 authenticationToken = new AuthenticationToken(authenticationToken, dt);
             }
@@ -192,11 +193,11 @@ namespace Foundation.Repository
             sql.AppendLine($"    a.{FDC.Application.Id} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.Application.EntityName}{FDC.Application.Id} AND");
             sql.AppendLine($"    up.{FDC.UserProfile.Id} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.UserProfile.EntityName}{FDC.UserProfile.Id}");
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
+            DatabaseParameters databaseParameters =
+            [
                 CreateParameter($"{FDC.Application.EntityName}{FDC.Application.Id}", applicationId),
                 CreateParameter($"{FDC.UserProfile.EntityName}{FDC.UserProfile.Id}", userProfile.Id),
-            };
+            ];
 
             Int32 rowCount = ExecuteGetRowCount(sql.ToString(), CommandType.Text, databaseParameters);
 
@@ -255,16 +256,16 @@ namespace Foundation.Repository
             sql.AppendLine("WHERE");
             sql.AppendLine($"    {FDC.AuthenticationToken.Id} = {DataLogicProvider.IdentityOfLastInsertFunction}");
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
+            DatabaseParameters databaseParameters =
+            [
                 CreateParameter($"{EntityName}{FDC.AuthenticationToken.StatusId}", EntityStatus.Active.Id()),
                 CreateParameter($"{EntityName}{FDC.AuthenticationToken.CreatedByUserProfileId}", userProfile.Id),
                 CreateParameter($"{EntityName}{FDC.AuthenticationToken.LastUpdatedByUserProfileId}", userProfile.Id),
                 CreateParameter($"{EntityName}{FDC.AuthenticationToken.ApplicationId}", applicationId),
                 CreateParameter($"{EntityName}{FDC.AuthenticationToken.UserProfileId}", userProfile.Id),
-            };
+            ];
 
-            using (IDataReader dataReader = ExecuteReader(DatabaseConnection, sql.ToString(), CommandType.Text, databaseParameters))
+            using (IDataReader dataReader = ExecuteReader(sql.ToString(), CommandType.Text, databaseParameters))
             {
                 if (dataReader.Read())
                 {
