@@ -11,7 +11,7 @@ using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 
-using FDC = Foundation.Common.DataColumns;
+using FDC = Foundation.Resources.DataColumns;
 
 namespace Foundation.Repository
 {
@@ -77,7 +77,7 @@ namespace Foundation.Repository
         {
             LoggingHelpers.TraceCallEnter();
 
-            List<IDatabaseSchemaTable> retVal = new List<IDatabaseSchemaTable>();
+            List<IDatabaseSchemaTable> retVal = [];
 
             StringBuilder sql = new StringBuilder();
             sql.AppendLine("SELECT");

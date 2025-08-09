@@ -41,24 +41,24 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
-        /// <inheritdoc cref="IEncryptionService.GenerateKeys(String, Byte[], String, String)"/>
-        public void GenerateKeys(String keyPassword, Byte[] salt, String outputFolder, String keyName)
-        {
-            LoggingHelpers.TraceCallEnter($"{nameof(keyPassword)} not logged", $"{nameof(salt)} not logged", outputFolder, keyName);
+        ///// <inheritdoc cref="IEncryptionService.GenerateKeys(String, Byte[], String, String)"/>
+        //public void GenerateKeys(String keyPassword, Byte[] salt, String outputFolder, String keyName)
+        //{
+        //    LoggingHelpers.TraceCallEnter($"{nameof(keyPassword)} not logged", $"{nameof(salt)} not logged", outputFolder, keyName);
 
-            GenerateKeys(keyPassword, salt, out Byte[] key, out Byte[] iv);
+        //    GenerateKeys(keyPassword, salt, out Byte[] key, out Byte[] iv);
 
-            String keyOutputFile = Path.Combine(outputFolder, keyName + ".key");
-            String ivOutputFile = Path.Combine(outputFolder, keyName + ".iv");
+        //    String keyOutputFile = Path.Combine(outputFolder, keyName + ".key");
+        //    String ivOutputFile = Path.Combine(outputFolder, keyName + ".iv");
 
-            File.WriteAllBytes(keyOutputFile, key);
-            File.WriteAllBytes(ivOutputFile, iv);
+        //    File.WriteAllBytes(keyOutputFile, key);
+        //    File.WriteAllBytes(ivOutputFile, iv);
 
-            Array.Clear(key, 0, key.Length);
-            Array.Clear(iv, 0, iv.Length);
+        //    Array.Clear(key, 0, key.Length);
+        //    Array.Clear(iv, 0, iv.Length);
 
-            LoggingHelpers.TraceCallReturn();
-        }
+        //    LoggingHelpers.TraceCallReturn();
+        //}
 
         /// <inheritdoc cref="IEncryptionService.GenerateKeys(String, Byte[], out Byte[], out Byte[])"/>
         public void GenerateKeys(String keyPassword, Byte[]? salt, out Byte[] key, out Byte[] iv)
@@ -84,43 +84,43 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallReturn($"{nameof(key)} not logged, {nameof(iv)} not logged");
         }
 
-        /// <inheritdoc cref="IEncryptionService.GenerateKeys(out Byte[], out Byte[])"/>
-        public void GenerateKeys(out Byte[] key, out Byte[] iv)
-        {
-            LoggingHelpers.TraceCallEnter();
+        ///// <inheritdoc cref="IEncryptionService.GenerateKeys(out Byte[], out Byte[])"/>
+        //public void GenerateKeys(out Byte[] key, out Byte[] iv)
+        //{
+        //    LoggingHelpers.TraceCallEnter();
 
-            using (SymmetricAlgorithm crypto = Create())
-            {
-                crypto.GenerateIV();
-                crypto.GenerateKey();
+        //    using (SymmetricAlgorithm crypto = Create())
+        //    {
+        //        crypto.GenerateIV();
+        //        crypto.GenerateKey();
 
-                key = crypto.Key;
-                iv = crypto.IV;
+        //        key = crypto.Key;
+        //        iv = crypto.IV;
 
-                crypto.Clear();
-            }
+        //        crypto.Clear();
+        //    }
 
-            LoggingHelpers.TraceCallReturn($"{nameof(key)} not logged, {nameof(iv)} not logged");
-        }
+        //    LoggingHelpers.TraceCallReturn($"{nameof(key)} not logged, {nameof(iv)} not logged");
+        //}
 
-        /// <inheritdoc cref="IEncryptionService.GenerateKeys(String, String)"/>
-        public void GenerateKeys(String outputFolder, String keyName)
-        {
-            LoggingHelpers.TraceCallEnter(outputFolder, keyName);
+        ///// <inheritdoc cref="IEncryptionService.GenerateKeys(String, String)"/>
+        //public void GenerateKeys(String outputFolder, String keyName)
+        //{
+        //    LoggingHelpers.TraceCallEnter(outputFolder, keyName);
 
-            GenerateKeys(out Byte[] key, out Byte[] iv);
+        //    GenerateKeys(out Byte[] key, out Byte[] iv);
 
-            String keyOutputFile = Path.Combine(outputFolder, keyName + ".key");
-            String ivOutputFile = Path.Combine(outputFolder, keyName + ".iv");
+        //    String keyOutputFile = Path.Combine(outputFolder, keyName + ".key");
+        //    String ivOutputFile = Path.Combine(outputFolder, keyName + ".iv");
 
-            File.WriteAllBytes(keyOutputFile, key);
-            File.WriteAllBytes(ivOutputFile, iv);
+        //    File.WriteAllBytes(keyOutputFile, key);
+        //    File.WriteAllBytes(ivOutputFile, iv);
 
-            Array.Clear(key, 0, key.Length);
-            Array.Clear(iv, 0, iv.Length);
+        //    Array.Clear(key, 0, key.Length);
+        //    Array.Clear(iv, 0, iv.Length);
 
-            LoggingHelpers.TraceCallReturn();
-        }
+        //    LoggingHelpers.TraceCallReturn();
+        //}
 
         /* String encryption/decryption functions */
 

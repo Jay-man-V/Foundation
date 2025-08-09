@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 using Foundation.Interfaces;
 
-using FDC = Foundation.Common.DataColumns;
+using FDC = Foundation.Resources.DataColumns;
 using FEnums = Foundation.Interfaces;
 
 namespace Foundation.Models

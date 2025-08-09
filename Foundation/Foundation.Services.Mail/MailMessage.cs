@@ -53,7 +53,11 @@ namespace Foundation.Services.Mail
         /// <inheritdoc cref="ICloneable.Clone"/>
         public Object Clone()
         {
-            IMailMessage retVal = (IMailMessage)Activator.CreateInstance(this.GetType());
+            if (Activator.CreateInstance(this.GetType()) is not MailMessage retVal)
+            {
+                String message = $"The Type '{this.GetType()}' cannot be cloned but is calling {LocationUtils.GetFullyQualifiedFunctionName()}";
+                throw new InvalidOperationException(message);
+            }
 
             retVal.Body = this.Body;
             retVal.IsBodyHtml = this.IsBodyHtml;

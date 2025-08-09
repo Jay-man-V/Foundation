@@ -11,7 +11,7 @@ using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 
-using FDC = Foundation.Common.DataColumns;
+using FDC = Foundation.Resources.DataColumns;
 
 namespace Foundation.Repository
 {
@@ -99,7 +99,7 @@ namespace Foundation.Repository
             LoggingHelpers.TraceCallEnter(applicationId, userProfile);
 
             StringBuilder sql = new StringBuilder();
-            sql.AppendLine("MERGE");
+            sql.AppendLine("MERGE INTO");
             sql.AppendLine($"    {FDC.TableNames.LoggedOnUser} AS target");
             sql.AppendLine("USING");
             sql.AppendLine("    (");
@@ -179,11 +179,11 @@ namespace Foundation.Repository
             sql.AppendLine($"    {FDC.LoggedOnUser.ApplicationId} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.ApplicationId} AND");
             sql.AppendLine($"    {FDC.LoggedOnUser.UserProfileId} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.UserProfileId}");
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
+            DatabaseParameters databaseParameters =
+            [
                 FoundationDataAccess.CreateParameter($"{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.ApplicationId}", applicationId),
-                FoundationDataAccess.CreateParameter($"{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.UserProfileId}", userProfile.Id),
-            };
+                FoundationDataAccess.CreateParameter($"{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.UserProfileId}", userProfile.Id)
+            ];
 
             FoundationDataAccess.ExecuteNonQuery(sql.ToString(), CommandType.Text, databaseParameters);
 
@@ -195,7 +195,7 @@ namespace Foundation.Repository
         {
             LoggingHelpers.TraceCallEnter(applicationId);
 
-            List<ILoggedOnUser> retVal = new List<ILoggedOnUser>();
+            List<ILoggedOnUser> retVal = [];
 
             StringBuilder sql = new StringBuilder();
             sql.AppendLine("SELECT ");

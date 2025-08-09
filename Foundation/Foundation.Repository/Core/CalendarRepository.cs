@@ -12,7 +12,7 @@ using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 using Foundation.Repository.LocalModels;
 
-using FDC = Foundation.Common.DataColumns;
+using FDC = Foundation.Resources.DataColumns;
 
 namespace Foundation.Repository
 {

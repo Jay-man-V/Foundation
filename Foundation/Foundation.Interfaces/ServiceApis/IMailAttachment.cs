@@ -22,6 +22,6 @@ namespace Foundation.Interfaces
         /// <value>
         /// The subject.
         /// </value>
-        Byte[] Content { get; set; }
+        Byte[]? Content { get; set; }
     }
 }

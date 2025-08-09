@@ -164,6 +164,11 @@ namespace Foundation.DataAccess.Database
                 DatabaseTransaction = null;
             }
 
+            if (DatabaseConnection == null)
+            {
+                DatabaseConnection = GetConnection();
+            }
+
             DatabaseTransaction = DatabaseConnection.BeginTransaction();
 
             LoggingHelpers.TraceCallReturn(DatabaseTransaction);
@@ -172,7 +177,7 @@ namespace Foundation.DataAccess.Database
         }
 
         /// <inheritdoc cref="IFoundationDataAccess.ExecuteGetRowCount(String, CommandType, IDatabaseParameters)"/>
-        public Int32 ExecuteGetRowCount(String sql, CommandType commandType = CommandType.Text, IDatabaseParameters databaseParameters = null)
+        public Int32 ExecuteGetRowCount(String sql, CommandType commandType = CommandType.Text, IDatabaseParameters? databaseParameters = null)
         {
             LoggingHelpers.TraceCallEnter();
 
@@ -193,7 +198,14 @@ namespace Foundation.DataAccess.Database
         {
             LoggingHelpers.TraceCallEnter(parameterName);
 
-            IDbDataParameter retVal = DatabaseProviderFactory.CreateParameter();
+            IDbDataParameter? retVal = DatabaseProviderFactory.CreateParameter();
+
+            if (retVal == null)
+            {
+                String message = $"Unable to create basic parameter from DatabaseProviderFactory '{DatabaseProviderName}'";
+                throw new ArgumentNullException(message);
+            }
+
             retVal.ParameterName = parameterName;
             retVal.Direction = ParameterDirection.Input;
 
@@ -305,6 +317,7 @@ namespace Foundation.DataAccess.Database
             {
                 retVal = CreateParameter(parameterName, DbType.Object, DBNull.Value);
 
+                // TODO: Test this line
                 Type parameterType = useNullForThisValue.GetType();
 
                 if (parameterValue != null)

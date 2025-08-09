@@ -11,7 +11,7 @@ using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 
-using FDC = Foundation.Common.DataColumns;
+using FDC = Foundation.Resources.DataColumns;
 
 namespace Foundation.Repository
 {

@@ -11,7 +11,7 @@ using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 
-using FDC = Foundation.Common.DataColumns;
+using FDC = Foundation.Resources.DataColumns;
 
 namespace Foundation.Repository
 {
@@ -93,12 +93,13 @@ namespace Foundation.Repository
             sql.AppendLine($"    {FDC.Specialised.DatabaseSchemaColumn.TableSchema} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.Specialised.DatabaseSchemaColumn.EntityName}{FDC.Specialised.DatabaseSchemaColumn.TableSchema} AND");
             sql.AppendLine($"    {FDC.Specialised.DatabaseSchemaColumn.TableName} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.Specialised.DatabaseSchemaColumn.EntityName}{FDC.Specialised.DatabaseSchemaColumn.TableName}");
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
-                CreateParameter($"{FDC.Specialised.DatabaseSchemaColumn.EntityName}{FDC.Specialised.DatabaseSchemaColumn.TableCatalog}", tableCatalog),
+            DatabaseParameters databaseParameters =
+            [
+                CreateParameter($"{FDC.Specialised.DatabaseSchemaColumn.EntityName}{FDC.Specialised.DatabaseSchemaColumn.TableCatalog}",
+                    tableCatalog),
                 CreateParameter($"{FDC.Specialised.DatabaseSchemaColumn.EntityName}{FDC.Specialised.DatabaseSchemaColumn.TableSchema}", tableSchema),
-                CreateParameter($"{FDC.Specialised.DatabaseSchemaColumn.EntityName}{FDC.Specialised.DatabaseSchemaColumn.TableName}", tableName),
-            };
+                CreateParameter($"{FDC.Specialised.DatabaseSchemaColumn.EntityName}{FDC.Specialised.DatabaseSchemaColumn.TableName}", tableName)
+            ];
 
             using (IDataReader dataReader = ExecuteReader(sql.ToString(), CommandType.Text, databaseParameters))
             {

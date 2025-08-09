@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Common;
 using Foundation.Interfaces;
 
 namespace Foundation.Services.Mail
@@ -23,7 +24,11 @@ namespace Foundation.Services.Mail
         /// <inheritdoc cref="ICloneable.Clone()"/>
         public Object Clone()
         {
-            IMailAttachment retVal = (IMailAttachment)Activator.CreateInstance(this.GetType());
+            if (Activator.CreateInstance(this.GetType()) is not MailAttachment retVal)
+            {
+                String message = $"The Type '{this.GetType()}' cannot be cloned but is calling {LocationUtils.GetFullyQualifiedFunctionName()}";
+                throw new InvalidOperationException(message);
+            }
 
             retVal.Filename = this.Filename;
 

@@ -12,7 +12,7 @@ using Foundation.Interfaces;
 
 using DS = System.DirectoryServices;
 
-using FDC = Foundation.Common.DataColumns;
+using FDC = Foundation.Resources.DataColumns;
 
 namespace Foundation.Repository
 {
@@ -75,7 +75,7 @@ namespace Foundation.Repository
         {
             LoggingHelpers.TraceCallEnter();
 
-            List<IActiveDirectoryUser> retVal = new List<IActiveDirectoryUser>();
+            List<IActiveDirectoryUser> retVal = [];
 
             String path = $"WinNT://{Environment.MachineName},computer";
 

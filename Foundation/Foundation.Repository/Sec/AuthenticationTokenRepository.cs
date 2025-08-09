@@ -11,7 +11,7 @@ using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 
-using FDC = Foundation.Common.DataColumns;
+using FDC = Foundation.Resources.DataColumns;
 
 namespace Foundation.Repository
 {
@@ -101,11 +101,11 @@ namespace Foundation.Repository
             sql.AppendLine("WHERE");
             sql.AppendLine($"    {FDC.AuthenticationToken.Id} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.AuthenticationToken.Id}2");
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
+            DatabaseParameters databaseParameters =
+            [
                 CreateParameter($"{EntityName}{FDC.AuthenticationToken.Id}1", authenticationToken.Id),
-                CreateParameter($"{EntityName}{FDC.AuthenticationToken.Id}2", authenticationToken.Id),
-            };
+                CreateParameter($"{EntityName}{FDC.AuthenticationToken.Id}2", authenticationToken.Id)
+            ];
 
             Object? result = ExecuteScalar(sql.ToString(), CommandType.Text, databaseParameters);
 

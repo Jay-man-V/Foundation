@@ -27,7 +27,7 @@ namespace Foundation.Interfaces
         /// <value>
         /// The database transaction.
         /// </value>
-        IDbTransaction DatabaseTransaction { get; }
+        IDbTransaction? DatabaseTransaction { get; }
 
         /// <summary>
         /// Gets the connection.

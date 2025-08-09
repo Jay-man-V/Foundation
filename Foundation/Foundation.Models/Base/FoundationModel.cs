@@ -12,7 +12,7 @@ using System.Runtime.CompilerServices;
 using Foundation.Common;
 using Foundation.Interfaces;
 
-using FDC = Foundation.Common.DataColumns;
+using FDC = Foundation.Resources.DataColumns;
 using FEnums = Foundation.Interfaces;
 
 namespace Foundation.Models
@@ -99,7 +99,7 @@ namespace Foundation.Models
 
         /// <inheritdoc cref="IFoundationModel.Timestamp"/>
         [Column(nameof(FDC.FoundationEntity.Timestamp))]
-        public Byte[] Timestamp { get; set; }
+        public Byte[]? Timestamp { get; set; }
 
         /// <inheritdoc cref="IFoundationModel.EntityStatus"/>
         [NotMapped]
@@ -385,9 +385,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="ICloneable.Clone"/>>
         public virtual Object Clone()
         {
-            FoundationModel? retVal = Activator.CreateInstance(this.GetType()) as FoundationModel;
-
-            if (retVal == null)
+            if (Activator.CreateInstance(this.GetType()) is not FoundationModel retVal)
             {
                 String message = $"The Type '{this.GetType()}' cannot be cloned but is calling {LocationUtils.GetFullyQualifiedFunctionName()}";
                 throw new InvalidOperationException(message);
@@ -400,7 +398,7 @@ namespace Foundation.Models
             retVal.IsChanged = this.IsChanged;
             retVal.EntityLife = this.EntityLife;
             retVal.EntityState = this.EntityState;
-            retVal.Timestamp = this.Timestamp.ToArray();
+            retVal.Timestamp = (this.Timestamp ?? [0]).ToArray();
             retVal.EntityStatus = this.EntityStatus;
 
             retVal.CreatedOn = this.CreatedOn;
@@ -428,10 +426,10 @@ namespace Foundation.Models
             hashCode = hashCode * constant + EqualityComparer<EntityId>.Default.GetHashCode(Id);
             hashCode = hashCode * constant + EqualityComparer<EntityLife>.Default.GetHashCode(EntityLife);
             hashCode = hashCode * constant + EqualityComparer<EntityState>.Default.GetHashCode(EntityState);
-            hashCode = hashCode * constant + EqualityComparer<DateTime?>.Default.GetHashCode(ValidFrom);
-            hashCode = hashCode * constant + EqualityComparer<DateTime?>.Default.GetHashCode(ValidTo);
+            hashCode = hashCode * constant + EqualityComparer<DateTime?>.Default.GetHashCode(ValidFrom ?? new DateTime());
+            hashCode = hashCode * constant + EqualityComparer<DateTime?>.Default.GetHashCode(ValidTo ?? new DateTime());
             hashCode = hashCode * constant + EqualityComparer<FEnums.EntityStatus>.Default.GetHashCode(EntityStatus);
-            hashCode = hashCode * constant + StructuralComparisons.StructuralEqualityComparer.GetHashCode(Timestamp);
+            hashCode = hashCode * constant + StructuralComparisons.StructuralEqualityComparer.GetHashCode(Timestamp ?? [0]);
 
             return hashCode;
         }

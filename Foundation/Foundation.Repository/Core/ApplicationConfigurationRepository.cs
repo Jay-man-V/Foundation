@@ -11,7 +11,7 @@ using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 
-using FDC = Foundation.Common.DataColumns;
+using FDC = Foundation.Resources.DataColumns;
 
 namespace Foundation.Repository
 {
@@ -130,7 +130,7 @@ namespace Foundation.Repository
         {
             LoggingHelpers.TraceCallEnter(applicationId, userProfile, key);
 
-            List<IApplicationConfiguration> retVal = new List<IApplicationConfiguration>();
+            List<IApplicationConfiguration> retVal = [];
 
             StringBuilder sql = new StringBuilder();
 

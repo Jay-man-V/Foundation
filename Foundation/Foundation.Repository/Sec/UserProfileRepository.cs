@@ -11,7 +11,7 @@ using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 
-using FDC = Foundation.Common.DataColumns;
+using FDC = Foundation.Resources.DataColumns;
 
 namespace Foundation.Repository
 {
@@ -91,12 +91,12 @@ namespace Foundation.Repository
             sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction} BETWEEN up.{FDC.UserProfile.ValidFrom} AND up.{FDC.UserProfile.ValidTo} AND");
             sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction} BETWEEN aur.{FDC.UserProfile.ValidFrom} AND aur.{FDC.UserProfile.ValidTo}");
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
+            DatabaseParameters databaseParameters =
+            [
                 FoundationDataAccess.CreateParameter($"{FDC.UserProfile.EntityName}{FDC.UserProfile.DomainName}", domainName),
                 FoundationDataAccess.CreateParameter($"{FDC.UserProfile.EntityName}{FDC.UserProfile.Username}", username),
-                FoundationDataAccess.CreateParameter($"{FDC.ApplicationUserRole.EntityName}{FDC.ApplicationUserRole.ApplicationId}", applicationId),
-            };
+                FoundationDataAccess.CreateParameter($"{FDC.ApplicationUserRole.EntityName}{FDC.ApplicationUserRole.ApplicationId}", applicationId)
+            ];
 
             DataTable dataTable = FoundationDataAccess.ExecuteDataTable(sql.ToString(), CommandType.Text, databaseParameters);
 

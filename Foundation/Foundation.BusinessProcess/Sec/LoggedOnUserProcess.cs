@@ -6,8 +6,9 @@
 
 using Foundation.Common;
 using Foundation.Interfaces;
+using Foundation.Resources;
 
-using FDC = Foundation.Common.DataColumns;
+using FDC = Foundation.Resources.DataColumns;
 
 namespace Foundation.BusinessProcess
 {

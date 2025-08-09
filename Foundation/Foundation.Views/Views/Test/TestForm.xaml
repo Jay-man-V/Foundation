@@ -10,7 +10,7 @@
 
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:localBehaviours="clr-namespace:Foundation.Views"
-    xmlns:fdc="clr-namespace:Foundation.Common.DataColumns;assembly=Foundation.Common"
+    xmlns:fdc="clr-namespace:Foundation.Resources.DataColumns;assembly=Foundation.Common"
     xmlns:interfaces="clr-namespace:Foundation.Interfaces;assembly=Foundation.Interfaces"
     xmlns:converters="clr-namespace:Foundation.Common;assembly=Foundation.Common"
     xmlns:local="clr-namespace:Foundation.Views"

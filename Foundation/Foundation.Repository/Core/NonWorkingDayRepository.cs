@@ -11,7 +11,7 @@ using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 
-using FDC = Foundation.Common.DataColumns;
+using FDC = Foundation.Resources.DataColumns;
 
 namespace Foundation.Repository
 {
@@ -76,11 +76,11 @@ namespace Foundation.Repository
             sql.AppendLine(DataLogicProvider.GetDateComparisonSql($"nwd.{FDC.NonWorkingDay.Date}", DataLogicProvider.DatabaseParameterPrefix + FDC.NonWorkingDay.EntityName + FDC.NonWorkingDay.Date, " = 0 AND"));
             sql.AppendLine($"    nwd.{FDC.NonWorkingDay.CountryId} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.NonWorkingDay.EntityName}{FDC.NonWorkingDay.CountryId}");
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
+            DatabaseParameters databaseParameters =
+            [
                 FoundationDataAccess.CreateParameter($"{FDC.NonWorkingDay.EntityName}{FDC.NonWorkingDay.CountryId}", countryId),
-                FoundationDataAccess.CreateParameter($"{FDC.NonWorkingDay.EntityName}{FDC.NonWorkingDay.Date}", date),
-            };
+                FoundationDataAccess.CreateParameter($"{FDC.NonWorkingDay.EntityName}{FDC.NonWorkingDay.Date}", date)
+            ];
 
             DataTable dataTable = FoundationDataAccess.ExecuteDataTable(sql.ToString(), CommandType.Text, databaseParameters);
 

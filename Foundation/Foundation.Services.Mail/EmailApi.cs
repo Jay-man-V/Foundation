@@ -79,7 +79,7 @@ namespace Foundation.Services.Mail
         }
 
         /// <inheritdoc cref="IEmailApi.SendSimpleEmail(String, String, String, String, String, List{IMailAttachment})"/>
-        public void SendSimpleEmail(String toAddress, String fromAddress, String fromAddressDisplayName, String subject, String body, List<IMailAttachment> mailAttachments = null)
+        public void SendSimpleEmail(String toAddress, String fromAddress, String fromAddressDisplayName, String subject, String body, List<IMailAttachment>? mailAttachments = null)
         {
             LoggingHelpers.TraceCallEnter(toAddress, fromAddress, subject, body, mailAttachments);
 
@@ -92,7 +92,8 @@ namespace Foundation.Services.Mail
             };
             mailMessage.ToAddress.AddRange(toAddress.Split(';'));
 
-            if (mailAttachments.HasItems())
+            if (mailAttachments != null &&
+                mailAttachments.HasItems())
             {
                 mailAttachments.ForEach(ma => mailMessage.Attachments.Add(ma));
             }
@@ -103,7 +104,7 @@ namespace Foundation.Services.Mail
         }
 
         /// <inheritdoc cref="IEmailApi.SendFormalEmail(String, String, String, String, String, List{IMailAttachment})"/>
-        public void SendFormalEmail(String toAddress, String fromAddress, String fromAddressDisplayName, String subject, String body, List<IMailAttachment> mailAttachments = null)
+        public void SendFormalEmail(String toAddress, String fromAddress, String fromAddressDisplayName, String subject, String body, List<IMailAttachment>? mailAttachments = null)
         {
             LoggingHelpers.TraceCallEnter(toAddress, fromAddress, subject, body, mailAttachments);
 
@@ -122,7 +123,8 @@ namespace Foundation.Services.Mail
             };
             mailMessage.ToAddress.AddRange(toAddress.Split(';'));
 
-            if (mailAttachments.HasItems())
+            if (mailAttachments != null &&
+                mailAttachments.HasItems())
             {
                 mailAttachments.ForEach(ma => mailMessage.Attachments.Add(ma));
             }

@@ -17,7 +17,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Text;
 
-using FDC = Foundation.Common.DataColumns;
+using FDC = Foundation.Resources.DataColumns;
 using FEnums = Foundation.Interfaces;
 
 namespace Foundation.Repository
@@ -496,7 +496,7 @@ namespace Foundation.Repository
         {
             LoggingHelpers.TraceCallEnter($"TableName: {TableName}");
 
-            List<TModel> retVal = new List<TModel>();
+            List<TModel> retVal = [];
 
             String sql = GetAllSql(excludeDeleted, useValidityPeriod);
 
@@ -783,7 +783,7 @@ namespace Foundation.Repository
                 throw new ArgumentNullException(nameof(entities));
             }
 
-            List<TModel> retVal = new List<TModel>();
+            List<TModel> retVal = [];
 
             using (IDbConnection conn = FoundationDataAccess.GetConnection())
             {
@@ -820,7 +820,7 @@ namespace Foundation.Repository
                 throw new ArgumentNullException(nameof(entities));
             }
 
-            List<TModel> retVal = new List<TModel>();
+            List<TModel> retVal = [];
 
             using (IDbConnection conn = FoundationDataAccess.GetConnection())
             {
@@ -1014,14 +1014,14 @@ namespace Foundation.Repository
             String identitySql = String.Format(DataLogicProvider.IdentityOfNewRowSql, TableName);
             sql.AppendLine(identitySql);
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
+            DatabaseParameters databaseParameters =
+            [
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.StatusId}", entity.EntityStatus),
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.CreatedByUserProfileId}", Core.CurrentLoggedOnUser.Id),
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedByUserProfileId}", Core.CurrentLoggedOnUser.Id),
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.CreatedOn}", entity.CreatedOn),
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedOn}", entity.LastUpdatedOn)
-            };
+            ];
 
             if (HasValidityPeriodColumns)
             {
@@ -1036,7 +1036,7 @@ namespace Foundation.Repository
                 if (dataReader.Read())
                 {
                     entity.Id = DataHelpers.GetValue(dataReader[FDC.FoundationEntity.Id], new EntityId(0));
-                    entity.Timestamp = DataHelpers.GetValue(dataReader[FDC.FoundationEntity.Timestamp], new Byte[] { 0 });
+                    entity.Timestamp = DataHelpers.GetValue(dataReader[FDC.FoundationEntity.Timestamp], [0]);
 
                     retVal = entity.Id;
                 }
@@ -1085,12 +1085,12 @@ namespace Foundation.Repository
             sql.AppendLine($"    {FDC.FoundationEntity.Id} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.Id} AND");
             sql.AppendLine($"    {FDC.FoundationEntity.Timestamp} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.Timestamp} ");
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
+            DatabaseParameters databaseParameters =
+            [
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.StatusId}", entity.EntityStatus),
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedByUserProfileId}", Core.CurrentLoggedOnUser.Id),
-                FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedOn}", DateTimeService.SystemDateTimeNow),
-            };
+                FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedOn}", DateTimeService.SystemDateTimeNow)
+            ];
 
             if (HasValidityPeriodColumns)
             {
@@ -1111,7 +1111,7 @@ namespace Foundation.Repository
                 if (dataReader.Read())
                 {
                     retVal = DataHelpers.GetValue(dataReader["ROWCOUNT"], -1);
-                    entity.Timestamp = DataHelpers.GetValue(dataReader[FDC.FoundationEntity.Timestamp], new Byte[] { 0 });
+                    entity.Timestamp = DataHelpers.GetValue(dataReader[FDC.FoundationEntity.Timestamp], [0]);
                 }
 
                 dataReader.Close();
@@ -1151,12 +1151,12 @@ namespace Foundation.Repository
             sql.AppendLine($"    {FDC.FoundationEntity.Id} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.Id}");
             //sql.AppendLine($"    {FDC.Entity.Timestamp} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.Entity.Timestamp} ");
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
+            DatabaseParameters databaseParameters =
+            [
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.StatusId}", EntityStatus.Inactive),
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedByUserProfileId}", Core.CurrentLoggedOnUser.Id),
-                FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedOn}", DateTimeService.SystemDateTimeNow),
-            };
+                FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedOn}", DateTimeService.SystemDateTimeNow)
+            ];
 
             if (HasValidityPeriodColumns)
             {
@@ -1217,12 +1217,12 @@ namespace Foundation.Repository
             sql.AppendLine(
                 $"    {FDC.FoundationEntity.Timestamp} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.Timestamp} ");
 
-            DatabaseParameters databaseParameters = new DatabaseParameters
-            {
+            DatabaseParameters databaseParameters =
+            [
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.StatusId}", entity.EntityStatus),
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedByUserProfileId}", Core.CurrentLoggedOnUser.Id),
-                FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedOn}", entity.LastUpdatedOn),
-            };
+                FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedOn}", entity.LastUpdatedOn)
+            ];
 
             if (HasValidityPeriodColumns)
             {
@@ -1240,7 +1240,7 @@ namespace Foundation.Repository
                 if (dataReader.Read())
                 {
                     retVal = DataHelpers.GetValue(dataReader["ROWCOUNT"], -1);
-                    entity.Timestamp = DataHelpers.GetValue(dataReader[FDC.FoundationEntity.Timestamp], new Byte[] { 0 });
+                    entity.Timestamp = DataHelpers.GetValue(dataReader[FDC.FoundationEntity.Timestamp], [0]);
                 }
 
                 dataReader.Close();
