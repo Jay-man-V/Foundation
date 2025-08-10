@@ -12,7 +12,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Foundation.Common;
 using Foundation.Interfaces;
 
-using FDC = Foundation.Resources.DataColumns;
+using FDC = Foundation.Resources.Constants.DataColumns;
 
 namespace Foundation.Models
 {

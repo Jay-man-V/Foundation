@@ -31,13 +31,13 @@ namespace Foundation.Views
         /// <param name="parameter"></param>
         /// <param name="culture"></param>
         /// <returns><see cref="Boolean"/></returns>
-        public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+        public Object Convert(Object? value, Type targetType, Object? parameter, CultureInfo culture)
         {
             Visibility retVal = Visibility.Collapsed;
 
             if (value == null) return retVal;
 
-            String stringValue = value.ToString();
+            String stringValue = value.ToString() ?? "false";
 
             if (!Boolean.TryParse(stringValue, out Boolean booleanValue))
             {
@@ -63,13 +63,13 @@ namespace Foundation.Views
         /// <param name="parameter"></param>
         /// <param name="culture"></param>
         /// <returns><see cref="Boolean"/></returns>
-        public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+        public Object ConvertBack(Object? value, Type targetType, Object? parameter, CultureInfo culture)
         {
             Boolean retVal = false;
 
             if (value == null) return retVal;
 
-            String stringValue = value.ToString();
+            String stringValue = value.ToString() ?? Visibility.Collapsed.ToString();
 
             if (!Visibility.TryParse(stringValue, out Visibility visibilityValue))
             {

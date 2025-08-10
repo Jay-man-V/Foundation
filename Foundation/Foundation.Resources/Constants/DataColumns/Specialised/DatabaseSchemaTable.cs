@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Foundation.Resources.DataColumns.Specialised
+namespace Foundation.Resources.Constants.DataColumns.Specialised
 {
     /// <summary>
     /// Db Schema Table data columns

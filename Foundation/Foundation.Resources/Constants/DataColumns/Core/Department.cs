@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Foundation.Resources.DataColumns
+namespace Foundation.Resources.Constants.DataColumns
 {
     /// <summary>
     /// Department data columns

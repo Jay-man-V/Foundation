@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Foundation.Resources.DataColumns
+namespace Foundation.Resources.Constants.DataColumns
 {
     /// <summary>
     /// Approval Status data columns

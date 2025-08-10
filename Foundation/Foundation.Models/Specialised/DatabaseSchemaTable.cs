@@ -10,7 +10,7 @@ using System.Diagnostics;
 using Foundation.Common;
 using Foundation.Interfaces;
 
-using FDC = Foundation.Resources.DataColumns.Specialised;
+using FDC = Foundation.Resources.Constants.DataColumns.Specialised;
 
 namespace Foundation.Models.Specialised
 {

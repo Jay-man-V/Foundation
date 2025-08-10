@@ -1,15 +1,15 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="FunctionNames.cs" company="JDV Software Ltd">
+// <copyright file="Functions.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Foundation.Resources.DataColumns
+namespace Foundation.Resources.Constants.DataColumns
 {
     /// <summary>
     /// Function Names
     /// </summary>
-    public abstract class FunctionNames
+    public abstract class Functions
     {
         /// <summary>
         /// [dbo].[ufn_CheckIsWorkingDayOrGetNextWorkingDay]

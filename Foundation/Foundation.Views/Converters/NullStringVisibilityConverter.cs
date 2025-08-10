@@ -27,7 +27,7 @@ namespace Foundation.Views
         /// <returns>
         /// A converted value. If the method returns <see langword="null" />, the valid null value is used.
         /// </returns>
-        public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+        public Object? Convert(Object? value, Type targetType, Object? parameter, CultureInfo culture)
         {
             Visibility retVal = Visibility.Collapsed;
 
@@ -53,7 +53,7 @@ namespace Foundation.Views
         /// <returns>
         /// A converted value. If the method returns <see langword="null" />, the valid null value is used.
         /// </returns>
-        public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+        public Object? ConvertBack(Object? value, Type targetType, Object? parameter, CultureInfo culture)
         {
             return null;
         }

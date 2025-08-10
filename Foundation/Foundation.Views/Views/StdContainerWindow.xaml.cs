@@ -55,8 +55,7 @@ namespace Foundation.Views
         /// <param name="controlViewModel"></param>
         private void Initialise(IViewModel parentViewModel, Type userControlToDisplay, IViewModel controlViewModel)
         {
-            UserControl userControl = Activator.CreateInstance(userControlToDisplay) as UserControl;
-            if (userControl != null)
+            if (Activator.CreateInstance(userControlToDisplay) is UserControl userControl)
             {
                 userControl.DataContext = controlViewModel;
 

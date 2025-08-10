@@ -9,7 +9,7 @@ using Foundation.Interfaces;
 
 using System.Data;
 using Foundation.DataAccess.Database;
-using FDC = Foundation.Resources.DataColumns;
+using FDC = Foundation.Resources.Constants.DataColumns;
 
 namespace Foundation.Repository.Core
 {
@@ -20,18 +20,6 @@ namespace Foundation.Repository.Core
     [DependencyInjectionTransient]
     public class SequenceGeneratorRepository : FoundationModelRepository<ISequenceGenerator>, ISequenceGeneratorRepository 
     {
-        private static class Procedures
-        {
-            public static class GetNextSequence
-            {
-                public static string ProcedureName => "GetNextSequence";
-
-                public static string ApplicationId => "ApplicationId";
-                public static string UserProfileId => "UserProfileId";
-                public static string SequenceName => "SequenceName";
-            }
-        }
-
         /// <summary>
         /// Initialises a new instance of the <see cref="SequenceGeneratorRepository"/> class.
         /// </summary>
@@ -139,12 +127,12 @@ namespace Foundation.Repository.Core
 
             DatabaseParameters databaseParameters =
             [
-                FoundationDataAccess.CreateParameter(Procedures.GetNextSequence.ApplicationId, applicationId),
-                FoundationDataAccess.CreateParameter(Procedures.GetNextSequence.UserProfileId, userProfile.Id),
-                FoundationDataAccess.CreateParameter(Procedures.GetNextSequence.SequenceName, sequenceName)
+                FoundationDataAccess.CreateParameter(FDC.StoredProcedures.GetNextSequence.ApplicationId, applicationId),
+                FoundationDataAccess.CreateParameter(FDC.StoredProcedures.GetNextSequence.UserProfileId, userProfile.Id),
+                FoundationDataAccess.CreateParameter(FDC.StoredProcedures.GetNextSequence.SequenceName, sequenceName)
             ];
 
-            Object? result = FoundationDataAccess.ExecuteScalar(Procedures.GetNextSequence.ProcedureName, CommandType.StoredProcedure, databaseParameters);
+            Object? result = FoundationDataAccess.ExecuteScalar(FDC.StoredProcedures.GetNextSequence.ProcedureName, CommandType.StoredProcedure, databaseParameters);
 
             Int32.TryParse(result?.ToString() ?? "-1", out Int32 retVal);
 

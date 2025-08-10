@@ -42,17 +42,19 @@ namespace Foundation.Views
         /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void ShowCheckBoxChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            DatetimePickerControl thisControl = d as DatetimePickerControl;
-            ControlTemplate controlTemplate = thisControl.Template;
+            if (d is DatetimePickerControl thisControl)
+            {
+                ControlTemplate controlTemplate = thisControl.Template;
 
-            //ExpanderControl thisExpander = thisControl.Content as ExpanderControl;
-            //Grid thisGrid = thisExpander.Content as Grid;
-            //StackPanel validityPeriod = thisGrid.Children.OfType<StackPanel>().ToList()[1];
+                //ExpanderControl thisExpander = thisControl.Content as ExpanderControl;
+                //Grid thisGrid = thisExpander.Content as Grid;
+                //StackPanel validityPeriod = thisGrid.Children.OfType<StackPanel>().ToList()[1];
 
-            //if (validityPeriod != null)
-            //{
-            //    validityPeriod.Visibility = (Visibility)e.NewValue;
-            //}
+                //if (validityPeriod != null)
+                //{
+                //    validityPeriod.Visibility = (Visibility)e.NewValue;
+                //}
+            }
         }
 
         /// <summary>

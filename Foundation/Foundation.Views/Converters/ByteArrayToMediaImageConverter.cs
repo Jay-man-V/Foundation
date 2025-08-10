@@ -29,9 +29,9 @@ namespace Foundation.Views
         /// <returns>
         /// A converted value. If the method returns <see langword="null" />, the valid null value is used.
         /// </returns>
-        public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+        public Object? Convert(Object? value, Type targetType, Object? parameter, CultureInfo culture)
         {
-            BitmapImage retVal = null;
+            BitmapImage? retVal = null;
             if (value == null ||
                 value.GetType() != typeof(Byte[])) return retVal;
 
@@ -65,9 +65,9 @@ namespace Foundation.Views
         /// <returns>
         /// A converted value. If the method returns <see langword="null" />, the valid null value is used.
         /// </returns>
-        public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+        public Object? ConvertBack(Object? value, Type targetType, Object? parameter, CultureInfo culture)
         {
-            const Bitmap retVal = null;
+            const Bitmap? retVal = null;
 
             return retVal;
         }

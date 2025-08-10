@@ -32,7 +32,7 @@ namespace Foundation.Views
         {
             Object retVal = "Select Date";
 
-            if (values == null || values.Length != 2) return retVal;
+            if (values is not { Length: 2 }) return retVal;
 
             String stringValue = values[0].ToString();
 

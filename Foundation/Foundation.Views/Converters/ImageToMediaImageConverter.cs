@@ -21,7 +21,7 @@
 //        [return: MarshalAs(UnmanagedType.Bool)]
 //        public static extern Boolean DeleteObject([In] IntPtr hObject);
 
-//        public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+//        public Object? Convert(Object? value, Type targetType, Object? parameter, CultureInfo culture)
 //        {
 //            BitmapSource retVal = null;
 //            if (value != null && value.GetType() == typeof(Bitmap))

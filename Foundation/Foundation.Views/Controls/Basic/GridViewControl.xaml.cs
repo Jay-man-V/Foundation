@@ -244,7 +244,7 @@ namespace Foundation.Views
         /// <value>
         /// The filter.
         /// </value>
-        public Object Filter
+        public Object? Filter
         {
             get => GetValue(FilterProperty);
             set => SetValue(FilterProperty, value);
@@ -294,14 +294,12 @@ namespace Foundation.Views
         private static void OnCustomToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             // check if object is an ItemsControl or ToolBarTray (is a must for menu hosts)
-            ToolBar customToolbar = e.NewValue as ToolBar;
-            if (customToolbar == null)
+            if (e.NewValue is not ToolBar customToolbar)
             {
                 throw new ArgumentException("Attached property 'CustomToolbar' must be a ToolBar");
             }
 
-            GridViewControl thisGridViewControl = d as GridViewControl;
-            if (thisGridViewControl == null)
+            if (d is not GridViewControl thisGridViewControl)
             {
                 throw new ArgumentException("Parent DependencyObject must be a 'GridViewControl'");
             }

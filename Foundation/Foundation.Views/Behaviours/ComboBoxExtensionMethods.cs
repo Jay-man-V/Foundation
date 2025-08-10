@@ -18,7 +18,7 @@ namespace Foundation.Views
     public static class ComboBoxExtensionMethods
     {
         /// <summary>
-        /// Sets the width of the drop down based on the contents
+        /// Sets the width of the dropdown based on the contents
         /// </summary>
         /// <param name="comboBox"></param>
         public static void SetWidthFromItems(this ComboBox comboBox)
@@ -27,22 +27,25 @@ namespace Foundation.Views
 
             // Create the peer and provider to expand the comboBox in code behind. 
             ComboBoxAutomationPeer peer = new ComboBoxAutomationPeer(comboBox);
-            Object o = peer.GetPattern(PatternInterface.ExpandCollapse);
+            Object? o = peer.GetPattern(PatternInterface.ExpandCollapse);
 
             if (o is IExpandCollapseProvider provider)
             {
-                void EventHandler(Object sender, EventArgs e)
+                void EventHandler(Object? sender, EventArgs e)
                 {
-                    if (comboBox.IsDropDownOpen && comboBox.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
+                    if (comboBox.IsDropDownOpen &&
+                        comboBox.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
                     {
                         Double width = 0;
                         foreach (var item in comboBox.Items)
                         {
-                            ComboBoxItem comboBoxItem = comboBox.ItemContainerGenerator.ContainerFromItem(item) as ComboBoxItem;
-                            comboBoxItem.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
-                            if (comboBoxItem.DesiredSize.Width > width)
+                            if (comboBox.ItemContainerGenerator.ContainerFromItem(item) is ComboBoxItem comboBoxItem)
                             {
-                                width = comboBoxItem.DesiredSize.Width;
+                                comboBoxItem.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+                                if (comboBoxItem.DesiredSize.Width > width)
+                                {
+                                    width = comboBoxItem.DesiredSize.Width;
+                                }
                             }
                         }
 

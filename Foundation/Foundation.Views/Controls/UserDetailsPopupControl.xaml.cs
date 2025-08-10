@@ -50,9 +50,10 @@ namespace Foundation.Views
         /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void CaptionValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            EntityDetailsControl thisControl = d as EntityDetailsControl;
-
-            thisControl.Header = e.NewValue;
+            if (d is EntityDetailsControl thisControl)
+            {
+                thisControl.Header = e.NewValue;
+            }
         }
 
         /// <summary>
@@ -62,11 +63,12 @@ namespace Foundation.Views
         /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void ShowValidityPeriodValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            EntityDetailsControl thisControl = d as EntityDetailsControl;
-
-            Boolean newPropertyValue = (Boolean)e.NewValue;
-            Visibility visibility = (newPropertyValue) ? Visibility.Visible : Visibility.Collapsed;
-            thisControl.ValidityDetailsStackPanel.Visibility = visibility;
+            if (d is EntityDetailsControl thisControl)
+            {
+                Boolean newPropertyValue = (Boolean)e.NewValue;
+                Visibility visibility = (newPropertyValue) ? Visibility.Visible : Visibility.Collapsed;
+                thisControl.ValidityDetailsStackPanel.Visibility = visibility;
+            }
         }
 
         /// <summary>

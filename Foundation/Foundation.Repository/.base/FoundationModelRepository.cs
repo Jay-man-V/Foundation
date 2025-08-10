@@ -17,7 +17,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Text;
 
-using FDC = Foundation.Resources.DataColumns;
+using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;
 
 namespace Foundation.Repository

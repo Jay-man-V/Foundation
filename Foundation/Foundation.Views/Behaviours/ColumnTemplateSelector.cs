@@ -22,11 +22,10 @@ namespace Foundation.Views
         /// <param name="item"></param>
         /// <param name="container"></param>
         /// <returns></returns>
-        public override DataTemplate SelectTemplate(Object item, DependencyObject container)
+        public override DataTemplate SelectTemplate(Object? item, DependencyObject container)
         {
             DataTemplate retVal = (DataTemplate)((Control)container).FindResource("DefaultColumnTemplate");
-            IGridColumnDefinition gridColumnDefinition = item as IGridColumnDefinition;
-            if (gridColumnDefinition != null)
+            if (item is IGridColumnDefinition gridColumnDefinition)
             {
                 String columnTemplateName = gridColumnDefinition.TemplateName;
 

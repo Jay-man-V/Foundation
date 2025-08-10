@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 using Foundation.Interfaces;
 
-using FDC = Foundation.Resources.DataColumns;
+using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;
 
 namespace Foundation.Models

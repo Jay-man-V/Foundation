@@ -13,7 +13,6 @@ using System.Windows.Data;
 
 using Microsoft.Xaml.Behaviors;
 
-using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Resources;
 
@@ -46,7 +45,7 @@ namespace Foundation.Views
             set => SetValue(ColumnsProperty, value);
         }
 
-        private ObservableCollection<DataGridColumn> _dataGridColumns;
+        private ObservableCollection<DataGridColumn> _dataGridColumns = [];
 
         /// <summary>
         /// OnAttached handler
@@ -72,18 +71,13 @@ namespace Foundation.Views
                     oldItems.CollectionChanged -= context.CollectionChanged;
                 }
 
-                ObservableCollection<IGridColumnDefinition> newItems = e.NewValue as ObservableCollection<IGridColumnDefinition>;
-
-                if (newItems != null)
+                if (e.NewValue is ObservableCollection<IGridColumnDefinition> newItems)
                 {
                     foreach (IGridColumnDefinition gridColumnDefinition in newItems)
                     {
                         //DataGridColumn dataGridColumn = CreateDataGridColumn(gridColumnDefinition, context.AssociatedObject);
                         DataGridColumn dataGridColumn = CreateDataGridColumn(gridColumnDefinition);
-                        if (dataGridColumn != null)
-                        {
-                            context._dataGridColumns.Add(dataGridColumn);
-                        }
+                        context._dataGridColumns.Add(dataGridColumn);
                     }
 
                     newItems.CollectionChanged += context.CollectionChanged;
@@ -91,7 +85,7 @@ namespace Foundation.Views
             }
         }
 
-        private void CollectionChanged(Object sender, NotifyCollectionChangedEventArgs e)
+        private void CollectionChanged(Object? sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
@@ -134,19 +128,17 @@ namespace Foundation.Views
 
         private static DataGridColumn CreateDataGridColumn(IGridColumnDefinition gridColumnDefinition, DependencyObject container)
         {
-            DataGridColumn retVal = null;
+            DataGridColumn? retVal = null;
 
             ColumnTemplateSelector columnTemplateSelector = new ColumnTemplateSelector();
 
-            DataTemplate dataTemplate = columnTemplateSelector.SelectTemplate(gridColumnDefinition, container);
+            DataTemplate? dataTemplate = columnTemplateSelector.SelectTemplate(gridColumnDefinition, container);
 
             if (dataTemplate != null)
             {
                 DependencyObject dependencyObject = dataTemplate.LoadContent();
 
-                ContentControl contentControl = dependencyObject as ContentControl;
-
-                if (contentControl != null)
+                if (dependencyObject is ContentControl contentControl)
                 {
                     retVal = contentControl.Content as DataGridColumn;
                 }
@@ -262,11 +254,11 @@ namespace Foundation.Views
                 DataGridComboBoxColumn dataGridColumn = new DataGridComboBoxColumn();
                 retVal = dataGridColumn;
 
-                List<KeyValuePair<Boolean, String>> dropdown = new List<KeyValuePair<Boolean, String>>
-                {
-                    new KeyValuePair<Boolean, String>(true, gridColumnDefinition.TrueValue),
-                    new KeyValuePair<Boolean, String>(false, gridColumnDefinition.FalseValue),
-                };
+                List<KeyValuePair<Boolean, String>> dropdown =
+                [
+                    new (true, gridColumnDefinition.TrueValue),
+                    new (false, gridColumnDefinition.FalseValue)
+                ];
 
                 dataGridColumn.ItemsSource = dropdown;
 
@@ -281,13 +273,15 @@ namespace Foundation.Views
             else
             {
                 // Assume it is a String field by default
-                DataGridTextColumn dataGridColumn = new DataGridTextColumn();
-                retVal = dataGridColumn;
-                dataGridColumn.Binding = new Binding(gridColumnDefinition.DataMemberName) { Mode = BindingMode.OneWay };
-                dataGridColumn.ElementStyle = new Style(typeof(TextBlock));
+                DataGridTextColumn dataGridColumn = new DataGridTextColumn
+                {
+                    Binding = new Binding(gridColumnDefinition.DataMemberName) { Mode = BindingMode.OneWay },
+                    ElementStyle = new Style(typeof(TextBlock))
+                };
                 dataGridColumn.ElementStyle.Setters.Add(new Setter(TextBlock.HorizontalAlignmentProperty, HorizontalAlignment.Stretch));
                 dataGridColumn.ElementStyle.Setters.Add(new Setter(TextBlock.TextAlignmentProperty, GetTextAlignment(gridColumnDefinition.TextAlignment)));
                 dataGridColumn.ElementStyle.Setters.Add(new Setter(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center));
+                retVal = dataGridColumn;
             }
 
             // Common properties

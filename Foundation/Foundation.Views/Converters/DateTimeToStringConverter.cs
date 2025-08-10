@@ -27,7 +27,7 @@ namespace Foundation.Views
         /// <param name="parameter"></param>
         /// <param name="culture"></param>
         /// <returns></returns>
-        public Object Convert(Object? value, Type targetType, Object? parameter, CultureInfo culture)
+        public Object? Convert(Object? value, Type targetType, Object? parameter, CultureInfo culture)
         {
             Object retVal = "Select Date";
 

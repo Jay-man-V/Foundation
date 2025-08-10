@@ -40,7 +40,7 @@ namespace Foundation.Views
             set => SetValue(ShowRowNumberProperty, value);
         }
 
-        private DataGrid _dataGrid;
+        private DataGrid? _dataGrid;
 
         /// <summary>
         /// On Attached property handler
@@ -56,13 +56,13 @@ namespace Foundation.Views
         {
             if (source is GridRowHeaderBehaviour context)
             {
-                DataGrid dataGrid = context._dataGrid;
+                DataGrid? dataGrid = context._dataGrid;
 
                 if (dataGrid == null) return;
 
                 if ((Boolean)e.NewValue)
                 {
-                    void LoadedRowHandler(Object sender, DataGridRowEventArgs ea)
+                    void LoadedRowHandler(Object? sender, DataGridRowEventArgs ea)
                     {
                         if (context.ShowRowNumber == false)
                         {
@@ -94,8 +94,8 @@ namespace Foundation.Views
 
         private static List<TElement> GetVisualChildCollection<TElement>(object parent) where TElement : Visual
         {
-            List<TElement> visualCollection = new List<TElement>();
-            GetVisualChildCollection(parent as DependencyObject, visualCollection);
+            List<TElement> visualCollection = [];
+            GetVisualChildCollection((DependencyObject)parent, visualCollection);
             return visualCollection;
         }
 
@@ -109,10 +109,10 @@ namespace Foundation.Views
                 {
                     visualCollection.Add(visual);
                 }
-                if (child != null)
-                {
+                //if (child != null)
+                //{
                     GetVisualChildCollection(child, visualCollection);
-                }
+                //}
             }
         }
     }

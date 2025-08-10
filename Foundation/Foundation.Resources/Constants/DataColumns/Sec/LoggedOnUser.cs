@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Foundation.Resources.DataColumns
+namespace Foundation.Resources.Constants.DataColumns
 {
     /// <summary>
     /// Logged On User data columns

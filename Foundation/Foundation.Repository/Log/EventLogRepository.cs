@@ -9,7 +9,7 @@ using System.Data;
 using Foundation.Common;
 using Foundation.Interfaces;
 
-using FDC = Foundation.Resources.DataColumns;
+using FDC = Foundation.Resources.Constants.DataColumns;
 
 namespace Foundation.Repository
 {

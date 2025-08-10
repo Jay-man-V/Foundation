@@ -26,12 +26,12 @@ namespace Foundation.Views
         /// <returns>
         /// A converted value. If the method returns <see langword="null" />, the valid null value is used.
         /// </returns>
-        public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+        public Object? Convert(Object? value, Type targetType, Object? parameter, CultureInfo culture)
         {
             String retVal = String.Empty;
             if (value == null) return retVal;
 
-            String stringValue = System.Convert.ToString(value);
+            String stringValue = System.Convert.ToString(value) ?? "0";
             if (!String.IsNullOrWhiteSpace(stringValue))
             {
                 if (Int32.TryParse(stringValue, out Int32 temp))
@@ -54,7 +54,7 @@ namespace Foundation.Views
         /// <returns>
         /// A converted value. If the method returns <see langword="null" />, the valid null value is used.
         /// </returns>
-        public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+        public Object? ConvertBack(Object? value, Type targetType, Object? parameter, CultureInfo culture)
         {
             Int32 retVal = 0;
             if (value == null) return retVal;

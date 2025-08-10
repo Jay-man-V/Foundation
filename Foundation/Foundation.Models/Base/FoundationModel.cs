@@ -12,7 +12,7 @@ using System.Runtime.CompilerServices;
 using Foundation.Common;
 using Foundation.Interfaces;
 
-using FDC = Foundation.Resources.DataColumns;
+using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;
 
 namespace Foundation.Models

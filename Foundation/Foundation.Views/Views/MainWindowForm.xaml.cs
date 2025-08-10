@@ -52,7 +52,7 @@ namespace Foundation.Views
             LoggingHelpers.TraceCallReturn();
         }
 
-        private void AppWindowBase_Closing(Object sender, CancelEventArgs e)
+        private void AppWindowBase_Closing(Object? sender, CancelEventArgs e)
         {
             LoggingHelpers.TraceCallEnter();
 
@@ -77,7 +77,7 @@ namespace Foundation.Views
         /// <summary>
         /// TitleBar_MouseDown - Drag if single-click, resize if double-click
         /// </summary>
-        private void TitleBar_MouseDown(Object sender, MouseButtonEventArgs e)
+        private void TitleBar_MouseDown(Object? sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -99,7 +99,7 @@ namespace Foundation.Views
         /// <summary>
         /// CloseButton_Clicked
         /// </summary>
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        private void CloseButton_Click(Object? sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
@@ -107,7 +107,7 @@ namespace Foundation.Views
         /// <summary>
         /// MaximizedButton_Clicked
         /// </summary>
-        private void MaximizeButton_Click(object sender, RoutedEventArgs e)
+        private void MaximizeButton_Click(Object? sender, RoutedEventArgs e)
         {
             AdjustWindowSize();
         }
@@ -115,7 +115,7 @@ namespace Foundation.Views
         /// <summary>
         /// Minimized Button_Clicked
         /// </summary>
-        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        private void MinimizeButton_Click(Object? sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }

@@ -48,8 +48,7 @@ namespace Foundation.Views
 
         private static void OnComboBoxWidthFromItemsPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
-            ComboBox comboBox = dependencyObject as ComboBox;
-            if (comboBox != null)
+            if (dependencyObject is ComboBox comboBox)
             {
                 comboBox.Loaded -= OnComboBoxLoaded;
                 if ((Boolean)e.NewValue)
