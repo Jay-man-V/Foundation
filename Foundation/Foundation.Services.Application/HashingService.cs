@@ -14,9 +14,25 @@ namespace Foundation.Services.Application
 {
     /// <inheritdoc cref="IHashingService"/>
     [DependencyInjectionTransient]
-    public class HashingService : IHashingService
+    public class HashingService : ServiceBase, IHashingService
     {
         private static Int16 Iterations => 1000;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public HashingService
+        (
+        ) :
+            base
+            (
+            )
+        {
+            LoggingHelpers.TraceCallEnter();
+
+            LoggingHelpers.TraceCallReturn();
+        }
+
 
         /// <inheritdoc cref="IHashingService.GenerateSalt(Int32)"/>
         public Byte[] GenerateSalt(Int32 saltSize = 1024)

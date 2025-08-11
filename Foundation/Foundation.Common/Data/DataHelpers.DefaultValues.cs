@@ -113,7 +113,7 @@ namespace Foundation.Common
         /// <value>
         /// The default byte array.
         /// </value>
-        public static Byte[] DefaultByteArray { get { return [0]; } }
+        public static Byte[] DefaultByteArray => [0];
 
         /// <summary>
         /// Gets the default guid.

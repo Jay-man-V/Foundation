@@ -27,7 +27,7 @@ namespace Foundation.Views
         /// <param name="parameter"></param>
         /// <param name="culture"></param>
         /// <returns></returns>
-        public Object? Convert(Object? value, Type targetType, Object? parameter, CultureInfo culture)
+        public Object Convert(Object? value, Type targetType, Object? parameter, CultureInfo culture)
         {
             Object retVal = "Select Date";
 
@@ -36,10 +36,10 @@ namespace Foundation.Views
             String dateFormat = Formats.DotNet.DateTimeSeconds;
             if (parameter != null)
             {
-                dateFormat = parameter.ToString();
+                dateFormat = parameter.ToString() ?? String.Empty;
             }
 
-            String stringValue = value.ToString();
+            String stringValue = value.ToString() ?? String.Empty;
 
             if (!DateTime.TryParse(stringValue, out DateTime dateValue))
             {

@@ -4,15 +4,16 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.Globalization;
-using System.Reflection;
-using System.Text.RegularExpressions;
-
-using NSubstitute;
-
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Resources;
+using Foundation.Services.Application;
+
+using NSubstitute;
+
+using System.Globalization;
+using System.Reflection;
+using System.Text.RegularExpressions;
 
 using FModels = Foundation.Models;
 
@@ -48,10 +49,13 @@ namespace Foundation.Tests.Unit.Support
         protected String EmailSubject => $"Test Email Subject - {DateTime.Now.ToString(Formats.DotNet.DateTimeSeconds)}";
         protected String EmailBody => $"Test Email Body - {DateTime.Now.ToString(Formats.DotNet.DateTimeSeconds)}";
 
+        protected String StandardCountryCode = "GB";
+        protected String MachineName = "MachineName";
+
         protected ICore CoreInstance { get; set; }
         protected IRunTimeEnvironmentSettings RunTimeEnvironmentSettings { get; set; }
         protected IDateTimeService DateTimeService { get; set; }
-        protected IApplicationConfigurationProcess ApplicationConfigurationProcess { get; set; }
+        protected IApplicationConfigurationService ApplicationConfigurationService { get; set; }
         protected IStatusRepository? StatusRepository { get; set; }
         protected IUserProfileRepository? UserProfileRepository { get; set; }
         protected IStatusProcess StatusProcess { get; set; }
@@ -243,11 +247,11 @@ namespace Foundation.Tests.Unit.Support
             //SecurityProcess.Initialise();
 
             RunTimeEnvironmentSettings = Substitute.For<IRunTimeEnvironmentSettings>();
-            RunTimeEnvironmentSettings.StandardCountryCode.Returns("GB");
+            RunTimeEnvironmentSettings.StandardCountryCode.Returns(StandardCountryCode);
             RunTimeEnvironmentSettings.UserDomainName.Returns(UserSecuritySupport.UnitTestAccountDomain);
             RunTimeEnvironmentSettings.UserName.Returns(UserSecuritySupport.UnitTestAccountUserName);
             RunTimeEnvironmentSettings.UserLogonName.Returns($@"{UserSecuritySupport.UnitTestAccountDomain}\{UserSecuritySupport.UnitTestAccountUserName}");
-            RunTimeEnvironmentSettings.MachineName.Returns("MachineName");
+            RunTimeEnvironmentSettings.MachineName.Returns(MachineName);
 
             DateTimeService = Substitute.For<IDateTimeService>();
             DateTimeService.SystemDateTimeNowWithoutMilliseconds.Returns(SystemDateTime);
@@ -269,15 +273,15 @@ namespace Foundation.Tests.Unit.Support
             CoreInstance = Core.Core.Initialise(ApplicationSettings.ApplicationId, RunTimeEnvironmentSettings, userProfileProcess);
             CoreInstance.CurrentLoggedOnUser.SetLoggedOnUser(userProfile);
 
-            ApplicationConfigurationProcess = Substitute.For<IApplicationConfigurationProcess>();
-            ApplicationConfigurationProcess.Get<String>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostUsername).Returns(EmailSmtpHostUsername);
-            ApplicationConfigurationProcess.Get<String>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostPassword).Returns(EmailSmtpHostPassword);
-            ApplicationConfigurationProcess.Get<Int32>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostPort).Returns(EmailSmtpHostPort);
-            ApplicationConfigurationProcess.Get<String>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostAddress).Returns(EmailSmtpHostAddress);
-            ApplicationConfigurationProcess.Get<Boolean>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostEnableSsl).Returns(EmailSmtpHostEnableSsl);
+            ApplicationConfigurationService = Substitute.For<IApplicationConfigurationService>();
+            ApplicationConfigurationService.Get<String>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostUsername).Returns(EmailSmtpHostUsername);
+            ApplicationConfigurationService.Get<String>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostPassword).Returns(EmailSmtpHostPassword);
+            ApplicationConfigurationService.Get<Int32>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostPort).Returns(EmailSmtpHostPort);
+            ApplicationConfigurationService.Get<String>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostAddress).Returns(EmailSmtpHostAddress);
+            ApplicationConfigurationService.Get<Boolean>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostEnableSsl).Returns(EmailSmtpHostEnableSsl);
 
-            ApplicationConfigurationProcess.Get<String>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailFromAddress).Returns(EmailFromAddress);
-            ApplicationConfigurationProcess.Get<String>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailFromDisplayName).Returns(EmailFromDisplayName);
+            ApplicationConfigurationService.Get<String>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailFromAddress).Returns(EmailFromAddress);
+            ApplicationConfigurationService.Get<String>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailFromDisplayName).Returns(EmailFromDisplayName);
 
             FModels.Role systemAdministratorRole = new FModels.Role
             {

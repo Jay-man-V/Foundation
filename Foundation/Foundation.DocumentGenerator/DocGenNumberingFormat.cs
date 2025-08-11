@@ -60,8 +60,16 @@ namespace Foundation.DocumentGenerator
             Int32 hashCode = 641921680;
             Int32 constant = -29624512;
 
-            hashCode = hashCode * constant + EqualityComparer<UInt32Value>.Default.GetHashCode(NumberFormatId);
-            hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(FormatCode);
+            if (NumberFormatId != null && NumberFormatId.HasValue)
+            {
+                hashCode = hashCode * constant + EqualityComparer<UInt32Value>.Default.GetHashCode(NumberFormatId);
+            }
+
+            if (FormatCode != null && FormatCode.HasValue)
+            {
+                hashCode = hashCode * constant + EqualityComparer<StringValue>.Default.GetHashCode(FormatCode);
+            }
+
             hashCode = hashCode * constant + EqualityComparer<HorizontalAlignmentValues>.Default.GetHashCode(HorizontalAlignment);
 
             return hashCode;

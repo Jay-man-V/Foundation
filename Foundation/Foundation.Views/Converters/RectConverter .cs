@@ -35,8 +35,8 @@ namespace Foundation.Views
             if (values.HasItems() &&
                 values.Length == 2)
             {
-                String v1Temp = values[0].ToString();
-                String v2Temp = values[1].ToString();
+                String v1Temp = values[0].ToString() ?? "0";
+                String v2Temp = values[1].ToString() ?? "0";
 
                 if (Double.TryParse(v1Temp, out Double width) &&
                     Double.TryParse(v2Temp, out Double height))
@@ -58,16 +58,15 @@ namespace Foundation.Views
         /// <returns>
         /// An array of values that have been converted from the target value back to the source values.
         /// </returns>
-        public Object[] ConvertBack(Object value, Type[] targetTypes, Object parameter, CultureInfo culture)
+        public Object[]? ConvertBack(Object? value, Type[] targetTypes, Object parameter, CultureInfo culture)
         {
-            Object[] retVal = null;
+            Object[]? retVal = null;
 
-            if (value != null &&
-                value is Rect rect)
+            if (value is Rect rect)
             {
                 Rect rectangle = rect;
 
-                retVal = new Object[] { rectangle.Width, rectangle.Height };
+                retVal = [ rectangle.Width, rectangle.Height ];
             }
 
             return retVal;

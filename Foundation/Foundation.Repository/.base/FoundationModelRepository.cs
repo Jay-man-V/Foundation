@@ -172,8 +172,8 @@ namespace Foundation.Repository
             else if (propertyInfo.PropertyType == typeof(AppId)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, (AppId?)propertyInfo.GetValue(entity)));
             else if (propertyInfo.PropertyType == typeof(LogId)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, (LogId?)propertyInfo.GetValue(entity)));
             else if (propertyInfo.PropertyType == typeof(EmailAddress)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, (EmailAddress?)propertyInfo.GetValue(entity)));
-            else if (propertyInfo.PropertyType == typeof(LogSeverity)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, ((LogSeverity?)propertyInfo.GetValue(entity)).Id(), -1));
-            else if (propertyInfo.PropertyType == typeof(FEnums.TaskStatus)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, ((FEnums.TaskStatus?)propertyInfo.GetValue(entity)).Id()));
+            else if (propertyInfo.PropertyType == typeof(LogSeverity)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, propertyInfo.GetValue(entity), DataHelpers.DefaultLogSeverity));
+            else if (propertyInfo.PropertyType == typeof(FEnums.TaskStatus)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, propertyInfo.GetValue(entity), DataHelpers.DefaultTaskStatus));
             else if (propertyInfo.PropertyType == typeof(Object)) databaseParameters.Add(FoundationDataAccess.CreateParameter(columnName, propertyInfo.GetValue(entity)));
             else
             {

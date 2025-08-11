@@ -14,9 +14,25 @@ namespace Foundation.Services.Application
 {
     /// <inheritdoc cref="IRandomService"/>
     [DependencyInjectionTransient]
-    public class RandomService : IRandomService
+    public class RandomService : ServiceBase, IRandomService
     {
         private static readonly Random Random = new();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public RandomService
+        (
+        ) :
+            base
+            (
+            )
+        {
+            LoggingHelpers.TraceCallEnter();
+
+            LoggingHelpers.TraceCallReturn();
+        }
+
 
         /// <inheritdoc cref="IRandomService.AlphaUpperCaseOnly"/>
         public String AlphaUpperCaseOnly => "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

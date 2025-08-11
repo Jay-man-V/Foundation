@@ -12,8 +12,23 @@ namespace Foundation.Services.Application
 #if(DEBUG)
     /// <inheritdoc cref="ITestSupportService"/>
     [DependencyInjectionTransient]
-    public class TestSupportService : ITestSupportService
+    public class TestSupportService : ServiceBase, ITestSupportService
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public TestSupportService
+        (
+        ) :
+            base
+            (
+            )
+        {
+            LoggingHelpers.TraceCallEnter();
+
+            LoggingHelpers.TraceCallReturn();
+        }
+
         /// <inheritdoc cref="ITestSupportService.SimulateLongTask"/>
         public void SimulateLongTask()
         {

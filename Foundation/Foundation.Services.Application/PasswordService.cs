@@ -13,27 +13,30 @@ namespace Foundation.Services.Application
 {
     /// <ineritdoc cref="IPasswordService" />
     [DependencyInjectionTransient]
-    public class PasswordService : IPasswordService
+    public class PasswordService : ServiceBase, IPasswordService
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="PasswordService"/> class.
         /// </summary>
         /// <param name="core"></param>
-        /// <param name="applicationConfigurationProcess"></param>
+        /// <param name="applicationConfigurationService"></param>
         /// <param name="restApi"></param>
         /// <param name="randomService"></param>
         public PasswordService
         (
             ICore core,
-            IApplicationConfigurationProcess applicationConfigurationProcess,
+            IApplicationConfigurationService applicationConfigurationService,
             IRestApi restApi,
             IRandomService randomService
-        )
+        ) :
+            base
+            (
+            )
         {
-            LoggingHelpers.TraceCallEnter(core, applicationConfigurationProcess, restApi);
+            LoggingHelpers.TraceCallEnter(core, applicationConfigurationService, restApi);
 
             Core = core;
-            ApplicationConfigurationProcess = applicationConfigurationProcess;
+            ApplicationConfigurationService = applicationConfigurationService;
             RestApi = restApi;
             RandomService = randomService;
 
@@ -41,7 +44,7 @@ namespace Foundation.Services.Application
         }
 
         private ICore Core { get; }
-        private IApplicationConfigurationProcess ApplicationConfigurationProcess { get; }
+        private IApplicationConfigurationService ApplicationConfigurationService { get; }
         private IRestApi RestApi { get; }
         private IRandomService RandomService { get; }
 
@@ -81,9 +84,9 @@ namespace Foundation.Services.Application
 
             // https://random-word-api.herokuapp.com/home
 
-            String passwordLengthValue = ApplicationConfigurationProcess.Get(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, RandomPasswordRuleLengthKey, RandomPasswordRuleLengthDefaultValue);
-            String passwordCountValue = ApplicationConfigurationProcess.Get(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, RandomPasswordRuleCountKey, RandomPasswordRuleCountDefaultValue);
-            String passwordGeneratorUrl = ApplicationConfigurationProcess.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, RandomPasswordGenerateUrlKey);
+            String passwordLengthValue = ApplicationConfigurationService.Get(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, RandomPasswordRuleLengthKey, RandomPasswordRuleLengthDefaultValue);
+            String passwordCountValue = ApplicationConfigurationService.Get(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, RandomPasswordRuleCountKey, RandomPasswordRuleCountDefaultValue);
+            String passwordGeneratorUrl = ApplicationConfigurationService.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, RandomPasswordGenerateUrlKey);
             passwordGeneratorUrl = String.Format(passwordGeneratorUrl, passwordLengthValue, passwordCountValue);
 
             IFileTransferSettings fileTransferSettings = new FileTransferSettings();

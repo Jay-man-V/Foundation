@@ -22,17 +22,17 @@ namespace Foundation.Services.Mail.Services
         /// 
         /// </summary>
         /// <param name="core"></param>
-        /// <param name="applicationConfigurationProcess"></param>
+        /// <param name="applicationConfigurationService"></param>
         public MailWrapper
         (
             ICore core,
-            IApplicationConfigurationProcess applicationConfigurationProcess
+            IApplicationConfigurationService applicationConfigurationService
         )
         {
-            LoggingHelpers.TraceCallEnter(core, applicationConfigurationProcess);
+            LoggingHelpers.TraceCallEnter(core, applicationConfigurationService);
 
             Core = core;
-            ApplicationConfigurationProcess = applicationConfigurationProcess;
+            ApplicationConfigurationService = applicationConfigurationService;
 
             LoggingHelpers.TraceCallReturn();
         }
@@ -42,7 +42,7 @@ namespace Foundation.Services.Mail.Services
         /// without the consumer needing to re-create the outer wrapper
         /// </summary>
         /// <param name="core"></param>
-        /// <param name="applicationConfigurationProcess"></param>
+        /// <param name="applicationConfigurationService"></param>
         /// <param name="port"></param>
         /// <param name="host"></param>
         /// <param name="enableSsl"></param>
@@ -50,17 +50,17 @@ namespace Foundation.Services.Mail.Services
         private MailWrapper
         (
             ICore core,
-            IApplicationConfigurationProcess applicationConfigurationProcess,
+            IApplicationConfigurationService applicationConfigurationService,
             Int32 port,
             String host,
             Boolean enableSsl,
             NetworkCredential networkCredential
         )
         {
-            LoggingHelpers.TraceCallEnter(core, applicationConfigurationProcess, port, host, enableSsl, networkCredential);
+            LoggingHelpers.TraceCallEnter(core, applicationConfigurationService, port, host, enableSsl, networkCredential);
 
             Core = core;
-            ApplicationConfigurationProcess = applicationConfigurationProcess;
+            ApplicationConfigurationService = applicationConfigurationService;
 
             Client = new NetMail.SmtpClient();
 
@@ -73,7 +73,7 @@ namespace Foundation.Services.Mail.Services
         }
 
         private ICore Core { get; }
-        private IApplicationConfigurationProcess ApplicationConfigurationProcess { get; }
+        private IApplicationConfigurationService ApplicationConfigurationService { get; }
 
         private NetMail.SmtpClient? Client { get; set; }
 
@@ -82,15 +82,15 @@ namespace Foundation.Services.Mail.Services
         {
             LoggingHelpers.TraceCallEnter();
         
-            String username = ApplicationConfigurationProcess.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostUsername);
-            String password = ApplicationConfigurationProcess.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostPassword);
+            String username = ApplicationConfigurationService.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostUsername);
+            String password = ApplicationConfigurationService.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostPassword);
 
-            Int32 port = ApplicationConfigurationProcess.Get<Int32>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostPort);
-            String host = ApplicationConfigurationProcess.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostAddress);
-            Boolean enableSsl = ApplicationConfigurationProcess.Get<Boolean>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostEnableSsl);
+            Int32 port = ApplicationConfigurationService.Get<Int32>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostPort);
+            String host = ApplicationConfigurationService.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostAddress);
+            Boolean enableSsl = ApplicationConfigurationService.Get<Boolean>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostEnableSsl);
             NetworkCredential networkCredential  = new NetworkCredential(username, password);
 
-            IMailWrapper retVal = new MailWrapper(Core, ApplicationConfigurationProcess, port, host, enableSsl, networkCredential);
+            IMailWrapper retVal = new MailWrapper(Core, ApplicationConfigurationService, port, host, enableSsl, networkCredential);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -112,13 +112,15 @@ namespace Foundation.Services.Mail.Services
 
                 foreach (IMailAttachment mailAttachment in mailMessage.Attachments)
                 {
-                    MemoryStream ms = new MemoryStream(mailAttachment.Content);
-                    netMailMessage.Attachments.Add(new NetMail.Attachment(ms, mailAttachment.Filename));
+                    if (mailAttachment.Content != null)
+                    {
+                        MemoryStream ms = new MemoryStream(mailAttachment.Content);
+                        netMailMessage.Attachments.Add(new NetMail.Attachment(ms, mailAttachment.Filename));
+                    }
                 }
 
-                Client.Send(netMailMessage);
+                Client?.Send(netMailMessage);
             }
-
 
             LoggingHelpers.TraceCallReturn();
         }
@@ -144,12 +146,15 @@ namespace Foundation.Services.Mail.Services
                 retVal.To.Add(to);
             }
 
-            foreach (IMailAttachment attachment in mailMessage.Attachments)
+            foreach (IMailAttachment mailAttachment in mailMessage.Attachments)
             {
-                MemoryStream ms = new MemoryStream(attachment.Content);
+                if (mailAttachment.Content != null)
+                {
+                    MemoryStream ms = new MemoryStream(mailAttachment.Content);
 
-                NetMail.Attachment item = new NetMail.Attachment(ms, attachment.Filename);
-                retVal.Attachments.Add(item);
+                    NetMail.Attachment item = new NetMail.Attachment(ms, mailAttachment.Filename);
+                    retVal.Attachments.Add(item);
+                }
             }
 
             retVal.From = from;

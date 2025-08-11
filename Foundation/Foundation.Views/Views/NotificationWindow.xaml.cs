@@ -98,11 +98,11 @@ namespace Foundation.Views
             }
         }
 
-        private void NotificationWindowClosed(Object sender, EventArgs e)
+        private void NotificationWindowClosed(Object? sender, EventArgs e)
         {
             foreach (Window window in Application.Current.Windows)
             {
-                NotificationWindow thisWindow = DisplayedMessages.FirstOrDefault(nw => nw.WindowId == WindowId);
+                NotificationWindow? thisWindow = DisplayedMessages.FirstOrDefault(nw => nw.WindowId == WindowId);
 
                 if (thisWindow != null)
                 {

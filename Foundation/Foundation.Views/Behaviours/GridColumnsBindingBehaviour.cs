@@ -126,22 +126,19 @@ namespace Foundation.Views
             }
         }
 
-        private static DataGridColumn CreateDataGridColumn(IGridColumnDefinition gridColumnDefinition, DependencyObject container)
+        private static DataGridColumn? CreateDataGridColumn(IGridColumnDefinition gridColumnDefinition, DependencyObject container)
         {
             DataGridColumn? retVal = null;
 
             ColumnTemplateSelector columnTemplateSelector = new ColumnTemplateSelector();
 
-            DataTemplate? dataTemplate = columnTemplateSelector.SelectTemplate(gridColumnDefinition, container);
+            DataTemplate dataTemplate = columnTemplateSelector.SelectTemplate(gridColumnDefinition, container);
 
-            if (dataTemplate != null)
+            DependencyObject dependencyObject = dataTemplate.LoadContent();
+
+            if (dependencyObject is ContentControl contentControl)
             {
-                DependencyObject dependencyObject = dataTemplate.LoadContent();
-
-                if (dependencyObject is ContentControl contentControl)
-                {
-                    retVal = contentControl.Content as DataGridColumn;
-                }
+                retVal = contentControl.Content as DataGridColumn;
             }
 
             return retVal;

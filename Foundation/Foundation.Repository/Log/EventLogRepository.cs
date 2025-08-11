@@ -122,7 +122,7 @@ namespace Foundation.Repository
         }
 
         /// <inheritdoc cref="IEventLogRepository.GetLatest(Boolean, EntityId, String, String, String)"/>
-        public IEventLog GetLatest(Boolean isFinished, EntityId scheduledTaskId = new EntityId(), String batchName = null, String processName = null, String taskName = null)
+        public IEventLog GetLatest(Boolean isFinished, EntityId scheduledTaskId = new EntityId(), String? batchName = null, String? processName = null, String? taskName = null)
         {
             throw new NotImplementedException();
         }

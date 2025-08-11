@@ -20,6 +20,21 @@ namespace Foundation.Services.Application
         /// <summary>
         /// 
         /// </summary>
+        public EncryptionService
+        (
+        ) :
+            base
+            (
+            )
+        {
+            LoggingHelpers.TraceCallEnter();
+
+            LoggingHelpers.TraceCallReturn();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns>An implementation of the currently used <see cref="SymmetricAlgorithm"/></returns>
         private SymmetricAlgorithm Create() { return Aes.Create(); }
 

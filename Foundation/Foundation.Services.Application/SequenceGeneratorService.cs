@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="IdService.cs" company="JDV Software Ltd">
+// <copyright file="SequenceGeneratorService.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Foundation.Services.Application
 {
     /// <ineritdoc cref="ISequenceGeneratorService" />
     [DependencyInjectionTransient]
-    public class SequenceGeneratorService : ISequenceGeneratorService
+    public class SequenceGeneratorService : ServiceBase, ISequenceGeneratorService
     {
         /// <summary>
         /// 
@@ -19,7 +19,10 @@ namespace Foundation.Services.Application
         public SequenceGeneratorService
         (
             ISequenceGeneratorRepository repository
-        )
+        ) : 
+            base
+            (
+            )
         {
             LoggingHelpers.TraceCallEnter(repository);
 
@@ -30,13 +33,12 @@ namespace Foundation.Services.Application
 
         private ISequenceGeneratorRepository Repository { get; }
 
-
-        /// <inheritdoc cref="ISequenceGeneratorService.GetNextSequence(AppId, IUserProfile, ConfigurationScope, String)" />
-        public Int32 GetNextSequence(AppId applicationId, IUserProfile userProfile, ConfigurationScope configurationScope, String sequenceName)
+        /// <inheritdoc cref="ISequenceGeneratorService.GetNextSequence(AppId, IUserProfile, String)" />
+        public Int32 GetNextSequence(AppId applicationId, IUserProfile userProfile, String sequenceName)
         {
-            LoggingHelpers.TraceCallEnter(applicationId, userProfile, configurationScope, sequenceName);
+            LoggingHelpers.TraceCallEnter(applicationId, userProfile, sequenceName);
 
-            Int32 retVal = Repository.GetNextSequence(applicationId, userProfile, configurationScope, sequenceName);
+            Int32 retVal = Repository.GetNextSequence(applicationId, userProfile, sequenceName);
 
             LoggingHelpers.TraceCallReturn(retVal);
 

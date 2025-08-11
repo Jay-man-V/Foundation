@@ -34,13 +34,13 @@ namespace Foundation.Views
 
             if (values is not { Length: 2 }) return retVal;
 
-            String stringValue = values[0].ToString();
+            String stringValue = values[0]?.ToString() ?? String.Empty;
 
             String dateFormat = Formats.DotNet.DateTimeSeconds;
             if (values[1] != null &&
-                !String.IsNullOrEmpty(values[1].ToString()))
+                !String.IsNullOrEmpty(values[1]?.ToString()))
             {
-                dateFormat = values[1].ToString();
+                dateFormat = values[1]?.ToString() ?? String.Empty;
             }
 
             if (!DateTime.TryParse(stringValue, out DateTime dateValue))

@@ -120,10 +120,10 @@ namespace Foundation.Repository.Core
             // Sequence Generator Entries cannot be deleted
             throw new NotImplementedException("Sequence Generator Entries cannot be deleted");
         }
-        /// <inheritdoc cref="ISequenceGeneratorRepository.GetNextSequence(AppId, IUserProfile, ConfigurationScope, String)"/>
-        public Int32 GetNextSequence(AppId applicationId, IUserProfile userProfile, ConfigurationScope configurationScope, String sequenceName)
+        /// <inheritdoc cref="ISequenceGeneratorRepository.GetNextSequence(AppId, IUserProfile, String)"/>
+        public Int32 GetNextSequence(AppId applicationId, IUserProfile userProfile, String sequenceName)
         {
-            LoggingHelpers.TraceCallEnter(applicationId, userProfile, configurationScope, sequenceName);
+            LoggingHelpers.TraceCallEnter(applicationId, userProfile, sequenceName);
 
             DatabaseParameters databaseParameters =
             [

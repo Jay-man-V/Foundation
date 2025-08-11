@@ -16,10 +16,9 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="applicationId">The application id.</param>
         /// <param name="userProfile">The user profile.</param>
-        /// <param name="configurationScope">The configuration scope.</param>
         /// <param name="sequenceName">Name of the sequence.</param>
         /// <returns></returns>
-        Int32 GetNextSequence(AppId applicationId, IUserProfile userProfile, ConfigurationScope configurationScope, String sequenceName);
+        Int32 GetNextSequence(AppId applicationId, IUserProfile userProfile, String sequenceName);
 
         /// <summary>
         /// 

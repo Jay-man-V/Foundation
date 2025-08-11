@@ -13,8 +13,23 @@ namespace Foundation.Services.Application
 {
     /// <inheritdoc cref="ISystemConfigurationService"/>
     [DependencyInjectionTransient]
-    public class SystemConfigurationService : ISystemConfigurationService
+    public class SystemConfigurationService : ServiceBase, ISystemConfigurationService
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public SystemConfigurationService
+        (
+        ) :
+            base
+            (
+            )
+        {
+            LoggingHelpers.TraceCallEnter();
+
+            LoggingHelpers.TraceCallReturn();
+        }
+
         private ConnectionStringSettings GetConfigurationStringSettings(String dataConnectionName)
         {
             LoggingHelpers.TraceCallEnter(dataConnectionName);

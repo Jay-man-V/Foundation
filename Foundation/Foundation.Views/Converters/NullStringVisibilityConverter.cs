@@ -33,7 +33,7 @@ namespace Foundation.Views
 
             if (value == null) return retVal;
 
-            String stringValue = value.ToString();
+            String stringValue = value.ToString() ?? String.Empty;
 
             if (!String.IsNullOrWhiteSpace(stringValue))
             {

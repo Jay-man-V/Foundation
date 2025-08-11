@@ -31,7 +31,7 @@ namespace Foundation.BusinessProcess
         /// <param name="repository">The data access.</param>
         /// <param name="statusRepository">The status data access.</param>
         /// <param name="userProfileRepository">The user profile data access.</param>
-        /// <param name="applicationConfigurationProcess">The application configuration process.</param>
+        /// <param name="applicationConfigurationService">The application configuration service.</param>
         /// <param name="countryProcess">The country process.</param>
         /// <param name="httpWebApi">The http web API.</param>
         public NonWorkingDayProcess
@@ -42,7 +42,7 @@ namespace Foundation.BusinessProcess
             INonWorkingDayRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
-            IApplicationConfigurationProcess applicationConfigurationProcess,
+            IApplicationConfigurationService applicationConfigurationService,
             ICountryProcess countryProcess,
             IHttpApi httpWebApi
         ) 
@@ -56,9 +56,9 @@ namespace Foundation.BusinessProcess
                 userProfileRepository
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, repository, statusRepository, userProfileRepository);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, repository, statusRepository, userProfileRepository, applicationConfigurationService, countryProcess, httpWebApi);
 
-            ApplicationConfigurationProcess = applicationConfigurationProcess;
+            ApplicationConfigurationService = applicationConfigurationService;
             CountryProcess = countryProcess;
             HttpWebApi = httpWebApi;
 
@@ -71,7 +71,7 @@ namespace Foundation.BusinessProcess
         /// <value>
         /// The application configuration process
         /// </value>
-        private IApplicationConfigurationProcess ApplicationConfigurationProcess { get; }
+        private IApplicationConfigurationService ApplicationConfigurationService { get; }
 
         /// <summary>
         /// Gets the country process.
@@ -274,7 +274,7 @@ namespace Foundation.BusinessProcess
 
             const String keyName = "service.holidays.national.uk.url";
 
-            String sourceUrl = ApplicationConfigurationProcess.Get<String>(ApplicationSettings.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, keyName);
+            String sourceUrl = ApplicationConfigurationService.Get<String>(ApplicationSettings.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, keyName);
             IFileTransferSettings fileTransferSettings = new FileTransferSettings
             {
                 FileTransferMethod = FileTransferMethod.Http,

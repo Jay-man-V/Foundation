@@ -97,7 +97,13 @@ namespace Foundation.BusinessProcess
             String logonDomain = RunTimeEnvironmentSettings.UserDomainName;
             String username = RunTimeEnvironmentSettings.UserName;
 
-            IUserProfile retVal = EntityRepository.Get(applicationId, logonDomain, username);
+            IUserProfile? retVal = EntityRepository.Get(applicationId, logonDomain, username);
+
+            if (retVal == null)
+            {
+                String message = $"Unable to locate the User Profile with details: Application Id: '{applicationId}'. Logon Domain: '{logonDomain}'. User name: '{username}'.";
+                throw new InvalidOperationException(message);
+            }
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -105,11 +111,11 @@ namespace Foundation.BusinessProcess
         }
 
         /// <inheritdoc cref="IUserProfileProcess.GetUserProfile(AppId, EntityId)"/>
-        public IUserProfile GetUserProfile(AppId applicationId, EntityId userProfileId)
+        public IUserProfile? GetUserProfile(AppId applicationId, EntityId userProfileId)
         {
             LoggingHelpers.TraceCallEnter(applicationId, userProfileId);
 
-            IUserProfile retVal = EntityRepository.Get(applicationId, userProfileId);
+            IUserProfile? retVal = EntityRepository.Get(applicationId, userProfileId);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -117,11 +123,11 @@ namespace Foundation.BusinessProcess
         }
 
         /// <inheritdoc cref="IUserProfileProcess.GetUserProfile(AppId, String, String)"/>
-        public IUserProfile GetUserProfile(AppId applicationId, String domainName, String username)
+        public IUserProfile? GetUserProfile(AppId applicationId, String domainName, String username)
         {
             LoggingHelpers.TraceCallEnter(applicationId, domainName, username);
 
-            IUserProfile retVal = EntityRepository.Get(applicationId, domainName, username);
+            IUserProfile? retVal = EntityRepository.Get(applicationId, domainName, username);
 
             LoggingHelpers.TraceCallReturn(retVal);
 

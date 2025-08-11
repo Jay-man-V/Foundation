@@ -11,12 +11,27 @@ namespace Foundation.Services.Application
 {
     /// <ineritdoc cref="IDateTimeService" />
     [DependencyInjectionTransient]
-    public class DateTimeService : IDateTimeService
+    public class DateTimeService : ServiceBase, IDateTimeService
     {
 #if(DEBUG)
         private Boolean _useInjectedSystemDateTime;
         private DateTime _injectedSystemDateTime;
 #endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTimeService
+        (
+        ) :
+            base
+            (
+            )
+        {
+            LoggingHelpers.TraceCallEnter();
+
+            LoggingHelpers.TraceCallReturn();
+        }
 
         /// <inheritdoc cref="IDateTimeService.StartOfWeek"/>
         public DayOfWeek StartOfWeek => DayOfWeek.Monday;

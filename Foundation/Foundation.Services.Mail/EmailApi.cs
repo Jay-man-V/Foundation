@@ -23,26 +23,26 @@ namespace Foundation.Services.Mail
         /// 
         /// </summary>
         /// <param name="core">The core foundation service.</param>
-        /// <param name="applicationConfigurationProcess">The application configuration process.</param>
+        /// <param name="applicationConfigurationService">The application configuration service.</param>
         /// <param name="mailWrapper">The mail wrapper service.</param>
         public EmailApi
         (
             ICore core,
-            IApplicationConfigurationProcess applicationConfigurationProcess,
+            IApplicationConfigurationService applicationConfigurationService,
             IMailWrapper mailWrapper
         )
         {
-            LoggingHelpers.TraceCallEnter(core, applicationConfigurationProcess, mailWrapper);
+            LoggingHelpers.TraceCallEnter(core, applicationConfigurationService, mailWrapper);
 
             Core = core;
-            ApplicationConfigurationProcess = applicationConfigurationProcess;
+            ApplicationConfigurationService = applicationConfigurationService;
             MailWrapper = mailWrapper;
 
             LoggingHelpers.TraceCallReturn();
         }
 
         ICore Core { get; }
-        IApplicationConfigurationProcess ApplicationConfigurationProcess { get; }
+        IApplicationConfigurationService ApplicationConfigurationService { get; }
         IMailWrapper MailWrapper { get; }
 
         /// <inheritdoc cref="IEmailApi.SendTestMail(String)"/>
@@ -50,7 +50,7 @@ namespace Foundation.Services.Mail
         {
             LoggingHelpers.TraceCallEnter(toAddress);
 
-            String mailFrom = ApplicationConfigurationProcess.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailFromAddress);
+            String mailFrom = ApplicationConfigurationService.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailFromAddress);
             String mailSubject = "Test email";
             String mailBody = "Test email";
 
@@ -183,7 +183,7 @@ namespace Foundation.Services.Mail
         {
             LoggingHelpers.TraceCallEnter(fileTransferSettings);
 
-            const Stream retVal = null;
+            Stream retVal = new MemoryStream(0);
 
             LoggingHelpers.TraceCallReturn(retVal);
 

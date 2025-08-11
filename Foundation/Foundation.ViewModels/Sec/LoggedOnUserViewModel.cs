@@ -174,8 +174,8 @@ namespace Foundation.ViewModels
 
             GridDataSource = loggedOnUsers;
 
-            ILoggedOnUser loggedOnUser = loggedOnUsers.FirstOrDefault(lou => lou.CreatedByUserProfileId == Core.CurrentLoggedOnUser.UserProfile.Id &&
-                                                                             lou.ApplicationId == ApplicationSettings.ApplicationId);
+            ILoggedOnUser? loggedOnUser = loggedOnUsers.FirstOrDefault(lou => lou.CreatedByUserProfileId == Core.CurrentLoggedOnUser.UserProfile.Id &&
+                                                                              lou.ApplicationId == ApplicationSettings.ApplicationId);
 
             // Nothing to do, exit the function
             if (String.IsNullOrEmpty(loggedOnUser.Command)) return loggedOnUsers;

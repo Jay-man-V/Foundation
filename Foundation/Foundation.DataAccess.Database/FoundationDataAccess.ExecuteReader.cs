@@ -46,7 +46,7 @@ namespace Foundation.DataAccess.Database
 
                 if (databaseParameters.HasItems())
                 {
-                    databaseParameters.ToList().ForEach(p => command.Parameters.Add(p));
+                    databaseParameters!.ToList().ForEach(p => command.Parameters.Add(p));
                 }
 
                 command.CommandText = sql;

@@ -18,29 +18,32 @@ namespace Foundation.Services.Application
 {
     /// <inheritdoc cref="IFileApi"/>
     [DependencyInjectionTransient]
-    public class FileService : IFileApi
+    public class FileService : ServiceBase, IFileApi
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="core">The Foundation Core Service.</param>
-        /// <param name="applicationConfigurationProcess">The application configuration process.</param>
+        /// <param name="applicationConfigurationService">The application configuration service.</param>
         public FileService
         (
             ICore core,
-            IApplicationConfigurationProcess applicationConfigurationProcess
-        )
+            IApplicationConfigurationService applicationConfigurationService
+        ) :
+            base
+            (
+            )
         {
-            LoggingHelpers.TraceCallEnter(core, applicationConfigurationProcess);
+            LoggingHelpers.TraceCallEnter(core, applicationConfigurationService);
 
             Core = core;
-            ApplicationConfigurationProcess = applicationConfigurationProcess;
+            ApplicationConfigurationService = applicationConfigurationService;
 
             LoggingHelpers.TraceCallReturn();
         }
 
         private ICore Core { get; }
-        private IApplicationConfigurationProcess ApplicationConfigurationProcess { get; }
+        private IApplicationConfigurationService ApplicationConfigurationService { get; }
 
 
         /// <inheritdoc cref="IFileApi.UserDataPath"/>
@@ -48,7 +51,7 @@ namespace Foundation.Services.Application
         {
             get
             {
-                String configuredUserDataPath = ApplicationConfigurationProcess.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.UserDataPath);
+                String configuredUserDataPath = ApplicationConfigurationService.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.UserDataPath);
                 String retVal = MakeDataPath(configuredUserDataPath, String.Empty);
 
                 return retVal;
@@ -60,7 +63,7 @@ namespace Foundation.Services.Application
         {
             get
             {
-                String configuredSystemDataPath = ApplicationConfigurationProcess.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.SystemDataPath);
+                String configuredSystemDataPath = ApplicationConfigurationService.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.SystemDataPath);
                 String retVal = MakeDataPath(configuredSystemDataPath, String.Empty);
 
                 return retVal;

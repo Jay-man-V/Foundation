@@ -398,8 +398,8 @@ namespace Foundation.BusinessProcess
         /// <inheritdoc cref="ICommonBusinessProcess.CanViewRecord()"/>
         public virtual Boolean CanViewRecord() => false;
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.CanViewRecord(IUserProfile, TEntity)"/>
-        public virtual Boolean CanViewRecord(IUserProfile userProfile, TEntity entity)
+        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.CanViewRecord(IUserProfile, TEntity?)"/>
+        public virtual Boolean CanViewRecord(IUserProfile userProfile, TEntity? entity)
         {
             LoggingHelpers.TraceCallEnter(userProfile, entity);
 
@@ -463,7 +463,7 @@ namespace Foundation.BusinessProcess
         /// </summary>
         /// <param name="entity">The entity to be viewed</param>
         /// <returns></returns>
-        protected virtual Boolean CanViewRecord(TEntity entity)
+        protected virtual Boolean CanViewRecord(TEntity? entity)
         {
             LoggingHelpers.TraceCallEnter(entity);
 
@@ -501,8 +501,8 @@ namespace Foundation.BusinessProcess
         /// <inheritdoc cref="ICommonBusinessProcess.CanEditRecord()"/>
         public virtual Boolean CanEditRecord() => false;
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.CanEditRecord(IUserProfile, TEntity)"/>
-        public virtual Boolean CanEditRecord(IUserProfile userProfile, TEntity entity)
+        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.CanEditRecord(IUserProfile, TEntity?)"/>
+        public virtual Boolean CanEditRecord(IUserProfile userProfile, TEntity? entity)
         {
             LoggingHelpers.TraceCallEnter(userProfile, entity);
 
@@ -566,7 +566,7 @@ namespace Foundation.BusinessProcess
         /// </summary>
         /// <param name="entity">The entity to be edited</param>
         /// <returns></returns>
-        protected virtual Boolean CanEditRecord(TEntity entity)
+        protected virtual Boolean CanEditRecord(TEntity? entity)
         {
             LoggingHelpers.TraceCallEnter(entity);
 
@@ -582,8 +582,8 @@ namespace Foundation.BusinessProcess
         /// <inheritdoc cref="ICommonBusinessProcess.CanDeleteRecord()"/>
         public virtual Boolean CanDeleteRecord() => false;
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.CanDeleteRecord(IUserProfile, TEntity)"/>
-        public virtual Boolean CanDeleteRecord(IUserProfile userProfile, TEntity entity)
+        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.CanDeleteRecord(IUserProfile, TEntity?)"/>
+        public virtual Boolean CanDeleteRecord(IUserProfile userProfile, TEntity? entity)
         {
             LoggingHelpers.TraceCallEnter(userProfile, entity);
 
@@ -647,7 +647,7 @@ namespace Foundation.BusinessProcess
         /// </summary>
         /// <param name="entity">The entity to be edited</param>
         /// <returns></returns>
-        protected virtual Boolean CanDeleteRecord(TEntity entity)
+        protected virtual Boolean CanDeleteRecord(TEntity? entity)
         {
             LoggingHelpers.TraceCallEnter(entity);
 
@@ -763,9 +763,9 @@ namespace Foundation.BusinessProcess
             return retVal;
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess.ExportToExcel(List{IGridColumnDefinition}, IEnumerable)"/>
+        /// <inheritdoc cref="ICommonBusinessProcess.ExportToExcel(List{IGridColumnDefinition}, IEnumerable?)"/>
         // TODO: Not properly implemented/tested. Looks like it is the CSV function just copy/pasted
-        public void ExportToExcel(List<IGridColumnDefinition> gridColumnDefinitions, IEnumerable sourceData)
+        public void ExportToExcel(List<IGridColumnDefinition> gridColumnDefinitions, IEnumerable? sourceData)
         {
             LoggingHelpers.TraceCallEnter(gridColumnDefinitions, sourceData);
 
@@ -805,8 +805,8 @@ namespace Foundation.BusinessProcess
             return retVal.ToString();
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess.ExportToCsv(TextWriter, List{IGridColumnDefinition}, IEnumerable)"/>
-        public void ExportToCsv(TextWriter outputStream, List<IGridColumnDefinition> gridColumnDefinitions, IEnumerable sourceData)
+        /// <inheritdoc cref="ICommonBusinessProcess.ExportToCsv(TextWriter, List{IGridColumnDefinition}, IEnumerable?)"/>
+        public void ExportToCsv(TextWriter outputStream, List<IGridColumnDefinition> gridColumnDefinitions, IEnumerable? sourceData)
         {
             LoggingHelpers.TraceCallEnter(gridColumnDefinitions, sourceData);
 

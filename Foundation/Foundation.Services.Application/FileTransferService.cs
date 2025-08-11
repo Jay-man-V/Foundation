@@ -13,7 +13,7 @@ namespace Foundation.Services.Application
 {
     /// <inheritdoc cref="IFileTransferService"/>
     [DependencyInjectionTransient]
-    public class FileTransferService : IFileTransferService
+    public class FileTransferService : ServiceBase, IFileTransferService
     {
         /// <summary>
         /// 
@@ -32,7 +32,10 @@ namespace Foundation.Services.Application
             IFtpApi ftpApi,
             IRestApi restApi,
             IMqApi mqApi
-        )
+        ) :
+            base
+            (
+            )
         {
             EmailApi = emailApi;
             FileApi = fileApi;

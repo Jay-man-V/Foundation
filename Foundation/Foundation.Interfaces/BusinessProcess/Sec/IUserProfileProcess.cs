@@ -24,7 +24,7 @@ namespace Foundation.Interfaces
         /// <param name="applicationId">The application identifier.</param>
         /// <param name="userProfileId">The user profile identifier.</param>
         /// <returns><see cref="IUserProfile"/></returns>
-        IUserProfile GetUserProfile(AppId applicationId, EntityId userProfileId);
+        IUserProfile? GetUserProfile(AppId applicationId, EntityId userProfileId);
 
         /// <summary>
         /// Retrieves the user profile specified by <paramref name="username"/> for the application denoted by <paramref name="applicationId"/>
@@ -33,7 +33,7 @@ namespace Foundation.Interfaces
         /// <param name="domainName">The domainName.</param>
         /// <param name="username">The username.</param>
         /// <returns><see cref="IUserProfile"/></returns>
-        IUserProfile GetUserProfile(AppId applicationId, String domainName, String username);
+        IUserProfile? GetUserProfile(AppId applicationId, String domainName, String username);
 
         /// <summary>
         /// Synchronises the Activity Directory User Data from Staging

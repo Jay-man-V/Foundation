@@ -29,19 +29,6 @@ namespace Foundation.Views
         /// <param name="parentViewModel"></param>
         /// <param name="userControlToDisplay"></param>
         /// <param name="controlViewModel"></param>
-        public StdContainerWindow(IViewModel parentViewModel, Type userControlToDisplay, Type controlViewModel)
-        {
-            Object[] parameters = { this, parentViewModel };
-            IViewModel viewModel = Activator.CreateInstance(controlViewModel, parameters) as IViewModel;
-            Initialise(parentViewModel, userControlToDisplay, viewModel);
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="parentViewModel"></param>
-        /// <param name="userControlToDisplay"></param>
-        /// <param name="controlViewModel"></param>
         public StdContainerWindow(IViewModel parentViewModel, Type userControlToDisplay, IViewModel controlViewModel)
         {
             Initialise(parentViewModel, userControlToDisplay, controlViewModel);

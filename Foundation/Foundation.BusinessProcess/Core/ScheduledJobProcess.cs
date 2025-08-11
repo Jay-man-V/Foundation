@@ -35,7 +35,7 @@ namespace Foundation.BusinessProcess
         /// <param name="repository">The data access.</param>
         /// <param name="statusRepository">The status data access.</param>
         /// <param name="userProfileRepository">The user profile data access.</param>
-        /// <param name="eventLogProcess">The event log process.</param>
+        /// <param name="loggingService">The logging service.</param>
         /// <param name="scheduleIntervalProcess">The schedule interval process.</param>
         /// <param name="calendarProcess">The calendar process.</param>
         public ScheduledJobProcess
@@ -46,7 +46,7 @@ namespace Foundation.BusinessProcess
             IScheduledJobRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
-            IEventLogProcess eventLogProcess,
+            ILoggingService loggingService,
             IScheduleIntervalProcess scheduleIntervalProcess,
             ICalendarProcess calendarProcess
         ) 
@@ -60,9 +60,9 @@ namespace Foundation.BusinessProcess
                 userProfileRepository
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, repository, statusRepository, userProfileRepository, eventLogProcess, scheduleIntervalProcess, calendarProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, repository, statusRepository, userProfileRepository, scheduleIntervalProcess, calendarProcess, loggingService);
 
-            EventLogProcess = eventLogProcess;
+            LoggingService = loggingService;
             ScheduleIntervalProcess = scheduleIntervalProcess;
             CalendarProcess = calendarProcess;
 
@@ -72,12 +72,12 @@ namespace Foundation.BusinessProcess
         }
 
         /// <summary>
-        /// Gets the event log process.
+        /// Gets the logging service
         /// </summary>
         /// <value>
-        /// The event log process.
+        /// The logging service
         /// </value>
-        private IEventLogProcess EventLogProcess { get; }
+        private ILoggingService LoggingService { get; }
 
         /// <summary>
         /// Gets the schedule interval process.
@@ -174,17 +174,17 @@ namespace Foundation.BusinessProcess
             String processName = nameof(ScheduledJobProcess);
             String taskName = LocationUtils.GetFunctionName();
 
-            LogId logId = EventLogProcess.CreateLogEntry(parentLogId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, "Initialising jobs");
+            LogId logId = LoggingService.CreateLogEntry(parentLogId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, "Initialising jobs");
 
             ScheduledJobs = GetAll();
 
             String jobNames = String.Join(", ", ScheduledJobs.Select(sj => sj.Name));
 
-            EventLogProcess.CreateLogEntry(logId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, $"{ScheduledJobs.Count()} jobs found ({jobNames})");
+            LoggingService.CreateLogEntry(logId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, $"{ScheduledJobs.Count()} jobs found ({jobNames})");
 
             foreach (IScheduledJob scheduledJob in ScheduledJobs)
             {
-                LogId jobLogId = EventLogProcess.CreateLogEntry(logId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, $"Initialising Job: {scheduledJob.Name}");
+                LogId jobLogId = LoggingService.CreateLogEntry(logId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, $"Initialising Job: {scheduledJob.Name}");
 
                 if (!ScheduledTimers.TryGetValue(scheduledJob.Name, out ServerProcessTimer? serverProcessTimer))
                 {
@@ -209,10 +209,10 @@ namespace Foundation.BusinessProcess
                     ScheduledTimers.Add(serverProcessTimer.Name, serverProcessTimer);
                 }
 
-                EventLogProcess.CreateLogEntry(jobLogId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, $"Job Initialised: {scheduledJob.Name}");
+                LoggingService.CreateLogEntry(jobLogId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, $"Job Initialised: {scheduledJob.Name}");
             }
 
-            EventLogProcess.CreateLogEntry(logId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, "All active jobs Initialised");
+            LoggingService.CreateLogEntry(logId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, "All active jobs Initialised");
 
             LoggingHelpers.TraceCallReturn();
         }
@@ -226,7 +226,7 @@ namespace Foundation.BusinessProcess
             String processName = nameof(ScheduledJobProcess);
             String taskName = LocationUtils.GetFunctionName();
 
-            LogId logId = EventLogProcess.CreateLogEntry(parentLogId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, "Starting jobs");
+            LogId logId = LoggingService.CreateLogEntry(parentLogId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, "Starting jobs");
 
             if (ScheduledJobs == null)
             {
@@ -236,13 +236,13 @@ namespace Foundation.BusinessProcess
             if (ScheduledJobs == null ||
                 !ScheduledJobs.Any())
             {
-                EventLogProcess.CreateLogEntry(logId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, "No jobs found to start");
+                LoggingService.CreateLogEntry(logId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, "No jobs found to start");
             }
             else
             {
                 foreach (IScheduledJob scheduledJob in ScheduledJobs)
                 {
-                    LogId jobLogId = EventLogProcess.CreateLogEntry(logId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, $"Starting job: {scheduledJob.Name}");
+                    LogId jobLogId = LoggingService.CreateLogEntry(logId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, $"Starting job: {scheduledJob.Name}");
 
                     if (ScheduledTimers.TryGetValue(scheduledJob.Name, out ServerProcessTimer? serverProcessTimer))
                     {
@@ -250,11 +250,11 @@ namespace Foundation.BusinessProcess
                         serverProcessTimer.Start();
                     }
 
-                    EventLogProcess.CreateLogEntry(jobLogId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, $"Job started: {scheduledJob.Name}");
+                    LoggingService.CreateLogEntry(jobLogId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, $"Job started: {scheduledJob.Name}");
                 }
             }
 
-            EventLogProcess.CreateLogEntry(logId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, "All active jobs started");
+            LoggingService.CreateLogEntry(logId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, "All active jobs started");
 
             LoggingHelpers.TraceCallReturn();
         }
@@ -283,14 +283,14 @@ namespace Foundation.BusinessProcess
             String processName = nameof(ScheduledJobProcess);
             String taskName = LocationUtils.GetFunctionName();
 
-            LogId logId = EventLogProcess.CreateLogEntry(parentLogId, ApplicationSettings.ApplicationId, batchName, processName, taskName, LogSeverity.Information, "Stopping jobs");
+            LogId logId = LoggingService.CreateLogEntry(parentLogId, ApplicationSettings.ApplicationId, batchName, processName, taskName, LogSeverity.Information, "Stopping jobs");
 
             foreach (var kvpScheduledJob in ScheduledTimers)
             {
                 ServerProcessTimer serverProcessTimer = kvpScheduledJob.Value;
                 IScheduledJob scheduledJob = serverProcessTimer.ScheduledJob;
 
-                LogId jobLogId = EventLogProcess.CreateLogEntry(logId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, $"Stopping job: {scheduledJob.Name}");
+                LogId jobLogId = LoggingService.CreateLogEntry(logId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, $"Stopping job: {scheduledJob.Name}");
 
                 scheduledJob.CancellationRequested = true;
 
@@ -312,10 +312,10 @@ namespace Foundation.BusinessProcess
                 serverProcessTimer.Stop();
                 serverProcessTimer.Enabled = false;
 
-                EventLogProcess.CreateLogEntry(jobLogId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, $"Job stopped: {scheduledJob.Name}");
+                LoggingService.CreateLogEntry(jobLogId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, $"Job stopped: {scheduledJob.Name}");
             }
 
-            EventLogProcess.CreateLogEntry(logId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, "All active jobs stopped");
+            LoggingService.CreateLogEntry(logId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, "All active jobs stopped");
 
             LoggingHelpers.TraceCallReturn();
         }
@@ -439,7 +439,7 @@ namespace Foundation.BusinessProcess
             {
                 const Boolean isFinished = true;
                 EntityId scheduledJobId = scheduledJob.Id;
-                IEventLog? eventLog = EventLogProcess.GetLatest(isFinished, scheduledJobId);
+                IEventLog? eventLog = LoggingService.GetLatest(isFinished, scheduledJobId);
                 if (eventLog != null)
                 {
                     retVal = eventLog.TaskStatus;
@@ -582,13 +582,13 @@ namespace Foundation.BusinessProcess
                     String processName = scheduledJob.GetType().ToString();
                     String taskName = "Task starting";
 
-                    logId = EventLogProcess.StartTask(scheduledJob.ScheduledTask.ApplicationId, batchName, processName, taskName);
+                    logId = LoggingService.StartTask(scheduledJob.ScheduledTask.ApplicationId, batchName, processName, taskName);
 
                     scheduledJob.IsRunning = true;
                     scheduledJob.LastRunDateTime = DateTimeService.SystemDateTimeNowWithoutMilliseconds;
 
                     InternalRunJob(logId, scheduledJob);
-                    EventLogProcess.EndTask(logId, LogSeverity.Success, "Job completed");
+                    LoggingService.EndTask(logId, LogSeverity.Success, "Job completed");
 
                     scheduledJob.FirstRun = false;
                 }
@@ -597,7 +597,7 @@ namespace Foundation.BusinessProcess
             {
                 LoggingHelpers.LogErrorMessage(exception);
 
-                EventLogProcess.CreateLogEntry(logId, Core.ApplicationId, LogSeverity.Error, exception);
+                LoggingService.CreateLogEntry(logId, Core.ApplicationId, LogSeverity.Error, exception);
 
                 // Reschedule in 5 minutes in case of an error
                 rescheduleInterval = (Int32)(new TimeSpan(0, 5, 0).TotalMilliseconds);
@@ -607,7 +607,7 @@ namespace Foundation.BusinessProcess
                 rescheduleInterval = (Int32)(new TimeSpan(0, 0, 60).TotalMilliseconds);
 #endif
 
-                EventLogProcess.EndTask(logId, LogSeverity.Error, exception);
+                LoggingService.EndTask(logId, LogSeverity.Error, exception);
             }
             finally
             {
@@ -635,7 +635,7 @@ namespace Foundation.BusinessProcess
                 String processName = scheduledTask.GetType().ToString();
                 String taskName = "Task starting";
 
-                logId = EventLogProcess.StartTask(scheduledTask.ApplicationId, batchName, processName, taskName);
+                logId = LoggingService.StartTask(scheduledTask.ApplicationId, batchName, processName, taskName);
 
                 if (scheduledJob.IsEnabled)
                 {
@@ -643,7 +643,7 @@ namespace Foundation.BusinessProcess
                     scheduledJob.LastRunDateTime = DateTimeService.SystemDateTimeNowWithoutMilliseconds;
 
                     scheduledTask.Process(logId, scheduledJob.TaskParameters);
-                    EventLogProcess.EndTask(logId, LogSeverity.Success, "Job completed");
+                    LoggingService.EndTask(logId, LogSeverity.Success, "Job completed");
 
                     scheduledJob.FirstRun = false;
 
@@ -651,7 +651,7 @@ namespace Foundation.BusinessProcess
                 }
                 else
                 {
-                    EventLogProcess.EndTask(logId, LogSeverity.Success, "Job is disabled in configuration");
+                    LoggingService.EndTask(logId, LogSeverity.Success, "Job is disabled in configuration");
                 }
             }
 
