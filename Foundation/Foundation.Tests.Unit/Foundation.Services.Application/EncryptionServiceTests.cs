@@ -22,9 +22,9 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 
         private IEncryptionService? TheService { get; set; }
 
-        protected override void StartTest()
+        public override void TestInitialise()
         {
-            base.StartTest();
+            base.TestInitialise();
 
             TheService = new EncryptionService();
         }

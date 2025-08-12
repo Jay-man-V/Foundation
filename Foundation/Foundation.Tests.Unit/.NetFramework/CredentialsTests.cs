@@ -26,7 +26,7 @@ namespace Foundation.Tests.Unit.NetFramework
         /// <summary>
         ///
         /// </summary>
-        [TestCase]
+        [Test]
         public void Test_NetworkCredential()
         {
             String userName = Guid.NewGuid().ToString();
@@ -43,7 +43,7 @@ namespace Foundation.Tests.Unit.NetFramework
         /// <summary>
         ///
         /// </summary>
-        [TestCase]
+        [Test]
         public void Test_GetFileOwner()
         {
             FileInfo fi = new FileInfo(@"D:\Projects\Generic Entity Search.txt");

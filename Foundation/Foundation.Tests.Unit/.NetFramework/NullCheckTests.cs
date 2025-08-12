@@ -17,7 +17,7 @@ namespace Foundation.Tests.Unit.NetFramework
         /// <summary>
         ///
         /// </summary>
-        [TestCase]
+        [Test]
         public void Test_CheckForNull()
         {
             const Object? valueA = null;

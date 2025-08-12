@@ -14,7 +14,7 @@ namespace Foundation.Tests.Unit.Support
     [TestFixture]
     public class UnitTestsBaseTests : UnitTestBase
     {
-        [TestCase]
+        [Test]
         public void Test_ByteArrayToString()
         {
             List<Int32> int32List = new List<Int32>
@@ -33,21 +33,21 @@ namespace Foundation.Tests.Unit.Support
             Assert.That(actualOutput, Is.EqualTo(output));
         }
 
-        [TestCase]
+        [Test]
         public void Test_GetListOfTestMethods()
         {
             IEnumerable<MethodInfo> methodInfos = GetListOfTestMethods();
             Assert.That(methodInfos.Count(), Is.EqualTo(12));
         }
 
-        [TestCase]
+        [Test]
         public void Test_GetMethodInfosForType()
         {
             IEnumerable<MethodInfo> methodInfos = GetMethodInfosForType(this.GetType());
             Assert.That(methodInfos.Count(), Is.EqualTo(0));
         }
 
-        [TestCase]
+        [Test]
         public void Test_ReplaceDateTimeWithConstant()
         {
             String input1 = "29-Mar-2023 21:45:30.123";
@@ -71,7 +71,7 @@ namespace Foundation.Tests.Unit.Support
             Assert.That(actual4, Is.EqualTo(expected4));
         }
 
-        [TestCase]
+        [Test]
         public void Test_ReplaceFilePathWithConstant()
         {
             String input1 = "Executing assembly: Foundation.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
@@ -110,7 +110,7 @@ namespace Foundation.Tests.Unit.Support
             Assert.That(actual7, Is.EqualTo(expected7));
         }
 
-        [TestCase]
+        [Test]
         public void Test_ReplaceLineNumberWithConstant()
         {
             String input1 = ":line 123";
@@ -119,7 +119,7 @@ namespace Foundation.Tests.Unit.Support
             Assert.That(actual1, Is.EqualTo(expected1));
         }
 
-        [TestCase]
+        [Test]
         public void Test_ReplaceUserNameWithConstant()
         {
             String[] inputs =
@@ -149,7 +149,7 @@ namespace Foundation.Tests.Unit.Support
             }
         }
 
-        [TestCase]
+        [Test]
         public void Test_ReplaceEntryAssemblyWithConstant()
         {
             String input1 = "Entry assembly: My.Assembly.Is.Here.dll";
@@ -158,7 +158,7 @@ namespace Foundation.Tests.Unit.Support
             Assert.That(actual1, Is.EqualTo(expected1));
         }
 
-        [TestCase]
+        [Test]
         public void Test_ReplacePublicKeyTokenWithConstant()
         {
             String input1 = "PublicKeyToken=null";
@@ -172,7 +172,7 @@ namespace Foundation.Tests.Unit.Support
             Assert.That(actual2, Is.EqualTo(expected2));
         }
 
-        [TestCase]
+        [Test]
         public void Test_ReplaceAssemblyVersionWithConstant()
         {
             String input1 = "Version=1.0.0.0";
@@ -186,7 +186,7 @@ namespace Foundation.Tests.Unit.Support
             Assert.That(actual2, Is.EqualTo(expected2));
         }
 
-        [TestCase]
+        [Test]
         public void Test_ReplaceAssemblyTargetFrameworkWithConstant()
         {
             String input1 = "Assembly target framework: .NET Framework 4.8 - .NETFramework,Version=v4.8";
@@ -195,7 +195,7 @@ namespace Foundation.Tests.Unit.Support
             Assert.That(actual1, Is.EqualTo(expected1));
         }
 
-        [TestCase]
+        [Test]
         public void Test_ReplaceServerNameWithConstant()
         {
             String input1 = $"Server name: {DatabaseServer}";

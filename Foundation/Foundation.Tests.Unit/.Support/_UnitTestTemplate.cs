@@ -15,7 +15,7 @@ namespace Foundation.Tests.Unit.Support
         /// <summary>
         /// Tests the method1.
         /// </summary>
-        [TestCase]
+        [Test]
         public void TestMethod1()
         {
             ////
@@ -23,14 +23,15 @@ namespace Foundation.Tests.Unit.Support
             ////
         }
 
-        /// <summary>
-        /// Starts the test.
-        /// </summary>
-        protected override void StartTest() { }
+        public override void TestInitialise()
+        {
+            base.TestInitialise();
+        }
 
-        /// <summary>
-        /// Ends the test.
-        /// </summary>
-        protected override void EndTest() { }
+        public override void TestCleanup()
+        {
+            base.TestCleanup();
+        }
+
     }
 }

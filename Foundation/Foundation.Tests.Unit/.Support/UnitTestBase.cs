@@ -312,8 +312,6 @@ namespace Foundation.Tests.Unit.Support
 
             LoggedOnUserProcess = Substitute.For<ILoggedOnUserProcess>();
             LoggedOnUserProcess.GetLoggedOnUsers(Arg.Any<AppId>()).Returns(LoggedOnUsersList);
-
-            StartTest();
         }
 
         /// <summary>
@@ -336,8 +334,6 @@ namespace Foundation.Tests.Unit.Support
 
             StatusRepository = null;
             UserProfileRepository = null;
-
-            EndTest();
         }
 
         protected void RemoveRoleFromLoggedOnUser(ApplicationRole applicationRoleToRemove)
@@ -717,15 +713,5 @@ namespace Foundation.Tests.Unit.Support
             IEnumerable<MethodInfo> testMethods = thisType.GetMethods().Where(m => m.Name.StartsWith("Test_"));
             return testMethods;
         }
-
-        /// <summary>
-        /// Virtual method to allow derived classes to 
-        /// </summary>
-        protected virtual void StartTest() { }
-
-        /// <summary>
-        /// Ends the test.
-        /// </summary>
-        protected virtual void EndTest() { }
     }
 }
