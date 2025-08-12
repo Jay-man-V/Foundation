@@ -42,7 +42,7 @@ namespace Foundation.Interfaces
         /// </para>
         /// </summary>
         /// <returns></returns>
-        String UserLogonName { get; }
+        String UserFullLogonName { get; }
 
         /// <summary>
         /// Gets the NetBIOS name of this local computer.

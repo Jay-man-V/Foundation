@@ -21,17 +21,17 @@ namespace Foundation.Interfaces
         /// <summary>
         /// 
         /// </summary>
-        [NotNull] IIoC IoC { get; }
+        IIoC IoC { get; }
 
         /// <summary>
         /// 
         /// </summary>
-        ICore? Instance { get; }
+        ICore Instance { get; }
 
         /// <summary>
         /// 
         /// </summary>
-        ICurrentLoggedOnUser? CurrentLoggedOnUser { get; }
+        ICurrentLoggedOnUser CurrentLoggedOnUser { get; }
 
         // TODO - Future development for Cache and Crypto
         // ICache Cache { get; }

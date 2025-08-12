@@ -312,12 +312,16 @@ namespace Foundation.DataAccess.Database
 
             IDbDataParameter retVal;
 
-            if ((useNullForThisValue != null && useNullForThisValue.Equals(parameterValue)) ||
+            if (useNullForThisValue is null)
+            {
+                throw new ArgumentNullException(nameof(useNullForThisValue));
+            }
+
+            if (useNullForThisValue.Equals(parameterValue) ||
                 parameterValue == null)
             {
                 retVal = CreateParameter(parameterName, DbType.Object, DBNull.Value);
 
-                // TODO: Test this line
                 Type parameterType = useNullForThisValue.GetType();
 
                 if (parameterValue != null)

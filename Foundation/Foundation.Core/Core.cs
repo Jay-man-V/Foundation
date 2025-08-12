@@ -16,7 +16,22 @@ namespace Foundation.Core
         private static ICurrentLoggedOnUser? TheCurrentLoggedOnUser { get; set; }
 
         /// <inheritdoc cref="ICore.Instance"/>
-        public static ICore? TheInstance { get; set; }
+        private static ICore? _coreInstance;
+
+        public static ICore TheInstance
+        {
+            get
+            {
+                if (_coreInstance is null)
+                {
+                    String message = "Foundation.Core has not been initialised";
+                    throw new InvalidOperationException(message);
+                }
+
+                return _coreInstance;
+            }
+            set => _coreInstance = value;
+        }
 
         /// <summary>
         /// Initialises the Core service by:
@@ -31,7 +46,7 @@ namespace Foundation.Core
         {
             // https://learn.microsoft.com/en-us/dotnet/core/extensions/generic-host?tabs=appbuilder
 
-            if (TheInstance == null)
+            if (_coreInstance == null)
             {
                 TheApplicationId = applicationId;
 
@@ -44,7 +59,7 @@ namespace Foundation.Core
 
                 if (userProfile == null)
                 {
-                    throw new UserLogonException(runTimeEnvironmentSettings.UserLogonName);
+                    throw new UserLogonException(runTimeEnvironmentSettings.UserFullLogonName);
                 }
 
                 TheCurrentLoggedOnUser = new CurrentLoggedOnUser(userProfile);
@@ -67,6 +82,18 @@ namespace Foundation.Core
         public ICore? Instance => TheInstance;
 
         /// <inheritdoc cref="ICore.CurrentLoggedOnUser"/>
-        public ICurrentLoggedOnUser? CurrentLoggedOnUser => TheCurrentLoggedOnUser;
+        public ICurrentLoggedOnUser CurrentLoggedOnUser
+        {
+            get
+            {
+                if (TheCurrentLoggedOnUser is null)
+                {
+                    String message = "The logged on user has not been set or they have not been successfully identified";
+                    throw new InvalidOperationException(message);
+                }
+
+                return TheCurrentLoggedOnUser;
+            }
+        }
     }
 }

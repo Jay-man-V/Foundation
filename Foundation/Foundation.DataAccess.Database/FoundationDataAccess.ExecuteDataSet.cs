@@ -49,6 +49,12 @@ namespace Foundation.DataAccess.Database
 
                 IDbDataAdapter? dataAdapter = DatabaseProviderFactory.CreateDataAdapter();
 
+                if (dataAdapter is null)
+                {
+                    String message = $"Unable to create Data Adapter using '{DatabaseProviderName}'.";
+                    throw new InvalidOperationException(message);
+                }
+
                 if (databaseParameters != null &&
                     databaseParameters.HasItems())
                 {

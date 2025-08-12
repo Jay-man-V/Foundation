@@ -177,6 +177,12 @@ namespace Foundation.ViewModels
             ILoggedOnUser? loggedOnUser = loggedOnUsers.FirstOrDefault(lou => lou.CreatedByUserProfileId == Core.CurrentLoggedOnUser.UserProfile.Id &&
                                                                               lou.ApplicationId == ApplicationSettings.ApplicationId);
 
+            if (loggedOnUser == null)
+            {
+                String message = $"The current logged on user '{RunTimeEnvironmentSettings.UserFullLogonName}' cannot be located";
+                throw new InvalidOperationException(message);
+            }
+
             // Nothing to do, exit the function
             if (String.IsNullOrEmpty(loggedOnUser.Command)) return loggedOnUsers;
 

@@ -42,7 +42,7 @@ namespace Foundation.DataAccess.Database
             
             using (IDbCommand command = conn.CreateCommand())
             {
-                if (DatabaseTransaction != null)
+                if (DatabaseTransaction is not null)
                 {
                     command.Transaction = DatabaseTransaction;
                 }

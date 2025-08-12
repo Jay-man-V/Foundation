@@ -347,7 +347,7 @@ namespace Foundation.Repository
             if (!(canCreateRecord || isSystemAdministrator))
             {
                 String processName = $"{nameof(VerifyCanCreate)}::{TableName}";
-                throw new ApplicationPermissionsException(RunTimeEnvironmentSettings.UserLogonName, processName, ApplicationRole.Creator, entity);
+                throw new ApplicationPermissionsException(RunTimeEnvironmentSettings.UserFullLogonName, processName, ApplicationRole.Creator, entity);
             }
 
             LoggingHelpers.TraceCallReturn();
@@ -373,7 +373,7 @@ namespace Foundation.Repository
             if (!(canEditOwnRecord || canEditAllRecords || isSystemAdministrator))
             {
                 String processName = $"{nameof(VerifyCanEdit)}::{TableName}";
-                throw new ApplicationPermissionsException(RunTimeEnvironmentSettings.UserLogonName, processName, ApplicationRole.OwnEditor, entity);
+                throw new ApplicationPermissionsException(RunTimeEnvironmentSettings.UserFullLogonName, processName, ApplicationRole.OwnEditor, entity);
             }
 
             LoggingHelpers.TraceCallReturn();
@@ -399,7 +399,7 @@ namespace Foundation.Repository
             if (!(canDeleteOwnRecord || canDeleteAllRecords || isSystemAdministrator))
             {
                 String processName = $"{nameof(VerifyCanDelete)}::{TableName}";
-                throw new ApplicationPermissionsException(RunTimeEnvironmentSettings.UserLogonName, processName, ApplicationRole.OwnDelete, entity);
+                throw new ApplicationPermissionsException(RunTimeEnvironmentSettings.UserFullLogonName, processName, ApplicationRole.OwnDelete, entity);
             }
 
             LoggingHelpers.TraceCallReturn();
@@ -931,6 +931,12 @@ namespace Foundation.Repository
 
             if (recordCount <= 0)
             {
+                if (FoundationDataAccess.DatabaseTransaction is null)
+                {
+                    String message = "Database Transaction has not been setup/initialised. Unable to rollback with record count <= 0.";
+                    throw new InvalidOperationException(message);
+                }
+
                 FoundationDataAccess.DatabaseTransaction.Rollback();
 
                 TModel lastSavedEntity = Get(entity.Id);
@@ -948,10 +954,22 @@ namespace Foundation.Repository
             switch (recordCount > 1)
             {
                 case true when entityLife == EntityLife.Loaded:
+                    if (FoundationDataAccess.DatabaseTransaction is null)
+                    {
+                        String message = "Database Transaction has not been setup/initialised. Unable to rollback with loaded entity.";
+                        throw new InvalidOperationException(message);
+                    }
+
                     FoundationDataAccess.DatabaseTransaction.Rollback();
 
                     throw new TooManyRecordsUpdatedException(entity.Id, EntityName, TableName, entity);
                 case true when entityLife == EntityLife.Deleted:
+                    if (FoundationDataAccess.DatabaseTransaction is null)
+                    {
+                        String message = "Database Transaction has not been setup/initialised. Unable to rollback with deleted entity.";
+                        throw new InvalidOperationException(message);
+                    }
+
                     FoundationDataAccess.DatabaseTransaction.Rollback();
 
                     throw new TooManyRecordsDeletedException(entity.Id, EntityName, TableName, entity);

@@ -24,8 +24,8 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IRunTimeEnvironmentSettings.UserDomainName"/>
         public String UserDomainName => Environment.UserDomainName;
 
-        /// <inheritdoc cref="IRunTimeEnvironmentSettings.UserLogonName"/>
-        public String UserLogonName => $@"{UserDomainName}\{UserName}";
+        /// <inheritdoc cref="IRunTimeEnvironmentSettings.UserFullLogonName"/>
+        public String UserFullLogonName => $@"{UserDomainName}\{UserName}";
 
         /// <inheritdoc cref="IRunTimeEnvironmentSettings.MachineName"/>
         public String MachineName => Environment.MachineName;

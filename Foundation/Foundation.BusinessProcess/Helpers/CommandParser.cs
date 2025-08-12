@@ -22,13 +22,13 @@ namespace Foundation.BusinessProcess
         /// Constructs a new Command Parser with the supplied parameters
         /// </summary>
         /// <param name="dateTimeService"></param>
-        /// <param name="commandText">The whole command text</param>
-        public CommandParser(IDateTimeService dateTimeService, String commandText)
+        public CommandParser(IDateTimeService dateTimeService)
         {
-            LoggingHelpers.TraceCallEnter(dateTimeService, commandText);
+            LoggingHelpers.TraceCallEnter(dateTimeService);
 
             DateTimeService = dateTimeService;
-            FullCommandText = commandText;
+
+            FullCommandText = String.Empty;
 
             LoggingHelpers.TraceCallReturn();
         }
