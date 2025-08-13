@@ -1,24 +1,25 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SequenceGenerator.cs" company="JDV Software Ltd">
+// <copyright file="SequenceGeneratorRepository.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Data;
+
 using Foundation.Common;
+using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 
-using System.Data;
-using Foundation.DataAccess.Database;
 using FDC = Foundation.Resources.Constants.DataColumns;
 
 namespace Foundation.Repository.Core
 {
     /// <summary>
-    /// Defines the Active Directory User Profile Data Access class
+    /// Defines the Sequence Generator Repository class
     /// </summary>
-    /// <see cref="ISequenceGenerator" />
+    /// <see cref="ISequenceGeneratorRepository" />
     [DependencyInjectionTransient]
-    public class SequenceGeneratorRepository : FoundationModelRepository<ISequenceGenerator>, ISequenceGeneratorRepository 
+    public class SequenceGeneratorRepository : FoundationModelRepository<ISequenceGenerator>, ISequenceGeneratorRepository
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="SequenceGeneratorRepository"/> class.
@@ -125,6 +126,8 @@ namespace Foundation.Repository.Core
         {
             LoggingHelpers.TraceCallEnter(applicationId, userProfile, sequenceName);
 
+            String sql = FDC.StoredProcedures.GetNextSequence.ProcedureName;
+
             DatabaseParameters databaseParameters =
             [
                 FoundationDataAccess.CreateParameter(FDC.StoredProcedures.GetNextSequence.ApplicationId, applicationId),
@@ -132,7 +135,7 @@ namespace Foundation.Repository.Core
                 FoundationDataAccess.CreateParameter(FDC.StoredProcedures.GetNextSequence.SequenceName, sequenceName)
             ];
 
-            Object? result = FoundationDataAccess.ExecuteScalar(FDC.StoredProcedures.GetNextSequence.ProcedureName, CommandType.StoredProcedure, databaseParameters);
+            Object? result = FoundationDataAccess.ExecuteScalar(sql, CommandType.StoredProcedure, databaseParameters);
 
             Int32.TryParse(result?.ToString() ?? "-1", out Int32 retVal);
 

@@ -5,12 +5,12 @@
 //-----------------------------------------------------------------------
 
 using Foundation.Common;
-using Foundation.Interfaces;
 
 namespace Foundation.Services.Application
 {
-    /// <ineritdoc cref="ISequenceGeneratorService" />
-    [DependencyInjectionTransient]
+    /// <summary>
+    /// Base class for all Services
+    /// </summary>
     public abstract class ServiceBase
     {
         /// <summary>
@@ -18,7 +18,6 @@ namespace Foundation.Services.Application
         /// </summary>
         protected ServiceBase
         (
-            
         )
         {
             LoggingHelpers.TraceCallEnter();

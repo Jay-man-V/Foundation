@@ -7,7 +7,7 @@
 namespace Foundation.Interfaces
 {
     /// <summary>
-    /// The Sequence Generator Data Access interface
+    /// The Sequence Generator Repository interface
     /// </summary>
     public interface ISequenceGeneratorRepository : IFoundationModelRepository<ISequenceGenerator>
     {

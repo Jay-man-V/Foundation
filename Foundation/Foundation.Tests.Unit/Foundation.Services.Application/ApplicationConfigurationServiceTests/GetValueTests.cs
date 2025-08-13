@@ -42,13 +42,38 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         }
 
         [Test]
-        public void Test_GetNullValue_Exception()
+        public void Test_GetValue_NoValue_Exception()
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
             const IApplicationConfiguration? expectedValueFromDatabase = null;
 
             String errorMessage = $"Configuration value with Key '{key}' for application id '{applicationId.TheAppId}' not found. Null value retrieved from database.";
+            NullValueException? actualException = null;
+
+            try
+            {
+                TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
+                TheService!.Get<String>(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key);
+            }
+            catch (NullValueException e)
+            {
+                actualException = e;
+            }
+
+            Assert.That(actualException, Is.Not.EqualTo(null));
+
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+        }
+
+        [Test]
+        public void Test_GetValue_Null_Exception()
+        {
+            AppId applicationId = new AppId(0);
+            const String key = "value";
+            IApplicationConfiguration? expectedValueFromDatabase = new ApplicationConfiguration();
+
+            String errorMessage = $"Configuration value with Key '{key}' for application id '{applicationId.TheAppId}' is null. Null value retrieved from database.";
             NullValueException? actualException = null;
 
             try

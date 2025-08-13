@@ -9,7 +9,10 @@ using Foundation.Interfaces;
 
 namespace Foundation.Services.Application
 {
-    /// <ineritdoc cref="ISequenceGeneratorService" />
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="ISequenceGeneratorService"/>
     [DependencyInjectionTransient]
     public class SequenceGeneratorService : ServiceBase, ISequenceGeneratorService
     {
