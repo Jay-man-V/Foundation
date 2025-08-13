@@ -8,6 +8,7 @@ using System.Text;
 
 using Foundation.Interfaces;
 using Foundation.Services.Application;
+
 using Foundation.Tests.Unit.Support;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application
