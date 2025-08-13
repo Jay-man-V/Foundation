@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.BusinessProcess
 {
     /// <summary>
-    /// The World Region Business Process 
+    /// The Sequence Generator Business Process 
     /// </summary>
     [DependencyInjectionTransient]
     public class SequenceGeneratorProcess : CommonBusinessProcess<ISequenceGenerator, ISequenceGeneratorRepository>, ISequenceGeneratorProcess

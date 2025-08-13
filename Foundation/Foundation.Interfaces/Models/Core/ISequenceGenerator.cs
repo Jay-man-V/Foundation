@@ -7,7 +7,7 @@
 namespace Foundation.Interfaces
 {
     /// <summary>
-    /// The World Region model interface
+    /// The Sequence Generator model interface
     /// </summary>
     public interface ISequenceGenerator : IFoundationModel
     {

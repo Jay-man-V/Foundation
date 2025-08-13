@@ -7,7 +7,7 @@
 namespace Foundation.Interfaces
 {
     /// <summary>
-    /// Defines the behaviour of the Id Service
+    /// Defines the behaviour of the Sequence Generator Service
     /// </summary>
     public interface ISequenceGeneratorService
     {
