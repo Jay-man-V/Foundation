@@ -19,7 +19,7 @@ namespace Foundation.Interfaces
         /// <param name="application">The <see cref="IApplication"/> to filter by</param>
         /// <param name="parentMenuItem">The <see cref="IMenuItem"/> to filter by</param>
         /// <returns>Filtered <see cref="List{IMenuItem}"/></returns>
-        List<IMenuItem> ApplyFilter(List<IMenuItem> menuItems, IApplication application, IMenuItem parentMenuItem);
+        List<IMenuItem> ApplyFilter(List<IMenuItem> menuItems, IApplication? application, IMenuItem? parentMenuItem);
 
         /// <summary>
         /// Given the <paramref name="menuItems"/> function will create a new list of <see cref="IMenuItem"/> that are Parents

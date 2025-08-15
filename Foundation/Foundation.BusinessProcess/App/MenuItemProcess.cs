@@ -155,8 +155,8 @@ namespace Foundation.BusinessProcess
             return retVal;
         }
 
-        /// <inheritdoc cref="IMenuItemProcess.ApplyFilter(List{IMenuItem}, IApplication, IMenuItem)"/>
-        public List<IMenuItem> ApplyFilter(List<IMenuItem> menuItems, IApplication application, IMenuItem parentMenuItem)
+        /// <inheritdoc cref="IMenuItemProcess.ApplyFilter(List{IMenuItem}, IApplication?, IMenuItem?)"/>
+        public List<IMenuItem> ApplyFilter(List<IMenuItem> menuItems, IApplication? application, IMenuItem? parentMenuItem)
         {
             LoggingHelpers.TraceCallEnter(menuItems, parentMenuItem);
 

@@ -221,8 +221,8 @@ namespace Foundation.BusinessProcess
             return retVal;
         }
 
-        /// <inheritdoc cref="IContactDetailProcess.ApplyFilter(List{IContactDetail}, IContactType, IContactDetail)"/>
-        public List<IContactDetail> ApplyFilter(List<IContactDetail> contactDetails, IContactType contactType, IContactDetail parentContactDetail)
+        /// <inheritdoc cref="IContactDetailProcess.ApplyFilter(List{IContactDetail}, IContactType?, IContactDetail?)"/>
+        public List<IContactDetail> ApplyFilter(List<IContactDetail> contactDetails, IContactType? contactType, IContactDetail? parentContactDetail)
         {
             LoggingHelpers.TraceCallEnter(contactDetails, contactType, parentContactDetail);
 

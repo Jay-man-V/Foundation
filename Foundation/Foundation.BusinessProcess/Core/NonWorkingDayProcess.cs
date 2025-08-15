@@ -176,8 +176,8 @@ namespace Foundation.BusinessProcess
             return retVal;
         }
 
-        /// <inheritdoc cref="INonWorkingDayProcess.ApplyFilter(List{INonWorkingDay}, ICountry, String, String)" />
-        public List<INonWorkingDay> ApplyFilter(List<INonWorkingDay> nonWorkingDays, ICountry country, String year, String description)
+        /// <inheritdoc cref="INonWorkingDayProcess.ApplyFilter(List{INonWorkingDay}, ICountry?, String?, String?)" />
+        public List<INonWorkingDay> ApplyFilter(List<INonWorkingDay> nonWorkingDays, ICountry? country, String? year, String? description)
         {
             LoggingHelpers.TraceCallEnter(nonWorkingDays, country, year, description);
 
@@ -185,9 +185,12 @@ namespace Foundation.BusinessProcess
 
             var workingList = nonWorkingDays.AsQueryable();
 
-            workingList = workingList.Where(nwd => (nwd.CountryId == country.Id) ||                         // Country
-                                                   (country.Id == AllId)                                    // All records
-            );
+            if (country != null)
+            {
+                workingList = workingList.Where(nwd => (nwd.CountryId == country.Id) ||                     // Country
+                                                       (country.Id == AllId)                                // All records
+                );
+            }
 
             if (!String.IsNullOrEmpty(year))
             {

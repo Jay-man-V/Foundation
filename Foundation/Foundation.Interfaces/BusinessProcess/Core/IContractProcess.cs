@@ -18,6 +18,6 @@ namespace Foundation.Interfaces
         /// <param name="contracts">The full list of <see cref="IContract"/></param>
         /// <param name="contractType">The <see cref="IContractType"/> to filter by</param>
         /// <returns>Filtered <see cref="List{IContract}"/></returns>
-        List<IContract> ApplyFilter(List<IContract> contracts, IContractType contractType);
+        List<IContract> ApplyFilter(List<IContract> contracts, IContractType? contractType);
     }
 }

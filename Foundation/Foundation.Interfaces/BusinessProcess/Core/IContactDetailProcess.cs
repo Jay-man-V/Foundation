@@ -19,7 +19,7 @@ namespace Foundation.Interfaces
         /// <param name="contactType">The <see cref="IContactType"/> to filter by</param>
         /// <param name="parentContactDetail">The <see cref="IContactDetail"/> as a Parent Contact to filter by</param>
         /// <returns>Filtered <see cref="List{IContactDetail}"/></returns>
-        List<IContactDetail> ApplyFilter(List<IContactDetail> contactDetails, IContactType contactType, IContactDetail parentContactDetail);
+        List<IContactDetail> ApplyFilter(List<IContactDetail> contactDetails, IContactType? contactType, IContactDetail? parentContactDetail);
 
         /// <summary>
         /// Given the <paramref name="contactDetails"/> function will create a new list of <see cref="IContactDetail"/> that are Parents

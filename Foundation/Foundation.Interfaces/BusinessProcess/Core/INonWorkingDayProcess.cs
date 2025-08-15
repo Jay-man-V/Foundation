@@ -20,7 +20,7 @@ namespace Foundation.Interfaces
         /// <param name="year">The year to filter by</param>
         /// <param name="description">The description to filter by</param>
         /// <returns>Filtered <see cref="List{INonWorkingDay}"/></returns>
-        List<INonWorkingDay> ApplyFilter(List<INonWorkingDay> nonWorkingDays, ICountry country, String year, String description);
+        List<INonWorkingDay> ApplyFilter(List<INonWorkingDay> nonWorkingDays, ICountry? country, String? year, String? description);
 
         /// <summary>
         /// Given the <paramref name="nonWorkingDays"/> function will create a new list of EntityIds that are Countries

@@ -20,6 +20,6 @@ namespace Foundation.Interfaces
         /// <param name="application">The <see cref="IApplication"/> to filter by</param>
         /// <param name="userProfile">The <see cref="IUserProfile"/> to filter by</param>
         /// <returns>Filtered <see cref="List{TValue}"/></returns>
-        List<IApplicationConfiguration> ApplyFilter(List<IApplicationConfiguration> applicationConfigurations, IConfigurationScope configurationScope, IApplication application, IUserProfile userProfile);
+        List<IApplicationConfiguration> ApplyFilter(List<IApplicationConfiguration> applicationConfigurations, IConfigurationScope? configurationScope, IApplication? application, IUserProfile? userProfile);
     }
 }

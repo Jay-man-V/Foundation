@@ -506,9 +506,9 @@ namespace Foundation.BusinessProcess
         {
             LoggingHelpers.TraceCallEnter(userProfile, entity);
 
-            Boolean userCanEdit = CanEditRecord(userProfile);
-            Boolean userOwnsEdit = CanEditOwnRecord(userProfile, entity);
-            Boolean recordCanEdit = CanEditRecord(entity);
+            Boolean userCanEdit = CanEditRecord(userProfile); // System Support or All Editor
+            Boolean userOwnsEdit = CanEditOwnRecord(userProfile, entity); // Own Editor
+            Boolean recordCanEdit = CanEditRecord(entity); // Record can be edited
 
             Boolean retVal = (userCanEdit && recordCanEdit) || userOwnsEdit;
 

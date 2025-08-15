@@ -176,8 +176,8 @@ namespace Foundation.BusinessProcess
             return retVal;
         }
 
-        /// <inheritdoc cref="IApplicationConfigurationProcess.ApplyFilter(List{IApplicationConfiguration}, IConfigurationScope, IApplication, IUserProfile)"/>
-        public List<IApplicationConfiguration> ApplyFilter(List<IApplicationConfiguration> applicationConfigurations, IConfigurationScope configurationScope, IApplication application, IUserProfile userProfile)
+        /// <inheritdoc cref="IApplicationConfigurationProcess.ApplyFilter(List{IApplicationConfiguration}, IConfigurationScope?, IApplication?, IUserProfile?)"/>
+        public List<IApplicationConfiguration> ApplyFilter(List<IApplicationConfiguration> applicationConfigurations, IConfigurationScope? configurationScope, IApplication? application, IUserProfile? userProfile)
         {
             LoggingHelpers.TraceCallEnter(applicationConfigurations, configurationScope, application);
 

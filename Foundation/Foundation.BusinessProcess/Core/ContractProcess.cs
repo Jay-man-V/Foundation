@@ -128,8 +128,8 @@ namespace Foundation.BusinessProcess
             return retVal;
         }
 
-        /// <inheritdoc cref="IContractProcess.ApplyFilter(List{IContract}, IContractType)"/>
-        public List<IContract> ApplyFilter(List<IContract> contracts, IContractType contractType)
+        /// <inheritdoc cref="IContractProcess.ApplyFilter(List{IContract}, IContractType?)"/>
+        public List<IContract> ApplyFilter(List<IContract> contracts, IContractType? contractType)
         {
             LoggingHelpers.TraceCallEnter(contracts, contractType);
 
