@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SequenceGeneratorRepository.cs" company="JDV Software Ltd">
+// <copyright file="IdGeneratorRepository.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -15,21 +15,21 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Core
 {
     /// <summary>
-    /// Defines the Sequence Generator Repository class
+    /// Defines the Id Generator Repository class
     /// </summary>
-    /// <see cref="ISequenceGeneratorRepository" />
+    /// <see cref="IIdGeneratorRepository" />
     [DependencyInjectionTransient]
-    public class SequenceGeneratorRepository : FoundationModelRepository<ISequenceGenerator>, ISequenceGeneratorRepository
+    public class IdGeneratorRepository : FoundationModelRepository<IIdGenerator>, IIdGeneratorRepository
     {
         /// <summary>
-        /// Initialises a new instance of the <see cref="SequenceGeneratorRepository"/> class.
+        /// Initialises a new instance of the <see cref="IdGeneratorRepository"/> class.
         /// </summary>
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
         /// <param name="databaseProvider">The Core Database Provider.</param>
         /// <param name="dateTimeService">The date/time service.</param>
-        public SequenceGeneratorRepository
+        public IdGeneratorRepository
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
@@ -55,10 +55,10 @@ namespace Foundation.Repository.Core
         public override Boolean HasValidityPeriodColumns => false;
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.EntityName"/>
-        protected override String EntityName => FDC.SequenceGenerator.EntityName;
+        protected override String EntityName => FDC.IdGenerator.EntityName;
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.TableName"/>
-        protected override String TableName => FDC.TableNames.SequenceGenerator;
+        protected override String TableName => FDC.TableNames.IdGenerator;
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.RequiredMinimumCreateRole"/>
         protected override ApplicationRole RequiredMinimumCreateRole => ApplicationRole.None;
@@ -67,72 +67,72 @@ namespace Foundation.Repository.Core
         protected override ApplicationRole RequiredMinimumEditRole => ApplicationRole.None;
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.VerifyCanCreate(TModel)"/>
-        protected override void VerifyCanCreate(ISequenceGenerator entity)
+        protected override void VerifyCanCreate(IIdGenerator entity)
         {
-            // Everyone can Create a Sequence Generator Entry
+            // Everyone can Create a Id Generator Entry
             // Does nothing
         }
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.VerifyCanEdit(TModel)"/>
-        protected override void VerifyCanEdit(ISequenceGenerator entity)
+        protected override void VerifyCanEdit(IIdGenerator entity)
         {
-            // Everyone can Edit an Sequence Generator Entry
+            // Everyone can Edit an Id Generator Entry
             // Does nothing
         }
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.VerifyCanDelete(TModel)"/>
-        protected override void VerifyCanDelete(ISequenceGenerator entity)
+        protected override void VerifyCanDelete(IIdGenerator entity)
         {
-            // Sequence Generator Entries cannot be deleted
-            throw new NotImplementedException("Sequence Generator Entries cannot be deleted");
+            // Id Generator Entries cannot be deleted
+            throw new NotImplementedException("Id Generator Entries cannot be deleted");
         }
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.Delete(EntityId)"/>
         public override void Delete(EntityId entityId)
         {
-            // Sequence Generator Entries cannot be deleted
-            throw new NotImplementedException("Sequence Generator Entries cannot be deleted");
+            // Id Generator Entries cannot be deleted
+            throw new NotImplementedException("Id Generator Entries cannot be deleted");
         }
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.Delete(TModel)"/>
-        public override ISequenceGenerator Delete(ISequenceGenerator entity)
+        public override IIdGenerator Delete(IIdGenerator entity)
         {
-            // Sequence Generator Entries cannot be deleted
-            throw new NotImplementedException("Sequence Generator Entries cannot be deleted");
+            // Id Generator Entries cannot be deleted
+            throw new NotImplementedException("Id Generator Entries cannot be deleted");
         }
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.Delete(List{TModel})"/>
-        public override List<ISequenceGenerator> Delete(List<ISequenceGenerator> entities)
+        public override List<IIdGenerator> Delete(List<IIdGenerator> entities)
         {
-            // Sequence Generator Entries cannot be deleted
-            throw new NotImplementedException("Sequence Generator Entries cannot be deleted");
+            // Id Generator Entries cannot be deleted
+            throw new NotImplementedException("Id Generator Entries cannot be deleted");
         }
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.DeleteEntity(IDbConnection, EntityId)"/>
         protected override int DeleteEntity(IDbConnection conn, EntityId entityId)
         {
-            // Sequence Generator Entries cannot be deleted
-            throw new NotImplementedException("Sequence Generator Entries cannot be deleted");
+            // Id Generator Entries cannot be deleted
+            throw new NotImplementedException("Id Generator Entries cannot be deleted");
         }
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.DeleteEntity(IDbConnection, TModel)"/>
-        protected override int DeleteEntity(IDbConnection conn, ISequenceGenerator entity)
+        protected override int DeleteEntity(IDbConnection conn, IIdGenerator entity)
         {
-            // Sequence Generator Entries cannot be deleted
-            throw new NotImplementedException("Sequence Generator Entries cannot be deleted");
+            // Id Generator Entries cannot be deleted
+            throw new NotImplementedException("Id Generator Entries cannot be deleted");
         }
-        /// <inheritdoc cref="ISequenceGeneratorRepository.GetNextSequence(AppId, IUserProfile, String)"/>
-        public Int32 GetNextSequence(AppId applicationId, IUserProfile userProfile, String sequenceName)
+        /// <inheritdoc cref="IIdGeneratorRepository.GetNextId(AppId, IUserProfile, String)"/>
+        public Int32 GetNextId(AppId applicationId, IUserProfile userProfile, String idName)
         {
-            LoggingHelpers.TraceCallEnter(applicationId, userProfile, sequenceName);
+            LoggingHelpers.TraceCallEnter(applicationId, userProfile, idName);
 
-            String sql = FDC.StoredProcedures.GetNextSequence.ProcedureName;
+            String sql = FDC.StoredProcedures.GetNextId.ProcedureName;
 
             DatabaseParameters databaseParameters =
             [
-                FoundationDataAccess.CreateParameter(FDC.StoredProcedures.GetNextSequence.ApplicationId, applicationId),
-                FoundationDataAccess.CreateParameter(FDC.StoredProcedures.GetNextSequence.UserProfileId, userProfile.Id),
-                FoundationDataAccess.CreateParameter(FDC.StoredProcedures.GetNextSequence.SequenceName, sequenceName)
+                FoundationDataAccess.CreateParameter(FDC.StoredProcedures.GetNextId.ApplicationId, applicationId),
+                FoundationDataAccess.CreateParameter(FDC.StoredProcedures.GetNextId.UserProfileId, userProfile.Id),
+                FoundationDataAccess.CreateParameter(FDC.StoredProcedures.GetNextId.IdName, idName)
             ];
 
             Object? result = FoundationDataAccess.ExecuteScalar(sql, CommandType.StoredProcedure, databaseParameters);

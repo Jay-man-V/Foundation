@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SequenceNames.cs" company="JDV Software Ltd">
+// <copyright file="IdNames.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -7,13 +7,13 @@
 namespace Foundation.Resources
 {
     /// <summary>
-    /// Sequence Names
+    /// Id Names
     /// </summary>
-    public static class SequenceNames
+    public static class IdNames
     {
         /// <summary>
-        /// Generic Sequence key to be used for system-wide unique numeric sequences
+        /// Generic Id key to be used for system-wide unique numeric ids
         /// </summary>
-        public static String GenericSequence => "GenericSequence";
+        public static String GenericId => "GenericId";
     }
 }

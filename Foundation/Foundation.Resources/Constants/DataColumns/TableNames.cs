@@ -159,6 +159,14 @@ namespace Foundation.Resources.Constants.DataColumns
         public static String EntityStatus => "[core].[EntityStatus]";
 
         /// <summary>
+        /// Gets the id generator.
+        /// </summary>
+        /// <value>
+        /// The id generator.
+        /// </value>
+        public static String IdGenerator => "[core].[IdGenerator]";
+
+        /// <summary>
         /// Gets the type of the image.
         /// </summary>
         /// <value>
@@ -221,14 +229,6 @@ namespace Foundation.Resources.Constants.DataColumns
         /// The schedule interval.
         /// </value>
         public static String ScheduleInterval => "[core].[ScheduleInterval]";
-
-        /// <summary>
-        /// Gets the sequence generator.
-        /// </summary>
-        /// <value>
-        /// The sequence generator.
-        /// </value>
-        public static String SequenceGenerator => "[core].[SequenceGenerator]";
 
         /// <summary>
         /// Gets the status.

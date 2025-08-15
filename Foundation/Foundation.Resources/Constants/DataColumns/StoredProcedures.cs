@@ -12,15 +12,15 @@ namespace Foundation.Resources.Constants.DataColumns
     public abstract class StoredProcedures
     {
         /// <summary>
-        /// [core].[usp_IdGenerator_GetNextSequence]
+        /// [core].[usp_IdGenerator_GetNextId]
         /// </summary>
-        public static class GetNextSequence
+        public static class GetNextId
         {
-            public static String ProcedureName => "[core].[usp_IdGenerator_GetNextSequence]";
+            public static String ProcedureName => "[core].[usp_IdGenerator_GetNextId]";
 
             public static String ApplicationId => "ApplicationId";
             public static String UserProfileId => "UserProfileId";
-            public static String SequenceName => "SequenceName";
+            public static String IdName => "IdName";
         }
 
         /// <summary>

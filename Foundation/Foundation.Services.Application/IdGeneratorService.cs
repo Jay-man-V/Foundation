@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SequenceGeneratorService.cs" company="JDV Software Ltd">
+// <copyright file="IdGeneratorService.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -12,16 +12,16 @@ namespace Foundation.Services.Application
     /// <summary>
     /// 
     /// </summary>
-    /// <seealso cref="ISequenceGeneratorService"/>
+    /// <seealso cref="IIdGeneratorService"/>
     [DependencyInjectionTransient]
-    public class SequenceGeneratorService : ServiceBase, ISequenceGeneratorService
+    public class IdGeneratorService : ServiceBase, IIdGeneratorService
     {
         /// <summary>
         /// 
         /// </summary>
-        public SequenceGeneratorService
+        public IdGeneratorService
         (
-            ISequenceGeneratorRepository repository
+            IIdGeneratorRepository repository
         ) : 
             base
             (
@@ -34,21 +34,21 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallReturn();
         }
 
-        private ISequenceGeneratorRepository Repository { get; }
+        private IIdGeneratorRepository Repository { get; }
 
-        /// <inheritdoc cref="ISequenceGeneratorService.GetNextSequence(AppId, IUserProfile, String)" />
-        public Int32 GetNextSequence(AppId applicationId, IUserProfile userProfile, String sequenceName)
+        /// <inheritdoc cref="IIdGeneratorService.GetNextId(AppId, IUserProfile, String)" />
+        public Int32 GetNextId(AppId applicationId, IUserProfile userProfile, String idName)
         {
-            LoggingHelpers.TraceCallEnter(applicationId, userProfile, sequenceName);
+            LoggingHelpers.TraceCallEnter(applicationId, userProfile, idName);
 
-            Int32 retVal = Repository.GetNextSequence(applicationId, userProfile, sequenceName);
+            Int32 retVal = Repository.GetNextId(applicationId, userProfile, idName);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
 
-        /// <inheritdoc cref="ISequenceGeneratorService.NewGuid()"/>
+        /// <inheritdoc cref="IIdGeneratorService.NewGuid()"/>
         public Guid NewGuid()
         {
             LoggingHelpers.TraceCallEnter();

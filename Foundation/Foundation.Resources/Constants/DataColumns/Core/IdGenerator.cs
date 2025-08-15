@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SequenceGenerator.cs" company="JDV Software Ltd">
+// <copyright file="IdGenerator.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -7,10 +7,10 @@
 namespace Foundation.Resources.Constants.DataColumns
 {
     /// <summary>
-    /// Sequence Generator data columns
+    /// Id Generator data columns
     /// </summary>
     /// <seealso cref="FoundationEntity" />
-    public abstract class SequenceGenerator : FoundationEntity
+    public abstract class IdGenerator : FoundationEntity
     {
         /// <summary>
         /// 
@@ -18,9 +18,9 @@ namespace Foundation.Resources.Constants.DataColumns
         public abstract class Lengths
         {
             /// <summary>
-            /// The sequence name
+            /// The id name
             /// </summary>
-            public const Int32 SequenceName = 200;
+            public const Int32 IdName = 200;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Foundation.Resources.Constants.DataColumns
         /// <value>
         /// The name of the entity.
         /// </value>
-        public static String EntityName => nameof(SequenceGenerator);
+        public static String EntityName => nameof(IdGenerator);
 
         /// <summary>
         /// Gets the Application Id.
@@ -48,20 +48,20 @@ namespace Foundation.Resources.Constants.DataColumns
         public static String ConfigurationScopeId => "ConfigurationScopeId";
 
         /// <summary>
-        /// Gets the sequence name.
+        /// Gets the id name.
         /// </summary>
         /// <value>
-        /// The sequence name.
+        /// The id name.
         /// </value>
-        public static String SequenceName => "SequenceName";
+        public static String IdName => "IdName";
 
         /// <summary>
-        /// Gets the Last Sequence.
+        /// Gets the Last Id.
         /// </summary>
         /// <value>
-        /// The Last Sequence.
+        /// The Last Id.
         /// </value>
-        public static String LastSequence => "LastSequence";
+        public static String LastId => "LastId";
 
         /// <summary>
         /// Reset On New Date.
