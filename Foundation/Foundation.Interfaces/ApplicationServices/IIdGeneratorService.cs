@@ -24,6 +24,6 @@ namespace Foundation.Interfaces
         /// 
         /// </summary>
         /// <returns></returns>
-        Guid NewGuid();
+        Guid NewUniqueIdentifier();
     }
 }

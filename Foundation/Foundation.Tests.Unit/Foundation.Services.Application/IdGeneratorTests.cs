@@ -51,7 +51,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [Test]
         public void Test_GetNewGuid()
         {
-            Guid actual = TheService!.NewGuid();
+            Guid actual = TheService!.NewUniqueIdentifier();
 
             Assert.That(actual, Is.Not.EqualTo(Guid.NewGuid()));
             Assert.That(actual, Is.Not.EqualTo(Guid.Empty));

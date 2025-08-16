@@ -154,8 +154,6 @@ namespace Foundation.ViewModels
         {
             LoggingHelpers.TraceCallEnter();
 
-            LoggedOnUserProcess.LogOnUser(ApplicationSettings.ApplicationId, Core.CurrentLoggedOnUser.UserProfile);
-
             base.Initialise();
 
             SelectedItem = GridDataSource?.FirstOrDefault(lou => lou.CreatedByUserProfileId == Core.CurrentLoggedOnUser.Id);

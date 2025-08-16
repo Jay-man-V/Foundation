@@ -20,6 +20,7 @@
       <ProjectReference Include="..\Foundation.Common\Foundation.Common.csproj" />
       <ProjectReference Include="..\Foundation.Core\Foundation.Core.csproj" />
       <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
+      <ProjectReference Include="..\Foundation.Resources\Foundation.Resources.csproj" />
     </ItemGroup>
 
 </Project>

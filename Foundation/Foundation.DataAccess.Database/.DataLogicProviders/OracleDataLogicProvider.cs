@@ -84,7 +84,7 @@ namespace Foundation.DataAccess.Database
         /// <inheritdoc cref="IDataLogicProvider.GetDateComparisonSql(String, String, String)" />
         public String GetDateComparisonSql(String columnOrParameter1, String columnOrParameter2, String comparisonResult)
         {
-            String retVal = $"    ({columnOrParameter1} - {columnOrParameter2}) {comparisonResult}";
+            String retVal = $"({columnOrParameter1} - {columnOrParameter2}) {comparisonResult}";
 
             return retVal;
         }
@@ -92,7 +92,7 @@ namespace Foundation.DataAccess.Database
         /// <inheritdoc cref="IDataLogicProvider.GetMinuteComparisonSql(String, String, String)" />
         public String GetMinuteComparisonSql(String columnOrParameter1, String columnOrParameter2, String comparisonResult)
         {
-            String retVal = $"    ({columnOrParameter1} - {columnOrParameter2}) {comparisonResult}";
+            String retVal = $"({columnOrParameter1} - {columnOrParameter2}) {comparisonResult}";
 
             return retVal;
         }

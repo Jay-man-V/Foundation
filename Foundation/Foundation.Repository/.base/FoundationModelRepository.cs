@@ -4,18 +4,16 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.Common;
-using Foundation.DataAccess.Database;
-using Foundation.Interfaces;
-
-using Microsoft.IdentityModel.Tokens;
-
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Drawing;
 using System.Reflection;
 using System.Text;
+
+using Foundation.Common;
+using Foundation.DataAccess.Database;
+using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;
@@ -196,7 +194,7 @@ namespace Foundation.Repository
         {
             get
             {
-                if (_entityProperties == null)
+                if (_entityProperties == null || _entityProperties.Length == 0)
                 {
                     BindingFlags bindingFlags = BindingFlags.DeclaredOnly |
                                                 BindingFlags.Public |

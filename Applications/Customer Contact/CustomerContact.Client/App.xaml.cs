@@ -4,14 +4,16 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.Windows;
-using System.Windows.Controls;
-
 using Foundation.Common;
 using Foundation.Core;
 using Foundation.Interfaces;
 using Foundation.ViewModels;
 using Foundation.Views;
+
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace CustomerContact.Client
 {
@@ -74,7 +76,7 @@ namespace CustomerContact.Client
             IDateTimeService dateTimeService = CoreInstance.IoC.Get<IDateTimeService>();
             IWpfApplicationObjects wpfApplicationObjects = CoreInstance.IoC.Get<IWpfApplicationObjects>();
 
-            AboutSplashScreenForm splashScreen = new AboutSplashScreenForm();
+            AboutSplashScreenForm? splashScreen = new AboutSplashScreenForm();
             this.MainWindow = splashScreen;
             const Boolean isSplashScreen = true;
             AboutSplashScreenFormViewModel splashScreenViewModel = new AboutSplashScreenFormViewModel(CoreInstance, runTimeEnvironmentSettings, dateTimeService, wpfApplicationObjects, isSplashScreen);
@@ -83,16 +85,40 @@ namespace CustomerContact.Client
             splashScreen.DataContext = splashScreenViewModel;
             splashScreen.Show();
 
-            IApplication application = CoreInstance.IoC.Get<IApplication>();
-            ThisApplication = CoreInstance.IoC.Get<IMainWindowForm>();
+            // In order to ensure the UI stays responsive, we need to do the work on a different thread
+            Task.Run(() =>
+            {
+                // Simulate some work being done
+                Thread.Sleep(500);
 
-            ViewModel = CoreInstance.IoC.Get<IMainWindowViewModel>();
-            ViewModel.Initialise(ThisApplication, null, application.Name);
+                // Since we're not on the UI thread once we're done we need to use the Dispatcher
+                // to create and show the main window
+                this.Dispatcher.Invoke(() =>
+                {
+                    LoggingHelpers.TraceMessage("Starting App");
 
-            ThisApplication.DataContext = ViewModel;
+                    IApplicationProcess applicationProcess = CoreInstance.IoC.Get<IApplicationProcess>();
+                    IApplication? application = applicationProcess.Get(CoreInstance.ApplicationId);
 
-            this.MainWindow = (Window)ThisApplication;
-            this.MainWindow.Show();
+                    ThisApplication = CoreInstance.IoC.Get<IMainWindowForm>();
+                    MainWindow = (Window)ThisApplication;
+
+                    ViewModel = CoreInstance.IoC.Get<IMainWindowViewModel>();
+                    ViewModel.Initialise(ThisApplication, null, application.Name);
+
+                    ThisApplication.DataContext = ViewModel;
+
+                    splashScreen.BringIntoView();
+                    Thread.Sleep(750);
+                    splashScreen.Close();
+
+                    ThisApplication.Show();
+
+                    Mouse.OverrideCursor = null;
+                });
+            });
+
+            LoggingHelpers.TraceCallReturn();
         }
 
         protected override void OnExit(ExitEventArgs e)

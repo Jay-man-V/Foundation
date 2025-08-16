@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.BusinessProcess
 {
     /// <summary>
-    /// The Sequence Generator Business Process 
+    /// The Id Generator Business Process 
     /// </summary>
     [DependencyInjectionTransient]
     public class IdGeneratorProcess : CommonBusinessProcess<IIdGenerator, IIdGeneratorRepository>, IIdGeneratorProcess

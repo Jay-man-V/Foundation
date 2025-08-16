@@ -48,8 +48,8 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
-        /// <inheritdoc cref="IIdGeneratorService.NewGuid()"/>
-        public Guid NewGuid()
+        /// <inheritdoc cref="IIdGeneratorService.NewUniqueIdentifier"/>
+        public Guid NewUniqueIdentifier()
         {
             LoggingHelpers.TraceCallEnter();
 

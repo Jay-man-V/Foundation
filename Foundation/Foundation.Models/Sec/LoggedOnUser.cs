@@ -6,7 +6,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using System.Diagnostics;
 using Foundation.Common;
 using Foundation.Interfaces;
 
@@ -20,6 +20,7 @@ namespace Foundation.Models
     /// <seealso cref="FoundationModel" />
     /// <seealso cref="ILoggedOnUser" />
     [DependencyInjectionTransient]
+    [DebuggerDisplay("({GetType()}) - {UserProfileId} - {Username}")]
     public class LoggedOnUser : FoundationModel, ILoggedOnUser, IEquatable<ILoggedOnUser>
     {
         private AppId _applicationId;

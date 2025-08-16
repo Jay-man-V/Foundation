@@ -30,7 +30,7 @@ namespace Foundation.Common
 
             Boolean retVal = defaultValue;
 
-            if (value != null)
+            if (value != null && value != DBNull.Value)
             {
                 if (Boolean.TryParse(value.ToString(), out var tempValue))
                 {
@@ -55,7 +55,7 @@ namespace Foundation.Common
 
             Double retVal = defaultValue;
 
-            if (value != null)
+            if (value != null && value != DBNull.Value)
             {
                 if (Double.TryParse(value.ToString(), out var tempValue))
                 {
@@ -80,7 +80,7 @@ namespace Foundation.Common
 
             Decimal retVal = defaultValue;
 
-            if (value != null)
+            if (value != null && value != DBNull.Value)
             {
                 if (Decimal.TryParse(value.ToString(), out var tempValue))
                 {
@@ -105,7 +105,7 @@ namespace Foundation.Common
 
             Int32 retVal = defaultValue;
 
-            if (value != null)
+            if (value != null && value != DBNull.Value)
             {
                 if (Int32.TryParse(value.ToString(), out var tempValue))
                 {
@@ -131,7 +131,7 @@ namespace Foundation.Common
 
             DateTime retVal = defaultValue;
 
-            if (value != null)
+            if (value != null && value != DBNull.Value)
             {
                 if (DateTime.TryParse(value.ToString(), out var _))
                 {
@@ -159,7 +159,7 @@ namespace Foundation.Common
 
             TimeSpan retVal = defaultValue;
 
-            if (value != null)
+            if (value != null && value != DBNull.Value)
             {
                 if (TimeSpan.TryParse(value.ToString(), out var tempValue))
                 {
@@ -184,7 +184,7 @@ namespace Foundation.Common
 
             String retVal = defaultValue;
 
-            if (value != null)
+            if (value != null && value != DBNull.Value)
             {
                 String tempValue = value.ToString() ?? defaultValue;
 
@@ -211,7 +211,7 @@ namespace Foundation.Common
 
             Byte[] retVal = defaultValue;
 
-            if (value != null)
+            if (value != null && value != DBNull.Value)
             {
                 retVal = (Byte[])value;
             }
@@ -233,7 +233,7 @@ namespace Foundation.Common
 
             Image retVal = defaultValue;
 
-            if (value != null)
+            if (value != null && value != DBNull.Value)
             {
                 if (value is Bitmap bitmap)
                 {
@@ -264,7 +264,7 @@ namespace Foundation.Common
 
             Guid retVal = defaultValue;
 
-            if (value != null)
+            if (value != null && value != DBNull.Value)
             {
                 if (Guid.TryParse(value.ToString(), out var tempValue))
                 {
@@ -289,7 +289,7 @@ namespace Foundation.Common
 
             EntityStatus retVal = defaultValue;
 
-            if (value != null)
+            if (value != null && value != DBNull.Value)
             {
                 Enum.TryParse(value.ToString(), out retVal);
             }
@@ -311,7 +311,7 @@ namespace Foundation.Common
 
             FEnums.TaskStatus retVal = defaultValue;
 
-            if (value != null)
+            if (value != null && value != DBNull.Value)
             {
                 Enum.TryParse(value.ToString(), out retVal);
             }
@@ -333,7 +333,7 @@ namespace Foundation.Common
 
             ScheduleInterval retVal = defaultValue;
 
-            if (value != null)
+            if (value != null && value != DBNull.Value)
             {
                 Enum.TryParse(value.ToString(), out retVal);
             }
@@ -355,7 +355,7 @@ namespace Foundation.Common
 
             LogSeverity retVal = defaultValue;
 
-            if (value != null)
+            if (value != null && value != DBNull.Value)
             {
                 Enum.TryParse(value.ToString(), out retVal);
             }
@@ -377,7 +377,7 @@ namespace Foundation.Common
 
             MessageType retVal = defaultValue;
 
-            if (value != null)
+            if (value != null && value != DBNull.Value)
             {
                 Enum.TryParse(value.ToString(), out retVal);
             }
@@ -399,7 +399,7 @@ namespace Foundation.Common
 
             EntityId retVal = defaultValue;
 
-            if (value != null)
+            if (value != null && value != DBNull.Value)
             {
                 Int32.TryParse(value.ToString(), out Int32 temp);
                 retVal = new(temp);
@@ -422,7 +422,7 @@ namespace Foundation.Common
 
             AppId retVal = defaultValue;
 
-            if (value != null)
+            if (value != null && value != DBNull.Value)
             {
                 Int32.TryParse(value.ToString(), out Int32 temp);
                 retVal = new(temp);
@@ -445,7 +445,7 @@ namespace Foundation.Common
 
             LogId retVal = defaultValue;
 
-            if (value != null)
+            if (value != null && value != DBNull.Value)
             {
                 Int32.TryParse(value.ToString(), out Int32 temp);
                 retVal = new(temp);
@@ -468,7 +468,7 @@ namespace Foundation.Common
 
             EmailAddress retVal = defaultValue;
 
-            if (value != null)
+            if (value != null && value != DBNull.Value)
             {
                 retVal = new(value.ToString() ?? defaultValue);
             }

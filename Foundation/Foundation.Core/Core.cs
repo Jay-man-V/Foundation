@@ -64,6 +64,9 @@ namespace Foundation.Core
 
                 TheCurrentLoggedOnUser = new CurrentLoggedOnUser(userProfile);
 
+                ILoggedOnUserProcess loggedOnUserProcess = TheInstance.IoC.Get<ILoggedOnUserProcess>();
+                loggedOnUserProcess.LogOnUser(applicationId, TheCurrentLoggedOnUser.UserProfile);
+
                 // Create instances of all classes implementing the IApplicationStartup interface
                 List<IApplicationStartup> applicationStartups = TheInstance.IoC.GetAll<IApplicationStartup>().ToList();
                 applicationStartups.ForEach(obj => obj.ApplicationStarting());

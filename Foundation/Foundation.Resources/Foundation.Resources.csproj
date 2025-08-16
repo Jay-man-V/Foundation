@@ -9,7 +9,48 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Logos\JDV Software Logo.png" />
+    <None Remove="ReportTemplates\Excel Simple Report Template - Landscape.xltx" />
+    <None Remove="ReportTemplates\Excel Simple Report Template - Portrait.xltx" />
+    <None Remove="Themes\Standard\Images\About_32.png" />
+    <None Remove="Themes\Standard\Images\Add_16.png" />
+    <None Remove="Themes\Standard\Images\AutoRefresh_24Bit_16x16.bmp" />
+    <None Remove="Themes\Standard\Images\AutoRefresh_24_bit_32x32.bmp" />
+    <None Remove="Themes\Standard\Images\Collapse_16xLG.png" />
+    <None Remove="Themes\Standard\Images\Copy_16x.png" />
+    <None Remove="Themes\Standard\Images\Cut_16x.png" />
+    <None Remove="Themes\Standard\Images\Delete_16.png" />
+    <None Remove="Themes\Standard\Images\EditRow_16.png" />
+    <None Remove="Themes\Standard\Images\Error_32.png" />
+    <None Remove="Themes\Standard\Images\Expand_16xLG.png" />
+    <None Remove="Themes\Standard\Images\ExportReportData_16.png" />
+    <None Remove="Themes\Standard\Images\ExportToCSV_16.png" />
+    <None Remove="Themes\Standard\Images\ExportToXLS_16.png" />
+    <None Remove="Themes\Standard\Images\FullView_16.png" />
+    <None Remove="Themes\Standard\Images\GlyphDown_16.png" />
+    <None Remove="Themes\Standard\Images\Help.png" />
+    <None Remove="Themes\Standard\Images\HelpImage.png" />
+    <None Remove="Themes\Standard\Images\Information_32.png" />
+    <None Remove="Themes\Standard\Images\None_16.png" />
+    <None Remove="Themes\Standard\Images\None_32.png" />
+    <None Remove="Themes\Standard\Images\Paste_16x.png" />
+    <None Remove="Themes\Standard\Images\Question_32.png" />
+    <None Remove="Themes\Standard\Images\RefreshArrow_Green_16.png" />
+    <None Remove="Themes\Standard\Images\Warning_32.png" />
+    <None Remove="Themes\Standard\Images\WindowActions\Close_16x16.png" />
+    <None Remove="Themes\Standard\Images\WindowActions\Maximise_16x16.png" />
+    <None Remove="Themes\Standard\Images\WindowActions\Minimise_16x16.png" />
+    <None Remove="Themes\Standard\Images\WindowActions\Restore_16x16.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Logos\JDV Software Logo.png" />
+    <EmbeddedResource Include="ReportTemplates\Excel Simple Report Template - Landscape.xltx" />
+    <EmbeddedResource Include="ReportTemplates\Excel Simple Report Template - Portrait.xltx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +59,38 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Themes\Standard\Images\About_32.png" />
+    <Resource Include="Themes\Standard\Images\Add_16.png" />
+    <Resource Include="Themes\Standard\Images\AutoRefresh_24Bit_16x16.bmp" />
+    <Resource Include="Themes\Standard\Images\AutoRefresh_24_bit_32x32.bmp" />
+    <Resource Include="Themes\Standard\Images\Collapse_16xLG.png" />
+    <Resource Include="Themes\Standard\Images\Copy_16x.png" />
+    <Resource Include="Themes\Standard\Images\Cut_16x.png" />
+    <Resource Include="Themes\Standard\Images\Delete_16.png" />
+    <Resource Include="Themes\Standard\Images\EditRow_16.png" />
+    <Resource Include="Themes\Standard\Images\Error_32.png" />
+    <Resource Include="Themes\Standard\Images\Expand_16xLG.png" />
+    <Resource Include="Themes\Standard\Images\ExportReportData_16.png" />
+    <Resource Include="Themes\Standard\Images\ExportToCSV_16.png" />
+    <Resource Include="Themes\Standard\Images\ExportToXLS_16.png" />
+    <Resource Include="Themes\Standard\Images\FullView_16.png" />
+    <Resource Include="Themes\Standard\Images\GlyphDown_16.png" />
+    <Resource Include="Themes\Standard\Images\Help.png" />
+    <Resource Include="Themes\Standard\Images\HelpImage.png" />
+    <Resource Include="Themes\Standard\Images\Information_32.png" />
+    <Resource Include="Themes\Standard\Images\None_16.png" />
+    <Resource Include="Themes\Standard\Images\None_32.png" />
+    <Resource Include="Themes\Standard\Images\Paste_16x.png" />
+    <Resource Include="Themes\Standard\Images\Question_32.png" />
+    <Resource Include="Themes\Standard\Images\RefreshArrow_Green_16.png" />
+    <Resource Include="Themes\Standard\Images\Warning_32.png" />
+    <Resource Include="Themes\Standard\Images\WindowActions\Close_16x16.png" />
+    <Resource Include="Themes\Standard\Images\WindowActions\Maximise_16x16.png" />
+    <Resource Include="Themes\Standard\Images\WindowActions\Minimise_16x16.png" />
+    <Resource Include="Themes\Standard\Images\WindowActions\Restore_16x16.png" />
   </ItemGroup>
 
 </Project>

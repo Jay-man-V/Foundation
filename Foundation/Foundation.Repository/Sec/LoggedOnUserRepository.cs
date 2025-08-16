@@ -200,11 +200,17 @@ namespace Foundation.Repository
             StringBuilder sql = new StringBuilder();
             sql.AppendLine("SELECT ");
             sql.AppendLine("    lou.*, ");
+            sql.AppendLine($"    up.{FDC.UserProfile.DisplayName} AS {FDC.UserProfile.DisplayName}, ");
+            sql.AppendLine($"    up.{FDC.UserProfile.Username} AS {FDC.UserProfile.Username}, ");
             sql.AppendLine($"    r.{FDC.Role.Id} AS {FDC.LoggedOnUser.RoleId}, ");
             sql.AppendLine($"    r.{FDC.Role.Description} AS {FDC.LoggedOnUser.RoleDescription}, ");
             sql.AppendLine($"    r.{FDC.Role.SystemSupportOnly} AS {FDC.LoggedOnUser.IsSystemSupport}");
             sql.AppendLine("FROM ");
             sql.AppendLine($"    {FDC.TableNames.LoggedOnUser} lou ");
+            sql.AppendLine($"        INNER JOIN {FDC.TableNames.UserProfile} up ON");
+            sql.AppendLine("        (");
+            sql.AppendLine($"             up.{FDC.UserProfile.Id} = lou.{FDC.LoggedOnUser.UserProfileId} ");
+            sql.AppendLine("        )");
             sql.AppendLine($"        INNER JOIN {FDC.TableNames.Application} a ON");
             sql.AppendLine("        (");
             sql.AppendLine($"             a.{FDC.Application.Id} = lou.{FDC.LoggedOnUser.ApplicationId} ");
@@ -220,16 +226,18 @@ namespace Foundation.Repository
             sql.AppendLine("        )");
             sql.AppendLine("WHERE ");
             sql.AppendLine($"    lou.{FDC.LoggedOnUser.StatusId} IN ( {EntityStatus.Active.Id()}, {EntityStatus.Approved.Id()} ) AND ");
+            sql.AppendLine($"    up.{FDC.Application.StatusId} IN ( {EntityStatus.Active.Id()}, {EntityStatus.Approved.Id()} ) AND ");
             sql.AppendLine($"    a.{FDC.Application.StatusId} IN ( {EntityStatus.Active.Id()}, {EntityStatus.Approved.Id()} ) AND ");
             sql.AppendLine($"    aur.{FDC.ApplicationUserRole.StatusId} IN ( {EntityStatus.Active.Id()}, {EntityStatus.Approved.Id()} ) AND ");
             sql.AppendLine($"    r.{FDC.Role.StatusId} IN ( {EntityStatus.Active.Id()}, {EntityStatus.Approved.Id()} ) AND ");
+            sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction} BETWEEN up.{FDC.UserProfile.ValidFrom} AND up.{FDC.UserProfile.ValidTo} AND ");
             sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction} BETWEEN a.{FDC.Application.ValidFrom} AND a.{FDC.Application.ValidTo} AND ");
             sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction} BETWEEN aur.{FDC.ApplicationUserRole.ValidFrom} AND aur.{FDC.ApplicationUserRole.ValidTo} AND ");
             sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction} BETWEEN r.{FDC.Role.ValidFrom} AND r.{FDC.Role.ValidTo} AND ");
             sql.AppendLine($"    lou.{FDC.LoggedOnUser.ApplicationId} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.ApplicationId} AND ");
             sql.AppendLine($"    {DataLogicProvider.GetMinuteComparisonSql("lou." + FDC.FoundationEntity.LastUpdatedOn, DataLogicProvider.CurrentDateTimeFunction, "<= 1")}");
             sql.AppendLine("ORDER BY");
-            sql.AppendLine($"    {FDC.LoggedOnUser.RoleId} DESC, {FDC.LoggedOnUser.LoggedOn} ASC");
+            sql.AppendLine($"    aur.{FDC.LoggedOnUser.RoleId} DESC, lou.{FDC.LoggedOnUser.LoggedOn} ASC");
 
             DatabaseParameters databaseParameters =
             [
