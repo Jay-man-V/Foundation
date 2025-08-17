@@ -912,7 +912,7 @@ namespace Foundation.ViewModels
                 if (!canViewRecord)
                 {
                     String processName = $"{GetType()}::{nameof(OnViewRecordCommand_Execute)}";
-                    throw new ApplicationPermissionsException(Core.CurrentLoggedOnUser.Username, processName, ApplicationRole.Reporter, entity);
+                    throw new ApplicationPermissionsException(Core.ApplicationId, Core.CurrentLoggedOnUser.Username, processName, ApplicationRole.Reporter, entity);
                 }
             }
 
@@ -934,7 +934,7 @@ namespace Foundation.ViewModels
                 if (!canAddRecord)
                 {
                     String processName = $"{GetType()}::{nameof(OnAddRecordCommand_Execute)}";
-                    throw new ApplicationPermissionsException(Core.CurrentLoggedOnUser.Username, processName, ApplicationRole.Creator, null);
+                    throw new ApplicationPermissionsException(Core.ApplicationId, Core.CurrentLoggedOnUser.Username, processName, ApplicationRole.Creator, null);
                 }
             }
 
@@ -958,7 +958,7 @@ namespace Foundation.ViewModels
                 {
                     String processName = $"{GetType()}::{nameof(OnEditRecordCommand_Execute)}";
                     ApplicationRole[] permissions = { ApplicationRole.OwnEditor, ApplicationRole.AllEditor };
-                    throw new ApplicationPermissionsException(processName, permissions, entity, Core.CurrentLoggedOnUser.UserProfile);
+                    throw new ApplicationPermissionsException(Core.ApplicationId, processName, permissions, entity, Core.CurrentLoggedOnUser.UserProfile);
                 }
             }
 
@@ -982,7 +982,7 @@ namespace Foundation.ViewModels
                 {
                     String processName = $"{GetType()}::{LocationUtils.GetFunctionName()}";
                     ApplicationRole[] permissions = { ApplicationRole.OwnDelete, ApplicationRole.AllDelete };
-                    throw new ApplicationPermissionsException(processName, permissions, entity, Core.CurrentLoggedOnUser.UserProfile);
+                    throw new ApplicationPermissionsException(Core.ApplicationId, processName, permissions, entity, Core.CurrentLoggedOnUser.UserProfile);
                 }
             }
 

@@ -15,11 +15,13 @@ namespace Foundation.Interfaces
         /// <summary>
         /// Initialises a new instance of the <see cref="UserCredentialsException"/> class.
         /// </summary>
+        /// <param name="applicationId">The application id</param>
         /// <param name="userCredentials">The user credentials.</param>
         /// <param name="processName">Name of the process.</param>
         /// <param name="message">The message.</param>
         public UserCredentialsException
         (
+            AppId applicationId,
             String userCredentials,
             String processName,
             String message
@@ -29,6 +31,7 @@ namespace Foundation.Interfaces
                 message
             )
         {
+            ApplicationId = applicationId;
             UserCredentials = userCredentials;
             ProcessName = processName;
         }
@@ -36,12 +39,14 @@ namespace Foundation.Interfaces
         /// <summary>
         /// Initialises a new instance of the <see cref="UserCredentialsException"/> class.
         /// </summary>
+        /// <param name="applicationId">The application id</param>
         /// <param name="userCredentials">The user credentials.</param>
         /// <param name="processName">Name of the process.</param>
         /// <param name="message">The message.</param>
         /// <param name="innerException">The inner exception.</param>
         public UserCredentialsException
         (
+            AppId applicationId,
             String userCredentials,
             String processName,
             String message,
@@ -53,9 +58,18 @@ namespace Foundation.Interfaces
                 innerException
             )
         {
+            ApplicationId = applicationId;
             UserCredentials = userCredentials;
             ProcessName = processName;
         }
+
+        /// <summary>
+        /// Gets the application id.
+        /// </summary>
+        /// <value>
+        /// The application id.
+        /// </value>
+        public AppId ApplicationId { get; }
 
         /// <summary>
         /// Gets the user credentials.

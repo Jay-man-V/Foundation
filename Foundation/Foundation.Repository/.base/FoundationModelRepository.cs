@@ -345,7 +345,7 @@ namespace Foundation.Repository
             if (!(canCreateRecord || isSystemAdministrator))
             {
                 String processName = $"{nameof(VerifyCanCreate)}::{TableName}";
-                throw new ApplicationPermissionsException(RunTimeEnvironmentSettings.UserFullLogonName, processName, ApplicationRole.Creator, entity);
+                throw new ApplicationPermissionsException(Core.ApplicationId, RunTimeEnvironmentSettings.UserFullLogonName, processName, ApplicationRole.Creator, entity);
             }
 
             LoggingHelpers.TraceCallReturn();
@@ -371,7 +371,7 @@ namespace Foundation.Repository
             if (!(canEditOwnRecord || canEditAllRecords || isSystemAdministrator))
             {
                 String processName = $"{nameof(VerifyCanEdit)}::{TableName}";
-                throw new ApplicationPermissionsException(RunTimeEnvironmentSettings.UserFullLogonName, processName, ApplicationRole.OwnEditor, entity);
+                throw new ApplicationPermissionsException(Core.ApplicationId, RunTimeEnvironmentSettings.UserFullLogonName, processName, ApplicationRole.OwnEditor, entity);
             }
 
             LoggingHelpers.TraceCallReturn();
@@ -397,7 +397,7 @@ namespace Foundation.Repository
             if (!(canDeleteOwnRecord || canDeleteAllRecords || isSystemAdministrator))
             {
                 String processName = $"{nameof(VerifyCanDelete)}::{TableName}";
-                throw new ApplicationPermissionsException(RunTimeEnvironmentSettings.UserFullLogonName, processName, ApplicationRole.OwnDelete, entity);
+                throw new ApplicationPermissionsException(Core.ApplicationId, RunTimeEnvironmentSettings.UserFullLogonName, processName, ApplicationRole.OwnDelete, entity);
             }
 
             LoggingHelpers.TraceCallReturn();

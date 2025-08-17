@@ -14,8 +14,8 @@ namespace Foundation.Core
         private static IIoC TheIoC { get; } = new IoC();
         private static AppId TheApplicationId { get; set; }
         private static ICurrentLoggedOnUser? TheCurrentLoggedOnUser { get; set; }
+        private static String UserFullLogonName { get; set; } = "<not set>";
 
-        /// <inheritdoc cref="ICore.Instance"/>
         private static ICore? _coreInstance;
 
         public static ICore TheInstance
@@ -59,8 +59,10 @@ namespace Foundation.Core
 
                 if (userProfile == null)
                 {
-                    throw new UserLogonException(runTimeEnvironmentSettings.UserFullLogonName);
+                    throw new UserLogonException(TheApplicationId, runTimeEnvironmentSettings.UserFullLogonName);
                 }
+
+                UserFullLogonName = runTimeEnvironmentSettings.UserFullLogonName;
 
                 TheCurrentLoggedOnUser = new CurrentLoggedOnUser(userProfile);
 
@@ -91,7 +93,7 @@ namespace Foundation.Core
             {
                 if (TheCurrentLoggedOnUser is null)
                 {
-                    String message = "The logged on user has not been set or they have not been successfully identified";
+                    String message = $"The logged on user has not been set or they have not been successfully identified. (Username: '{UserFullLogonName}'. Application Id: '{TheApplicationId}'.)";
                     throw new InvalidOperationException(message);
                 }
 

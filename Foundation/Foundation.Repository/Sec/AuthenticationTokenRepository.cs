@@ -71,7 +71,7 @@ namespace Foundation.Repository
             if (!canUserUseApplication)
             {
                 String errorMessage = $"Cannot authenticate user for application {applicationId}";
-                throw new UserLogonException(userProfile.Username, errorMessage);
+                throw new UserLogonException(Core.ApplicationId, userProfile.Username, errorMessage);
             }
 
             retVal = CreateAuthenticationToken(applicationId, userProfile);

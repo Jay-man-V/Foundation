@@ -55,7 +55,7 @@ namespace Foundation.BusinessProcess
             if (!result)
             {
                 String processName = $"{GetType()}::{LocationUtils.GetFunctionName()}";
-                throw new ApplicationPermissionsException(processName, Core.CurrentLoggedOnUser.UserProfile, functionKey);
+                throw new ApplicationPermissionsException(Core.ApplicationId, processName, Core.CurrentLoggedOnUser.UserProfile, functionKey);
             }
 
             LoggingHelpers.TraceCallReturn();

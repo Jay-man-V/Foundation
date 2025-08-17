@@ -12,8 +12,8 @@ namespace Foundation.Interfaces
     /// <seealso cref="UserCredentialsException" />
     public class ApplicationPermissionsException : UserCredentialsException
     {
-        internal const String ErrorMessageRequiredPermission = "User: '{0}' does not have the required permissions. Required permission is: '{1}'";
-        internal const String ErrorMessageRequiredFunction = "User: '{0}' does not have the required permissions. Assigned Roles are: '{1}'. Function Key is: '{2}'.";
+        internal const String ErrorMessageRequiredPermission = "Application Id: '{0}'. User: '{1}' does not have the required permissions. Required permission is: '{2}'";
+        internal const String ErrorMessageRequiredFunction = "Application Id: '{0}'. User: '{1}' does not have the required permissions. Assigned Roles are: '{2}'. Function Key is: '{3}'.";
 
         //public ApplicationPermissionsException(String processName, ApplicationRole requiredPermissions, IFoundationModel FoundationModel)
         //    : base(LoggedOnUserCredentials, processName, String.DotNetFormat(ErrorMessageTemplate1, LoggedOnUserCredentials, String.Join(", ", requiredPermissions)))
@@ -25,22 +25,24 @@ namespace Foundation.Interfaces
         /// <summary>
         /// Initialises a new instance of the <see cref="ApplicationPermissionsException"/> class.
         /// </summary>
+        /// <param name="applicationId">The application id</param>
         /// <param name="processName">Name of the process.</param>
         /// <param name="requiredPermissions">The required permissions.</param>
         /// <param name="foundationModel">The foundation model.</param>
         /// <param name="userProfile">The user profile.</param>
         public ApplicationPermissionsException
         (
+            AppId applicationId,
             String processName,
             ApplicationRole[] requiredPermissions,
             IFoundationModel? foundationModel,
             IUserProfile userProfile
-        )
-            : base
+        ) : base
             (
+                applicationId,
                 userProfile.Username,
                 processName,
-                String.Format(ErrorMessageRequiredPermission, userProfile.Username, String.Join(", ", requiredPermissions))
+                String.Format(ErrorMessageRequiredPermission, applicationId, userProfile.Username, String.Join(", ", requiredPermissions))
             )
         {
             RequiredPermission = String.Join(", ", requiredPermissions);
@@ -51,22 +53,24 @@ namespace Foundation.Interfaces
         /// <summary>
         /// Initialises a new instance of the <see cref="ApplicationPermissionsException"/> class.
         /// </summary>
+        /// <param name="applicationId">The application id</param>
         /// <param name="username">The logged on users username.</param>
         /// <param name="processName">Name of the process.</param>
         /// <param name="requiredPermission">The required permission.</param>
         /// <param name="foundationModel">The foundation model.</param>
         public ApplicationPermissionsException
         (
+            AppId applicationId,
             String username,
             String processName,
             ApplicationRole requiredPermission,
             IFoundationModel? foundationModel
-        )
-            : base
+        ) : base
             (
+                applicationId,
                 username,
                 processName,
-                String.Format(ErrorMessageRequiredPermission, username, requiredPermission)
+                String.Format(ErrorMessageRequiredPermission, applicationId, username, requiredPermission)
             )
         {
             RequiredPermission = requiredPermission.ToString();
@@ -76,20 +80,22 @@ namespace Foundation.Interfaces
         /// <summary>
         /// Initialises a new instance of the <see cref="ApplicationPermissionsException"/> class.
         /// </summary>
+        /// <param name="applicationId">The application id</param>
         /// <param name="processName">Name of the process.</param>
         /// <param name="userProfile">The user profile.</param>
         /// <param name="functionKey">The function key.</param>
         public ApplicationPermissionsException
         (
+            AppId applicationId,
             String processName,
             IUserProfile userProfile,
             String functionKey
-        )
-            : base
+        ) : base
             (
+                applicationId,
                 userProfile.Username,
                 processName,
-                String.Format(ErrorMessageRequiredFunction, userProfile.Username, String.Join(", ", userProfile.Roles.Select(r => r.ApplicationRole)), functionKey)
+                String.Format(ErrorMessageRequiredFunction, applicationId, userProfile.Username, String.Join(", ", userProfile.Roles.Select(r => r.ApplicationRole)), functionKey)
             )
         {
             RequiredPermission = String.Empty;
