@@ -20,7 +20,7 @@ namespace Foundation.Tests.Unit.NetFramework
     [TestFixture]
     public class ImageConversionTests
     {
-        [Test]
+        [TestCase]
         [DeploymentItem(@".Support\SampleDocuments\JDV Software Logo.png", @".Support\SampleDocuments\")]
         public void Test_Base64ForEmbedding()
         {

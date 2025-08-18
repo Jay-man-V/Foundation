@@ -37,7 +37,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             base.TestCleanup();
         }
 
-        [Test]
+        [TestCase]
         public void Test_GetNextId()
         {
             const Int32 expected = 123;
@@ -48,7 +48,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [Test]
+        [TestCase]
         public void Test_GetNewGuid()
         {
             Guid actual = TheService!.NewUniqueIdentifier();

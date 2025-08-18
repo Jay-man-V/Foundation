@@ -33,7 +33,7 @@ namespace Foundation.Tests.Unit.NetFramework
         /// <summary>
         ///
         /// </summary>
-        [Test]
+        [TestCase]
         public void Test_RunImpersonated_Success()
         {
             String actionResult = $@"During impersonation: {Environment.MachineName}\{UserSecuritySupport.UnitTestAccountUserName}";
@@ -52,7 +52,7 @@ namespace Foundation.Tests.Unit.NetFramework
         /// <summary>
         ///
         /// </summary>
-        [Test]
+        [TestCase]
         public void Test_RunImpersonated_Fail()
         {
             String logonDomain = "MadeUp";
@@ -84,7 +84,7 @@ namespace Foundation.Tests.Unit.NetFramework
             Assert.That(actualActionResult, Is.EqualTo(actionResult));
         }
 
-        [Test]
+        [TestCase]
         public void Test_FoundationImpersonation()
         {
             UserSecuritySupport.RemoveUnitTestUserOnLocalComputer();
@@ -102,7 +102,7 @@ namespace Foundation.Tests.Unit.NetFramework
             });
         }
 
-        [Test]
+        [TestCase]
         public void Test_FoundationImpersonation_Exception()
         {
             String domain = ".";

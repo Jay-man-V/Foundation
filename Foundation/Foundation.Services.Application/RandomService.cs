@@ -99,42 +99,5 @@ namespace Foundation.Services.Application
 
             return retVal;
         }
-
-        /// <inheritdoc cref="IRandomService.RandomPassword(Int32, String)"/>
-        public String RandomPassword(Int32 length, String validCharacters)
-        {
-            LoggingHelpers.TraceCallEnter(length, validCharacters);
-
-            StringBuilder retVal = new StringBuilder(length);
-            using (RandomNumberGenerator cryptoServiceProvider = RandomNumberGenerator.Create())
-            {
-                Int32 count = (Int32)Math.Ceiling(Math.Log(validCharacters.Length, 2) / 8.0);
-                Int32 offset = BitConverter.IsLittleEndian ? 0 : sizeof(UInt32) - count;
-                Int32 max = (Int32)(Math.Pow(2, count * 8) / validCharacters.Length) * validCharacters.Length;
-                Byte[] uintBuffer = new Byte[sizeof(UInt32)];
-
-                cryptoServiceProvider.GetBytes(uintBuffer, offset, count);
-                UInt32 lastNum = BitConverter.ToUInt32(uintBuffer, 0);
-                while (retVal.Length < length)
-                {
-                    cryptoServiceProvider.GetBytes(uintBuffer, offset, count);
-                    UInt32 num = BitConverter.ToUInt32(uintBuffer, 0);
-
-                    // num must be outside the range of the last num +/- 3 to avoid potential consecutive or closeness of characters
-                    Boolean isAcceptable = !lastNum.IsBetween(num - 3, num + 3);
-
-                    if (isAcceptable &&
-                        num < max)
-                    {
-                        retVal.Append(validCharacters[(Int32)(num % validCharacters.Length)]);
-                        lastNum = num;
-                    }
-                }
-            }
-
-            LoggingHelpers.TraceCallReturn($"{nameof(retVal)} not logged");
-
-            return retVal.ToString();
-        }
     }
 }

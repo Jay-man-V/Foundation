@@ -224,7 +224,7 @@ namespace Foundation.Services.Application
                 crypto.IV = iv;
                 crypto.Padding = PaddingMode.Zeros;
 
-                // Create n decryptor to perform the stream transform.
+                // Create a decryptor to perform the stream transform.
                 ICryptoTransform transformer = crypto.CreateDecryptor(crypto.Key, crypto.IV);
 
                 // Create the streams used for encryption.

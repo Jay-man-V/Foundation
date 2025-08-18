@@ -41,7 +41,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             base.TestCleanup();
         }
 
-        [Test]
+        [TestCase]
         public void Test_GetValue_NoValue_Exception()
         {
             AppId applicationId = new AppId(0);
@@ -66,7 +66,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
-        [Test]
+        [TestCase]
         public void Test_GetValue_Null_Exception()
         {
             AppId applicationId = new AppId(0);
@@ -91,7 +91,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_StandardKeys()
         {
             String[] standardKeys =
@@ -127,7 +127,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             }
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_Boolean_True()
         {
             AppId applicationId = new AppId(0);
@@ -142,7 +142,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_Boolean_False()
         {
             AppId applicationId = new AppId(0);
@@ -157,7 +157,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_TimeSpan()
         {
             AppId applicationId = new AppId(0);
@@ -172,7 +172,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_Date()
         {
             AppId applicationId = new AppId(0);
@@ -187,7 +187,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_DateTime()
         {
             AppId applicationId = new AppId(0);
@@ -202,7 +202,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_DateTimeMilliseconds()
         {
             AppId applicationId = new AppId(0);
@@ -217,7 +217,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_Guid()
         {
             AppId applicationId = new AppId(0);
@@ -232,7 +232,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_Char()
         {
             AppId applicationId = new AppId(0);
@@ -247,7 +247,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_String()
         {
             AppId applicationId = new AppId(0);
@@ -262,7 +262,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_Int16()
         {
             AppId applicationId = new AppId(0);
@@ -277,7 +277,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_UInt16()
         {
             AppId applicationId = new AppId(0);
@@ -292,7 +292,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_Int32()
         {
             AppId applicationId = new AppId(0);
@@ -307,7 +307,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_UInt32()
         {
             AppId applicationId = new AppId(0);
@@ -322,7 +322,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_Int64()
         {
             AppId applicationId = new AppId(0);
@@ -337,7 +337,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_UInt64()
         {
             AppId applicationId = new AppId(0);
@@ -352,7 +352,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_Decimal()
         {
             AppId applicationId = new AppId(0);
@@ -367,7 +367,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_Double()
         {
             AppId applicationId = new AppId(0);
@@ -382,7 +382,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_Byte()
         {
             AppId applicationId = new AppId(0);
@@ -397,7 +397,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [Test]
+        [TestCase]
         public void Test_Get_SByte()
         {
             AppId applicationId = new AppId(0);

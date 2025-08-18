@@ -441,8 +441,7 @@ namespace Foundation.Services.Application
 
             using (FileStream fileStream = File.Create(retVal))
             {
-                if (fileContent.CanSeek &&
-                    fileContent.Length > 0)
+                if (fileContent is { CanSeek: true, Length: > 0 })
                 {
                     fileContent.Position = 0;
                 }
@@ -543,7 +542,7 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallEnter(fileTransferSettings, filePath);
 
             String retVal;
-            using (Stream stream = File.OpenRead(filePath))
+            await using (Stream stream = File.OpenRead(filePath))
             {
                 Task<String> t = UploadFileAsync(fileTransferSettings, stream);
                 await t;

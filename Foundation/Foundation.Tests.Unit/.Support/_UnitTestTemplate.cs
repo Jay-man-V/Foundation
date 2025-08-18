@@ -15,7 +15,7 @@ namespace Foundation.Tests.Unit.Support
         /// <summary>
         /// Tests the method1.
         /// </summary>
-        [Test]
+        [TestCase]
         public void TestMethod1()
         {
             ////

@@ -42,7 +42,14 @@ namespace Foundation.Core
         /// <param name="applicationId">The application identifier.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
         /// <param name="userProfileProcess">The user profile process.</param>
-        public static ICore Initialise(AppId applicationId, IRunTimeEnvironmentSettings? runTimeEnvironmentSettings = null, IUserProfileProcess? userProfileProcess = null)
+        /// <param name="loggedOnUserProcess">The logged on user process.</param>
+        public static ICore Initialise
+        (
+            AppId applicationId,
+            IRunTimeEnvironmentSettings? runTimeEnvironmentSettings = null,
+            IUserProfileProcess? userProfileProcess = null,
+            ILoggedOnUserProcess? loggedOnUserProcess = null
+        )
         {
             // https://learn.microsoft.com/en-us/dotnet/core/extensions/generic-host?tabs=appbuilder
 
@@ -54,6 +61,7 @@ namespace Foundation.Core
 
                 runTimeEnvironmentSettings ??= TheInstance.IoC.Get<IRunTimeEnvironmentSettings>();
                 userProfileProcess ??= TheInstance.IoC.Get<IUserProfileProcess>();
+                loggedOnUserProcess ??= TheInstance.IoC.Get<ILoggedOnUserProcess>();
 
                 IUserProfile userProfile = userProfileProcess.GetLoggedOnUserProfile(applicationId);
 
@@ -66,7 +74,6 @@ namespace Foundation.Core
 
                 TheCurrentLoggedOnUser = new CurrentLoggedOnUser(userProfile);
 
-                ILoggedOnUserProcess loggedOnUserProcess = TheInstance.IoC.Get<ILoggedOnUserProcess>();
                 loggedOnUserProcess.LogOnUser(applicationId, TheCurrentLoggedOnUser.UserProfile);
 
                 // Create instances of all classes implementing the IApplicationStartup interface

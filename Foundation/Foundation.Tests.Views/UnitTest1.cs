@@ -7,7 +7,7 @@ namespace Foundation.Tests.Views
         {
         }
 
-        [Test]
+        [TestCase]
         public void Test1()
         {
             Assert.Pass();

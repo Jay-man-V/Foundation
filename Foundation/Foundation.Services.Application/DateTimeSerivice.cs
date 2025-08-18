@@ -13,9 +13,23 @@ namespace Foundation.Services.Application
     [DependencyInjectionTransient]
     public class DateTimeService : ServiceBase, IDateTimeService
     {
-#if(DEBUG)
-        private Boolean _useInjectedSystemDateTime;
-        private DateTime _injectedSystemDateTime;
+#if (DEBUG)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="injectedSystemDateTime"></param>
+        internal DateTimeService
+        (
+            DateTime injectedSystemDateTime
+        ) :
+            this()
+        {
+            InjectedSystemDateTime = injectedSystemDateTime;
+            UseInjectedSystemDateTime = true;
+        }
+
+        private Boolean UseInjectedSystemDateTime { get; }
+        private DateTime InjectedSystemDateTime { get; }
 #endif
 
         /// <summary>
@@ -44,17 +58,14 @@ namespace Foundation.Services.Application
                 DateTime retVal = DateTime.UtcNow;
 
 #if (DEBUG)
-                if (_useInjectedSystemDateTime)
+                if (UseInjectedSystemDateTime)
                 {
-                    retVal = _injectedSystemDateTime;
+                    retVal = InjectedSystemDateTime;
                 }
 #endif
 
                 return retVal;
             }
-#if(DEBUG)
-            set { _injectedSystemDateTime = value; _useInjectedSystemDateTime = true; }
-#endif
         }
 
         /// <inheritdoc cref="IDateTimeService.SystemDateTimeNowWithoutMilliseconds"/>

@@ -40,7 +40,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             base.TestCleanup();
         }
 
-        [Test]
+        [TestCase]
         public void Test_SetValue_True()
         {
             AppId applicationId = new AppId(0);
@@ -53,7 +53,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository!.Received().SetValue(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, configurationScope, key, value.ToString());
         }
 
-        [Test]
+        [TestCase]
         public void Test_SetValue_False()
         {
             AppId applicationId = new AppId(0);
@@ -66,7 +66,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository!.Received().SetValue(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, configurationScope, key, value.ToString());
         }
 
-        [Test]
+        [TestCase]
         public void Test_SetValue_Char()
         {
             AppId applicationId = new AppId(0);
@@ -79,7 +79,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository!.Received().SetValue(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, configurationScope, key, value.ToString());
         }
 
-        [Test]
+        [TestCase]
         public void Test_SetValue_String()
         {
             AppId applicationId = new AppId(0);
@@ -92,7 +92,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository!.Received().SetValue(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, configurationScope, key, value);
         }
 
-        [Test]
+        [TestCase]
         public void Test_SetValue_Sbyte()
         {
             AppId applicationId = new AppId(0);
@@ -105,7 +105,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository!.Received().SetValue(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, configurationScope, key, value.ToString());
         }
 
-        [Test]
+        [TestCase]
         public void Test_SetValue_Byte()
         {
             AppId applicationId = new AppId(0);
@@ -118,7 +118,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository!.Received().SetValue(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, configurationScope, key, value.ToString());
         }
 
-        [Test]
+        [TestCase]
         public void Test_SetValue_Int16()
         {
             AppId applicationId = new AppId(0);
@@ -131,7 +131,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository!.Received().SetValue(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, configurationScope, key, value.ToString());
         }
 
-        [Test]
+        [TestCase]
         public void Test_SetValue_UInt16()
         {
             AppId applicationId = new AppId(0);
@@ -144,7 +144,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository!.Received().SetValue(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, configurationScope, key, value.ToString());
         }
 
-        [Test]
+        [TestCase]
         public void Test_SetValue_Int32()
         {
             AppId applicationId = new AppId(0);
@@ -157,7 +157,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository!.Received().SetValue(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, configurationScope, key, value.ToString());
         }
 
-        [Test]
+        [TestCase]
         public void Test_SetValue_UInt32()
         {
             AppId applicationId = new AppId(0);
@@ -170,7 +170,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository!.Received().SetValue(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, configurationScope, key, value.ToString());
         }
 
-        [Test]
+        [TestCase]
         public void Test_SetValue_Int64()
         {
             AppId applicationId = new AppId(0);
@@ -183,7 +183,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository!.Received().SetValue(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, configurationScope, key, value.ToString());
         }
 
-        [Test]
+        [TestCase]
         public void Test_SetValue_UInt64()
         {
             AppId applicationId = new AppId(0);
@@ -196,7 +196,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository!.Received().SetValue(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, configurationScope, key, value.ToString());
         }
 
-        [Test]
+        [TestCase]
         public void Test_SetValue_Double()
         {
             AppId applicationId = new AppId(0);
@@ -209,7 +209,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository!.Received().SetValue(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, configurationScope, key, $"{value}");
         }
 
-        [Test]
+        [TestCase]
         public void Test_SetValue_Decimal()
         {
             AppId applicationId = new AppId(0);
@@ -222,7 +222,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository!.Received().SetValue(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, configurationScope, key, $"{value}");
         }
 
-        [Test]
+        [TestCase]
         public void Test_SetValue_Guid()
         {
             AppId applicationId = new AppId(0);
@@ -235,7 +235,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository!.Received().SetValue(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, configurationScope, key, value.ToString());
         }
 
-        [Test]
+        [TestCase]
         public void Test_SetValue_TimeSpan()
         {
             AppId applicationId = new AppId(0);
@@ -248,7 +248,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository!.Received().SetValue(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, configurationScope, key, value.ToString());
         }
 
-        [Test]
+        [TestCase]
         public void Test_SetValue_Date()
         {
             AppId applicationId = new AppId(0);
@@ -262,7 +262,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository!.Received().SetValue(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, configurationScope, key, expected);
         }
 
-        [Test]
+        [TestCase]
         public void Test_SetValue_DateTime()
         {
             AppId applicationId = new AppId(0);
@@ -276,7 +276,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository!.Received().SetValue(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, configurationScope, key, expected);
         }
 
-        [Test]
+        [TestCase]
         public void Test_SetValue_DateTimeMilliseconds()
         {
             AppId applicationId = new AppId(0);

@@ -30,7 +30,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             TheService = new EncryptionService();
         }
 
-        [Test]
+        [TestCase]
         public void Test_GenerateSalt_RepeatedCalls()
         {
             Byte[] salt1 = TheService!.GenerateSalt();

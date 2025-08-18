@@ -48,7 +48,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             return retVal;
         }
 
-        [Test]
+        [TestCase]
         public void Test_GetValue_Boolean_True()
         {
             AppId applicationId = new AppId(0);
@@ -76,7 +76,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValues[2].Value, Is.EqualTo(expectedValues[2].Value));
         }
 
-        //[Test]
+        //[TestCase]
         //public void Test_GetValue_Boolean_False()
         //{
         //    AppId applicationId = new AppId(0);
@@ -92,7 +92,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         //    Assert.That(actualValue, Is.EqualTo(expectedValue));
         //}
 
-        //[Test]
+        //[TestCase]
         //public void Test_GetValue_TimeSpan()
         //{
         //    AppId applicationId = new AppId(0);
@@ -108,7 +108,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         //    Assert.That(actualValue, Is.EqualTo(expectedValue));
         //}
 
-        //[Test]
+        //[TestCase]
         //public void Test_GetValue_Date()
         //{
         //    AppId applicationId = new AppId(0);
@@ -124,7 +124,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         //    Assert.That(actualValue, Is.EqualTo(expectedValue));
         //}
 
-        //[Test]
+        //[TestCase]
         //public void Test_GetValue_DateTime()
         //{
         //    AppId applicationId = new AppId(0);
@@ -140,7 +140,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         //    Assert.That(actualValue, Is.EqualTo(expectedValue));
         //}
 
-        //[Test]
+        //[TestCase]
         //public void Test_GetValue_DateTimeMilliseconds()
         //{
         //    AppId applicationId = new AppId(0);
@@ -156,7 +156,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         //    Assert.That(actualValue, Is.EqualTo(expectedValue));
         //}
 
-        //[Test]
+        //[TestCase]
         //public void Test_GetValue_Guid()
         //{
         //    AppId applicationId = new AppId(0);
@@ -172,7 +172,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         //    Assert.That(actualValue, Is.EqualTo(expectedValue));
         //}
 
-        //[Test]
+        //[TestCase]
         //public void Test_GetValue_Char()
         //{
         //    AppId applicationId = new AppId(0);
@@ -188,7 +188,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         //    Assert.That(actualValue, Is.EqualTo(expectedValue));
         //}
 
-        //[Test]
+        //[TestCase]
         //public void Test_GetValue_String()
         //{
         //    AppId applicationId = new AppId(0);
@@ -204,7 +204,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         //    Assert.That(actualValue, Is.EqualTo(expectedValue));
         //}
 
-        //[Test]
+        //[TestCase]
         //public void Test_GetValue_Int16()
         //{
         //    AppId applicationId = new AppId(0);
@@ -220,7 +220,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         //    Assert.That(actualValue, Is.EqualTo(expectedValue));
         //}
 
-        //[Test]
+        //[TestCase]
         //public void Test_GetValue_UInt16()
         //{
         //    AppId applicationId = new AppId(0);
@@ -236,7 +236,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         //    Assert.That(actualValue, Is.EqualTo(expectedValue));
         //}
 
-        //[Test]
+        //[TestCase]
         //public void Test_GetValue_Int32()
         //{
         //    AppId applicationId = new AppId(0);
@@ -252,7 +252,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         //    Assert.That(actualValue, Is.EqualTo(expectedValue));
         //}
 
-        //[Test]
+        //[TestCase]
         //public void Test_GetValue_UInt32()
         //{
         //    AppId applicationId = new AppId(0);
@@ -268,7 +268,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         //    Assert.That(actualValue, Is.EqualTo(expectedValue));
         //}
 
-        //[Test]
+        //[TestCase]
         //public void Test_GetValue_Int64()
         //{
         //    AppId applicationId = new AppId(0);
@@ -284,7 +284,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         //    Assert.That(actualValue, Is.EqualTo(expectedValue));
         //}
 
-        //[Test]
+        //[TestCase]
         //public void Test_GetValue_UInt64()
         //{
         //    AppId applicationId = new AppId(0);
@@ -300,7 +300,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         //    Assert.That(actualValue, Is.EqualTo(expectedValue));
         //}
 
-        //[Test]
+        //[TestCase]
         //public void Test_GetValue_Decimal()
         //{
         //    AppId applicationId = new AppId(0);
@@ -316,7 +316,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         //    Assert.That(actualValue, Is.EqualTo(expectedValue));
         //}
 
-        //[Test]
+        //[TestCase]
         //public void Test_GetValue_Double()
         //{
         //    AppId applicationId = new AppId(0);
@@ -332,7 +332,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         //    Assert.That(actualValue, Is.EqualTo(expectedValue));
         //}
 
-        //[Test]
+        //[TestCase]
         //public void Test_GetValue_Byte()
         //{
         //    AppId applicationId = new AppId(0);
@@ -348,7 +348,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         //    Assert.That(actualValue, Is.EqualTo(expectedValue));
         //}
 
-        //[Test]
+        //[TestCase]
         //public void Test_GetValue_SByte()
         //{
         //    AppId applicationId = new AppId(0);

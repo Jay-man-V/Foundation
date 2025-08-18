@@ -15,7 +15,7 @@ namespace Foundation.Tests.Unit
         {
         }
 
-        [Test]
+        [TestCase]
         public void Test1()
         {
             Guid value = new Guid("{0B368339-E43E-4AFF-9FBC-C9F0074FD068}");

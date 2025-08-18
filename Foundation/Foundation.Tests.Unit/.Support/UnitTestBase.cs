@@ -269,7 +269,10 @@ namespace Foundation.Tests.Unit.Support
             IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
             userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(userProfile);
 
-            CoreInstance = Core.Core.Initialise(ApplicationSettings.ApplicationId, RunTimeEnvironmentSettings, userProfileProcess);
+            ILoggedOnUserProcess loggedOnUserProcess = Substitute.For<ILoggedOnUserProcess>();
+            loggedOnUserProcess.LogOnUser(Arg.Any<AppId>(), Arg.Any<IUserProfile>());
+
+            CoreInstance = Core.Core.Initialise(ApplicationSettings.ApplicationId, RunTimeEnvironmentSettings, userProfileProcess, loggedOnUserProcess);
             CoreInstance.CurrentLoggedOnUser.SetLoggedOnUser(userProfile);
 
             ApplicationConfigurationService = Substitute.For<IApplicationConfigurationService>();
