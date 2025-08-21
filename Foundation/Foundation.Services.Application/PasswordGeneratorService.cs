@@ -69,7 +69,7 @@ namespace Foundation.Services.Application
 
             Int32 maxValues = randomWords.Length;
 
-            Int32 index = RandomService.NextInt32(0, maxValues);
+            Int32 index = RandomService.RandomInt32(0, maxValues);
 
             retVal = randomWords[index];
 

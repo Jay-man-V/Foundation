@@ -67,7 +67,13 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter(dataConnectionName);
 
-            ConnectionStringSettings connectionStringSettings = GetConfigurationStringSettings(dataConnectionName);
+            ConnectionStringSettings? connectionStringSettings = GetConfigurationStringSettings(dataConnectionName);
+
+            if (connectionStringSettings == null)
+            {
+                String message = $"Unable to find Connection String named: '{dataConnectionName}'";
+                throw new ConfigurationErrorsException(message);
+            }
 
             String retVal = connectionStringSettings.ConnectionString;
 

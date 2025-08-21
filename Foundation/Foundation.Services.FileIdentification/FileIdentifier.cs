@@ -13,10 +13,14 @@ namespace Foundation.Services.FileIdentification
     {
         /// <summary>
         /// MIME Type Detection in Windows Internet Explorer
-        /// https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775147(v=vs.85)?redirectedfrom=MSDN
+        /// https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775147(v=vs.85)
+        ///
+        ///
+        /// 
+        /// https://stackoverflow.com/questions/11547654/determine-the-file-type-using-c-sharp
         /// 
         /// </summary>
-            public static Int32 MimeSampleSize = 256;
+        public static Int32 MimeSampleSize = 256;
 
             public static String DefaultMimeType = "application/octet-stream";
 
@@ -42,7 +46,7 @@ namespace Foundation.Services.FileIdentification
             /// <remarks>There's some limitation of the api function, according to http://msdn.microsoft.com/en-us/library/ms775147%28VS.85%29.aspx#Known_MimeTypes
             /// and this implementation will return "application/octet-stream" if the file is smaller than 256 bytes.
             /// </remarks>
-            public static String GetMimeFromBytes(Byte[] data)
+            private static String GetMimeFromBytes(Byte[] data)
             {
                 if (data == null)
                 {

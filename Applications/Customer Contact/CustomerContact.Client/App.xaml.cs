@@ -100,6 +100,12 @@ namespace CustomerContact.Client
                     IApplicationProcess applicationProcess = CoreInstance.IoC.Get<IApplicationProcess>();
                     IApplication? application = applicationProcess.Get(CoreInstance.ApplicationId);
 
+                    if (application == null)
+                    {
+                        String message = $"Unable to load application details with Id '{CoreInstance.ApplicationId}'";
+                        throw new InvalidOperationException(message);
+                    }
+
                     ThisApplication = CoreInstance.IoC.Get<IMainWindowForm>();
                     MainWindow = (Window)ThisApplication;
 

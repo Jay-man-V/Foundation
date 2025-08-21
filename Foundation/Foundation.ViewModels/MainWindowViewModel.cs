@@ -681,7 +681,7 @@ namespace Foundation.ViewModels
             using (MouseCursor)
             {
                 IRandomService randomService = Core.IoC.Get<IRandomService>();
-                MessageType messageType = (MessageType)randomService.NextInt32(1, 6);
+                MessageType messageType = (MessageType)randomService.RandomInt32(1, 6);
                 String messageHeader = messageType.ToString();
                 String message = $"{messageType} Content";
                 ShowNotificationMessage(messageType, messageHeader, message);
@@ -713,7 +713,7 @@ namespace Foundation.ViewModels
 
                 IRandomService randomService = Core.IoC.Get<IRandomService>();
                 Int32[] iconIds = { 0, 16, 32, 48, 64, 16, 16, 48, 64 };
-                FEnums.MessageBoxImage messageBoxImage = (FEnums.MessageBoxImage)iconIds[randomService.NextInt32(1, 9)];
+                FEnums.MessageBoxImage messageBoxImage = (FEnums.MessageBoxImage)iconIds[randomService.RandomInt32(1, 9)];
 
                 MessageDialogForm theForm = new MessageDialogForm();
                 MessageDialogViewModel messageDialogViewModel =

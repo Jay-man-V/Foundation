@@ -33,27 +33,8 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallReturn();
         }
 
-
-        /// <inheritdoc cref="IRandomService.AlphaUpperCaseOnly"/>
-        public String AlphaUpperCaseOnly => "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-        /// <inheritdoc cref="IRandomService.AlphaLowerCaseOnly"/>
-        public String AlphaLowerCaseOnly => "abcdefghijklmnopqrstuvwxyz";
-
-        /// <inheritdoc cref="IRandomService.NumericOnly"/>
-        public String NumericOnly => "0123456789";
-
-        /// <inheritdoc cref="IRandomService.NonAlphaChars"/>
-        public String NonAlphaChars => @"!""£$%^&*() _-+={}[]#:@;'<>?,./|\";
-
-        /// <inheritdoc cref="IRandomService.AlphaNumeric"/>
-        public String AlphaNumeric => AlphaUpperCaseOnly + AlphaLowerCaseOnly + NumericOnly;
-
-        /// <inheritdoc cref="IRandomService.AllChars"/>
-        public String AllChars => AlphaUpperCaseOnly + AlphaLowerCaseOnly + NumericOnly + NonAlphaChars;
-
-        /// <inheritdoc cref="IRandomService.NextInt32()"/>
-        public Int32 NextInt32()
+        /// <inheritdoc cref="IRandomService.RandomInteger"/>
+        public Int32 RandomInt32()
         {
             LoggingHelpers.TraceCallEnter();
 
@@ -64,8 +45,8 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
-        /// <inheritdoc cref="IRandomService.NextInt32(Int32)"/>
-        public Int32 NextInt32(Int32 maxValue)
+        /// <inheritdoc cref="IRandomService.RandomInt32(int)"/>
+        public Int32 RandomInt32(Int32 maxValue)
         {
             LoggingHelpers.TraceCallEnter(maxValue);
 
@@ -76,8 +57,8 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
-        /// <inheritdoc cref="IRandomService.NextInt32(Int32, Int32)"/>
-        public Int32 NextInt32(Int32 minValue, Int32 maxValue)
+        /// <inheritdoc cref="IRandomService.RandomInt32(int,int)"/>
+        public Int32 RandomInt32(Int32 minValue, Int32 maxValue)
         {
             LoggingHelpers.TraceCallEnter(minValue, maxValue);
 
