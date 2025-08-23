@@ -65,7 +65,7 @@ namespace Foundation.Tests.Unit.NetFramework
 
             Int32 errorCode = -2147467259;
             Int32 nativeErrorCode = 1326;
-            String message = "The user name or password is incorrect";
+            String message = "The user name or password is incorrect.";
 
             const Action? emptyAction = null;
 

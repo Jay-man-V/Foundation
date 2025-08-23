@@ -79,7 +79,7 @@ namespace Foundation.Common
         /// </summary>
         /// <param name="stackOffset">The stack offset.</param>
         /// <returns></returns>
-        public static String GetFunctionName(Int32 stackOffset = 0)
+        public static String GetFunctionName(Int32 stackOffset = 1)
         {
             String retVal = "<unknown>";
 
@@ -104,7 +104,7 @@ namespace Foundation.Common
         /// </summary>
         /// <param name="stackOffset">The stack offset.</param>
         /// <returns></returns>
-        public static String GetFullyQualifiedFunctionName(Int32 stackOffset = 0)
+        public static String GetFullyQualifiedFunctionName(Int32 stackOffset = 1)
         {
             String retVal = $"{GetNamespace(stackOffset + 2)}.{GetClassName(stackOffset + 2)}.{GetFunctionName(stackOffset + 1)}";
 

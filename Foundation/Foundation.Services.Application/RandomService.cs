@@ -4,9 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.Security.Cryptography;
-using System.Text;
-
 using Foundation.Common;
 using Foundation.Interfaces;
 
@@ -33,7 +30,7 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="IRandomService.RandomInteger"/>
+        /// <inheritdoc cref="IRandomService.RandomInt32()"/>
         public Int32 RandomInt32()
         {
             LoggingHelpers.TraceCallEnter();
@@ -45,7 +42,7 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
-        /// <inheritdoc cref="IRandomService.RandomInt32(int)"/>
+        /// <inheritdoc cref="IRandomService.RandomInt32(Int32)"/>
         public Int32 RandomInt32(Int32 maxValue)
         {
             LoggingHelpers.TraceCallEnter(maxValue);
@@ -57,7 +54,7 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
-        /// <inheritdoc cref="IRandomService.RandomInt32(int,int)"/>
+        /// <inheritdoc cref="IRandomService.RandomInt32(Int32, Int32)"/>
         public Int32 RandomInt32(Int32 minValue, Int32 maxValue)
         {
             LoggingHelpers.TraceCallEnter(minValue, maxValue);

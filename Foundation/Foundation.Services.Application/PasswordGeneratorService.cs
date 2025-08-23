@@ -55,8 +55,9 @@ namespace Foundation.Services.Application
         private String RandomPasswordRuleLengthDefaultValue => "10";
         private String RandomPasswordRuleCountKey => "service.generator.password.rule.count";
         private String RandomPasswordRuleCountDefaultValue => "3";
-        private String RandomPasswordGenerateUrlKey => "service.generator.password.random.url";
-        private String MemorablePasswordGenerateUrlKey => "service.generator.password.memorable.url";
+        private String RandomPasswordGenerateUrlKey => "service.generator.password.random.url"; // https://random-word-api.herokuapp.com/home
+
+        //private String MemorablePasswordGenerateUrlKey => "service.generator.password.memorable.url"; // https://getmypassword.com/memorable/
 
         /// <inheritdoc cref="IPasswordGeneratorService.GeneratePassword()"/>
         public String GeneratePassword()
@@ -84,8 +85,6 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallEnter();
 
             String[]? retVal;
-
-            // https://random-word-api.herokuapp.com/home
 
             String passwordLengthValue = ApplicationConfigurationService.Get(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, RandomPasswordRuleLengthKey, RandomPasswordRuleLengthDefaultValue);
             String passwordCountValue = ApplicationConfigurationService.Get(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, RandomPasswordRuleCountKey, RandomPasswordRuleCountDefaultValue);

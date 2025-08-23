@@ -24,8 +24,12 @@ namespace Foundation.Services.Application
         ) :
             this()
         {
+            LoggingHelpers.TraceCallEnter();
+
             InjectedSystemDateTime = injectedSystemDateTime;
             UseInjectedSystemDateTime = true;
+
+            LoggingHelpers.TraceCallReturn();
         }
 
         private Boolean UseInjectedSystemDateTime { get; }

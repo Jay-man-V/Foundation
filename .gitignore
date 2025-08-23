@@ -3,6 +3,13 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+#### Custom entries start
+#Test Results
+/TempOutputs
+
+#### Custom entries end
+
+
 # User-specific files
 *.rsuser
 *.suo
@@ -361,4 +368,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/TempOutputs/ExportToCsv

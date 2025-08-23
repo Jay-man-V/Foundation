@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Windows.Media.Animation;
+
 namespace Foundation.Interfaces
 {
     /// <summary>
@@ -39,40 +41,31 @@ namespace Foundation.Interfaces
         /// <param name="salt"></param>
         /// <param name="key"></param>
         /// <param name="iv"></param>
-        void GenerateKeys(String keyPassword, Byte[] salt, out Byte[] key, out Byte[] iv);
-/*
+        void GenerateKeys(String keyPassword, Byte[]? salt, out Byte[] key, out Byte[] iv);
+
         /// <summary>
-        /// 
+        /// Generates a new set of Keys (IV and Key) for use in Cryptographic functions.
+        /// <para>
+        /// Said keys are saved to the specified output folder as per:
+        /// <paramref name="keyName"/>.key and <paramref name="keyName"/>.iv
+        /// </para>
         /// </summary>
+        /// <param name="outputFolder"></param>
+        /// <param name="keyName"></param>
         /// <param name="keyPassword"></param>
         /// <param name="salt"></param>
-        /// <param name="outputFolder"></param>
-        /// <param name="keyName"></param>
-        void GenerateKeys(String keyPassword, byte[] salt, String outputFolder, String keyName);
+        void GenerateKeys(String outputFolder, String keyName, String keyPassword, Byte[]? salt = null);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="iv"></param>
-        void GenerateKeys(out Byte[] key, out Byte[] iv);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="outputFolder"></param>
-        /// <param name="keyName"></param>
-        void GenerateKeys(String outputFolder, String keyName);
-*/
         /* String encryption/decryption functions */
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="keyLocation"></param>
+        /// <param name="keyName"></param>
         /// <param name="dataToEncrypt"></param>
         /// <returns></returns>
-        String EncryptData(String keyLocation, String dataToEncrypt);
+        String EncryptData(String keyLocation, String keyName, String dataToEncrypt);
 
         /// <summary>
         /// 
@@ -87,9 +80,10 @@ namespace Foundation.Interfaces
         /// 
         /// </summary>
         /// <param name="keyLocation"></param>
+        /// <param name="keyName"></param>
         /// <param name="dataToDecrypt"></param>
         /// <returns></returns>
-        String DecryptData(String keyLocation, String dataToDecrypt);
+        String DecryptData(String keyLocation, String keyName, String dataToDecrypt);
 
         /// <summary>
         /// 
@@ -106,9 +100,10 @@ namespace Foundation.Interfaces
         /// 
         /// </summary>
         /// <param name="keyLocation"></param>
+        /// <param name="keyName"></param>
         /// <param name="dataToEncrypt"></param>
         /// <returns></returns>
-        Byte[] EncryptData(String keyLocation, Byte[] dataToEncrypt);
+        Byte[] EncryptData(String keyLocation, String keyName, Byte[] dataToEncrypt);
 
         /// <summary>
         /// 
@@ -123,9 +118,10 @@ namespace Foundation.Interfaces
         /// 
         /// </summary>
         /// <param name="keyLocation"></param>
+        /// <param name="keyName"></param>
         /// <param name="dataToDecrypt"></param>
         /// <returns></returns>
-        Byte[] DecryptData(String keyLocation, Byte[] dataToDecrypt);
+        Byte[] DecryptData(String keyLocation, String keyName, Byte[] dataToDecrypt);
 
         /// <summary>
         /// 

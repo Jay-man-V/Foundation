@@ -419,7 +419,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetAssemblyResource_Success()
         {
-            String filePath = "Foundation.Tests.Unit..Support.SampleDocuments.Embedded Sample Text Document.txt";
+            String filePath = "Foundation.Tests.Unit..Support.SampleDocuments.Embedded_Documents.Embedded Sample Text Document.txt";
             String fileContent = "A sample text document";
 
             Assembly thisAssembly = Assembly.GetExecutingAssembly();
@@ -439,7 +439,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetFileContentsAsTextFromAssembly()
         {
-            String filePath = "Foundation.Tests.Unit..Support.SampleDocuments.Embedded Sample Text Document.txt";
+            String filePath = "Foundation.Tests.Unit..Support.SampleDocuments.Embedded_Documents.Embedded Sample Text Document.txt";
             Encoding encoding = Encoding.UTF8;
             String fileContent = "A sample text document";
 
@@ -453,7 +453,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [DeploymentItem(@".Support\SampleDocuments\Sample Word Document.docx", @".Support\SampleDocuments\")]
         public void Test_GetFileContentsAsByteArrayFromAssembly()
         {
-            String filePath = "Foundation.Tests.Unit..Support.SampleDocuments.Embedded Sample Word Document.docx";
+            String filePath = "Foundation.Tests.Unit..Support.SampleDocuments.Embedded_Documents.Embedded Sample Word Document.docx";
             Byte[] fileContent = File.ReadAllBytes(@".Support\\SampleDocuments\\Sample Word Document.docx");
 
             Assembly resourceAssembly = Assembly.GetAssembly(this.GetType())!;
@@ -920,7 +920,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             checkDirectoryExists = TheService!.DoesDirectoryExist(Path.Combine(basePath2, newDirectoryName2));
             Assert.That(checkDirectoryExists, Is.EqualTo(true));
 
-            String errorMessage = $"The directory is not empty.{Environment.NewLine}";
+            String errorMessage = $"The directory is not empty. : '{createdFolder.FullName}'";
 
             IOException? actualException = null;
             try

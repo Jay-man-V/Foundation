@@ -34,48 +34,126 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include=".ExpectedResults\FileManagement\ExistingFile.txt" />
-    <Content Include=".ExpectedResults\FileManagement\FileToDelete.txt" />
-    <Content Include=".ExpectedResults\FileManagement\SmallFile.txt" />
-    <Content Include=".ExpectedResults\FolderToDelete\ExistingFile.txt" />
-    <Content Include=".ExpectedResults\FolderToDelete\FileToDelete.txt" />
-    <Content Include=".ExpectedResults\FolderToDelete\SmallFile.txt" />
-    <Content Include=".ExpectedResults\Foundation.Common\HelpersTests\Test_Serialise_CustomType.txt" />
-    <Content Include=".ExpectedResults\Logging\Formatting\TestNestedException_RethrowAsNew.txt" />
-    <Content Include=".ExpectedResults\Logging\Formatting\TestNestedException_RethrowAsNewWithMessage.txt" />
-    <Content Include=".ExpectedResults\Logging\Formatting\TestNestedException_RethrowAsNewWithMessageFormat.txt" />
-    <Content Include=".ExpectedResults\Logging\Formatting\TestNestedException_ThrowOriginal.txt" />
-    <Content Include=".ExpectedResults\Logging\Formatting\TestNestedException_ThrowOriginalWithMessage.txt" />
-    <Content Include=".ExpectedResults\Logging\Formatting\TestNestedException_ThrowOriginalWithMessageFormat.txt" />
-    <Content Include=".ExpectedResults\Logging\LogWriter\TestToString_1.txt" />
-    <Content Include=".ExpectedResults\Logging\LogWriter\TestToString_2.txt" />
-    <Content Include=".ExpectedResults\ProgressEventTracker\TestCopyToClipboard.txt" />
-    <Content Include=".ExpectedResults\ProgressEventTracker\TestGenerateReport.txt" />
-    <Content Include=".ExpectedResults\SampleDocuments\sample.html" />
-    <Content Include=".Support\SampleDocuments\32BitColour_16x16.bmp" />
-    <Content Include=".Support\SampleDocuments\bank-holidays.json" />
-    <Content Include=".Support\SampleDocuments\Blank_10x10.bmp" />
-    <Content Include=".Support\SampleDocuments\Blank_5x5.bmp" />
-    <Content Include=".Support\SampleDocuments\Embedded Sample Text Document.txt" />
-    <Content Include=".Support\SampleDocuments\JDV Software Logo.png" />
-    <Content Include=".Support\SampleDocuments\Sample Image.JPG" />
-    <Content Include=".Support\SampleDocuments\Sample Text Document.txt" />
-    <Content Include=".Support\SampleDocuments\United Kingdom.png" />
-    <Content Include=".Support\SampleDocuments\WebResponse.json" />
+    <None Include=".ExpectedResults\FileManagement\ExistingFile.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".ExpectedResults\FileManagement\FileToDelete.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".ExpectedResults\FileManagement\SmallFile.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".ExpectedResults\FolderToDelete\ExistingFile.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".ExpectedResults\FolderToDelete\FileToDelete.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".ExpectedResults\FolderToDelete\SmallFile.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".ExpectedResults\Foundation.Common\HelpersTests\Test_Serialise_CustomType.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".ExpectedResults\Logging\Formatting\TestNestedException_RethrowAsNew.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".ExpectedResults\Logging\Formatting\TestNestedException_RethrowAsNewWithMessage.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".ExpectedResults\Logging\Formatting\TestNestedException_RethrowAsNewWithMessageFormat.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".ExpectedResults\Logging\Formatting\TestNestedException_ThrowOriginal.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".ExpectedResults\Logging\Formatting\TestNestedException_ThrowOriginalWithMessage.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".ExpectedResults\Logging\Formatting\TestNestedException_ThrowOriginalWithMessageFormat.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".ExpectedResults\Logging\LogWriter\TestToString_1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".ExpectedResults\Logging\LogWriter\TestToString_2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".ExpectedResults\ProgressEventTracker\TestCopyToClipboard.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".ExpectedResults\ProgressEventTracker\TestGenerateReport.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".ExpectedResults\SampleDocuments\sample.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".Support\SampleDocuments\32BitColour_16x16.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".Support\SampleDocuments\bank-holidays.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".Support\SampleDocuments\Blank_10x10.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".Support\SampleDocuments\Blank_5x5.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <EmbeddedResource Include=".Support\SampleDocuments\Embedded Documents\Embedded Sample Text Document.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Include=".Support\SampleDocuments\JDV Software Logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".Support\SampleDocuments\Sample Image.JPG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".Support\SampleDocuments\Sample Text Document.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".Support\SampleDocuments\United Kingdom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".Support\SampleDocuments\WebResponse.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
-    <None Include=".ExpectedResults\SampleDocuments\sample.pdf" />
-    <None Include=".Support\SampleDocuments\CsvFiles\100k - CSVFile.csv" />
-    <None Include=".Support\SampleDocuments\CsvFiles\10k - CSVFile.csv" />
-    <None Include=".Support\SampleDocuments\CsvFiles\1M - CSVFile.csv" />
-    <None Include=".Support\SampleDocuments\CsvFiles\CSVFile with Quotes.csv" />
-    <None Include=".Support\SampleDocuments\CsvFiles\CSVFile.csv" />
-    <None Include=".Support\SampleDocuments\CsvFiles\Schema.ini" />
-    <None Include=".Support\SampleDocuments\Embedded Sample Word Document.docx" />
-    <None Include=".Support\SampleDocuments\Sample Excel Document.xlsx" />
-    <None Include=".Support\SampleDocuments\Sample PDF Document.pdf" />
-    <None Include=".Support\SampleDocuments\Sample Word Document.docx" />
+    <None Include=".ExpectedResults\SampleDocuments\sample.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".Support\SampleDocuments\CsvFiles\100k - CSVFile.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".Support\SampleDocuments\CsvFiles\10k - CSVFile.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".Support\SampleDocuments\CsvFiles\1M - CSVFile.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".Support\SampleDocuments\CsvFiles\CSVFile with Quotes.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".Support\SampleDocuments\CsvFiles\CSVFile.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".Support\SampleDocuments\CsvFiles\Schema.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <EmbeddedResource Include=".Support\SampleDocuments\Embedded Documents\Embedded Sample Word Document.docx">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Include=".Support\SampleDocuments\Sample Excel Document.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".Support\SampleDocuments\Sample PDF Document.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".Support\SampleDocuments\Sample Word Document.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

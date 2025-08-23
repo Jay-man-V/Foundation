@@ -59,11 +59,25 @@ namespace Foundation.Interfaces
         void EnsureFileExists(String filePath);
 
         /// <summary>
+        /// Ensures the file does not exist.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <exception cref="FileAlreadyExistsException"> When the file does not exist or access to it is denied</exception>
+        void EnsureFileDoesNotExist(String filePath);
+
+        /// <summary>
         /// Ensures the Directory exists.
         /// </summary>
         /// <param name="directoryPath">The directory path.</param>
         /// <exception cref="DirectoryNotFoundException"> When the directory does not exist or access to it is denied</exception>
         void EnsureDirectoryExists(String directoryPath);
+
+        /// <summary>
+        /// Ensures the file does not exist.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <exception cref="FileAlreadyExistsException"> When the file does not exist or access to it is denied</exception>
+        void EnsureDirectoryDoesNotExist(String filePath);
 
         /// <summary>
         /// Checks to see if a file exists

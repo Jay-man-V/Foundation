@@ -22,15 +22,20 @@ namespace Foundation.Services.Application
         /// </summary>
         public EncryptionService
         (
+            IFileApi fileApi
         ) :
             base
             (
             )
         {
-            LoggingHelpers.TraceCallEnter();
+            LoggingHelpers.TraceCallEnter(fileApi);
+
+            FileApi = fileApi;
 
             LoggingHelpers.TraceCallReturn();
         }
+
+        private IFileApi FileApi { get; }
 
         /// <summary>
         /// 
@@ -56,25 +61,6 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
-        ///// <inheritdoc cref="IEncryptionService.GenerateKeys(String, Byte[], String, String)"/>
-        //public void GenerateKeys(String keyPassword, Byte[] salt, String outputFolder, String keyName)
-        //{
-        //    LoggingHelpers.TraceCallEnter($"{nameof(keyPassword)} not logged", $"{nameof(salt)} not logged", outputFolder, keyName);
-
-        //    GenerateKeys(keyPassword, salt, out Byte[] key, out Byte[] iv);
-
-        //    String keyOutputFile = Path.Combine(outputFolder, keyName + ".key");
-        //    String ivOutputFile = Path.Combine(outputFolder, keyName + ".iv");
-
-        //    File.WriteAllBytes(keyOutputFile, key);
-        //    File.WriteAllBytes(ivOutputFile, iv);
-
-        //    Array.Clear(key, 0, key.Length);
-        //    Array.Clear(iv, 0, iv.Length);
-
-        //    LoggingHelpers.TraceCallReturn();
-        //}
-
         /// <inheritdoc cref="IEncryptionService.GenerateKeys(String, Byte[], out Byte[], out Byte[])"/>
         public void GenerateKeys(String keyPassword, Byte[]? salt, out Byte[] key, out Byte[] iv)
         {
@@ -99,52 +85,42 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallReturn($"{nameof(key)} not logged, {nameof(iv)} not logged");
         }
 
-        ///// <inheritdoc cref="IEncryptionService.GenerateKeys(out Byte[], out Byte[])"/>
-        //public void GenerateKeys(out Byte[] key, out Byte[] iv)
-        //{
-        //    LoggingHelpers.TraceCallEnter();
+        /// <inheritdoc cref="IEncryptionService.GenerateKeys(String, String, String, Byte[])"/>
+        public void GenerateKeys(String outputFolder, String keyName, String keyPassword, Byte[]? salt)
+        {
+            LoggingHelpers.TraceCallEnter(outputFolder, keyName, $"{nameof(keyPassword)} not logged");
 
-        //    using (SymmetricAlgorithm crypto = Create())
-        //    {
-        //        crypto.GenerateIV();
-        //        crypto.GenerateKey();
+            FileApi.EnsureDirectoryExists(outputFolder);
 
-        //        key = crypto.Key;
-        //        iv = crypto.IV;
+            // Don't want to overwrite any existing key file
+            String keyOutputFile = Path.Combine(outputFolder, keyName + ".key");
+            FileApi.EnsureFileDoesNotExist(keyOutputFile);
 
-        //        crypto.Clear();
-        //    }
+            // Don't want to overwrite any existing iv file
+            String ivOutputFile = Path.Combine(outputFolder, keyName + ".iv");
+            FileApi.EnsureFileDoesNotExist(ivOutputFile);
 
-        //    LoggingHelpers.TraceCallReturn($"{nameof(key)} not logged, {nameof(iv)} not logged");
-        //}
+            salt ??= GenerateSalt();
 
-        ///// <inheritdoc cref="IEncryptionService.GenerateKeys(String, String)"/>
-        //public void GenerateKeys(String outputFolder, String keyName)
-        //{
-        //    LoggingHelpers.TraceCallEnter(outputFolder, keyName);
+            GenerateKeys(keyPassword, salt, out Byte[] key, out Byte[] iv);
 
-        //    GenerateKeys(out Byte[] key, out Byte[] iv);
+            File.WriteAllBytes(keyOutputFile, key);
+            File.WriteAllBytes(ivOutputFile, iv);
 
-        //    String keyOutputFile = Path.Combine(outputFolder, keyName + ".key");
-        //    String ivOutputFile = Path.Combine(outputFolder, keyName + ".iv");
+            Array.Clear(key, 0, key.Length);
+            Array.Clear(iv, 0, iv.Length);
 
-        //    File.WriteAllBytes(keyOutputFile, key);
-        //    File.WriteAllBytes(ivOutputFile, iv);
-
-        //    Array.Clear(key, 0, key.Length);
-        //    Array.Clear(iv, 0, iv.Length);
-
-        //    LoggingHelpers.TraceCallReturn();
-        //}
+            LoggingHelpers.TraceCallReturn();
+        }
 
         /* String encryption/decryption functions */
 
-        /// <inheritdoc cref="IEncryptionService.EncryptData(String, String)"/>
-        public String EncryptData(String keyLocation, String dataToEncrypt)
+        /// <inheritdoc cref="IEncryptionService.EncryptData(String, String, String)"/>
+        public String EncryptData(String keyLocation, String keyName, String dataToEncrypt)
         {
-            LoggingHelpers.TraceCallEnter(keyLocation, $"{nameof(dataToEncrypt)} not logged");
+            LoggingHelpers.TraceCallEnter(keyLocation, keyName, $"{nameof(dataToEncrypt)} not logged");
 
-            LoadKeysFromFile(keyLocation, out Byte[] key, out Byte[] iv);
+            LoadKeysFromFile(keyLocation, keyName, out Byte[] key, out Byte[] iv);
 
             String retVal = EncryptData(key, iv, dataToEncrypt);
 
@@ -197,12 +173,12 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
-        /// <inheritdoc cref="IEncryptionService.DecryptData(String, String)"/>
-        public String DecryptData(String keyLocation, String dataToDecrypt)
+        /// <inheritdoc cref="IEncryptionService.DecryptData(String, String, String)"/>
+        public String DecryptData(String keyLocation, String keyName, String dataToDecrypt)
         {
-            LoggingHelpers.TraceCallEnter(keyLocation, $"{nameof(dataToDecrypt)} not logged");
+            LoggingHelpers.TraceCallEnter(keyLocation, keyName, $"{nameof(dataToDecrypt)} not logged");
 
-            LoadKeysFromFile(keyLocation, out Byte[] key, out Byte[] iv);
+            LoadKeysFromFile(keyLocation, keyName, out Byte[] key, out Byte[] iv);
 
             String retVal = DecryptData(key, iv, dataToDecrypt);
 
@@ -250,12 +226,12 @@ namespace Foundation.Services.Application
 
         /* Byte[] encryption/decryption functions */
 
-        /// <inheritdoc cref="IEncryptionService.EncryptData(String, Byte[])"/>
-        public Byte[] EncryptData(String keyLocation, Byte[] dataToEncrypt)
+        /// <inheritdoc cref="IEncryptionService.EncryptData(String, String, Byte[])"/>
+        public Byte[] EncryptData(String keyLocation, String keyName, Byte[] dataToEncrypt)
         {
-            LoggingHelpers.TraceCallEnter(keyLocation, $"{nameof(dataToEncrypt)} not logged");
+            LoggingHelpers.TraceCallEnter(keyLocation, keyName, $"{nameof(dataToEncrypt)} not logged");
 
-            LoadKeysFromFile(keyLocation, out Byte[] key, out Byte[] iv);
+            LoadKeysFromFile(keyLocation, keyName, out Byte[] key, out Byte[] iv);
 
             Byte[] retVal = EncryptDecryptData(key, iv, dataToEncrypt, true);
 
@@ -279,12 +255,12 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
-        /// <inheritdoc cref="IEncryptionService.DecryptData(String, Byte[])"/>
-        public Byte[] DecryptData(String keyLocation, Byte[] dataToDecrypt)
+        /// <inheritdoc cref="IEncryptionService.DecryptData(String, String, Byte[])"/>
+        public Byte[] DecryptData(String keyLocation, String keyName, Byte[] dataToDecrypt)
         {
-            LoggingHelpers.TraceCallEnter(keyLocation, $"{nameof(dataToDecrypt)} not logged");
+            LoggingHelpers.TraceCallEnter(keyLocation, keyName, $"{nameof(dataToDecrypt)} not logged");
 
-            LoadKeysFromFile(keyLocation, out Byte[] key, out Byte[] iv);
+            LoadKeysFromFile(keyLocation, keyName, out Byte[] key, out Byte[] iv);
 
             Byte[] retVal = EncryptDecryptData(key, iv, dataToDecrypt, false);
 
@@ -366,14 +342,15 @@ namespace Foundation.Services.Application
         /// </para>
         /// </summary>
         /// <param name="keyLocation"></param>
+        /// <param name="keyName"></param>
         /// <param name="key"></param>
         /// <param name="iv"></param>
-        private void LoadKeysFromFile(String keyLocation, out Byte[] key, out Byte[] iv)
+        private void LoadKeysFromFile(String keyLocation, String keyName, out Byte[] key, out Byte[] iv)
         {
-            LoggingHelpers.TraceCallEnter(keyLocation);
+            LoggingHelpers.TraceCallEnter(keyLocation, keyName);
 
-            String keyFile = Path.Combine(keyLocation + ".key");
-            String ivFile = Path.Combine(keyLocation + ".iv");
+            String keyFile = Path.Combine(keyLocation, keyName + ".key");
+            String ivFile = Path.Combine(keyLocation, keyName + ".iv");
 
             key = File.ReadAllBytes(keyFile);
             iv = File.ReadAllBytes(ivFile);

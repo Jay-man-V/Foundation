@@ -37,12 +37,16 @@ namespace Foundation.Services.Application
             (
             )
         {
+            LoggingHelpers.TraceCallEnter(emailApi, fileApi, httpApi, ftpApi, restApi, mqApi);
+
             EmailApi = emailApi;
             FileApi = fileApi;
             HttpApi = httpApi;
             FtpApi = ftpApi;
             RestApi = restApi;
             MqApi = mqApi;
+
+            LoggingHelpers.TraceCallReturn();
         }
 
         private IEmailApi EmailApi { get; }

@@ -128,6 +128,20 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallReturn();
         }
 
+        /// <inheritdoc cref="IFileApi.EnsureFileDoesNotExist(String)"/>
+        public void EnsureFileDoesNotExist(String filePath)
+        {
+            LoggingHelpers.TraceCallEnter(filePath);
+
+            if (File.Exists(filePath))
+            {
+                String message = $"The file '{filePath}' already exists";
+                throw new FileAlreadyExistsException(message, filePath);
+            }
+
+            LoggingHelpers.TraceCallReturn();
+        }
+
         /// <inheritdoc cref="IFileApi.EnsureDirectoryExists(String)"/>
         public void EnsureDirectoryExists(String directoryPath)
         {
@@ -136,6 +150,20 @@ namespace Foundation.Services.Application
             if (!Directory.Exists(directoryPath))
             {
                 String message = $"The directory '{directoryPath}' does not exist or access to it is denied";
+                throw new DirectoryNotFoundException(message);
+            }
+
+            LoggingHelpers.TraceCallReturn();
+        }
+
+        /// <inheritdoc cref="IFileApi.EnsureDirectoryDoesNotExist(String)"/>
+        public void EnsureDirectoryDoesNotExist(String directoryPath)
+        {
+            LoggingHelpers.TraceCallEnter(directoryPath);
+
+            if (!Directory.Exists(directoryPath))
+            {
+                String message = $"The directory '{directoryPath}' already exists";
                 throw new DirectoryNotFoundException(message);
             }
 

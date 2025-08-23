@@ -31,7 +31,7 @@ namespace Foundation.Services.Application
             (
             )
         {
-            LoggingHelpers.TraceCallEnter(repository);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, repository);
 
             Core = core;
             RunTimeEnvironmentSettings = runTimeEnvironmentSettings;
