@@ -188,7 +188,7 @@ namespace Foundation.BusinessProcess
         public DateTime DefaultValidFromDateTime => DateTimeService.SystemDateTimeNow;
 
         /// <inheritdoc cref="ICommonBusinessProcess.DefaultValidToDateTime"/>
-        public DateTime DefaultValidToDateTime => ApplicationSettings.DefaultValidToDateTime;
+        public DateTime DefaultValidToDateTime => ApplicationDefaultValues.DefaultValidToDateTime;
 
 
         /// <inheritdoc cref="ICommonBusinessProcess.ComboBoxDisplayMember"/>

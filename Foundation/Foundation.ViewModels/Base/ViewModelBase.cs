@@ -4,12 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Common;
+using Foundation.Core;
+using Foundation.Interfaces;
+
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-
-using Foundation.Common;
-using Foundation.Interfaces;
 
 namespace Foundation.ViewModels
 {
@@ -113,7 +114,7 @@ namespace Foundation.ViewModels
             {
                 if (_loggedOnUsersList == null)
                 {
-                    _loggedOnUsersList = LoggedOnUserProcess.GetLoggedOnUsers(ApplicationSettings.ApplicationId);
+                    _loggedOnUsersList = LoggedOnUserProcess.GetLoggedOnUsers(Foundation.Core.Core.TheInstance.ApplicationId);
                 }
 
                 return _loggedOnUsersList;

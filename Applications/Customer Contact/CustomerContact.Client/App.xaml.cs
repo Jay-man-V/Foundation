@@ -47,7 +47,7 @@ namespace CustomerContact.Client
         {
             base.OnStartup(e);
 
-            CoreInstance = Core.Initialise(ApplicationSettings.ApplicationId);
+            CoreInstance = Core.Initialise();
 
             LoggingHelpers.TraceCallEnter(e);
 

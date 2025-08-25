@@ -41,8 +41,6 @@ namespace Foundation.BusinessProcess
         {
             LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, eventLogProcess, calendarProcess);
 
-            ApplicationId = ApplicationSettings.ApplicationId;
-
             EventLogProcess = eventLogProcess;
             CalendarProcess = calendarProcess;
 
@@ -64,9 +62,6 @@ namespace Foundation.BusinessProcess
         /// The calendar process.
         /// </value>
         protected ICalendarProcess CalendarProcess { get; }
-
-        /// <inheritdoc cref="IScheduledTask.ApplicationId" />
-        public AppId ApplicationId { get; }
 
         /// <inheritdoc cref="IScheduledTask.Process(LogId, String)"/>
         public abstract void Process(LogId logId, String taskParameters);

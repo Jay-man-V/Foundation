@@ -277,7 +277,7 @@ namespace Foundation.BusinessProcess
 
             const String keyName = "service.holidays.national.uk.url";
 
-            String sourceUrl = ApplicationConfigurationService.Get<String>(ApplicationSettings.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, keyName);
+            String sourceUrl = ApplicationConfigurationService.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, keyName);
             IFileTransferSettings fileTransferSettings = new FileTransferSettings
             {
                 FileTransferMethod = FileTransferMethod.Http,

@@ -8,7 +8,6 @@ using System.Data.Common;
 
 using Oracle.ManagedDataAccess.Client;
 
-using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Resources;
 
@@ -27,7 +26,7 @@ namespace Foundation.DataAccess.Database
         }
 
         /// <inheritdoc cref="IDataLogicProvider.ValidToDateString" />
-        public String ValidToDateString => ApplicationSettings.DefaultValidToDateTime.ToString(Formats.DotNet.DateTimeMilliseconds);
+        public String ValidToDateString => ApplicationDefaultValues.DefaultValidToDateTime.ToString(Formats.DotNet.DateTimeMilliseconds);
 
         /// <inheritdoc cref="IDataLogicProvider.DatabaseProviderName" />
         public String DatabaseProviderName => DataProviders.OracleClient;

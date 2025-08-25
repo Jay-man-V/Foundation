@@ -4,7 +4,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.Configuration;
 
 namespace Foundation.Interfaces
 {
@@ -14,14 +16,38 @@ namespace Foundation.Interfaces
     public interface ICore
     {
         /// <summary>
-        /// 
+        /// Gets the Application Name.
         /// </summary>
+        /// <value>
+        /// The Application Name.
+        /// </value>
+        String ApplicationName { get; }
+
+        /// <summary>
+        /// Gets the Application Id Number.
+        /// </summary>
+        /// <value>
+        /// The Application Id Number.
+        /// </value>
         AppId ApplicationId { get; }
+
+        /// <summary>
+        /// Gets the Trace Level.
+        /// </summary>
+        /// <value>
+        /// The Trace Level.
+        /// </value>
+        TraceLevel TraceLevel { get; }
 
         /// <summary>
         /// 
         /// </summary>
         IIoC IoC { get; }
+
+        /// <summary>
+        /// The .Net configuration manager
+        /// </summary>
+        ConfigurationManager ConfigurationManager { get; }
 
         /// <summary>
         /// 

@@ -168,12 +168,12 @@ namespace Foundation.ViewModels
         {
             LoggingHelpers.TraceCallEnter();
 
-            List<ILoggedOnUser> loggedOnUsers = LoggedOnUserProcess.GetLoggedOnUsers(ApplicationSettings.ApplicationId);
+            List<ILoggedOnUser> loggedOnUsers = LoggedOnUserProcess.GetLoggedOnUsers(Core.ApplicationId);
 
             GridDataSource = loggedOnUsers;
 
             ILoggedOnUser? loggedOnUser = loggedOnUsers.FirstOrDefault(lou => lou.CreatedByUserProfileId == Core.CurrentLoggedOnUser.UserProfile.Id &&
-                                                                              lou.ApplicationId == ApplicationSettings.ApplicationId);
+                                                                              lou.ApplicationId == Core.ApplicationId);
 
             if (loggedOnUser == null)
             {
@@ -185,7 +185,7 @@ namespace Foundation.ViewModels
             if (String.IsNullOrEmpty(loggedOnUser.Command)) return loggedOnUsers;
 
             // Clear any command that has been set up
-            LoggedOnUserProcess.ClearCommand(ApplicationSettings.ApplicationId, loggedOnUser);
+            LoggedOnUserProcess.ClearCommand(Core.ApplicationId, loggedOnUser);
 
             ICommandParser commandParser = Core.IoC.Get<ICommandParser>();
             commandParser.ParseCommand(loggedOnUser.Command);
@@ -279,7 +279,7 @@ namespace Foundation.ViewModels
                 try
                 {
                     thisTimer.Stop();
-                    LoggedOnUserProcess.UpdateLoggedOnUser(ApplicationSettings.ApplicationId, Core.CurrentLoggedOnUser.UserProfile);
+                    LoggedOnUserProcess.UpdateLoggedOnUser(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile);
                     OnRefreshCommand_Execute();
                 }
                 finally
@@ -317,7 +317,7 @@ namespace Foundation.ViewModels
 
             using (MouseCursor)
             {
-                LoggedOnUserProcess.SendQuitCommand(ApplicationSettings.ApplicationId, loggedOnUser);
+                LoggedOnUserProcess.SendQuitCommand(Core.ApplicationId, loggedOnUser);
             }
 
             LoggingHelpers.TraceCallReturn();
@@ -335,7 +335,7 @@ namespace Foundation.ViewModels
 
             using (MouseCursor)
             {
-                LoggedOnUserProcess.SendAbortCommand(ApplicationSettings.ApplicationId, loggedOnUser);
+                LoggedOnUserProcess.SendAbortCommand(Core.ApplicationId, loggedOnUser);
             }
 
             LoggingHelpers.TraceCallReturn();
@@ -355,7 +355,7 @@ namespace Foundation.ViewModels
             {
                 String message = "<enter message here>";
 
-                LoggedOnUserProcess.SendMessageCommand(ApplicationSettings.ApplicationId, loggedOnUser, message);
+                LoggedOnUserProcess.SendMessageCommand(Core.ApplicationId, loggedOnUser, message);
             }
 
             LoggingHelpers.TraceCallReturn();

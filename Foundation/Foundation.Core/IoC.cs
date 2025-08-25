@@ -4,12 +4,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.IO;
 using System.Reflection;
 
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 using Foundation.Interfaces;
 
@@ -20,35 +17,7 @@ namespace Foundation.Core
     /// </summary>
     public class IoC : IIoC
     {
-        private IHost TheHost { get; set; }
-        private HostApplicationBuilder HostApplicationBuilder { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public IoC()
-        {
-            HostApplicationBuilder = SetupApplicationBuilder();
-
-            Initialise(HostApplicationBuilder.Services);
-
-            TheHost = HostApplicationBuilder.Build();
-        }
-
-        private HostApplicationBuilder SetupApplicationBuilder()
-        {
-            HostApplicationBuilderSettings settings = new()
-            {
-                Configuration = new ConfigurationManager(),
-                ContentRootPath = Directory.GetCurrentDirectory(),
-            };
-
-            settings.Configuration.AddJsonFile("appSettings.json");
-
-            HostApplicationBuilder = Host.CreateApplicationBuilder(settings);
-
-            return HostApplicationBuilder;
-        }
+        internal IServiceProvider? ServiceProvider { get; set; }
 
         /// <inheritdoc cref="IIoC.Reset()"/>
         public void Reset()
@@ -65,7 +34,13 @@ namespace Foundation.Core
         /// <inheritdoc cref="IIoC.Get{TService}()"/>
         public TService Get<TService>()
         {
-            TService? retVal = TheHost.Services.GetService<TService>();
+            if (ServiceProvider == null)
+            {
+                String message = "IoC Service Provider has not been initialised.";
+                throw new ArgumentNullException(nameof(ServiceProvider), message);
+            }
+
+            TService? retVal = ServiceProvider.GetService<TService>();
 
             if (retVal == null)
             {
@@ -81,11 +56,18 @@ namespace Foundation.Core
         {
             TService? retVal = default;
 
+            if (ServiceProvider == null)
+            {
+                String message = "IoC Service Provider has not been initialised.";
+                throw new ArgumentNullException(nameof(ServiceProvider), message);
+            }
+
+
             Type? type = Type.GetType(typeName);
 
             if (type != null)
             {
-                retVal = (TService?)TheHost.Services.GetService(type);
+                retVal = (TService?)ServiceProvider.GetService(type);
             }
 
             return retVal;
@@ -94,7 +76,13 @@ namespace Foundation.Core
         /// <inheritdoc cref="IIoC.GetAll{TService}()"/>
         public IEnumerable<TService> GetAll<TService>()
         {
-            IEnumerable<TService> retVal = TheHost.Services.GetServices<TService>();
+            if (ServiceProvider == null)
+            {
+                String message = "IoC Service Provider has not been initialised.";
+                throw new ArgumentNullException(nameof(ServiceProvider), message);
+            }
+
+            IEnumerable<TService> retVal = ServiceProvider.GetServices<TService>();
 
             return retVal;
         }
@@ -119,7 +107,13 @@ namespace Foundation.Core
                 throw new ArgumentNullException(nameof(assemblyType), message);
             }
 
-            TService? retVal = TheHost.Services.GetService(assemblyType) as TService;
+            if (ServiceProvider == null)
+            {
+                String message = "IoC Service Provider has not been initialised.";
+                throw new ArgumentNullException(nameof(ServiceProvider), message);
+            }
+
+            TService? retVal = ServiceProvider.GetService(assemblyType) as TService;
 
             if (retVal == null)
             {

@@ -55,7 +55,7 @@ namespace Foundation.Services.Application
         private String RandomPasswordRuleLengthDefaultValue => "10";
         private String RandomPasswordRuleCountKey => "service.generator.password.rule.count";
         private String RandomPasswordRuleCountDefaultValue => "3";
-        private String RandomPasswordGenerateUrlKey => "service.generator.password.random.url"; // https://random-word-api.herokuapp.com/home
+        private String RandomPasswordGeneratorUrlKey => "service.generator.password.random.url"; // https://random-word-api.herokuapp.com/home
 
         //private String MemorablePasswordGenerateUrlKey => "service.generator.password.memorable.url"; // https://getmypassword.com/memorable/
 
@@ -88,7 +88,7 @@ namespace Foundation.Services.Application
 
             String passwordLengthValue = ApplicationConfigurationService.Get(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, RandomPasswordRuleLengthKey, RandomPasswordRuleLengthDefaultValue);
             String passwordCountValue = ApplicationConfigurationService.Get(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, RandomPasswordRuleCountKey, RandomPasswordRuleCountDefaultValue);
-            String passwordGeneratorUrl = ApplicationConfigurationService.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, RandomPasswordGenerateUrlKey);
+            String passwordGeneratorUrl = ApplicationConfigurationService.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, RandomPasswordGeneratorUrlKey);
             passwordGeneratorUrl = String.Format(passwordGeneratorUrl, passwordLengthValue, passwordCountValue);
 
             IFileTransferSettings fileTransferSettings = new FileTransferSettings();
@@ -102,7 +102,7 @@ namespace Foundation.Services.Application
 
             if (retVal == null)
             {
-                String message = $"Unable to generate random passwords using {RandomPasswordGenerateUrlKey} service";
+                String message = $"Unable to generate random passwords using '{RandomPasswordGeneratorUrlKey}' '({passwordGeneratorUrl})' service";
                 throw new InvalidOperationException(message);
             }
 

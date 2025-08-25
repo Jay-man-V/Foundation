@@ -13,11 +13,6 @@ namespace Foundation.Interfaces
     /// </summary>
     public interface IIoC
     {
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //IDependencyResolver DependencyResolver { get; }
-
         /// <summary>
         /// Resets the IoC setup to remove/clear all the loaded references
         /// </summary>

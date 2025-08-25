@@ -21,9 +21,9 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             ITestSupportService service = CoreInstance.IoC.Get<ITestSupportService>();
 
-            DateTime aValue = service.GetCurrentDateTime();
+            DateTime actual = service.GetCurrentDateTime();
 
-            Assert.That(aValue <= DateTime.Now);
+            Assert.That(actual <= DateTime.Now);
         }
 
         [TestCase]

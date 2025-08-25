@@ -30,10 +30,10 @@ namespace Foundation.Tests.Unit.Support
         protected String DatabaseServer = "Callisto";
         protected String BaseTemporaryOutputsPath => @"D:\Projects\JDVSoftware\TempOutputs\";
 
+        protected AppId TestingApplicationId = new AppId(1);
         protected DateTime CreatedOnDateTime => new DateTime(2000, 01, 01, 00, 00, 00, DateTimeKind.Utc);
         protected DateTime LastUpdatedOnDateTime => new DateTime(2001, 12, 31, 11, 55, 22, DateTimeKind.Utc);
         protected DateTime ValidFromDateTime => new DateTime(2000, 01, 01, 00, 00, 00, DateTimeKind.Utc);
-        protected DateTime ValidToDateTime => new DateTime(2199, 12, 31, 23, 59, 59, DateTimeKind.Utc);
         protected DateTime SystemDateTime => new DateTime(2022, 11, 28, 13, 11, 54, DateTimeKind.Utc);
         protected DateTime SystemDateTimeMs => new DateTime(2022, 11, 28, 13, 11, 54, 300, DateTimeKind.Utc);
 
@@ -76,65 +76,65 @@ namespace Foundation.Tests.Unit.Support
 
             FModels.Status obj1 = (FModels.Status)CoreInstance.IoC.Get<IStatus>();
             obj1.Id = new EntityId(-1);
-            obj1.StatusId = new EntityId(0);
+            obj1.StatusId = new EntityId(EntityStatus.Active.Id());
             obj1.CreatedByUserProfileId = new EntityId(1);
             obj1.LastUpdatedByUserProfileId = new EntityId(1);
             obj1.CreatedOn = CreatedOnDateTime;
             obj1.LastUpdatedOn = LastUpdatedOnDateTime;
             obj1.ValidFrom = ValidFromDateTime;
-            obj1.ValidTo = ValidToDateTime;
+            obj1.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
             obj1.Name = "Inactive";
             obj1.Description = "Inactive Description";
             retVal.Add(obj1);
 
             FModels.Status obj2 = (FModels.Status)CoreInstance.IoC.Get<IStatus>();
             obj2.Id = new EntityId(0);
-            obj2.StatusId = new EntityId(0);
+            obj2.StatusId = new EntityId(EntityStatus.Active.Id());
             obj2.CreatedByUserProfileId = new EntityId(1);
             obj2.LastUpdatedByUserProfileId = new EntityId(1);
             obj2.CreatedOn = CreatedOnDateTime;
             obj2.LastUpdatedOn = LastUpdatedOnDateTime;
             obj2.ValidFrom = ValidFromDateTime;
-            obj2.ValidTo = ValidToDateTime;
+            obj2.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
             obj2.Name = "Active";
             obj2.Description = "Active Description";
             retVal.Add(obj2);
 
             FModels.Status obj3 = (FModels.Status)CoreInstance.IoC.Get<IStatus>();
             obj3.Id = new EntityId(2);
-            obj3.StatusId = new EntityId(0);
+            obj3.StatusId = new EntityId(EntityStatus.Active.Id());
             obj3.CreatedByUserProfileId = new EntityId(1);
             obj3.LastUpdatedByUserProfileId = new EntityId(1);
             obj3.CreatedOn = CreatedOnDateTime;
             obj3.LastUpdatedOn = LastUpdatedOnDateTime;
             obj3.ValidFrom = ValidFromDateTime;
-            obj3.ValidTo = ValidToDateTime;
+            obj3.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
             obj3.Name = "Approved";
             obj3.Description = "Approved Description";
             retVal.Add(obj3);
 
             FModels.Status obj4 = (FModels.Status)CoreInstance.IoC.Get<IStatus>();
             obj4.Id = new EntityId(3);
-            obj4.StatusId = new EntityId(0);
+            obj4.StatusId = new EntityId(EntityStatus.Active.Id());
             obj4.CreatedByUserProfileId = new EntityId(1);
             obj4.LastUpdatedByUserProfileId = new EntityId(1);
             obj4.CreatedOn = CreatedOnDateTime;
             obj4.LastUpdatedOn = LastUpdatedOnDateTime;
             obj4.ValidFrom = ValidFromDateTime;
-            obj4.ValidTo = ValidToDateTime;
+            obj4.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
             obj4.Name = "PendingApproval";
             obj4.Description = "Pending Approval";
             retVal.Add(obj4);
 
             FModels.Status obj5 = (FModels.Status)CoreInstance.IoC.Get<IStatus>();
             obj5.Id = new EntityId(4);
-            obj5.StatusId = new EntityId(0);
+            obj5.StatusId = new EntityId(EntityStatus.Active.Id());
             obj5.CreatedByUserProfileId = new EntityId(1);
             obj5.LastUpdatedByUserProfileId = new EntityId(1);
             obj5.CreatedOn = CreatedOnDateTime;
             obj5.LastUpdatedOn = LastUpdatedOnDateTime;
             obj5.ValidFrom = ValidFromDateTime;
-            obj5.ValidTo = ValidToDateTime;
+            obj5.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
             obj5.Name = "InComplete";
             obj5.Description = "In Complete";
             retVal.Add(obj5);
@@ -158,65 +158,65 @@ namespace Foundation.Tests.Unit.Support
 
             FModels.UserProfile obj1 = (FModels.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
             obj1.Id = new EntityId(1);
-            obj1.StatusId = new EntityId(0);
+            obj1.StatusId = new EntityId(EntityStatus.Active.Id());
             obj1.CreatedByUserProfileId = new EntityId(1);
             obj1.LastUpdatedByUserProfileId = new EntityId(1);
             obj1.CreatedOn = CreatedOnDateTime;
             obj1.LastUpdatedOn = LastUpdatedOnDateTime;
             obj1.ValidFrom = ValidFromDateTime;
-            obj1.ValidTo = ValidToDateTime;
+            obj1.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
             obj1.Username = "System";
             obj1.DisplayName = "System Display Name";
             retVal.Add(obj1);
 
             FModels.UserProfile obj2 = (FModels.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
             obj2.Id = new EntityId(2);
-            obj2.StatusId = new EntityId(0);
+            obj2.StatusId = new EntityId(EntityStatus.Active.Id());
             obj2.CreatedByUserProfileId = new EntityId(1);
             obj2.LastUpdatedByUserProfileId = new EntityId(1);
             obj2.CreatedOn = CreatedOnDateTime;
             obj2.LastUpdatedOn = LastUpdatedOnDateTime;
             obj2.ValidFrom = ValidFromDateTime;
-            obj2.ValidTo = ValidToDateTime;
+            obj2.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
             obj2.Username = "EUROPA\\jayes";
             obj2.DisplayName = "Jayesh Varsani";
             retVal.Add(obj2);
 
             FModels.UserProfile obj3 = (FModels.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
             obj3.Id = new EntityId(3);
-            obj3.StatusId = new EntityId(0);
+            obj3.StatusId = new EntityId(EntityStatus.Active.Id());
             obj3.CreatedByUserProfileId = new EntityId(1);
             obj3.LastUpdatedByUserProfileId = new EntityId(1);
             obj3.CreatedOn = CreatedOnDateTime;
             obj3.LastUpdatedOn = LastUpdatedOnDateTime;
             obj3.ValidFrom = ValidFromDateTime;
-            obj3.ValidTo = ValidToDateTime;
+            obj3.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
             obj3.Username = "EUROPA\\DhanjiV";
             obj3.DisplayName = "Dhanji K Varsani";
             retVal.Add(obj3);
 
             FModels.UserProfile obj4 = (FModels.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
             obj4.Id = new EntityId(4);
-            obj4.StatusId = new EntityId(0);
+            obj4.StatusId = new EntityId(EntityStatus.Active.Id());
             obj4.CreatedByUserProfileId = new EntityId(1);
             obj4.LastUpdatedByUserProfileId = new EntityId(1);
             obj4.CreatedOn = CreatedOnDateTime;
             obj4.LastUpdatedOn = LastUpdatedOnDateTime;
             obj4.ValidFrom = ValidFromDateTime;
-            obj4.ValidTo = ValidToDateTime;
+            obj4.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
             obj4.Username = "EUROPA\\Priti";
             obj4.DisplayName = "Priti Fatania";
             retVal.Add(obj4);
 
             FModels.UserProfile obj5 = (FModels.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
             obj5.Id = new EntityId(7);
-            obj5.StatusId = new EntityId(0);
+            obj5.StatusId = new EntityId(EntityStatus.Active.Id());
             obj5.CreatedByUserProfileId = new EntityId(1);
             obj5.LastUpdatedByUserProfileId = new EntityId(1);
             obj5.CreatedOn = CreatedOnDateTime;
             obj5.LastUpdatedOn = LastUpdatedOnDateTime;
             obj5.ValidFrom = ValidFromDateTime;
-            obj5.ValidTo = ValidToDateTime;
+            obj5.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
             obj5.Username = "EUROPA\\UnitTestUserName";
             obj5.DisplayName = "UnitTestUserName DisplayName";
             retVal.Add(obj5);
@@ -256,15 +256,37 @@ namespace Foundation.Tests.Unit.Support
             DateTimeService.SystemDateTimeNowWithoutMilliseconds.Returns(SystemDateTime);
             DateTimeService.SystemDateTimeNow.Returns(SystemDateTimeMs);
 
-            _ = new LoggingHelpers(RunTimeEnvironmentSettings, DateTimeService);
-
             IUserProfile userProfile = new FModels.UserProfile
             {
                 Id = new EntityId(1),
+                StatusId = new EntityId(EntityStatus.Active.Id()),
+                CreatedOn = CreatedOnDateTime,
+                LastUpdatedOn = LastUpdatedOnDateTime,
+                ValidFrom = ValidFromDateTime,
+                ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
+
                 DisplayName = UserSecuritySupport.UnitTestAccountDisplayName,
                 IsSystemSupport = true,
                 Username = $@"{UserSecuritySupport.UnitTestAccountDomain}\{UserSecuritySupport.UnitTestAccountUserName}",
             };
+
+            IApplication application = new FModels.Application
+            {
+                Id = TestingApplicationId,
+                StatusId = new EntityId(EntityStatus.Active.Id()),
+                CreatedOn = CreatedOnDateTime,
+                LastUpdatedOn = LastUpdatedOnDateTime,
+                ValidFrom = ValidFromDateTime,
+                ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
+
+                CreatedByUserProfileId = userProfile.Id,
+                LastUpdatedByUserProfileId = userProfile.Id,
+                Name = "Unit Testing",
+                Description = "Unit Testing suite",
+            };
+
+            IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
+            applicationProcess.Get(TestingApplicationId).Returns(application);
 
             IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
             userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(userProfile);
@@ -272,8 +294,10 @@ namespace Foundation.Tests.Unit.Support
             ILoggedOnUserProcess loggedOnUserProcess = Substitute.For<ILoggedOnUserProcess>();
             loggedOnUserProcess.LogOnUser(Arg.Any<AppId>(), Arg.Any<IUserProfile>());
 
-            CoreInstance = Core.Core.Initialise(ApplicationSettings.ApplicationId, RunTimeEnvironmentSettings, userProfileProcess, loggedOnUserProcess);
+            CoreInstance = Core.Core.Initialise(null, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, loggedOnUserProcess);
             CoreInstance.CurrentLoggedOnUser.SetLoggedOnUser(userProfile);
+
+            _ = new LoggingHelpers(CoreInstance, RunTimeEnvironmentSettings, DateTimeService);
 
             ApplicationConfigurationService = Substitute.For<IApplicationConfigurationService>();
             ApplicationConfigurationService.Get<String>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostUsername).Returns(EmailSmtpHostUsername);
@@ -325,15 +349,9 @@ namespace Foundation.Tests.Unit.Support
         {
             //UserSecuritySupport.RemoveUnitTestUserOnLocalComputer(UserSecuritySupport.UnitTestAccountUserName);
 
-            if (StatusRepository != null)
-            {
-                StatusRepository.Dispose();
-            }
+            StatusRepository?.Dispose();
 
-            if (UserProfileRepository != null)
-            {
-                UserProfileRepository.Dispose();
-            }
+            UserProfileRepository?.Dispose();
 
             StatusRepository = null;
             UserProfileRepository = null;
@@ -402,7 +420,7 @@ namespace Foundation.Tests.Unit.Support
             String retVal = inputString;
 
             String[] patterns =
-            {
+            [
                 @"file:\/\/\/(.*\\)",
                 @"([a-zA-Z]:[\\/]{1}.+[\\\/])",
                 @"\w.\\\w.{1,}\\(Out|Debug)",
@@ -411,11 +429,11 @@ namespace Foundation.Tests.Unit.Support
                 @"\w.\\\w.{1,}\\Foundation.Net\\",
                 @"\w.\\\w.{1,}\\netcoreapp\d\.\d",
                 "<<Output Folder>>(Debug|Out)",
-            };
+            ];
 
             foreach (String pattern in patterns)
             {
-                Regex regex = new Regex(pattern);
+                Regex regex = new (pattern);
                 Match match = regex.Match(retVal);
                 if (match.Success)
                 {
@@ -438,7 +456,7 @@ namespace Foundation.Tests.Unit.Support
 
             foreach (String pattern in patterns)
             {
-                Regex regex = new Regex(pattern);
+                Regex regex = new (pattern);
                 Match match = regex.Match(retVal);
                 if (match.Success)
                 {

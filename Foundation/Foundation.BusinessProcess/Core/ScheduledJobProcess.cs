@@ -283,7 +283,7 @@ namespace Foundation.BusinessProcess
             String processName = nameof(ScheduledJobProcess);
             String taskName = LocationUtils.GetFunctionName();
 
-            LogId logId = LoggingService.CreateLogEntry(parentLogId, ApplicationSettings.ApplicationId, batchName, processName, taskName, LogSeverity.Information, "Stopping jobs");
+            LogId logId = LoggingService.CreateLogEntry(parentLogId, Core.ApplicationId, batchName, processName, taskName, LogSeverity.Information, "Stopping jobs");
 
             foreach (var kvpScheduledJob in ScheduledTimers)
             {
@@ -582,7 +582,7 @@ namespace Foundation.BusinessProcess
                     String processName = scheduledJob.GetType().ToString();
                     String taskName = "Task starting";
 
-                    logId = LoggingService.StartTask(scheduledJob.ScheduledTask.ApplicationId, batchName, processName, taskName);
+                    logId = LoggingService.StartTask(Core.ApplicationId, batchName, processName, taskName);
 
                     scheduledJob.IsRunning = true;
                     scheduledJob.LastRunDateTime = DateTimeService.SystemDateTimeNowWithoutMilliseconds;
@@ -635,7 +635,7 @@ namespace Foundation.BusinessProcess
                 String processName = scheduledTask.GetType().ToString();
                 String taskName = "Task starting";
 
-                logId = LoggingService.StartTask(scheduledTask.ApplicationId, batchName, processName, taskName);
+                logId = LoggingService.StartTask(Core.ApplicationId, batchName, processName, taskName);
 
                 if (scheduledJob.IsEnabled)
                 {

@@ -38,7 +38,7 @@ namespace Foundation.ViewModels
                 runTimeEnvironmentSettings,
                 dateTimeService,
                 wpfApplicationObjects,
-                ApplicationSettings.ApplicationName
+                core.ApplicationName
             )
         {
             LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, wpfApplicationObjects, isSplashScreen);

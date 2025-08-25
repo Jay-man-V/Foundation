@@ -11,6 +11,7 @@ using Foundation.Resources;
 using Foundation.Services.Application;
 
 using Foundation.Tests.Unit.Support;
+using NSubstitute.ClearExtensions;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application
 {
@@ -33,6 +34,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 
             TheService = new PasswordGeneratorService(CoreInstance, ApplicationConfigurationService, RestApi, RandomService);
         }
+
         [TestCase]
         public void Test_GeneratePassword()
         {
@@ -46,6 +48,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 
             Assert.That(actual, Is.Not.EqualTo(expectedPassword));
         }
+
         [TestCase]
         public void Test_GenerateMultiplePasswords()
         {
@@ -58,9 +61,34 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(actual, Is.Not.EqualTo(expectedPasswords));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        [TestCase]
+        public void Test_GenerateMultiplePasswords_Exception()
+        {
+            String passwordGenerateUrl = "https://random-word-api.herokuapp.com/home";
+            String randomPasswordGenerateUrlKey = "service.generator.password.random.url";
+            String errorMessage = $"Unable to generate random passwords using '{randomPasswordGenerateUrlKey}' '({passwordGenerateUrl})' service";
+            InvalidOperationException? actualException = null;
+
+            RestApi!.ClearSubstitute();
+
+            ApplicationConfigurationService.Get<String>(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), randomPasswordGenerateUrlKey).Returns(passwordGenerateUrl);
+
+            try
+            {
+                _ = TheService!.GenerateMultiplePasswords();
+            }
+            catch (InvalidOperationException exception)
+            {
+                actualException = exception;
+            }
+
+            Assert.That(actualException, Is.Not.EqualTo(null));
+
+            String actualErrorMessage = actualException.Message;
+
+            Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
+        }
+
         [TestCase]
         public void Test_RandomPassword()
         {
