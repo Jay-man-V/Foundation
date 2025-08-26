@@ -161,10 +161,10 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter(directoryPath);
 
-            if (!Directory.Exists(directoryPath))
+            if (Directory.Exists(directoryPath))
             {
                 String message = $"The directory '{directoryPath}' already exists";
-                throw new DirectoryNotFoundException(message);
+                throw new DirectoryAlreadyExistsException(message, directoryPath);
             }
 
             LoggingHelpers.TraceCallReturn();

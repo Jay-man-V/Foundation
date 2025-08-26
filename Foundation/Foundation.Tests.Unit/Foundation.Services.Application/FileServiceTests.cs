@@ -162,6 +162,40 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         }
 
         [TestCase]
+        public void Test_EnsureFileDoesNotExist_True()
+        {
+            String filePath = $@".Support\SampleDocuments\{Guid.NewGuid()}";
+
+            TheService!.EnsureFileDoesNotExist(filePath);
+        }
+
+        [TestCase]
+        [DeploymentItem(@".Support\SampleDocuments\Blank_10x10.bmp", @".Support\SampleDocuments\")]
+        public void Test_EnsureFileDoesNotExist_False()
+        {
+            String filePath = @".Support\SampleDocuments\Blank_10x10.bmp";
+            String errorMessage = $"The file '{filePath}' already exists";
+            FileAlreadyExistsException? actualException = null;
+
+            try
+            {
+                TheService!.EnsureFileDoesNotExist(filePath);
+            }
+            catch (FileAlreadyExistsException exception)
+            {
+                actualException = exception;
+            }
+
+            Assert.That(actualException, Is.Not.EqualTo(null));
+
+            String actualErrorMessage = actualException.Message;
+            String actualErrorFileName = actualException.FilePath;
+
+            Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
+            Assert.That(actualErrorFileName, Is.EqualTo(filePath));
+        }
+
+        [TestCase]
         [DeploymentItem(@".Support\SampleDocuments\Blank_10x10.bmp", @".Support\SampleDocuments\")]
         public void Test_EnsureDirectoryExists_True()
         {
@@ -191,6 +225,40 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             String actualErrorMessage = actualException.Message;
 
             Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
+        }
+
+        [TestCase]
+        public void Test_EnsureDirectoryDoesNotExist_True()
+        {
+            String filePath = $@".Support\SampleDocuments\{Guid.NewGuid()}";
+
+            TheService!.EnsureDirectoryDoesNotExist(filePath);
+        }
+
+        [TestCase]
+        [DeploymentItem(@".Support\SampleDocuments\Blank_10x10.bmp", @".Support\SampleDocuments\")]
+        public void Test_EnsureDirectoryDoesNotExist_False()
+        {
+            String directoryPath = @".Support\SampleDocuments\";
+            String errorMessage = $"The directory '{directoryPath}' already exists";
+            DirectoryAlreadyExistsException? actualException = null;
+
+            try
+            {
+                TheService!.EnsureDirectoryDoesNotExist(directoryPath);
+            }
+            catch (DirectoryAlreadyExistsException exception)
+            {
+                actualException = exception;
+            }
+
+            Assert.That(actualException, Is.Not.EqualTo(null));
+
+            String actualErrorMessage = actualException.Message;
+            String actualDirectoryPath = actualException.DirectoryPath;
+
+            Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
+            Assert.That(actualDirectoryPath, Is.EqualTo(directoryPath));
         }
 
         /// <summary>

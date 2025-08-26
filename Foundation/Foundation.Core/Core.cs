@@ -69,6 +69,7 @@ namespace Foundation.Core
         )
         {
             // https://learn.microsoft.com/en-us/dotnet/core/extensions/generic-host?tabs=appbuilder
+            // https://stackoverflow.com/questions/46940710/getting-value-from-appsettings-json-in-net-core
 
             if (_coreInstance == null)
             {
@@ -156,7 +157,7 @@ namespace Foundation.Core
         public TraceLevel TraceLevel => TheTraceLevel;
 
         /// <inheritdoc cref="ICore.IoC"/>
-        public IIoC IoC => TheIoC;
+        public IIoC IoC => TheIoC!;
 
         /// <inheritdoc cref="ICore.ConfigurationManager"/>
         public ConfigurationManager ConfigurationManager => TheConfigurationManager;
