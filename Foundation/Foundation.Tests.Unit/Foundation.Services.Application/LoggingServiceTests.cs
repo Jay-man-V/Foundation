@@ -16,15 +16,23 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
     public class LoggingServiceTests : UnitTestBase
     {
         private ILoggingService? TheService { get; set; }
-        private IEventLogRepository EventLogRepository { get; set; }
+        private IEventLogRepository? TheRepository { get; set; }
 
         public override void TestInitialise()
         {
             base.TestInitialise();
 
-            EventLogRepository = Substitute.For<IEventLogRepository>();
+            TheRepository = Substitute.For<IEventLogRepository>();
 
-            TheService = new LoggingService(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, EventLogRepository);
+            TheService = new LoggingService(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, TheRepository);
+        }
+
+        public override void TestCleanup()
+        {
+            TheRepository!.Dispose();
+            TheRepository = null;
+
+            base.TestCleanup();
         }
 
         [TestCase]
