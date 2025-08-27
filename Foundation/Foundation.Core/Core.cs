@@ -69,7 +69,7 @@ namespace Foundation.Core
         )
         {
             // https://learn.microsoft.com/en-us/dotnet/core/extensions/generic-host?tabs=appbuilder
-            // https://stackoverflow.com/questions/46940710/getting-value-from-appsettings-json-in-net-core
+            // https://stackoverflow.com/questions/46940710/getting-value-from-appsettings-json-in-net-core - Options pattern
 
             if (_coreInstance == null)
             {

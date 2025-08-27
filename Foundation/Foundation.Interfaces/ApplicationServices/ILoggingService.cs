@@ -42,16 +42,16 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="logId"></param>
         /// <param name="logSeverity"></param>
-        /// <param name="exception"></param>
-        void EndTask(LogId logId, LogSeverity logSeverity, Exception exception);
+        /// <param name="information"></param>
+        void EndTask(LogId logId, LogSeverity logSeverity, String information);
 
         /// <summary>
         /// Logs an End Task message with the supplied parameters
         /// </summary>
         /// <param name="logId"></param>
         /// <param name="logSeverity"></param>
-        /// <param name="information"></param>
-        void EndTask(LogId logId, LogSeverity logSeverity, String information);
+        /// <param name="exception"></param>
+        void EndTask(LogId logId, LogSeverity logSeverity, Exception exception);
 
         /// <summary>
         /// Creates a log entry with the supplied parameters

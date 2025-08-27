@@ -84,18 +84,6 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
-        /// <inheritdoc cref="ILoggingService.EndTask(LogId, LogSeverity, Exception)"/>
-        public void EndTask(LogId logId, LogSeverity logSeverity, Exception exception)
-        {
-            LoggingHelpers.TraceCallEnter(logId, logSeverity, exception);
-
-            ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, DateTimeService, exception);
-
-            EndTask(logId, logSeverity, exceptionOutput.ToString());
-
-            LoggingHelpers.TraceCallReturn();
-        }
-
         /// <inheritdoc cref="ILoggingService.EndTask(LogId, LogSeverity, String)" />
         public void EndTask(LogId logId, LogSeverity logSeverity, String information)
         {
@@ -120,10 +108,22 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallReturn();
         }
 
+        /// <inheritdoc cref="ILoggingService.EndTask(LogId, LogSeverity, Exception)"/>
+        public void EndTask(LogId logId, LogSeverity logSeverity, Exception exception)
+        {
+            LoggingHelpers.TraceCallEnter(logId, logSeverity, exception);
+
+            ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, DateTimeService, exception);
+
+            EndTask(logId, logSeverity, exceptionOutput.ToString());
+
+            LoggingHelpers.TraceCallReturn();
+        }
+
         /// <inheritdoc cref="ILoggingService.CreateLogEntry(LogId, AppId, String, String, String, LogSeverity, String)" />
         public LogId CreateLogEntry(LogId parentLogId, AppId applicationId, String batchName, String processName, String taskName, LogSeverity logSeverity, String information)
         {
-            LoggingHelpers.TraceCallEnter(parentLogId, batchName, processName, taskName, logSeverity);
+            LoggingHelpers.TraceCallEnter(parentLogId, batchName, processName, taskName, logSeverity, information);
 
             LogId retVal;
 
