@@ -47,6 +47,6 @@ namespace Foundation.Interfaces
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>A string that represents the current object.</returns>
-        string? ToString();
+        String? ToString();
     }
 }

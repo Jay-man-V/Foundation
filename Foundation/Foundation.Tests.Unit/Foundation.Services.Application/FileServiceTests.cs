@@ -1236,6 +1236,29 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [DeploymentItem(@".Support\SampleDocuments\Sample Text Document.txt", @".Support\SampleDocuments\")]
         [DeploymentItem(@".Support\SampleDocuments\32BitColour_16x16.bmp", @".Support\SampleDocuments\")]
         [DeploymentItem(@".Support\SampleDocuments\Sample PDF Document.pdf", @".Support\SampleDocuments\")]
+        public void Test_RemoteServiceAPI_UploadFile(String sourceFile)
+        {
+            String targetLocation = Guid.NewGuid().ToString();
+            IFileTransferSettings fileTransferSettings = new FileTransferSettings
+            {
+                FileTransferMethod = FileTransferMethod.FileSystem,
+                Location = targetLocation,
+            };
+
+            Stream fileContent = File.OpenRead(sourceFile);
+
+            String newLocation = TheService!.UploadFile(fileTransferSettings, sourceFile);
+
+            Stream actualFileContent = File.OpenRead(newLocation);
+            Assert.That(actualFileContent, Is.EqualTo(fileContent));
+        }
+
+        [TestCase(@".Support\SampleDocuments\Sample Text Document.txt")]
+        [TestCase(@".Support\SampleDocuments\32BitColour_16x16.bmp")]
+        [TestCase(@".Support\SampleDocuments\Sample PDF Document.pdf")]
+        [DeploymentItem(@".Support\SampleDocuments\Sample Text Document.txt", @".Support\SampleDocuments\")]
+        [DeploymentItem(@".Support\SampleDocuments\32BitColour_16x16.bmp", @".Support\SampleDocuments\")]
+        [DeploymentItem(@".Support\SampleDocuments\Sample PDF Document.pdf", @".Support\SampleDocuments\")]
         public void Test_RemoteServiceAPI_UploadFileAsStream(String sourceFile)
         {
             String targetLocation = Guid.NewGuid().ToString();
@@ -1248,6 +1271,32 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Stream fileContent = File.OpenRead(sourceFile);
 
             String newLocation = TheService!.UploadFile(fileTransferSettings, fileContent);
+
+            Stream actualFileContent = File.OpenRead(newLocation);
+            Assert.That(actualFileContent, Is.EqualTo(fileContent));
+        }
+
+        [TestCase(@".Support\SampleDocuments\Sample Text Document.txt")]
+        [TestCase(@".Support\SampleDocuments\32BitColour_16x16.bmp")]
+        [TestCase(@".Support\SampleDocuments\Sample PDF Document.pdf")]
+        [DeploymentItem(@".Support\SampleDocuments\Sample Text Document.txt", @".Support\SampleDocuments\")]
+        [DeploymentItem(@".Support\SampleDocuments\32BitColour_16x16.bmp", @".Support\SampleDocuments\")]
+        [DeploymentItem(@".Support\SampleDocuments\Sample PDF Document.pdf", @".Support\SampleDocuments\")]
+        public void Test_RemoteServiceAPI_UploadFile_Async(String sourceFile)
+        {
+            String targetLocation = Guid.NewGuid().ToString();
+            IFileTransferSettings fileTransferSettings = new FileTransferSettings
+            {
+                FileTransferMethod = FileTransferMethod.FileSystem,
+                Location = targetLocation,
+            };
+
+            Stream fileContent = File.OpenRead(sourceFile);
+
+            Task<String> t = TheService!.UploadFileAsync(fileTransferSettings, sourceFile);
+
+            t.Wait();
+            String newLocation = t.Result;
 
             Stream actualFileContent = File.OpenRead(newLocation);
             Assert.That(actualFileContent, Is.EqualTo(fileContent));

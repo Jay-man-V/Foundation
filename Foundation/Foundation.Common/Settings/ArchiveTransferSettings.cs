@@ -6,6 +6,8 @@
 
 using Foundation.Interfaces;
 
+using Newtonsoft.Json;
+
 namespace Foundation.Common
 {
     /// <inheritdoc cref="IArchiveTransferSettings"/>
@@ -18,5 +20,13 @@ namespace Foundation.Common
 
         /// <inheritdoc cref="IArchiveTransferSettings.DeleteSourceFile"/>
         public Boolean DeleteSourceFile { get; set; }
+
+        /// <inheritdoc cref="IFileTransferSettings.ToString()"/>
+        public override String ToString()
+        {
+            String retVal = JsonConvert.SerializeObject(this);
+
+            return retVal;
+        }
     }
 }

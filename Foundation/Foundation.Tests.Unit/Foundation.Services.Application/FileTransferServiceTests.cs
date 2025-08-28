@@ -4,12 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using NSubstitute;
-
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Services.Application;
 using Foundation.Tests.Unit.Support;
+
+using NSubstitute;
+
+using System.Text;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application
 {
@@ -19,147 +21,158 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
     [TestFixture]
     public class FileTransferServiceTests : UnitTestBase
     {
+        private const String SourceValueString = "AbCdEfGhIjKlMnOpQrStUvWxYz1234567980!£$%^&*()_+";
+        private Byte[] SourceValueBytes => Encoding.UTF8.GetBytes(SourceValueString);
+
         private IFileTransferService? TheService { get; set; }
+        private IFileApi FileApi { get; set; }
 
         public override void TestInitialise()
         {
             base.TestInitialise();
 
             IEmailApi emailApi = Substitute.For<IEmailApi>();
-            IFileApi fileApi = Substitute.For<IFileApi>();
+            FileApi = Substitute.For<IFileApi>();
             IHttpApi httpApi = Substitute.For<IHttpApi>();
             IFtpApi ftpApi = Substitute.For<IFtpApi>();
             IRestApi restApi = Substitute.For<IRestApi>();
             IMqApi mqApi = Substitute.For<IMqApi>();
 
-            TheService = new FileTransferService(emailApi, fileApi, httpApi, ftpApi, restApi, mqApi);
+            TheService = new FileTransferService(emailApi, FileApi, httpApi, ftpApi, restApi, mqApi);
         }
 
-        [TestCase(@".Support\SampleDocuments\Sample Text Document.txt")]
-        [TestCase(@".Support\SampleDocuments\32BitColour_16x16.bmp")]
-        [TestCase(@".Support\SampleDocuments\Sample PDF Document.pdf")]
-        [DeploymentItem(@".Support\SampleDocuments\Sample Text Document.txt", @".Support\SampleDocuments\")]
-        [DeploymentItem(@".Support\SampleDocuments\32BitColour_16x16.bmp", @".Support\SampleDocuments\")]
-        [DeploymentItem(@".Support\SampleDocuments\Sample PDF Document.pdf", @".Support\SampleDocuments\")]
-        public void Test_FileSystem_GetStream(String sourceFile)
+        [TestCase]
+        public void Test_TransferFile_Exception()
         {
-            //IFileTransferSettings fileTransferSettings = new FileTransferSettings
-            //{
-            //    FileTransferMethod = FileTransferMethod.FileSystem,
-            //    Location = sourceFile,
-            //};
+            IFileTransferSettings fileTransferSettings = new FileTransferSettings
+            {
+                FileTransferMethod = FileTransferMethod.FileSystem,
+                Location = Guid.NewGuid().ToString(),
+            };
 
-            //Stream fileContent = TheService!.TransferFile(fileTransferSettings);
+            String errorMessage = $"Unable to retrieve file from source '{fileTransferSettings}'";
+            InvalidOperationException? actualException = null;
 
-            //Stream actualFileContent = File.OpenRead(sourceFile);
-            //Assert.That(actualFileContent, Is.EqualTo(fileContent));
+            Stream? aStream = null;
+            FileApi.GetFileContentsAsStream(fileTransferSettings.Location).Returns(aStream);
+
+            try
+            {
+                _ = TheService!.TransferFile(fileTransferSettings);
+            }
+            catch (InvalidOperationException exception)
+            {
+                actualException = exception;
+            }
+
+            Assert.That(actualException, Is.Not.EqualTo(null));
+            Assert.That(errorMessage, Is.EqualTo(actualException.Message));
         }
 
-        [TestCase(@".Support\SampleDocuments\Sample Text Document.txt")]
-        [TestCase(@".Support\SampleDocuments\32BitColour_16x16.bmp")]
-        [TestCase(@".Support\SampleDocuments\Sample PDF Document.pdf")]
-        [DeploymentItem(@".Support\SampleDocuments\Sample Text Document.txt", @".Support\SampleDocuments\")]
-        [DeploymentItem(@".Support\SampleDocuments\32BitColour_16x16.bmp", @".Support\SampleDocuments\")]
-        [DeploymentItem(@".Support\SampleDocuments\Sample PDF Document.pdf", @".Support\SampleDocuments\")]
-        public void Test_FileSystem_Move(String sourceFile)
+        [TestCase]
+        public void Test_FileSystem_GetStream()
         {
-            //IFileApi fileApi = CoreInstance.IoC.Get<IFileApi>();
+            IFileTransferSettings fileTransferSettings = new FileTransferSettings
+            {
+                FileTransferMethod = FileTransferMethod.FileSystem,
+                Location = Guid.NewGuid().ToString(),
+            };
 
-            //String workingSourceFolder = @".Support\SampleDocuments\FileTransferService\CopySource";
-            //Directory.CreateDirectory(workingSourceFolder);
-            //String workingSourceFile = Path.Combine(workingSourceFolder, Path.GetFileName(sourceFile));
-            //fileApi.CopyFile(sourceFile, workingSourceFile);
+            Stream aStream = new MemoryStream(SourceValueBytes);
 
-            //IFileTransferSettings sourceFileTransferSettings = new FileTransferSettings
-            //{
-            //    FileTransferMethod = FileTransferMethod.FileSystem,
-            //    Location = workingSourceFile,
-            //};
-            //MemoryStream sourceFileStream = new MemoryStream();
-            //using (Stream tempFileStream = fileApi.GetFileContentsAsStream(sourceFileTransferSettings.Location))
-            //{
-            //    tempFileStream.CopyTo(sourceFileStream);
-            //}
+            FileApi.GetFileContentsAsStream(fileTransferSettings.Location).Returns(aStream);
 
-            //String destinationFolder = @".Support\SampleDocuments\FileTransferService\CopyDestination";
-            //Directory.CreateDirectory(destinationFolder);
+            MemoryStream fileContentStream = (MemoryStream)TheService!.TransferFile(fileTransferSettings);
 
-            //IFileTransferSettings destinationFileTransferSettings = new FileTransferSettings
-            //{
-            //    FileTransferMethod = FileTransferMethod.FileSystem,
-            //    Location = Path.Combine(destinationFolder, Guid.NewGuid().ToString()),
-            //};
+            Byte[] fileContent = fileContentStream.ToArray();
 
-            //String archiveFolder = @".Support\SampleDocuments\FileTransferService\Archive";
-            //Directory.CreateDirectory(archiveFolder);
-
-            //IArchiveTransferSettings archiveFileTransferSettings = new ArchiveTransferSettings
-            //{
-            //    FileTransferArchiveAction = FileTransferArchiveAction.Move,
-            //    FileTransferMethod = FileTransferMethod.FileSystem,
-            //    Location = Path.Combine(archiveFolder, Guid.NewGuid().ToString()),
-            //};
-
-            //TheService!.TransferFile(sourceFileTransferSettings, destinationFileTransferSettings, archiveFileTransferSettings);
-
-            //Boolean sourceFileExists = fileApi.DoesFileExist(sourceFileTransferSettings.Location);
-            //Assert.That(sourceFileExists, Is.EqualTo(false));
-
-            //Boolean destinationFileExists = fileApi.DoesFileExist(destinationFileTransferSettings.Location);
-            //Assert.That(destinationFileExists, Is.EqualTo(true));
-
-            //Stream destinationFileStream = fileApi.GetFileContentsAsStream(destinationFileTransferSettings.Location);
-
-            //Assert.That(sourceFileStream, Is.EqualTo(destinationFileStream));
+            Assert.That(fileContent, Is.EqualTo(SourceValueBytes));
         }
 
-        [TestCase(@".Support\SampleDocuments\Sample Text Document.txt")]
-        [TestCase(@".Support\SampleDocuments\32BitColour_16x16.bmp")]
-        [TestCase(@".Support\SampleDocuments\Sample PDF Document.pdf")]
-        [DeploymentItem(@".Support\SampleDocuments\Sample Text Document.txt", @".Support\SampleDocuments\")]
-        [DeploymentItem(@".Support\SampleDocuments\32BitColour_16x16.bmp", @".Support\SampleDocuments\")]
-        [DeploymentItem(@".Support\SampleDocuments\Sample PDF Document.pdf", @".Support\SampleDocuments\")]
-        public void Test_FileSystem_Copy(String sourceFile)
+        [TestCase]
+        public void Test_FileSystem_Move()
         {
-            //IFileApi fileApi = CoreInstance.IoC.Get<IFileApi>();
+            IFileTransferSettings sourceFileTransferSettings = new FileTransferSettings
+            {
+                FileTransferMethod = FileTransferMethod.FileSystem,
+                Location = Guid.NewGuid().ToString(),
+            };
 
-            //IFileTransferSettings sourceFileTransferSettings = new FileTransferSettings
-            //{
-            //    FileTransferMethod = FileTransferMethod.FileSystem,
-            //    Location = sourceFile,
-            //};
-            //Stream sourceFileStream = fileApi.GetFileContentsAsStream(sourceFileTransferSettings.Location);
+            IFileTransferSettings destinationFileTransferSettings = new FileTransferSettings
+            {
+                FileTransferMethod = FileTransferMethod.FileSystem,
+                Location = Guid.NewGuid().ToString(),
+            };
 
-            //String destinationFolder = @".Support\SampleDocuments\FileTransferService\CopyDestination";
-            //Directory.CreateDirectory(destinationFolder);
+            IArchiveTransferSettings archiveFileTransferSettings = new ArchiveTransferSettings
+            {
+                FileTransferArchiveAction = FileTransferArchiveAction.Move,
+                FileTransferMethod = FileTransferMethod.FileSystem,
+                Location = Guid.NewGuid().ToString(),
+            };
 
-            //IFileTransferSettings destinationFileTransferSettings = new FileTransferSettings
-            //{
-            //    FileTransferMethod = FileTransferMethod.FileSystem,
-            //    Location = Path.Combine(destinationFolder, Guid.NewGuid().ToString()),
-            //};
+            Stream aStream = new MemoryStream(SourceValueBytes);
+            FileApi.GetFileContentsAsStream(sourceFileTransferSettings.Location).Returns(aStream);
 
-            //String archiveFolder = @".Support\SampleDocuments\FileTransferService\Archive";
-            //Directory.CreateDirectory(archiveFolder);
+            Stream? destinationStream = null;
+            FileApi.UploadFile(destinationFileTransferSettings, Arg.Do<Stream>(s => destinationStream = s));
 
-            //IArchiveTransferSettings archiveFileTransferSettings = new ArchiveTransferSettings
-            //{
-            //    FileTransferArchiveAction = FileTransferArchiveAction.Copy,
-            //    FileTransferMethod = FileTransferMethod.FileSystem,
-            //    Location = Path.Combine(archiveFolder, Guid.NewGuid().ToString()),
-            //};
+            Stream? archiveStream = null;
+            FileApi.UploadFile(archiveFileTransferSettings, Arg.Do<Stream>(s => archiveStream = s));
 
-            //TheService!.TransferFile(sourceFileTransferSettings, destinationFileTransferSettings, archiveFileTransferSettings);
+            TheService!.TransferFile(sourceFileTransferSettings, destinationFileTransferSettings, archiveFileTransferSettings);
 
-            //Boolean sourceFileExists = fileApi.DoesFileExist(sourceFileTransferSettings.Location);
-            //Assert.That(sourceFileExists, Is.EqualTo(true));
+            Assert.That(destinationStream, Is.Not.EqualTo(null));
+            Byte[] destinationContent = ((MemoryStream)destinationStream).ToArray();
+            Assert.That(destinationContent, Is.EqualTo(SourceValueBytes));
 
-            //Boolean destinationFileExists = fileApi.DoesFileExist(destinationFileTransferSettings.Location);
-            //Assert.That(destinationFileExists, Is.EqualTo(true));
+            Assert.That(archiveStream, Is.Not.EqualTo(null));
+            Byte[] archiveContent = ((MemoryStream)archiveStream).ToArray();
+            Assert.That(archiveContent, Is.EqualTo(SourceValueBytes));
 
-            //Stream destinationFileStream = fileApi.GetFileContentsAsStream(sourceFileTransferSettings.Location);
+            FileApi.Received().DeleteFile(sourceFileTransferSettings);
+        }
 
-            //Assert.That(sourceFileStream, Is.EqualTo(destinationFileStream));
+        [TestCase]
+        public void Test_FileSystem_Copy()
+        {
+            IFileTransferSettings sourceFileTransferSettings = new FileTransferSettings
+            {
+                FileTransferMethod = FileTransferMethod.FileSystem,
+                Location = Guid.NewGuid().ToString(),
+            };
+
+            IFileTransferSettings destinationFileTransferSettings = new FileTransferSettings
+            {
+                FileTransferMethod = FileTransferMethod.FileSystem,
+                Location = Guid.NewGuid().ToString(),
+            };
+
+            IArchiveTransferSettings archiveFileTransferSettings = new ArchiveTransferSettings
+            {
+                FileTransferArchiveAction = FileTransferArchiveAction.Move,
+                FileTransferMethod = FileTransferMethod.FileSystem,
+                Location = Guid.NewGuid().ToString(),
+            };
+
+            Stream aStream = new MemoryStream(SourceValueBytes);
+            FileApi.GetFileContentsAsStream(sourceFileTransferSettings.Location).Returns(aStream);
+
+            Stream? destinationStream = null;
+            FileApi.UploadFile(destinationFileTransferSettings, Arg.Do<Stream>(s => destinationStream = s));
+
+            Stream? archiveStream = null;
+            FileApi.UploadFile(archiveFileTransferSettings, Arg.Do<Stream>(s => archiveStream = s));
+
+            TheService!.TransferFile(sourceFileTransferSettings, destinationFileTransferSettings, archiveFileTransferSettings);
+
+            Assert.That(destinationStream, Is.Not.EqualTo(null));
+            Byte[] destinationContent = ((MemoryStream)destinationStream).ToArray();
+            Assert.That(destinationContent, Is.EqualTo(SourceValueBytes));
+
+            Assert.That(archiveStream, Is.Not.EqualTo(null));
+            Byte[] archiveContent = ((MemoryStream)archiveStream).ToArray();
+            Assert.That(archiveContent, Is.EqualTo(SourceValueBytes));
         }
     }
 }
