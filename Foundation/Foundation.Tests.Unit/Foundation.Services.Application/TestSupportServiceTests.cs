@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 
 using Foundation.Interfaces;
+using Foundation.Services.Application;
 
 using Foundation.Tests.Unit.Support;
 
@@ -16,12 +17,19 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
     [TestFixture]
     public class TestSupportServiceTests : UnitTestBase
     {
+        private ITestSupportService? TheService { get; set; }
+
+        public override void TestInitialise()
+        {
+            base.TestInitialise();
+
+            TheService = new TestSupportService();
+        }
+
         [TestCase]
         public void Test_GetCurrentDateTime()
         {
-            ITestSupportService service = CoreInstance.IoC.Get<ITestSupportService>();
-
-            DateTime actual = service.GetCurrentDateTime();
+            DateTime actual = TheService!.GetCurrentDateTime();
 
             Assert.That(actual <= DateTime.Now);
         }
@@ -29,9 +37,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_SimulateLongTask()
         {
-            ITestSupportService service = CoreInstance.IoC.Get<ITestSupportService>();
-
-            service.SimulateLongTask();
+            TheService!.SimulateLongTask();
         }
     }
 }

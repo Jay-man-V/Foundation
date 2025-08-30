@@ -281,7 +281,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_DoesFileExist_False()
         {
-            String filePath = "Fake filename" + Guid.NewGuid().ToString();
+            String filePath = $"Fake filename - {Guid.NewGuid()}" + Guid.NewGuid();
             const Boolean expected = false;
             Boolean actual = TheService!.DoesFileExist(filePath);
 

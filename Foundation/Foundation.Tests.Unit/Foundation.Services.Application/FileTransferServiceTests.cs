@@ -25,28 +25,38 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         private Byte[] SourceValueBytes => Encoding.UTF8.GetBytes(SourceValueString);
 
         private IFileTransferService? TheService { get; set; }
+        private IEmailApi EmailApi { get; set; }
         private IFileApi FileApi { get; set; }
+        private IHttpApi HttpApi { get; set; }
+        private IFtpApi FtpApi { get; set; }
+        private IRestApi RestApi { get; set; }
+        private IMqApi MqApi { get; set; }
 
         public override void TestInitialise()
         {
             base.TestInitialise();
 
-            IEmailApi emailApi = Substitute.For<IEmailApi>();
+            EmailApi = Substitute.For<IEmailApi>();
             FileApi = Substitute.For<IFileApi>();
-            IHttpApi httpApi = Substitute.For<IHttpApi>();
-            IFtpApi ftpApi = Substitute.For<IFtpApi>();
-            IRestApi restApi = Substitute.For<IRestApi>();
-            IMqApi mqApi = Substitute.For<IMqApi>();
+            HttpApi = Substitute.For<IHttpApi>();
+            FtpApi = Substitute.For<IFtpApi>();
+            RestApi = Substitute.For<IRestApi>();
+            MqApi = Substitute.For<IMqApi>();
 
-            TheService = new FileTransferService(emailApi, FileApi, httpApi, ftpApi, restApi, mqApi);
+            TheService = new FileTransferService(EmailApi, FileApi, HttpApi, FtpApi, RestApi, MqApi);
         }
 
-        [TestCase]
-        public void Test_TransferFile_Exception()
+        [TestCase(FileTransferMethod.Email)]
+        [TestCase(FileTransferMethod.FileSystem)]
+        [TestCase(FileTransferMethod.Ftp)]
+        [TestCase(FileTransferMethod.Http)]
+        [TestCase(FileTransferMethod.Rest)]
+        [TestCase(FileTransferMethod.Mq)]
+        public void Test_TransferFile_Exception(FileTransferMethod fileTransferMethod)
         {
             IFileTransferSettings fileTransferSettings = new FileTransferSettings
             {
-                FileTransferMethod = FileTransferMethod.FileSystem,
+                FileTransferMethod = fileTransferMethod,
                 Location = Guid.NewGuid().ToString(),
             };
 
@@ -89,36 +99,56 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(fileContent, Is.EqualTo(SourceValueBytes));
         }
 
-        [TestCase]
-        public void Test_FileSystem_Move()
+        [TestCase(FileTransferMethod.Email)]
+        [TestCase(FileTransferMethod.FileSystem)]
+        [TestCase(FileTransferMethod.Ftp)]
+        [TestCase(FileTransferMethod.Http)]
+        [TestCase(FileTransferMethod.Rest)]
+        [TestCase(FileTransferMethod.Mq)]
+        public void Test_FileSystem_Move(FileTransferMethod fileTransferMethod)
         {
             IFileTransferSettings sourceFileTransferSettings = new FileTransferSettings
             {
-                FileTransferMethod = FileTransferMethod.FileSystem,
+                FileTransferMethod = fileTransferMethod,
                 Location = Guid.NewGuid().ToString(),
             };
 
             IFileTransferSettings destinationFileTransferSettings = new FileTransferSettings
             {
-                FileTransferMethod = FileTransferMethod.FileSystem,
+                FileTransferMethod = fileTransferMethod,
                 Location = Guid.NewGuid().ToString(),
             };
 
             IArchiveTransferSettings archiveFileTransferSettings = new ArchiveTransferSettings
             {
                 FileTransferArchiveAction = FileTransferArchiveAction.Move,
-                FileTransferMethod = FileTransferMethod.FileSystem,
+                FileTransferMethod = fileTransferMethod,
                 Location = Guid.NewGuid().ToString(),
             };
 
             Stream aStream = new MemoryStream(SourceValueBytes);
+            EmailApi.DownloadFile(sourceFileTransferSettings).Returns(aStream);
             FileApi.GetFileContentsAsStream(sourceFileTransferSettings.Location).Returns(aStream);
+            FtpApi.DownloadFile(sourceFileTransferSettings).Returns(aStream);
+            HttpApi.DownloadFile(sourceFileTransferSettings).Returns(aStream);
+            RestApi.DownloadFile(sourceFileTransferSettings).Returns(aStream);
+            MqApi.DownloadFile(sourceFileTransferSettings).Returns(aStream);
 
             Stream? destinationStream = null;
+            EmailApi.UploadFile(destinationFileTransferSettings, Arg.Do<Stream>(s => destinationStream = s));
             FileApi.UploadFile(destinationFileTransferSettings, Arg.Do<Stream>(s => destinationStream = s));
+            FtpApi.UploadFile(destinationFileTransferSettings, Arg.Do<Stream>(s => destinationStream = s));
+            HttpApi.UploadFile(destinationFileTransferSettings, Arg.Do<Stream>(s => destinationStream = s));
+            RestApi.UploadFile(destinationFileTransferSettings, Arg.Do<Stream>(s => destinationStream = s));
+            MqApi.UploadFile(destinationFileTransferSettings, Arg.Do<Stream>(s => destinationStream = s));
 
             Stream? archiveStream = null;
+            EmailApi.UploadFile(archiveFileTransferSettings, Arg.Do<Stream>(s => archiveStream = s));
             FileApi.UploadFile(archiveFileTransferSettings, Arg.Do<Stream>(s => archiveStream = s));
+            FtpApi.UploadFile(archiveFileTransferSettings, Arg.Do<Stream>(s => archiveStream = s));
+            HttpApi.UploadFile(archiveFileTransferSettings, Arg.Do<Stream>(s => archiveStream = s));
+            RestApi.UploadFile(archiveFileTransferSettings, Arg.Do<Stream>(s => archiveStream = s));
+            MqApi.UploadFile(archiveFileTransferSettings, Arg.Do<Stream>(s => archiveStream = s));
 
             TheService!.TransferFile(sourceFileTransferSettings, destinationFileTransferSettings, archiveFileTransferSettings);
 
@@ -130,39 +160,91 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Byte[] archiveContent = ((MemoryStream)archiveStream).ToArray();
             Assert.That(archiveContent, Is.EqualTo(SourceValueBytes));
 
-            FileApi.Received().DeleteFile(sourceFileTransferSettings);
+            switch (fileTransferMethod)
+            {
+                case FileTransferMethod.Email:
+                {
+                    EmailApi.Received().DeleteFile(sourceFileTransferSettings);
+                    break;
+                }
+                case FileTransferMethod.FileSystem:
+                {
+                    FileApi.Received().DeleteFile(sourceFileTransferSettings);
+                    break;
+                }
+                case FileTransferMethod.Ftp:
+                {
+                    FtpApi.Received().DeleteFile(sourceFileTransferSettings);
+                    break;
+                }
+                case FileTransferMethod.Http:
+                {
+                    HttpApi.Received().DeleteFile(sourceFileTransferSettings);
+                    break;
+                }
+                case FileTransferMethod.Rest:
+                {
+                    RestApi.Received().DeleteFile(sourceFileTransferSettings);
+                    break;
+                }
+                case FileTransferMethod.Mq:
+                {
+                    MqApi.Received().DeleteFile(sourceFileTransferSettings);
+                    break;
+                }
+            }
         }
 
-        [TestCase]
-        public void Test_FileSystem_Copy()
+        [TestCase(FileTransferMethod.Email)]
+        [TestCase(FileTransferMethod.FileSystem)]
+        [TestCase(FileTransferMethod.Ftp)]
+        [TestCase(FileTransferMethod.Http)]
+        [TestCase(FileTransferMethod.Rest)]
+        [TestCase(FileTransferMethod.Mq)]
+        public void Test_FileSystem_Copy(FileTransferMethod fileTransferMethod)
         {
             IFileTransferSettings sourceFileTransferSettings = new FileTransferSettings
             {
-                FileTransferMethod = FileTransferMethod.FileSystem,
+                FileTransferMethod = fileTransferMethod,
                 Location = Guid.NewGuid().ToString(),
             };
 
             IFileTransferSettings destinationFileTransferSettings = new FileTransferSettings
             {
-                FileTransferMethod = FileTransferMethod.FileSystem,
+                FileTransferMethod = fileTransferMethod,
                 Location = Guid.NewGuid().ToString(),
             };
 
             IArchiveTransferSettings archiveFileTransferSettings = new ArchiveTransferSettings
             {
                 FileTransferArchiveAction = FileTransferArchiveAction.Move,
-                FileTransferMethod = FileTransferMethod.FileSystem,
+                FileTransferMethod = fileTransferMethod,
                 Location = Guid.NewGuid().ToString(),
             };
 
             Stream aStream = new MemoryStream(SourceValueBytes);
+            EmailApi.DownloadFile(sourceFileTransferSettings).Returns(aStream);
             FileApi.GetFileContentsAsStream(sourceFileTransferSettings.Location).Returns(aStream);
+            FtpApi.DownloadFile(sourceFileTransferSettings).Returns(aStream);
+            HttpApi.DownloadFile(sourceFileTransferSettings).Returns(aStream);
+            RestApi.DownloadFile(sourceFileTransferSettings).Returns(aStream);
+            MqApi.DownloadFile(sourceFileTransferSettings).Returns(aStream);
 
             Stream? destinationStream = null;
+            EmailApi.UploadFile(destinationFileTransferSettings, Arg.Do<Stream>(s => destinationStream = s));
             FileApi.UploadFile(destinationFileTransferSettings, Arg.Do<Stream>(s => destinationStream = s));
+            FtpApi.UploadFile(destinationFileTransferSettings, Arg.Do<Stream>(s => destinationStream = s));
+            HttpApi.UploadFile(destinationFileTransferSettings, Arg.Do<Stream>(s => destinationStream = s));
+            RestApi.UploadFile(destinationFileTransferSettings, Arg.Do<Stream>(s => destinationStream = s));
+            MqApi.UploadFile(destinationFileTransferSettings, Arg.Do<Stream>(s => destinationStream = s));
 
             Stream? archiveStream = null;
+            EmailApi.UploadFile(archiveFileTransferSettings, Arg.Do<Stream>(s => archiveStream = s));
             FileApi.UploadFile(archiveFileTransferSettings, Arg.Do<Stream>(s => archiveStream = s));
+            FtpApi.UploadFile(archiveFileTransferSettings, Arg.Do<Stream>(s => archiveStream = s));
+            HttpApi.UploadFile(archiveFileTransferSettings, Arg.Do<Stream>(s => archiveStream = s));
+            RestApi.UploadFile(archiveFileTransferSettings, Arg.Do<Stream>(s => archiveStream = s));
+            MqApi.UploadFile(archiveFileTransferSettings, Arg.Do<Stream>(s => archiveStream = s));
 
             TheService!.TransferFile(sourceFileTransferSettings, destinationFileTransferSettings, archiveFileTransferSettings);
 

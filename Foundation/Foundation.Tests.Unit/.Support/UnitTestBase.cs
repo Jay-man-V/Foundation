@@ -292,10 +292,8 @@ namespace Foundation.Tests.Unit.Support
             userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(userProfile);
 
             ILoggedOnUserProcess loggedOnUserProcess = Substitute.For<ILoggedOnUserProcess>();
-            loggedOnUserProcess.LogOnUser(Arg.Any<AppId>(), Arg.Any<IUserProfile>());
 
             CoreInstance = Core.Core.Initialise(null, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, loggedOnUserProcess);
-            CoreInstance.CurrentLoggedOnUser.SetLoggedOnUser(userProfile);
 
             _ = new LoggingHelpers(CoreInstance, RunTimeEnvironmentSettings, DateTimeService);
 

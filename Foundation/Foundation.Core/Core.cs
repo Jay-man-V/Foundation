@@ -19,6 +19,11 @@ namespace Foundation.Core
     {
         //https://learn.microsoft.com/en-us/dotnet/core/extensions/configuration-providers
 
+        static Core ()
+        {
+            _coreInstance = null;
+        }
+
         private static readonly ConfigurationManager TheConfigurationManager = new ();
 
         private static IHost? TheHost { get; set; }
@@ -28,7 +33,7 @@ namespace Foundation.Core
         private static AppId TheApplicationId { get; set; }
         private static TraceLevel TheTraceLevel { get; set; }
 
-        private static ICurrentLoggedOnUser? TheCurrentLoggedOnUser { get; set; }
+        private static ICurrentUser? TheCurrentLoggedOnUser { get; set; }
         private static String UserFullLogonName { get; set; } = "<not set>";
 
         private static ICore? _coreInstance;
@@ -129,7 +134,7 @@ namespace Foundation.Core
 
             UserFullLogonName = runTimeEnvironmentSettings.UserFullLogonName;
 
-            TheCurrentLoggedOnUser = new CurrentLoggedOnUser(userProfile);
+            TheCurrentLoggedOnUser = new CurrentUser(userProfile);
 
             loggedOnUserProcess.LogOnUser(TheApplicationId, TheCurrentLoggedOnUser.UserProfile);
         }
@@ -166,11 +171,12 @@ namespace Foundation.Core
         public ICore Instance => TheInstance;
 
         /// <inheritdoc cref="ICore.CurrentLoggedOnUser"/>
-        public ICurrentLoggedOnUser CurrentLoggedOnUser
+        public ICurrentUser CurrentLoggedOnUser
         {
             get
             {
-                if (TheCurrentLoggedOnUser is null)
+                if (TheCurrentLoggedOnUser is null ||
+                    TheCurrentLoggedOnUser.UserProfile is null)
                 {
                     String message = $"The logged on user has not been set or they have not been successfully identified. (Username: '{UserFullLogonName}'. Application Id: '{TheApplicationId}'.)";
                     throw new InvalidOperationException(message);

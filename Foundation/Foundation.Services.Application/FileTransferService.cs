@@ -230,7 +230,7 @@ namespace Foundation.Services.Application
             {
                 case FileTransferMethod.Email:
                 {
-                    FtpApi.DeleteFile(sourceFileTransferSettings);
+                    EmailApi.DeleteFile(sourceFileTransferSettings);
                     break;
                 }
 

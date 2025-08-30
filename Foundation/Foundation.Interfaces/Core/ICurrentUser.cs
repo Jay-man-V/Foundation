@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ICurrentLoggedOnUser.cs" company="JDV Software Ltd">
+// <copyright file="ICurrentUser.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// 
     /// </summary>
-    public interface ICurrentLoggedOnUser
+    public interface ICurrentUser
     {
         /// <summary>
         /// The <see cref="UserProfile"/> for the user
@@ -52,12 +52,11 @@ namespace Foundation.Interfaces
         Boolean IsSystemSupport { get; }
 
 #if DEBUG
-        /// <summary>
-        /// For Debug and Testing purposes, allows the Logged On User to be changed
-        /// </summary>
-        /// <param name="userProfile"></param>
-        void SetLoggedOnUser(IUserProfile userProfile);
-
+        ///// <summary>
+        ///// For Debug and Testing purposes, allows the Current User to be changed
+        ///// </summary>
+        ///// <param name="userProfile"></param>
+        //void SetCurrentUser(IUserProfile userProfile);
 #endif
     }
 }
