@@ -19,11 +19,6 @@ namespace Foundation.Core
     {
         //https://learn.microsoft.com/en-us/dotnet/core/extensions/configuration-providers
 
-        static Core ()
-        {
-            _coreInstance = null;
-        }
-
         private static readonly ConfigurationManager TheConfigurationManager = new ();
 
         private static IHost? TheHost { get; set; }
@@ -36,7 +31,7 @@ namespace Foundation.Core
         private static ICurrentUser? TheCurrentLoggedOnUser { get; set; }
         private static String UserFullLogonName { get; set; } = "<not set>";
 
-        private static ICore? _coreInstance;
+        internal static ICore? _coreInstance;
 
         public static ICore TheInstance
         {

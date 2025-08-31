@@ -36,7 +36,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
         [SetUp]
         public void Setup()
         {
-            typeof(global::Foundation.Core.Core).TypeInitializer!.Invoke(null, new object[0]);
+            global::Foundation.Core.Core._coreInstance = null;
 
             UserProfile = new FModels.UserProfile
             {
