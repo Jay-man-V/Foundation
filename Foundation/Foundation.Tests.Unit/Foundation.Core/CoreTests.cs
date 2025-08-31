@@ -4,20 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.Interfaces;
-
-using Foundation.Tests.Unit.Support;
+using System.Diagnostics;
 
 using NSubstitute;
 
-using System.Diagnostics;
+using Foundation.Interfaces;
+
+using Foundation.Tests.Unit.Support;
 
 using FModels = Foundation.Models;
 
 namespace Foundation.Tests.Unit.Foundation.Core
 {
     /// <summary>
-    /// The Current Logged On User Tests
+    /// The Core Tests
     /// </summary>
     public class CoreTests // Do not inherit from UnitTestBase
     {
@@ -202,24 +202,6 @@ namespace Foundation.Tests.Unit.Foundation.Core
             Assert.That(userCredentialsException.ProcessName, Is.EqualTo(processName));
             Assert.That(userCredentialsException.Message, Is.EqualTo(userCredentialsExceptionErrorMessage));
             Assert.That(userCredentialsException.UserCredentials, Is.EqualTo(userCredentialsExceptionUserCredentials));
-        }
-
-        [TestCase]
-        public void Test_CurrentLoggedOnUser_UserLogonException()
-        {
-            //IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
-            //applicationProcess.Get(ApplicationId).Returns(Application);
-
-            //IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
-            //userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(UserProfile);
-
-            //ICore theModel = global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess);
-
-            //Assert.That(theModel.ApplicationId, Is.EqualTo(ApplicationId));
-            //Assert.That(theModel.ApplicationName, Is.EqualTo(ApplicationName));
-            //Assert.That(theModel.Instance, Is.EqualTo(theModel));
-            //Assert.That(theModel.CurrentLoggedOnUser.UserProfile, Is.EqualTo(UserProfile));
-            //Assert.That(theModel.TraceLevel, Is.EqualTo(TraceLevel));
         }
     }
 }

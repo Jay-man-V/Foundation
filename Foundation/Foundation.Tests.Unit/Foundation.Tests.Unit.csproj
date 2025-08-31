@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Compile Include="..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
+    <Compile Include=".NetFramework\ITypeNotImplemented.cs" />
     <Compile Include=".NetFramework\CredentialsTests.cs" />
     <Compile Include=".NetFramework\CustomClaimsPrincipalTests.cs" />
     <Compile Include=".NetFramework\ImageConversionTests.cs" />
