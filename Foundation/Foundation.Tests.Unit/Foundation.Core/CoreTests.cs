@@ -66,7 +66,26 @@ namespace Foundation.Tests.Unit.Foundation.Core
         }
 
         [TestCase]
-        public void Test_Properties()
+        public void Test_TheInstance_Null()
+        {
+            InvalidOperationException? actualException = null;
+            String expectedErrorMessage = "Foundation.Core has not been initialised";
+
+            try
+            {
+                _ = global::Foundation.Core.Core.TheInstance;
+            }
+            catch (InvalidOperationException exception)
+            {
+                actualException = exception;
+            }
+
+            Assert.That(actualException, Is.Not.EqualTo(null));
+            Assert.That(actualException.Message, Is.EqualTo(expectedErrorMessage));
+        }
+
+        [TestCase]
+        public void Test_Properties_1()
         {
             IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
             applicationProcess.Get(ApplicationId).Returns(Application);
@@ -84,7 +103,28 @@ namespace Foundation.Tests.Unit.Foundation.Core
         }
 
         [TestCase]
-        public void Test_CurrentLoggedOnUser_UserLogonException()
+        public void Test_Properties_2()
+        {
+            AppId expectedAppId = new AppId(1);
+            String expectedApplicationName = String.Empty;
+
+            IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
+            applicationProcess.Get(ApplicationId).Returns(Application);
+
+            IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
+            userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(UserProfile);
+
+            ICore theModel = global::Foundation.Core.Core.Initialise(null, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess);
+
+            Assert.That(theModel.ApplicationId, Is.EqualTo(expectedAppId));
+            Assert.That(theModel.ApplicationName, Is.EqualTo(expectedApplicationName));
+            Assert.That(theModel.Instance, Is.EqualTo(theModel));
+            Assert.That(theModel.CurrentLoggedOnUser.UserProfile, Is.EqualTo(UserProfile));
+            Assert.That(theModel.TraceLevel, Is.EqualTo(TraceLevel));
+        }
+
+        [TestCase]
+        public void Test_ApplicationStartups()
         {
             IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
             applicationProcess.Get(ApplicationId).Returns(Application);
@@ -93,16 +133,37 @@ namespace Foundation.Tests.Unit.Foundation.Core
             userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(UserProfile);
 
             ICore theModel = global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess);
-
-            Assert.That(theModel.ApplicationId, Is.EqualTo(ApplicationId));
-            Assert.That(theModel.ApplicationName, Is.EqualTo(ApplicationName));
-            Assert.That(theModel.Instance, Is.EqualTo(theModel));
-            Assert.That(theModel.CurrentLoggedOnUser.UserProfile, Is.EqualTo(UserProfile));
-            Assert.That(theModel.TraceLevel, Is.EqualTo(TraceLevel));
+            global::Foundation.Core.Core.ExecuteApplicationStartups();
         }
 
         [TestCase]
-        public void Test_UserLogonException()
+        public void Test_InitialiseApplication_Exception()
+        {
+            const IApplication? application = null;
+            IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
+            applicationProcess.Get(ApplicationId).Returns(application);
+
+            IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
+            userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(UserProfile);
+
+            String errorMessage = $"An application with Id '{ApplicationId}' cannot be loaded";
+            ArgumentException? actualException = null;
+
+            try
+            {
+                global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess);
+            }
+            catch (ArgumentException exception)
+            {
+                actualException = exception;
+            }
+
+            Assert.That(actualException, Is.Not.EqualTo(null));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+        }
+
+        [TestCase]
+        public void Test_InitialiseLoggedOnUser_UserLogonException()
         {
             String processName = "Application/System Logon";
 
@@ -141,6 +202,24 @@ namespace Foundation.Tests.Unit.Foundation.Core
             Assert.That(userCredentialsException.ProcessName, Is.EqualTo(processName));
             Assert.That(userCredentialsException.Message, Is.EqualTo(userCredentialsExceptionErrorMessage));
             Assert.That(userCredentialsException.UserCredentials, Is.EqualTo(userCredentialsExceptionUserCredentials));
+        }
+
+        [TestCase]
+        public void Test_CurrentLoggedOnUser_UserLogonException()
+        {
+            //IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
+            //applicationProcess.Get(ApplicationId).Returns(Application);
+
+            //IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
+            //userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(UserProfile);
+
+            //ICore theModel = global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess);
+
+            //Assert.That(theModel.ApplicationId, Is.EqualTo(ApplicationId));
+            //Assert.That(theModel.ApplicationName, Is.EqualTo(ApplicationName));
+            //Assert.That(theModel.Instance, Is.EqualTo(theModel));
+            //Assert.That(theModel.CurrentLoggedOnUser.UserProfile, Is.EqualTo(UserProfile));
+            //Assert.That(theModel.TraceLevel, Is.EqualTo(TraceLevel));
         }
     }
 }

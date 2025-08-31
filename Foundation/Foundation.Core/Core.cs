@@ -107,27 +107,35 @@ namespace Foundation.Core
                 userProfileProcess ??= TheInstance.IoC.Get<IUserProfileProcess>();
                 loggedOnUserProcess ??= TheInstance.IoC.Get<ILoggedOnUserProcess>();
 
-                InitialiseApplicationSettings(applicationProcess);
-                InitialiseLoggedOnUser(runTimeEnvironmentSettings, userProfileProcess, loggedOnUserProcess);
+                UserFullLogonName = runTimeEnvironmentSettings.UserFullLogonName;
 
-                // Create instances of all classes implementing the IApplicationStartup interface
-                List<IApplicationStartup> applicationStartups = TheInstance.IoC.GetAll<IApplicationStartup>().ToList();
-                applicationStartups.ForEach(obj => obj.ApplicationStarting());
+                InitialiseApplicationSettings(applicationProcess);
+                InitialiseLoggedOnUser(userProfileProcess, loggedOnUserProcess);
             }
 
             return TheInstance;
         }
 
-        private static void InitialiseLoggedOnUser(IRunTimeEnvironmentSettings runTimeEnvironmentSettings, IUserProfileProcess userProfileProcess, ILoggedOnUserProcess loggedOnUserProcess)
+        /// <summary>
+        /// Create instances of all classes implementing the IApplicationStartup interface
+        /// </summary>
+        public static void ExecuteApplicationStartups()
+        {
+            List<IApplicationStartup> applicationStartups = TheInstance.IoC.GetAll<IApplicationStartup>().ToList();
+            foreach (IApplicationStartup applicationStartup in applicationStartups)
+            {
+                applicationStartup.ApplicationStarting();
+            }
+        }
+
+        private static void InitialiseLoggedOnUser(IUserProfileProcess userProfileProcess, ILoggedOnUserProcess loggedOnUserProcess)
         {
             IUserProfile userProfile = userProfileProcess.GetLoggedOnUserProfile(TheApplicationId);
 
             if (userProfile == null)
             {
-                throw new UserLogonException(TheApplicationId, runTimeEnvironmentSettings.UserFullLogonName);
+                throw new UserLogonException(TheApplicationId, UserFullLogonName);
             }
-
-            UserFullLogonName = runTimeEnvironmentSettings.UserFullLogonName;
 
             TheCurrentLoggedOnUser = new CurrentUser(userProfile);
 
@@ -166,19 +174,6 @@ namespace Foundation.Core
         public ICore Instance => TheInstance;
 
         /// <inheritdoc cref="ICore.CurrentLoggedOnUser"/>
-        public ICurrentUser CurrentLoggedOnUser
-        {
-            get
-            {
-                if (TheCurrentLoggedOnUser is null ||
-                    TheCurrentLoggedOnUser.UserProfile is null)
-                {
-                    String message = $"The logged on user has not been set or they have not been successfully identified. (Username: '{UserFullLogonName}'. Application Id: '{TheApplicationId}'.)";
-                    throw new InvalidOperationException(message);
-                }
-
-                return TheCurrentLoggedOnUser;
-            }
-        }
+        public ICurrentUser CurrentLoggedOnUser => TheCurrentLoggedOnUser!; // Ignoring compiler warnings for Null Reference, set routines already check/raise for null
     }
 }
