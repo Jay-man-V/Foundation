@@ -4,16 +4,15 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+
 using Foundation.Common;
 using Foundation.Core;
 using Foundation.Interfaces;
 using Foundation.ViewModels;
 using Foundation.Views;
-
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Threading;
 
 namespace CustomerContact.Client
 {
@@ -76,7 +75,7 @@ namespace CustomerContact.Client
             IDateTimeService dateTimeService = CoreInstance.IoC.Get<IDateTimeService>();
             IWpfApplicationObjects wpfApplicationObjects = CoreInstance.IoC.Get<IWpfApplicationObjects>();
 
-            AboutSplashScreenForm? splashScreen = new AboutSplashScreenForm();
+            AboutSplashScreenForm splashScreen = new ();
             this.MainWindow = splashScreen;
             const Boolean isSplashScreen = true;
             AboutSplashScreenFormViewModel splashScreenViewModel = new AboutSplashScreenFormViewModel(CoreInstance, runTimeEnvironmentSettings, dateTimeService, wpfApplicationObjects, isSplashScreen);

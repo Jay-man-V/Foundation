@@ -62,12 +62,17 @@ namespace Foundation.Core
                 throw new ArgumentNullException(nameof(ServiceProvider), message);
             }
 
-
             Type? type = Type.GetType(typeName);
 
             if (type != null)
             {
                 retVal = (TService?)ServiceProvider.GetService(type);
+            }
+
+            if (retVal == null)
+            {
+                String errorMessage = $"Unable to get instance of '{typeName}'";
+                throw new InvalidOperationException (errorMessage);
             }
 
             return retVal;
@@ -87,10 +92,10 @@ namespace Foundation.Core
             return retVal;
         }
 
-        /// <inheritdoc cref="IIoC.Get{TService}(String, String, Object[])"/>
-        public TService Get<TService>(String assemblyName, String typeName, params Object[]? args) where TService : class
+        /// <inheritdoc cref="IIoC.Get{TService}(String, String)"/>
+        public TService Get<TService>(String assemblyName, String typeName) where TService : class
         {
-            List<Assembly> loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().OrderBy(a => a.FullName).ToList();
+            Assembly[] loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies(); //.OrderBy(a => a.FullName).ToList();
             Assembly? controllerAssembly = loadedAssemblies.FirstOrDefault(a => a.GetName().Name == assemblyName);
 
             if (controllerAssembly == null)
@@ -117,7 +122,7 @@ namespace Foundation.Core
 
             if (retVal == null)
             {
-                retVal = Activator.CreateInstance(assemblyType, args) as TService;
+                retVal = Activator.CreateInstance(assemblyType, null) as TService;
 
                 if (retVal == null)
                 {

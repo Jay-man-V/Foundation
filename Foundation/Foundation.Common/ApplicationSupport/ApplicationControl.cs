@@ -26,7 +26,10 @@ namespace Foundation.Common
             DisplayHandler = displayHandler;
 
             // For catching Global uncaught exception
+            AppDomain.CurrentDomain.UnhandledException -= UnhandledExceptionOccurred;
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionOccurred;
+
+            TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
         }
 
@@ -38,18 +41,19 @@ namespace Foundation.Common
         {
             LoggingHelpers.LogErrorMessage(exception);
 
+            // TODO
             //Core.Core.Instance.Container.Reset();
             //Core.Core.Instance.Container.Initialise();
         }
 
         /// <summary>
-        /// Handles the UnobservedTaskException event of the TaskScheduler control.
+        /// Catches any unhandled exceptions.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="args">The <see cref="UnobservedTaskExceptionEventArgs" /> instance containing the event data.</param>
-        public static void TaskScheduler_UnobservedTaskException(Object? sender, UnobservedTaskExceptionEventArgs args)
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="UnhandledExceptionEventArgs" /> instance containing the event data.</param>
+        private static void UnhandledExceptionOccurred(Object sender, UnhandledExceptionEventArgs args)
         {
-            Exception exception = args.Exception;
+            Exception exception = (Exception)args.ExceptionObject;
 
             DisplayHandler?.Invoke(exception);
         }
@@ -68,13 +72,13 @@ namespace Foundation.Common
         }
 
         /// <summary>
-        /// Catches any unhandled exceptions.
+        /// Handles the UnobservedTaskException event of the TaskScheduler control.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="UnhandledExceptionEventArgs" /> instance containing the event data.</param>
-        public static void UnhandledExceptionOccurred(Object sender, UnhandledExceptionEventArgs args)
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="args">The <see cref="UnobservedTaskExceptionEventArgs" /> instance containing the event data.</param>
+        private static void TaskScheduler_UnobservedTaskException(Object? sender, UnobservedTaskExceptionEventArgs args)
         {
-            Exception exception = (Exception)args.ExceptionObject;
+            Exception exception = args.Exception;
 
             DisplayHandler?.Invoke(exception);
         }

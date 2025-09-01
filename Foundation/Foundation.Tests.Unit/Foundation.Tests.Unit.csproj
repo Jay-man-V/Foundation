@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <Compile Include="..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
-    <Compile Include=".NetFramework\ITypeNotImplemented.cs" />
+    <Compile Include=".Support\Dependency Injection Classes\ITypeNotImplemented.cs" />
     <Compile Include=".NetFramework\CredentialsTests.cs" />
     <Compile Include=".NetFramework\CustomClaimsPrincipalTests.cs" />
     <Compile Include=".NetFramework\ImageConversionTests.cs" />
@@ -22,8 +22,8 @@
     <Compile Include=".Support\AppConfigModifier.cs" />
     <Compile Include=".Support\ClassWillBeExcluded.cs" />
     <Compile Include=".Support\CustomTraceListener.cs" />
-    <Compile Include=".Support\DependencyInjectionClasses.cs" />
-    <Compile Include=".Support\DependencyInjectionInterfaces.cs" />
+    <Compile Include=".Support\Dependency Injection Classes\DependencyInjectionClasses.cs" />
+    <Compile Include=".Support\Dependency Injection Classes\DependencyInjectionInterfaces.cs" />
     <Compile Include=".Support\SchedulerSupport.cs" />
     <Compile Include=".Support\SerialiseTest.cs" />
     <Compile Include=".Support\TestEntitySupport.cs" />

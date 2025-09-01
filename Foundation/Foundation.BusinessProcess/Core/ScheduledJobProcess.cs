@@ -339,7 +339,7 @@ namespace Foundation.BusinessProcess
 
             if (retVal == null)
             {
-                retVal = Core.IoC.Get<IScheduledTask>(fullyQualifiedTypeName.AssemblyName, fullyQualifiedTypeName.TypeName, null);
+                retVal = Core.IoC.Get<IScheduledTask>(fullyQualifiedTypeName.AssemblyName, fullyQualifiedTypeName.TypeName);
             }
 
             LoggingHelpers.TraceCallReturn(retVal);
