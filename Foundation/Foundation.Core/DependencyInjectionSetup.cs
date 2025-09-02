@@ -19,7 +19,7 @@ namespace Foundation.Core
     /// </summary>
     public static class DependencyInjectionSetup
     {
-        private static readonly Object SyncLock = new Object();
+        private static readonly Object SyncLock = new();
         internal static IServiceCollection? ServiceCollection { get; private set; }
 
         /// <summary>
@@ -179,7 +179,14 @@ namespace Foundation.Core
             }
         }
 
-        private static void AddTypesToCollection(String typeNamespacePrefix, IServiceCollection targetServiceCollection, List<Type> sourceCollection, Action<Type> addImplementationAction, Action<Type, Type> addInterfaceWithImplementationAction)
+        private static void AddTypesToCollection
+        (
+            String typeNamespacePrefix,
+            IServiceCollection targetServiceCollection,
+            List<Type> sourceCollection,
+            Action<Type> addImplementationAction,
+            Action<Type, Type> addInterfaceWithImplementationAction
+        )
         {
             foreach (Type implementationType in sourceCollection)
             {
@@ -187,10 +194,10 @@ namespace Foundation.Core
                 if (!String.IsNullOrEmpty(implementationTypeName))
                 {
 #if (DEBUG)
-                    if (implementationTypeName == "Foundation.Tests.Unit.Mocks.MockScheduledTask")
-                    {
-                        //Debug.WriteLine("Foundation.Tests.Unit.Mocks.MockScheduledTask");
-                    }
+                    //if (implementationTypeName == "Foundation.Tests.Unit.Mocks.MockScheduledTask")
+                    //{
+                    //    Debug.WriteLine("Foundation.Tests.Unit.Mocks.MockScheduledTask");
+                    //}
 #endif
 
                     List<Type> interfaceTypes = implementationType.GetInterfaces().ToList();
