@@ -64,7 +64,7 @@ namespace Foundation.Core
         /// <summary>
         /// List of excluded types, classes that will be removed from consideration of Dependency Injection
         /// </summary>
-        public static List<String> ExcludedTypes
+        private static List<String> ExcludedTypes
         {
             get
             {
@@ -77,7 +77,7 @@ namespace Foundation.Core
         /// <summary>
         /// List of excluded interfaces, interfaces that will be removed from consideration of Dependency Injection
         /// </summary>
-        public static List<String> ExcludedInterfaces
+        private static List<String> ExcludedInterfaces
         {
             get
             {

@@ -31,21 +31,21 @@ namespace Foundation.Core
         private static ICurrentUser? TheCurrentLoggedOnUser { get; set; }
         private static String UserFullLogonName { get; set; } = "<not set>";
 
-        internal static ICore? _coreInstance;
+        internal static ICore? CoreInstance { get; set; }
 
         public static ICore TheInstance
         {
             get
             {
-                if (_coreInstance is null)
+                if (CoreInstance is null)
                 {
                     String message = "Foundation.Core has not been initialised";
                     throw new InvalidOperationException(message);
                 }
 
-                return _coreInstance;
+                return CoreInstance;
             }
-            set => _coreInstance = value;
+            set => CoreInstance = value;
         }
 
         /// <summary>
@@ -53,25 +53,35 @@ namespace Foundation.Core
         /// <para>
         ///  * Loading the assemblies in to the Dependency Injection framework
         /// </para>
+        /// <para>
+        ///  * Initialise application settings
+        /// </para>
+        /// <para>
+        ///  * Initialise logged on user
+        /// </para>
         /// </summary>
         /// <param name="applicationId">The application identifier.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
         /// <param name="applicationProcess">The application process.</param>
         /// <param name="userProfileProcess">The user profile process.</param>
         /// <param name="loggedOnUserProcess">The logged on user process.</param>
+        /// <param name="typeNamespacePrefix"></param>
+        /// <param name="searchPattern"></param>
         public static ICore Initialise
         (
             AppId? applicationId = null,
             IRunTimeEnvironmentSettings? runTimeEnvironmentSettings = null,
             IApplicationProcess? applicationProcess = null,
             IUserProfileProcess? userProfileProcess = null,
-            ILoggedOnUserProcess? loggedOnUserProcess = null
+            ILoggedOnUserProcess? loggedOnUserProcess = null,
+            String typeNamespacePrefix = "",
+            String searchPattern = ""
         )
         {
             // https://learn.microsoft.com/en-us/dotnet/core/extensions/generic-host?tabs=appbuilder
             // https://stackoverflow.com/questions/46940710/getting-value-from-appsettings-json-in-net-core - Options pattern
 
-            if (_coreInstance == null)
+            if (CoreInstance == null)
             {
                 HostApplicationBuilderSettings settings = new()
                 {
@@ -83,9 +93,16 @@ namespace Foundation.Core
 
                 HostApplicationBuilder = Host.CreateApplicationBuilder(settings);
 
-                TheIoC = new IoC();
+                TheIoC = new IoC(HostApplicationBuilder.Services);
                 IoC ioc = (IoC)TheIoC;
-                TheIoC.Initialise(HostApplicationBuilder.Services);
+                TheIoC.Initialise();
+
+                if (!(String.IsNullOrEmpty(typeNamespacePrefix) ||
+                      String.IsNullOrEmpty(searchPattern)))
+                {
+                    TheIoC.Initialise(typeNamespacePrefix, searchPattern);
+                }
+
                 TheHost = HostApplicationBuilder.Build();
 
                 ioc.ServiceProvider = TheHost.Services;

@@ -13,7 +13,7 @@ namespace Foundation.Tests.Unit.Support
     {
         public String Message => MessageBuilder.ToString();
 
-        private StringBuilder MessageBuilder { get; } = new StringBuilder();
+        private StringBuilder MessageBuilder { get; } = new();
 
         public override void Write(String? message)
         {

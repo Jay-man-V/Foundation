@@ -21,7 +21,7 @@ namespace Foundation.Common
         /// <summary>
         /// 
         /// </summary>
-        public static void ApplicationStart(Action<Exception> displayHandler)
+        public static void ApplicationStart(Action<Exception>? displayHandler)
         {
             DisplayHandler = displayHandler;
 

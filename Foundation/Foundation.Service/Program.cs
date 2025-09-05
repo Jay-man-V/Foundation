@@ -4,13 +4,22 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Common;
+using Foundation.Interfaces;
+
 namespace Foundation.Service
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main(String[] args)
         {
-            Console.WriteLine("Hello, World!");
+            // For catching Global uncaught exception
+            ApplicationControl.ApplicationStart(null);
+
+            Core.Core.Initialise(typeNamespacePrefix: "Foundation", searchPattern: "Foundation.*.exe");
+            ICore core = Core.Core.TheInstance;
+
+            ConfigureService.Configure(core);
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
         [SetUp]
         public void Setup()
         {
-            global::Foundation.Core.Core._coreInstance = null;
+            global::Foundation.Core.Core.CoreInstance = null;
 
             UserProfile = new FModels.UserProfile
             {
@@ -132,7 +132,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
             IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
             userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(UserProfile);
 
-            ICore theModel = global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess);
+            _ = global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess);
             global::Foundation.Core.Core.ExecuteApplicationStartups();
         }
 

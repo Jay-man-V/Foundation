@@ -9,7 +9,6 @@ using Foundation.Tests.Unit.NetFramework;
 using Foundation.Tests.Unit.Support;
 
 using Microsoft.Extensions.Hosting;
-using Microsoft.VisualStudio.TestPlatform.Common.Utilities;
 
 namespace Foundation.Tests.Unit.Foundation.Core
 {
@@ -29,14 +28,25 @@ namespace Foundation.Tests.Unit.Foundation.Core
         }
 
         [TestCase]
-        public void Test_Initialise()
+        public void Test_Initialise_1()
         {
             HostApplicationBuilderSettings settings = new();
 
             HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
 
-            IoC ioc = new();
-            ioc.Initialise(hostApplicationBuilder.Services);
+            IoC ioc = new(hostApplicationBuilder.Services);
+            ioc.Initialise();
+        }
+
+        [TestCase]
+        public void Test_Initialise_2()
+        {
+            HostApplicationBuilderSettings settings = new();
+
+            HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
+
+            IoC ioc = new(hostApplicationBuilder.Services);
+            ioc.Initialise("Foundation.Tests.Unit.Support", "Foundation.Tests.Unit.dll");
         }
 
         [TestCase]
@@ -46,8 +56,8 @@ namespace Foundation.Tests.Unit.Foundation.Core
 
             HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
 
-            IoC ioc = new();
-            ioc.Initialise(hostApplicationBuilder.Services);
+            IoC ioc = new(hostApplicationBuilder.Services);
+            ioc.Initialise();
 
             ioc.Reset();
         }
@@ -59,8 +69,8 @@ namespace Foundation.Tests.Unit.Foundation.Core
 
             HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
 
-            IoC ioc = new();
-            ioc.Initialise(hostApplicationBuilder.Services);
+            IoC ioc = new(hostApplicationBuilder.Services);
+            ioc.Initialise();
             IHost host = hostApplicationBuilder.Build();
             ioc.ServiceProvider = host.Services;
 
@@ -76,12 +86,12 @@ namespace Foundation.Tests.Unit.Foundation.Core
 
             HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
 
-            IoC ioc = new();
-            ioc.Initialise(hostApplicationBuilder.Services);
+            IoC ioc = new(hostApplicationBuilder.Services);
+            ioc.Initialise();
             IHost host = hostApplicationBuilder.Build();
             ioc.ServiceProvider = host.Services;
 
-            ITransientOperation? transientOperation = ioc.Get<ITransientOperation>(typeof(TransientOperation).AssemblyQualifiedName!);
+            ITransientOperation transientOperation = ioc.Get<ITransientOperation>(typeof(TransientOperation).AssemblyQualifiedName!);
 
             Assert.That(transientOperation, Is.Not.EqualTo(null));
         }
@@ -95,8 +105,8 @@ namespace Foundation.Tests.Unit.Foundation.Core
 
             HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
 
-            IoC ioc = new();
-            ioc.Initialise(hostApplicationBuilder.Services);
+            IoC ioc = new(hostApplicationBuilder.Services);
+            ioc.Initialise();
             IHost host = hostApplicationBuilder.Build();
             ioc.ServiceProvider = host.Services;
 
@@ -118,12 +128,12 @@ namespace Foundation.Tests.Unit.Foundation.Core
 
             HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
 
-            IoC ioc = new();
-            ioc.Initialise(hostApplicationBuilder.Services);
+            IoC ioc = new(hostApplicationBuilder.Services);
+            ioc.Initialise();
             IHost host = hostApplicationBuilder.Build();
             ioc.ServiceProvider = host.Services;
 
-            ITransientOperation? transientOperation = ioc.Get<ITransientOperation>(assemblyName, typeName);
+            ITransientOperation transientOperation = ioc.Get<ITransientOperation>(assemblyName, typeName);
 
             Assert.That(transientOperation, Is.Not.EqualTo(null));
         }
@@ -141,8 +151,8 @@ namespace Foundation.Tests.Unit.Foundation.Core
 
                 HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
 
-                IoC ioc = new();
-                ioc.Initialise(hostApplicationBuilder.Services);
+                IoC ioc = new(hostApplicationBuilder.Services);
+                ioc.Initialise();
 
                 _ = ioc.Get<ITransientOperation>();
             }
@@ -169,8 +179,8 @@ namespace Foundation.Tests.Unit.Foundation.Core
 
                 HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
 
-                IoC ioc = new();
-                ioc.Initialise(hostApplicationBuilder.Services);
+                IoC ioc = new(hostApplicationBuilder.Services);
+                ioc.Initialise();
 
                 _ = ioc.Get<ITransientOperation>(typeof(ITransientOperation).AssemblyQualifiedName!);
             }
@@ -197,8 +207,8 @@ namespace Foundation.Tests.Unit.Foundation.Core
 
                 HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
 
-                IoC ioc = new();
-                ioc.Initialise(hostApplicationBuilder.Services);
+                IoC ioc = new(hostApplicationBuilder.Services);
+                ioc.Initialise();
 
                 _ = ioc.GetAll<ITransientOperation>();
             }
@@ -225,8 +235,8 @@ namespace Foundation.Tests.Unit.Foundation.Core
 
                 HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
 
-                IoC ioc = new();
-                ioc.Initialise(hostApplicationBuilder.Services);
+                IoC ioc = new(hostApplicationBuilder.Services);
+                ioc.Initialise();
                 IHost host = hostApplicationBuilder.Build();
                 ioc.ServiceProvider = host.Services;
 
@@ -254,8 +264,8 @@ namespace Foundation.Tests.Unit.Foundation.Core
 
                 HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
 
-                IoC ioc = new();
-                ioc.Initialise(hostApplicationBuilder.Services);
+                IoC ioc = new(hostApplicationBuilder.Services);
+                ioc.Initialise();
                 IHost host = hostApplicationBuilder.Build();
                 ioc.ServiceProvider = host.Services;
 
@@ -284,8 +294,8 @@ namespace Foundation.Tests.Unit.Foundation.Core
 
             HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
 
-            IoC ioc = new();
-            ioc.Initialise(hostApplicationBuilder.Services);
+            IoC ioc = new(hostApplicationBuilder.Services);
+            ioc.Initialise();
             IHost host = hostApplicationBuilder.Build();
             ioc.ServiceProvider = host.Services;
 
@@ -318,8 +328,8 @@ namespace Foundation.Tests.Unit.Foundation.Core
 
             HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
 
-            IoC ioc = new();
-            ioc.Initialise(hostApplicationBuilder.Services);
+            IoC ioc = new(hostApplicationBuilder.Services);
+            ioc.Initialise();
             IHost host = hostApplicationBuilder.Build();
             ioc.ServiceProvider = host.Services;
 

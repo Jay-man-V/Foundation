@@ -195,8 +195,8 @@ namespace Foundation.BusinessProcess
             List<IMenuItem> retVal;
 
             IEnumerable<IMenuItem> menuItemsWithParents = menuItems.Where(mi => mi.ParentMenuItemId.ToInteger() > -1);
-            IEnumerable<IMenuItem> localParentMenuItemsWithDuplicates = menuItems.Where(mi => menuItemsWithParents.Any(miwp => miwp.ParentMenuItemId == mi.Id));
-            HashSet<IMenuItem> parentMenuItemsWithoutDuplicates = new HashSet<IMenuItem>(localParentMenuItemsWithDuplicates);
+            IEnumerable<IMenuItem> localParentMenuItemsWithDuplicates = menuItems.Where(mi => menuItemsWithParents.Any(mi => mi.ParentMenuItemId == mi.Id));
+            HashSet<IMenuItem> parentMenuItemsWithoutDuplicates = [..localParentMenuItemsWithDuplicates];
             retVal = parentMenuItemsWithoutDuplicates.OrderBy(mi => mi.Caption).ToList();
 
             LoggingHelpers.TraceCallReturn(retVal);

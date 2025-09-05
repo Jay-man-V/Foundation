@@ -8,6 +8,7 @@
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <OutputType>Library</OutputType>
     </PropertyGroup>
 
   <ItemGroup>
@@ -184,6 +185,7 @@
     <Folder Include=".ExpectedResults\Foundation.Resources\Images\Logos\" />
     <Folder Include=".NetFramework\DependencyInjectionTests\" />
     <Folder Include=".Support\Configs\" />
+    <Folder Include="Foundation.BusinessProcess\" />
   </ItemGroup>
 
   <ItemGroup>

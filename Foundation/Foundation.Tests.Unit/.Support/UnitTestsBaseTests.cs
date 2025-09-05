@@ -17,12 +17,12 @@ namespace Foundation.Tests.Unit.Support
         [TestCase]
         public void Test_ByteArrayToString()
         {
-            List<Int32> int32List = new List<Int32>
-            {
+            List<Int32> int32List =
+            [
                 65, 66, 67, 68, 69, 70,
                 71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
                 81, 82, 83, 84, 85, 86, 87, 88, 89, 90
-            };
+            ];
 
             String output = "{65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90}";
 
@@ -123,22 +123,22 @@ namespace Foundation.Tests.Unit.Support
         public void Test_ReplaceUserNameWithConstant()
         {
             String[] inputs =
-            {
+            [
                 @"User logon: MyDomain\MyUser",
                 @"User logon: .\MyUser",
                 @"User: 'MyDomain\MyUser'",
                 @"User: MyDomain\MyUser",
                 @"User: .\UnitTestUserName",
-            };
+            ];
 
             String[] expectedResults =
-            {
+            [
                 @"User logon: <<domain\user>>",
                 @"User logon: <<domain\user>>",
                 @"User: '<<domain\user>>'",
                 @"User: <<domain\user>>",
                 @"User: <<domain\user>>",
-            };
+            ];
 
             for (Int32 counter = 0; counter < inputs.Length; counter++)
             {

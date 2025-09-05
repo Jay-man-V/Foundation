@@ -17,6 +17,12 @@ namespace Foundation.Core
     /// </summary>
     public class IoC : IIoC
     {
+        public IoC(IServiceCollection serviceCollection)
+        {
+            ServiceCollection = serviceCollection;
+        }
+
+        internal IServiceCollection ServiceCollection { get; set; }
         internal IServiceProvider? ServiceProvider { get; set; }
 
         /// <inheritdoc cref="IIoC.Reset()"/>
@@ -25,10 +31,10 @@ namespace Foundation.Core
             DependencyInjectionSetup.ResetDependencyInjection();
         }
 
-        /// <inheritdoc cref="IIoC.Initialise(IServiceCollection, String, String)"/>
-        public void Initialise(IServiceCollection serviceCollection, String typeNamespacePrefix = "Foundation", String searchPattern = "Foundation.*.dll")
+        /// <inheritdoc cref="IIoC.Initialise(String, String)"/>
+        public void Initialise(String typeNamespacePrefix = "Foundation", String searchPattern = "Foundation.*.dll")
         {
-            DependencyInjectionSetup.SetupDependencyInjection(serviceCollection, typeNamespacePrefix, searchPattern);
+            DependencyInjectionSetup.SetupDependencyInjection(ServiceCollection, typeNamespacePrefix, searchPattern);
         }
 
         /// <inheritdoc cref="IIoC.Get{TService}()"/>
@@ -52,7 +58,7 @@ namespace Foundation.Core
         }
 
         /// <inheritdoc cref="IIoC.Get{TService}(String)"/>
-        public TService? Get<TService>(String typeName)
+        public TService Get<TService>(String typeName)
         {
             TService? retVal = default;
 
@@ -72,7 +78,7 @@ namespace Foundation.Core
             if (retVal == null)
             {
                 String errorMessage = $"Unable to get instance of '{typeName}'";
-                throw new InvalidOperationException (errorMessage);
+                throw new InvalidOperationException(errorMessage);
             }
 
             return retVal;

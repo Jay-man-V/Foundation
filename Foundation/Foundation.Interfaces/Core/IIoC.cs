@@ -21,10 +21,9 @@ namespace Foundation.Interfaces
         /// <summary>
         /// Initialises the IoC setup to include the assemblies as defined by <paramref name="typeNamespacePrefix"/> and <paramref name="searchPattern"/>
         /// </summary>
-        /// <param name="serviceCollection"></param>
         /// <param name="typeNamespacePrefix"></param>
         /// <param name="searchPattern"></param>
-        void Initialise(IServiceCollection serviceCollection, String typeNamespacePrefix = "Foundation", String searchPattern = "Foundation.*.dll");
+        void Initialise(String typeNamespacePrefix = "Foundation", String searchPattern = "Foundation.*.dll");
 
         /// <summary>
         /// Get service of type <typeparamref name="TService"/> from the <see cref="IServiceProvider"/>.
@@ -39,7 +38,7 @@ namespace Foundation.Interfaces
         /// <typeparam name="TService"></typeparam>
         /// <param name="typeName"></param>
         /// <returns></returns>
-        TService? Get<TService>(String typeName);
+        TService Get<TService>(String typeName);
 
         /// <summary>
         /// Get an enumeration of services of type <typeparamref name="TService"/> from the <see cref="IServiceProvider"/>.
