@@ -27,15 +27,20 @@ namespace Foundation.Interfaces
         /// Initialises a new instance of the <see cref="FullyQualifiedTypeName"/> class.
         /// </summary>
         /// <param name="xmlTypeName">Name of the XML type.</param>
-        public FullyQualifiedTypeName(String xmlTypeName)
+        public FullyQualifiedTypeName(String? xmlTypeName)
         {
+            if (String.IsNullOrEmpty(xmlTypeName))
+            {
+                throw new ArgumentNullException(nameof(xmlTypeName));
+            }
+
             Value = xmlTypeName;
 
             XmlDocument xmlDocument = new();
             xmlDocument.LoadXml(Value);
 
-            AssemblyName = xmlDocument?.DocumentElement?.GetAttribute("assembly") ?? "Unknown assembly attribute";
-            TypeName = xmlDocument?.DocumentElement?.GetAttribute("type") ?? "Unknown type attribute";
+            AssemblyName = xmlDocument.DocumentElement?.GetAttribute("assembly") ?? "Unknown assembly attribute";
+            TypeName = xmlDocument.DocumentElement?.GetAttribute("type") ?? "Unknown type attribute";
         }
 
         /// <summary>
@@ -82,7 +87,9 @@ namespace Foundation.Interfaces
         /// </returns>
         public static implicit operator FullyQualifiedTypeName(String fullyQualifiedTypeName)
         {
-            return new(fullyQualifiedTypeName);
+            FullyQualifiedTypeName retVal = new(fullyQualifiedTypeName);
+
+            return retVal;
         }
 
         /// <summary>
@@ -94,14 +101,7 @@ namespace Foundation.Interfaces
         /// </returns>
         public static implicit operator String(FullyQualifiedTypeName fullyQualifiedTypeName)
         {
-            String retVal = String.Empty;
-
-            Object o = fullyQualifiedTypeName;
-
-            if (o != null)
-            {
-                retVal = fullyQualifiedTypeName.Value;
-            }
+            String retVal = fullyQualifiedTypeName.Value;
 
             return retVal;
         }

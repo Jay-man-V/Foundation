@@ -72,7 +72,7 @@ namespace Foundation.Interfaces
         /// Initialises a new instance of the <see cref="EmailAddress"/> class.
         /// </summary>
         /// <param name="emailAddress">The email address.</param>
-        public EmailAddress(String emailAddress)
+        public EmailAddress(String? emailAddress)
         {
             IsValid = false;
             HasPotentialTypo = false;
@@ -185,9 +185,9 @@ namespace Foundation.Interfaces
         /// <returns>
         /// New instance of <see cref="EmailAddress" />
         /// </returns>
-        public static implicit operator EmailAddress(String x)
+        public static implicit operator EmailAddress(String? x)
         {
-            return new(x);
+            return new EmailAddress(x);
         }
 
         /// <summary>

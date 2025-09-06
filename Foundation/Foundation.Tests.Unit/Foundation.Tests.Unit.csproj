@@ -13,6 +13,27 @@
 
   <ItemGroup>
     <Compile Include="..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
+    <Compile Include=".Mocks\CancelEventArgs.cs" />
+    <Compile Include=".Mocks\MockApplication.cs" />
+    <Compile Include=".Mocks\MockApplicationWrapper.cs" />
+    <Compile Include=".Mocks\MockClipBoardWrapper.cs" />
+    <Compile Include=".Mocks\MockDispatcherTimerWrapper.cs" />
+    <Compile Include=".Mocks\MockDispatcherWrapper.cs" />
+    <Compile Include=".Mocks\MockFoundationModel.cs" />
+    <Compile Include=".Mocks\MockFoundationModelProcess.cs" />
+    <Compile Include=".Mocks\MockFoundationModelRepository.cs" />
+    <Compile Include=".Mocks\MockFoundationModelViewModel.cs" />
+    <Compile Include=".Mocks\MockHttpMessageHandler.cs" />
+    <Compile Include=".Mocks\MockMailWrapper.cs" />
+    <Compile Include=".Mocks\MockScheduledTask.cs" />
+    <Compile Include=".Mocks\MockScheduledTaskWithError.cs" />
+    <Compile Include=".Mocks\MockWindow.cs" />
+    <Compile Include=".Mocks\MockWindowWrapper.cs" />
+    <Compile Include=".Mocks\RandomCloneableObject.cs" />
+    <Compile Include=".Mocks\RandomObject.cs" />
+    <Compile Include=".Mocks\ViewModels\MockGenericDataGridViewModel.cs" />
+    <Compile Include=".Mocks\ViewModels\MockModelViewModel.cs" />
+    <Compile Include=".Mocks\ViewModels\MockViewModel.cs" />
     <Compile Include=".Support\Dependency Injection Classes\ITypeNotImplemented.cs" />
     <Compile Include=".NetFramework\CredentialsTests.cs" />
     <Compile Include=".NetFramework\CustomClaimsPrincipalTests.cs" />

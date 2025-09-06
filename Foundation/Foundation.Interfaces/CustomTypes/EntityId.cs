@@ -15,18 +15,8 @@ namespace Foundation.Interfaces
     /// A struct to hold an Entity Id alongside validation routines
     /// </summary>
     [DebuggerDisplay("{TheEntityId}")]
-    public readonly struct EntityId : IEquatable<EntityId>, IComparable<EntityId>, IConvertible
+    public readonly struct EntityId : IEquatable<EntityId>, IComparable<EntityId>//, IConvertible
     {
-        /// <summary>
-        /// The minimum value
-        /// </summary>
-        public const Int64 MinValue = 1;
-
-        /// <summary>
-        /// The maximum value
-        /// </summary>
-        public const Int64 MaxValue = Int64.MaxValue;
-
         /// <summary>
         /// The underlying type of the Entity Id
         /// </summary>
@@ -36,16 +26,16 @@ namespace Foundation.Interfaces
         /// Database type of the underlying type
         /// </summary>
         public static readonly DbType DbType = DbType.Int64;
-/*
+
         /// <summary>
-        /// Initialises a new instance of the<see cref="EntityId"/> class.
+        /// The minimum value
         /// </summary>
-        public EntityId()
-            : this(0)
-        {
-            // Does nothing
-        }
-*/
+        public static Int64 MinValue => 1;
+
+        /// <summary>
+        /// The maximum value
+        /// </summary>
+        public static Int64 MaxValue => Int64.MaxValue;
 
         /// <summary>
         /// Initialises a new instance of the <see cref="EntityId"/> class.
@@ -203,19 +193,19 @@ namespace Foundation.Interfaces
             return retVal;
         }
 
-        /// <summary>
-        /// Implicit cast from an Int64 to EntityId Object
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <returns>
-        /// The result of the conversion.
-        /// </returns>
-        public static implicit operator EntityId(Int64 x)
-        {
-            EntityId retVal = new EntityId(x);
+        ///// <summary>
+        ///// Implicit cast from an Int64 to EntityId Object
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <returns>
+        ///// The result of the conversion.
+        ///// </returns>
+        //public static implicit operator EntityId(Int64 x)
+        //{
+        //    EntityId retVal = new EntityId(x);
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
         ///// <summary>
         ///// Implicit cast from EntityId Object to Int64
@@ -306,12 +296,7 @@ namespace Foundation.Interfaces
             {
                 Type objectType = obj.GetType();
 
-                if (objectType == EntityIdType)
-                {
-                    Int64 input = Convert.ToInt64(obj);
-                    retVal = TheEntityId.Equals(input);
-                }
-                else if (objectType == typeof(EntityId))
+                if (objectType == typeof(EntityId))
                 {
                     EntityId input = (EntityId)obj;
                     retVal = TheEntityId.Equals(input.TheEntityId);
@@ -452,89 +437,89 @@ namespace Foundation.Interfaces
             }
         }
 
-        public TypeCode GetTypeCode()
-        {
-            return TypeCode.Int64;
-        }
+        //public TypeCode GetTypeCode()
+        //{
+        //    return TypeCode.Int64;
+        //}
 
-        public bool ToBoolean(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
+        //public bool ToBoolean(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public byte ToByte(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
+        //public byte ToByte(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public char ToChar(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
+        //public char ToChar(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public DateTime ToDateTime(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
+        //public DateTime ToDateTime(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public decimal ToDecimal(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
+        //public decimal ToDecimal(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public double ToDouble(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
+        //public double ToDouble(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public short ToInt16(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
+        //public short ToInt16(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public int ToInt32(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
+        //public int ToInt32(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public long ToInt64(IFormatProvider? provider)
-        {
-            return TheEntityId;
-        }
+        //public long ToInt64(IFormatProvider? provider)
+        //{
+        //    return TheEntityId;
+        //}
 
-        public sbyte ToSByte(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
+        //public sbyte ToSByte(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public float ToSingle(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
+        //public float ToSingle(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public string ToString(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
+        //public string ToString(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public object ToType(Type conversionType, IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
+        //public object ToType(Type conversionType, IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public ushort ToUInt16(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
+        //public ushort ToUInt16(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public uint ToUInt32(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
+        //public uint ToUInt32(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public ulong ToUInt64(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
+        //public ulong ToUInt64(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

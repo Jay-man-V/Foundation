@@ -18,17 +18,7 @@ namespace Foundation.Interfaces
     public readonly struct LogId : IEquatable<LogId>, IComparable<LogId>
     {
         /// <summary>
-        /// The minimum value
-        /// </summary>
-        public const Int64 MinValue = 1;
-
-        /// <summary>
-        /// The maximum value
-        /// </summary>
-        public const Int64 MaxValue = Int64.MaxValue;
-
-        /// <summary>
-        /// The underlying type of the Entity Id
+        /// The underlying type of the Log Id
         /// </summary>
         public static readonly Type LogIdType = typeof(Int64);
 
@@ -36,16 +26,16 @@ namespace Foundation.Interfaces
         /// Database type of the underlying type
         /// </summary>
         public static readonly DbType DbType = DbType.Int64;
-/*
+
         /// <summary>
-        /// Initialises a new instance of the<see cref="LogId"/> class.
+        /// The minimum value
         /// </summary>
-        public LogId()
-            : this(0)
-        {
-            // Does nothing
-        }
-*/
+        public static Int64 MinValue => 1;
+
+        /// <summary>
+        /// The maximum value
+        /// </summary>
+        public static Int64 MaxValue => Int64.MaxValue;
 
         /// <summary>
         /// Initialises a new instance of the <see cref="LogId"/> class.
@@ -80,7 +70,7 @@ namespace Foundation.Interfaces
         /// <returns>
         /// New instance of <see cref="LogId" />
         /// </returns>
-        public static LogId FromObject(Object x)
+        public static LogId FromObject(Object? x)
         {
             LogId retVal = new(0L);
 
@@ -306,12 +296,7 @@ namespace Foundation.Interfaces
             {
                 Type objectType = obj.GetType();
 
-                if (objectType == LogIdType)
-                {
-                    Int64 input = Convert.ToInt64(obj);
-                    retVal = TheLogId.Equals(input);
-                }
-                else if (objectType == typeof(LogId))
+                if (objectType == typeof(LogId))
                 {
                     LogId input = (LogId)obj;
                     retVal = TheLogId.Equals(input.TheLogId);

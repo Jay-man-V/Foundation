@@ -30,23 +30,12 @@ namespace Foundation.Interfaces
         /// <summary>
         /// Minimum numeric value that can be set as the underlying value of the Application Id
         /// </summary>
-        public static Int64 MinValue { get; } = 0;
+        public static Int64 MinValue => 0;
 
         /// <summary>
         /// Maximum numeric value that can be set as the underlying value of the Application Id
         /// </summary>
-        public static Int64 MaxValue { get; } = Int64.MaxValue;
-
-        /*
-        /// <summary>
-        /// Initialises a new instance of the<see cref="AppId"/> class.
-        /// </summary>
-        public AppId()
-            : this(0)
-        {
-            // Does nothing
-        }
-*/
+        public static Int64 MaxValue => Int64.MaxValue;
 
         /// <summary>
         /// Initialises a new instance of the <see cref="AppId"/> class.
@@ -61,8 +50,9 @@ namespace Foundation.Interfaces
         /// Initialises a new instance of the <see cref="AppId"/> class.
         /// </summary>
         /// <param name="appId">The app id.</param>
-        private AppId(AppId appId) : this(appId.ToInteger())
+        public AppId(AppId appId) 
         {
+            TheAppId = appId.ToInteger();
         }
 
         /// <summary>
@@ -80,9 +70,9 @@ namespace Foundation.Interfaces
         /// <returns>
         /// New instance of <see cref="AppId" />
         /// </returns>
-        public static AppId FromObject(Object x)
+        public static AppId FromObject(Object? x)
         {
-            AppId retVal = 0;
+            AppId retVal = new(0);
 
             if (x != null)
             {
@@ -203,93 +193,93 @@ namespace Foundation.Interfaces
             return retVal;
         }
 
-        /// <summary>
-        /// Implicit cast from an Int64 to AppId Object
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <returns>
-        /// The result of the conversion.
-        /// </returns>
-        public static implicit operator AppId(Int64 x)
-        {
-            AppId retVal = new(x);
+        ///// <summary>
+        ///// Implicit cast from an Int64 to AppId Object
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <returns>
+        ///// The result of the conversion.
+        ///// </returns>
+        //public static implicit operator AppId(Int64 x)
+        //{
+        //    AppId retVal = new(x);
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
-        /// <summary>
-        /// Implicit cast from AppId Object to Int64
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <returns>
-        /// The result of the conversion.
-        /// </returns>
-        public static implicit operator Int64(AppId x)
-        {
-            Int64 retVal = x.TheAppId;
+        ///// <summary>
+        ///// Implicit cast from AppId Object to Int64
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <returns>
+        ///// The result of the conversion.
+        ///// </returns>
+        //public static implicit operator Int64(AppId x)
+        //{
+        //    Int64 retVal = x.TheAppId;
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
-        /// <summary>
-        /// == (equals) operator for AppId Object with an Int64
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static Boolean operator ==(AppId x, Int64 y)
-        {
-            Boolean retVal = (x.TheAppId == y);
+        ///// <summary>
+        ///// == (equals) operator for AppId Object with an Int64
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <returns>
+        ///// The result of the operator.
+        ///// </returns>
+        //public static Boolean operator ==(AppId x, Int64 y)
+        //{
+        //    Boolean retVal = (x.TheAppId == y);
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
-        /// <summary>
-        /// == (equals) operator for AppId Object with an Int64
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static Boolean operator ==(Int64 x, AppId y)
-        {
-            Boolean retVal = (y == x);
+        ///// <summary>
+        ///// == (equals) operator for AppId Object with an Int64
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <returns>
+        ///// The result of the operator.
+        ///// </returns>
+        //public static Boolean operator ==(Int64 x, AppId y)
+        //{
+        //    Boolean retVal = (y == x);
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
-        /// <summary>
-        /// != (not equals) operator for AppId Object with an Int64
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static Boolean operator !=(AppId x, Int64 y)
-        {
-            Boolean retVal = !(x == y);
+        ///// <summary>
+        ///// != (not equals) operator for AppId Object with an Int64
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <returns>
+        ///// The result of the operator.
+        ///// </returns>
+        //public static Boolean operator !=(AppId x, Int64 y)
+        //{
+        //    Boolean retVal = !(x == y);
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
-        /// <summary>
-        /// != (not equals) operator for AppId Object with a Int64
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static Boolean operator !=(Int64 x, AppId y)
-        {
-            Boolean retVal = !(x == y);
+        ///// <summary>
+        ///// != (not equals) operator for AppId Object with a Int64
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <returns>
+        ///// The result of the operator.
+        ///// </returns>
+        //public static Boolean operator !=(Int64 x, AppId y)
+        //{
+        //    Boolean retVal = !(x == y);
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
         /// <summary>
         /// Determines whether the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />.
@@ -306,12 +296,7 @@ namespace Foundation.Interfaces
             {
                 Type objectType = obj.GetType();
 
-                if (objectType == AppIdType)
-                {
-                    Int64 input = Convert.ToInt64(obj);
-                    retVal = TheAppId.Equals(input);
-                }
-                else if (objectType == typeof(AppId))
+                if (objectType == typeof(AppId))
                 {
                     AppId input = (AppId)obj;
                     retVal = TheAppId.Equals(input.TheAppId);

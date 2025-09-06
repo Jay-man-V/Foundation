@@ -250,6 +250,7 @@ namespace Foundation.Tests.Unit.Support
             RunTimeEnvironmentSettings.StandardCountryCode.Returns(StandardCountryCode);
             RunTimeEnvironmentSettings.UserDomainName.Returns(UserSecuritySupport.UnitTestAccountDomain);
             RunTimeEnvironmentSettings.UserName.Returns(UserSecuritySupport.UnitTestAccountUserName);
+            RunTimeEnvironmentSettings.UserFullLogonName.Returns($@"{UserSecuritySupport.UnitTestAccountDomain}\{UserSecuritySupport.UnitTestAccountUserName}");
             RunTimeEnvironmentSettings.MachineName.Returns(MachineName);
 
             DateTimeService = Substitute.For<IDateTimeService>();

@@ -14,7 +14,7 @@ namespace Foundation.Interfaces
         /// <summary>
         /// The Data Context
         /// </summary>
-        Object DataContext { get; set; }
+        Object? DataContext { get; set; }
 
         /// <summary>
         /// Closes the window
