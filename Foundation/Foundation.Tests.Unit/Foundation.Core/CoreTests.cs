@@ -9,7 +9,7 @@ using System.Diagnostics;
 using NSubstitute;
 
 using Foundation.Interfaces;
-
+using Foundation.Tests.Unit.Mocks;
 using Foundation.Tests.Unit.Support;
 
 using FModels = Foundation.Models;
@@ -93,7 +93,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
             IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
             userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(UserProfile);
 
-            ICore theModel = global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess);
+            ICore theModel = global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess, "Foundation.UnitTests", "Foundation.UnitTests.dll");
 
             Assert.That(theModel.ApplicationId, Is.EqualTo(ApplicationId));
             Assert.That(theModel.ApplicationName, Is.EqualTo(ApplicationName));
@@ -133,7 +133,16 @@ namespace Foundation.Tests.Unit.Foundation.Core
             userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(UserProfile);
 
             _ = global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess);
+
+            Boolean applicationStartupCalled = false;
+            MockApplicationStartup.ApplicationStartingCalled += (sender, args) =>
+            {
+                applicationStartupCalled = true;
+            };
+
             global::Foundation.Core.Core.ExecuteApplicationStartups();
+
+            Assert.That(applicationStartupCalled, Is.EqualTo(true));
         }
 
         [TestCase]

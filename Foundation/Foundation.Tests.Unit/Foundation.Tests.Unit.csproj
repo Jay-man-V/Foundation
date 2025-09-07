@@ -14,6 +14,7 @@
   <ItemGroup>
     <Compile Include="..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
     <Compile Include=".Mocks\CancelEventArgs.cs" />
+    <Compile Include=".Mocks\MockApplicationStartup.cs" />
     <Compile Include=".Mocks\MockApplication.cs" />
     <Compile Include=".Mocks\MockApplicationWrapper.cs" />
     <Compile Include=".Mocks\MockClipBoardWrapper.cs" />
