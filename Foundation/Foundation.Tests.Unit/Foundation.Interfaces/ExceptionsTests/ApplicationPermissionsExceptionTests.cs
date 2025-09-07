@@ -69,7 +69,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.ExceptionsTests
         {
             String userCredentials = RunTimeEnvironmentSettings.UserFullLogonName;
             String processName = "Application/System Logon";
-            ApplicationRole[] requiredPermission = { ApplicationRole.Approver, ApplicationRole.Creator };
+            ApplicationRole[] requiredPermission = [ ApplicationRole.Approver, ApplicationRole.Creator ];
             IFoundationModel unitTestEntity = new MockFoundationModel();
             IUserProfile userProfile = CoreInstance.CurrentLoggedOnUser.UserProfile;
 

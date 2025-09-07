@@ -271,6 +271,18 @@ namespace Foundation.Tests.Unit.Support
                 Username = $@"{UserSecuritySupport.UnitTestAccountDomain}\{UserSecuritySupport.UnitTestAccountUserName}",
             };
 
+            FModels.Role systemAdministratorRole = new FModels.Role
+            {
+                Id = new EntityId(ApplicationRole.SystemAdministrator.Id())
+            };
+            userProfile.Roles.Add(systemAdministratorRole);
+
+            FModels.Role creatorRole = new FModels.Role
+            {
+                Id = new EntityId(ApplicationRole.Creator.Id())
+            };
+            userProfile.Roles.Add(creatorRole);
+
             IApplication application = new FModels.Application
             {
                 Id = TestingApplicationId,
@@ -307,18 +319,6 @@ namespace Foundation.Tests.Unit.Support
 
             ApplicationConfigurationService.Get<String>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailFromAddress).Returns(EmailFromAddress);
             ApplicationConfigurationService.Get<String>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailFromDisplayName).Returns(EmailFromDisplayName);
-
-            FModels.Role systemAdministratorRole = new FModels.Role
-            {
-                Id = new EntityId(ApplicationRole.SystemAdministrator.Id())
-            };
-            CoreInstance.CurrentLoggedOnUser.UserProfile.Roles.Add(systemAdministratorRole);
-
-            FModels.Role creatorRole = new FModels.Role
-            {
-                Id = new EntityId(ApplicationRole.Creator.Id())
-            };
-            CoreInstance.CurrentLoggedOnUser.UserProfile.Roles.Add(creatorRole);
 
             StatusesList = GetListOfStatuses();
             UserProfileList = GetListOfUserProfiles();
