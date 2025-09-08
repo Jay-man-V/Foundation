@@ -304,7 +304,7 @@ namespace Foundation.Models
             hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(PostCode);
             hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(Telephone1);
             hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(Telephone2);
-            hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(EmailAddress);
+            hashCode = hashCode * constant + EqualityComparer<EmailAddress>.Default.GetHashCode(EmailAddress);
 
 
             return hashCode;
@@ -348,7 +348,7 @@ namespace Foundation.Models
                 retVal &= EqualityComparer<String>.Default.Equals(left.PostCode, right.PostCode);
                 retVal &= EqualityComparer<String>.Default.Equals(left.Telephone1, right.Telephone1);
                 retVal &= EqualityComparer<String>.Default.Equals(left.Telephone2, right.Telephone2);
-                retVal &= EqualityComparer<String>.Default.Equals(left.EmailAddress, right.EmailAddress);
+                retVal &= EqualityComparer<EmailAddress>.Default.Equals(left.EmailAddress, right.EmailAddress);
             }
 
             return retVal;

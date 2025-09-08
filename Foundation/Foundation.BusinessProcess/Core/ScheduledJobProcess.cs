@@ -9,6 +9,7 @@ using System.Timers;
 
 using Foundation.Common;
 using Foundation.Interfaces;
+using Foundation.Models.Specialised;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;

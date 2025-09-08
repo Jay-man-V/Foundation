@@ -14,6 +14,7 @@ using System.Text;
 
 using Foundation.Common;
 using Foundation.Interfaces;
+using Foundation.Models.Specialised;
 using Foundation.Resources;
 
 using FDC = Foundation.Resources.Constants.DataColumns;

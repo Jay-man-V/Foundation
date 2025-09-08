@@ -7,10 +7,11 @@
 using System.Diagnostics;
 using System.Drawing;
 
+using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Resources;
 
-namespace Foundation.Common
+namespace Foundation.Models.Specialised
 {
     /// <summary>
     /// The Grid Column Definition class definition

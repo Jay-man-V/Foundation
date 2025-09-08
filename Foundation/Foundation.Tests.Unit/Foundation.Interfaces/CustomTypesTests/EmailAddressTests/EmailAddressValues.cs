@@ -4,10 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-namespace Foundation.Tests.Unit.Foundation.Common.CustomTypesTests.EmailAddressTests
+namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.EmailAddressTests
 {
     /// <summary>
     /// Email Address Values used within the EmailAddress tests
@@ -16,20 +13,20 @@ namespace Foundation.Tests.Unit.Foundation.Common.CustomTypesTests.EmailAddressT
     {
         static EmailAddressValues()
         {
-            InvalidEmailAddresses = new List<String>
-            {
+            InvalidEmailAddresses =
+            [
                 "a@b.c", // Invalid
                 "Firstname.Surname@domainlocal" // Invalid
-            };
+            ];
 
-            InvalidPotentialTypoEmailAddresses = new List<String>
-            {
+            InvalidPotentialTypoEmailAddresses =
+            [
                 "Firstname#Surname@domainlocal", // Invalid - Potential typo
                 @"Firstname""Surname@domainlocal" // Invalid - Potential typo
-            };
+            ];
 
-            ValidEmailAddresses = new List<String>
-            {
+            ValidEmailAddresses =
+            [
                 "a@b.co", // Valid
                 "Firstname.Surname@domain.one.co.uk", // Valid
                 "Firstname.Surname@domain.two.co.uk", // Valid
@@ -38,15 +35,15 @@ namespace Foundation.Tests.Unit.Foundation.Common.CustomTypesTests.EmailAddressT
                 "FirstnameSurname@domain.local", // Valid
                 "FirstnameSurname123@domain.local", // Valid
                 "Firstname.Surname123@domain.local", // Valid
-            };
+            ];
 
-            ValidPotentialTypoEmailAddresses = new List<String>
-            {
+            ValidPotentialTypoEmailAddresses =
+            [
                 "Firstname#Surname@domain.local", // Valid - Potential typo
                 @"Firstname""Surname@domain.local" // Valid - Potential typo
-            };
+            ];
 
-            AllEmailAddresses = new List<String>();
+            AllEmailAddresses = [];
             AllEmailAddresses.AddRange(InvalidEmailAddresses);
             AllEmailAddresses.AddRange(InvalidPotentialTypoEmailAddresses);
             AllEmailAddresses.AddRange(ValidEmailAddresses);

@@ -603,7 +603,7 @@ namespace Foundation.DataAccess.Database
 
             IDbDataParameter retVal;
 
-            if (!parameterValue.HasValue || String.IsNullOrEmpty(parameterValue))
+            if (!parameterValue.HasValue || String.IsNullOrEmpty(parameterValue.Value.ToString()))
             {
                 retVal = CreateParameter(parameterName, DbType.String, DBNull.Value);
             }

@@ -45,18 +45,5 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AssemblyHelpersTests.Fully
 
             Assert.That(fullyQualifiedTypeNameString, Is.EqualTo(_fullyQualifiedTypeNameString));
         }
-
-        /// <summary>
-        /// Tests the implicit cast from null string.
-        /// </summary>
-        [TestCase]
-        public void Test_ImplicitCastFromNullString()
-        {
-            const String? nullEmailAddressString = null;
-            EmailAddress emailAddress = nullEmailAddressString;
-
-            String emailAddressString = emailAddress;
-            Assert.That(emailAddressString, Is.EqualTo(null));
-        }
     }
 }

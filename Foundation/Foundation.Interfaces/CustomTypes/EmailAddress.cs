@@ -87,7 +87,7 @@ namespace Foundation.Interfaces
         /// Initialises a new instance of the <see cref="EmailAddress"/> class.
         /// </summary>
         /// <param name="emailAddress">The email address.</param>
-        public EmailAddress(EmailAddress emailAddress)
+        public EmailAddress(EmailAddress? emailAddress)
         {
             IsValid = false;
             HasPotentialTypo = false;
@@ -96,7 +96,8 @@ namespace Foundation.Interfaces
 
             TheEmailAddress = String.Empty;
 
-            if (!String.IsNullOrWhiteSpace(emailAddress.TheEmailAddress))
+            if (emailAddress.HasValue &&
+                !String.IsNullOrWhiteSpace(emailAddress.Value.TheEmailAddress))
             {
                 TheEmailAddress = emailAddress.ToString();
                 SplitInToParts();
@@ -141,198 +142,205 @@ namespace Foundation.Interfaces
         /// <value>
         /// The address.
         /// </value>
-        private String TheEmailAddress { get; }
+        private String? TheEmailAddress { get; }
 
-        /// <summary>
-        /// == (equals) operator for EmailAddress Objects
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static Boolean operator ==(EmailAddress x, EmailAddress y)
-        {
-            Boolean retVal = false;
+        ///// <summary>
+        ///// == (equals) operator for EmailAddress Objects
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <returns>
+        ///// The result of the operator.
+        ///// </returns>
+        //public static Boolean operator ==(EmailAddress x, EmailAddress y)
+        //{
+        //    Boolean retVal = false;
 
-            if (!String.IsNullOrEmpty(x) && !String.IsNullOrEmpty(y))
-            {
-                retVal = (x.TheEmailAddress == y.TheEmailAddress);
-            }
+        //    if (!String.IsNullOrEmpty(x) && !String.IsNullOrEmpty(y))
+        //    {
+        //        retVal = (x.TheEmailAddress == y.TheEmailAddress);
+        //    }
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
-        /// <summary>
-        /// != (not equals) operator for EmailAddress Objects
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static Boolean operator !=(EmailAddress x, EmailAddress y)
-        {
-            Boolean retVal = !(x == y);
+        ///// <summary>
+        ///// != (not equals) operator for EmailAddress Objects
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <returns>
+        ///// The result of the operator.
+        ///// </returns>
+        //public static Boolean operator !=(EmailAddress x, EmailAddress y)
+        //{
+        //    Boolean retVal = !(x == y);
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
-        /// <summary>
-        /// Implicit cast from a String to EmailAddress Object
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <returns>
-        /// New instance of <see cref="EmailAddress" />
-        /// </returns>
-        public static implicit operator EmailAddress(String? x)
-        {
-            return new EmailAddress(x);
-        }
+        ///// <summary>
+        ///// Implicit cast from a String to EmailAddress Object
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <returns>
+        ///// New instance of <see cref="EmailAddress" />
+        ///// </returns>
+        //public static implicit operator EmailAddress(String? x)
+        //{
+        //    return new EmailAddress(x);
+        //}
 
-        /// <summary>
-        /// Implicit cast from EmailAddress Object to String
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <returns>
-        /// The result of the conversion.
-        /// </returns>
-        public static implicit operator String(EmailAddress x)
-        {
-            String retVal = x.TheEmailAddress;
+        ///// <summary>
+        ///// Implicit cast from EmailAddress Object to String
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <returns>
+        ///// The result of the conversion.
+        ///// </returns>
+        //public static implicit operator String?(EmailAddress x)
+        //{
+        //    String? retVal = x.TheEmailAddress;
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
-        /// <summary>
-        /// == (equals) operator for EmailAddress Object with a String
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static Boolean operator ==(EmailAddress x, String y)
-        {
-            Boolean retVal = false;
+        ///// <summary>
+        ///// == (equals) operator for EmailAddress Object with a String
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <returns>
+        ///// The result of the operator.
+        ///// </returns>
+        //public static Boolean operator ==(EmailAddress x, String y)
+        //{
+        //    Boolean retVal = false;
 
-            if (!String.IsNullOrWhiteSpace(y))
-            {
-                retVal = (x.TheEmailAddress == y);
-            }
+        //    if (!String.IsNullOrWhiteSpace(y))
+        //    {
+        //        retVal = x.TheEmailAddress == y;
+        //    }
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
-        /// <summary>
-        /// != (not equals) operator for EmailAddress Object with a String
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static Boolean operator !=(EmailAddress x, String y)
-        {
-            Boolean retVal = !(x == y);
+        ///// <summary>
+        ///// != (not equals) operator for EmailAddress Object with a String
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <returns>
+        ///// The result of the operator.
+        ///// </returns>
+        //public static Boolean operator !=(EmailAddress x, String y)
+        //{
+        //    // Opposite of the == operator
+        //    Boolean retVal = !(x == y);
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
-        /// <summary>
-        /// == (equals) operator for EmailAddress Object with a String
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static Boolean operator ==(String x, EmailAddress y)
-        {
-            Boolean retVal = (y == x);
+        ///// <summary>
+        ///// == (equals) operator for EmailAddress Object with a String
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <returns>
+        ///// The result of the operator.
+        ///// </returns>
+        //public static Boolean operator ==(String x, EmailAddress y)
+        //{
+        //    // Use the == operator with EmailAddress first/on the Left Hand Side
+        //    Boolean retVal = y == x;
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
-        /// <summary>
-        /// != (not equals) operator for EmailAddress Object with a String
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static Boolean operator !=(String x, EmailAddress y)
-        {
-            Boolean retVal = !(y == x);
+        ///// <summary>
+        ///// != (not equals) operator for EmailAddress Object with a String
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <returns>
+        ///// The result of the operator.
+        ///// </returns>
+        //public static Boolean operator !=(String x, EmailAddress y)
+        //{
+        //    // Opposite of the == operator
+        //    Boolean retVal = !(y == x);
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
-        /// <summary>
-        /// == (equals) operator for EmailAddress Object with a String
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static Boolean operator ==(EmailAddress x, Object y)
-        {
-            Boolean retVal = false;
+        ///// <summary>
+        ///// == (equals) operator for EmailAddress Object with a String
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <returns>
+        ///// The result of the operator.
+        ///// </returns>
+        //public static Boolean operator ==(EmailAddress x, Object y)
+        //{
+        //    Boolean retVal = false;
 
-            if (y is EmailAddress emailAddressY)
-            {
-                retVal = (x.TheEmailAddress == emailAddressY.TheEmailAddress);
-            }
+        //    if (y is EmailAddress emailAddressY)
+        //    {
+        //        retVal = (x.TheEmailAddress == emailAddressY.TheEmailAddress);
+        //    }
+        //    else if (y is String stringY)
+        //    {
+        //        retVal = (x.TheEmailAddress == stringY);
+        //    }
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
-        /// <summary>
-        /// != (not equals) operator for EmailAddress Object with a String
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static Boolean operator !=(EmailAddress x, Object y)
-        {
-            Boolean retVal = !(x == y);
+        ///// <summary>
+        ///// != (not equals) operator for EmailAddress Object with a String
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <returns>
+        ///// The result of the operator.
+        ///// </returns>
+        //public static Boolean operator !=(EmailAddress x, Object y)
+        //{
+        //    Boolean retVal = !(x == y);
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
-        /// <summary>
-        /// == (equals) operator for EmailAddress Object with a String
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static Boolean operator ==(Object x, EmailAddress y)
-        {
-            Boolean retVal = (y == x);
+        ///// <summary>
+        ///// == (equals) operator for EmailAddress Object with a String
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <returns>
+        ///// The result of the operator.
+        ///// </returns>
+        //public static Boolean operator ==(Object x, EmailAddress y)
+        //{
+        //    Boolean retVal = (y == x);
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
-        /// <summary>
-        /// != (not equals) operator for EmailAddress Object with a String
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static Boolean operator !=(Object x, EmailAddress y)
-        {
-            Boolean retVal = !(y == x);
+        ///// <summary>
+        ///// != (not equals) operator for EmailAddress Object with a String
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <returns>
+        ///// The result of the operator.
+        ///// </returns>
+        //public static Boolean operator !=(Object x, EmailAddress y)
+        //{
+        //    Boolean retVal = !(y == x);
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
         /// <summary>
         /// Determines whether the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />.
@@ -349,15 +357,15 @@ namespace Foundation.Interfaces
             {
                 Type objectType = obj.GetType();
 
-                if (objectType == typeof(String))
-                {
-                    String input = (String)obj;
-                    retVal = TheEmailAddress.Equals(input);
-                }
-                else if (objectType == typeof(EmailAddress))
+                if (objectType == typeof(EmailAddress))
                 {
                     EmailAddress input = (EmailAddress)obj;
                     retVal = TheEmailAddress.Equals(input.TheEmailAddress);
+                }
+                else if (objectType == typeof(String))
+                {
+                    String input = (String)obj;
+                    retVal = TheEmailAddress.Equals(input);
                 }
             }
 
@@ -372,9 +380,12 @@ namespace Foundation.Interfaces
         /// </returns>
         public override Int32 GetHashCode()
         {
-            Int32 retVal = TheEmailAddress.GetHashCode();
+            Int32 constant = -1521134295;
+            Int32 hashCode = 2;
 
-            return retVal;
+            hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(TheEmailAddress?? String.Empty);
+
+            return hashCode;
         }
 
         /// <summary>
@@ -383,7 +394,7 @@ namespace Foundation.Interfaces
         /// <returns>
         /// A <see cref="T:System.String" /> that represents the current <see cref="T:System.Object" />.
         /// </returns>
-        public override String ToString()
+        public override String? ToString()
         {
             return TheEmailAddress;
         }
@@ -396,7 +407,8 @@ namespace Foundation.Interfaces
             IsValid = CheckIsValid(TheEmailAddress);
             HasPotentialTypo = CheckForTypos(TheEmailAddress);
 
-            if (IsValid)
+            if (!String.IsNullOrEmpty(TheEmailAddress) &&
+                IsValid)
             {
                 String[] splitChar = ["@"];
                 String[] parts = TheEmailAddress.Split(splitChar, StringSplitOptions.None);
@@ -424,7 +436,7 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="emailAddress">The email address.</param>
         /// <returns>[True] or [False]</returns>
-        private Boolean CheckIsValid(String emailAddress)
+        private Boolean CheckIsValid(String? emailAddress)
         {
             Boolean retVal = false;
 
@@ -447,7 +459,7 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="emailAddress">The email address.</param>
         /// <returns>[True] or [False]</returns>
-        private Boolean CheckForTypos(String emailAddress)
+        private Boolean CheckForTypos(String? emailAddress)
         {
             Boolean retVal = false;
 

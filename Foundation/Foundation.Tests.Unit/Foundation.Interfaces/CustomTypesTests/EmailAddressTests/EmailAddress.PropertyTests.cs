@@ -1,16 +1,12 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="EmailAddressPropertyTests.cs" company="JDV Software Ltd">
+// <copyright file="EmailAddress.PropertyTests.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using NUnit.Framework;
-
 using Foundation.Interfaces;
 
-namespace Foundation.Tests.Unit.Foundation.Common.CustomTypesTests.EmailAddressTests
+namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.EmailAddressTests
 {
     /// <summary>
     /// Unit Tests for the Email Address type

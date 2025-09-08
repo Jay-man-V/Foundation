@@ -466,11 +466,11 @@ namespace Foundation.Common
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
-            EmailAddress retVal = defaultValue;
+            EmailAddress retVal = new(defaultValue);
 
             if (value != null && value != DBNull.Value)
             {
-                retVal = new(value.ToString() ?? defaultValue);
+                retVal = new(value.ToString());
             }
 
             LoggingHelpers.TraceCallReturn(retVal);

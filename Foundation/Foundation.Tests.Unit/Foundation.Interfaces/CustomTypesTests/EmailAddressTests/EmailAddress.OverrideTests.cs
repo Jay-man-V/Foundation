@@ -4,13 +4,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using NUnit.Framework;
-
 using Foundation.Interfaces;
 
-namespace Foundation.Tests.Unit.Foundation.Common.CustomTypesTests.EmailAddressTests
+namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.EmailAddressTests
 {
     /// <summary>
     /// Unit Tests for the Email Address type
@@ -29,7 +25,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.CustomTypesTests.EmailAddressT
                 Assert.That(emailAddressObject, Is.Not.EqualTo(null));
                 Assert.That(emailAddressObject, Is.InstanceOf<EmailAddress>());
 
-                String emailAddressObjectString = emailAddressObject.ToString();
+                String? emailAddressObjectString = emailAddressObject.ToString();
                 Assert.That(emailAddressObjectString, Is.EqualTo(originalEmailAddressString), $"Email Address '{originalEmailAddressString}' did not work");
             }
         }

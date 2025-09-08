@@ -7,8 +7,8 @@
 using System.Drawing;
 
 using Foundation.BusinessProcess;
-using Foundation.Common;
 using Foundation.Interfaces;
+using Foundation.Models.Specialised;
 using Foundation.Resources;
 
 namespace Foundation.Tests.Unit.Mocks
