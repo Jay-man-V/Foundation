@@ -4,12 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Common;
+using Foundation.Interfaces;
+
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
-using Foundation.Common;
-using Foundation.Interfaces;
+using System.Net.Mail;
+using System.Security.Cryptography.X509Certificates;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
@@ -80,7 +82,6 @@ namespace Foundation.Models
             if (this._attachment != null)
             {
                 retVal._attachment = this._attachment.ToList().Clone().ToArray();
-                //Buffer.BlockCopy(this._attachment, 0, retVal._attachment, 0, this._attachment.Length);
             }
 
             retVal.Initialising = false;
@@ -112,10 +113,17 @@ namespace Foundation.Models
         /// <inheritdoc cref="Object.GetHashCode()"/>
         public override Int32 GetHashCode()
         {
+            Int32 constant = -1521134295;
             Int32 hashCode = base.GetHashCode();
-            Int32 retVal = HashCode.Combine(hashCode, EventLogId, AttachmentFileName, Attachment);
 
-            return retVal;
+            hashCode = hashCode * constant + EqualityComparer<LogId>.Default.GetHashCode(EventLogId);
+            hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(AttachmentFileName);
+            if (this.Attachment != null)
+            {
+                hashCode = hashCode * constant + StructuralComparisons.StructuralEqualityComparer.GetHashCode(Attachment);
+            }
+
+            return hashCode;
         }
 
         /// <summary>

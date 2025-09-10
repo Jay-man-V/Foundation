@@ -208,6 +208,7 @@
     <Folder Include=".NetFramework\DependencyInjectionTests\" />
     <Folder Include=".Support\Configs\" />
     <Folder Include="Foundation.BusinessProcess\" />
+    <Folder Include="Foundation.Models\" />
   </ItemGroup>
 
   <ItemGroup>

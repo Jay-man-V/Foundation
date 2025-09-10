@@ -380,10 +380,11 @@ namespace Foundation.Interfaces
         /// </returns>
         public override Int32 GetHashCode()
         {
-            Int32 constant = -1521134295;
-            Int32 hashCode = 2;
+            //Int32 constant = -1521134295;
+            //Int32 hashCode = 746720419;
 
-            hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(TheEmailAddress?? String.Empty);
+            //hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(TheEmailAddress?? String.Empty);
+            Int32 hashCode = EqualityComparer<String>.Default.GetHashCode(TheEmailAddress?? String.Empty);
 
             return hashCode;
         }
