@@ -101,7 +101,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(ILanguage? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -113,7 +113,7 @@ namespace Foundation.Models
 
             if (obj is Language language)
             {
-                retVal = InternalEquals(this, language);
+                retVal = InternalEquals(language);
             }
 
             return retVal;
@@ -134,31 +134,20 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(ILanguage? left, ILanguage? right)
+        private Boolean InternalEquals(ILanguage? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<String>.Default.Equals(left.EnglishName, right.EnglishName);
-                retVal &= EqualityComparer<String>.Default.Equals(left.NativeName, right.NativeName);
-                retVal &= EqualityComparer<String>.Default.Equals(left.CultureCode, right.CultureCode);
-                retVal &= EqualityComparer<String>.Default.Equals(left.UiCultureCode, right.UiCultureCode);
+                retVal &= EqualityComparer<String>.Default.Equals(this.EnglishName, right.EnglishName);
+                retVal &= EqualityComparer<String>.Default.Equals(this.NativeName, right.NativeName);
+                retVal &= EqualityComparer<String>.Default.Equals(this.CultureCode, right.CultureCode);
+                retVal &= EqualityComparer<String>.Default.Equals(this.UiCultureCode, right.UiCultureCode);
             }
 
             return retVal;

@@ -435,32 +435,27 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        protected static Boolean InternalEquals(IFoundationModel? left, IFoundationModel? right)
+        protected Boolean InternalEquals(IFoundationModel? right)
         {
             Boolean retVal = true;
 
-            if (left == null && right == null)
-            {
-                retVal = true;
-            }
-            else if (left == null || right == null)
+            if (right == null)
             {
                 retVal = false;
             }
             else
             {
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.Id, right.Id);
-                retVal &= EqualityComparer<EntityLife>.Default.Equals(left.EntityLife, right.EntityLife);
-                retVal &= EqualityComparer<EntityState>.Default.Equals(left.EntityState, right.EntityState);
-                retVal &= EqualityComparer<DateTime?>.Default.Equals(left.ValidFrom, right.ValidFrom);
-                retVal &= EqualityComparer<DateTime?>.Default.Equals(left.ValidTo, right.ValidTo);
-                retVal &= EqualityComparer<FEnums.EntityStatus>.Default.Equals(left.EntityStatus, right.EntityStatus);
-                retVal &= StructuralComparisons.StructuralEqualityComparer.Equals(left.Timestamp, right.Timestamp);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.Id, right.Id);
+                retVal &= EqualityComparer<EntityLife>.Default.Equals(this.EntityLife, right.EntityLife);
+                retVal &= EqualityComparer<EntityState>.Default.Equals(this.EntityState, right.EntityState);
+                retVal &= EqualityComparer<DateTime?>.Default.Equals(this.ValidFrom, right.ValidFrom);
+                retVal &= EqualityComparer<DateTime?>.Default.Equals(this.ValidTo, right.ValidTo);
+                retVal &= EqualityComparer<FEnums.EntityStatus>.Default.Equals(this.EntityStatus, right.EntityStatus);
+                retVal &= StructuralComparisons.StructuralEqualityComparer.Equals(this.Timestamp, right.Timestamp);
             }
 
             return retVal;

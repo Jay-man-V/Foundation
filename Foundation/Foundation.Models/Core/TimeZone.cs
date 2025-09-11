@@ -98,7 +98,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(ITimeZone? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -110,7 +110,7 @@ namespace Foundation.Models
 
             if (obj is TimeZone timeZone)
             {
-                retVal = InternalEquals(this, timeZone);
+                retVal = InternalEquals(timeZone);
             }
 
             return retVal;
@@ -131,31 +131,20 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(ITimeZone? left, ITimeZone? right)
+        private Boolean InternalEquals(ITimeZone? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<String>.Default.Equals(left.Code, right.Code);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Description, right.Description);
-                retVal &= EqualityComparer<Int32>.Default.Equals(left.Offset, right.Offset);
-                retVal &= EqualityComparer<Boolean>.Default.Equals(left.HasDaylightSavings, right.HasDaylightSavings);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Code, right.Code);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Description, right.Description);
+                retVal &= EqualityComparer<Int32>.Default.Equals(this.Offset, right.Offset);
+                retVal &= EqualityComparer<Boolean>.Default.Equals(this.HasDaylightSavings, right.HasDaylightSavings);
             }
 
             return retVal;

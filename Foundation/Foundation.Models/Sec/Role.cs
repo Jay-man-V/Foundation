@@ -91,7 +91,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(IRole? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -103,7 +103,7 @@ namespace Foundation.Models
 
             if (obj is Role role)
             {
-                retVal = InternalEquals(this, role);
+                retVal = InternalEquals(role);
             }
 
             return retVal;
@@ -124,31 +124,20 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(IRole? left, IRole? right)
+        private Boolean InternalEquals(IRole? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.Id, right.Id);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Name, right.Name);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Description, right.Description);
-                retVal &= EqualityComparer<Boolean>.Default.Equals(left.SystemSupportOnly, right.SystemSupportOnly);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.Id, right.Id);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Name, right.Name);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Description, right.Description);
+                retVal &= EqualityComparer<Boolean>.Default.Equals(this.SystemSupportOnly, right.SystemSupportOnly);
             }
 
             return retVal;

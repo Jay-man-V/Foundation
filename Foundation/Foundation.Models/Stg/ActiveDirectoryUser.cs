@@ -85,7 +85,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(IActiveDirectoryUser? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -97,7 +97,7 @@ namespace Foundation.Models
 
             if (obj is ActiveDirectoryUser activeDirectoryUser)
             {
-                retVal = InternalEquals(this, activeDirectoryUser);
+                retVal = InternalEquals(activeDirectoryUser);
             }
 
             return retVal;
@@ -117,30 +117,19 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(IActiveDirectoryUser? left, IActiveDirectoryUser? right)
+        private Boolean InternalEquals(IActiveDirectoryUser? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<String>.Default.Equals(left.ObjectSId, right.ObjectSId);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Name, right.Name);
-                retVal &= EqualityComparer<String>.Default.Equals(left.FullName, right.FullName);
+                retVal &= EqualityComparer<String>.Default.Equals(this.ObjectSId, right.ObjectSId);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Name, right.Name);
+                retVal &= EqualityComparer<String>.Default.Equals(this.FullName, right.FullName);
             }
 
             return retVal;

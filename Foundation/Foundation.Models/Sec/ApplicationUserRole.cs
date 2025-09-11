@@ -85,7 +85,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(IApplicationUserRole? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -97,7 +97,7 @@ namespace Foundation.Models
 
             if (obj is ApplicationUserRole applicationUserRole)
             {
-                retVal = InternalEquals(this, applicationUserRole);
+                retVal = InternalEquals(applicationUserRole);
             }
 
             return retVal;
@@ -117,30 +117,19 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(IApplicationUserRole? left, IApplicationUserRole? right)
+        private Boolean InternalEquals(IApplicationUserRole? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<AppId>.Default.Equals(left.ApplicationId, right.ApplicationId);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.UserProfileId, right.UserProfileId);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.RoleId, right.RoleId);
+                retVal &= EqualityComparer<AppId>.Default.Equals(this.ApplicationId, right.ApplicationId);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.UserProfileId, right.UserProfileId);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.RoleId, right.RoleId);
             }
 
             return retVal;

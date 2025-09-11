@@ -100,7 +100,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(IOffice? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -112,7 +112,7 @@ namespace Foundation.Models
 
             if (obj is Office office)
             {
-                retVal = InternalEquals(this, office);
+                retVal = InternalEquals(office);
             }
 
             return retVal;
@@ -133,31 +133,20 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(IOffice? left, IOffice? right)
+        private Boolean InternalEquals(IOffice? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<String>.Default.Equals(left.Code, right.Code);
-                retVal &= EqualityComparer<String>.Default.Equals(left.ShortName, right.ShortName);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.ContactDetailId, right.ContactDetailId);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.OfficeWeekCalendarId, right.OfficeWeekCalendarId);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Code, right.Code);
+                retVal &= EqualityComparer<String>.Default.Equals(this.ShortName, right.ShortName);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.ContactDetailId, right.ContactDetailId);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.OfficeWeekCalendarId, right.OfficeWeekCalendarId);
             }
 
             return retVal;

@@ -138,7 +138,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(IUserProfile? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -151,7 +151,7 @@ namespace Foundation.Models
 
             if (obj is UserProfile userProfile)
             {
-                retVal = InternalEquals(this, userProfile);
+                retVal = InternalEquals(userProfile);
             }
 
             return retVal;
@@ -174,33 +174,22 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(IUserProfile? left, IUserProfile? right)
+        private Boolean InternalEquals(IUserProfile? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<String>.Default.Equals(left.ExternalKeyId, right.ExternalKeyId);
-                retVal &= EqualityComparer<String>.Default.Equals(left.DomainName, right.DomainName);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Username, right.Username);
-                retVal &= EqualityComparer<String>.Default.Equals(left.DisplayName, right.DisplayName);
-                retVal &= EqualityComparer<Boolean>.Default.Equals(left.IsSystemSupport, right.IsSystemSupport);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.ContactDetailId, right.ContactDetailId);
+                retVal &= EqualityComparer<String>.Default.Equals(this.ExternalKeyId, right.ExternalKeyId);
+                retVal &= EqualityComparer<String>.Default.Equals(this.DomainName, right.DomainName);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Username, right.Username);
+                retVal &= EqualityComparer<String>.Default.Equals(this.DisplayName, right.DisplayName);
+                retVal &= EqualityComparer<Boolean>.Default.Equals(this.IsSystemSupport, right.IsSystemSupport);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.ContactDetailId, right.ContactDetailId);
             }
 
             return retVal;

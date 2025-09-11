@@ -91,7 +91,7 @@ namespace Foundation.Models.Specialised
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(IDatabaseSchemaTable? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -103,7 +103,7 @@ namespace Foundation.Models.Specialised
 
             if (obj is DatabaseSchemaTable dbSchemaTable)
             {
-                retVal = InternalEquals(this, dbSchemaTable);
+                retVal = InternalEquals(dbSchemaTable);
             }
             return retVal;
         }
@@ -123,31 +123,20 @@ namespace Foundation.Models.Specialised
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(IDatabaseSchemaTable? left, IDatabaseSchemaTable? right)
+        private Boolean InternalEquals(IDatabaseSchemaTable? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<String>.Default.Equals(left.TableCatalog, right.TableCatalog);
-                retVal &= EqualityComparer<String>.Default.Equals(left.TableSchema, right.TableSchema);
-                retVal &= EqualityComparer<String>.Default.Equals(left.TableName, right.TableName);
-                retVal &= EqualityComparer<String>.Default.Equals(left.TableType, right.TableType);
+                retVal &= EqualityComparer<String>.Default.Equals(this.TableCatalog, right.TableCatalog);
+                retVal &= EqualityComparer<String>.Default.Equals(this.TableSchema, right.TableSchema);
+                retVal &= EqualityComparer<String>.Default.Equals(this.TableName, right.TableName);
+                retVal &= EqualityComparer<String>.Default.Equals(this.TableType, right.TableType);
             }
 
             return retVal;

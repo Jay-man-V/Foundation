@@ -264,7 +264,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(IContactDetail? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -276,7 +276,7 @@ namespace Foundation.Models
 
             if (obj is ContactDetail contactDetail)
             {
-                retVal = InternalEquals(this, contactDetail);
+                retVal = InternalEquals(contactDetail);
             }
 
             return retVal;
@@ -311,44 +311,33 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(IContactDetail? left, IContactDetail? right)
+        private Boolean InternalEquals(IContactDetail? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.ParentContactId, right.ParentContactId);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.ContractId, right.ContractId);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.ContactTypeId, right.ContactTypeId);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.NationalRegionId, right.NationalRegionId);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.CountryId, right.CountryId);
-                retVal &= EqualityComparer<String>.Default.Equals(left.ShortName, right.ShortName);
-                retVal &= EqualityComparer<String>.Default.Equals(left.DisplayName, right.DisplayName);
-                retVal &= EqualityComparer<String>.Default.Equals(left.LegalName, right.LegalName);
-                retVal &= EqualityComparer<String>.Default.Equals(left.BuildingName, right.BuildingName);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Street1, right.Street1);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Street2, right.Street2);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Town, right.Town);
-                retVal &= EqualityComparer<String>.Default.Equals(left.County, right.County);
-                retVal &= EqualityComparer<String>.Default.Equals(left.PostCode, right.PostCode);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Telephone1, right.Telephone1);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Telephone2, right.Telephone2);
-                retVal &= EqualityComparer<EmailAddress>.Default.Equals(left.EmailAddress, right.EmailAddress);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.ParentContactId, right.ParentContactId);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.ContractId, right.ContractId);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.ContactTypeId, right.ContactTypeId);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.NationalRegionId, right.NationalRegionId);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.CountryId, right.CountryId);
+                retVal &= EqualityComparer<String>.Default.Equals(this.ShortName, right.ShortName);
+                retVal &= EqualityComparer<String>.Default.Equals(this.DisplayName, right.DisplayName);
+                retVal &= EqualityComparer<String>.Default.Equals(this.LegalName, right.LegalName);
+                retVal &= EqualityComparer<String>.Default.Equals(this.BuildingName, right.BuildingName);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Street1, right.Street1);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Street2, right.Street2);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Town, right.Town);
+                retVal &= EqualityComparer<String>.Default.Equals(this.County, right.County);
+                retVal &= EqualityComparer<String>.Default.Equals(this.PostCode, right.PostCode);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Telephone1, right.Telephone1);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Telephone2, right.Telephone2);
+                retVal &= EqualityComparer<EmailAddress>.Default.Equals(this.EmailAddress, right.EmailAddress);
             }
 
             return retVal;

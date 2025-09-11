@@ -171,12 +171,17 @@ namespace Foundation.Tests.Unit.Foundation.Models
                     Int32 hashCodeCopy = (Int32)getHashCodeMethodInfo.Invoke(copy, [])!;
                     Assert.That(hashCodeOriginal, Is.EqualTo(hashCodeCopy), errorMessage);
 
-                    MethodInfo equalsMethodInfo1 = modelType.GetMethod(nameof(Object.Equals), [ typeof(Object) ])!;
-                    MethodInfo equalsMethodInfo2 = modelType.GetMethod(nameof(Object.Equals), [ modelType ])!;
-                    Boolean equalsMethod1Result = (Boolean)equalsMethodInfo1.Invoke(original, [ copy ])!;
-                    Boolean equalsMethod2Result = (Boolean)equalsMethodInfo2.Invoke(original, [ copy ])!;
+                    MethodInfo equalsMethodInfo1 = modelType.GetMethod(nameof(Object.Equals), [typeof(Object)])!;
+                    MethodInfo equalsMethodInfo2 = modelType.GetMethod(nameof(Object.Equals), [modelType])!;
+
+                    Boolean equalsMethod1Result = (Boolean)equalsMethodInfo1.Invoke(original, [copy])!;
                     Assert.That(equalsMethod1Result, Is.EqualTo(true), errorMessage);
+
+                    Boolean equalsMethod2Result = (Boolean)equalsMethodInfo2.Invoke(original, [copy])!;
                     Assert.That(equalsMethod2Result, Is.EqualTo(true), errorMessage);
+
+                    Boolean equalsMethod3Result = (Boolean)equalsMethodInfo2.Invoke(original, [null])!;
+                    Assert.That(equalsMethod3Result, Is.EqualTo(false), errorMessage);
                 }
             }
         }

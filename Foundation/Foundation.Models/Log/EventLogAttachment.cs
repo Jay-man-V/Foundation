@@ -10,8 +10,6 @@ using Foundation.Interfaces;
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Net.Mail;
-using System.Security.Cryptography.X509Certificates;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
@@ -92,7 +90,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(IEventLogAttachment? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -104,7 +102,7 @@ namespace Foundation.Models
 
             if (obj is EventLogAttachment eventLogAttachment)
             {
-                retVal = InternalEquals(this, eventLogAttachment);
+                retVal = InternalEquals(eventLogAttachment);
             }
 
             return retVal;
@@ -127,30 +125,19 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(IEventLogAttachment? left, IEventLogAttachment? right)
+        private Boolean InternalEquals(IEventLogAttachment? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<LogId>.Default.Equals(left.EventLogId, right.EventLogId);
-                retVal &= EqualityComparer<String>.Default.Equals(left.AttachmentFileName, right.AttachmentFileName);
-                retVal &= StructuralComparisons.StructuralEqualityComparer.Equals(left.Attachment, left.Attachment);
+                retVal &= EqualityComparer<LogId>.Default.Equals(this.EventLogId, right.EventLogId);
+                retVal &= EqualityComparer<String>.Default.Equals(this.AttachmentFileName, right.AttachmentFileName);
+                retVal &= StructuralComparisons.StructuralEqualityComparer.Equals(this.Attachment, right.Attachment);
             }
 
             return retVal;

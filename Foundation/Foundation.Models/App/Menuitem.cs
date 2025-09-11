@@ -206,7 +206,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(IMenuItem? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -218,7 +218,7 @@ namespace Foundation.Models
 
             if (obj is MenuItem menuItem)
             {
-                retVal = InternalEquals(this, menuItem);
+                retVal = InternalEquals(menuItem);
             }
 
             return retVal;
@@ -252,41 +252,29 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(IMenuItem? left, IMenuItem? right)
+        private Boolean InternalEquals(IMenuItem? right)
         {
             Boolean retVal;
 
-            if (left == null && right == null)
-            {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
+            retVal = base.InternalEquals(right);
 
-                retVal &= EqualityComparer<AppId>.Default.Equals(left.ApplicationId, right.ApplicationId);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.ParentMenuItemId, right.ParentMenuItemId);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Name, right.Name);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Caption, right.Caption);
-                retVal &= EqualityComparer<String>.Default.Equals(left.ControllerAssembly, right.ControllerAssembly);
-                retVal &= EqualityComparer<String>.Default.Equals(left.ControllerType, right.ControllerType);
-                retVal &= EqualityComparer<String>.Default.Equals(left.ViewAssembly, right.ViewAssembly);
-                retVal &= EqualityComparer<String>.Default.Equals(left.ViewType, right.ViewType);
-                retVal &= EqualityComparer<String>.Default.Equals(left.HelpText, right.HelpText);
-                retVal &= EqualityComparer<Boolean>.Default.Equals(left.MultiInstance, right.MultiInstance);
-                retVal &= EqualityComparer<Boolean>.Default.Equals(left.ShowInTab, right.ShowInTab);
-                retVal &= EqualityComparer<Int32>.Default.Equals(left.Depth, right.Depth);
-                retVal &= StructuralComparisons.StructuralEqualityComparer.Equals(left.Icon, left.Icon);
-            }
+            retVal &= EqualityComparer<AppId>.Default.Equals(this.ApplicationId, right.ApplicationId);
+            retVal &= EqualityComparer<EntityId>.Default.Equals(this.ParentMenuItemId, right.ParentMenuItemId);
+            retVal &= EqualityComparer<String>.Default.Equals(this.Name, right.Name);
+            retVal &= EqualityComparer<String>.Default.Equals(this.Caption, right.Caption);
+            retVal &= EqualityComparer<String>.Default.Equals(this.ControllerAssembly, right.ControllerAssembly);
+            retVal &= EqualityComparer<String>.Default.Equals(this.ControllerType, right.ControllerType);
+            retVal &= EqualityComparer<String>.Default.Equals(this.ViewAssembly, right.ViewAssembly);
+            retVal &= EqualityComparer<String>.Default.Equals(this.ViewType, right.ViewType);
+            retVal &= EqualityComparer<String>.Default.Equals(this.HelpText, right.HelpText);
+            retVal &= EqualityComparer<Boolean>.Default.Equals(this.MultiInstance, right.MultiInstance);
+            retVal &= EqualityComparer<Boolean>.Default.Equals(this.ShowInTab, right.ShowInTab);
+            retVal &= EqualityComparer<Int32>.Default.Equals(this.Depth, right.Depth);
+            retVal &= StructuralComparisons.StructuralEqualityComparer.Equals(this.Icon, right.Icon);
 
             return retVal;
         }

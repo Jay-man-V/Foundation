@@ -189,7 +189,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(ICountry? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -201,7 +201,7 @@ namespace Foundation.Models
 
             if (obj is Country country)
             {
-                retVal = InternalEquals(this, country);
+                retVal = InternalEquals(country);
             }
 
             return retVal;
@@ -233,38 +233,27 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(ICountry? left, ICountry? right)
+        private Boolean InternalEquals(ICountry? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<String>.Default.Equals(left.IsoCode, right.IsoCode);
-                retVal &= EqualityComparer<String>.Default.Equals(left.AbbreviatedName, right.AbbreviatedName);
-                retVal &= EqualityComparer<String>.Default.Equals(left.FullName, right.FullName);
-                retVal &= EqualityComparer<String>.Default.Equals(left.NativeName, right.NativeName);
-                retVal &= EqualityComparer<String>.Default.Equals(left.DialingCode, right.DialingCode);
-                retVal &= EqualityComparer<String>.Default.Equals(left.PostCodeFormat, right.PostCodeFormat);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.CurrencyId, right.CurrencyId);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.LanguageId, right.LanguageId);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.TimeZoneId, right.TimeZoneId);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.WorldRegionId, right.WorldRegionId);
-                retVal &= StructuralComparisons.StructuralEqualityComparer.Equals(left.CountryFlag, left.CountryFlag);
+                retVal &= EqualityComparer<String>.Default.Equals(this.IsoCode, right.IsoCode);
+                retVal &= EqualityComparer<String>.Default.Equals(this.AbbreviatedName, right.AbbreviatedName);
+                retVal &= EqualityComparer<String>.Default.Equals(this.FullName, right.FullName);
+                retVal &= EqualityComparer<String>.Default.Equals(this.NativeName, right.NativeName);
+                retVal &= EqualityComparer<String>.Default.Equals(this.DialingCode, right.DialingCode);
+                retVal &= EqualityComparer<String>.Default.Equals(this.PostCodeFormat, right.PostCodeFormat);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.CurrencyId, right.CurrencyId);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.LanguageId, right.LanguageId);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.TimeZoneId, right.TimeZoneId);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.WorldRegionId, right.WorldRegionId);
+                retVal &= StructuralComparisons.StructuralEqualityComparer.Equals(this.CountryFlag, right.CountryFlag);
             }
 
             return retVal;

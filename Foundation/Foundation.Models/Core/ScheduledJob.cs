@@ -220,7 +220,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(IScheduledJob? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -232,7 +232,7 @@ namespace Foundation.Models
 
             if (obj is ScheduledJob scheduledJob)
             {
-                retVal = InternalEquals(this, scheduledJob);
+                retVal = InternalEquals(scheduledJob);
             }
 
             return retVal;
@@ -279,43 +279,32 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(IScheduledJob? left, IScheduledJob? right)
+        private Boolean InternalEquals(IScheduledJob? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
+                retVal &= this.IsRunning == right.IsRunning;
+                retVal &= this.FirstRun == right.FirstRun;
+                retVal &= this.CancellationRequested == right.CancellationRequested;
+                retVal &= this.ScheduledTask == right.ScheduledTask;
+                retVal &= this.LastRunDateTime == right.LastRunDateTime;
+                retVal &= this.NextRunDateTime == right.NextRunDateTime;
 
-                retVal &= left.IsRunning == right.IsRunning;
-                retVal &= left.FirstRun == right.FirstRun;
-                retVal &= left.CancellationRequested == right.CancellationRequested;
-                retVal &= left.ScheduledTask == right.ScheduledTask;
-                retVal &= left.LastRunDateTime == right.LastRunDateTime;
-                retVal &= left.NextRunDateTime == right.NextRunDateTime;
-
-                retVal &= EqualityComparer<String>.Default.Equals(left.Name, right.Name);
-                retVal &= EqualityComparer<Boolean>.Default.Equals(left.RunImmediately, right.RunImmediately);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.ScheduleIntervalId, right.ScheduleIntervalId);
-                retVal &= EqualityComparer<TimeSpan>.Default.Equals(left.StartTime, right.StartTime);
-                retVal &= EqualityComparer<TimeSpan>.Default.Equals(left.EndTime, right.EndTime);
-                retVal &= EqualityComparer<Int32>.Default.Equals(left.Interval, right.Interval);
-                retVal &= EqualityComparer<Boolean>.Default.Equals(left.IsEnabled, right.IsEnabled);
-                retVal &= EqualityComparer<String>.Default.Equals(left.TaskImplementationType, right.TaskImplementationType);
-                retVal &= EqualityComparer<String>.Default.Equals(left.TaskParameters, right.TaskParameters);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Name, right.Name);
+                retVal &= EqualityComparer<Boolean>.Default.Equals(this.RunImmediately, right.RunImmediately);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.ScheduleIntervalId, right.ScheduleIntervalId);
+                retVal &= EqualityComparer<TimeSpan>.Default.Equals(this.StartTime, right.StartTime);
+                retVal &= EqualityComparer<TimeSpan>.Default.Equals(this.EndTime, right.EndTime);
+                retVal &= EqualityComparer<Int32>.Default.Equals(this.Interval, right.Interval);
+                retVal &= EqualityComparer<Boolean>.Default.Equals(this.IsEnabled, right.IsEnabled);
+                retVal &= EqualityComparer<String>.Default.Equals(this.TaskImplementationType, right.TaskImplementationType);
+                retVal &= EqualityComparer<String>.Default.Equals(this.TaskParameters, right.TaskParameters);
             }
 
             return retVal;

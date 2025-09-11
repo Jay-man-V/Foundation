@@ -206,7 +206,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(IEventLog? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -218,7 +218,7 @@ namespace Foundation.Models
 
             if (obj is EventLog eventLog)
             {
-                retVal = InternalEquals(this, eventLog);
+                retVal = InternalEquals(eventLog);
             }
 
             return retVal;
@@ -247,39 +247,28 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(IEventLog? left, IEventLog? right)
+        private Boolean InternalEquals(IEventLog? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<LogId>.Default.Equals(left.Id, right.Id);
-                retVal &= EqualityComparer<AppId>.Default.Equals(left.ApplicationId, right.ApplicationId);
-                retVal &= EqualityComparer<LogId>.Default.Equals(left.ParentId, right.ParentId);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.LogSeverityId, right.LogSeverityId);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.ScheduledTaskId, right.ScheduledTaskId);
-                retVal &= EqualityComparer<String>.Default.Equals(left.BatchName, right.BatchName);
-                retVal &= EqualityComparer<String>.Default.Equals(left.ProcessName, right.ProcessName);
-                retVal &= EqualityComparer<String>.Default.Equals(left.TaskName, right.TaskName);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.TaskStatusId, right.TaskStatusId);
-                retVal &= EqualityComparer<DateTime>.Default.Equals(left.StartedOn, right.StartedOn);
-                retVal &= EqualityComparer<DateTime>.Default.Equals(left.FinishedOn, right.FinishedOn);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Information, right.Information);
+                retVal &= EqualityComparer<LogId>.Default.Equals(this.Id, right.Id);
+                retVal &= EqualityComparer<AppId>.Default.Equals(this.ApplicationId, right.ApplicationId);
+                retVal &= EqualityComparer<LogId>.Default.Equals(this.ParentId, right.ParentId);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.LogSeverityId, right.LogSeverityId);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.ScheduledTaskId, right.ScheduledTaskId);
+                retVal &= EqualityComparer<String>.Default.Equals(this.BatchName, right.BatchName);
+                retVal &= EqualityComparer<String>.Default.Equals(this.ProcessName, right.ProcessName);
+                retVal &= EqualityComparer<String>.Default.Equals(this.TaskName, right.TaskName);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.TaskStatusId, right.TaskStatusId);
+                retVal &= EqualityComparer<DateTime>.Default.Equals(this.StartedOn, right.StartedOn);
+                retVal &= EqualityComparer<DateTime>.Default.Equals(this.FinishedOn, right.FinishedOn);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Information, right.Information);
             }
 
             return retVal;

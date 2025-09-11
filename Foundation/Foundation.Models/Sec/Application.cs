@@ -88,7 +88,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(IApplication? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -100,7 +100,7 @@ namespace Foundation.Models
 
             if (obj is Application application)
             {
-                retVal = InternalEquals(this, application);
+                retVal = InternalEquals(application);
             }
 
             return retVal;
@@ -120,30 +120,19 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(IApplication? left, IApplication? right)
+        private Boolean InternalEquals(IApplication? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<AppId>.Default.Equals(left.Id, right.Id);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Name, right.Name);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Description, right.Description);
+                retVal &= EqualityComparer<AppId>.Default.Equals(this.Id, right.Id);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Name, right.Name);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Description, right.Description);
             }
 
             return retVal;

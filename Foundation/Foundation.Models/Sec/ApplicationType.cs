@@ -73,7 +73,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(IApplicationType? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -85,7 +85,7 @@ namespace Foundation.Models
 
             if (obj is ApplicationType applicationType)
             {
-                retVal = InternalEquals(this, applicationType);
+                retVal = InternalEquals(applicationType);
             }
 
             return retVal;
@@ -104,29 +104,18 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(IApplicationType? left, IApplicationType? right)
+        private Boolean InternalEquals(IApplicationType? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<String>.Default.Equals(left.Name, right.Name);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Description, right.Description);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Name, right.Name);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Description, right.Description);
             }
 
             return retVal;

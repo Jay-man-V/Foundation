@@ -104,7 +104,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(IApplicationConfiguration? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -112,7 +112,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(ApplicationConfiguration? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -123,7 +123,7 @@ namespace Foundation.Models
             Boolean retVal = false;
             if (obj is IApplicationConfiguration applicationConfiguration)
             {
-                retVal = InternalEquals(this, applicationConfiguration);
+                retVal = InternalEquals(applicationConfiguration);
             }
 
             return retVal;
@@ -151,31 +151,20 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(IApplicationConfiguration? left, IApplicationConfiguration? right)
+        private Boolean InternalEquals(IApplicationConfiguration? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<AppId>.Default.Equals(left.ApplicationId, right.ApplicationId);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.ConfigurationScopeId, right.ConfigurationScopeId);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Key, right.Key);
-                retVal &= EqualityComparer<Object>.Default.Equals(left.Value, right.Value);
+                retVal &= EqualityComparer<AppId>.Default.Equals(this.ApplicationId, right.ApplicationId);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.ConfigurationScopeId, right.ConfigurationScopeId);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Key, right.Key);
+                retVal &= EqualityComparer<Object>.Default.Equals(this.Value, right.Value);
             }
 
             return retVal;

@@ -101,7 +101,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(INationalRegion? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -113,7 +113,7 @@ namespace Foundation.Models
 
             if (obj is NationalRegion nationalRegion)
             {
-                retVal = InternalEquals(this, nationalRegion);
+                retVal = InternalEquals(nationalRegion);
             }
 
             return retVal;
@@ -134,31 +134,20 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(INationalRegion? left, INationalRegion? right)
+        private Boolean InternalEquals(INationalRegion? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.CountryId, right.CountryId);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Abbreviation, right.Abbreviation);
-                retVal &= EqualityComparer<String>.Default.Equals(left.ShortName, right.ShortName);
-                retVal &= EqualityComparer<String>.Default.Equals(left.FullName, right.FullName);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.CountryId, right.CountryId);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Abbreviation, right.Abbreviation);
+                retVal &= EqualityComparer<String>.Default.Equals(this.ShortName, right.ShortName);
+                retVal &= EqualityComparer<String>.Default.Equals(this.FullName, right.FullName);
             }
 
             return retVal;

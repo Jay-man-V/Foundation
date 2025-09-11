@@ -108,7 +108,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public bool Equals(IIdGenerator? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -120,7 +120,7 @@ namespace Foundation.Models
 
             if (obj is IdGenerator idGenerator)
             {
-                retVal = InternalEquals(this, idGenerator);
+                retVal = InternalEquals(idGenerator);
             }
 
             return retVal;
@@ -142,32 +142,21 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(IIdGenerator? left, IIdGenerator? right)
+        private Boolean InternalEquals(IIdGenerator? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<AppId>.Default.Equals(left.ApplicationId, right.ApplicationId);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.ConfigurationScopeId, right.ConfigurationScopeId);
-                retVal &= EqualityComparer<String>.Default.Equals(left.IdName, right.IdName);
-                retVal &= EqualityComparer<Int32>.Default.Equals(left.LastId, right.LastId);
-                retVal &= EqualityComparer<Boolean>.Default.Equals(left.ResetOnNewDate, right.ResetOnNewDate);
+                retVal &= EqualityComparer<AppId>.Default.Equals(this.ApplicationId, right.ApplicationId);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.ConfigurationScopeId, right.ConfigurationScopeId);
+                retVal &= EqualityComparer<String>.Default.Equals(this.IdName, right.IdName);
+                retVal &= EqualityComparer<Int32>.Default.Equals(this.LastId, right.LastId);
+                retVal &= EqualityComparer<Boolean>.Default.Equals(this.ResetOnNewDate, right.ResetOnNewDate);
             }
 
             return retVal;

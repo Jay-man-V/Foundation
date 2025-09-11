@@ -86,12 +86,12 @@ namespace Foundation.Tests.Unit.Support
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
         /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(SerialiseTest left, SerialiseTest right)
+        private Boolean InternalEquals(SerialiseTest left, SerialiseTest right)
         {
             Boolean retVal = true;
 

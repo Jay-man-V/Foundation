@@ -91,7 +91,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(IScheduledDataStatus? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -103,7 +103,7 @@ namespace Foundation.Models
 
             if (obj is ScheduledDataStatus scheduledDataStatus)
             {
-                retVal = InternalEquals(this, scheduledDataStatus);
+                retVal = InternalEquals(scheduledDataStatus);
             }
 
             return retVal;
@@ -123,30 +123,19 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(IScheduledDataStatus? left, IScheduledDataStatus? right)
+        private Boolean InternalEquals(IScheduledDataStatus? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<DateTime>.Default.Equals(left.DataDate, right.DataDate);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Name, right.Name);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.DataStatusId, right.DataStatusId);
+                retVal &= EqualityComparer<DateTime>.Default.Equals(this.DataDate, right.DataDate);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Name, right.Name);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.DataStatusId, right.DataStatusId);
             }
 
             return retVal;

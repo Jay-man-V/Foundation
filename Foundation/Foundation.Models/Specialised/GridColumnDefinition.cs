@@ -167,97 +167,58 @@ namespace Foundation.Models.Specialised
         }
 #endif
 
-        /// <summary>
-        /// Width
-        /// </summary>
+        /// <inheritdoc cref="IGridColumnDefinition.Width"/>
         public Int32 Width { get; set; }
 
-        /// <summary>
-        /// Data member name
-        /// </summary>
+        /// <inheritdoc cref="IGridColumnDefinition.DataMemberName"/>
         public String DataMemberName { get; private set; }
 
-        /// <summary>
-        /// Column header name
-        /// </summary>
+        /// <inheritdoc cref="IGridColumnDefinition.ColumnHeaderName"/>
         public String ColumnHeaderName { get; private set; }
 
-        /// <summary>
-        /// Data type
-        /// </summary>
+        /// <inheritdoc cref="IGridColumnDefinition.DataType"/>
         public Type DataType { get; private set; }
 
-        /// <summary>
-        /// Text alignment
-        /// </summary>
+        /// <inheritdoc cref="IGridColumnDefinition.TextAlignment"/>
         public TextAlignment TextAlignment { get; set; }
 
-        /// <summary>
-        /// Gets or sets the maximum length of the input.
-        /// </summary>
-        /// <value>
-        /// The maximum length of the input.
-        /// </value>
+        /// <inheritdoc cref="IGridColumnDefinition.MaxInputLength"/>
         public Int32 MaxInputLength { get; set; }
 
-        /// <summary>
-        /// Dot Net DotNetFormat
-        /// </summary>
+        /// <inheritdoc cref="IGridColumnDefinition.DotNetFormat"/>
         public String DotNetFormat { get; set; }
 
-        /// <summary>
-        /// Excel format
-        /// </summary>
+        /// <inheritdoc cref="IGridColumnDefinition.ExcelFormat"/>
         public String ExcelFormat { get; set; }
 
-        /// <summary>
-        /// Minimum value
-        /// </summary>
+        /// <inheritdoc cref="IGridColumnDefinition.MinimumValue"/>
         public Object? MinimumValue { get; set; }
 
-        /// <summary>
-        /// Maximum value
-        /// </summary>
+        /// <inheritdoc cref="IGridColumnDefinition.MaximumValue"/>
         public Object? MaximumValue { get; set; }
 
-        /// <summary>
-        /// Value to show if the mapped value is True
-        /// </summary>
+        /// <inheritdoc cref="IGridColumnDefinition.TrueValue"/>
         public String TrueValue { get; set; }
 
-        /// <summary>
-        /// Value to show if the mapped value is False
-        /// </summary>
+        /// <inheritdoc cref="IGridColumnDefinition.FalseValue"/>
         public String FalseValue { get; set; }
 
-        /// <summary>
-        /// Data Source
-        /// </summary>
+        /// <inheritdoc cref="IGridColumnDefinition.DataSource"/>
         public Object? DataSource { get; set; }
 
-        /// <summary>
-        /// Value Member
-        /// </summary>
+        /// <inheritdoc cref="IGridColumnDefinition.ValueMember"/>
         public String ValueMember { get; set; }
 
-        /// <summary>
-        /// Display Member
-        /// </summary>
+        /// <inheritdoc cref="IGridColumnDefinition.DisplayMember"/>
         public String DisplayMember { get; set; }
 
-        /// <summary>
-        /// Visible
-        /// </summary>
+        /// <inheritdoc cref="IGridColumnDefinition.Visible"/>
         public Boolean Visible { get; set; }
 
-        /// <summary>
-        /// Read Only
-        /// </summary>
+        /// <inheritdoc cref="IGridColumnDefinition.ReadOnly"/>
         public Boolean ReadOnly { get; set; }
 
-        /// <summary>
-        /// Template Name
-        /// </summary>
+        /// <inheritdoc cref="IGridColumnDefinition.TemplateName"/>
         public String TemplateName
         {
             get
@@ -302,12 +263,7 @@ namespace Foundation.Models.Specialised
             }
         }
 
-        /// <summary>
-        /// Creates a new object that is a copy of the current instance.
-        /// </summary>
-        /// <returns>
-        /// A new object that is a copy of this instance.
-        /// </returns>
+        /// <inheritdoc cref="ICloneable.Clone()"/>
         public Object Clone()
         {
             GridColumnDefinition? retVal = Activator.CreateInstance(this.GetType()) as GridColumnDefinition;
@@ -342,7 +298,7 @@ namespace Foundation.Models.Specialised
             return retVal;
         }
 
-        /// <inheritdoc cref="Object.GetHashCode"/>
+        /// <inheritdoc cref="Object.GetHashCode()"/>
         public override Int32 GetHashCode()
         {
             Int32 constant = -1521134295;
@@ -387,35 +343,35 @@ namespace Foundation.Models.Specialised
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
         /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(GridColumnDefinition left, GridColumnDefinition right)
+        private Boolean InternalEquals(IGridColumnDefinition right)
         {
             Boolean retVal = true;
 
             // Constructor parameters
-            retVal &= left.Width == right.Width;
-            retVal &= left.DataMemberName == right.DataMemberName;
-            retVal &= left.ColumnHeaderName == right.ColumnHeaderName;
-            retVal &= left.DataType == right.DataType;
+            retVal &= this.Width == right.Width;
+            retVal &= this.DataMemberName == right.DataMemberName;
+            retVal &= this.ColumnHeaderName == right.ColumnHeaderName;
+            retVal &= this.DataType == right.DataType;
 
             // Other properties
-            retVal &= left.TextAlignment == right.TextAlignment;
-            retVal &= left.MaxInputLength == right.MaxInputLength;
-            retVal &= left.DotNetFormat == right.DotNetFormat;
-            retVal &= left.ExcelFormat == right.ExcelFormat;
-            retVal &= left.MaximumValue == right.MaximumValue;
-            retVal &= left.MinimumValue == right.MinimumValue;
-            retVal &= left.TrueValue == right.TrueValue;
-            retVal &= left.FalseValue == right.FalseValue;
-            retVal &= left.DataSource == right.DataSource;
-            retVal &= left.ValueMember == right.ValueMember;
-            retVal &= left.DisplayMember == right.DisplayMember;
-            retVal &= left.Visible == right.Visible;
-            retVal &= left.ReadOnly == right.ReadOnly;
+            retVal &= this.TextAlignment == right.TextAlignment;
+            retVal &= this.MaxInputLength == right.MaxInputLength;
+            retVal &= this.DotNetFormat == right.DotNetFormat;
+            retVal &= this.ExcelFormat == right.ExcelFormat;
+            retVal &= this.MaximumValue == right.MaximumValue;
+            retVal &= this.MinimumValue == right.MinimumValue;
+            retVal &= this.TrueValue == right.TrueValue;
+            retVal &= this.FalseValue == right.FalseValue;
+            retVal &= this.DataSource == right.DataSource;
+            retVal &= this.ValueMember == right.ValueMember;
+            retVal &= this.DisplayMember == right.DisplayMember;
+            retVal &= this.Visible == right.Visible;
+            retVal &= this.ReadOnly == right.ReadOnly;
 
             return retVal;
         }

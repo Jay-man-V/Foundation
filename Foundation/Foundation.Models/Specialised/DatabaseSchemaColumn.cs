@@ -74,7 +74,7 @@ namespace Foundation.Models.Specialised
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(IDatabaseSchemaColumn? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -86,7 +86,7 @@ namespace Foundation.Models.Specialised
 
             if (obj is DatabaseSchemaColumn dbSchemaColumn)
             {
-                retVal = InternalEquals(this, dbSchemaColumn);
+                retVal = InternalEquals(dbSchemaColumn);
             }
             return retVal;
         }
@@ -105,30 +105,19 @@ namespace Foundation.Models.Specialised
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(IDatabaseSchemaColumn? left, IDatabaseSchemaColumn? right)
+        private Boolean InternalEquals(IDatabaseSchemaColumn? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<String>.Default.Equals(left.TableName, right.TableName);
-                retVal &= EqualityComparer<String>.Default.Equals(left.ColumnName, right.ColumnName);
-                retVal &= EqualityComparer<Type>.Default.Equals(left.DataType, right.DataType);
+                retVal &= EqualityComparer<String>.Default.Equals(this.TableName, right.TableName);
+                retVal &= EqualityComparer<String>.Default.Equals(this.ColumnName, right.ColumnName);
+                retVal &= EqualityComparer<Type>.Default.Equals(this.DataType, right.DataType);
             }
 
             return retVal;

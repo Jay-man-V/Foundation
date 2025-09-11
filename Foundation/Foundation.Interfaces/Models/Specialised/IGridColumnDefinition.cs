@@ -32,6 +32,15 @@ namespace Foundation.Interfaces
         /// Text alignment
         /// </summary>
         TextAlignment TextAlignment { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum length of the input.
+        /// </summary>
+        /// <value>
+        /// The maximum length of the input.
+        /// </value>
+        Int32 MaxInputLength { get; set; }
+
         /// <summary>
         /// DotNetFormat
         /// </summary>

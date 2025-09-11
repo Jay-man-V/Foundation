@@ -159,7 +159,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(ILoggedOnUser? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -171,7 +171,7 @@ namespace Foundation.Models
 
             if (obj is LoggedOnUser loggedOnUser)
             {
-                retVal = InternalEquals(this, loggedOnUser);
+                retVal = InternalEquals(loggedOnUser);
             }
 
             return retVal;
@@ -197,37 +197,26 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(ILoggedOnUser? left, ILoggedOnUser? right)
+        private Boolean InternalEquals(ILoggedOnUser? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
+                retVal &= EqualityComparer<AppId>.Default.Equals(this.ApplicationId, right.ApplicationId);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.UserProfileId, right.UserProfileId);
+                retVal &= EqualityComparer<DateTime>.Default.Equals(this.LoggedOn, right.LoggedOn);
+                retVal &= EqualityComparer<DateTime>.Default.Equals(this.LastActive, right.LastActive);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Command, right.Command);
 
-                retVal &= EqualityComparer<AppId>.Default.Equals(left.ApplicationId, right.ApplicationId);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.UserProfileId, right.UserProfileId);
-                retVal &= EqualityComparer<DateTime>.Default.Equals(left.LoggedOn, right.LoggedOn);
-                retVal &= EqualityComparer<DateTime>.Default.Equals(left.LastActive, right.LastActive);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Command, right.Command);
-
-                retVal &= EqualityComparer<String>.Default.Equals(left.DisplayName, right.DisplayName);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Username, right.Username);
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.RoleId, right.RoleId);
-                retVal &= EqualityComparer<Boolean>.Default.Equals(left.IsSystemSupport, right.IsSystemSupport);
+                retVal &= EqualityComparer<String>.Default.Equals(this.DisplayName, right.DisplayName);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Username, right.Username);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.RoleId, right.RoleId);
+                retVal &= EqualityComparer<Boolean>.Default.Equals(this.IsSystemSupport, right.IsSystemSupport);
             }
 
             return retVal;

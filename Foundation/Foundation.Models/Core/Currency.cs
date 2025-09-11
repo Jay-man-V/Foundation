@@ -126,7 +126,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(ICurrency? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -138,7 +138,7 @@ namespace Foundation.Models
 
             if (obj is Currency currency)
             {
-                retVal = InternalEquals(this, currency);
+                retVal = InternalEquals(currency);
             }
 
             return retVal;
@@ -161,33 +161,22 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(ICurrency? left, ICurrency? right)
+        private Boolean InternalEquals(ICurrency? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<Boolean>.Default.Equals(left.PrefixSymbol, right.PrefixSymbol);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Symbol, right.Symbol);
-                retVal &= EqualityComparer<String>.Default.Equals(left.IsoCode, right.IsoCode);
-                retVal &= EqualityComparer<String>.Default.Equals(left.IsoNumber, right.IsoNumber);
-                retVal &= EqualityComparer<String>.Default.Equals(left.Name, right.Name);
-                retVal &= EqualityComparer<Int32>.Default.Equals(left.NumberToBasic, right.NumberToBasic);
+                retVal &= EqualityComparer<Boolean>.Default.Equals(this.PrefixSymbol, right.PrefixSymbol);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Symbol, right.Symbol);
+                retVal &= EqualityComparer<String>.Default.Equals(this.IsoCode, right.IsoCode);
+                retVal &= EqualityComparer<String>.Default.Equals(this.IsoNumber, right.IsoNumber);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Name, right.Name);
+                retVal &= EqualityComparer<Int32>.Default.Equals(this.NumberToBasic, right.NumberToBasic);
             }
 
             return retVal;

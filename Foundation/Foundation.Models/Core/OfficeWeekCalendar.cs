@@ -152,7 +152,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(IOfficeWeekCalendar? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -164,7 +164,7 @@ namespace Foundation.Models
 
             if (obj is OfficeWeekCalendar officeWeekCalendar)
             {
-                retVal = InternalEquals(this, officeWeekCalendar);
+                retVal = InternalEquals(officeWeekCalendar);
             }
 
             return retVal;
@@ -190,36 +190,25 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(IOfficeWeekCalendar? left, IOfficeWeekCalendar? right)
+        private Boolean InternalEquals(IOfficeWeekCalendar? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<String>.Default.Equals(left.Code, right.Code);
-                retVal &= EqualityComparer<String>.Default.Equals(left.ShortName, right.ShortName);
-                retVal &= EqualityComparer<Boolean>.Default.Equals(left.Mon, right.Mon);
-                retVal &= EqualityComparer<Boolean>.Default.Equals(left.Tue, right.Tue);
-                retVal &= EqualityComparer<Boolean>.Default.Equals(left.Wed, right.Wed);
-                retVal &= EqualityComparer<Boolean>.Default.Equals(left.Thu, right.Thu);
-                retVal &= EqualityComparer<Boolean>.Default.Equals(left.Fri, right.Fri);
-                retVal &= EqualityComparer<Boolean>.Default.Equals(left.Sat, right.Sat);
-                retVal &= EqualityComparer<Boolean>.Default.Equals(left.Sun, right.Sun);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Code, right.Code);
+                retVal &= EqualityComparer<String>.Default.Equals(this.ShortName, right.ShortName);
+                retVal &= EqualityComparer<Boolean>.Default.Equals(this.Mon, right.Mon);
+                retVal &= EqualityComparer<Boolean>.Default.Equals(this.Tue, right.Tue);
+                retVal &= EqualityComparer<Boolean>.Default.Equals(this.Wed, right.Wed);
+                retVal &= EqualityComparer<Boolean>.Default.Equals(this.Thu, right.Thu);
+                retVal &= EqualityComparer<Boolean>.Default.Equals(this.Fri, right.Fri);
+                retVal &= EqualityComparer<Boolean>.Default.Equals(this.Sat, right.Sat);
+                retVal &= EqualityComparer<Boolean>.Default.Equals(this.Sun, right.Sun);
             }
 
             return retVal;

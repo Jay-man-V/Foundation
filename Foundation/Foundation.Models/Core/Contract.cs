@@ -126,7 +126,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
         public Boolean Equals(IContract? other)
         {
-            Boolean retVal = InternalEquals(this, other);
+            Boolean retVal = InternalEquals(other);
 
             return retVal;
         }
@@ -138,7 +138,7 @@ namespace Foundation.Models
 
             if (obj is Contract contract)
             {
-                retVal = InternalEquals(this, contract);
+                retVal = InternalEquals(contract);
             }
 
             return retVal;
@@ -159,31 +159,20 @@ namespace Foundation.Models
         }
 
         /// <summary>
-        /// Compares the two objects for equality.
+        /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private static Boolean InternalEquals(IContract? left, IContract? right)
+        private Boolean InternalEquals(IContract? right)
         {
-            Boolean retVal;
+            Boolean retVal = base.InternalEquals(right);
 
-            if (left == null && right == null)
+            if (right != null)
             {
-                retVal = true;
-            }
-            else if (left == null || right == null)
-            {
-                retVal = false;
-            }
-            else
-            {
-                retVal = FoundationModel.InternalEquals(left, right);
-
-                retVal &= EqualityComparer<EntityId>.Default.Equals(left.ContractTypeId, right.ContractTypeId);
-                retVal &= EqualityComparer<String>.Default.Equals(left.ContractReference, right.ContractReference);
-                retVal &= EqualityComparer<String>.Default.Equals(left.ShortName, right.ShortName);
-                retVal &= EqualityComparer<String>.Default.Equals(left.FullName, right.FullName);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.ContractTypeId, right.ContractTypeId);
+                retVal &= EqualityComparer<String>.Default.Equals(this.ContractReference, right.ContractReference);
+                retVal &= EqualityComparer<String>.Default.Equals(this.ShortName, right.ShortName);
+                retVal &= EqualityComparer<String>.Default.Equals(this.FullName, right.FullName);
             }
 
             return retVal;
