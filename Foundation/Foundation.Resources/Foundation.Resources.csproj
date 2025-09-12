@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="EmailTemplates\Formal Template.html" />
     <None Remove="Images\Logos\JDV Software Logo.png" />
     <None Remove="ReportTemplates\Excel Simple Report Template - Landscape.xltx" />
     <None Remove="ReportTemplates\Excel Simple Report Template - Portrait.xltx" />
@@ -48,6 +49,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="EmailTemplates\Formal Template.html" />
     <EmbeddedResource Include="Images\Logos\JDV Software Logo.png" />
     <EmbeddedResource Include="ReportTemplates\Excel Simple Report Template - Landscape.xltx" />
     <EmbeddedResource Include="ReportTemplates\Excel Simple Report Template - Portrait.xltx" />

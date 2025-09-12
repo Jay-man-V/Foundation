@@ -232,7 +232,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
                 ICloneable original = (ICloneable)modelInstance;
                 Object copy = original.Clone();
 
-                Assert.That(copy, Is.EqualTo(copy));
+                Assert.That(copy, Is.EqualTo(original));
 
                 foreach (PropertyInfo propertyInfo in publicProperties)
                 {
