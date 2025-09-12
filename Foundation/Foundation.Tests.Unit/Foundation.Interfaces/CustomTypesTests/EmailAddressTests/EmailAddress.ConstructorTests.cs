@@ -119,10 +119,12 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.EmailAddr
             {
                 EmailAddress emailAddress = new EmailAddress(originalEmailAddressString);
                 Object emailAddressObject = new EmailAddress(emailAddress);
+
                 Assert.That(emailAddressObject, Is.Not.EqualTo(null));
                 Assert.That(emailAddressObject, Is.InstanceOf<EmailAddress>());
                 String? emailAddressString = emailAddressObject.ToString();
-                Assert.That(emailAddressString, Is.EqualTo(emailAddressString), $"Email Address '{emailAddressString}' did not work");
+
+                Assert.That(emailAddressString, Is.EqualTo(originalEmailAddressString), $"Email Address '{emailAddressString}' did not work");
             }
         }
     }

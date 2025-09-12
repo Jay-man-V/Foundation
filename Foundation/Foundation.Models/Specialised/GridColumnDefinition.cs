@@ -160,13 +160,6 @@ namespace Foundation.Models.Specialised
             }
         }
 
-#if DEBUG
-        internal void SetDataMemberName(String newDataMemberName)
-        {
-            DataMemberName = newDataMemberName;
-        }
-#endif
-
         /// <inheritdoc cref="IGridColumnDefinition.Width"/>
         public Int32 Width { get; set; }
 
@@ -266,9 +259,7 @@ namespace Foundation.Models.Specialised
         /// <inheritdoc cref="ICloneable.Clone()"/>
         public Object Clone()
         {
-            GridColumnDefinition? retVal = Activator.CreateInstance(this.GetType()) as GridColumnDefinition;
-
-            if (retVal == null)
+            if (Activator.CreateInstance(this.GetType()) is not GridColumnDefinition retVal)
             {
                 String message = $"The Type '{this.GetType()}' cannot be cloned but is calling {LocationUtils.GetFullyQualifiedFunctionName()}";
                 throw new InvalidOperationException(message);
@@ -295,6 +286,26 @@ namespace Foundation.Models.Specialised
             retVal.Visible = this.Visible;
             retVal.ReadOnly = this.ReadOnly;
 
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
+        public Boolean Equals(IGridColumnDefinition? other)
+        {
+            Boolean retVal = InternalEquals(other);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="Object.Equals(Object)"/>
+        public override Boolean Equals(Object? obj)
+        {
+            Boolean retVal = false;
+
+            if (obj is IGridColumnDefinition gridColumnDefinition)
+            {
+                retVal = InternalEquals(gridColumnDefinition);
+            }
             return retVal;
         }
 
@@ -345,33 +356,39 @@ namespace Foundation.Models.Specialised
         /// <summary>
         /// Compares the given object with this object for equality.
         /// </summary>
-        /// <param name="left">The left object.</param>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private Boolean InternalEquals(IGridColumnDefinition right)
+        private Boolean InternalEquals(IGridColumnDefinition? right)
         {
             Boolean retVal = true;
 
-            // Constructor parameters
-            retVal &= this.Width == right.Width;
-            retVal &= this.DataMemberName == right.DataMemberName;
-            retVal &= this.ColumnHeaderName == right.ColumnHeaderName;
-            retVal &= this.DataType == right.DataType;
+            if (right == null)
+            {
+                retVal = false;
+            }
+            else
+            {
+                // Constructor parameters
+                retVal &= this.Width == right.Width;
+                retVal &= this.DataMemberName == right.DataMemberName;
+                retVal &= this.ColumnHeaderName == right.ColumnHeaderName;
+                retVal &= this.DataType == right.DataType;
 
-            // Other properties
-            retVal &= this.TextAlignment == right.TextAlignment;
-            retVal &= this.MaxInputLength == right.MaxInputLength;
-            retVal &= this.DotNetFormat == right.DotNetFormat;
-            retVal &= this.ExcelFormat == right.ExcelFormat;
-            retVal &= this.MaximumValue == right.MaximumValue;
-            retVal &= this.MinimumValue == right.MinimumValue;
-            retVal &= this.TrueValue == right.TrueValue;
-            retVal &= this.FalseValue == right.FalseValue;
-            retVal &= this.DataSource == right.DataSource;
-            retVal &= this.ValueMember == right.ValueMember;
-            retVal &= this.DisplayMember == right.DisplayMember;
-            retVal &= this.Visible == right.Visible;
-            retVal &= this.ReadOnly == right.ReadOnly;
+                // Other properties
+                retVal &= this.TextAlignment == right.TextAlignment;
+                retVal &= this.MaxInputLength == right.MaxInputLength;
+                retVal &= this.DotNetFormat == right.DotNetFormat;
+                retVal &= this.ExcelFormat == right.ExcelFormat;
+                retVal &= this.MaximumValue == right.MaximumValue;
+                retVal &= this.MinimumValue == right.MinimumValue;
+                retVal &= this.TrueValue == right.TrueValue;
+                retVal &= this.FalseValue == right.FalseValue;
+                retVal &= this.DataSource == right.DataSource;
+                retVal &= this.ValueMember == right.ValueMember;
+                retVal &= this.DisplayMember == right.DisplayMember;
+                retVal &= this.Visible == right.Visible;
+                retVal &= this.ReadOnly == right.ReadOnly;
+            }
 
             return retVal;
         }

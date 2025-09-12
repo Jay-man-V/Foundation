@@ -262,19 +262,22 @@ namespace Foundation.Models
 
             retVal = base.InternalEquals(right);
 
-            retVal &= EqualityComparer<AppId>.Default.Equals(this.ApplicationId, right.ApplicationId);
-            retVal &= EqualityComparer<EntityId>.Default.Equals(this.ParentMenuItemId, right.ParentMenuItemId);
-            retVal &= EqualityComparer<String>.Default.Equals(this.Name, right.Name);
-            retVal &= EqualityComparer<String>.Default.Equals(this.Caption, right.Caption);
-            retVal &= EqualityComparer<String>.Default.Equals(this.ControllerAssembly, right.ControllerAssembly);
-            retVal &= EqualityComparer<String>.Default.Equals(this.ControllerType, right.ControllerType);
-            retVal &= EqualityComparer<String>.Default.Equals(this.ViewAssembly, right.ViewAssembly);
-            retVal &= EqualityComparer<String>.Default.Equals(this.ViewType, right.ViewType);
-            retVal &= EqualityComparer<String>.Default.Equals(this.HelpText, right.HelpText);
-            retVal &= EqualityComparer<Boolean>.Default.Equals(this.MultiInstance, right.MultiInstance);
-            retVal &= EqualityComparer<Boolean>.Default.Equals(this.ShowInTab, right.ShowInTab);
-            retVal &= EqualityComparer<Int32>.Default.Equals(this.Depth, right.Depth);
-            retVal &= StructuralComparisons.StructuralEqualityComparer.Equals(this.Icon, right.Icon);
+            if (right != null)
+            {
+                retVal &= EqualityComparer<AppId>.Default.Equals(this.ApplicationId, right.ApplicationId);
+                retVal &= EqualityComparer<EntityId>.Default.Equals(this.ParentMenuItemId, right.ParentMenuItemId);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Name, right.Name);
+                retVal &= EqualityComparer<String>.Default.Equals(this.Caption, right.Caption);
+                retVal &= EqualityComparer<String>.Default.Equals(this.ControllerAssembly, right.ControllerAssembly);
+                retVal &= EqualityComparer<String>.Default.Equals(this.ControllerType, right.ControllerType);
+                retVal &= EqualityComparer<String>.Default.Equals(this.ViewAssembly, right.ViewAssembly);
+                retVal &= EqualityComparer<String>.Default.Equals(this.ViewType, right.ViewType);
+                retVal &= EqualityComparer<String>.Default.Equals(this.HelpText, right.HelpText);
+                retVal &= EqualityComparer<Boolean>.Default.Equals(this.MultiInstance, right.MultiInstance);
+                retVal &= EqualityComparer<Boolean>.Default.Equals(this.ShowInTab, right.ShowInTab);
+                retVal &= EqualityComparer<Int32>.Default.Equals(this.Depth, right.Depth);
+                retVal &= StructuralComparisons.StructuralEqualityComparer.Equals(this.Icon, right.Icon);
+            }
 
             return retVal;
         }

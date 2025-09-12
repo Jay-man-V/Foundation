@@ -155,7 +155,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
                     }
                 }
 
-                if (modelInstance is FModels.EventLogAttachment)
+                //if (modelInstance is FModels.EventLogAttachment)
                 {
                     String errorMessage = $"Current Model: '{currentTypeName}'.";
 
@@ -231,6 +231,8 @@ namespace Foundation.Tests.Unit.Foundation.Models
 
                 ICloneable original = (ICloneable)modelInstance;
                 Object copy = original.Clone();
+
+                Assert.That(copy, Is.EqualTo(copy));
 
                 foreach (PropertyInfo propertyInfo in publicProperties)
                 {
