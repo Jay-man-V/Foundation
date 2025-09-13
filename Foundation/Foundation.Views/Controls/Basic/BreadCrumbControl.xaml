@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Foundation.Views.BreadCrumbControl"
+    x:Class="Foundation.Views.Controls.Basic.BreadCrumbControl"
     Name="ThisControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

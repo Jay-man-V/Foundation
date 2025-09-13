@@ -1,5 +1,5 @@
 ﻿<DatePicker
-    x:Class="Foundation.Views.DatetimePickerControl"
+    x:Class="Foundation.Views.Controls.Basic.DatetimePickerControl"
     Name="ThisControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

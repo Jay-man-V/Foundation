@@ -11,7 +11,7 @@ using System.Windows.Input;
 using Foundation.Common;
 using Foundation.Core;
 using Foundation.Interfaces;
-using Foundation.ViewModels;
+using Foundation.ViewModels.Main;
 using Foundation.Views;
 
 namespace CustomerContact.Client

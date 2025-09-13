@@ -11,7 +11,7 @@ using Oracle.ManagedDataAccess.Client;
 using Foundation.Interfaces;
 using Foundation.Resources;
 
-namespace Foundation.DataAccess.Database
+namespace Foundation.DataAccess.Database.DataLogicProviders
 {
     /// <summary>
     /// The Oracle Database Data Logic Provider

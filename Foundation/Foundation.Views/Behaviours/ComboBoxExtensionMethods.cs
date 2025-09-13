@@ -10,7 +10,7 @@ using System.Windows.Automation.Provider;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
-namespace Foundation.Views
+namespace Foundation.Views.Behaviours
 {
     /// <summary>
     /// Combo Box Extension methods

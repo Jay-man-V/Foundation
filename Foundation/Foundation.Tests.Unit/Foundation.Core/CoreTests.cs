@@ -38,7 +38,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
         {
             global::Foundation.Core.Core.CoreInstance = null;
 
-            UserProfile = new FModels.UserProfile
+            UserProfile = new FModels.Sec.UserProfile
             {
                 Id = new EntityId(1),
                 DisplayName = UserSecuritySupport.UnitTestAccountDisplayName,
@@ -46,7 +46,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
                 Username = $@"{UserSecuritySupport.UnitTestAccountDomain}\{UserSecuritySupport.UnitTestAccountUserName}",
             };
 
-            Application = new FModels.Application
+            Application = new FModels.Sec.Application
             {
                 Id = ApplicationId,
                 Name = ApplicationName,
@@ -135,7 +135,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
             _ = global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess);
 
             Boolean applicationStartupCalled = false;
-            MockApplicationStartup.ApplicationStartingCalled += (sender, args) =>
+            MockApplicationStartup.ApplicationStartingCalled += (_, _) =>
             {
                 applicationStartupCalled = true;
             };

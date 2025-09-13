@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Foundation.Views
+namespace Foundation.Views.Controls.Basic
 {
     /// <summary>
     /// Interaction logic for ProgressBar.xaml

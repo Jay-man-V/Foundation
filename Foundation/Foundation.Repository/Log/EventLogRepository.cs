@@ -11,7 +11,7 @@ using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
-namespace Foundation.Repository
+namespace Foundation.Repository.Log
 {
     /// <summary>
     /// Defines the Event Log Data Access class

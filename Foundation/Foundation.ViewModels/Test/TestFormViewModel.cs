@@ -10,7 +10,7 @@ using System.Windows.Input;
 using Foundation.Common;
 using Foundation.Interfaces;
 
-namespace Foundation.ViewModels
+namespace Foundation.ViewModels.Test
 {
     /// <summary>
     /// 

@@ -7,7 +7,7 @@
 using Foundation.Common;
 using Foundation.Interfaces;
 
-namespace Foundation.ViewModels
+namespace Foundation.ViewModels.Log.EnumViewModels
 {
     /// <summary>
     /// The User Interface interaction logic for Log Severity maintenance

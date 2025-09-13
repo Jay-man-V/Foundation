@@ -6,9 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
-    xmlns:controls="clr-namespace:Foundation.Views"
-    xmlns:common="clr-namespace:Foundation.Common;assembly=Foundation.Common"
     xmlns:fEnums="clr-namespace:Foundation.Interfaces;assembly=Foundation.Interfaces"
+    xmlns:controls1="clr-namespace:Foundation.Views.Controls"
+    xmlns:basic="clr-namespace:Foundation.Views.Controls.Basic"
 
     mc:Ignorable="d"
 
@@ -56,13 +56,13 @@
         </Style>
     </Window.Style>
 
-    <controls:StdWindowPanel
+    <controls1:StdWindowPanel
         Title="Save changes?"
         Instructions="You have made changes to the data"
         MessageBoxImage="Question"
     >
 
-        <controls:StdWindowPanel.Workspace>
+        <controls1:StdWindowPanel.Workspace>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25" />
@@ -73,7 +73,7 @@
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
 
-                <controls:LabelControl
+                <basic:LabelControl
                     Grid.Row="0"
                     Grid.Column="0"
                     Content="File name"
@@ -83,9 +83,9 @@
                     FontFamily="{DynamicResource DefaultFixedFontFamily}"
                     FontSize="{DynamicResource SmallContentFontSize}"
                 />
-                <controls:TextBoxControl Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Margin="5, 0" />
+                <basic:TextBoxControl Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Margin="5, 0" />
 
-                <controls:LabelControl
+                <basic:LabelControl
                     Grid.Row="3"
                     Grid.Column="0"
                     Content="Choose a location"
@@ -95,16 +95,16 @@
                     FontFamily="{DynamicResource DefaultFixedFontFamily}"
                     FontSize="{DynamicResource SmallContentFontSize}"
                 />
-                <controls:ComboBoxControl Grid.Row="4" Grid.Column="0" HorizontalAlignment="Stretch" Margin="5, 0"/>
+                <basic:ComboBoxControl Grid.Row="4" Grid.Column="0" HorizontalAlignment="Stretch" Margin="5, 0"/>
 
                 <ContentControl Grid.Row="5">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <controls:ButtonControl Content="_Save" Width="75" Height="25"  Margin="5, 0, 5, 0" />
-                        <controls:ButtonControl Content="_Cancel" Width="75" Height="25" Margin="5, 0, 5, 0" />
+                        <basic:ButtonControl Content="_Save" Width="75" Height="25"  Margin="5, 0, 5, 0" />
+                        <basic:ButtonControl Content="_Cancel" Width="75" Height="25" Margin="5, 0, 5, 0" />
                     </StackPanel>
                 </ContentControl>
             </Grid>
-        </controls:StdWindowPanel.Workspace>
-    </controls:StdWindowPanel>
+        </controls1:StdWindowPanel.Workspace>
+    </controls1:StdWindowPanel>
 
 </Window>

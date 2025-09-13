@@ -7,7 +7,7 @@
 using Foundation.Common;
 using Foundation.Interfaces;
 
-namespace Foundation.BusinessProcess
+namespace Foundation.BusinessProcess.Sec
 {
     /// <ineritdoc cref="AuthenticationProcess" />
     [DependencyInjectionTransient]

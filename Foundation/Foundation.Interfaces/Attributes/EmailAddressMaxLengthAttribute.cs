@@ -35,8 +35,7 @@ namespace Foundation.Interfaces
             Boolean retVal = false;
 
             if (value is EmailAddress emailAddress &&
-                !String.IsNullOrEmpty(emailAddress.ToString()) &&
-                emailAddress.ToString().Length > 0)
+                !String.IsNullOrEmpty(emailAddress.ToString()))
             {
                 retVal = emailAddress.IsValid;
             }

@@ -10,7 +10,7 @@ using System.IO;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
-namespace Foundation.Views
+namespace Foundation.Views.Converters
 {
     /// <summary>
     /// Converts a <see cref="Byte"/> array to a <see cref="BitmapImage"/>

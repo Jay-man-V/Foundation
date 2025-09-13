@@ -142,7 +142,7 @@ namespace Foundation.Interfaces
         /// <value>
         /// The address.
         /// </value>
-        private String? TheEmailAddress { get; }
+        internal String? TheEmailAddress { get; }
 
         ///// <summary>
         ///// == (equals) operator for EmailAddress Objects

@@ -10,7 +10,7 @@ using System.Windows.Data;
 
 using Foundation.Common;
 
-namespace Foundation.Views
+namespace Foundation.Views.Converters
 {
     /// <summary>
     /// 

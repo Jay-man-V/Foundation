@@ -16,10 +16,10 @@
     <Compile Include=".Mocks\CancelEventArgs.cs" />
     <Compile Include=".Mocks\MockApplicationStartup.cs" />
     <Compile Include=".Mocks\MockApplication.cs" />
-    <Compile Include=".Mocks\MockApplicationWrapper.cs" />
-    <Compile Include=".Mocks\MockClipBoardWrapper.cs" />
-    <Compile Include=".Mocks\MockDispatcherTimerWrapper.cs" />
-    <Compile Include=".Mocks\MockDispatcherWrapper.cs" />
+    <Compile Include=".Mocks\Wrappers\MockApplicationWrapper.cs" />
+    <Compile Include=".Mocks\Wrappers\MockClipBoardWrapper.cs" />
+    <Compile Include=".Mocks\Wrappers\MockDispatcherTimerWrapper.cs" />
+    <Compile Include=".Mocks\Wrappers\MockDispatcherWrapper.cs" />
     <Compile Include=".Mocks\MockFoundationModel.cs" />
     <Compile Include=".Mocks\MockFoundationModelProcess.cs" />
     <Compile Include=".Mocks\MockFoundationModelRepository.cs" />

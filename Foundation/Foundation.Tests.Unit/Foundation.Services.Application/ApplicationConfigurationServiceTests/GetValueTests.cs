@@ -7,7 +7,7 @@
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.Models;
+using Foundation.Models.Core;
 using Foundation.Resources;
 using Foundation.Services.Application;
 
@@ -56,9 +56,9 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
                 TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
                 TheService!.Get<String>(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key);
             }
-            catch (NullValueException e)
+            catch (NullValueException exception)
             {
-                actualException = e;
+                actualException = exception;
             }
 
             Assert.That(actualException, Is.Not.EqualTo(null));
@@ -71,7 +71,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration? expectedValueFromDatabase = new ApplicationConfiguration();
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration();
 
             String errorMessage = $"Configuration value with Key '{key}' for application id '{applicationId.TheAppId}' is null. Null value retrieved from database.";
             NullValueException? actualException = null;
@@ -81,9 +81,9 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
                 TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
                 TheService!.Get<String>(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key);
             }
-            catch (NullValueException e)
+            catch (NullValueException exception)
             {
-                actualException = e;
+                actualException = exception;
             }
 
             Assert.That(actualException, Is.Not.EqualTo(null));
@@ -95,7 +95,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         public void Test_Get_StandardKeys()
         {
             String[] standardKeys =
-            {
+            [
                 ApplicationConfigurationKeys.UserDataPath,
                 ApplicationConfigurationKeys.SystemDataPath,
                 ApplicationConfigurationKeys.EmailFromAddress,
@@ -111,13 +111,13 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
                 ApplicationConfigurationKeys.ServiceGeneratorPasswordMemorableUrl,
                 ApplicationConfigurationKeys.ServiceGeneratorPasswordRuleLength,
                 ApplicationConfigurationKeys.ServiceGeneratorPasswordRuleCount,
-            };
+            ];
 
             AppId applicationId = new AppId(0);
 
             foreach (String key in standardKeys)
             {
-                IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration{ Value = Guid.NewGuid().ToString() };
+                IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = Guid.NewGuid().ToString() };
 
                 TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 

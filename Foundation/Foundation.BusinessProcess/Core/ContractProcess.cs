@@ -11,7 +11,7 @@ using Foundation.Resources;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
-namespace Foundation.BusinessProcess
+namespace Foundation.BusinessProcess.Core
 {
     /// <summary>
     /// The Contract Business Process 

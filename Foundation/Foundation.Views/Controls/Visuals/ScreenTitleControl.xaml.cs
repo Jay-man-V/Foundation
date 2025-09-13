@@ -8,7 +8,7 @@ using System.Windows;
 
 using FEnums = Foundation.Interfaces;
 
-namespace Foundation.Views
+namespace Foundation.Views.Controls.Visuals
 {
     /// <summary>
     /// Interaction logic for ScreenTitleControl.xaml

@@ -7,7 +7,7 @@
 using Foundation.Common;
 using Foundation.Interfaces;
 
-namespace Foundation.BusinessProcess
+namespace Foundation.BusinessProcess.Core.Schedulers
 {
     /// <summary>
     /// The base class for scheduled tasks

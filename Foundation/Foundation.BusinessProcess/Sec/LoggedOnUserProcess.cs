@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.BusinessProcess.Helpers;
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Models.Specialised;
@@ -11,7 +12,7 @@ using Foundation.Resources;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
-namespace Foundation.BusinessProcess
+namespace Foundation.BusinessProcess.Sec
 {
     /// <summary>
     /// The Logged On User Business Process

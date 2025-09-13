@@ -7,7 +7,7 @@
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.Models;
+using Foundation.Models.Core;
 using Foundation.Services.Application;
 
 using Foundation.Tests.Unit.Support;

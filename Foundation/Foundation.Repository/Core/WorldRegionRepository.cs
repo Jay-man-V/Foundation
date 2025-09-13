@@ -9,7 +9,7 @@ using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
-namespace Foundation.Repository
+namespace Foundation.Repository.Core
 {
     /// <summary>
     /// Defines the World Region Data Access class

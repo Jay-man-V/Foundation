@@ -8,6 +8,7 @@ using System.ComponentModel;
 
 using Foundation.Common;
 using Foundation.Interfaces;
+using Foundation.ViewModels.Services;
 
 namespace Foundation.ViewModels
 {
@@ -81,7 +82,7 @@ namespace Foundation.ViewModels
             //  * FormTitle
             //  * HasChanges
             // All other changes need to be recorded
-            String[] viewModelProperties = { nameof(FormTitle), nameof(HasChanges) };
+            String[] viewModelProperties = [nameof(FormTitle), nameof(HasChanges)];
             if (!String.IsNullOrEmpty(e.PropertyName) &&
                 !viewModelProperties.Contains(e.PropertyName))
             {

@@ -6,7 +6,7 @@
 
 using Foundation.Interfaces;
 
-namespace Foundation.Repository
+namespace Foundation.Repository.DatabaseProvider
 {
     /// <summary>
     /// Defines the Log Database Provider class

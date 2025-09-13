@@ -12,7 +12,7 @@
 //using System.Windows.Interop;
 //using System.Windows.Media.Imaging;
 
-//namespace Foundation.Views
+//namespace Foundation.Views.Converters
 //{
 //    [ValueConversion(typeof(Image), typeof(BitmapSource))]
 //    public class ImageToMediaImageConverter : IValueConverter

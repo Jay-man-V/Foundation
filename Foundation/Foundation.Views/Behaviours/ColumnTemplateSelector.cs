@@ -9,7 +9,7 @@ using System.Windows.Controls;
 
 using Foundation.Interfaces;
 
-namespace Foundation.Views
+namespace Foundation.Views.Behaviours
 {
     /// <summary>
     /// The Column Template Selector

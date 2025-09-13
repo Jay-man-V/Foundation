@@ -10,6 +10,7 @@ using System.Drawing;
 using System.IO;
 
 using Foundation.Common;
+using Foundation.DataAccess.Database.DataLogicProviders;
 using Foundation.Interfaces;
 
 namespace Foundation.DataAccess.Database
@@ -164,10 +165,7 @@ namespace Foundation.DataAccess.Database
                 DatabaseTransaction = null;
             }
 
-            if (DatabaseConnection == null)
-            {
-                DatabaseConnection = GetConnection();
-            }
+            DatabaseConnection ??= GetConnection();
 
             DatabaseTransaction = DatabaseConnection.BeginTransaction();
 

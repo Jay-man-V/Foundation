@@ -12,7 +12,7 @@ using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Resources;
 
-namespace Foundation.ViewModels
+namespace Foundation.ViewModels.Sec
 {
     /// <summary>
     /// The User Interface interaction logic for Logged On User maintenance

@@ -6,7 +6,7 @@
 
 using Foundation.Interfaces;
 
-namespace Foundation.BusinessProcess
+namespace Foundation.BusinessProcess.Main
 {
     /// <summary>
     /// The Main Application Process 

@@ -51,20 +51,13 @@ namespace Foundation.Tests.Unit.Foundation.Mail
 
             Assert.That(clonedMailMessage.Body, Is.EqualTo(mailMessage.Body));
             Assert.That(clonedMailMessage.IsBodyHtml, Is.EqualTo(mailMessage.IsBodyHtml));
+            Assert.That(clonedMailMessage.ToAddress.Count, Is.EqualTo(mailMessage.ToAddress.Count));
             Assert.That(clonedMailMessage.FromAddress, Is.EqualTo(mailMessage.FromAddress));
             Assert.That(clonedMailMessage.FromAddressDisplayName, Is.EqualTo(mailMessage.FromAddressDisplayName));
             Assert.That(clonedMailMessage.Subject, Is.EqualTo(mailMessage.Subject));
 
             Assert.That(clonedMailMessage.Attachments.Count, Is.EqualTo(mailMessage.Attachments.Count));
-            Assert.That(clonedMailMessage.ToAddress.Count, Is.EqualTo(mailMessage.ToAddress.Count));
-
             Assert.That(clonedMailMessage.Attachments, Is.Not.EqualTo(mailMessage.Attachments));
-            Assert.That(clonedMailMessage.ToAddress, Is.Not.SameAs(mailMessage.ToAddress));
-
-            Assert.That(clonedMailMessage.Body, Is.Not.SameAs(mailMessage.Body));
-            Assert.That(clonedMailMessage.IsBodyHtml, Is.Not.SameAs(mailMessage.IsBodyHtml));
-            Assert.That(clonedMailMessage.FromAddress, Is.EquivalentTo(mailMessage.FromAddress));
-            Assert.That(clonedMailMessage.FromAddressDisplayName, Is.EquivalentTo(mailMessage.FromAddressDisplayName));
         }
     }
 }

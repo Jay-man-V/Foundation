@@ -74,7 +74,7 @@ namespace Foundation.Tests.Unit.Support
         {
             List<IStatus> retVal = new List<IStatus>();
 
-            FModels.Status obj1 = (FModels.Status)CoreInstance.IoC.Get<IStatus>();
+            FModels.Core.EnumModels.Status obj1 = (FModels.Core.EnumModels.Status)CoreInstance.IoC.Get<IStatus>();
             obj1.Id = new EntityId(-1);
             obj1.StatusId = new EntityId(EntityStatus.Active.Id());
             obj1.CreatedByUserProfileId = new EntityId(1);
@@ -87,7 +87,7 @@ namespace Foundation.Tests.Unit.Support
             obj1.Description = "Inactive Description";
             retVal.Add(obj1);
 
-            FModels.Status obj2 = (FModels.Status)CoreInstance.IoC.Get<IStatus>();
+            FModels.Core.EnumModels.Status obj2 = (FModels.Core.EnumModels.Status)CoreInstance.IoC.Get<IStatus>();
             obj2.Id = new EntityId(0);
             obj2.StatusId = new EntityId(EntityStatus.Active.Id());
             obj2.CreatedByUserProfileId = new EntityId(1);
@@ -100,7 +100,7 @@ namespace Foundation.Tests.Unit.Support
             obj2.Description = "Active Description";
             retVal.Add(obj2);
 
-            FModels.Status obj3 = (FModels.Status)CoreInstance.IoC.Get<IStatus>();
+            FModels.Core.EnumModels.Status obj3 = (FModels.Core.EnumModels.Status)CoreInstance.IoC.Get<IStatus>();
             obj3.Id = new EntityId(2);
             obj3.StatusId = new EntityId(EntityStatus.Active.Id());
             obj3.CreatedByUserProfileId = new EntityId(1);
@@ -113,7 +113,7 @@ namespace Foundation.Tests.Unit.Support
             obj3.Description = "Approved Description";
             retVal.Add(obj3);
 
-            FModels.Status obj4 = (FModels.Status)CoreInstance.IoC.Get<IStatus>();
+            FModels.Core.EnumModels.Status obj4 = (FModels.Core.EnumModels.Status)CoreInstance.IoC.Get<IStatus>();
             obj4.Id = new EntityId(3);
             obj4.StatusId = new EntityId(EntityStatus.Active.Id());
             obj4.CreatedByUserProfileId = new EntityId(1);
@@ -126,7 +126,7 @@ namespace Foundation.Tests.Unit.Support
             obj4.Description = "Pending Approval";
             retVal.Add(obj4);
 
-            FModels.Status obj5 = (FModels.Status)CoreInstance.IoC.Get<IStatus>();
+            FModels.Core.EnumModels.Status obj5 = (FModels.Core.EnumModels.Status)CoreInstance.IoC.Get<IStatus>();
             obj5.Id = new EntityId(4);
             obj5.StatusId = new EntityId(EntityStatus.Active.Id());
             obj5.CreatedByUserProfileId = new EntityId(1);
@@ -146,7 +146,7 @@ namespace Foundation.Tests.Unit.Support
         {
             List<ILoggedOnUser> retVal = new List<ILoggedOnUser>();
 
-            FModels.LoggedOnUser obj1 = (FModels.LoggedOnUser)CoreInstance.IoC.Get<ILoggedOnUser>();
+            FModels.Sec.LoggedOnUser obj1 = (FModels.Sec.LoggedOnUser)CoreInstance.IoC.Get<ILoggedOnUser>();
             retVal.Add(obj1);
 
             return retVal;
@@ -156,7 +156,7 @@ namespace Foundation.Tests.Unit.Support
         {
             List<IUserProfile> retVal = new List<IUserProfile>();
 
-            FModels.UserProfile obj1 = (FModels.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
+            FModels.Sec.UserProfile obj1 = (FModels.Sec.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
             obj1.Id = new EntityId(1);
             obj1.StatusId = new EntityId(EntityStatus.Active.Id());
             obj1.CreatedByUserProfileId = new EntityId(1);
@@ -169,7 +169,7 @@ namespace Foundation.Tests.Unit.Support
             obj1.DisplayName = "System Display Name";
             retVal.Add(obj1);
 
-            FModels.UserProfile obj2 = (FModels.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
+            FModels.Sec.UserProfile obj2 = (FModels.Sec.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
             obj2.Id = new EntityId(2);
             obj2.StatusId = new EntityId(EntityStatus.Active.Id());
             obj2.CreatedByUserProfileId = new EntityId(1);
@@ -182,7 +182,7 @@ namespace Foundation.Tests.Unit.Support
             obj2.DisplayName = "Jayesh Varsani";
             retVal.Add(obj2);
 
-            FModels.UserProfile obj3 = (FModels.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
+            FModels.Sec.UserProfile obj3 = (FModels.Sec.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
             obj3.Id = new EntityId(3);
             obj3.StatusId = new EntityId(EntityStatus.Active.Id());
             obj3.CreatedByUserProfileId = new EntityId(1);
@@ -195,7 +195,7 @@ namespace Foundation.Tests.Unit.Support
             obj3.DisplayName = "Dhanji K Varsani";
             retVal.Add(obj3);
 
-            FModels.UserProfile obj4 = (FModels.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
+            FModels.Sec.UserProfile obj4 = (FModels.Sec.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
             obj4.Id = new EntityId(4);
             obj4.StatusId = new EntityId(EntityStatus.Active.Id());
             obj4.CreatedByUserProfileId = new EntityId(1);
@@ -208,7 +208,7 @@ namespace Foundation.Tests.Unit.Support
             obj4.DisplayName = "Priti Fatania";
             retVal.Add(obj4);
 
-            FModels.UserProfile obj5 = (FModels.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
+            FModels.Sec.UserProfile obj5 = (FModels.Sec.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
             obj5.Id = new EntityId(7);
             obj5.StatusId = new EntityId(EntityStatus.Active.Id());
             obj5.CreatedByUserProfileId = new EntityId(1);
@@ -257,7 +257,7 @@ namespace Foundation.Tests.Unit.Support
             DateTimeService.SystemDateTimeNowWithoutMilliseconds.Returns(SystemDateTime);
             DateTimeService.SystemDateTimeNow.Returns(SystemDateTimeMs);
 
-            IUserProfile userProfile = new FModels.UserProfile
+            IUserProfile userProfile = new FModels.Sec.UserProfile
             {
                 Id = new EntityId(1),
                 StatusId = new EntityId(EntityStatus.Active.Id()),
@@ -271,19 +271,19 @@ namespace Foundation.Tests.Unit.Support
                 Username = $@"{UserSecuritySupport.UnitTestAccountDomain}\{UserSecuritySupport.UnitTestAccountUserName}",
             };
 
-            FModels.Role systemAdministratorRole = new FModels.Role
+            FModels.Sec.Role systemAdministratorRole = new FModels.Sec.Role
             {
                 Id = new EntityId(ApplicationRole.SystemAdministrator.Id())
             };
             userProfile.Roles.Add(systemAdministratorRole);
 
-            FModels.Role creatorRole = new FModels.Role
+            FModels.Sec.Role creatorRole = new FModels.Sec.Role
             {
                 Id = new EntityId(ApplicationRole.Creator.Id())
             };
             userProfile.Roles.Add(creatorRole);
 
-            IApplication application = new FModels.Application
+            IApplication application = new FModels.Sec.Application
             {
                 Id = TestingApplicationId,
                 StatusId = new EntityId(EntityStatus.Active.Id()),

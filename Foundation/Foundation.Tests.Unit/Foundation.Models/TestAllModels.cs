@@ -61,51 +61,51 @@ namespace Foundation.Tests.Unit.Foundation.Models
             List<Type> modelTypes = GetListOfValidTypes();
 
             Int32 index = 0;
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.ActiveDirectoryUser)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Application)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.ApplicationApplicationType)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.ApplicationConfiguration)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.ApplicationRole)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.ApplicationType)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.ApplicationUserRole)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.ApprovalStatus)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.ConfigurationScope)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.ContactDetail)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.ContactType)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Contract)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.ContractType)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Country)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Currency)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Stg.ActiveDirectoryUser)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Sec.Application)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Sec.ApplicationApplicationType)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.ApplicationConfiguration)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Sec.EnumModels.ApplicationRole)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Sec.ApplicationType)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Sec.ApplicationUserRole)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.ApprovalStatus)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.ConfigurationScope)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.ContactDetail)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.ContactType)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.Contract)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.ContractType)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.Country)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.Currency)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Specialised.DatabaseSchemaColumn)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Specialised.DatabaseSchemaTable)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.DataStatus)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Department)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.EntityStatus)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.EventLog)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.EventLogApplication)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.EventLogAttachment)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.DataStatus)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.Department)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.EntityStatus)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Log.EventLog)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Log.EventLogApplication)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Log.EventLogAttachment)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Specialised.GridColumnDefinition)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.IdGenerator)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.ImageType)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.ImportExportControl)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Language)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.LoggedOnUser)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.LogSeverity)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.MenuItem)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.NationalRegion)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.NonWorkingDay)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Office)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.OfficeWeekCalendar)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.PermissionMatrix)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Role)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.ScheduledDataStatus)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.ScheduledJob)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.ScheduleInterval)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Status)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.TaskStatus)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.TimeZone)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.UserProfile)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.WorldRegion)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.IdGenerator)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.ImageType)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Log.ImportExportControl)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.Language)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Sec.LoggedOnUser)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Log.EnumModels.LogSeverity)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.App.MenuItem)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.NationalRegion)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.NonWorkingDay)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.Office)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.OfficeWeekCalendar)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Sec.PermissionMatrix)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Sec.Role)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Log.ScheduledDataStatus)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.ScheduledJob)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.ScheduleInterval)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.Status)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.TaskStatus)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.TimeZone)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Sec.UserProfile)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.WorldRegion)));
 
             Assert.That(modelTypes.Count, Is.EqualTo(index));
         }
@@ -311,8 +311,6 @@ namespace Foundation.Tests.Unit.Foundation.Models
                     else if (columnAttributes.Count == 0 && notMappedAttributes.Count == 1)
                     {
                         // Nothing to check against
-                        //NotMappedAttribute notMappedAttribute = notMappedAttributes[0];
-                        //Assert.That(notMappedAttribute., Is.EqualTo(currentPublicProperty));
                     }
                     else
                     {
@@ -405,7 +403,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
 
         private List<Type> GetListOfValidTypes()
         {
-            Type type = typeof(FModels.ActiveDirectoryUser);
+            Type type = typeof(FModels.Stg.ActiveDirectoryUser);
             Assembly modelAssembly = type.Assembly;
             Type[] allModelTypes = modelAssembly.GetTypes();
 
@@ -518,15 +516,15 @@ namespace Foundation.Tests.Unit.Foundation.Models
             }
             else if (propertyType == typeof(IContactDetail))
             {
-                retVal = new FModels.ContactDetail { ShortName = Guid.NewGuid().ToString(), DisplayName = Guid.NewGuid().ToString() };
+                retVal = new FModels.Core.ContactDetail { ShortName = Guid.NewGuid().ToString(), DisplayName = Guid.NewGuid().ToString() };
             }
             else if (propertyType == typeof(IContract))
             {
-                retVal = new FModels.Contract { ContractReference = Guid.NewGuid().ToString(), ShortName = Guid.NewGuid().ToString(), FullName = Guid.NewGuid().ToString() };
+                retVal = new FModels.Core.Contract { ContractReference = Guid.NewGuid().ToString(), ShortName = Guid.NewGuid().ToString(), FullName = Guid.NewGuid().ToString() };
             }
             else if (propertyType == typeof(IContractType))
             {
-                retVal = new FModels.ContractType { Name = Guid.NewGuid().ToString(), Description = Guid.NewGuid().ToString() };
+                retVal = new FModels.Core.EnumModels.ContractType { Name = Guid.NewGuid().ToString(), Description = Guid.NewGuid().ToString() };
             }
             else if (propertyType == typeof(IList<IDatabaseSchemaColumn>))
             {
@@ -554,7 +552,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
             }
             else if (propertyType == typeof(IFoundationModel))
             {
-                retVal = new FModels.UserProfile();
+                retVal = new FModels.Sec.UserProfile();
             }
             else if (propertyType == typeof(LogId))
             {

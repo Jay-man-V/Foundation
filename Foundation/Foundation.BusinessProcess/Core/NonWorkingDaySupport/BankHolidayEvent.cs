@@ -8,7 +8,7 @@ using System.Globalization;
 
 using Newtonsoft.Json;
 
-namespace Foundation.BusinessProcess
+namespace Foundation.BusinessProcess.Core.NonWorkingDaySupport
 {
     /// <summary>
     /// Defines the Bank Holiday Event

@@ -6,10 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
-    xmlns:controls="clr-namespace:Foundation.Views"
-    xmlns:common="clr-namespace:Foundation.Common;assembly=Foundation.Common"
     xmlns:fEnums="clr-namespace:Foundation.Interfaces;assembly=Foundation.Interfaces"
     xmlns:resources="clr-namespace:Foundation.Resources;assembly=Foundation.Resources"
+    xmlns:visuals="clr-namespace:Foundation.Views.Controls.Visuals"
+    xmlns:basic="clr-namespace:Foundation.Views.Controls.Basic"
 
     mc:Ignorable="d"
 
@@ -72,19 +72,19 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <controls:ScreenTitleControl Grid.Row="0" Grid.ColumnSpan="3" ScreenName="{Binding FormTitle, Mode=OneWay}" ScreenInstructions="{Binding ScreenInstructions, Mode=OneWay}" MessageBoxImage="{Binding MessageBoxImage}" Margin="1,-1,-1,1" />
+        <visuals:ScreenTitleControl Grid.Row="0" Grid.ColumnSpan="3" ScreenName="{Binding FormTitle, Mode=OneWay}" ScreenInstructions="{Binding ScreenInstructions, Mode=OneWay}" MessageBoxImage="{Binding MessageBoxImage}" Margin="1,-1,-1,1" />
 
-        <controls:LabelControl Grid.Row="1" Grid.Column="0" Content="Date/Time" HorizontalAlignment="Center" Margin="0" />
-        <controls:LabelControl Grid.Row="1" Grid.Column="1" Content="User" HorizontalAlignment="Center" Margin="0"/>
-        <controls:LabelControl Grid.Row="1" Grid.Column="2" Content="Computer Name" HorizontalAlignment="Center" Margin="0"/>
+        <basic:LabelControl Grid.Row="1" Grid.Column="0" Content="Date/Time" HorizontalAlignment="Center" Margin="0" />
+        <basic:LabelControl Grid.Row="1" Grid.Column="1" Content="User" HorizontalAlignment="Center" Margin="0"/>
+        <basic:LabelControl Grid.Row="1" Grid.Column="2" Content="Computer Name" HorizontalAlignment="Center" Margin="0"/>
 
-        <controls:TextBoxControl Grid.Row="2" Grid.Column="0" Text="{Binding MessageDateTime, Mode=OneWay, StringFormat={x:Static resources:Formats+DotNet.DateTime}}" VerticalContentAlignment="Center" TextAlignment="Center" Margin="0,0,10,0" IsReadOnly="True" />
-        <controls:TextBoxControl Grid.Row="2" Grid.Column="1" Text="{Binding UserLogon, Mode=OneWay}" VerticalContentAlignment="Center" TextAlignment="Center" Margin="10,0" IsReadOnly="True" />
-        <controls:TextBoxControl Grid.Row="2" Grid.Column="2" Text="{Binding ComputerName, Mode=OneWay}" VerticalContentAlignment="Center" TextAlignment="Center" Margin="10,0,0,0" IsReadOnly="True" />
+        <basic:TextBoxControl Grid.Row="2" Grid.Column="0" Text="{Binding MessageDateTime, Mode=OneWay, StringFormat={x:Static resources:Formats+DotNet.DateTime}}" VerticalContentAlignment="Center" TextAlignment="Center" Margin="0,0,10,0" IsReadOnly="True" />
+        <basic:TextBoxControl Grid.Row="2" Grid.Column="1" Text="{Binding UserLogon, Mode=OneWay}" VerticalContentAlignment="Center" TextAlignment="Center" Margin="10,0" IsReadOnly="True" />
+        <basic:TextBoxControl Grid.Row="2" Grid.Column="2" Text="{Binding ComputerName, Mode=OneWay}" VerticalContentAlignment="Center" TextAlignment="Center" Margin="10,0,0,0" IsReadOnly="True" />
 
-        <controls:TextBoxControl Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Message, Mode=OneWay}" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" IsReadOnly="True" Margin="0,5" />
+        <basic:TextBoxControl Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Message, Mode=OneWay}" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" IsReadOnly="True" Margin="0,5" />
 
-        <controls:ExpanderControl
+        <basic:ExpanderControl
             Header="{Binding ExpanderCaption, Mode=OneWay}"
             ExpandedCommand="{Binding ExpandedCollapsedEventCommand}"
             CollapsedCommand="{Binding ExpandedCollapsedEventCommand}"
@@ -106,25 +106,25 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <controls:LabelControl Grid.Row="0" Grid.Column="0" Content="Source" />
-                <controls:TextBoxControl Grid.Row="1" Grid.Column="0" Text="{Binding Source, Mode=OneWay}" Grid.ColumnSpan="3" IsReadOnly="True" />
+                <basic:LabelControl Grid.Row="0" Grid.Column="0" Content="Source" />
+                <basic:TextBoxControl Grid.Row="1" Grid.Column="0" Text="{Binding Source, Mode=OneWay}" Grid.ColumnSpan="3" IsReadOnly="True" />
 
-                <controls:LabelControl Grid.Row="2" Grid.Column="0" Content="Details" VerticalAlignment="Bottom" />
-                <controls:ButtonControl Grid.Row="2" Grid.Column="2" Content="Copy to Clipboard"  HorizontalAlignment="Stretch" Command="{Binding CopyToClipboardCommand}" Margin="10,10,0,10"/>
+                <basic:LabelControl Grid.Row="2" Grid.Column="0" Content="Details" VerticalAlignment="Bottom" />
+                <basic:ButtonControl Grid.Row="2" Grid.Column="2" Content="Copy to Clipboard"  HorizontalAlignment="Stretch" Command="{Binding CopyToClipboardCommand}" Margin="10,10,0,10"/>
 
-                <controls:TextBoxControl Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Detail, Mode=OneWay}" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" IsReadOnly="True" />
+                <basic:TextBoxControl Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Detail, Mode=OneWay}" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" IsReadOnly="True" />
             </Grid>
-        </controls:ExpanderControl>
+        </basic:ExpanderControl>
 
         <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3">
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <controls:ButtonControl Content="_Yes" Width="150" Command="{Binding YesButtonCommand}" CommandParameter="{Binding ElementName=ThisWindow}" HorizontalAlignment="Stretch" Margin="0,0,10,10" Visibility="{Binding YesVisibility, Mode=OneWay}"/>
-                <controls:ButtonControl Content="_No" Width="150" Command="{Binding NoButtonCommand}" CommandParameter="{Binding ElementName=ThisWindow}" HorizontalAlignment="Stretch" Margin="0,0,10,10" Visibility="{Binding NoVisibility, Mode=OneWay}"/>
-                <controls:ButtonControl Content="_Okay" Width="150" Command="{Binding OkayButtonCommand}" CommandParameter="{Binding ElementName=ThisWindow}" HorizontalAlignment="Stretch" Margin="0,0,10,10" Visibility="{Binding OkayVisibility, Mode=OneWay}"/>
-                <controls:ButtonControl Content="_Cancel" Width="150" Command="{Binding CancelButtonCommand}" CommandParameter="{Binding ElementName=ThisWindow}" HorizontalAlignment="Stretch" Margin="0,0,10,10" Visibility="{Binding CancelVisibility, Mode=OneWay}"/>
-                <controls:ButtonControl Content="_Close" Width="150" Command="{Binding CloseButtonCommand}" CommandParameter="{Binding ElementName=ThisWindow}" HorizontalAlignment="Stretch" Margin="0,0,10,10" Visibility="{Binding CloseVisibility, Mode=OneWay}"/>
-                <controls:ButtonControl Content="_Continue" Width="150" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=ThisWindow}" HorizontalAlignment="Stretch" Margin="0,0,10,10" Visibility="{Binding ContinueVisibility, Mode=OneWay}"/>
-                <controls:ButtonControl Content="E_xit Application" Width="150" Command="{Binding ExitApplicationCommand}" HorizontalAlignment="Stretch" Margin="10,0,0,10" Visibility="{Binding ExitApplicationVisibility, Mode=OneWay}"/>
+                <basic:ButtonControl Content="_Yes" Width="150" Command="{Binding YesButtonCommand}" CommandParameter="{Binding ElementName=ThisWindow}" HorizontalAlignment="Stretch" Margin="0,0,10,10" Visibility="{Binding YesVisibility, Mode=OneWay}"/>
+                <basic:ButtonControl Content="_No" Width="150" Command="{Binding NoButtonCommand}" CommandParameter="{Binding ElementName=ThisWindow}" HorizontalAlignment="Stretch" Margin="0,0,10,10" Visibility="{Binding NoVisibility, Mode=OneWay}"/>
+                <basic:ButtonControl Content="_Okay" Width="150" Command="{Binding OkayButtonCommand}" CommandParameter="{Binding ElementName=ThisWindow}" HorizontalAlignment="Stretch" Margin="0,0,10,10" Visibility="{Binding OkayVisibility, Mode=OneWay}"/>
+                <basic:ButtonControl Content="_Cancel" Width="150" Command="{Binding CancelButtonCommand}" CommandParameter="{Binding ElementName=ThisWindow}" HorizontalAlignment="Stretch" Margin="0,0,10,10" Visibility="{Binding CancelVisibility, Mode=OneWay}"/>
+                <basic:ButtonControl Content="_Close" Width="150" Command="{Binding CloseButtonCommand}" CommandParameter="{Binding ElementName=ThisWindow}" HorizontalAlignment="Stretch" Margin="0,0,10,10" Visibility="{Binding CloseVisibility, Mode=OneWay}"/>
+                <basic:ButtonControl Content="_Continue" Width="150" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=ThisWindow}" HorizontalAlignment="Stretch" Margin="0,0,10,10" Visibility="{Binding ContinueVisibility, Mode=OneWay}"/>
+                <basic:ButtonControl Content="E_xit Application" Width="150" Command="{Binding ExitApplicationCommand}" HorizontalAlignment="Stretch" Margin="10,0,0,10" Visibility="{Binding ExitApplicationVisibility, Mode=OneWay}"/>
             </StackPanel>
         </Grid>
     </Grid>

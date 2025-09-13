@@ -8,7 +8,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Foundation.Views
+namespace Foundation.Views.Converters
 {
     /// <summary>
     /// Converts Boolean to Visible. False -> Collapsed. True -> Visible

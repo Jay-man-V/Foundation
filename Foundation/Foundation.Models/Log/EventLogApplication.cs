@@ -12,7 +12,7 @@ using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
-namespace Foundation.Models
+namespace Foundation.Models.Log
 {
     /// <summary>
     /// Event Log Application class

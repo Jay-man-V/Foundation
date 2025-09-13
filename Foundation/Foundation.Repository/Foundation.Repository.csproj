@@ -10,8 +10,8 @@
 
     <ItemGroup>
         <Compile Include="..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
-        <Compile Include=".base\FoundationModelRepository.cs" />
         <Compile Include=".LocalModels\FirstAndLastWorkingDays.cs" />
+        <Compile Include=".Reference for Fast Data Saving.txt" />
     </ItemGroup>
 
     <ItemGroup>

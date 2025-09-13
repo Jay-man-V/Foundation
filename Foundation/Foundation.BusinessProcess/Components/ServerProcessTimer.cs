@@ -7,7 +7,7 @@
 using Foundation.Common;
 using Foundation.Interfaces;
 
-namespace Foundation.BusinessProcess
+namespace Foundation.BusinessProcess.Components
 {
     /// <summary>
     /// ServiceProcessTimer class inherits <see cref="System.Timers.Timer"/> to provide a customised Timer component

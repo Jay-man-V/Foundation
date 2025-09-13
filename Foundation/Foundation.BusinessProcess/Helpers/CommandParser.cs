@@ -10,7 +10,7 @@ using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Resources;
 
-namespace Foundation.BusinessProcess
+namespace Foundation.BusinessProcess.Helpers
 {
     /// <summary>
     /// The Command Parser class

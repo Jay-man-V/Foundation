@@ -7,7 +7,7 @@
 using Foundation.Common;
 using Foundation.Interfaces;
 
-namespace Foundation.ViewModels
+namespace Foundation.ViewModels.Stg
 {
     /// <summary>
     /// The User Interface interaction logic for Active Directory User maintenance
@@ -71,7 +71,7 @@ namespace Foundation.ViewModels
         {
             LoggingHelpers.TraceCallEnter();
 
-            if (GridDataSource != null && GridDataSource.Any())
+            if (GridDataSource.Any())
             {
                 CommonBusinessProcess.Save(GridDataSource.ToList());
 

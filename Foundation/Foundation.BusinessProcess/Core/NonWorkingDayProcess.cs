@@ -8,6 +8,7 @@ using System.Drawing;
 
 using Newtonsoft.Json;
 
+using Foundation.BusinessProcess.Core.NonWorkingDaySupport;
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Models.Specialised;
@@ -15,7 +16,7 @@ using Foundation.Resources;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
-namespace Foundation.BusinessProcess
+namespace Foundation.BusinessProcess.Core
 {
     /// <summary>
     /// The Non-Working Business Process 

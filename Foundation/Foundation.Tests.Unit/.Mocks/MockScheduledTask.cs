@@ -6,7 +6,7 @@
 
 using System.Diagnostics;
 
-using Foundation.BusinessProcess;
+using Foundation.BusinessProcess.Core.Schedulers;
 using Foundation.Interfaces;
 using Foundation.Resources;
 

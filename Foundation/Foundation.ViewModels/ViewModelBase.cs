@@ -4,13 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.Common;
-using Foundation.Core;
-using Foundation.Interfaces;
-
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+
+using Foundation.Common;
+using Foundation.Interfaces;
 
 namespace Foundation.ViewModels
 {

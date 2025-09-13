@@ -7,7 +7,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Foundation.Views
+namespace Foundation.Views.Converters
 {
     /// <summary>
     /// Converts a number to string of at least three characters

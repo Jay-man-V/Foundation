@@ -13,7 +13,7 @@ using Foundation.Interfaces;
 
 using MenuItem = System.Windows.Controls.MenuItem;
 
-namespace Foundation.Views
+namespace Foundation.Views.Controls.Basic
 {
     /// <summary>
     /// Interaction logic for GridViewControl.xaml

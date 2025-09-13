@@ -11,7 +11,7 @@ using MySql.Data.MySqlClient;
 using Foundation.Interfaces;
 using Foundation.Resources;
 
-namespace Foundation.DataAccess.Database
+namespace Foundation.DataAccess.Database.DataLogicProviders
 {
     /// <summary>
     /// The My Sql Server Database Data Logic Provider

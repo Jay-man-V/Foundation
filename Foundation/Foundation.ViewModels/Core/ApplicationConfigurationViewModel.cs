@@ -9,7 +9,7 @@ using System.Diagnostics;
 using Foundation.Common;
 using Foundation.Interfaces;
 
-namespace Foundation.ViewModels
+namespace Foundation.ViewModels.Core
 {
     /// <summary>
     /// The User Interface interaction logic for Approval Status maintenance

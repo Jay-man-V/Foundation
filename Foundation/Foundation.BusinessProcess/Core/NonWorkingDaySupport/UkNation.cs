@@ -6,7 +6,7 @@
 
 using Newtonsoft.Json;
 
-namespace Foundation.BusinessProcess
+namespace Foundation.BusinessProcess.Core.NonWorkingDaySupport
 {
     /// <summary>
     /// Defines the Uk Nation behaviours

@@ -7,7 +7,7 @@
 using Foundation.Common;
 using Foundation.Interfaces;
 
-namespace Foundation.BusinessProcess
+namespace Foundation.BusinessProcess.Core
 {
     /// <summary>
     /// The Calendar Business Process 

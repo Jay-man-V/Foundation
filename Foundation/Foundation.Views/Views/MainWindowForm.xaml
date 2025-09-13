@@ -6,8 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
-    xmlns:controls="clr-namespace:Foundation.Views"
-    
+    xmlns:controls="clr-namespace:Foundation.Views.Controls"
+    xmlns:basic="clr-namespace:Foundation.Views.Controls.Basic"
+
     mc:Ignorable="d"
     Title="{Binding FormTitle}" Height="500" Width="1500"
     WindowState="Normal"
@@ -170,9 +171,9 @@
                     </ToolTip>
                 </StackPanel.ToolTip>
 
-                <controls:BreadCrumbControl Margin="0, 0, -10, 0" Text1="{Binding ApplicationName}" BackColour="DarkGreen"/>
-                <controls:BreadCrumbControl Margin="-3, 0, -10, 0" Text1="{Binding Version}" BackColour="LightGreen" />
-                <controls:BreadCrumbControl Margin="-3, 0, -10, 0" Text1="{Binding LoggedOnUserDisplayName}" BackColour="LightBlue" />
+                <basic:BreadCrumbControl Margin="0, 0, -10, 0" Text1="{Binding ApplicationName}" BackColour="DarkGreen"/>
+                <basic:BreadCrumbControl Margin="-3, 0, -10, 0" Text1="{Binding Version}" BackColour="LightGreen" />
+                <basic:BreadCrumbControl Margin="-3, 0, -10, 0" Text1="{Binding LoggedOnUserDisplayName}" BackColour="LightBlue" />
             </StackPanel>
 
             <Label
@@ -238,7 +239,7 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="(Information Label)" />
                         <TextBlock Text=" " />
-                        <controls:ProgressBarControl Value="90" Tag="Task Progress" />
+                        <basic:ProgressBarControl Value="90" Tag="Task Progress" />
                     </StackPanel>
                 </StatusBarItem>
                 <Separator Grid.Column="1" />
@@ -275,7 +276,7 @@
                             DisplayMemberPath="Caption" SelectedValuePath="Name"
                             SelectedItem="{Binding SelectedApplicationMenuItem}"
                             />
-                        <controls:ListBoxControl
+                        <basic:ListBoxControl
                             Margin="0,0,6,0"
                             BorderThickness="0"
                             ItemsSource="{Binding AvailableMenuItems}"

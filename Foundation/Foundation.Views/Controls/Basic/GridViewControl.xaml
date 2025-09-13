@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Foundation.Views.GridViewControl"
+    x:Class="Foundation.Views.Controls.Basic.GridViewControl"
     Name="ThisControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,10 +8,10 @@
     mc:Ignorable="d"
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
 
-    xmlns:controls="clr-namespace:Foundation.Views"
-    xmlns:local="clr-namespace:Foundation.Views"
-    xmlns:localBehaviours="clr-namespace:Foundation.Views"
-        
+    xmlns:controls="clr-namespace:Foundation.Views.Controls"
+    xmlns:basic="clr-namespace:Foundation.Views.Controls.Basic"
+    xmlns:localBehaviours="clr-namespace:Foundation.Views.Behaviours"
+
     d:DesignHeight="400"
     d:DesignWidth="550"
 >
@@ -20,78 +20,78 @@
         <controls:StdWindowPanel.ToolBar>
             <ToolBarTray IsLocked="True" x:Name="StandardToolBarTray">
                 <ToolBar x:Name="StandardToolBar">
-                    <controls:ButtonControl
+                    <basic:ButtonControl
                         Content="{DynamicResource RefreshImage}"
-                        Command="{Binding Path=RefreshCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
-                        Visibility="{Binding Path=RefreshButtonVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
-                        IsEnabled="{Binding Path=RefreshButtonEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
+                        Command="{Binding Path=RefreshCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
+                        Visibility="{Binding Path=RefreshButtonVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
+                        IsEnabled="{Binding Path=RefreshButtonEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
                     />
-                    <Separator Visibility="{Binding Path=RefreshSeparatorVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}" />
-                    <controls:ButtonControl
+                    <Separator Visibility="{Binding Path=RefreshSeparatorVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}" />
+                    <basic:ButtonControl
                         Content="{DynamicResource ViewImage}"
-                        Command="{Binding Path=ViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
+                        Command="{Binding Path=ViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
                         CommandParameter="{Binding Path=SelectedItem, ElementName=DataGrid}"
-                        Visibility="{Binding Path=ViewButtonVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
-                        IsEnabled="{Binding Path=ViewButtonEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
+                        Visibility="{Binding Path=ViewButtonVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
+                        IsEnabled="{Binding Path=ViewButtonEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
                     />
-                    <controls:ButtonControl
+                    <basic:ButtonControl
                         Content="{DynamicResource AddImage}"
-                        Command="{Binding Path=AddCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
-                        Visibility="{Binding Path=AddButtonVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
-                        IsEnabled="{Binding Path=AddButtonEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
+                        Command="{Binding Path=AddCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
+                        Visibility="{Binding Path=AddButtonVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
+                        IsEnabled="{Binding Path=AddButtonEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
                     />
-                    <controls:ButtonControl
+                    <basic:ButtonControl
                         Content="{DynamicResource EditImage}"
-                        Command="{Binding Path=EditCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
+                        Command="{Binding Path=EditCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
                         CommandParameter="{Binding Path=SelectedItem, ElementName=DataGrid}"
-                        Visibility="{Binding Path=EditButtonVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
-                        IsEnabled="{Binding Path=EditButtonEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
+                        Visibility="{Binding Path=EditButtonVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
+                        IsEnabled="{Binding Path=EditButtonEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
                     />
-                    <controls:ButtonControl
+                    <basic:ButtonControl
                         Content="{DynamicResource DeleteImage}"
-                        Command="{Binding Path=DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
+                        Command="{Binding Path=DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
                         CommandParameter="{Binding Path=SelectedItem, ElementName=DataGrid}"
-                        Visibility="{Binding Path=DeleteButtonVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
-                        IsEnabled="{Binding Path=DeleteButtonEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
+                        Visibility="{Binding Path=DeleteButtonVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
+                        IsEnabled="{Binding Path=DeleteButtonEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
                     />
-                    <Separator Visibility="{Binding Path=RecordEditButtonsVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}" />
-                    <controls:ButtonControl
+                    <Separator Visibility="{Binding Path=RecordEditButtonsVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}" />
+                    <basic:ButtonControl
                         Content="{DynamicResource ExportExcelImage}"
-                        Command="{Binding Path=ExportGridToExcelCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
-                        CommandParameter="{Binding Path=DataSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
-                        Visibility="{Binding Path=ExportGridToExcelButtonVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
-                        IsEnabled="{Binding Path=ExportGridToExcelButtonEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
+                        Command="{Binding Path=ExportGridToExcelCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
+                        CommandParameter="{Binding Path=DataSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
+                        Visibility="{Binding Path=ExportGridToExcelButtonVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
+                        IsEnabled="{Binding Path=ExportGridToExcelButtonEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
                     />
-                    <controls:ButtonControl
+                    <basic:ButtonControl
                         Content="{DynamicResource ExportCsvImage}"
-                        Command="{Binding Path=ExportGridToCsvCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
-                        CommandParameter="{Binding Path=DataSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
-                        Visibility="{Binding Path=ExportGridToCsvButtonVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
-                        IsEnabled="{Binding Path=ExportGridToCsvButtonEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
+                        Command="{Binding Path=ExportGridToCsvCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
+                        CommandParameter="{Binding Path=DataSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
+                        Visibility="{Binding Path=ExportGridToCsvButtonVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
+                        IsEnabled="{Binding Path=ExportGridToCsvButtonEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
                     />
-                    <Separator Visibility="{Binding Path=ExportButtonsVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}" />
+                    <Separator Visibility="{Binding Path=ExportButtonsVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}" />
                 </ToolBar>
             </ToolBarTray> 
         </controls:StdWindowPanel.ToolBar>
 
         <controls:StdWindowPanel.Filter>
             <ContentControl
-                Content="{Binding Filter, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
-                Visibility="{Binding Path=FilterVisible, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}, Converter={StaticResource BoolToVis}}"
+                Content="{Binding Filter, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
+                Visibility="{Binding Path=FilterVisible, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}, Converter={StaticResource BoolToVis}}"
             />
         </controls:StdWindowPanel.Filter>
 
         <controls:StdWindowPanel.Workspace>
             <DataGrid
                 x:Name="DataGrid"
-                ItemsSource="{Binding DataSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
+                ItemsSource="{Binding DataSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
                 CanUserDeleteRows="False"
                 CanUserReorderColumns="False"
                 IsReadOnly="True"
                 GridLinesVisibility="Horizontal"
-                SelectedItem="{Binding Path=SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
+                SelectedItem="{Binding Path=SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
                 SelectionMode="Single"
                 SelectionUnit="FullRow"
                 >
@@ -150,7 +150,7 @@
                             <MenuItem
                                 Header="Copy row as Csv"
                                 Command="{Binding CopyRowToCsvCommand}"
-                                CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
+                                CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
                             >
                                 <MenuItem.Icon>
                                     <Image Source="{DynamicResource CopyIcon}" />
@@ -161,7 +161,7 @@
                             <MenuItem
                                 Header="Copy all data as Csv"
                                 Command="{Binding CopyGridToCsvCommand}"
-                                CommandParameter="{Binding Path=DataSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
+                                CommandParameter="{Binding Path=DataSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
                             >
                                 <MenuItem.Icon>
                                     <Image Source="{DynamicResource CopyIcon}" />
@@ -179,14 +179,14 @@
                 <b:Interaction.Triggers>
                     <b:EventTrigger EventName="SelectionChanged">
                         <b:InvokeCommandAction
-                            Command="{Binding Path=SelectedItemChangedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"
+                            Command="{Binding Path=SelectedItemChangedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"
                             CommandParameter="{Binding Path=SelectedItem, ElementName=DataGrid}"
                         />
                     </b:EventTrigger>
                 </b:Interaction.Triggers>
                 <b:Interaction.Behaviors>
-                    <localBehaviours:GridColumnsBindingBehaviour Columns="{Binding GridColumns, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}"/>
-                    <localBehaviours:GridRowHeaderBehaviour ShowRowNumber="{Binding ShowRowNumber, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}" />
+                    <localBehaviours:GridColumnsBindingBehaviour Columns="{Binding GridColumns, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}"/>
+                    <localBehaviours:GridRowHeaderBehaviour ShowRowNumber="{Binding ShowRowNumber, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}" />
                 </b:Interaction.Behaviors>
             </DataGrid>
         </controls:StdWindowPanel.Workspace>
@@ -199,8 +199,8 @@
                         <Setter Property="FontSize" Value="{DynamicResource SmallHeaderFontSize}" />
                     </Style>
                 </StackPanel.Resources>
-                <controls:LabelControl Content="{Binding StatusBarText, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}" />
-                <controls:LabelControl Content="{Binding DataSource.Count, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:GridViewControl}}}" />
+                <basic:LabelControl Content="{Binding StatusBarText, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}" />
+                <basic:LabelControl Content="{Binding DataSource.Count, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type basic:GridViewControl}}}" />
             </StackPanel>
         </controls:StdWindowPanel.StatusBar>
     </controls:StdWindowPanel>

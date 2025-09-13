@@ -6,11 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
-    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:controls1="clr-namespace:Foundation.Views.Controls"
 
-    xmlns:local="clr-namespace:Foundation.Views"
-    xmlns:controls="clr-namespace:Foundation.Views"
-    
     mc:Ignorable="d"
     SizeToContent="WidthAndHeight"
     Title="Entity Search Form"
@@ -19,6 +16,6 @@
     >
         
     <StackPanel>
-        <controls:AvailableSelectedControl AvailableListItems="{Binding AvailableListItems}" SelectedListItems="{Binding SelectedListItems}" />
+        <controls1:AvailableSelectedControl AvailableListItems="{Binding AvailableListItems}" SelectedListItems="{Binding SelectedListItems}" />
     </StackPanel>
 </Window>

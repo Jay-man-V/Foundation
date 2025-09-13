@@ -7,7 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
     xmlns:controls="clr-namespace:Foundation.Views"
-    
+    xmlns:basic="clr-namespace:Foundation.Views.Controls.Basic"
+    xmlns:visuals="clr-namespace:Foundation.Views.Controls.Visuals"
+
     mc:Ignorable="d"
     Title="About Foundation.Views" Height="300" Width="600"
     BorderThickness="1"
@@ -25,28 +27,28 @@
             <RowDefinition Height="27" />
         </Grid.RowDefinitions>
 
-        <controls:ScreenTitleControl Grid.Row="0" ScreenName="{Binding Product}" ScreenInstructions="{Binding CompanyName}" MessageBoxImage="None" />
+        <visuals:ScreenTitleControl Grid.Row="0" ScreenName="{Binding Product}" ScreenInstructions="{Binding CompanyName}" MessageBoxImage="None" />
 
         <GroupBox Grid.Row="1" Header="Application Information">
             <StackPanel>
-                <controls:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding Copyright, Mode=OneWay}" />
-                <controls:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding Trademark, Mode=OneWay}" />
-                <controls:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding Version, Mode=OneWay}" />
-                <controls:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding Configuration, Mode=OneWay}" />
-                <controls:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding ApplicationServer, Mode=OneWay}"/>
-                <controls:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding DatabaseServer, Mode=OneWay}"/>
-                <controls:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding DatabaseDetails, Mode=OneWay}"/>
+                <basic:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding Copyright, Mode=OneWay}" />
+                <basic:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding Trademark, Mode=OneWay}" />
+                <basic:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding Version, Mode=OneWay}" />
+                <basic:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding Configuration, Mode=OneWay}" />
+                <basic:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding ApplicationServer, Mode=OneWay}"/>
+                <basic:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding DatabaseServer, Mode=OneWay}"/>
+                <basic:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding DatabaseDetails, Mode=OneWay}"/>
             </StackPanel>
         </GroupBox>
 
-        <controls:ExpanderControl Grid.Row="2" Header="User Information" IsExpanded="{Binding UserInformationExpanded, Mode=OneWay}">
+        <basic:ExpanderControl Grid.Row="2" Header="User Information" IsExpanded="{Binding UserInformationExpanded, Mode=OneWay}">
             <StackPanel>
-                <controls:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding Username, Mode=OneWay}" />
-                <controls:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding Name, Mode=OneWay}" />
-                <controls:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding Email, Mode=OneWay}" />
-                <controls:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding Roles, Mode=OneWay}" />
+                <basic:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding Username, Mode=OneWay}" />
+                <basic:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding Name, Mode=OneWay}" />
+                <basic:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding Email, Mode=OneWay}" />
+                <basic:TextBoxControl IsReadOnly="True" Background="Transparent" BorderThickness="0" TextAlignment="Left" Text="{Binding Roles, Mode=OneWay}" />
             </StackPanel>
-        </controls:ExpanderControl>
+        </basic:ExpanderControl>
 
         <ProgressBar
             Grid.Row="3"
@@ -62,7 +64,7 @@
             Visibility="{Binding ProgressBarVisibility}"
             Text=" Loading..."
             />
-        <controls:ButtonControl
+        <basic:ButtonControl
             Grid.Row="3"
             Width="100"
             Margin="0,5,0,-2"

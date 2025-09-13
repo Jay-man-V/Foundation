@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Foundation.Views
+namespace Foundation.Views.Controls.Basic
 {
     /// <summary>
     /// Interaction logic for BreadCrumbControl.xaml

@@ -7,7 +7,7 @@
 using System.Windows;
 using System.Windows.Input;
 
-namespace Foundation.Views
+namespace Foundation.Views.Controls.Basic
 {
     /// <summary>
     /// Interaction logic for ComboBoxControl.xaml

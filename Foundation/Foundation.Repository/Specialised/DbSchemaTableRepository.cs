@@ -13,12 +13,12 @@ using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
-namespace Foundation.Repository
+namespace Foundation.Repository.Specialised
 {
     /// <summary>
     /// Defines the Db Schema Table Data Access class
     /// </summary>
-    /// <see cref="IDbSchemaTable" />
+    /// <see cref="IDatabaseSchemaTable" />
     [DependencyInjectionTransient]
     public class DbSchemaTableRepository : FoundationDataAccess, IDatabaseSchemaTableRepository
     {

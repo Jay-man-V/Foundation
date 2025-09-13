@@ -6,7 +6,7 @@
 
 using Foundation.Interfaces;
 
-namespace Foundation.DataAccess.Database
+namespace Foundation.DataAccess.Database.DataLogicProviders
 {
     /// <summary>
     /// Contains a list of supported Data providers

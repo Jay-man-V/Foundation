@@ -9,7 +9,7 @@ using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
-namespace Foundation.Repository
+namespace Foundation.Repository.Core.EnumRepositories
 {
     /// <summary>
     /// Defines the Schedule Interval Data Access class

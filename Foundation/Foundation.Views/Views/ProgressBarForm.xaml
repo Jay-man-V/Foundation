@@ -6,7 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     
-    xmlns:controls="clr-namespace:Foundation.Views"
+    xmlns:basic="clr-namespace:Foundation.Views.Controls.Basic"
+    xmlns:visuals="clr-namespace:Foundation.Views.Controls.Visuals"
 
     mc:Ignorable="d"
 
@@ -29,11 +30,11 @@
             <RowDefinition Height="27" />
         </Grid.RowDefinitions>
 
-        <controls:ScreenTitleControl Grid.Row="0" ScreenName="{Binding Product}" ScreenInstructions="{Binding CompanyName}" MessageBoxImage="None" />
+        <visuals:ScreenTitleControl Grid.Row="0" ScreenName="{Binding Product}" ScreenInstructions="{Binding CompanyName}" MessageBoxImage="None" />
 
         <GroupBox Grid.Row="1" Margin="5,0,5,5" Header="Progress Report" Visibility="{Binding ProgressReportVisibility}" >
             <StackPanel>
-                <controls:TextBoxControl
+                <basic:TextBoxControl
                     Height="200"
                     IsReadOnly="True"
                     Text="{Binding ProgressReport, Mode=OneWay}"
@@ -43,13 +44,13 @@
             </StackPanel>
         </GroupBox>
 
-        <controls:ProgressBarControl
+        <basic:ProgressBarControl
             Grid.Row="2"
             Margin="0,0,0,0"
             IsIndeterminate="True"
             Visibility="{Binding ProgressBarVisibility}"
             />
-        <controls:ButtonControl
+        <basic:ButtonControl
             Grid.Row="3"
             Margin="0,5,0,0"
             Width="100"

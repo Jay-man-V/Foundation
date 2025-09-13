@@ -6,8 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
-    xmlns:controls="clr-namespace:Foundation.Views"
-    
+    xmlns:controls="clr-namespace:Foundation.Views.Controls"
+    xmlns:basic="clr-namespace:Foundation.Views.Controls.Basic"
+
     mc:Ignorable="d"
     Title="About Foundation.Views" Height="300" Width="600"
     BorderThickness="1"
@@ -20,13 +21,13 @@
     <controls:StdWindowPanel Title="Options" Instructions="Change Application options/settings">
         <controls:StdWindowPanel.ToolBar>
             <StackPanel Orientation="Horizontal">
-                <controls:LabelControl Content="_Search:" />
-                <controls:TextBoxControl Text="search..." />
+                <basic:LabelControl Content="_Search:" />
+                <basic:TextBoxControl Text="search..." />
             </StackPanel>
         </controls:StdWindowPanel.ToolBar>
         <controls:StdWindowPanel.Workspace>
             <DockPanel LastChildFill="True" >
-                <controls:TreeViewControl DockPanel.Dock="Left" Width="100" />
+                <basic:TreeViewControl DockPanel.Dock="Left" Width="100" />
                 <TabControl Background="BlueViolet" />
             </DockPanel>
         </controls:StdWindowPanel.Workspace>

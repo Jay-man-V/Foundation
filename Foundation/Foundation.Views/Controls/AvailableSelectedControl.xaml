@@ -1,12 +1,12 @@
 ﻿<UserControl
-    x:Class="Foundation.Views.AvailableSelectedControl"
+    x:Class="Foundation.Views.Controls.AvailableSelectedControl"
     Name="ThisControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     
-    xmlns:controls="clr-namespace:Foundation.Views"
+    xmlns:basic="clr-namespace:Foundation.Views.Controls.Basic"
 
     mc:Ignorable="d" 
     d:DesignHeight="450"
@@ -26,16 +26,16 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <controls:LabelControl Grid.Row="0" Grid.Column="0" Content="Available" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <controls:LabelControl Grid.Row="0" Grid.Column="2" Content="Selected" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <basic:LabelControl Grid.Row="0" Grid.Column="0" Content="Available" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <basic:LabelControl Grid.Row="0" Grid.Column="2" Content="Selected" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         <ListBox Name="AvailableItemsListbox" Grid.Row="1" Grid.Column="0"/>
 
         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center">
-            <controls:ButtonControl x:Name="AddAllButton" Content="&gt;&gt;" Width="75" Margin="0,3,0,3"/>
-            <controls:ButtonControl x:Name="AddSelectedButton"  Content="&gt;" Width="75" Margin="0,3,0,3"/>
-            <controls:ButtonControl x:Name="RemoveSelectedButton" Content="&lt;" Width="75" Margin="0,3,0,3"/>
-            <controls:ButtonControl x:Name="RemoveAllButton" Content="&lt;&lt;" Width="75" Margin="0,3,0,3"/>
+            <basic:ButtonControl x:Name="AddAllButton" Content="&gt;&gt;" Width="75" Margin="0,3,0,3"/>
+            <basic:ButtonControl x:Name="AddSelectedButton"  Content="&gt;" Width="75" Margin="0,3,0,3"/>
+            <basic:ButtonControl x:Name="RemoveSelectedButton" Content="&lt;" Width="75" Margin="0,3,0,3"/>
+            <basic:ButtonControl x:Name="RemoveAllButton" Content="&lt;&lt;" Width="75" Margin="0,3,0,3"/>
         </StackPanel>
 
         <ListBox Name="SelectedItemsListbox" Grid.Row="1" Grid.Column="2"/>

@@ -224,7 +224,7 @@ namespace Foundation.Services.Mail
             LoggingHelpers.TraceCallEnter(fileTransferSettings, filePath);
 
             String retVal;
-            using (Stream stream = File.OpenRead(filePath))
+            await using (Stream stream = File.OpenRead(filePath))
             {
                 Task<String> t = UploadFileAsync(fileTransferSettings, stream);
                 await t;

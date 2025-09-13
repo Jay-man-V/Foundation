@@ -12,7 +12,7 @@ using Foundation.Interfaces;
 
 using FEnums = Foundation.Interfaces;
 
-namespace Foundation.ViewModels
+namespace Foundation.ViewModels.Main
 {
     /// <summary>
     /// The User Interface interaction logic for Message Dialogs
@@ -24,11 +24,11 @@ namespace Foundation.ViewModels
         /// </summary>
         private static class Constants
         {
-            public const String Yes = "YES";
-            public const String No = "NO";
-            public const String Cancel = "CANCEL";
-            public const String Okay = "OKAY";
-            public const String Close = "CLOSE";
+            public const string Yes = "YES";
+            public const string No = "NO";
+            public const string Cancel = "CANCEL";
+            public const string Okay = "OKAY";
+            public const string Close = "CLOSE";
         }
 
         /// <summary>Initialises a new instance of the <see cref="MessageDialogViewModel" /> class.</summary>
@@ -47,7 +47,7 @@ namespace Foundation.ViewModels
             IWpfApplicationObjects wpfApplicationObjects,
             IWindow targetWindow,
             IViewModel parentViewModel,
-            String formTitle = "Information"
+            string formTitle = "Information"
         ) :
             base
             (
@@ -109,7 +109,7 @@ namespace Foundation.ViewModels
             IViewModel parentViewModel,
             FEnums.MessageBoxImage messageBoxImage,
             Exception exception,
-            String formTitle
+            string formTitle
         ) :
         this
             (
@@ -169,7 +169,7 @@ namespace Foundation.ViewModels
         /// <summary>Gets or sets a value indicating whether this <see cref="MessageDialogViewModel" /> is expanded.</summary>
         /// <value>
         ///   <c>true</c> if expanded; otherwise, <c>false</c>.</value>
-        protected Boolean Expanded { get; set; }
+        protected bool Expanded { get; set; }
 
         /// <summary>Gets the message box result.</summary>
         /// <value>The message box result.</value>
@@ -177,15 +177,15 @@ namespace Foundation.ViewModels
 
         /// <summary>Gets the message.</summary>
         /// <value>The message.</value>
-        public String Message { get; }
+        public string Message { get; }
         
         /// <summary>Gets the detail.</summary>
         /// <value>The detail.</value>
-        public String Detail { get; }
+        public string Detail { get; }
         
         /// <summary>Gets the source.</summary>
         /// <value>The source.</value>
-        public String Source { get; }
+        public string Source { get; }
         
         /// <summary>Gets the message date time.</summary>
         /// <value>The message date time.</value>
@@ -193,11 +193,11 @@ namespace Foundation.ViewModels
         
         /// <summary>Gets the name of the computer.</summary>
         /// <value>The name of the computer.</value>
-        public String ComputerName { get; }
+        public string ComputerName { get; }
         
         /// <summary>Gets the user logon.</summary>
         /// <value>The user logon.</value>
-        public String UserLogon { get; }
+        public string UserLogon { get; }
         
         /// <summary>Gets the yes visibility.</summary>
         /// <value>The yes visibility.</value>
@@ -229,7 +229,7 @@ namespace Foundation.ViewModels
         
         /// <summary>Gets the expander caption.</summary>
         /// <value>The expander caption.</value>
-        public String ExpanderCaption { get; private set; }
+        public string ExpanderCaption { get; private set; }
         
         /// <summary>Gets the yes button command.</summary>
         /// <value>The yes button command.</value>
@@ -253,15 +253,15 @@ namespace Foundation.ViewModels
 
         /// <summary>Gets the copy to clipboard command.</summary>
         /// <value>The copy to clipboard command.</value>
-        public ICommand CopyToClipboardCommand => RelayCommandFactory.New<Object>(OnCopyToClipboardCommand_Execute);
+        public ICommand CopyToClipboardCommand => RelayCommandFactory.New<object>(OnCopyToClipboardCommand_Execute);
 
         /// <summary>Gets the expanded collapsed event command.</summary>
         /// <value>The expanded collapsed event command.</value>
-        public ICommand ExpandedCollapsedEventCommand => RelayCommandFactory.New<Object>(OnExpandedCollapsedEventCommand_Execute);
+        public ICommand ExpandedCollapsedEventCommand => RelayCommandFactory.New<object>(OnExpandedCollapsedEventCommand_Execute);
 
         /// <summary>Called when [expanded collapsed event command execute].</summary>
         /// <param name="o">The o.</param>
-        private void OnExpandedCollapsedEventCommand_Execute(Object? o)
+        private void OnExpandedCollapsedEventCommand_Execute(object? o)
         {
             LoggingHelpers.TraceCallEnter(o);
 
@@ -278,7 +278,7 @@ namespace Foundation.ViewModels
 
         /// <summary>Called when [copy to clipboard command execute].</summary>
         /// <param name="o">The o.</param>
-        private void OnCopyToClipboardCommand_Execute(Object? o)
+        private void OnCopyToClipboardCommand_Execute(object? o)
         {
             LoggingHelpers.TraceCallEnter(o);
 
@@ -294,7 +294,7 @@ namespace Foundation.ViewModels
         /// <param name="window">The window.</param>
         /// <param name="buttonText">The button text.</param>
         /// <exception cref="ArgumentException"></exception>
-        private void OnButtonCommand_Execute(IWindow? window, String buttonText)
+        private void OnButtonCommand_Execute(IWindow? window, string buttonText)
         {
             LoggingHelpers.TraceCallEnter(window);
 
@@ -308,7 +308,7 @@ namespace Foundation.ViewModels
                     case Constants.Okay: MessageBoxResult = MessageBoxResult.OK; break;
                     case Constants.Close: MessageBoxResult = MessageBoxResult.OK; break;
                     default:
-                        String message = $"{this}.{window} Command Button '{buttonText}' is unknown. Cannot process Message Box Result";
+                        string message = $"{this}.{window} Command Button '{buttonText}' is unknown. Cannot process Message Box Result";
                         throw new ArgumentException(message);
                 }
             }

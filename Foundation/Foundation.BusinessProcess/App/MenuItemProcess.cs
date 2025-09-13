@@ -12,7 +12,7 @@ using Foundation.Models.Specialised;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
-namespace Foundation.BusinessProcess
+namespace Foundation.BusinessProcess.App
 {
     /// <summary>
     /// The MenuItem Business Process 

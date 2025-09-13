@@ -9,7 +9,7 @@ using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
-namespace Foundation.Repository
+namespace Foundation.Repository.Sec.EnumRepositories
 {
     /// <summary>
     /// Defines the ApplicationRoleRepository Data Access class

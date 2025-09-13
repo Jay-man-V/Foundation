@@ -9,7 +9,7 @@ using System.Windows.Threading;
 
 using Foundation.Interfaces;
 
-namespace Foundation.ViewModels
+namespace Foundation.ViewModels.Services
 {
     /// <summary>
     ///  Contains helper methods for UI, so far just one for showing a wait cursor

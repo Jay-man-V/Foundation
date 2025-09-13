@@ -9,7 +9,7 @@ using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
-namespace Foundation.Repository
+namespace Foundation.Repository.Core.EnumRepositories
 {
     /// <summary>
     /// Defines the Contact Type Data Access class

@@ -21,7 +21,7 @@ namespace Foundation.DataAccess.Database
         {
             LoggingHelpers.TraceCallEnter(sql, commandType, databaseParameters);
 
-            Int32 retVal = -1;
+            Int32 retVal;
 
             using (IDbConnection conn = GetConnection())
             {
@@ -38,7 +38,7 @@ namespace Foundation.DataAccess.Database
         {
             LoggingHelpers.TraceCallEnter(conn, sql, commandType, databaseParameters);
 
-            Int32 retVal = -1;
+            Int32 retVal;
             
             using (IDbCommand command = conn.CreateCommand())
             {

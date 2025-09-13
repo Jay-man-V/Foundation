@@ -10,7 +10,7 @@ using Foundation.Models.Specialised;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
-namespace Foundation.BusinessProcess
+namespace Foundation.BusinessProcess.Core.EnumProcesses
 {
     /// <summary>
     /// The Status Business Process 

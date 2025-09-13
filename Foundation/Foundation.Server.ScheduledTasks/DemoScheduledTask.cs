@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.BusinessProcess;
+using Foundation.BusinessProcess.Core.Schedulers;
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Resources;

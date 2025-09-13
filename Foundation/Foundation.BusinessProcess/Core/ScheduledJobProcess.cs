@@ -7,6 +7,7 @@
 using System.ServiceProcess;
 using System.Timers;
 
+using Foundation.BusinessProcess.Components;
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Models.Specialised;
@@ -14,7 +15,7 @@ using Foundation.Models.Specialised;
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;
 
-namespace Foundation.BusinessProcess
+namespace Foundation.BusinessProcess.Core
 {
     /// <summary>
     /// The Scheduled Job Business Process 
@@ -338,10 +339,7 @@ namespace Foundation.BusinessProcess
                 retVal = args.ServiceInstance;
             }
 
-            if (retVal == null)
-            {
-                retVal = Core.IoC.Get<IScheduledTask>(fullyQualifiedTypeName.AssemblyName, fullyQualifiedTypeName.TypeName);
-            }
+            retVal ??= Core.IoC.Get<IScheduledTask>(fullyQualifiedTypeName.AssemblyName, fullyQualifiedTypeName.TypeName);
 
             LoggingHelpers.TraceCallReturn(retVal);
 

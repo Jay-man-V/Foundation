@@ -13,7 +13,7 @@ using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
-namespace Foundation.Repository
+namespace Foundation.Repository.Sec
 {
     /// <summary>
     /// Defines the Permission Matrix Data Access class

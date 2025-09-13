@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Foundation.Views.ScreenTitleControl"
+    x:Class="Foundation.Views.Controls.Visuals.ScreenTitleControl"
     Name="ThisControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

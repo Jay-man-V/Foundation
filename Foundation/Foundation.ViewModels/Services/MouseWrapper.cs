@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 using Foundation.Interfaces;
 
-namespace Foundation.ViewModels
+namespace Foundation.ViewModels.Services
 {
     /// <summary>
     /// </summary>

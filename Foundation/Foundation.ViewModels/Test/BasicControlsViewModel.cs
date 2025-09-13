@@ -12,7 +12,7 @@ using System.Windows.Threading;
 using Foundation.Common;
 using Foundation.Interfaces;
 
-namespace Foundation.ViewModels
+namespace Foundation.ViewModels.Test
 {
     /// <summary>
     /// The User Interface interaction logic for Basic Controls

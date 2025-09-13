@@ -13,7 +13,7 @@ using Microsoft.Xaml.Behaviors;
 
 using Foundation.Resources;
 
-namespace Foundation.Views
+namespace Foundation.Views.Behaviours
 {
     /// <summary>
     /// Behaviour class for Grid Row Header

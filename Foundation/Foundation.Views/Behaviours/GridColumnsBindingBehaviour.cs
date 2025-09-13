@@ -15,10 +15,10 @@ using Microsoft.Xaml.Behaviors;
 
 using Foundation.Interfaces;
 using Foundation.Resources;
-
+using Foundation.Views.Converters;
 using FEnums = Foundation.Interfaces;
 
-namespace Foundation.Views
+namespace Foundation.Views.Behaviours
 {
     /// <summary>
     /// Behaviour class for Grid Column Binding

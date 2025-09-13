@@ -10,7 +10,7 @@ using System.Windows.Data;
 using Foundation.Interfaces;
 using Foundation.Resources;
 
-namespace Foundation.Views
+namespace Foundation.Views.Converters
 {
     /// <summary>
     /// Converts a <see cref="DateTime"/> array to a <see cref="String"/>

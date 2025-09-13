@@ -7,7 +7,7 @@
 using Foundation.Common;
 using Foundation.Interfaces;
 
-namespace Foundation.ViewModels
+namespace Foundation.ViewModels.Core.EnumViewModels
 {
     /// <summary>
     /// The User Interface interaction logic for Task Status maintenance

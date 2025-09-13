@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Foundation.Views
+namespace Foundation.Views.Controls
 {
     /// <summary>
     /// Interaction logic for CustomTabControl.xaml

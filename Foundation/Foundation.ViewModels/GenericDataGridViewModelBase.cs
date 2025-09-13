@@ -13,6 +13,7 @@ using System.Windows.Input;
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Resources;
+using Foundation.ViewModels.Sec;
 
 namespace Foundation.ViewModels
 {

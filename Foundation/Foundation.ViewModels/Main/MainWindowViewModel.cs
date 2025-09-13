@@ -13,11 +13,14 @@ using System.Windows.Input;
 
 using Foundation.Common;
 using Foundation.Interfaces;
+using Foundation.ViewModels.Dialogs;
+using Foundation.ViewModels.Sec;
 using Foundation.Views;
+using Foundation.Views.Controls;
 
 using FEnums = Foundation.Interfaces;
 
-namespace Foundation.ViewModels
+namespace Foundation.ViewModels.Main
 {
     /// <summary>
     /// The User Interface interaction logic for Main application
@@ -26,10 +29,10 @@ namespace Foundation.ViewModels
     [DependencyInjectionTransient]
     public class MainWindowViewModel : ViewModelBase, IMainWindowViewModel
     {
-        private Boolean _enabled;
+        private bool _enabled;
 
         /// <summary>
-        /// Initialises a new instance of the <see cref="MainViewModel"/> class.
+        /// Initialises a new instance of the <see cref="MainWindowViewModel"/> class.
         /// </summary>
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The runtime environment settings</param>
@@ -117,7 +120,7 @@ namespace Foundation.ViewModels
         /// <value>
         /// The child window counter.
         /// </value>
-        private Int32 ChildWindowCounter { get; set; }
+        private int ChildWindowCounter { get; set; }
 
         /// <summary>
         /// Gets the logged on users view model.
@@ -165,7 +168,7 @@ namespace Foundation.ViewModels
         /// <value>
         /// The application name.
         /// </value>
-        public String ApplicationName { get; private set; }
+        public string ApplicationName { get; private set; }
 
         /// <summary>
         /// Gets the version.
@@ -173,7 +176,7 @@ namespace Foundation.ViewModels
         /// <value>
         /// The version.
         /// </value>
-        public String Version { get; }
+        public string Version { get; }
 
         /// <summary>
         /// Gets the logged on username.
@@ -181,7 +184,7 @@ namespace Foundation.ViewModels
         /// <value>
         /// The logged on username.
         /// </value>
-        public String LoggedOnUsername { get; }
+        public string LoggedOnUsername { get; }
 
         /// <summary>
         /// Gets the logged on user display name.
@@ -189,7 +192,7 @@ namespace Foundation.ViewModels
         /// <value>
         /// The logged on user display name.
         /// </value>
-        public String LoggedOnUserDisplayName { get; }
+        public string LoggedOnUserDisplayName { get; }
 
         /// <summary>
         /// Gets the user role.
@@ -197,7 +200,7 @@ namespace Foundation.ViewModels
         /// <value>
         /// The user role.
         /// </value>
-        public String UserRole { get; }
+        public string UserRole { get; }
 
         /// <summary>
         /// Gets the database.
@@ -205,7 +208,7 @@ namespace Foundation.ViewModels
         /// <value>
         /// The database.
         /// </value>
-        public String Database { get; }
+        public string Database { get; }
 
         /// <summary>
         /// Gets the environment.
@@ -213,7 +216,7 @@ namespace Foundation.ViewModels
         /// <value>
         /// The environment.
         /// </value>
-        public String Environment { get; }
+        public string Environment { get; }
 
         /// <summary>
         /// Gets the re show last exception error dialog.
@@ -240,7 +243,7 @@ namespace Foundation.ViewModels
         /// <value>
         /// The sample command with argument.
         /// </value>
-        public ICommand SampleCmdWithArgument => RelayCommandFactory.New<Object>(OnSampleCmdWithArgument_Click);
+        public ICommand SampleCmdWithArgument => RelayCommandFactory.New<object>(OnSampleCmdWithArgument_Click);
 
         /// <summary>
         /// Gets the show about dialog command.
@@ -315,7 +318,7 @@ namespace Foundation.ViewModels
         /// <value>
         /// The selected item.
         /// </value>
-        public Object? SelectedItem { get; set; }
+        public object? SelectedItem { get; set; }
 
         private ObservableCollection<TabItem> _tabItems;
 
@@ -490,15 +493,15 @@ namespace Foundation.ViewModels
             using (MouseCursor)
             {
                 if (menuItem != null &&
-                    !String.IsNullOrEmpty(menuItem.ControllerAssembly) &&
-                    !String.IsNullOrEmpty(menuItem.ViewAssembly))
+                    !string.IsNullOrEmpty(menuItem.ControllerAssembly) &&
+                    !string.IsNullOrEmpty(menuItem.ViewAssembly))
                 {
                     ChildWindowCounter++;
 
-                    String controllerAssembly = menuItem.ControllerAssembly;
-                    String controllerType = menuItem.ControllerType;
-                    String viewAssembly = menuItem.ViewAssembly;
-                    String viewType = menuItem.ViewType;
+                    string controllerAssembly = menuItem.ControllerAssembly;
+                    string controllerType = menuItem.ControllerType;
+                    string viewAssembly = menuItem.ViewAssembly;
+                    string viewType = menuItem.ViewType;
                     IViewModel viewModel;
                     try
                     {
@@ -639,7 +642,7 @@ namespace Foundation.ViewModels
         /// Called when [sample command with argument click].
         /// </summary>
         /// <param name="obj">The object.</param>
-        private void OnSampleCmdWithArgument_Click(Object? obj)
+        private void OnSampleCmdWithArgument_Click(object? obj)
         {
             LoggingHelpers.TraceCallEnter(obj);
 
@@ -682,8 +685,8 @@ namespace Foundation.ViewModels
             {
                 IRandomService randomService = Core.IoC.Get<IRandomService>();
                 MessageType messageType = (MessageType)randomService.RandomInt32(1, 6);
-                String messageHeader = messageType.ToString();
-                String message = $"{messageType} Content";
+                string messageHeader = messageType.ToString();
+                string message = $"{messageType} Content";
                 ShowNotificationMessage(messageType, messageHeader, message);
             }
 
@@ -712,7 +715,7 @@ namespace Foundation.ViewModels
                 //}
 
                 IRandomService randomService = Core.IoC.Get<IRandomService>();
-                Int32[] iconIds = { 0, 16, 32, 48, 64, 16, 16, 48, 64 };
+                int[] iconIds = { 0, 16, 32, 48, 64, 16, 16, 48, 64 };
                 FEnums.MessageBoxImage messageBoxImage = (FEnums.MessageBoxImage)iconIds[randomService.RandomInt32(1, 9)];
 
                 MessageDialogForm theForm = new MessageDialogForm();
@@ -742,8 +745,8 @@ namespace Foundation.ViewModels
             {
                 _enabled = !_enabled;
 
-                const Boolean throwNew = false;
-                const Boolean throwException = true;
+                const bool throwNew = false;
+                const bool throwException = true;
                 ExceptionManagementDemo d = new ExceptionManagementDemo();
                 d.Method1(throwException, throwNew);
             }

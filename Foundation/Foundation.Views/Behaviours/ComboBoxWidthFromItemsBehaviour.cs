@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
-namespace Foundation.Views
+namespace Foundation.Views.Behaviours
 {
     /// <summary>
     /// Behaviour class for ComboBoxWidthFromItems

@@ -1,12 +1,12 @@
 ﻿<Expander
-    x:Class="Foundation.Views.EntityDetailsControl"
+    x:Class="Foundation.Views.Controls.EntityDetailsControl"
     Name="ThisControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 
-    xmlns:controls="clr-namespace:Foundation.Views" 
+    xmlns:basic="clr-namespace:Foundation.Views.Controls.Basic"
     mc:Ignorable="d" 
 
     Background="{Binding ElementName=ThisControl, Path=Background}"
@@ -39,15 +39,11 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <controls:LabelControl
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    HorizontalAlignment="Right"
-                    Content="Id" />
-                <controls:TextBoxControl Grid.Row="0" Grid.Column="1" IsReadOnly="True" VerticalContentAlignment="Center" Text="{Binding Data.Id, Mode=OneWay}" />
+                <basic:LabelControl Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Content="Id" />
+                <basic:TextBoxControl Grid.Row="0" Grid.Column="1" IsReadOnly="True" VerticalContentAlignment="Center" Text="{Binding Data.Id, Mode=OneWay}" />
 
-                <controls:LabelControl Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Content="Status" />
-                <controls:TextBoxControl
+                <basic:LabelControl Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Content="Status" />
+                <basic:TextBoxControl
                     x:Name="StatusComboBox"
                     Grid.Row="1" Grid.Column="1"
                     IsReadOnly="True"
@@ -55,25 +51,25 @@
                     Text="{Binding EntityStatusName, Mode=OneWay}" 
                     />
 
-                <controls:LabelControl Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" Content="Created" />
-                <controls:TextBoxControl
+                <basic:LabelControl Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" Content="Created" />
+                <basic:TextBoxControl
                     x:Name="CreatedByComboBox"
                     Grid.Row="0" Grid.Column="3"
                     IsReadOnly="True"
                     VerticalContentAlignment="Center"
                     Text="{Binding CreatedByUserProfileDisplayName, Mode=OneWay}"
                      />
-                <controls:DatetimePickerControl Grid.Row="0" Grid.Column="4" SelectedDate="{Binding Data.CreatedOn, Mode=OneWay}" ShowCheckBox="False" />
+                <basic:DatetimePickerControl Grid.Row="0" Grid.Column="4" SelectedDate="{Binding Data.CreatedOn, Mode=OneWay}" ShowCheckBox="False" />
 
-                <controls:LabelControl Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Content="Last updated" />
-                <controls:TextBoxControl
+                <basic:LabelControl Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Content="Last updated" />
+                <basic:TextBoxControl
                     x:Name="LastUpdatedByComboBox"
                     Grid.Row="1" Grid.Column="3"
                     IsReadOnly="True"
                     VerticalContentAlignment="Center"
                     Text="{Binding LastUpdatedByUserProfileDisplayName, Mode=OneWay}"
                     />
-                <controls:DatetimePickerControl Grid.Row="1" Grid.Column="4" SelectedDate="{Binding Data.LastUpdatedOn, Mode=OneWay}" ShowCheckBox="False" />
+                <basic:DatetimePickerControl Grid.Row="1" Grid.Column="4" SelectedDate="{Binding Data.LastUpdatedOn, Mode=OneWay}" ShowCheckBox="False" />
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="1" Name="ValidityDetailsStackPanel">
@@ -89,13 +85,13 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <controls:LabelControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Left" Content="Validity" />
+                <basic:LabelControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Left" Content="Validity" />
 
-                <controls:LabelControl Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Content="From Date" />
-                <controls:DatetimePickerControl Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Data.FromDateTime}" />
+                <basic:LabelControl Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Content="From Date" />
+                <basic:DatetimePickerControl Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Data.FromDateTime}" />
 
-                <controls:LabelControl Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Content="To Date" />
-                <controls:DatetimePickerControl Grid.Row="1" Grid.Column="3" SelectedDate="{Binding Data.ToDateTime}" />
+                <basic:LabelControl Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Content="To Date" />
+                <basic:DatetimePickerControl Grid.Row="1" Grid.Column="3" SelectedDate="{Binding Data.ToDateTime}" />
             </Grid>
         </StackPanel>
     </Grid>

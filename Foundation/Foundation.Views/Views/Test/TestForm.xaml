@@ -6,16 +6,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
-    xmlns:controls="clr-namespace:Foundation.Views"
-
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:localBehaviours="clr-namespace:Foundation.Views"
     xmlns:fdc="clr-namespace:Foundation.Resources.Constants.DataColumns;assembly=Foundation.Common"
     xmlns:interfaces="clr-namespace:Foundation.Interfaces;assembly=Foundation.Interfaces"
     xmlns:converters="clr-namespace:Foundation.Common;assembly=Foundation.Common"
-    xmlns:local="clr-namespace:Foundation.Views"
     
     xmlns:commonMenuConfig="clr-namespace:Foundation.Common;assembly=Foundation.Common"
+    xmlns:controls="clr-namespace:Foundation.Views.Controls"
+    xmlns:basic="clr-namespace:Foundation.Views.Controls.Basic"
+    xmlns:visuals="clr-namespace:Foundation.Views.Controls.Visuals"
 
     MinWidth="400"
     MinHeight="400"
@@ -106,7 +106,7 @@
 
         <controls:StdWindowPanel.Workspace>
             <StackPanel>
-                <controls:ReportTitleControl Title="Hello World" />
+                <visuals:ReportTitleControl Title="Hello World" />
 
                 <!--<controls:ReportSubTitleControl Title="Logged on Users"/>
                 <controls:LoggedOnUsersControl DataContext="{Binding LoggedOnUsersViewModel}" DataSource="{Binding GridDataSource}" />
@@ -115,7 +115,7 @@
                 <controls:EntityDetailsControl />
 
                 <controls:ReportSubTitleControl Title="Something interesting is below"/>-->
-                <controls:ButtonControl
+                <basic:ButtonControl
                     Content="Testing"
                     Command="{Binding Path=DemoCommand}"
                 />

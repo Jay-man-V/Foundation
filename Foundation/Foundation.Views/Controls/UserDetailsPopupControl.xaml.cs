@@ -6,7 +6,7 @@
 
 using System.Windows;
 
-namespace Foundation.Views
+namespace Foundation.Views.Controls
 {
     /// <summary>
     /// Interaction logic for UserDetailsPopupControl.xaml

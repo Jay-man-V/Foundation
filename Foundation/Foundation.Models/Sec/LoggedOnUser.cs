@@ -7,12 +7,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
+
 using Foundation.Common;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
-namespace Foundation.Models
+namespace Foundation.Models.Sec
 {
     /// <summary>
     /// Logged On User class

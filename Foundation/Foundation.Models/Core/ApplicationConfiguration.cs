@@ -11,9 +11,8 @@ using Foundation.Common;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
-using FEnums = Foundation.Interfaces;
 
-namespace Foundation.Models
+namespace Foundation.Models.Core
 {
     /// <summary>
     /// Application Configuration class
@@ -30,7 +29,7 @@ namespace Foundation.Models
 
         /// <inheritdoc cref="IApplicationConfiguration.ConfigurationScope"/>
         [NotMapped]
-        public FEnums.ConfigurationScope ConfigurationScope => (FEnums.ConfigurationScope)this._configurationScopeId.ToInteger();
+        public ConfigurationScope ConfigurationScope => (ConfigurationScope)this._configurationScopeId.ToInteger();
 
         /// <inheritdoc cref="IApplicationConfiguration.ApplicationId"/>
         [Column(nameof(FDC.ApplicationConfiguration.ApplicationId))]

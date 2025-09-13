@@ -14,7 +14,7 @@ using DS = System.DirectoryServices;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
-namespace Foundation.Repository
+namespace Foundation.Repository.Stg
 {
     /// <summary>
     /// Defines the Active Directory User Profile Data Access class
@@ -59,7 +59,7 @@ namespace Foundation.Repository
         /// <summary>
         /// The flag for Disabled accounts
         /// </summary>
-        private const Int32 UF_ACCOUNTDISABLE = 0x00000002;
+        private const Int32 AccountDisabled = 0x00000002;
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.EntityName"/>
         protected override String EntityName => FDC.ActiveDirectoryUser.EntityName;
@@ -87,7 +87,7 @@ namespace Foundation.Repository
                     {
                         Int32 userAccountFlags = Convert.ToInt32(childEntry.Properties[FDC.ActiveDirectoryUser.User.UserFlags].Value);
 
-                        if ((userAccountFlags & UF_ACCOUNTDISABLE) != UF_ACCOUNTDISABLE)
+                        if ((userAccountFlags & AccountDisabled) != AccountDisabled)
                         {
                             IActiveDirectoryUser activeDirectoryUserProfile = PopulateEntity(Environment.MachineName, childEntry);
 
@@ -173,7 +173,7 @@ namespace Foundation.Repository
             retVal.Name = $@"{domainName}\{directoryEntry.Name}";
             retVal.FullName = directoryEntry.Properties[FDC.ActiveDirectoryUser.User.FullName].Value?.ToString() ?? String.Empty;
 
-            Object objObjectSid = directoryEntry.Properties[FDC.ActiveDirectoryUser.User.objectSid]?.Value ?? String.Empty;
+            Object objObjectSid = directoryEntry.Properties[FDC.ActiveDirectoryUser.User.objectSid].Value ?? String.Empty;
             if (objObjectSid.GetType() == typeof(Byte[]))
             {
                 Byte[] byteArrayObjectSid = (Byte[])objObjectSid;

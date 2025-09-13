@@ -13,7 +13,7 @@ using Foundation.Interfaces;
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;
 
-namespace Foundation.Models
+namespace Foundation.Models.Log
 {
     /// <summary>
     /// Scheduled Task class

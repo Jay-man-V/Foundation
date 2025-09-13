@@ -1,12 +1,12 @@
 ﻿<ProgressBar
-    x:Class="Foundation.Views.ProgressBarControl"
+    x:Class="Foundation.Views.Controls.Basic.ProgressBarControl"
     Name="ThisControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     mc:Ignorable="d"
-    xmlns:converter="clr-namespace:Foundation.Views"
+    xmlns:converters="clr-namespace:Foundation.Views.Converters"
 
     HorizontalAlignment="{Binding ElementName=ThisControl, Path=HorizontalAlignment}"
     VerticalAlignment="{Binding ElementName=ThisControl, Path=VerticalAlignment}"
@@ -14,7 +14,7 @@
     d:DesignHeight="23" d:DesignWidth="50"
 >
     <ProgressBar.Resources>
-        <converter:RectConverter x:Key="RectConverter" />
+        <converters:RectConverter x:Key="RectConverter" />
 
         <LinearGradientBrush x:Key="ProgressBarBackground" EndPoint="1,0" StartPoint="0,0">
             <GradientStop Color="#BABABA" Offset="0"/>

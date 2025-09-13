@@ -9,7 +9,7 @@ using System.Windows.Controls;
 
 using FEnums = Foundation.Interfaces;
 
-namespace Foundation.Views
+namespace Foundation.Views.Controls
 {
     /// <summary>
     /// Interaction logic for StdWindowPanel.xaml
@@ -27,9 +27,9 @@ namespace Foundation.Views
 
             ResourceDictionary resourceDictionary = new ResourceDictionary
             {
-                Source = new Uri("/Foundation.Views;component/Controls/Base/StdWindowPanel.xaml", UriKind.Relative),
+                Source = new Uri("/Foundation.Views;component/Controls/StdWindowPanel.xaml", UriKind.Relative),
             };
-            this.Resources.MergedDictionaries.Add(resourceDictionary);
+            Resources.MergedDictionaries.Add(resourceDictionary);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Foundation.Views
         /// <value>
         ///   <c>true</c> if [toolbar visible]; otherwise, <c>false</c>.
         /// </value>
-        public Boolean ToolbarVisible => (ToolBar != null);
+        public bool ToolbarVisible => ToolBar != null;
 
         /// <summary>
         /// Gets a value indicating whether [filter visible].
@@ -46,7 +46,7 @@ namespace Foundation.Views
         /// <value>
         ///   <c>true</c> if [filter visible]; otherwise, <c>false</c>.
         /// </value>
-        public Boolean FilterVisible => (Filter != null);
+        public bool FilterVisible => Filter != null;
 
         /// <summary>
         /// Gets a value indicating whether [screen title control visible].
@@ -54,7 +54,7 @@ namespace Foundation.Views
         /// <value>
         ///   <c>true</c> if [screen title control visible]; otherwise, <c>false</c>.
         /// </value>
-        public Boolean ScreenTitleControlVisible => (!String.IsNullOrEmpty(Title) || !String.IsNullOrEmpty(Instructions));
+        public bool ScreenTitleControlVisible => !string.IsNullOrEmpty(Title) || !string.IsNullOrEmpty(Instructions);
 
         /// <summary>
         /// Gets a value indicating whether [status bar visible].
@@ -62,7 +62,7 @@ namespace Foundation.Views
         /// <value>
         ///   <c>true</c> if [status bar visible]; otherwise, <c>false</c>.
         /// </value>
-        public Boolean StatusBarVisible => StatusBar != null;
+        public bool StatusBarVisible => StatusBar != null;
 
         /// <summary>
         /// The message box image property
@@ -109,9 +109,9 @@ namespace Foundation.Views
         public static readonly DependencyProperty TitleProperty = DependencyProperty.Register
         (
             nameof(Title),
-            typeof(String),
+            typeof(string),
             typeof(StdWindowPanel),
-            new UIPropertyMetadata(String.Empty)
+            new UIPropertyMetadata(string.Empty)
         );
 
         /// <summary>
@@ -120,9 +120,9 @@ namespace Foundation.Views
         /// <value>
         /// The title.
         /// </value>
-        public String Title
+        public string Title
         {
-            get => (String)GetValue(TitleProperty);
+            get => (string)GetValue(TitleProperty);
             set => SetValue(TitleProperty, value);
         }
 
@@ -132,9 +132,9 @@ namespace Foundation.Views
         public static readonly DependencyProperty InstructionsProperty = DependencyProperty.Register
         (
             nameof(Instructions),
-            typeof(String),
+            typeof(string),
             typeof(StdWindowPanel),
-            new UIPropertyMetadata(String.Empty)
+            new UIPropertyMetadata(string.Empty)
         );
 
         /// <summary>
@@ -143,9 +143,9 @@ namespace Foundation.Views
         /// <value>
         /// The instructions.
         /// </value>
-        public String Instructions
+        public string Instructions
         {
-            get => (String)GetValue(InstructionsProperty);
+            get => (string)GetValue(InstructionsProperty);
             set => SetValue(InstructionsProperty, value);
         }
 
@@ -155,7 +155,7 @@ namespace Foundation.Views
         public static readonly DependencyProperty ToolBarProperty = DependencyProperty.Register
         (
             nameof(ToolBar),
-            typeof(Object),
+            typeof(object),
             typeof(StdWindowPanel),
             new UIPropertyMetadata(null)
         );
@@ -166,7 +166,7 @@ namespace Foundation.Views
         /// <value>
         /// The tool bar.
         /// </value>
-        public Object ToolBar
+        public object ToolBar
         {
             get => GetValue(ToolBarProperty);
             set => SetValue(ToolBarProperty, value);
@@ -178,7 +178,7 @@ namespace Foundation.Views
         public static readonly DependencyProperty FilterProperty = DependencyProperty.Register
         (
             nameof(Filter),
-            typeof(Object),
+            typeof(object),
             typeof(StdWindowPanel),
             new UIPropertyMetadata(null)
         );
@@ -189,7 +189,7 @@ namespace Foundation.Views
         /// <value>
         /// The filter.
         /// </value>
-        public Object Filter
+        public object Filter
         {
             get => GetValue(FilterProperty);
             set => SetValue(FilterProperty, value);
@@ -201,7 +201,7 @@ namespace Foundation.Views
         public static readonly DependencyProperty WorkspaceProperty = DependencyProperty.Register
         (
             nameof(Workspace),
-            typeof(Object),
+            typeof(object),
             typeof(StdWindowPanel),
             new UIPropertyMetadata(null)
         );
@@ -212,7 +212,7 @@ namespace Foundation.Views
         /// <value>
         /// The workspace.
         /// </value>
-        public Object Workspace
+        public object Workspace
         {
             get => GetValue(WorkspaceProperty);
             set => SetValue(WorkspaceProperty, value);
@@ -224,7 +224,7 @@ namespace Foundation.Views
         public static readonly DependencyProperty StatusBarProperty = DependencyProperty.Register
         (
             nameof(StatusBar),
-            typeof(Object),
+            typeof(object),
             typeof(StdWindowPanel),
             new UIPropertyMetadata(null)
         );
@@ -235,7 +235,7 @@ namespace Foundation.Views
         /// <value>
         /// The status bar.
         /// </value>
-        public Object StatusBar
+        public object StatusBar
         {
             get => GetValue(StatusBarProperty);
             set => SetValue(StatusBarProperty, value);

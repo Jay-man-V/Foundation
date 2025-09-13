@@ -11,7 +11,7 @@ using System.Windows;
 using Foundation.Common;
 using Foundation.Interfaces;
 
-namespace Foundation.ViewModels
+namespace Foundation.ViewModels.Main
 {
     /// <summary>
     /// The User Interface interaction logic for About/Splash Screen
@@ -30,7 +30,7 @@ namespace Foundation.ViewModels
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
             IWpfApplicationObjects wpfApplicationObjects,
-            Boolean isSplashScreen
+            bool isSplashScreen
         ) :
             base
             (
@@ -63,14 +63,14 @@ namespace Foundation.ViewModels
             {
                 FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(entryAssembly.Location);
 
-                CompanyName = fileVersionInfo.CompanyName ?? String.Empty;
-                Product = fileVersionInfo.ProductName ?? String.Empty;
-                Copyright = fileVersionInfo.LegalCopyright ?? String.Empty;
-                Trademark = fileVersionInfo.LegalTrademarks ?? String.Empty;
+                CompanyName = fileVersionInfo.CompanyName ?? string.Empty;
+                Product = fileVersionInfo.ProductName ?? string.Empty;
+                Copyright = fileVersionInfo.LegalCopyright ?? string.Empty;
+                Trademark = fileVersionInfo.LegalTrademarks ?? string.Empty;
                 Version = $"{fileVersionInfo.ProductVersion} ({fileVersionInfo.FileVersion})";
 
                 Configuration = "<Not set>";
-                Object[] customAttributes = entryAssembly.GetCustomAttributes(typeof(AssemblyConfigurationAttribute), false);
+                object[] customAttributes = entryAssembly.GetCustomAttributes(typeof(AssemblyConfigurationAttribute), false);
                 if (customAttributes.Length > 0)
                 {
                     AssemblyConfigurationAttribute aca = (AssemblyConfigurationAttribute)customAttributes[0];
@@ -78,15 +78,15 @@ namespace Foundation.ViewModels
                 }
             }
 
-            ApplicationServer = String.Empty;
-            DatabaseServer = String.Empty;
-            DatabaseDetails = String.Empty;
+            ApplicationServer = string.Empty;
+            DatabaseServer = string.Empty;
+            DatabaseDetails = string.Empty;
 
             Username = Core.CurrentLoggedOnUser.Username;
             Name = Core.CurrentLoggedOnUser.DisplayName;
             Email = "<Todo>";
 
-            Roles = String.Empty;
+            Roles = string.Empty;
             foreach (IRole role in Core.CurrentLoggedOnUser.UserProfile.Roles)
             {
                 if (Roles.Length > 0) Roles += "|";
@@ -131,63 +131,63 @@ namespace Foundation.ViewModels
         /// <summary>Gets a value indicating whether [user information expanded].</summary>
         /// <value>
         ///   <c>true</c> if [user information expanded]; otherwise, <c>false</c>.</value>
-        public Boolean UserInformationExpanded { get; }
+        public bool UserInformationExpanded { get; }
 
         /// <summary>Gets a value indicating whether [dialog result].</summary>
         /// <value>
         ///   <c>true</c> if [dialog result]; otherwise, <c>false</c>.</value>
-        public Boolean DialogResult => false;
+        public bool DialogResult => false;
 
         /// <summary>Gets the product.</summary>
         /// <value>The product.</value>
-        public String Product { get; }
+        public string Product { get; }
 
         /// <summary>Gets the name of the company.</summary>
         /// <value>The name of the company.</value>
-        public String CompanyName { get; }
+        public string CompanyName { get; }
 
         /// <summary>Gets the copyright.</summary>
         /// <value>The copyright.</value>
-        public String Copyright { get; }
+        public string Copyright { get; }
 
         /// <summary>Gets the trademark.</summary>
         /// <value>The trademark.</value>
-        public String Trademark { get; }
+        public string Trademark { get; }
 
         /// <summary>Gets the configuration.</summary>
         /// <value>The configuration.</value>
-        public String Configuration { get; }
+        public string Configuration { get; }
 
         /// <summary>Gets the version.</summary>
         /// <value>The version.</value>
-        public String Version { get; }
+        public string Version { get; }
 
         /// <summary>Gets the application server.</summary>
         /// <value>The application server.</value>
-        public String ApplicationServer { get; }
+        public string ApplicationServer { get; }
 
         /// <summary>Gets the database server.</summary>
         /// <value>The database server.</value>
-        public String DatabaseServer { get; }
+        public string DatabaseServer { get; }
 
         /// <summary>Gets the database details.</summary>
         /// <value>The database details.</value>
-        public String DatabaseDetails { get; }
+        public string DatabaseDetails { get; }
 
         /// <summary>Gets the username.</summary>
         /// <value>The username.</value>
-        public String Username { get; }
+        public string Username { get; }
 
         /// <summary>Gets the name.</summary>
         /// <value>The name.</value>
-        public String Name { get; }
+        public string Name { get; }
 
         /// <summary>Gets the email.</summary>
         /// <value>The email.</value>
-        public String Email { get; }
+        public string Email { get; }
 
         /// <summary>Gets the roles.</summary>
         /// <value>The roles.</value>
-        public String Roles { get; }
+        public string Roles { get; }
     }
 }

@@ -13,7 +13,7 @@ using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
-namespace Foundation.Repository
+namespace Foundation.Repository.Specialised
 {
     /// <summary>
     /// Defines the Db Schema Column Data Access class

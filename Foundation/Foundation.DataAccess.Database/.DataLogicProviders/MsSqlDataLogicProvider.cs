@@ -11,7 +11,7 @@ using Microsoft.Data.SqlClient;
 using Foundation.Interfaces;
 using Foundation.Resources;
 
-namespace Foundation.DataAccess.Database
+namespace Foundation.DataAccess.Database.DataLogicProviders
 {
     /// <summary>
     /// The Microsoft Sql Server Database Data Logic Provider

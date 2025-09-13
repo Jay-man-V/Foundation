@@ -14,7 +14,7 @@ using Foundation.Repository.LocalModels;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
-namespace Foundation.Repository
+namespace Foundation.Repository.Core
 {
     /// <summary>
     /// Defines the Calendar Data Access class
