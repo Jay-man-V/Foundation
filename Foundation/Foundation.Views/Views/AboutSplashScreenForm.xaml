@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
-    xmlns:controls="clr-namespace:Foundation.Views"
     xmlns:basic="clr-namespace:Foundation.Views.Controls.Basic"
     xmlns:visuals="clr-namespace:Foundation.Views.Controls.Visuals"
 

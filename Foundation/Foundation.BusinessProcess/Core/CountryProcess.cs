@@ -8,6 +8,7 @@ using System.Drawing;
 
 using Foundation.Common;
 using Foundation.Interfaces;
+using Foundation.Interfaces.Helpers;
 using Foundation.Models.Specialised;
 
 using FDC = Foundation.Resources.Constants.DataColumns;

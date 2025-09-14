@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Foundation.Interfaces
+namespace Foundation.Interfaces.Helpers
 {
     /// <summary>
     /// The Grid Column Definition definition
@@ -14,15 +14,15 @@ namespace Foundation.Interfaces
         /// <summary>
         /// Width
         /// </summary>
-        Int32 Width { get; set; }
+        int Width { get; set; }
         /// <summary>
         /// Data member name
         /// </summary>
-        String DataMemberName { get; }
+        string DataMemberName { get; }
         /// <summary>
         /// Column header name
         /// </summary>
-        String ColumnHeaderName { get; }
+        string ColumnHeaderName { get; }
         /// <summary>
         /// Data type
         /// </summary>
@@ -39,56 +39,56 @@ namespace Foundation.Interfaces
         /// <value>
         /// The maximum length of the input.
         /// </value>
-        Int32 MaxInputLength { get; set; }
+        int MaxInputLength { get; set; }
 
         /// <summary>
         /// DotNetFormat
         /// </summary>
-        String DotNetFormat { get; set; }
+        string DotNetFormat { get; set; }
         /// <summary>
         /// Excel format
         /// </summary>
-        String ExcelFormat { get; set; }
+        string ExcelFormat { get; set; }
         /// <summary>
         /// Minimum value
         /// </summary>
-        Object? MinimumValue { get; set; }
+        object? MinimumValue { get; set; }
         /// <summary>
         /// Maximum value
         /// </summary>
-        Object? MaximumValue { get; set; }
+        object? MaximumValue { get; set; }
         /// <summary>
         /// True value
         /// </summary>
-        String TrueValue { get; set; }
+        string TrueValue { get; set; }
         /// <summary>
         /// False value
         /// </summary>
-        String FalseValue { get; set; }
+        string FalseValue { get; set; }
         /// <summary>
         /// Data Source
         /// </summary>
-        Object? DataSource { get; set; }
+        object? DataSource { get; set; }
         /// <summary>
         /// Value Member
         /// </summary>
-        String ValueMember { get; set; }
+        string ValueMember { get; set; }
         /// <summary>
         /// Display Member
         /// </summary>
-        String DisplayMember { get; set; }
+        string DisplayMember { get; set; }
         /// <summary>
         /// Visible
         /// </summary>
-        Boolean Visible { get; set; }
+        bool Visible { get; set; }
         /// <summary>
         /// Read Only
         /// </summary>
-        Boolean ReadOnly { get; set; }
+        bool ReadOnly { get; set; }
 
         /// <summary>
         /// Template Name
         /// </summary>
-        String TemplateName { get; }
+        string TemplateName { get; }
     }
 }

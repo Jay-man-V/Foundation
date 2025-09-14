@@ -8,6 +8,7 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Spreadsheet;
 
 using Foundation.Interfaces;
+using Foundation.Interfaces.Helpers;
 
 namespace Foundation.DocumentGenerator
 {

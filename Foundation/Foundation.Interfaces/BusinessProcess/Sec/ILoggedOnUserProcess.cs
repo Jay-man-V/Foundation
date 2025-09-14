@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Interfaces.Helpers;
+
 namespace Foundation.Interfaces
 {
     /// <summary>

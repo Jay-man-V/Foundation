@@ -7,6 +7,7 @@
 using DocumentFormat.OpenXml.Presentation;
 
 using Foundation.Interfaces;
+using Foundation.Interfaces.Helpers;
 using Foundation.Models.Specialised;
 using Foundation.Resources;
 using Foundation.Tests.Unit.Support;
@@ -14,7 +15,7 @@ using Foundation.Tests.Unit.Support;
 using System.Data;
 using System.Drawing;
 
-namespace Foundation.Tests.Unit.Foundation.Models
+namespace Foundation.Tests.Unit.Foundation.Common.Helpers
 {
     /// <summary>
     /// The Grid Column Definition Tests class
@@ -25,24 +26,24 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_Constructor_Default()
         {
-            const Int32 width = 0;
-            String dataMemberName = String.Empty;
-            String columnHeaderName = String.Empty;
-            Type dataType = typeof(String);
+            const int width = 0;
+            string dataMemberName = string.Empty;
+            string columnHeaderName = string.Empty;
+            Type dataType = typeof(string);
             const TextAlignment textAlignment = TextAlignment.NotSet;
-            const Int32 maxInputLength = 0;
-            String dotNetFormat = String.Empty;
-            String excelFormat = String.Empty;
-            const Object? maximumValue = null;
-            const Object? minimumValue = null;
-            String trueValue = String.Empty;
-            String falseValue = String.Empty;
-            const Object? dataSource = null;
-            const String valueMember = "ValueMember";
-            const String displayMember = "DisplayMember";
-            const Boolean visible = false;
-            const Boolean readOnly = false;
-            String templateName = GridColumnTemplateNames.DefaultColumnTemplate;
+            const int maxInputLength = 0;
+            string dotNetFormat = string.Empty;
+            string excelFormat = string.Empty;
+            const object? maximumValue = null;
+            const object? minimumValue = null;
+            string trueValue = string.Empty;
+            string falseValue = string.Empty;
+            const object? dataSource = null;
+            const string valueMember = "ValueMember";
+            const string displayMember = "DisplayMember";
+            const bool visible = false;
+            const bool readOnly = false;
+            string templateName = GridColumnTemplateNames.DefaultColumnTemplate;
 
             IGridColumnDefinition obj = new GridColumnDefinition();
 
@@ -66,15 +67,15 @@ namespace Foundation.Tests.Unit.Foundation.Models
             Assert.That(obj.TemplateName, Is.EqualTo(templateName));
         }
 
-        [TestCase(typeof(EntityId), 0, Int64.MaxValue, nameof(GridColumnTemplateNames.DefaultColumnTemplate), "0", "###0")]
-        [TestCase(typeof(AppId), 0, Int64.MaxValue, nameof(GridColumnTemplateNames.DefaultColumnTemplate), "0", "###0")]
-        [TestCase(typeof(LogId), 0, Int64.MaxValue, nameof(GridColumnTemplateNames.DefaultColumnTemplate), "0", "###0")]
+        [TestCase(typeof(EntityId), 0, long.MaxValue, nameof(GridColumnTemplateNames.DefaultColumnTemplate), "0", "###0")]
+        [TestCase(typeof(AppId), 0, long.MaxValue, nameof(GridColumnTemplateNames.DefaultColumnTemplate), "0", "###0")]
+        [TestCase(typeof(LogId), 0, long.MaxValue, nameof(GridColumnTemplateNames.DefaultColumnTemplate), "0", "###0")]
         [TestCase(typeof(Image), null, null, nameof(GridColumnTemplateNames.ImageColumnTemplate), "", "")]
-        [TestCase(typeof(String), null, null, nameof(GridColumnTemplateNames.DefaultColumnTemplate), "", "")]
-        [TestCase(typeof(Int16), Int16.MinValue, Int16.MaxValue, nameof(GridColumnTemplateNames.NumericColumnTemplate), "N0", "#,##0")]
-        [TestCase(typeof(Int32), Int32.MinValue, Int32.MaxValue, nameof(GridColumnTemplateNames.NumericColumnTemplate), "N0", "#,##0")]
-        [TestCase(typeof(Int64), Int64.MinValue, Int64.MaxValue, nameof(GridColumnTemplateNames.NumericColumnTemplate), "N0", "#,##0")]
-        public void Test_Constructor_Generic(Type dataType, Object? minimumValue, Object? maximumValue, String templateName, String dotNetFormat, String excelFormat)
+        [TestCase(typeof(string), null, null, nameof(GridColumnTemplateNames.DefaultColumnTemplate), "", "")]
+        [TestCase(typeof(short), short.MinValue, short.MaxValue, nameof(GridColumnTemplateNames.NumericColumnTemplate), "N0", "#,##0")]
+        [TestCase(typeof(int), int.MinValue, int.MaxValue, nameof(GridColumnTemplateNames.NumericColumnTemplate), "N0", "#,##0")]
+        [TestCase(typeof(long), long.MinValue, long.MaxValue, nameof(GridColumnTemplateNames.NumericColumnTemplate), "N0", "#,##0")]
+        public void Test_Constructor_Generic(Type dataType, object? minimumValue, object? maximumValue, string templateName, string dotNetFormat, string excelFormat)
         {
             Test_Constructor(dataType, minimumValue, maximumValue, templateName, dotNetFormat, excelFormat);
         }
@@ -82,12 +83,12 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_Constructor_Decimal()
         {
-            Type dataType = typeof(Decimal);
-            Decimal minimumValue = Decimal.MinValue;
-            Decimal maximumValue = Decimal.MaxValue;
-            String templateName = GridColumnTemplateNames.NumericColumnTemplate;
-            String dotNetFormat = Formats.DotNet.Decimal2dp;
-            String excelFormat = Formats.Excel.Decimal2dp;
+            Type dataType = typeof(decimal);
+            decimal minimumValue = decimal.MinValue;
+            decimal maximumValue = decimal.MaxValue;
+            string templateName = GridColumnTemplateNames.NumericColumnTemplate;
+            string dotNetFormat = Formats.DotNet.Decimal2dp;
+            string excelFormat = Formats.Excel.Decimal2dp;
 
             Test_Constructor(dataType, minimumValue, maximumValue, templateName, dotNetFormat, excelFormat);
         }
@@ -95,12 +96,12 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_Constructor_Double()
         {
-            Type dataType = typeof(Double);
-            Double minimumValue = Double.MinValue;
-            Double maximumValue = Double.MaxValue;
-            String templateName = GridColumnTemplateNames.NumericColumnTemplate;
-            String dotNetFormat = Formats.DotNet.Decimal2dp;
-            String excelFormat = Formats.Excel.Decimal2dp;
+            Type dataType = typeof(double);
+            double minimumValue = double.MinValue;
+            double maximumValue = double.MaxValue;
+            string templateName = GridColumnTemplateNames.NumericColumnTemplate;
+            string dotNetFormat = Formats.DotNet.Decimal2dp;
+            string excelFormat = Formats.Excel.Decimal2dp;
 
             Test_Constructor(dataType, minimumValue, maximumValue, templateName, dotNetFormat, excelFormat);
         }
@@ -111,9 +112,9 @@ namespace Foundation.Tests.Unit.Foundation.Models
             Type dataType = typeof(TimeSpan);
             TimeSpan minimumValue = TimeSpan.MinValue;
             TimeSpan maximumValue = TimeSpan.MaxValue;
-            String templateName = GridColumnTemplateNames.DateTimeColumnTemplate;
-            String dotNetFormat = Formats.DotNet.TimeOnly;
-            String excelFormat = Formats.Excel.TimeOnly;
+            string templateName = GridColumnTemplateNames.DateTimeColumnTemplate;
+            string dotNetFormat = Formats.DotNet.TimeOnly;
+            string excelFormat = Formats.Excel.TimeOnly;
 
             Test_Constructor(dataType, minimumValue, maximumValue, templateName, dotNetFormat, excelFormat);
         }
@@ -124,9 +125,9 @@ namespace Foundation.Tests.Unit.Foundation.Models
             Type dataType = typeof(DateTime);
             DateTime minimumValue = DateTime.MinValue;
             DateTime maximumValue = DateTime.MaxValue;
-            String templateName = GridColumnTemplateNames.DateTimeColumnTemplate;
-            String dotNetFormat = Formats.DotNet.DateTime;
-            String excelFormat = Formats.Excel.DateTime;
+            string templateName = GridColumnTemplateNames.DateTimeColumnTemplate;
+            string dotNetFormat = Formats.DotNet.DateTime;
+            string excelFormat = Formats.Excel.DateTime;
 
             Test_Constructor(dataType, minimumValue, maximumValue, templateName, dotNetFormat, excelFormat);
         }
@@ -134,19 +135,19 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_Constructor_Boolean()
         {
-            Type dataType = typeof(Boolean);
-            const Object? minimumValue = null;
-            const Object? maximumValue = null;
-            String templateName = GridColumnTemplateNames.YesNoColumnTemplate;
+            Type dataType = typeof(bool);
+            const object? minimumValue = null;
+            const object? maximumValue = null;
+            string templateName = GridColumnTemplateNames.YesNoColumnTemplate;
 
-            Int32 width = 100;
-            String dataMemberName = "dataMemberName";
-            String columnHeaderName = "columnHeaderName";
+            int width = 100;
+            string dataMemberName = "dataMemberName";
+            string columnHeaderName = "columnHeaderName";
 
-            String valueMember = "ValueMember";
-            String displayMember = "DisplayMember";
-            String trueValue = "Y";
-            String falseValue = "N";
+            string valueMember = "ValueMember";
+            string displayMember = "DisplayMember";
+            string trueValue = "Y";
+            string falseValue = "N";
 
             GridColumnDefinition obj = new GridColumnDefinition(width, dataMemberName, columnHeaderName, dataType);
 
@@ -169,12 +170,12 @@ namespace Foundation.Tests.Unit.Foundation.Models
         public void Test_Constructor_ImageDropDown()
         {
             Type dataType = typeof(Image);
-            const String? minimumValue = null;
-            const String? maximumValue = null;
-            String templateName = GridColumnTemplateNames.ImageColumnTemplate;
+            const string? minimumValue = null;
+            const string? maximumValue = null;
+            string templateName = GridColumnTemplateNames.ImageColumnTemplate;
 
-            IGridColumnDefinition gridColumnDefinition = Test_Constructor(dataType, minimumValue, maximumValue, templateName, String.Empty, String.Empty);
-            gridColumnDefinition.DataSource = new Object();
+            IGridColumnDefinition gridColumnDefinition = Test_Constructor(dataType, minimumValue, maximumValue, templateName, string.Empty, string.Empty);
+            gridColumnDefinition.DataSource = new object();
 
             Assert.That(gridColumnDefinition.TemplateName, Is.EqualTo(GridColumnTemplateNames.ImageDropDownBoxColumnTemplate));
         }
@@ -182,25 +183,25 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_Constructor_StringDropDown()
         {
-            Type dataType = typeof(String);
-            const String? minimumValue = null;
-            const String? maximumValue = null;
-            String templateName = GridColumnTemplateNames.DefaultColumnTemplate;
+            Type dataType = typeof(string);
+            const string? minimumValue = null;
+            const string? maximumValue = null;
+            string templateName = GridColumnTemplateNames.DefaultColumnTemplate;
 
-            IGridColumnDefinition gridColumnDefinition = Test_Constructor(dataType, minimumValue, maximumValue, templateName, String.Empty, String.Empty);
-            gridColumnDefinition.DataSource = new Object();
+            IGridColumnDefinition gridColumnDefinition = Test_Constructor(dataType, minimumValue, maximumValue, templateName, string.Empty, string.Empty);
+            gridColumnDefinition.DataSource = new object();
 
             Assert.That(gridColumnDefinition.TemplateName, Is.EqualTo(GridColumnTemplateNames.DropDownBoxColumnTemplate));
         }
 
-        private GridColumnDefinition Test_Constructor(Type dataType, Object? minimumValue, Object? maximumValue, String templateName, String dotNetFormat, String excelFormat)
+        private GridColumnDefinition Test_Constructor(Type dataType, object? minimumValue, object? maximumValue, string templateName, string dotNetFormat, string excelFormat)
         {
-            Int32 width = 100;
-            String dataMemberName = "dataMemberName";
-            String columnHeaderName = "columnHeaderName";
+            int width = 100;
+            string dataMemberName = "dataMemberName";
+            string columnHeaderName = "columnHeaderName";
 
-            String valueMember = "ValueMember";
-            String displayMember = "DisplayMember";
+            string valueMember = "ValueMember";
+            string displayMember = "DisplayMember";
 
             GridColumnDefinition obj = new GridColumnDefinition(width, dataMemberName, columnHeaderName, dataType);
 
@@ -225,7 +226,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_Clone()
         {
-            GridColumnDefinition obj = new GridColumnDefinition(123456, "supplied dataMemberName", "supplied columnHeaderName", typeof(String))
+            GridColumnDefinition obj = new GridColumnDefinition(123456, "supplied dataMemberName", "supplied columnHeaderName", typeof(string))
             {
                 TextAlignment = TextAlignment.Left,
                 MaxInputLength = 123,
@@ -246,8 +247,8 @@ namespace Foundation.Tests.Unit.Foundation.Models
 
             Assert.That(cloned, Is.EqualTo(obj));
 
-            Int32 hashCodeOriginal = obj.GetHashCode();
-            Int32 hashCodeCopy = cloned.GetHashCode();
+            int hashCodeOriginal = obj.GetHashCode();
+            int hashCodeCopy = cloned.GetHashCode();
             Assert.That(hashCodeOriginal, Is.EqualTo(hashCodeCopy));
 
             Assert.That(cloned.Equals(obj), Is.EqualTo(true));

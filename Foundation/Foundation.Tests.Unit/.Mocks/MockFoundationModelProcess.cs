@@ -8,6 +8,7 @@ using System.Drawing;
 
 using Foundation.BusinessProcess;
 using Foundation.Interfaces;
+using Foundation.Interfaces.Helpers;
 using Foundation.Models.Specialised;
 using Foundation.Resources;
 

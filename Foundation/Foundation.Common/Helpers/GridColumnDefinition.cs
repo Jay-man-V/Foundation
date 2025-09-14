@@ -9,6 +9,7 @@ using System.Drawing;
 
 using Foundation.Common;
 using Foundation.Interfaces;
+using Foundation.Interfaces.Helpers;
 using Foundation.Resources;
 
 namespace Foundation.Models.Specialised

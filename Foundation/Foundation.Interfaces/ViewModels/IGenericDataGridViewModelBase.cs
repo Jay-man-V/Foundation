@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Interfaces.Helpers;
+
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
