@@ -84,7 +84,6 @@ namespace Foundation.Tests.Unit.Foundation.Models
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Log.EventLog)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Log.EventLogApplication)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Log.EventLogAttachment)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Specialised.GridColumnDefinition)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.IdGenerator)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.ImageType)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Log.ImportExportControl)));
@@ -120,11 +119,6 @@ namespace Foundation.Tests.Unit.Foundation.Models
 
             foreach (Type modelType in modelTypes)
             {
-                if (modelType == typeof(FModels.Specialised.GridColumnDefinition))
-                {
-                    continue;
-                }
-
                 String currentTypeName = modelType.FullName!;
                 Object modelInstance = Activator.CreateInstance(modelType)!;
 
@@ -196,11 +190,6 @@ namespace Foundation.Tests.Unit.Foundation.Models
 
             foreach (Type modelType in modelTypes)
             {
-                if (modelType == typeof(FModels.Specialised.GridColumnDefinition))
-                {
-                    continue;
-                }
-
                 String currentTypeName = modelType.FullName!;
                 Object modelInstance = Activator.CreateInstance(modelType)!;
 
@@ -274,11 +263,6 @@ namespace Foundation.Tests.Unit.Foundation.Models
 
             foreach (Type modelType in modelTypes)
             {
-                if (modelType == typeof(FModels.Specialised.GridColumnDefinition))
-                {
-                    continue;
-                }
-
                 String currentTypeName = modelType.FullName!;
 
                 Object modelInstance = Activator.CreateInstance(modelType)!;

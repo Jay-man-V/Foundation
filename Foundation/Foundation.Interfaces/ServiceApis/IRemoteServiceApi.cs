@@ -37,7 +37,7 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="fileTransferSettings"></param>
         /// <returns></returns>
-        Task<Stream> DownloadFileAsync(IFileTransferSettings fileTransferSettings);
+        Task<Stream?> DownloadFileAsync(IFileTransferSettings fileTransferSettings);
 
         /// <summary>
         /// Uploads the file from the supplied <paramref name="fileTransferSettings"/>

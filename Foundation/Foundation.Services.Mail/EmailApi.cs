@@ -59,7 +59,7 @@ namespace Foundation.Services.Mail
 
             using (IMailWrapper client = MailWrapper.SetupMailer())
             {
-                MailMessage mailMessage = new MailMessage
+                MailMessage mailMessage = new()
                 {
                     FromAddress = mailFrom,
                     Subject = mailSubject,
@@ -83,7 +83,7 @@ namespace Foundation.Services.Mail
         {
             LoggingHelpers.TraceCallEnter(toAddress, fromAddress, subject, body, mailAttachments);
 
-            MailMessage mailMessage = new MailMessage
+            MailMessage mailMessage = new()
             {
                 FromAddress = fromAddress,
                 FromAddressDisplayName = fromAddressDisplayName,
@@ -113,7 +113,7 @@ namespace Foundation.Services.Mail
             newBody = newBody.Replace("$$SUBJECT$$", subject);
             newBody = newBody.Replace("$$BODY$$", body);
 
-            IMailMessage mailMessage = new MailMessage
+            MailMessage mailMessage = new()
             {
                 FromAddress = fromAddress,
                 FromAddressDisplayName = fromAddressDisplayName,
@@ -165,13 +165,13 @@ namespace Foundation.Services.Mail
         }
 
         /// <inheritdoc cref="IRemoteServiceApi.DownloadFile(IFileTransferSettings)"/>
-        public Stream DownloadFile(IFileTransferSettings fileTransferSettings)
+        public Stream? DownloadFile(IFileTransferSettings fileTransferSettings)
         {
             LoggingHelpers.TraceCallEnter(fileTransferSettings);
 
-            Task<Stream> t = DownloadFileAsync(fileTransferSettings);
+            Task<Stream?> t = DownloadFileAsync(fileTransferSettings);
             t.Wait();
-            Stream retVal = t.Result;
+            Stream? retVal = t.Result;
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -179,11 +179,11 @@ namespace Foundation.Services.Mail
         }
 
         /// <inheritdoc cref="IRemoteServiceApi.DownloadFileAsync(IFileTransferSettings)"/>
-        public async Task<Stream> DownloadFileAsync(IFileTransferSettings fileTransferSettings)
+        public async Task<Stream?> DownloadFileAsync(IFileTransferSettings fileTransferSettings)
         {
             LoggingHelpers.TraceCallEnter(fileTransferSettings);
 
-            Stream retVal = new MemoryStream(0);
+            Stream retVal = await Task.Run(() => new MemoryStream(0)); 
 
             LoggingHelpers.TraceCallReturn(retVal);
 
