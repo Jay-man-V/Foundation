@@ -26,6 +26,13 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             TheService = new TestSupportService();
         }
 
+        public override void TestCleanup()
+        {
+            TheService = null;
+
+            base.TestCleanup();
+        }
+
         [TestCase]
         public void Test_GetCurrentDateTime()
         {

@@ -35,6 +35,13 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             TheService = new PasswordGeneratorService(CoreInstance, ApplicationConfigurationService, RestApi, RandomService);
         }
 
+        public override void TestCleanup()
+        {
+            TheService = null;
+
+            base.TestCleanup();
+        }
+
         [TestCase]
         public void Test_GeneratePassword()
         {

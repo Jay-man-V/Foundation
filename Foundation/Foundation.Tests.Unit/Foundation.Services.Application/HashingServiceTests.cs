@@ -32,6 +32,13 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             TheService = new HashingService();
         }
 
+        public override void TestCleanup()
+        {
+            TheService = null;
+
+            base.TestCleanup();
+        }
+
         /// <summary>
         /// 
         /// </summary>

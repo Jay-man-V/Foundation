@@ -30,6 +30,13 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             TheService = new DateTimeService(InjectedDateTime);
         }
 
+        public override void TestCleanup()
+        {
+            TheService = null;
+
+            base.TestCleanup();
+        }
+
         [TestCase]
         public void Test_Scenario_NewValidityPeriod()
         {

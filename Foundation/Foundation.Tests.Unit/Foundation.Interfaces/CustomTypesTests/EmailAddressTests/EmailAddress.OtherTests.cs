@@ -23,8 +23,8 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.EmailAddr
             String exceedsDomain = "valid@".PadRight(300, 'a');
             exceedsDomain = String.Concat(exceedsDomain, ".com");
 
-            EmailAddress invalidLocal = new EmailAddress(exceedsLocal);
-            EmailAddress invalidDomain = new EmailAddress(exceedsDomain);
+            EmailAddress invalidLocal = new(exceedsLocal);
+            EmailAddress invalidDomain = new(exceedsDomain);
 
             Assert.That(invalidLocal.IsValid, Is.EqualTo(false));
             Assert.That(invalidDomain.IsValid, Is.EqualTo(false));

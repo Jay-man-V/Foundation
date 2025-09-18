@@ -55,6 +55,8 @@
     <Compile Include=".Support\UnitTestsBaseTests.cs" />
     <Compile Include=".Support\UserSecuritySupport.cs" />
     <Compile Include=".Support\_UnitTestTemplate.cs" />
+    <Compile Include="Foundation.BusinessProcess\.Support\MockFoundationProcess2Tests.cs" />
+    <Compile Include="Foundation.BusinessProcess\.Support\MockFoundationProcessTests.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -207,7 +209,6 @@
     <Folder Include=".ExpectedResults\Foundation.Resources\Images\Logos\" />
     <Folder Include=".NetFramework\DependencyInjectionTests\" />
     <Folder Include=".Support\Configs\" />
-    <Folder Include="Foundation.BusinessProcess\" />
     <Folder Include="Foundation.Models\" />
   </ItemGroup>
 

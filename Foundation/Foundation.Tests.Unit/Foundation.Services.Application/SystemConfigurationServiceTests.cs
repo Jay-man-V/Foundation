@@ -26,6 +26,13 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             TheService = new SystemConfigurationService(CoreInstance);
         }
 
+        public override void TestCleanup()
+        {
+            TheService = null;
+
+            base.TestCleanup();
+        }
+
         /// <summary>
         /// 
         /// </summary>

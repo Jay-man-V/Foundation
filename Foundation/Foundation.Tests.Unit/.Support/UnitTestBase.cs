@@ -4,16 +4,15 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.Common;
-using Foundation.Interfaces;
-using Foundation.Resources;
-using Foundation.Services.Application;
-
-using NSubstitute;
-
 using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
+
+using NSubstitute;
+
+using Foundation.Common;
+using Foundation.Interfaces;
+using Foundation.Resources;
 
 using FModels = Foundation.Models;
 
@@ -30,12 +29,12 @@ namespace Foundation.Tests.Unit.Support
         protected String DatabaseServer = "Callisto";
         protected String BaseTemporaryOutputsPath => @"D:\Projects\JDVSoftware\TempOutputs\";
 
-        protected AppId TestingApplicationId = new AppId(1);
-        protected DateTime CreatedOnDateTime => new DateTime(2000, 01, 01, 00, 00, 00, DateTimeKind.Utc);
-        protected DateTime LastUpdatedOnDateTime => new DateTime(2001, 12, 31, 11, 55, 22, DateTimeKind.Utc);
-        protected DateTime ValidFromDateTime => new DateTime(2000, 01, 01, 00, 00, 00, DateTimeKind.Utc);
-        protected DateTime SystemDateTime => new DateTime(2022, 11, 28, 13, 11, 54, DateTimeKind.Utc);
-        protected DateTime SystemDateTimeMs => new DateTime(2022, 11, 28, 13, 11, 54, 300, DateTimeKind.Utc);
+        protected AppId TestingApplicationId = new(1);
+        protected DateTime CreatedOnDateTime => new(2000, 01, 01, 00, 00, 00, DateTimeKind.Utc);
+        protected DateTime LastUpdatedOnDateTime => new(2001, 12, 31, 11, 55, 22, DateTimeKind.Utc);
+        protected DateTime ValidFromDateTime => new(2000, 01, 01, 00, 00, 00, DateTimeKind.Utc);
+        protected DateTime SystemDateTime => new(2022, 11, 28, 13, 11, 54, DateTimeKind.Utc);
+        protected DateTime SystemDateTimeMs => new(2022, 11, 28, 13, 11, 54, 300, DateTimeKind.Utc);
 
         protected String EmailSmtpHostUsername => "email.smtp.host.username";
         protected String EmailSmtpHostPassword => "email.smtp.host.password";
@@ -68,11 +67,11 @@ namespace Foundation.Tests.Unit.Support
 
         protected static class ErrorMessages
         {
-            public static readonly String ArgumentNullExpectedErrorMessage = $"Value cannot be null.{Environment.NewLine}Parameter name: {{0}}";
+            public static readonly String ArgumentNullExpectedErrorMessage = "Empty {1} cannot be null. (Parameter '{0}')";
         }
         protected List<IStatus> GetListOfStatuses()
         {
-            List<IStatus> retVal = new List<IStatus>();
+            List<IStatus> retVal = [];
 
             FModels.Core.EnumModels.Status obj1 = (FModels.Core.EnumModels.Status)CoreInstance.IoC.Get<IStatus>();
             obj1.Id = new EntityId(-1);
@@ -144,7 +143,7 @@ namespace Foundation.Tests.Unit.Support
 
         protected List<ILoggedOnUser> GetListOfLoggedOnUsers()
         {
-            List<ILoggedOnUser> retVal = new List<ILoggedOnUser>();
+            List<ILoggedOnUser> retVal = [];
 
             FModels.Sec.LoggedOnUser obj1 = (FModels.Sec.LoggedOnUser)CoreInstance.IoC.Get<ILoggedOnUser>();
             retVal.Add(obj1);
@@ -154,7 +153,7 @@ namespace Foundation.Tests.Unit.Support
 
         protected List<IUserProfile> GetListOfUserProfiles()
         {
-            List<IUserProfile> retVal = new List<IUserProfile>();
+            List<IUserProfile> retVal = [];
 
             FModels.Sec.UserProfile obj1 = (FModels.Sec.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
             obj1.Id = new EntityId(1);
@@ -385,21 +384,21 @@ namespace Foundation.Tests.Unit.Support
             String pattern2 = @"\d\d-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4} \d\d:\d\d:\d\d";
             String pattern3 = @"([\d]{8}T[\d]{6})|([\d]{4}-[\d]{2}-[\d]{2} [\d]{2}_[\d]{2}_[\d]{2})";
 
-            Regex regex = new Regex(pattern1);
+            Regex regex = new(pattern1);
             Match match = regex.Match(retVal);
             if (match.Success)
             {
                 retVal = regex.Replace(retVal, "<<dd-MMM-yyyy HH:mm:ss.fff>>");
             }
 
-            regex = new Regex(pattern2);
+            regex = new(pattern2);
             match = regex.Match(retVal);
             if (match.Success)
             {
                 retVal = regex.Replace(retVal, "<<dd-MMM-yyyy HH:mm:ss>>");
             }
 
-            regex = new Regex(pattern3);
+            regex = new(pattern3);
             match = regex.Match(retVal);
             if (match.Success)
             {
@@ -432,7 +431,7 @@ namespace Foundation.Tests.Unit.Support
 
             foreach (String pattern in patterns)
             {
-                Regex regex = new (pattern);
+                Regex regex = new(pattern);
                 Match match = regex.Match(retVal);
                 if (match.Success)
                 {
@@ -451,11 +450,14 @@ namespace Foundation.Tests.Unit.Support
         protected String ReplaceLineNumberWithConstant(String inputString)
         {
             String retVal = inputString;
-            String[] patterns = { @":line \d+" };
+            String[] patterns =
+            [
+                @":line \d+"
+            ];
 
             foreach (String pattern in patterns)
             {
-                Regex regex = new (pattern);
+                Regex regex = new(pattern);
                 Match match = regex.Match(retVal);
                 if (match.Success)
                 {
@@ -475,25 +477,25 @@ namespace Foundation.Tests.Unit.Support
         {
             String retVal = inputString;
             String[] patterns1 =
-            {
+            [
                 @"User logon: \w+\\\w+",
-                @"User logon: \.\\\w+",
-            };
+                @"User logon: \.\\\w+"
+            ];
 
             String[] patterns2 =
-            {
+            [
                 @"User: \w+\\\w+",
-                @"User: \.\\\w+",
-            };
+                @"User: \.\\\w+"
+            ];
 
             String[] patterns3 =
-            {
-                @"User: '\w+\\\w+'",
-            };
+            [
+                @"User: '\w+\\\w+'"
+            ];
 
-            for (Int32 counter = 0; counter < patterns1.Length; counter++)
+            foreach (String pattern in patterns1)
             {
-                Regex regex = new Regex(patterns1[counter]);
+                Regex regex = new(pattern);
                 Match match = regex.Match(retVal);
                 if (match.Success)
                 {
@@ -501,9 +503,9 @@ namespace Foundation.Tests.Unit.Support
                 }
             }
 
-            for (Int32 counter = 0; counter < patterns2.Length; counter++)
+            foreach (String pattern in patterns2)
             {
-                Regex regex = new Regex(patterns2[counter]);
+                Regex regex = new(pattern);
                 Match match = regex.Match(retVal);
                 if (match.Success)
                 {
@@ -511,9 +513,9 @@ namespace Foundation.Tests.Unit.Support
                 }
             }
 
-            for (Int32 counter = 0; counter < patterns3.Length; counter++)
+            foreach (String pattern in patterns3)
             {
-                Regex regex = new Regex(patterns3[counter]);
+                Regex regex = new(pattern);
                 Match match = regex.Match(retVal);
                 if (match.Success)
                 {
@@ -532,13 +534,19 @@ namespace Foundation.Tests.Unit.Support
         protected String ReplaceEntryAssemblyWithConstant(String inputString)
         {
             String retVal = inputString;
-            String pattern1 = @"Entry assembly: [\w.]*";
+            String[] patterns1 =
+            [
+                @"Entry assembly: [\w.]*"
+            ];
 
-            Regex regex = new Regex(pattern1);
-            Match match = regex.Match(retVal);
-            if (match.Success)
+            foreach (String pattern in patterns1)
             {
-                retVal = regex.Replace(retVal, "Entry assembly: <<EntryAssembly>>");
+                Regex regex = new(pattern);
+                Match match = regex.Match(retVal);
+                if (match.Success)
+                {
+                    retVal = regex.Replace(retVal, "Entry assembly: <<EntryAssembly>>");
+                }
             }
 
             return retVal;
@@ -552,13 +560,19 @@ namespace Foundation.Tests.Unit.Support
         protected String ReplacePublicKeyTokenWithConstant(String inputString)
         {
             String retVal = inputString;
-            String pattern1 = @"PublicKeyToken=\w*";
+            String[] patterns1 =
+            [
+                @"PublicKeyToken=\w*"
+            ];
 
-            Regex regex = new Regex(pattern1);
-            Match match = regex.Match(retVal);
-            if (match.Success)
+            foreach (String pattern in patterns1)
             {
-                retVal = regex.Replace(retVal, "PublicKeyToken=<<PublicKeyToken>>");
+                Regex regex = new(pattern);
+                Match match = regex.Match(retVal);
+                if (match.Success)
+                {
+                    retVal = regex.Replace(retVal, "PublicKeyToken=<<PublicKeyToken>>");
+                }
             }
 
             return retVal;
@@ -572,13 +586,19 @@ namespace Foundation.Tests.Unit.Support
         protected String ReplaceAssemblyVersionWithConstant(String inputString)
         {
             String retVal = inputString;
-            String pattern1 = @"Version=\d{1,}\.\d{1,}\.\d{1,}\.\d{1,}";
+            String[] patterns1 =
+            [
+                @"Version=\d{1,}\.\d{1,}\.\d{1,}\.\d{1,}"
+            ];
 
-            Regex regex = new Regex(pattern1);
-            Match match = regex.Match(retVal);
-            if (match.Success)
+            foreach (String pattern in patterns1)
             {
-                retVal = regex.Replace(retVal, "Version=<<Version>>");
+                Regex regex = new Regex(pattern);
+                Match match = regex.Match(retVal);
+                if (match.Success)
+                {
+                    retVal = regex.Replace(retVal, "Version=<<Version>>");
+                }
             }
 
             return retVal;
@@ -633,13 +653,35 @@ namespace Foundation.Tests.Unit.Support
         protected String ReplaceGuidWithConstant(String inputString)
         {
             String retVal = inputString;
-            String pattern1 = @"[\w]*-[\w]*-[\w]*-[\w]*-[\w]*";
+            String[] patterns1 =
+            [
+                @"[\w]*-[\w]*-[\w]*-[\w]*-[\w]*"
+            ];
 
-            Regex regex = new Regex(pattern1);
-            Match match = regex.Match(retVal);
-            if (match.Success)
+            String[] patterns2 =
+            [
+                @"[\w]*-[\w]*"
+            ];
+
+
+            foreach (String pattern in patterns1)
             {
-                retVal = regex.Replace(retVal, "anananan-anan-anan-anan-anananananan");
+                Regex regex = new Regex(pattern);
+                Match match = regex.Match(retVal);
+                if (match.Success)
+                {
+                    retVal = regex.Replace(retVal, "anananan-anan-anan-anan-anananananan");
+                }
+            }
+
+            foreach (String pattern in patterns2)
+            {
+                Regex regex = new Regex(pattern);
+                Match match = regex.Match(retVal);
+                if (match.Success)
+                {
+                    retVal = regex.Replace(retVal, "anananan-anan");
+                }
             }
 
             return retVal;
@@ -710,8 +752,8 @@ namespace Foundation.Tests.Unit.Support
         {
             Assembly foundationCommonAssembly = typeof(FoundationProperty).Assembly;
             Assembly foundationInterfacesAssembly = typeof(IFoundationModel).Assembly;
-            List<Type> retVal = new List<Type>();
-            Assembly[] sourceAssemblies = { foundationCommonAssembly, foundationInterfacesAssembly };
+            List<Type> retVal = [];
+            Assembly[] sourceAssemblies = [foundationCommonAssembly, foundationInterfacesAssembly];
 
             foreach (Assembly sourceAssembly in sourceAssemblies)
             {

@@ -32,6 +32,13 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             TheService = new FileService(CoreInstance, ApplicationConfigurationService);
         }
 
+        public override void TestCleanup()
+        {
+            TheService = null;
+
+            base.TestCleanup();
+        }
+
         /// <summary>
         /// baseFolder and targetFolder do not have a trailing slash
         /// </summary>
@@ -1221,10 +1228,10 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
                 Location = sourceFile,
             };
 
-            Task<Stream> t = TheService!.DownloadFileAsync(fileTransferSettings);
+            Task<Stream?> t = TheService!.DownloadFileAsync(fileTransferSettings);
 
             t.Wait();
-            Stream fileContent = t.Result;
+            Stream? fileContent = t.Result;
 
             Stream actualFileContent = File.OpenRead(sourceFile);
             Assert.That(actualFileContent, Is.EqualTo(fileContent));

@@ -95,13 +95,13 @@ namespace Foundation.BusinessProcess
 
 
         /// <inheritdoc cref="ICommonBusinessProcess.NullId"/>
-        public EntityId NullId => new EntityId(-1);
+        public EntityId NullId => new(-1);
 
         /// <inheritdoc cref="ICommonBusinessProcess.AllId"/>
-        public EntityId AllId => new EntityId(-1);
+        public EntityId AllId => new(-1);
 
         /// <inheritdoc cref="ICommonBusinessProcess.NoneId"/>
-        public EntityId NoneId => new EntityId(-2);
+        public EntityId NoneId => new(-2);
 
         /// <inheritdoc cref="ICommonBusinessProcess.AllText"/>
         public String AllText => "<All>";
@@ -178,7 +178,7 @@ namespace Foundation.BusinessProcess
 
         /// <inheritdoc cref="ICommonBusinessProcess.Filter4SelectedValuePath"/>
         public virtual String Filter4SelectedValuePath => FDC.FoundationEntity.Id;
-    
+
         /// <inheritdoc cref="ICommonBusinessProcess.HasOptionalAction4"/>
         public virtual Boolean HasOptionalAction4 => false;
 
@@ -788,8 +788,8 @@ namespace Foundation.BusinessProcess
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess.ExportToCsv(List{IGridColumnDefinition}, IEnumerable)"/>
-        public String ExportToCsv(List<IGridColumnDefinition> gridColumnDefinitions, IEnumerable sourceData)
+        /// <inheritdoc cref="ICommonBusinessProcess.ExportToCsv(List{IGridColumnDefinition}?, IEnumerable?)"/>
+        public String ExportToCsv(List<IGridColumnDefinition>? gridColumnDefinitions, IEnumerable? sourceData)
         {
             LoggingHelpers.TraceCallEnter(gridColumnDefinitions, sourceData);
 
@@ -807,14 +807,14 @@ namespace Foundation.BusinessProcess
             return retVal.ToString();
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess.ExportToCsv(TextWriter, List{IGridColumnDefinition}, IEnumerable?)"/>
-        public void ExportToCsv(TextWriter outputStream, List<IGridColumnDefinition> gridColumnDefinitions, IEnumerable? sourceData)
+        /// <inheritdoc cref="ICommonBusinessProcess.ExportToCsv(TextWriter, List{IGridColumnDefinition}?, IEnumerable?)"/>
+        public void ExportToCsv(TextWriter outputStream, List<IGridColumnDefinition>? gridColumnDefinitions, IEnumerable? sourceData)
         {
             LoggingHelpers.TraceCallEnter(gridColumnDefinitions, sourceData);
 
             if (gridColumnDefinitions == null)
             {
-                String errorMessage = $"Empty {nameof(gridColumnDefinitions)} passed to {this.GetType()}.ExportToCsv";
+                String errorMessage = $"Null {nameof(gridColumnDefinitions)} passed to {this.GetType()}.ExportToCsv";
                 throw new ArgumentNullException(nameof(gridColumnDefinitions), errorMessage);
             }
 
@@ -902,7 +902,8 @@ namespace Foundation.BusinessProcess
 
             if (propertyInfo == null)
             {
-                String errorMessage = $"Cannot find property called '{gridColumnDefinition.DataMemberName}' in type {itemType}. {this.GetType()}.ExportToExcel.";
+                String errorMessage =
+                    $"Cannot find property called '{gridColumnDefinition.DataMemberName}' in type {itemType}. {this.GetType()}.ExportToExcel.";
                 throw new ArgumentNullException(gridColumnDefinition.DataMemberName, errorMessage);
             }
 
@@ -948,17 +949,15 @@ namespace Foundation.BusinessProcess
         /// Gets the standard entity column definitions.
         /// </summary>
         /// <returns>List of <see cref="GridColumnDefinition"/></returns>
-        protected virtual List<IGridColumnDefinition> GetStandardEntityColumnDefinitions(Boolean includeStatusColumn = false, Type? idColumnType = null)
+        protected virtual List<IGridColumnDefinition> GetStandardEntityColumnDefinitions(Boolean includeStatusColumn = false,
+            Type? idColumnType = null)
         {
             LoggingHelpers.TraceCallEnter(includeStatusColumn);
 
             List<IGridColumnDefinition> retVal = [];
             IGridColumnDefinition gridColumnDefinition;
 
-            if (idColumnType == null)
-            {
-                idColumnType = typeof(EntityId);
-            }
+            idColumnType ??= typeof(EntityId);
 
             gridColumnDefinition = new GridColumnDefinition(50, FDC.FoundationEntity.Id, "Id", idColumnType);
             retVal.Add(gridColumnDefinition);

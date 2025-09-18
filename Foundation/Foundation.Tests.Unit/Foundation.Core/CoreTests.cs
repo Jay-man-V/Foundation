@@ -62,6 +62,11 @@ namespace Foundation.Tests.Unit.Foundation.Core
         [TearDown]
         public void Teardown()
         {
+            RunTimeEnvironmentSettings = null;
+            LoggedOnUserProcess = null;
+            Application = null;
+            UserProfile = null;
+
             typeof(global::Foundation.Core.Core).TypeInitializer!.Invoke(null, []);
         }
 

@@ -34,6 +34,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             TheRepository!.Dispose();
             TheRepository = null;
 
+            TheService = null;
+
             base.TestCleanup();
         }
 

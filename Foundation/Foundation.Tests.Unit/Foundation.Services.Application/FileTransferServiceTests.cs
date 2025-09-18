@@ -46,6 +46,13 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             TheService = new FileTransferService(EmailApi, FileApi, HttpApi, FtpApi, RestApi, MqApi);
         }
 
+        public override void TestCleanup()
+        {
+            TheService = null;
+
+            base.TestCleanup();
+        }
+
         [TestCase(FileTransferMethod.Email)]
         [TestCase(FileTransferMethod.FileSystem)]
         [TestCase(FileTransferMethod.Ftp)]

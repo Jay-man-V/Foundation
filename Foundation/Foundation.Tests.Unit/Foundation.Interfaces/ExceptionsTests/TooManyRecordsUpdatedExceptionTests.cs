@@ -20,13 +20,13 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.ExceptionsTests
         [TestCase]
         public void Test_Constructor_1()
         {
-            EntityId entityId = new EntityId(1234);
+            EntityId entityId = new(1234);
             String entityName = "Unit Testing Entity Name";
             String tableName = "Unit testing table name";
             IFoundationModel unitTestEntity = new MockFoundationModel();
             unitTestEntity.LastUpdatedOn = new DateTime(2019, 11, 23, 21, 5, 0);
 
-            String errorMessage = $@"Too many records updated. Too many records found matching this record. Record Id: '{entityId}', Name: '{entityName}', Table: '{tableName}'";
+            String errorMessage = $"Too many records updated. Too many records found matching this record. Record Id: '{entityId}', Name: '{entityName}', Table: '{tableName}'";
 
             TooManyRecordsUpdatedException exception = new TooManyRecordsUpdatedException(entityId, entityName, tableName, unitTestEntity);
 

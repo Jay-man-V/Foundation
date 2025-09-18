@@ -256,6 +256,12 @@ namespace Foundation.Models.Specialised
                 return retVal;
             }
         }
+#if DEBUG
+        internal void SetDataMemberName(String newDataMemberName)
+        {
+            DataMemberName = newDataMemberName;
+        }
+#endif
 
         /// <inheritdoc cref="ICloneable.Clone()"/>
         public Object Clone()

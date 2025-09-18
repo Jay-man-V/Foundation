@@ -197,7 +197,7 @@ namespace Foundation.BusinessProcess.App
             List<IMenuItem> retVal;
 
             IEnumerable<IMenuItem> menuItemsWithParents = menuItems.Where(mi => mi.ParentMenuItemId.ToInteger() > -1);
-            IEnumerable<IMenuItem> localParentMenuItemsWithDuplicates = menuItems.Where(mi => menuItemsWithParents.Any(mi => mi.ParentMenuItemId == mi.Id));
+            IEnumerable<IMenuItem> localParentMenuItemsWithDuplicates = menuItems.Where(mi => menuItemsWithParents.Any(miwp => miwp.ParentMenuItemId == mi.Id));
             HashSet<IMenuItem> parentMenuItemsWithoutDuplicates = [..localParentMenuItemsWithDuplicates];
             retVal = parentMenuItemsWithoutDuplicates.OrderBy(mi => mi.Caption).ToList();
 

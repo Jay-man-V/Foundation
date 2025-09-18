@@ -39,7 +39,7 @@ namespace Foundation.BusinessProcess
         /// <summary>
         /// The Foundation Core service
         /// </summary>
-        protected ICore Core { get; }
+        protected internal ICore Core { get; }
 
         /// <summary>
         /// Gets the run time environment settings service
@@ -47,11 +47,11 @@ namespace Foundation.BusinessProcess
         /// <value>
         /// The run time environment settings.
         /// </value>
-        protected IRunTimeEnvironmentSettings RunTimeEnvironmentSettings { get; }
+        protected internal IRunTimeEnvironmentSettings RunTimeEnvironmentSettings { get; }
 
         /// <summary>
         /// The Date Time Service
         /// </summary>
-        protected IDateTimeService DateTimeService { get; }
+        protected internal IDateTimeService DateTimeService { get; }
     }
 }

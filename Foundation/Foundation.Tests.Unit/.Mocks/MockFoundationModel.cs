@@ -118,6 +118,7 @@ namespace Foundation.Tests.Unit.Mocks
         }
 
         [Column("Code"), MaxLength(Lengths.Code)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = nameof(Code) + " must be provided")]
         public String Code
         {
             get => this._code;

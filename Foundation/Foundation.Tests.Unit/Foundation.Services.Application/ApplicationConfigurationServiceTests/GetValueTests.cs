@@ -38,6 +38,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository!.Dispose();
             TheRepository = null;
 
+            TheService = null;
+
             base.TestCleanup();
         }
 

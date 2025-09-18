@@ -340,7 +340,7 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="gridColumnDefinitions"></param>
         /// <param name="sourceData"></param>
-        String ExportToCsv(List<IGridColumnDefinition> gridColumnDefinitions, IEnumerable sourceData);
+        String ExportToCsv(List<IGridColumnDefinition>? gridColumnDefinitions, IEnumerable? sourceData);
 
         /// <summary>
         /// Exports the supplied data to Csv
@@ -348,7 +348,7 @@ namespace Foundation.Interfaces
         /// <param name="outputStream"></param>
         /// <param name="gridColumnDefinitions"></param>
         /// <param name="sourceData"></param>
-        void ExportToCsv(TextWriter outputStream, List<IGridColumnDefinition> gridColumnDefinitions, IEnumerable? sourceData);
+        void ExportToCsv(TextWriter outputStream, List<IGridColumnDefinition>? gridColumnDefinitions, IEnumerable? sourceData);
     }
 
     /// <summary>

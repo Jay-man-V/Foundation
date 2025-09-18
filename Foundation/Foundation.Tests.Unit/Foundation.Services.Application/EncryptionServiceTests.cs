@@ -18,7 +18,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 {
     public class EncryptionServiceTests : UnitTestBase
     {
-        private const string Password = "tHiSiSmYpAsSwOrD!£$%^";
+        private const String Password = "tHiSiSmYpAsSwOrD!£$%^";
 
         private const String SourceValueString = "AbCdEfGhIjKlMnOpQrStUvWxYz1234567980!£$%^&*()_+";
         private Byte[] SourceValueBytes => Encoding.UTF8.GetBytes(SourceValueString);
@@ -34,6 +34,13 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             FileApi = Substitute.For<IFileApi>();
 
             TheService = new EncryptionService(FileApi);
+        }
+
+        public override void TestCleanup()
+        {
+            TheService = null;
+
+            base.TestCleanup();
         }
 
         [TestCase]

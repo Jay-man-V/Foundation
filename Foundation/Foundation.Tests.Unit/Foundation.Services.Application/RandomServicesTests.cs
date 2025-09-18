@@ -31,6 +31,13 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             TheService = new RandomService();
         }
 
+        public override void TestCleanup()
+        {
+            TheService = null;
+
+            base.TestCleanup();
+        }
+
         /// <summary>
         /// 
         /// </summary>
