@@ -51,12 +51,12 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         }
 
         [TestCase]
-        public void Test_GetNewGuid()
+        public void Test_GetNewUniqueIdentifier()
         {
-            Guid actual = TheService!.NewUniqueIdentifier();
+            String actual = TheService!.NewUniqueIdentifier();
 
-            Assert.That(actual, Is.Not.EqualTo(Guid.NewGuid()));
-            Assert.That(actual, Is.Not.EqualTo(Guid.Empty));
+            Assert.That(actual, Is.Not.EqualTo(Guid.NewGuid().ToString()));
+            Assert.That(actual, Is.Not.EqualTo(Guid.Empty.ToString()));
         }
     }
 }

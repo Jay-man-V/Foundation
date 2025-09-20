@@ -4,13 +4,11 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using NSubstitute;
+
 using Foundation.BusinessProcess.Sec;
 using Foundation.Interfaces;
 using Foundation.Tests.Unit.Support;
-
-using NSubstitute;
-
-using System;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
@@ -128,7 +126,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
         [TestCase]
         public void Test_GetLoggedOnUserProfile()
         {
-            IUserProfileProcess process = CreateBusinessProcess();
             AppId appId = new AppId(1);
 
             IUserProfile expectedUserProfile = CoreInstance.IoC.Get<IUserProfile>();
@@ -139,7 +136,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<String>(), Arg.Any<String>()).Returns(expectedUserProfile);
 
-            IUserProfile actualUserProfile = process.GetLoggedOnUserProfile(appId);
+            IUserProfile actualUserProfile = TheProcess!.GetLoggedOnUserProfile(appId);
 
             Assert.That(actualUserProfile.Id, Is.EqualTo(expectedUserProfile.Id));
             Assert.That(actualUserProfile.DisplayName, Is.EqualTo(expectedUserProfile.DisplayName));
@@ -150,7 +147,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
         [TestCase]
         public void Test_GetUserProfile_UserProfileId()
         {
-            IUserProfileProcess process = CreateBusinessProcess();
             AppId appId = new AppId(1);
             EntityId userProfileId = new EntityId(1);
 
@@ -162,7 +158,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<EntityId>()).Returns(expectedUserProfile);
 
-            IUserProfile? actualUserProfile = process.GetUserProfile(appId, userProfileId);
+            IUserProfile? actualUserProfile = TheProcess!.GetUserProfile(appId, userProfileId);
 
             Assert.That(actualUserProfile!.Id, Is.EqualTo(expectedUserProfile.Id));
             Assert.That(actualUserProfile.DisplayName, Is.EqualTo(expectedUserProfile.DisplayName));
@@ -173,7 +169,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
         [TestCase]
         public void Test_GetUserProfile_Username()
         {
-            IUserProfileProcess process = CreateBusinessProcess();
             AppId appId = new AppId(1);
             String domainName = $"{UserSecuritySupport.UnitTestAccountDomain}";
             String username = $"{UserSecuritySupport.UnitTestAccountUserName}";
@@ -186,7 +181,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<String>(), Arg.Any<String>()).Returns(expectedUserProfile);
 
-            IUserProfile? actualUserProfile = process.GetUserProfile(appId, domainName, username);
+            IUserProfile? actualUserProfile = TheProcess!.GetUserProfile(appId, domainName, username);
 
             Assert.That(actualUserProfile!.Id, Is.EqualTo(expectedUserProfile.Id));
             Assert.That(actualUserProfile.DisplayName, Is.EqualTo(expectedUserProfile.DisplayName));
@@ -197,7 +192,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
         [TestCase]
         public void Test_GetUserProfile_Exception()
         {
-            IUserProfileProcess process = CreateBusinessProcess();
             AppId appId = new AppId(1);
             String domainName = $"{UserSecuritySupport.UnitTestAccountDomain}";
             String username = $"{UserSecuritySupport.UnitTestAccountUserName}";
@@ -206,25 +200,23 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<String>(), Arg.Any<String>()).Returns(expectedUserProfile);
 
-            String expectedMessage = $"Unable to locate the User Profile with details: Application Id: '{appId.TheAppId}'. Logon Domain: '{domainName}'. User name: '{username}'.";
+            String errorMessage = $"Unable to locate the User Profile with details: Application Id: '{appId.TheAppId}'. Logon Domain: '{domainName}'. User name: '{username}'.";
 
             InvalidOperationException actualException = Assert.Throws<InvalidOperationException>(() =>
             {
-                process.GetLoggedOnUserProfile(appId);
+                TheProcess!.GetLoggedOnUserProfile(appId);
             });
 
             Assert.That(actualException, Is.Not.Null);
-            Assert.That(actualException.Message, Is.EqualTo(expectedMessage));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
         [TestCase]
         public void Test_SyncActiveDirectoryUserDataFromStaging()
         {
-            IUserProfileProcess process = CreateBusinessProcess();
-
             TheRepository!.SyncActiveDirectoryUserDataFromStaging(Arg.Any<IUserProfile>());
 
-            process.SyncActiveDirectoryUserDataFromStaging();
+            TheProcess!.SyncActiveDirectoryUserDataFromStaging();
         }
     }
 }

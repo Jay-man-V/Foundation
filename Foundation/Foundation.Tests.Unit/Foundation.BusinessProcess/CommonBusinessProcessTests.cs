@@ -4,14 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
-using NSubstitute;
-
 using Foundation.Interfaces;
 using Foundation.Interfaces.Helpers;
 using Foundation.Models.Specialised;
 using Foundation.Resources;
+
+using NSubstitute;
+
+using System.ComponentModel.DataAnnotations;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
@@ -22,6 +22,19 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess
         where TCommonBusinessProcess : ICommonBusinessProcess<TEntity>
         where TRepository : IFoundationModelRepository<TEntity>
     {
+        public class MyErrorMessages
+        {
+            /// <summary>
+            /// Empty {0} passed to {0}.SetFilterItemProperties (Parameter '{0}')
+            /// <code>
+            /// 0 = paramName
+            /// 1 = process.GetType()
+            /// 2 = paramName
+            /// </code>
+            /// </summary>
+            public static String GetNoneEntryTemplate => "Empty {0} passed to {1}.SetFilterItemProperties (Parameter '{0}')";
+        }
+
         protected TRepository? TheRepository { get; set; }
         protected IEventLogProcess? EventLogProcess { get; set; }
 
@@ -257,7 +270,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess
             {
                 String parameterName = nameof(process.ComboBoxDisplayMember);
                 Type actualType = process.GetType();
-                String errorMessage = $"Empty {parameterName} passed to {actualType}.SetFilterItemProperties (Parameter '{parameterName}')";
+                String errorMessage = String.Format(MyErrorMessages.GetNoneEntryTemplate, parameterName, actualType, parameterName);
 
                 ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
                 {
@@ -302,7 +315,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess
             {
                 String parameterName = nameof(process.ComboBoxDisplayMember);
                 Type actualType = process.GetType();
-                String errorMessage = $"Empty {parameterName} passed to {actualType}.SetFilterItemProperties (Parameter '{parameterName}')";
+                String errorMessage = String.Format(MyErrorMessages.GetNoneEntryTemplate, parameterName, actualType, parameterName);
 
                 ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
                 {
@@ -347,7 +360,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess
             {
                 String parameterName = nameof(process.ComboBoxDisplayMember);
                 Type actualType = process.GetType();
-                String errorMessage = $"Empty {parameterName} passed to {actualType}.SetFilterItemProperties (Parameter '{parameterName}')";
+                String errorMessage = String.Format(MyErrorMessages.GetNoneEntryTemplate, parameterName, actualType, parameterName);
 
                 ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
                 {
@@ -445,7 +458,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess
             {
                 String parameterName = nameof(process.ComboBoxDisplayMember);
                 Type actualType = process.GetType();
-                String errorMessage = $"Empty {parameterName} passed to {actualType}.SetFilterItemProperties (Parameter '{parameterName}')";
+                String errorMessage = String.Format(MyErrorMessages.GetNoneEntryTemplate, parameterName, actualType, parameterName);
 
                 ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
                 {
@@ -487,7 +500,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess
             {
                 String parameterName = nameof(process.ComboBoxDisplayMember);
                 Type actualType = process.GetType();
-                String errorMessage = $"Empty {parameterName} passed to {actualType}.SetFilterItemProperties (Parameter '{parameterName}')";
+                String errorMessage = String.Format(MyErrorMessages.GetNoneEntryTemplate, parameterName, actualType, parameterName);
 
                 ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
                 {

@@ -49,11 +49,11 @@ namespace Foundation.Services.Application
         }
 
         /// <inheritdoc cref="IIdGeneratorService.NewUniqueIdentifier"/>
-        public Guid NewUniqueIdentifier()
+        public String NewUniqueIdentifier()
         {
             LoggingHelpers.TraceCallEnter();
 
-            Guid retVal = Guid.NewGuid();
+            String retVal = Guid.NewGuid().ToString();
 
             LoggingHelpers.TraceCallEnter(retVal);
 

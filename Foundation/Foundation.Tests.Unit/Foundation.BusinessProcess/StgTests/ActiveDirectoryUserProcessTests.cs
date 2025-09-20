@@ -4,12 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.BusinessProcess.Stg;
-using Foundation.Interfaces;
-
 using NSubstitute;
 
-using System.ComponentModel.DataAnnotations;
+using Foundation.BusinessProcess.Stg;
+using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
