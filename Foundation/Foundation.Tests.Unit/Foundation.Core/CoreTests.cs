@@ -73,20 +73,14 @@ namespace Foundation.Tests.Unit.Foundation.Core
         [TestCase]
         public void Test_TheInstance_Null()
         {
-            InvalidOperationException? actualException = null;
-            String expectedErrorMessage = "Foundation.Core has not been initialised";
-
-            try
+            String errorMessage = "Foundation.Core has not been initialised";
+            InvalidOperationException actualException = Assert.Throws<InvalidOperationException>(() =>
             {
                 _ = global::Foundation.Core.Core.TheInstance;
-            }
-            catch (InvalidOperationException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-            Assert.That(actualException.Message, Is.EqualTo(expectedErrorMessage));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
         [TestCase]
@@ -161,16 +155,10 @@ namespace Foundation.Tests.Unit.Foundation.Core
             userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(UserProfile);
 
             String errorMessage = $"An application with Id '{ApplicationId}' cannot be loaded";
-            ArgumentException? actualException = null;
-
-            try
+            ArgumentException actualException = Assert.Throws<ArgumentException>(() =>
             {
                 global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess);
-            }
-            catch (ArgumentException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
@@ -181,7 +169,6 @@ namespace Foundation.Tests.Unit.Foundation.Core
         {
             String processName = "Application/System Logon";
 
-            UserLogonException? actualException = null;
             String userLogonExceptionErrorMessage = "Cannot locate user credentials";
 
             UserCredentialsException? userCredentialsException = null;
@@ -194,19 +181,15 @@ namespace Foundation.Tests.Unit.Foundation.Core
             const IUserProfile? userProfile = null;
             IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
             userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(userProfile);
-            //userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(UserProfile);
 
-            try
+            UserLogonException actualException = Assert.Throws<UserLogonException>(() =>
             {
                 global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess);
-            }
-            catch (UserLogonException exception)
-            {
-                actualException = exception;
-                userCredentialsException = exception;
-            }
+            });
+            userCredentialsException = actualException;
 
             Assert.That(actualException, Is.Not.EqualTo(null));
+
             Assert.That(actualException.ApplicationId, Is.EqualTo(ApplicationId));
             Assert.That(actualException.ProcessName, Is.EqualTo(processName));
             Assert.That(actualException.Message, Is.EqualTo(userLogonExceptionErrorMessage));

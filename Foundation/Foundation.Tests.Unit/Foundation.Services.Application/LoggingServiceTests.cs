@@ -187,7 +187,6 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             LogId parentLogId = new LogId(0);
             AppId applicationId = TestingApplicationId;
 
-            LogId logId = new LogId(123);
             LogSeverity logSeverity = LogSeverity.Error;
             String batchName = BatchName;
             String processName = LocationUtils.GetClassName();

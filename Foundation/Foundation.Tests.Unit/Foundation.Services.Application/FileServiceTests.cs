@@ -148,24 +148,14 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             String filePath = "MadeUp.File.Name";
             String errorMessage = $"The file '{filePath}' does not exist or access to it is denied";
-            FileNotFoundException? actualException = null;
-
-            try
+            FileNotFoundException actualException = Assert.Throws<FileNotFoundException>(() =>
             {
                 TheService!.EnsureFileExists(filePath);
-            }
-            catch (FileNotFoundException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
-            String actualErrorMessage = actualException.Message;
-            String actualErrorFileName = actualException.FileName ?? String.Empty;
-
-            Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
-            Assert.That(actualErrorFileName, Is.EqualTo(filePath));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException.FileName, Is.EqualTo(filePath));
         }
 
         [TestCase]
@@ -182,24 +172,14 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             String filePath = @".Support\SampleDocuments\Blank_10x10.bmp";
             String errorMessage = $"The file '{filePath}' already exists";
-            FileAlreadyExistsException? actualException = null;
-
-            try
+            FileAlreadyExistsException actualException = Assert.Throws<FileAlreadyExistsException>(() =>
             {
                 TheService!.EnsureFileDoesNotExist(filePath);
-            }
-            catch (FileAlreadyExistsException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
-            String actualErrorMessage = actualException.Message;
-            String actualErrorFileName = actualException.FilePath;
-
-            Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
-            Assert.That(actualErrorFileName, Is.EqualTo(filePath));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException.FilePath, Is.EqualTo(filePath));
         }
 
         [TestCase]
@@ -216,22 +196,13 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             String directoryPath = "MadeUp.File.Name";
             String errorMessage = $"The directory '{directoryPath}' does not exist or access to it is denied";
-            DirectoryNotFoundException? actualException = null;
-
-            try
+            DirectoryNotFoundException actualException = Assert.Throws<DirectoryNotFoundException>(() =>
             {
                 TheService!.EnsureDirectoryExists(directoryPath);
-            }
-            catch (DirectoryNotFoundException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
-            String actualErrorMessage = actualException.Message;
-
-            Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
         [TestCase]
@@ -248,24 +219,14 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             String directoryPath = @".Support\SampleDocuments\";
             String errorMessage = $"The directory '{directoryPath}' already exists";
-            DirectoryAlreadyExistsException? actualException = null;
-
-            try
+            DirectoryAlreadyExistsException actualException = Assert.Throws<DirectoryAlreadyExistsException>(() =>
             {
                 TheService!.EnsureDirectoryDoesNotExist(directoryPath);
-            }
-            catch (DirectoryAlreadyExistsException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
-            String actualErrorMessage = actualException.Message;
-            String actualDirectoryPath = actualException.DirectoryPath;
-
-            Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
-            Assert.That(actualDirectoryPath, Is.EqualTo(directoryPath));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException.DirectoryPath, Is.EqualTo(directoryPath));
         }
 
         /// <summary>
@@ -355,22 +316,14 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             String filePath = @"C:\FakeFile.txt";
 
-            String message = $"The file '{filePath}' does not exist or access to it is denied";
-
-            FileNotFoundException? actualException = null;
-
-            try
+            String errorMessage = $"The file '{filePath}' does not exist or access to it is denied";
+            FileNotFoundException actualException = Assert.Throws<FileNotFoundException>(() =>
             {
                 TheService!.GetFileContentsAsStream(filePath);
-            }
-            catch (FileNotFoundException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
-            Assert.That(actualException.Message, Is.EqualTo(message));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
             Assert.That(actualException.FileName, Is.EqualTo(filePath));
         }
 
@@ -392,22 +345,14 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             String filePath = @"C:\FakeFile.txt";
             Encoding encoding = Encoding.UTF8;
 
-            String message = $"The file '{filePath}' does not exist or access to it is denied";
-
-            FileNotFoundException? actualException = null;
-
-            try
+            String errorMessage = $"The file '{filePath}' does not exist or access to it is denied";
+            FileNotFoundException actualException = Assert.Throws<FileNotFoundException>(() =>
             {
                 TheService!.GetFileContentsAsText(filePath, encoding);
-            }
-            catch (FileNotFoundException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
-            Assert.That(actualException.Message, Is.EqualTo(message));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
             Assert.That(actualException.FileName, Is.EqualTo(filePath));
         }
 
@@ -429,22 +374,14 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             String filePath = @"C:\FakeFile.txt";
 
-            String message = $"The file '{filePath}' does not exist or access to it is denied";
-
-            FileNotFoundException? actualException = null;
-
-            try
+            String errorMessage = $"The file '{filePath}' does not exist or access to it is denied";
+            FileNotFoundException actualException = Assert.Throws<FileNotFoundException>(() =>
             {
                 TheService!.GetFileContentsAsByteArray(filePath);
-            }
-            catch (FileNotFoundException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
-            Assert.That(actualException.Message, Is.EqualTo(message));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
             Assert.That(actualException.FileName, Is.EqualTo(filePath));
         }
 
@@ -468,24 +405,16 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             String filePath = "FakeFile.txt";
 
-            String message = $"Resource File '{filePath}' does not exist in the Assembly 'Foundation.Tests.Unit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'";
-
-            MissingManifestResourceException? actualException = null;
-
-            try
+            String errorMessage = $"Resource File '{filePath}' does not exist in the Assembly 'Foundation.Tests.Unit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'";
+            MissingManifestResourceException actualException = Assert.Throws<MissingManifestResourceException>(() =>
             {
                 Assembly thisAssembly = Assembly.GetExecutingAssembly();
 
                 TheService!.GetAssemblyResource(thisAssembly, filePath);
-            }
-            catch (MissingManifestResourceException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
-            Assert.That(actualException.Message, Is.EqualTo(message));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
         /// <summary>
@@ -565,24 +494,14 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             String filePath = @".Support\SampleDocuments\Random file that does not exist " + Guid.NewGuid();
             Encoding encoding = Encoding.UTF8;
             String errorMessage = $"The file '{filePath}' does not exist or access to it is denied";
-            FileNotFoundException? actualException = null;
-
-            try
+            FileNotFoundException actualException = Assert.Throws<FileNotFoundException>(() =>
             {
                 TheService!.OpenFileForReading(filePath, encoding);
-            }
-            catch (FileNotFoundException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
-            String actualErrorMessage = actualException.Message;
-            String actualErrorFileName = actualException.FileName ?? String.Empty;
-
-            Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
-            Assert.That(actualErrorFileName, Is.EqualTo(filePath));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException.FileName, Is.EqualTo(filePath));
         }
 
         [TestCase]
@@ -591,26 +510,15 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             String filePath = Guid.NewGuid().ToString();
             Encoding encoding = Encoding.UTF8;
             String errorMessage = $"The file '{filePath}' does not exist or access to it is denied";
-
-            FileNotFoundException? actualException = null;
-
-            try
+            FileNotFoundException actualException = Assert.Throws<FileNotFoundException>(() =>
             {
                 const Boolean appendToFile = true;
                 TheService!.OpenFileForWriting(filePath, encoding, appendToFile);
-            }
-            catch (FileNotFoundException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
-            String actualErrorMessage = actualException.Message;
-            String actualErrorFileName = actualException.FileName ?? String.Empty;
-
-            Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
-            Assert.That(actualErrorFileName, Is.EqualTo(filePath));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException.FileName, Is.EqualTo(filePath));
         }
 
         [TestCase]
@@ -619,25 +527,15 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             String filePath = Guid.NewGuid().ToString();
             Encoding encoding = Encoding.UTF8;
             String errorMessage = $"The file '{filePath}' already exists and cannot be created";
-
-            UnauthorizedAccessException? actualException = null;
-
-            try
+            UnauthorizedAccessException actualException = Assert.Throws<UnauthorizedAccessException>(() =>
             {
                 TheService!.OpenFileForWriting(filePath, encoding);
 
                 TheService!.OpenFileForWriting(filePath, encoding);
-            }
-            catch (UnauthorizedAccessException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
-            String actualErrorMessage = actualException.Message;
-
-            Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
         [TestCase]
@@ -722,29 +620,13 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         public void Test_CopyFile_AlreadyExists(String sourceFile)
         {
             String errorMessage = $"The destination file path '{sourceFile}' already exists.";
-
-            Exception? actualException = null;
-            try
+            IOException actualException = Assert.Throws<IOException>(() =>
             {
                 TheService!.CopyFile(sourceFile, sourceFile);
-            }
-            catch (Exception exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-            Assert.That(actualException, Is.InstanceOf<IOException>());
-
-            if (actualException is IOException ioException)
-            {
-                String actualErrorMessage = ioException.Message;
-                Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
-            }
-            else
-            {
-                Assert.Fail($"Unexpected exception: {actualException}");
-            }
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
         [TestCase]
@@ -796,29 +678,13 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             }
 
             String errorMessage = $"The destination file path '{sourceFile}' already exists.";
-
-            Exception? actualException = null;
-            try
+            IOException actualException = Assert.Throws<IOException>(() =>
             {
                 TheService!.MoveFile(sourceFile, sourceFile);
-            }
-            catch (Exception exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-            Assert.That(actualException, Is.InstanceOf<IOException>());
-
-            if (actualException is IOException ioException)
-            {
-                String actualErrorMessage = ioException.Message;
-                Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
-            }
-            else
-            {
-                Assert.Fail($"Unexpected exception: {actualException}");
-            }
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
         [TestCase]
@@ -894,25 +760,16 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(checkDirectoryExists, Is.EqualTo(true));
 
             String errorMessage = $@"The directory path '{basePath}\{newDirectoryName}' already exists, the directory '{newDirectoryName}' cannot be created again";
-
-            Exception? actualException = null;
-            try
+            IOException actualException = Assert.Throws<IOException>(() =>
             {
                 throwExceptionIfExists = true;
 
                 // Call the Create method a second time
                 TheService!.CreateDirectory(basePath, newDirectoryName, throwExceptionIfExists);
-            }
-            catch (Exception exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
-            String actualErrorMessage = actualException.Message;
-
-            Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
         [TestCase]
@@ -996,22 +853,13 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(checkDirectoryExists, Is.EqualTo(true));
 
             String errorMessage = $"The directory is not empty. : '{createdFolder.FullName}'";
-
-            IOException? actualException = null;
-            try
+            IOException actualException = Assert.Throws<IOException>(() =>
             {
                 TheService!.DeleteDirectory(basePath2, recursive);
-            }
-            catch (IOException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
-            String actualErrorMessage = actualException.Message;
-
-            Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
         [TestCase]

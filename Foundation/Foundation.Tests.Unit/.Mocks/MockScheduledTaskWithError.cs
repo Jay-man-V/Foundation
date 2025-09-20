@@ -15,7 +15,7 @@ namespace Foundation.Tests.Unit.Mocks
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
-            IEventLogProcess eventLogProcess, 
+            ILoggingService loggingService, 
             ICalendarProcess calendarProcess
         )
             : base
@@ -23,7 +23,7 @@ namespace Foundation.Tests.Unit.Mocks
                 core,
                 runTimeEnvironmentSettings,
                 dateTimeService,
-                eventLogProcess,
+                loggingService,
                 calendarProcess
             )
         {

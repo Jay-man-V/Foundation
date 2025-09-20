@@ -67,23 +67,17 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
                 Location = Guid.NewGuid().ToString(),
             };
 
-            String errorMessage = $"Unable to retrieve file from source '{fileTransferSettings}'";
-            InvalidOperationException? actualException = null;
-
             Stream? aStream = null;
             FileApi.GetFileContentsAsStream(fileTransferSettings.Location).Returns(aStream);
 
-            try
+            String errorMessage = $"Unable to retrieve file from source '{fileTransferSettings}'";
+            InvalidOperationException actualException = Assert.Throws<InvalidOperationException>(() =>
             {
                 _ = TheService!.TransferFile(fileTransferSettings);
-            }
-            catch (InvalidOperationException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-            Assert.That(errorMessage, Is.EqualTo(actualException.Message));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
         [TestCase]

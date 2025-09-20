@@ -4,15 +4,11 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.Common;
 using Foundation.Interfaces;
-using Foundation.Services.Application;
-using Foundation.Tests.Unit.Support;
-
-using NUnit.Framework;
-
-using System;
 using Foundation.Resources;
+using Foundation.Services.Application;
+
+using Foundation.Tests.Unit.Support;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application
 {

@@ -164,25 +164,15 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.Support
 
             mockFoundationModel.Code = String.Empty;
 
-            Exception? actualException = null;
-
-            try
+            AggregateException actualException = Assert.Throws<AggregateException>(() =>
             {
                 process.ValidateEntity(mockFoundationModel);
-            }
-            catch (Exception exception)
-            {
-                actualException = exception;
-            }
+            });
 
-            Assert.That(actualException, Is.Not.Null);
-            Assert.That(actualException, Is.TypeOf<AggregateException>());
+            Assert.That(actualException.InnerExceptions.Count, Is.EqualTo(1));
+            Assert.That(actualException.InnerExceptions[0], Is.TypeOf<ValidationException>());
 
-            AggregateException aggregateException = (AggregateException)actualException;
-            Assert.That(aggregateException.InnerExceptions.Count, Is.EqualTo(1));
-            Assert.That(aggregateException.InnerExceptions[0], Is.TypeOf<ValidationException>());
-
-            ValidationException validationException = (ValidationException)aggregateException.InnerExceptions[0];
+            ValidationException validationException = (ValidationException)actualException.InnerExceptions[0];
             Assert.That(validationException.Message, Is.EqualTo($"{nameof(IMockFoundationModel.Code)} must be provided"));
         }
     }

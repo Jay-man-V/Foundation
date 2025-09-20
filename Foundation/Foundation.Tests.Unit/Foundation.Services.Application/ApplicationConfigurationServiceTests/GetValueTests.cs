@@ -51,20 +51,13 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             const IApplicationConfiguration? expectedValueFromDatabase = null;
 
             String errorMessage = $"Configuration value with Key '{key}' for application id '{applicationId.TheAppId}' not found. Null value retrieved from database.";
-            NullValueException? actualException = null;
-
-            try
+            NullValueException actualException = Assert.Throws<NullValueException>(() =>
             {
                 TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
                 TheService!.Get<String>(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key);
-            }
-            catch (NullValueException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
@@ -76,20 +69,13 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration();
 
             String errorMessage = $"Configuration value with Key '{key}' for application id '{applicationId.TheAppId}' is null. Null value retrieved from database.";
-            NullValueException? actualException = null;
-
-            try
+            NullValueException actualException = Assert.Throws<NullValueException>(() =>
             {
                 TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
                 TheService!.Get<String>(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key);
-            }
-            catch (NullValueException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 

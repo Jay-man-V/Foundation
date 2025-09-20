@@ -56,24 +56,15 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             String dataConnectionName = "MadeUpNonExisting";
             String parameterName = nameof(dataConnectionName);
             String errorMessage = $"Cannot load Connection named '{dataConnectionName}'. Check to make sure the connection is defined in the Configuration File. (Parameter '{parameterName}')";
-            ArgumentNullException? actualException = null;
 
-            try
+            ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
             {
                 _ = TheService!.GetDataProviderName(dataConnectionName);
-            }
-            catch (ArgumentNullException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
-            String actualErrorMessage = actualException.Message;
-            String actualParameterName = actualException.ParamName ?? String.Empty;
-
-            Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
-            Assert.That(actualParameterName, Is.EqualTo(parameterName));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException.ParamName, Is.EqualTo(parameterName));
         }
 
         /// <summary>
@@ -84,22 +75,14 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             String dataConnectionName = "UnitTestingNoProviderName";
             String errorMessage = $"Unable to retrieve Data Provider for '{dataConnectionName}'. Check to make sure the connection is defined in the Configuration File.";
-            InvalidOperationException? actualException = null;
 
-            try
+            InvalidOperationException actualException = Assert.Throws<InvalidOperationException>(() =>
             {
                 _ = TheService!.GetDataProviderName(dataConnectionName);
-            }
-            catch (InvalidOperationException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
-            String actualErrorMessage = actualException.Message;
-
-            Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
 
@@ -126,24 +109,15 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             String dataConnectionName = "MadeUpNonExisting";
             String parameterName = nameof(dataConnectionName);
             String errorMessage = $"Cannot load Connection named '{dataConnectionName}'. Check to make sure the connection is defined in the Configuration File. (Parameter '{parameterName}')";
-            ArgumentNullException? actualException = null;
 
-            try
+            ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
             {
                 _ = TheService!.GetDataProviderName(dataConnectionName);
-            }
-            catch (ArgumentNullException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
-            String actualErrorMessage = actualException.Message;
-            String actualParameterName = actualException.ParamName ?? String.Empty;
-
-            Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
-            Assert.That(actualParameterName, Is.EqualTo(parameterName));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException.ParamName, Is.EqualTo(parameterName));
         }
     }
 }

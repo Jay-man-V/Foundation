@@ -4,6 +4,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using DocumentFormat.OpenXml.Spreadsheet;
+
+using Foundation.BusinessProcess.Helpers;
 using Foundation.Interfaces;
 using Foundation.Interfaces.Helpers;
 using Foundation.Models.Specialised;
@@ -12,8 +15,6 @@ using Foundation.Resources;
 using NSubstitute;
 
 using System.ComponentModel.DataAnnotations;
-
-using System.Text;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
@@ -43,9 +44,10 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess
         protected abstract String ExpectedScreenTitle { get; }
         protected abstract String ExpectedStatusBarText { get; }
 
-        protected virtual EntityId ExpectedNullId => new EntityId(-1);
-        protected virtual EntityId ExpectedAllId => new EntityId(-1);
-        protected virtual EntityId ExpectedNoneId => new EntityId(-2);
+        protected virtual EntityId ExpectedNullId => new(-1);
+        protected virtual EntityId ExpectedAllId => new(-1);
+        protected virtual EntityId ExpectedNoneId => new(-2);
+        protected virtual String ExpectedNullText => String.Empty;
         protected virtual String ExpectedAllText => "<All>";
         protected virtual String ExpectedNoneText => "<None>";
 
@@ -534,21 +536,14 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess
         [TestCase]
         public void Test_Validate_Exception()
         {
-            AggregateException? actualException = null;
-
-            try
+            AggregateException actualException = Assert.Throws<AggregateException>(() =>
             {
                 TCommonBusinessProcess process = CreateBusinessProcess();
                 TEntity entity1 = CreateBlankEntity(process, 1);
                 process.ValidateEntity(entity1);
-            }
-            catch (AggregateException ex)
-            {
-                actualException = ex;
-            }
+            });
 
-            Assert.That(actualException, Is.Not.Null);
-
+            Assert.That(actualException, Is.Not.EqualTo(null));
             Assert.That(actualException.InnerExceptions.Count > 0);
 
             foreach (Exception ex in actualException.InnerExceptions)

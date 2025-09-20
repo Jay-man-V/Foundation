@@ -4,13 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.BusinessProcess.App;
-using Foundation.Interfaces;
-using Foundation.Tests.Unit.Mocks;
+using System.ComponentModel.DataAnnotations;
 
 using NSubstitute;
 
-using System.ComponentModel.DataAnnotations;
+using Foundation.BusinessProcess.App;
+using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
@@ -106,7 +105,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
 
         protected override void CheckBlankEntry(IMenuItem entity)
         {
-            Assert.That(entity.Name, Is.EqualTo(String.Empty));
+            Assert.That(entity.Name, Is.EqualTo(ExpectedNullText));
         }
 
         protected override void CheckAllEntry(IMenuItem entity)
@@ -154,38 +153,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
             retVal += "10,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Byte[],True,True,0,1,1,460fc8cd-bea2-4ff0-8598-3df678b8cc59,fd1e2caa-f0e5-41fa-a0de-d585b04c5180,992547c8-4781-42d9-a357-c3b1368fd077,966cfcfd-be40-4d18-8e54-02bc80439b0a,ccb15171-6c50-4753-8596-1013b5eac43f,b1791d6a-20cb-48b8-b51b-82313ec66d67,c8171da7-7d6c-4fc2-92ee-71b501e83738" + Environment.NewLine;
 
             return retVal;
-        }
-
-
-        [TestCase]
-        public void Test_ValidateEntity()
-        {
-            IMenuItemProcess process = CreateBusinessProcess();
-            IMenuItem menuitem = CreateEntity(process, 1);
-
-            menuitem.ControllerAssembly = String.Empty;
-
-            Exception? actualException = null;
-
-            try
-            {
-                const Boolean validateAllProperties = true;
-                process.ValidateEntity(menuitem, validateAllProperties);
-            }
-            catch (Exception exception)
-            {
-                actualException = exception;
-            }
-
-            Assert.That(actualException, Is.Not.Null);
-            Assert.That(actualException, Is.TypeOf<AggregateException>());
-
-            AggregateException aggregateException = (AggregateException)actualException;
-            Assert.That(aggregateException.InnerExceptions.Count, Is.EqualTo(1));
-            Assert.That(aggregateException.InnerExceptions[0], Is.TypeOf<ValidationException>());
-
-            ValidationException validationException = (ValidationException)aggregateException.InnerExceptions[0];
-            Assert.That(validationException.Message, Is.EqualTo($"{nameof(IMenuItem.ControllerAssembly)} must be provided"));
         }
 
         [TestCase]

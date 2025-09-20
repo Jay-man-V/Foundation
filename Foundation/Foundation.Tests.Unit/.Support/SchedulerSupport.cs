@@ -1,150 +1,146 @@
-﻿////-----------------------------------------------------------------------
-//// <copyright file="SchedulerTestBaseClass.cs" company="JDV Software Ltd">
-////     Copyright (c) JDV Software Ltd. All rights reserved.
-//// </copyright>
-////-----------------------------------------------------------------------
+﻿//-----------------------------------------------------------------------
+// <copyright file="SchedulerTestBaseClass.cs" company="JDV Software Ltd">
+//     Copyright (c) JDV Software Ltd. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
 
-//using Foundation.BusinessProcess;
-//using Foundation.Common;
-//using Foundation.Interfaces;
-//using Foundation.Services.Application;
-//using Foundation.Tests.Unit.Mocks;
+using NSubstitute;
 
-//using NSubstitute;
+using Foundation.Common;
+using Foundation.Interfaces;
+using Foundation.Server.ScheduledTasks;
 
-//using System;
-//using System.Windows;
-//using Foundation.Server.ScheduledTasks;
+using Foundation.Tests.Unit.Mocks;
 
-//namespace Foundation.Tests.Unit.Support
-//{
-//    /// <summary>
-//    /// Defines Scheduler Support functions
-//    /// </summary>
-//    internal static class SchedulerSupport
-//    {
-//        public const String TaskImplementationAssembly = "Foundation.Tests.Unit";
-//        public static String TaskImplementationType = typeof(MockScheduledTask).FullName;
-//        public static String TaskImplementationTypeWithError = typeof(MockScheduledTaskWithError).FullName;
+namespace Foundation.Tests.Unit.Support
+{
+    /// <summary>
+    /// Defines Scheduler Support functions
+    /// </summary>
+    internal static class SchedulerSupport
+    {
+        public const String TaskImplementationAssembly = "Foundation.Tests.Unit";
+        public static String TaskImplementationType = typeof(MockScheduledTask).FullName!;
+        public static String TaskImplementationTypeWithError = typeof(MockScheduledTaskWithError).FullName!;
 
-//        public const String DemoTaskImplementationAssembly = "Foundation.Server.ScheduledTasks";
-//        public static String DemoTaskImplementationType = typeof(DemoScheduledTask).FullName;
+        public const String DemoTaskImplementationAssembly = "Foundation.Server.ScheduledTasks";
+        public static String DemoTaskImplementationType = typeof(DemoScheduledTask).FullName!;
 
-//        public static DateTime AdjustForWeekend(DateTime dateTime)
-//        {
-//            DateTime retVal = dateTime.Date;
+        public static ICore? Core { get; set; }
+        public static IRunTimeEnvironmentSettings? RunTimeEnvironmentSettings { get; set; }
+        public static IDateTimeService? DateTimeService { get; set; }
+        public static ILoggingService? LoggingService { get; set; }
 
-//            if (retVal.DayOfWeek == DayOfWeek.Saturday)
-//            {
-//                retVal = retVal.AddDays(2);
-//            }
-//            else if (retVal.DayOfWeek == DayOfWeek.Sunday)
-//            {
-//                retVal = retVal.AddDays(1);
-//            }
+        public static DateTime AdjustForWeekend(DateTime dateTime)
+        {
+            DateTime retVal = dateTime.Date;
 
-//            retVal = retVal.Date + dateTime.TimeOfDay;
+            if (retVal.DayOfWeek == DayOfWeek.Saturday)
+            {
+                retVal = retVal.AddDays(2);
+            }
+            else if (retVal.DayOfWeek == DayOfWeek.Sunday)
+            {
+                retVal = retVal.AddDays(1);
+            }
 
-//            return retVal;
-//        }
+            retVal = retVal.Date + dateTime.TimeOfDay;
 
-//        public static IScheduledJob CreateScheduledDemoJob(ICore core, Boolean runImmediately, DateTime currentDate, ScheduleInterval scheduleInterval, Int32 interval)
-//        {
-//            DateTime nextRunDateTime = currentDate + new TimeSpan(9, 0, 0);
-//            DateTime lastRunDateTime = currentDate + new TimeSpan(17, 0, 0);
+            return retVal;
+        }
 
-//            IScheduledJob retVal = core.Container.Get<IScheduledJob>();
+        public static IScheduledJob CreateScheduledDemoJob(ICore core, Boolean runImmediately, DateTime currentDate, ScheduleInterval scheduleInterval, Int32 interval)
+        {
+            DateTime nextRunDateTime = currentDate + new TimeSpan(9, 0, 0);
+            DateTime lastRunDateTime = currentDate + new TimeSpan(17, 0, 0);
 
-//            retVal.Name = LocationUtils.GetFunctionName();
-//            retVal.NextRunDateTime = AdjustForWeekend(nextRunDateTime);
-//            retVal.LastRunDateTime = AdjustForWeekend(lastRunDateTime);
-//            retVal.RunImmediately = runImmediately;
-//            retVal.StartTime = new TimeSpan(9, 0, 0);
-//            retVal.EndTime = new TimeSpan(17, 0, 0);
-//            retVal.IsEnabled = true;
-//            retVal.TaskImplementationType = $@"<TaskImplementation assembly=""{DemoTaskImplementationAssembly}"" type=""{DemoTaskImplementationType}"" />";
-//            retVal.TaskParameters = String.Empty;
-//            retVal.EntityStatus = EntityStatus.Active;
-//            retVal.ScheduleIntervalId = new EntityId(scheduleInterval.Id());
-//            retVal.Interval = interval;
+            IScheduledJob retVal = core.IoC.Get<IScheduledJob>();
 
-//            return retVal;
-//        }
+            retVal.Name = LocationUtils.GetFunctionName();
+            retVal.NextRunDateTime = AdjustForWeekend(nextRunDateTime);
+            retVal.LastRunDateTime = AdjustForWeekend(lastRunDateTime);
+            retVal.RunImmediately = runImmediately;
+            retVal.StartTime = new TimeSpan(9, 0, 0);
+            retVal.EndTime = new TimeSpan(17, 0, 0);
+            retVal.IsEnabled = true;
+            retVal.TaskImplementationType = $"""<TaskImplementation assembly="{DemoTaskImplementationAssembly}" type="{DemoTaskImplementationType}" />""";
+            retVal.TaskParameters = String.Empty;
+            retVal.EntityStatus = EntityStatus.Active;
+            retVal.ScheduleIntervalId = new EntityId(scheduleInterval.Id());
+            retVal.Interval = interval;
 
-//        public static IScheduledJob CreateScheduledJob(ICore core, Boolean runImmediately, DateTime currentDate, ScheduleInterval scheduleInterval, Int32 interval)
-//        {
-//            DateTime nextRunDateTime = currentDate + new TimeSpan(9, 0, 0);
-//            DateTime lastRunDateTime = currentDate + new TimeSpan(17, 0, 0);
+            return retVal;
+        }
 
-//            IScheduledJob retVal = core.Container.Get<IScheduledJob>();
+        public static IScheduledJob CreateScheduledJob(ICore core, Boolean runImmediately, DateTime currentDate, ScheduleInterval scheduleInterval, Int32 interval)
+        {
+            DateTime nextRunDateTime = currentDate + new TimeSpan(9, 0, 0);
+            DateTime lastRunDateTime = currentDate + new TimeSpan(17, 0, 0);
 
-//            retVal.Name = LocationUtils.GetFunctionName();
-//            retVal.NextRunDateTime = AdjustForWeekend(nextRunDateTime);
-//            retVal.LastRunDateTime = AdjustForWeekend(lastRunDateTime);
-//            retVal.RunImmediately = runImmediately;
-//            retVal.StartTime = new TimeSpan(9, 0, 0);
-//            retVal.EndTime = new TimeSpan(17, 0, 0);
-//            retVal.IsEnabled = true;
-//            retVal.TaskImplementationType = $@"<TaskImplementation assembly=""{TaskImplementationAssembly}"" type=""{TaskImplementationType}"" />";
-//            retVal.TaskParameters = String.Empty;
-//            retVal.EntityStatus = EntityStatus.Active;
-//            retVal.ScheduleIntervalId = new EntityId(scheduleInterval.Id());
-//            retVal.Interval = interval;
+            IScheduledJob retVal = core.IoC.Get<IScheduledJob>();
 
-//            return retVal;
-//        }
+            retVal.Name = LocationUtils.GetFunctionName();
+            retVal.NextRunDateTime = AdjustForWeekend(nextRunDateTime);
+            retVal.LastRunDateTime = AdjustForWeekend(lastRunDateTime);
+            retVal.RunImmediately = runImmediately;
+            retVal.StartTime = new TimeSpan(9, 0, 0);
+            retVal.EndTime = new TimeSpan(17, 0, 0);
+            retVal.IsEnabled = true;
+            retVal.TaskImplementationType = $"""<TaskImplementation assembly="{TaskImplementationAssembly}" type="{TaskImplementationType}" />""";
+            retVal.TaskParameters = String.Empty;
+            retVal.EntityStatus = EntityStatus.Active;
+            retVal.ScheduleIntervalId = new EntityId(scheduleInterval.Id());
+            retVal.Interval = interval;
 
-//        public static IScheduledJob CreateScheduledJob(ICore core, Boolean runImmediately, DateTime currentDate, TimeSpan startTime, TimeSpan endTime, ScheduleInterval scheduleInterval, Int32 interval)
-//        {
-//            DateTime nextRunDateTime = currentDate + startTime;
-//            DateTime lastRunDateTime = currentDate + endTime;
+            return retVal;
+        }
 
-//            IScheduledJob retVal = core.Container.Get<IScheduledJob>();
+        public static IScheduledJob CreateScheduledJob(ICore core, Boolean runImmediately, DateTime currentDate, TimeSpan startTime, TimeSpan endTime, ScheduleInterval scheduleInterval, Int32 interval)
+        {
+            DateTime nextRunDateTime = currentDate + startTime;
+            DateTime lastRunDateTime = currentDate + endTime;
 
-//            retVal.Name = LocationUtils.GetFunctionName();
-//            retVal.NextRunDateTime = AdjustForWeekend(nextRunDateTime);
-//            retVal.LastRunDateTime = AdjustForWeekend(lastRunDateTime);
-//            retVal.RunImmediately = runImmediately;
-//            retVal.StartTime = startTime;
-//            retVal.EndTime = endTime;
-//            retVal.IsEnabled = true;
-//            retVal.TaskImplementationType = $@"<TaskImplementation assembly=""{TaskImplementationAssembly}"" type=""{TaskImplementationType}"" />";
-//            retVal.TaskParameters = String.Empty;
-//            retVal.EntityStatus = EntityStatus.Active;
-//            retVal.ScheduleIntervalId = new EntityId(scheduleInterval.Id());
-//            retVal.Interval = interval;
+            IScheduledJob retVal = core.IoC.Get<IScheduledJob>();
 
-//            return retVal;
-//        }
+            retVal.Name = LocationUtils.GetFunctionName();
+            retVal.NextRunDateTime = AdjustForWeekend(nextRunDateTime);
+            retVal.LastRunDateTime = AdjustForWeekend(lastRunDateTime);
+            retVal.RunImmediately = runImmediately;
+            retVal.StartTime = startTime;
+            retVal.EndTime = endTime;
+            retVal.IsEnabled = true;
+            retVal.TaskImplementationType = $"""<TaskImplementation assembly="{TaskImplementationAssembly}" type="{TaskImplementationType}" />""";
+            retVal.TaskParameters = String.Empty;
+            retVal.EntityStatus = EntityStatus.Active;
+            retVal.ScheduleIntervalId = new EntityId(scheduleInterval.Id());
+            retVal.Interval = interval;
 
-//        public static IScheduledJob CreateScheduledJobWithError(ICore core, Boolean runImmediately, DateTime currentDate, TimeSpan startTime, TimeSpan endTime, ScheduleInterval scheduleInterval, Int32 interval)
-//        {
-//            IScheduledJob retVal = CreateScheduledJob(core, runImmediately, currentDate, startTime, endTime, scheduleInterval, interval);
-//            retVal.Name = LocationUtils.GetFunctionName();
-//            retVal.TaskImplementationType = $@"<TaskImplementation assembly=""{TaskImplementationAssembly}"" type=""{TaskImplementationTypeWithError}"" />";
+            return retVal;
+        }
 
-//            return retVal;
-//        }
+        public static IScheduledJob CreateScheduledJobWithError(ICore core, Boolean runImmediately, DateTime currentDate, TimeSpan startTime, TimeSpan endTime, ScheduleInterval scheduleInterval, Int32 interval)
+        {
+            IScheduledJob retVal = CreateScheduledJob(core, runImmediately, currentDate, startTime, endTime, scheduleInterval, interval);
+            retVal.Name = LocationUtils.GetFunctionName();
+            retVal.TaskImplementationType = $"""<TaskImplementation assembly="{TaskImplementationAssembly}" type="{TaskImplementationTypeWithError}" />""";
 
-//        public static ICore Core { get; set; }
-//        public static IRunTimeEnvironmentSettings RunTimeEnvironmentSettings { get; set; }
-//        public static IDateTimeService DateTimeService { get; set; }
-//        public static IEventLogProcess EventLogProcess { get; set; }
+            return retVal;
+        }
 
-//        public static void OnAlternateCreateScheduledTaskCalled(Object sender, CreateScheduledTaskEventArgs eventArgs)
-//        {
-//            FullyQualifiedTypeName fullyQualifiedTypeName = eventArgs.FullyQualifiedTypeName;
+        public static void OnAlternateCreateScheduledTaskCalled(Object? sender, CreateScheduledTaskEventArgs eventArgs)
+        {
+            FullyQualifiedTypeName fullyQualifiedTypeName = eventArgs.FullyQualifiedTypeName;
 
-//            if (fullyQualifiedTypeName.TypeName == TaskImplementationType)
-//            {
-//                ICalendarProcess calendarProcess = Substitute.For<ICalendarProcess>();
-//                eventArgs.ServiceInstance = new MockScheduledTask(Core, RunTimeEnvironmentSettings, DateTimeService, EventLogProcess, calendarProcess);
-//            }
-//            else if (fullyQualifiedTypeName.TypeName == TaskImplementationTypeWithError)
-//            {
-//                ICalendarProcess calendarProcess = Substitute.For<ICalendarProcess>();
-//                eventArgs.ServiceInstance = new MockScheduledTaskWithError(Core, RunTimeEnvironmentSettings, DateTimeService, EventLogProcess, calendarProcess);
-//            }
-//        }
-//    }
-//}
+            if (fullyQualifiedTypeName.TypeName == TaskImplementationType)
+            {
+                ICalendarProcess calendarProcess = Substitute.For<ICalendarProcess>();
+                eventArgs.ServiceInstance = new MockScheduledTask(Core!, RunTimeEnvironmentSettings!, DateTimeService!, LoggingService!, calendarProcess);
+            }
+            else if (fullyQualifiedTypeName.TypeName == TaskImplementationTypeWithError)
+            {
+                ICalendarProcess calendarProcess = Substitute.For<ICalendarProcess>();
+                eventArgs.ServiceInstance = new MockScheduledTaskWithError(Core!, RunTimeEnvironmentSettings!, DateTimeService!, LoggingService!, calendarProcess);
+            }
+        }
+    }
+}

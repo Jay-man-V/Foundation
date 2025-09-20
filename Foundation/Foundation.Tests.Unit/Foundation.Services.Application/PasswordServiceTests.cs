@@ -5,13 +5,13 @@
 //-----------------------------------------------------------------------
 
 using NSubstitute;
+using NSubstitute.ClearExtensions;
 
 using Foundation.Interfaces;
 using Foundation.Resources;
 using Foundation.Services.Application;
 
 using Foundation.Tests.Unit.Support;
-using NSubstitute.ClearExtensions;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application
 {
@@ -74,26 +74,18 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             String passwordGenerateUrl = "https://random-word-api.herokuapp.com/home";
             String randomPasswordGenerateUrlKey = "service.generator.password.random.url";
             String errorMessage = $"Unable to generate random passwords using '{randomPasswordGenerateUrlKey}' '({passwordGenerateUrl})' service";
-            InvalidOperationException? actualException = null;
 
-            RestApi!.ClearSubstitute();
+            RestApi.ClearSubstitute();
 
             ApplicationConfigurationService.Get<String>(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), randomPasswordGenerateUrlKey).Returns(passwordGenerateUrl);
 
-            try
+            InvalidOperationException actualException = Assert.Throws<InvalidOperationException>(() =>
             {
                 _ = TheService!.GenerateMultiplePasswords();
-            }
-            catch (InvalidOperationException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
-            String actualErrorMessage = actualException.Message;
-
-            Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
         [TestCase]

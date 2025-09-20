@@ -7,6 +7,10 @@
 using Foundation.Interfaces;
 using Foundation.Tests.Unit.Support;
 
+using NSubstitute;
+
+using System;
+
 namespace Foundation.Tests.Unit.Foundation.Interfaces.AssemblyHelpersTests.FullyQualifiedTypeNameTests
 {
     /// <summary>
@@ -52,17 +56,11 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AssemblyHelpersTests.Fully
         public void Test_ConstructorEmptyString()
         {
             String paramName = "xmlTypeName";
-            ArgumentNullException? actualException = null;
-
-            try
+            ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
             {
                 String xmlTypeName = String.Empty;
                 _ = new FullyQualifiedTypeName(xmlTypeName);
-            }
-            catch(ArgumentNullException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
             Assert.That(actualException.ParamName, Is.EqualTo(paramName));
@@ -75,17 +73,11 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AssemblyHelpersTests.Fully
         public void Test_ConstructorNullString()
         {
             String paramName = "xmlTypeName";
-            ArgumentNullException? actualException = null;
-
-            try
+            ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
             {
                 const String? xmlTypeName = null;
                 _ = new FullyQualifiedTypeName(xmlTypeName);
-            }
-            catch (ArgumentNullException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
             Assert.That(actualException.ParamName, Is.EqualTo(paramName));

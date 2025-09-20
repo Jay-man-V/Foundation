@@ -80,25 +80,15 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             String parameterName = "salt";
             String errorMessage = $"Value cannot be null. (Parameter '{parameterName}')";
-            ArgumentNullException? actualException = null;
-
-            try
+            ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
             {
                 const Byte[]? salt1 = null;
                 TheService!.GenerateKeys(Password, salt1, out Byte[] _, out Byte[] _);
-            }
-            catch (ArgumentNullException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-
-            String actualErrorMessage = actualException.Message;
-            String actualParameterName = actualException.ParamName ?? String.Empty;
-
-            Assert.That(actualErrorMessage, Is.EqualTo(errorMessage));
-            Assert.That(actualParameterName, Is.EqualTo(parameterName));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException.ParamName, Is.EqualTo(parameterName));
         }
 
         [TestCase]

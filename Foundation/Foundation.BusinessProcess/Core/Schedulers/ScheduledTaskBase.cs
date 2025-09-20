@@ -22,14 +22,14 @@ namespace Foundation.BusinessProcess.Core.Schedulers
         /// <param name="core">The Foundation Core service</param>
         /// <param name="runTimeEnvironmentSettings">The runtime environment settings.</param>
         /// <param name="dateTimeService"></param>
-        /// <param name="eventLogProcess"></param>
+        /// <param name="loggingService"></param>
         /// <param name="calendarProcess"></param>
         protected ScheduledTaskBase
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
-            IEventLogProcess eventLogProcess,
+            ILoggingService loggingService,
             ICalendarProcess calendarProcess
         ) :
             base
@@ -39,21 +39,21 @@ namespace Foundation.BusinessProcess.Core.Schedulers
                 dateTimeService
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, eventLogProcess, calendarProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, calendarProcess);
 
-            EventLogProcess = eventLogProcess;
+            LoggingService = loggingService;
             CalendarProcess = calendarProcess;
 
             LoggingHelpers.TraceCallReturn();
         }
 
         /// <summary>
-        /// Gets the event log process.
+        /// Gets the logging service.
         /// </summary>
         /// <value>
-        /// The event log process.
+        /// The logging service.
         /// </value>
-        protected IEventLogProcess EventLogProcess { get; }
+        protected ILoggingService LoggingService { get; }
 
         /// <summary>
         /// Gets the calendar process.

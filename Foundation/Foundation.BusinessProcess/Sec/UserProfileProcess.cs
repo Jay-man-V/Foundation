@@ -96,14 +96,14 @@ namespace Foundation.BusinessProcess.Sec
         {
             LoggingHelpers.TraceCallEnter(applicationId);
 
-            String logonDomain = RunTimeEnvironmentSettings.UserDomainName;
+            String domainName = RunTimeEnvironmentSettings.UserDomainName;
             String username = RunTimeEnvironmentSettings.UserName;
 
-            IUserProfile? retVal = EntityRepository.Get(applicationId, logonDomain, username);
+            IUserProfile? retVal = EntityRepository.Get(applicationId, domainName, username);
 
             if (retVal == null)
             {
-                String message = $"Unable to locate the User Profile with details: Application Id: '{applicationId}'. Logon Domain: '{logonDomain}'. User name: '{username}'.";
+                String message = $"Unable to locate the User Profile with details: Application Id: '{applicationId}'. Logon Domain: '{domainName}'. User name: '{username}'.";
                 throw new InvalidOperationException(message);
             }
 

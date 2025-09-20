@@ -37,42 +37,26 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
         [TestCase]
         public void Test_Constructor_ErrorMessage_1()
         {
-            Exception? actualException = null;
-
-            try
+            String errorMessage = $"The Start Time ({_endTime}) must be before the End Time ({_startTime})";
+            ArgumentException actualException = Assert.Throws<ArgumentException>(() =>
             {
                 _ = new TimeWindow(_endTime, _startTime);
-            }
-            catch (Exception exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-            Assert.That(actualException, Is.InstanceOf<ArgumentException>());
-
-            String errorMessage = $"The Start Time ({_endTime}) must be before the End Time ({_startTime})";
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
         [TestCase]
         public void Test_Constructor_ErrorMessage_2()
         {
-            Exception? actualException = null;
-
-            try
+            String errorMessage = $"The Start Time ({_startTime}) cannot be the same as the End Time ({_startTime})";
+            ArgumentException actualException = Assert.Throws<ArgumentException>(() =>
             {
                 _ = new TimeWindow(_startTime, _startTime);
-            }
-            catch (Exception exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-            Assert.That(actualException, Is.InstanceOf<ArgumentException>());
-
-            String errorMessage = $"The Start Time ({_startTime}) cannot be the same as the End Time ({_startTime})";
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
     }

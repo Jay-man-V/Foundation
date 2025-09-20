@@ -21,7 +21,7 @@ namespace Foundation.Tests.Unit.Mocks
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
-            IEventLogProcess eventLogProcess,
+            ILoggingService loggingService,
             ICalendarProcess calendarProcess
         )
             : base
@@ -29,7 +29,7 @@ namespace Foundation.Tests.Unit.Mocks
                 core,
                 runTimeEnvironmentSettings,
                 dateTimeService,
-                eventLogProcess,
+                loggingService,
                 calendarProcess
             )
         {
@@ -48,9 +48,9 @@ namespace Foundation.Tests.Unit.Mocks
                 throw new ArgumentNullException(nameof(CalendarProcess));
             }
 
-            if (EventLogProcess == null)
+            if (LoggingService == null)
             {
-                throw new ArgumentNullException(nameof(EventLogProcess));
+                throw new ArgumentNullException(nameof(LoggingService));
             }
 
             EventHandler? handler = ProcessJobCalled;

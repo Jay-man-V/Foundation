@@ -4,11 +4,17 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.BusinessProcess.Sec;
 using Foundation.Core;
+using Foundation.Interfaces;
+using Foundation.Services.Application;
 using Foundation.Tests.Unit.NetFramework;
 using Foundation.Tests.Unit.Support;
 
 using Microsoft.Extensions.Hosting;
+using Microsoft.VisualStudio.TestPlatform.Common.Utilities;
+
+using System.Reflection;
 
 namespace Foundation.Tests.Unit.Foundation.Core
 {
@@ -143,9 +149,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
         {
             String parameterName = "ServiceProvider";
             String errorMessage = $"IoC Service Provider has not been initialised. (Parameter '{parameterName}')";
-            ArgumentNullException? actualException = null;
-
-            try
+            ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
             {
                 HostApplicationBuilderSettings settings = new();
 
@@ -155,11 +159,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
                 ioc.Initialise();
 
                 _ = ioc.Get<ITransientOperation>();
-            }
-            catch (ArgumentNullException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
@@ -171,9 +171,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
         {
             String parameterName = "ServiceProvider";
             String errorMessage = $"IoC Service Provider has not been initialised. (Parameter '{parameterName}')";
-            ArgumentNullException? actualException = null;
-
-            try
+            ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
             {
                 HostApplicationBuilderSettings settings = new();
 
@@ -183,11 +181,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
                 ioc.Initialise();
 
                 _ = ioc.Get<ITransientOperation>(typeof(ITransientOperation).AssemblyQualifiedName!);
-            }
-            catch (ArgumentNullException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
@@ -199,9 +193,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
         {
             String parameterName = "ServiceProvider";
             String errorMessage = $"IoC Service Provider has not been initialised. (Parameter '{parameterName}')";
-            ArgumentNullException? actualException = null;
-
-            try
+            ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
             {
                 HostApplicationBuilderSettings settings = new();
 
@@ -211,11 +203,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
                 ioc.Initialise();
 
                 _ = ioc.GetAll<ITransientOperation>();
-            }
-            catch (ArgumentNullException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
@@ -227,9 +215,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
         {
             String typeName = $"{typeof(ITypeNotImplemented)}";
             String errorMessage = $"Unable to get instance of {typeName}";
-            InvalidOperationException? actualException = null;
-
-            try
+            InvalidOperationException actualException = Assert.Throws<InvalidOperationException>(() =>
             {
                 HostApplicationBuilderSettings settings = new();
 
@@ -241,11 +227,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
                 ioc.ServiceProvider = host.Services;
 
                 _ = ioc.Get<ITypeNotImplemented>();
-            }
-            catch (InvalidOperationException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
@@ -256,9 +238,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
         {
             String typeName = "Foundation.Tests.Unit.Support.TypeNotImplemented, Foundation.Tests.Unit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
             String errorMessage = $"Unable to get instance of '{typeName}'";
-            InvalidOperationException? actualException = null;
-
-            try
+            InvalidOperationException actualException = Assert.Throws<InvalidOperationException>(() =>
             {
                 HostApplicationBuilderSettings settings = new();
 
@@ -270,11 +250,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
                 ioc.ServiceProvider = host.Services;
 
                 _ = ioc.Get<ITypeNotImplemented>(typeName);
-            }
-            catch (InvalidOperationException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
@@ -286,10 +262,6 @@ namespace Foundation.Tests.Unit.Foundation.Core
             String assemblyName = "Foundation.Tests.Unit.made.up.assembly.name";
             String assemblyType = "Foundation.Tests.Unit.Support.TransientOperation";
 
-            String paramName = nameof(assemblyName);
-            String errorMessage = $"Cannot locate the Assembly: '{assemblyName}' (Parameter '{paramName}')";
-            ArgumentNullException? actualException = null;
-
             HostApplicationBuilderSettings settings = new();
 
             HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
@@ -299,14 +271,12 @@ namespace Foundation.Tests.Unit.Foundation.Core
             IHost host = hostApplicationBuilder.Build();
             ioc.ServiceProvider = host.Services;
 
-            try
+            String paramName = nameof(assemblyName);
+            String errorMessage = $"Cannot locate the Assembly: '{assemblyName}' (Parameter '{paramName}')";
+            ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
             {
                 _ = ioc.Get<ITransientOperation>(assemblyName, assemblyType);
-            }
-            catch (ArgumentNullException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
@@ -320,10 +290,6 @@ namespace Foundation.Tests.Unit.Foundation.Core
             String assemblyNameInMessage = "Foundation.Tests.Unit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
             String assemblyType = "Foundation.Tests.Unit.Support.TransientOperation.made.up.type.name";
 
-            String paramName = nameof(assemblyType);
-            String errorMessage = $"Cannot load assembly type: '{assemblyType}' from the Assembly: '{assemblyNameInMessage}' (Parameter '{paramName}')";
-            ArgumentNullException? actualException = null;
-
             HostApplicationBuilderSettings settings = new();
 
             HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
@@ -333,14 +299,12 @@ namespace Foundation.Tests.Unit.Foundation.Core
             IHost host = hostApplicationBuilder.Build();
             ioc.ServiceProvider = host.Services;
 
-            try
+            String paramName = nameof(assemblyType);
+            String errorMessage = $"Cannot load assembly type: '{assemblyType}' from the Assembly: '{assemblyNameInMessage}' (Parameter '{paramName}')";
+            ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
             {
                 _ = ioc.Get<ITransientOperation>(assemblyName, assemblyType);
-            }
-            catch (ArgumentNullException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
@@ -350,20 +314,14 @@ namespace Foundation.Tests.Unit.Foundation.Core
         [TestCase]
         public void Test_TheInstance_Null()
         {
-            InvalidOperationException? actualException = null;
-            String expectedErrorMessage = "Foundation.Core has not been initialised";
-
-            try
+            String errorMessage = "Foundation.Core has not been initialised";
+            InvalidOperationException actualException = Assert.Throws<InvalidOperationException>(() =>
             {
                 _ = global::Foundation.Core.Core.TheInstance;
-            }
-            catch (InvalidOperationException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-            Assert.That(actualException.Message, Is.EqualTo(expectedErrorMessage));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
     }
 }

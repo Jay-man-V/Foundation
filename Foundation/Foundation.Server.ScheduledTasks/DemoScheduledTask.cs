@@ -23,14 +23,14 @@ namespace Foundation.Server.ScheduledTasks
         /// <param name="core"></param>
         /// <param name="runTimeEnvironmentSettings"></param>
         /// <param name="dateTimeService"></param>
-        /// <param name="eventLogProcess"></param>
+        /// <param name="loggingService"></param>
         /// <param name="calendarProcess"></param>
         public DemoScheduledTask
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
-            IEventLogProcess eventLogProcess,
+            ILoggingService loggingService,
             ICalendarProcess calendarProcess
         ) :
             base
@@ -38,11 +38,11 @@ namespace Foundation.Server.ScheduledTasks
                 core,
                 runTimeEnvironmentSettings,
                 dateTimeService,
-                eventLogProcess,
+                loggingService,
                 calendarProcess
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, eventLogProcess, calendarProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, calendarProcess);
 
             LoggingHelpers.TraceCallReturn();
         }

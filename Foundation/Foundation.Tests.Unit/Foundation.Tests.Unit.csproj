@@ -209,6 +209,9 @@
     <Folder Include=".ExpectedResults\Foundation.Resources\Images\Logos\" />
     <Folder Include=".NetFramework\DependencyInjectionTests\" />
     <Folder Include=".Support\Configs\" />
+    <Folder Include="Foundation.BusinessProcess\CoreTests\" />
+    <Folder Include="Foundation.BusinessProcess\LogTests\" />
+    <Folder Include="Foundation.BusinessProcess\MainTests\" />
     <Folder Include="Foundation.Models\" />
   </ItemGroup>
 
