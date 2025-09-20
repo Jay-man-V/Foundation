@@ -4,17 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using DocumentFormat.OpenXml.Spreadsheet;
+using System.ComponentModel.DataAnnotations;
 
-using Foundation.BusinessProcess.Helpers;
+using NSubstitute;
+
 using Foundation.Interfaces;
 using Foundation.Interfaces.Helpers;
 using Foundation.Models.Specialised;
 using Foundation.Resources;
-
-using NSubstitute;
-
-using System.ComponentModel.DataAnnotations;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
@@ -598,23 +595,28 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess
         [TestCase(true, false, false, ApplicationRole.SystemAdministrator)]
         public void Test_CanViewRecord(Boolean expectedResult, Boolean createEntity, Boolean isSystemSupport, ApplicationRole applicationRoleToRemove)
         {
-            TCommonBusinessProcess process = CreateBusinessProcess();
-            TEntity? entity = createEntity ? CreateEntity(process, 1) : default;
-
-            CoreInstance.CurrentLoggedOnUser.UserProfile.IsSystemSupport = isSystemSupport;
-            if (!isSystemSupport)
+            lock (SyncLock)
             {
-                RemoveRoleFromLoggedOnUser(ApplicationRole.SystemAdministrator);
+                global::Foundation.Core.Core.CoreInstance = null;
+
+                TCommonBusinessProcess process = CreateBusinessProcess();
+                TEntity? entity = createEntity ? CreateEntity(process, 1) : default;
+
+                CoreInstance.CurrentLoggedOnUser.UserProfile.IsSystemSupport = isSystemSupport;
+                if (!isSystemSupport)
+                {
+                    RemoveRoleFromLoggedOnUser(ApplicationRole.SystemAdministrator);
+                }
+
+                if (applicationRoleToRemove != ApplicationRole.None)
+                {
+                    RemoveRoleFromLoggedOnUser(applicationRoleToRemove);
+                }
+
+                Boolean actual = process.CanViewRecord(CoreInstance.CurrentLoggedOnUser.UserProfile, entity);
+
+                Assert.That(actual, Is.EqualTo(expectedResult));
             }
-
-            if (applicationRoleToRemove != ApplicationRole.None)
-            {
-                RemoveRoleFromLoggedOnUser(applicationRoleToRemove);
-            }
-
-            Boolean actual = process.CanViewRecord(CoreInstance.CurrentLoggedOnUser.UserProfile, entity);
-
-            Assert.That(actual, Is.EqualTo(expectedResult));
         }
 
         [TestCase]
@@ -635,22 +637,27 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess
         [TestCase(true, false, ApplicationRole.SystemAdministrator)]
         public void Test_CanAddRecord(Boolean expectedResult, Boolean isSystemSupport, ApplicationRole applicationRoleToRemove)
         {
-            TCommonBusinessProcess process = CreateBusinessProcess();
-
-            CoreInstance.CurrentLoggedOnUser.UserProfile.IsSystemSupport = isSystemSupport;
-            if (!isSystemSupport)
+            lock (SyncLock)
             {
-                RemoveRoleFromLoggedOnUser(ApplicationRole.SystemAdministrator);
+                global::Foundation.Core.Core.CoreInstance = null;
+
+                TCommonBusinessProcess process = CreateBusinessProcess();
+
+                CoreInstance.CurrentLoggedOnUser.UserProfile.IsSystemSupport = isSystemSupport;
+                if (!isSystemSupport)
+                {
+                    RemoveRoleFromLoggedOnUser(ApplicationRole.SystemAdministrator);
+                }
+
+                if (applicationRoleToRemove != ApplicationRole.None)
+                {
+                    RemoveRoleFromLoggedOnUser(applicationRoleToRemove);
+                }
+
+                Boolean actual = process.CanAddRecord(CoreInstance.CurrentLoggedOnUser.UserProfile);
+
+                Assert.That(actual, Is.EqualTo(expectedResult));
             }
-
-            if (applicationRoleToRemove != ApplicationRole.None)
-            {
-                RemoveRoleFromLoggedOnUser(applicationRoleToRemove);
-            }
-
-            Boolean actual = process.CanAddRecord(CoreInstance.CurrentLoggedOnUser.UserProfile);
-
-            Assert.That(actual, Is.EqualTo(expectedResult));
         }
 
         [TestCase]

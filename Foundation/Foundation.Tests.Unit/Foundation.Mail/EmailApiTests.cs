@@ -4,13 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using NSubstitute;
-
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Services.Mail;
-
 using Foundation.Tests.Unit.Support;
+
+using NSubstitute;
+
+using System.Diagnostics;
 
 namespace Foundation.Tests.Unit.Foundation.Mail
 {
@@ -158,9 +159,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
         [TestCase]
         public void Test_DeleteFile()
         {
-            NotImplementedException? actualException = null;
-
-            try
+            NotImplementedException actualException = Assert.Throws<NotImplementedException>(() =>
             {
                 IFileTransferSettings fileTransferSettings = new FileTransferSettings
                 {
@@ -168,11 +167,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
                 };
 
                 TheService!.DeleteFile(fileTransferSettings);
-            }
-            catch (NotImplementedException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
         }
@@ -180,21 +175,15 @@ namespace Foundation.Tests.Unit.Foundation.Mail
         [TestCase]
         public void Test_DeleteFile_Async()
         {
-            NotImplementedException? actualException = null;
-
-            try
+            NotImplementedException actualException = Assert.Throws<NotImplementedException>(() =>
             {
                 IFileTransferSettings fileTransferSettings = new FileTransferSettings
                 {
                     FileTransferMethod = FileTransferMethod.Email,
                 };
-                
+
                 TheService!.DeleteFileAsync(fileTransferSettings);
-            }
-            catch (NotImplementedException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
         }
@@ -232,9 +221,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
         [TestCase]
         public void Test_UploadFile_Path()
         {
-            NotImplementedException? actualException = null;
-
-            try
+            AggregateException actualException = Assert.Throws<AggregateException>(() =>
             {
                 IFileTransferSettings fileTransferSettings = new FileTransferSettings
                 {
@@ -243,21 +230,19 @@ namespace Foundation.Tests.Unit.Foundation.Mail
                 String filePath = @".Support\SampleDocuments\Sample Image.jpg";
 
                 TheService!.UploadFile(fileTransferSettings, filePath);
-            }
-            catch (AggregateException exception)
-            {
-                actualException = exception.InnerExceptions[0] as NotImplementedException;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
+            Assert.That(actualException.InnerExceptions.Count, Is.EqualTo(1));
+
+            NotImplementedException? expectedException = actualException.InnerExceptions[0] as NotImplementedException;
+            Assert.That(expectedException, Is.Not.EqualTo(null));
         }
 
         [TestCase]
         public void Test_UploadFile_Path_Async()
         {
-            NotImplementedException? actualException = null;
-
-            try
+            AggregateException actualException = Assert.Throws<AggregateException>(() =>
             {
                 IFileTransferSettings fileTransferSettings = new FileTransferSettings
                 {
@@ -270,29 +255,19 @@ namespace Foundation.Tests.Unit.Foundation.Mail
                 {
                     throw t.Exception;
                 }
-            }
-            catch (NotImplementedException exception)
-            {
-                actualException = exception;
-            }
-            catch (AggregateException exception)
-            {
-                actualException = exception.InnerExceptions[0] as NotImplementedException;
-            }
-            catch (Exception exception)
-            {
-                actualException = (NotImplementedException)exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
+            Assert.That(actualException.InnerExceptions.Count, Is.EqualTo(1));
+
+            NotImplementedException? expectedException = actualException.InnerExceptions[0] as NotImplementedException;
+            Assert.That(expectedException, Is.Not.EqualTo(null));
         }
 
         [TestCase]
         public void Test_UploadFile_Stream()
         {
-            NotImplementedException? actualException = null;
-
-            try
+            NotImplementedException actualException = Assert.Throws<NotImplementedException>(() =>
             {
                 IFileTransferSettings fileTransferSettings = new FileTransferSettings
                 {
@@ -308,11 +283,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
                 }
 
                 TheService!.UploadFile(fileTransferSettings, stream);
-            }
-            catch (NotImplementedException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
         }
@@ -320,9 +291,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
         [TestCase]
         public void Test_UploadFile_Stream_Async()
         {
-            NotImplementedException? actualException = null;
-
-            try
+            NotImplementedException actualException = Assert.Throws<NotImplementedException>(() =>
             {
                 IFileTransferSettings fileTransferSettings = new FileTransferSettings
                 {
@@ -338,13 +307,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
                 }
 
                 TheService!.UploadFile(fileTransferSettings, stream);
-
-                TheService!.UploadFileAsync(fileTransferSettings, filePath);
-            }
-            catch (NotImplementedException exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
         }

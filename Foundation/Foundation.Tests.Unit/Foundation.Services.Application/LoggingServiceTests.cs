@@ -144,9 +144,9 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
                 updateMessage = $"{batchName} - {processName} - {taskName}";
                 throw new Exception(updateMessage);
             }
-            catch (Exception exception)
+            catch (Exception loggedException)
             {
-                TheService!.EndTask(logId, logSeverity, exception);
+                TheService!.EndTask(logId, logSeverity, loggedException);
             }
 
             IEventLog? savedEventLog = null;
@@ -201,9 +201,9 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
                 updateMessage = $"{batchName} - {processName} - {taskName}";
                 throw new Exception(updateMessage);
             }
-            catch (Exception exception)
+            catch (Exception loggedException)
             {
-                TheService!.CreateLogEntry(parentLogId, applicationId, logSeverity, exception);
+                TheService!.CreateLogEntry(parentLogId, applicationId, logSeverity, loggedException);
             }
 
             Assert.That(savedEventLog!.ApplicationId.TheAppId, Is.EqualTo(applicationId.TheAppId));
