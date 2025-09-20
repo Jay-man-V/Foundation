@@ -36,15 +36,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.BusinessProcess"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. System & Unit Tests", "4. System & Unit Tests", "{0F75674C-8A76-43AB-A4C9-A8BCA7985A33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.Tests.System", "Foundation\Foundation.Tests.System\Foundation.Tests.System.csproj", "{387907F0-9D99-0993-B664-FAFAB74B43E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.Tests.System", "Foundation\_Tests\Foundation.Tests.System\Foundation.Tests.System.csproj", "{387907F0-9D99-0993-B664-FAFAB74B43E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.Tests.Unit", "Foundation\Foundation.Tests.Unit\Foundation.Tests.Unit.csproj", "{7D9EF13B-B9D0-9E42-1818-74D3B15AC153}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.Tests.Unit", "Foundation\_Tests\Foundation.Tests.Unit\Foundation.Tests.Unit.csproj", "{7D9EF13B-B9D0-9E42-1818-74D3B15AC153}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.Service", "Foundation\Foundation.Service\Foundation.Service.csproj", "{6744A338-4E47-E825-F41B-8FFAD25BB747}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.ViewModels", "Foundation\Foundation.ViewModels\Foundation.ViewModels.csproj", "{28FE7C2E-96D0-4D48-9991-A49F4595A0A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.Tests.Views", "Foundation\Foundation.Tests.Views\Foundation.Tests.Views.csproj", "{CCE22C47-7225-EAE0-5E3B-D3F7CC014FEE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.Tests.Views", "Foundation\_Tests\Foundation.Tests.Views\Foundation.Tests.Views.csproj", "{CCE22C47-7225-EAE0-5E3B-D3F7CC014FEE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.Repository", "Foundation\Foundation.Repository\Foundation.Repository.csproj", "{039684B4-7A4C-496F-8F9E-30CC98A04062}"
 EndProject
