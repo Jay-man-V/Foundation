@@ -46,7 +46,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             IRoleProcess roleProcess = Substitute.For<IRoleProcess>();
             IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
 
-            ILoggedOnUserProcess process = new LoggedOnUserProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess, roleProcess, userProfileProcess);
+            ILoggedOnUserProcess process = new LoggedOnUserProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService!, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess, roleProcess, userProfileProcess);
 
             return process;
         }

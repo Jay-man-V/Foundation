@@ -36,15 +36,17 @@ namespace Foundation.BusinessProcess
         /// </summary>
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings</param>
-        /// <param name="dateTimeService">The date time service.</param>
-        /// <param name="repository">The repository.</param>
-        /// <param name="statusRepository">The status repository.</param>
-        /// <param name="userProfileRepository">The user profile repository.</param>
+        /// <param name="dateTimeService">The date time service</param>
+        /// <param name="loggingService">The logging service</param>
+        /// <param name="repository">The repository</param>
+        /// <param name="statusRepository">The status repository</param>
+        /// <param name="userProfileRepository">The user profile repository</param>
         protected CommonBusinessProcess
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
+            ILoggingService loggingService,
             TRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository
@@ -53,10 +55,11 @@ namespace Foundation.BusinessProcess
             (
                 core,
                 runTimeEnvironmentSettings,
-                dateTimeService
+                dateTimeService,
+                loggingService
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, repository, statusRepository, userProfileRepository);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository);
 
             EntityRepository = repository;
             StatusRepository = statusRepository;

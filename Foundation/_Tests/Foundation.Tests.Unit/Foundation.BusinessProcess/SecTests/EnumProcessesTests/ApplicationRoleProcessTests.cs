@@ -41,7 +41,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests.EnumProcesse
             IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
             IRoleProcess roleProcess = Substitute.For<IRoleProcess>();
 
-            IApplicationRoleProcess process = new ApplicationRoleProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess, roleProcess);
+            IApplicationRoleProcess process = new ApplicationRoleProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService!, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess, roleProcess);
 
             return process;
         }

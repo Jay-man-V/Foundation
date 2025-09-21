@@ -20,48 +20,28 @@ namespace Foundation.BusinessProcess.Core.Schedulers
         /// Base class for all scheduled tasks
         /// </summary>
         /// <param name="core">The Foundation Core service</param>
-        /// <param name="runTimeEnvironmentSettings">The runtime environment settings.</param>
-        /// <param name="dateTimeService"></param>
-        /// <param name="loggingService"></param>
-        /// <param name="calendarProcess"></param>
+        /// <param name="runTimeEnvironmentSettings">The runtime environment settings</param>
+        /// <param name="dateTimeService">The date time service</param>
+        /// <param name="loggingService">The logging service</param>
         protected ScheduledTaskBase
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
-            ILoggingService loggingService,
-            ICalendarProcess calendarProcess
+            ILoggingService loggingService
         ) :
             base
             (
                 core,
                 runTimeEnvironmentSettings,
-                dateTimeService
+                dateTimeService,
+                loggingService
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, calendarProcess);
-
-            LoggingService = loggingService;
-            CalendarProcess = calendarProcess;
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService);
 
             LoggingHelpers.TraceCallReturn();
         }
-
-        /// <summary>
-        /// Gets the logging service.
-        /// </summary>
-        /// <value>
-        /// The logging service.
-        /// </value>
-        protected ILoggingService LoggingService { get; }
-
-        /// <summary>
-        /// Gets the calendar process.
-        /// </summary>
-        /// <value>
-        /// The calendar process.
-        /// </value>
-        protected ICalendarProcess CalendarProcess { get; }
 
         /// <inheritdoc cref="IScheduledTask.Process(LogId, String)"/>
         public abstract void Process(LogId logId, String taskParameters);

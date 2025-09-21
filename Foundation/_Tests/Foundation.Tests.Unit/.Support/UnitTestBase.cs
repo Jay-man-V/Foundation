@@ -24,7 +24,7 @@ namespace Foundation.Tests.Unit.Support
     [TestFixture]
     public abstract class UnitTestBase
     {
-        protected static Object SyncLock = new Object();
+        protected static Object SyncLock = new();
 
         protected String DatabaseServer = "Callisto";
         protected String BaseTemporaryOutputsPath => @"D:\Projects\JDVSoftware\TempOutputs\";
@@ -54,6 +54,7 @@ namespace Foundation.Tests.Unit.Support
         protected ICore CoreInstance { get; set; }
         protected IRunTimeEnvironmentSettings RunTimeEnvironmentSettings { get; set; }
         protected IDateTimeService DateTimeService { get; set; }
+        protected ILoggingService LoggingService { get; set; }
         protected IApplicationConfigurationService ApplicationConfigurationService { get; set; }
         protected IStatusRepository? StatusRepository { get; set; }
         protected IUserProfileRepository? UserProfileRepository { get; set; }
@@ -255,6 +256,8 @@ namespace Foundation.Tests.Unit.Support
             DateTimeService = Substitute.For<IDateTimeService>();
             DateTimeService.SystemDateTimeNowWithoutMilliseconds.Returns(SystemDateTime);
             DateTimeService.SystemDateTimeNow.Returns(SystemDateTimeMs);
+
+            LoggingService = Substitute.For<ILoggingService>();
 
             IUserProfile userProfile = new FModels.Sec.UserProfile
             {

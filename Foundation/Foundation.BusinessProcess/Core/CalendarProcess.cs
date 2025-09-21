@@ -19,24 +19,27 @@ namespace Foundation.BusinessProcess.Core
         /// Initialises a new instance of the <see cref="CalendarProcess" /> class.
         /// </summary>
         /// <param name="core">The Foundation Core service</param>
-        /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
-        /// <param name="dateTimeService">The date time service.</param>
-        /// <param name="repository">The repository.</param>
+        /// <param name="runTimeEnvironmentSettings">The run time environment settings</param>
+        /// <param name="dateTimeService">The date time service</param>
+        /// <param name="loggingService">The logging service</param>
+        /// <param name="repository">The repository</param>
         public CalendarProcess
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
+            ILoggingService loggingService,
             ICalendarRepository repository
         ) :
             base
             (
                 core,
                 runTimeEnvironmentSettings,
-                dateTimeService
+                dateTimeService,
+                loggingService
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, repository);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository);
 
             Repository = repository;
 

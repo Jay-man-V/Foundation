@@ -42,7 +42,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override IApplicationTypeProcess CreateBusinessProcess(IDateTimeService dateTimeService)
         {
-            IApplicationTypeProcess process = new ApplicationTypeProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, TheRepository!, StatusRepository!, UserProfileRepository!);
+            IApplicationTypeProcess process = new ApplicationTypeProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService!, TheRepository!, StatusRepository!, UserProfileRepository!);
 
             return process;
         }

@@ -23,16 +23,18 @@ namespace Foundation.BusinessProcess.Core.EnumProcesses
         /// Initialises a new instance of the <see cref="ScheduleIntervalProcess" /> class.
         /// </summary>
         /// <param name="core">The Foundation Core service</param>
-        /// <param name="runTimeEnvironmentSettings">The runtime environment settings.</param>
+        /// <param name="runTimeEnvironmentSettings">The runtime environment settings</param>
         /// <param name="dateTimeService">The date time service</param>
-        /// <param name="repository">The data access.</param>
-        /// <param name="statusRepository">The status data access.</param>
-        /// <param name="userProfileRepository">The user profile data access.</param>
+        /// <param name="loggingService">The logging service</param>
+        /// <param name="repository">The data access</param>
+        /// <param name="statusRepository">The status data access</param>
+        /// <param name="userProfileRepository">The user profile data access</param>
         public ScheduleIntervalProcess
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
+            ILoggingService loggingService,
             IScheduleIntervalRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository
@@ -42,12 +44,13 @@ namespace Foundation.BusinessProcess.Core.EnumProcesses
                 core,
                 runTimeEnvironmentSettings,
                 dateTimeService,
+                loggingService,
                 repository,
                 statusRepository,
                 userProfileRepository
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, repository, statusRepository, userProfileRepository);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository);
 
             LoggingHelpers.TraceCallReturn();
         }

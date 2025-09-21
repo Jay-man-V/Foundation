@@ -8,7 +8,6 @@ using NSubstitute;
 
 using Foundation.BusinessProcess.Sec;
 using Foundation.Interfaces;
-using Foundation.Services.Application;
 
 using Foundation.Tests.Unit.Support;
 
@@ -32,7 +31,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
             TheRepository = Substitute.For<IAuthenticationRepository>();
 
-            TheProcess = new AuthenticationProcess(CoreInstance, TheRepository!);
+            TheProcess = new AuthenticationProcess(CoreInstance, LoggingService, TheRepository!);
         }
 
         [TestCase]

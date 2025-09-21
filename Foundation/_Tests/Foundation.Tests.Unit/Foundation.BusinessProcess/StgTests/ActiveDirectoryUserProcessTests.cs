@@ -45,7 +45,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.StgTests
 
         protected override IActiveDirectoryUserProcess CreateBusinessProcess(IDateTimeService dateTimeService)
         {
-            IActiveDirectoryUserProcess process = new ActiveDirectoryUserProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, TheRepository!, StatusRepository!, UserProfileRepository!);
+            IActiveDirectoryUserProcess process = new ActiveDirectoryUserProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService!, TheRepository!, StatusRepository!, UserProfileRepository!);
 
             return process;
         }

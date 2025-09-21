@@ -17,16 +17,18 @@ namespace Foundation.BusinessProcess.Sec
         /// Initializes a new instance of the <see cref="AuthorisationProcess"/> class.
         /// </summary>
         /// <param name="core">The Foundation Core service</param>
-        /// <param name="permissionMatrixProcess">The permission matrix process.</param>
-        /// <param name="authenticationProcess">The authentication process.</param>
+        /// <param name="loggingService">The logging service</param>
+        /// <param name="permissionMatrixProcess">The permission matrix process</param>
+        /// <param name="authenticationProcess">The authentication process</param>
         public AuthorisationProcess
         (
             ICore core,
+            ILoggingService loggingService,
             IPermissionMatrixProcess permissionMatrixProcess,
             IAuthenticationProcess authenticationProcess
         )
         {
-            LoggingHelpers.TraceCallEnter(core, permissionMatrixProcess, authenticationProcess);
+            LoggingHelpers.TraceCallEnter(core, loggingService, permissionMatrixProcess, authenticationProcess);
 
             Core = core;
             PermissionMatrixProcess = permissionMatrixProcess;

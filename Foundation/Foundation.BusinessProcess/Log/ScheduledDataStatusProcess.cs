@@ -23,17 +23,19 @@ namespace Foundation.BusinessProcess.Log
         /// Initialises a new instance of the <see cref="ScheduledDataStatusProcess" /> class.
         /// </summary>
         /// <param name="core">The Foundation Core service</param>
-        /// <param name="runTimeEnvironmentSettings">The runtime environment settings.</param>
+        /// <param name="runTimeEnvironmentSettings">The runtime environment settings</param>
         /// <param name="dateTimeService">The date time service</param>
-        /// <param name="repository">The data access.</param>
-        /// <param name="statusRepository">The status data access.</param>
-        /// <param name="userProfileRepository">The user profile data access.</param>
-        /// <param name="dataStatusProcess">The data status process.</param>
+        /// <param name="loggingService">The logging service</param>
+        /// <param name="repository">The data access</param>
+        /// <param name="statusRepository">The status data access</param>
+        /// <param name="userProfileRepository">The user profile data access</param>
+        /// <param name="dataStatusProcess">The data status process</param>
         public ScheduledDataStatusProcess
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
+            ILoggingService loggingService,
             IScheduledDataStatusRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
@@ -44,12 +46,13 @@ namespace Foundation.BusinessProcess.Log
                 core,
                 runTimeEnvironmentSettings,
                 dateTimeService,
+                loggingService,
                 repository,
                 statusRepository,
                 userProfileRepository
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, repository, statusRepository, userProfileRepository, dataStatusProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, dataStatusProcess);
 
             DataStatusProcess = dataStatusProcess;
 

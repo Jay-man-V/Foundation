@@ -45,7 +45,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
 
             CopyProperties(applicationProcess, CoreInstance.IoC.Get<IApplicationProcess>());
 
-            IMenuItemProcess retVal = new MenuItemProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess);
+            IMenuItemProcess retVal = new MenuItemProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService!, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess);
 
             return retVal;
         }

@@ -21,7 +21,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.ComponentsTests
     public class ServerProcessTimerTests : UnitTestBase
     {
         private ICalendarProcess? CalendarProcess { get; set; }
-        private ILoggingService LoggingService { get; set; }
 
         public override void TestInitialise()
         {
@@ -32,8 +31,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.ComponentsTests
             DateTimeService.ClearSubstitute();
             DateTimeService.SystemDateTimeNowWithoutMilliseconds.Returns(new DateTime(2022, 11, 27, 23, 11, 54));
             DateTimeService.SystemDateTimeNow.Returns(new DateTime(2022, 11, 27, 23, 11, 54, 300));
-
-            LoggingService = Substitute.For<ILoggingService>();
 
             SchedulerSupport.Core = CoreInstance;
             SchedulerSupport.RunTimeEnvironmentSettings = RunTimeEnvironmentSettings;
@@ -58,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.ComponentsTests
             IScheduleIntervalProcess scheduleIntervalProcess = Substitute.For<IScheduleIntervalProcess>();
 
             IScheduledJob scheduledJob = SchedulerSupport.CreateScheduledJob(CoreInstance, false, currentDate, ScheduleInterval.Seconds, 30);
-            IScheduledJobProcess process = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, repository, statusRepository, userProfileRepository, LoggingService, scheduleIntervalProcess, CalendarProcess);
+            IScheduledJobProcess process = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, repository, statusRepository, userProfileRepository, scheduleIntervalProcess, CalendarProcess);
 
             process.AlternateCreateScheduledTaskCalled -= SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
             process.AlternateCreateScheduledTaskCalled += SchedulerSupport.OnAlternateCreateScheduledTaskCalled;

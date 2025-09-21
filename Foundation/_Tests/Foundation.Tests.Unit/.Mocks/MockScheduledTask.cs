@@ -21,16 +21,14 @@ namespace Foundation.Tests.Unit.Mocks
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
-            ILoggingService loggingService,
-            ICalendarProcess calendarProcess
+            ILoggingService loggingService
         )
             : base
             (
                 core,
                 runTimeEnvironmentSettings,
                 dateTimeService,
-                loggingService,
-                calendarProcess
+                loggingService
             )
         {
         }
@@ -40,18 +38,10 @@ namespace Foundation.Tests.Unit.Mocks
         {
             DateTime currentDateTime = DateTimeService.SystemDateTimeNow;
             String message = $"ProcessJob running at: {currentDateTime.ToString(Formats.DotNet.DateTimeSeconds)}";
+
+            LoggingService.CreateLogEntry(logId, Core.ApplicationId, "batchName", "processName", "taskName", LogSeverity.Information, message);
             
             Debug.WriteLine(message);
-
-            if (CalendarProcess == null)
-            {
-                throw new ArgumentNullException(nameof(CalendarProcess));
-            }
-
-            if (LoggingService == null)
-            {
-                throw new ArgumentNullException(nameof(LoggingService));
-            }
 
             EventHandler? handler = ProcessJobCalled;
             if (handler != null)

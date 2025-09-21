@@ -23,17 +23,19 @@ namespace Foundation.BusinessProcess.Core
         /// Initialises a new instance of the <see cref="NationalRegionProcess" /> class.
         /// </summary>
         /// <param name="core">The Foundation Core service</param>
-        /// <param name="runTimeEnvironmentSettings">The runtime environment settings.</param>
+        /// <param name="runTimeEnvironmentSettings">The runtime environment settings</param>
         /// <param name="dateTimeService">The date time service</param>
-        /// <param name="repository">The data access.</param>
-        /// <param name="statusRepository">The status data access.</param>
-        /// <param name="userProfileRepository">The user profile data access.</param>
-        /// <param name="countryProcess">The country process.</param>
+        /// <param name="loggingService">The logging service</param>
+        /// <param name="repository">The data access</param>
+        /// <param name="statusRepository">The status data access</param>
+        /// <param name="userProfileRepository">The user profile data access</param>
+        /// <param name="countryProcess">The country process</param>
         public NationalRegionProcess
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
+            ILoggingService loggingService,
             INationalRegionRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
@@ -44,12 +46,13 @@ namespace Foundation.BusinessProcess.Core
                 core,
                 runTimeEnvironmentSettings,
                 dateTimeService,
+                loggingService,
                 repository,
                 statusRepository,
                 userProfileRepository
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, repository, statusRepository, userProfileRepository, countryProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, countryProcess);
 
             CountryProcess = countryProcess;
 

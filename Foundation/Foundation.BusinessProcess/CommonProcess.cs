@@ -19,19 +19,22 @@ namespace Foundation.BusinessProcess
         /// </summary>
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings</param>
-        /// <param name="dateTimeService">The date time service.</param>
+        /// <param name="dateTimeService">The date time service</param>
+        /// <param name="loggingService">The logging service</param>
         protected CommonProcess
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
-            IDateTimeService dateTimeService
+            IDateTimeService dateTimeService,
+            ILoggingService loggingService
         )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService);
 
             Core = core;
             RunTimeEnvironmentSettings = runTimeEnvironmentSettings;
             DateTimeService = dateTimeService;
+            LoggingService = loggingService;
 
             LoggingHelpers.TraceCallReturn();
         }
@@ -50,8 +53,19 @@ namespace Foundation.BusinessProcess
         protected internal IRunTimeEnvironmentSettings RunTimeEnvironmentSettings { get; }
 
         /// <summary>
-        /// The Date Time Service
+        /// Gets the Date/Time Service
         /// </summary>
+        /// <value>
+        /// The date/time service.
+        /// </value>
         protected internal IDateTimeService DateTimeService { get; }
+
+        /// <summary>
+        /// Gets the logging service.
+        /// </summary>
+        /// <value>
+        /// The logging service.
+        /// </value>
+        protected ILoggingService LoggingService { get; }
     }
 }

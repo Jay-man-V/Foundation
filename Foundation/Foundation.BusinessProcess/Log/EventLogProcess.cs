@@ -25,16 +25,18 @@ namespace Foundation.BusinessProcess.Log
         /// <param name="core">The Foundation Core service</param>
         /// <param name="runTimeEnvironmentSettings">The runtime environment settings</param>
         /// <param name="dateTimeService">The date time service</param>
-        /// <param name="repository">The data access.</param>
-        /// <param name="statusRepository">The status data access.</param>
-        /// <param name="userProfileRepository">The user profile data access.</param>
-        /// <param name="logSeverityProcess">The log severity process.</param>
-        /// <param name="taskStatusProcess">The task status process.</param>
+        /// <param name="loggingService">The logging service</param>
+        /// <param name="repository">The data access</param>
+        /// <param name="statusRepository">The status data access</param>
+        /// <param name="userProfileRepository">The user profile data access</param>
+        /// <param name="logSeverityProcess">The log severity process</param>
+        /// <param name="taskStatusProcess">The task status process</param>
         public EventLogProcess
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
+            ILoggingService loggingService,
             IEventLogRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
@@ -46,12 +48,13 @@ namespace Foundation.BusinessProcess.Log
                 core,
                 runTimeEnvironmentSettings,
                 dateTimeService,
+                loggingService,
                 repository,
                 statusRepository,
                 userProfileRepository
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, repository, statusRepository, userProfileRepository, logSeverityProcess, taskStatusProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, logSeverityProcess, taskStatusProcess);
 
             LogSeverityProcess = logSeverityProcess;
             TaskStatusProcess = taskStatusProcess;

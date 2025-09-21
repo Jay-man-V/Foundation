@@ -15,16 +15,14 @@ namespace Foundation.Tests.Unit.Mocks
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
-            ILoggingService loggingService, 
-            ICalendarProcess calendarProcess
+            ILoggingService loggingService
         )
             : base
             (
                 core,
                 runTimeEnvironmentSettings,
                 dateTimeService,
-                loggingService,
-                calendarProcess
+                loggingService
             )
         {
         }

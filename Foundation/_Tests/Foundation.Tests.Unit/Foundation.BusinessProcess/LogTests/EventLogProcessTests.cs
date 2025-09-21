@@ -6,12 +6,10 @@
 
 using NSubstitute;
 
-using Foundation.Common;
 using Foundation.BusinessProcess.Log;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
-using FEnums = Foundation.Interfaces;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 {
@@ -46,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
             ILogSeverityProcess logSeverityProcess = Substitute.For<ILogSeverityProcess>();
             ITaskStatusProcess taskStatusProcess = Substitute.For<ITaskStatusProcess>();
 
-            IEventLogProcess process = new EventLogProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, TheRepository!, StatusRepository!, UserProfileRepository!, logSeverityProcess, taskStatusProcess);
+            IEventLogProcess process = new EventLogProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService!, TheRepository!, StatusRepository!, UserProfileRepository!, logSeverityProcess, taskStatusProcess);
 
             return process;
         }
@@ -156,7 +154,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
         {
             TheRepository!
                 .When(da => da.Delete(Arg.Any<EntityId>()))
-                .Do(x => throw new NotImplementedException("Event Log Entries cannot be deleted"));
+                .Do(_ => throw new NotImplementedException("Event Log Entries cannot be deleted"));
 
             NotImplementedException actualException = Assert.Throws<NotImplementedException>(() =>
             {
@@ -171,7 +169,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
         {
             TheRepository!
                 .When(da => da.Delete(Arg.Any<IEventLog>()))
-                .Do(x => throw new NotImplementedException("Event Log Entries cannot be deleted"));
+                .Do(_ => throw new NotImplementedException("Event Log Entries cannot be deleted"));
 
             NotImplementedException actualException = Assert.Throws<NotImplementedException>(() =>
             {
@@ -185,15 +183,15 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
         [TestCase]
         public override void Test_Delete_MultipleEntities()
         {
-            List<IEventLog> eventLogs = new List<IEventLog>
-            {
+            List<IEventLog> eventLogs =
+            [
                 CoreInstance.IoC.Get<IEventLog>(),
                 CoreInstance.IoC.Get<IEventLog>(),
-            };
+            ];
 
             TheRepository!
                 .When(da => da.Delete(Arg.Any<List<IEventLog>>()))
-                .Do(x => throw new NotImplementedException("Event Log Entries cannot be deleted"));
+                .Do(_ => throw new NotImplementedException("Event Log Entries cannot be deleted"));
 
             NotImplementedException actualException = Assert.Throws<NotImplementedException>(() =>
             {
@@ -202,380 +200,5 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 
             Assert.That(actualException, Is.Not.Null);
         }
-
-        //[TestCase(FEnums.TaskStatus.NotSet, true, 0, null, null, null)]
-        //[TestCase(FEnums.TaskStatus.NotSet, true, 1, null, null, null)]
-        //[TestCase(FEnums.TaskStatus.NotSet, true, 0, "UnitTesting", null, null)]
-        //[TestCase(FEnums.TaskStatus.NotSet, true, 0, null, "UnitTesting", null)]
-        //[TestCase(FEnums.TaskStatus.NotSet, true, 0, null, null, "UnitTesting")]
-        //public void Test_GetLatest(FEnums.TaskStatus expectedTaskStatus, Boolean isFinished, Int32 scheduledTaskId, String batchName, String processName, String taskName)
-        //{
-        //    FEnums.TaskStatus actual = FEnums.TaskStatus.NotSet;
-
-        //    IEventLog eventLog = TheProcess!.GetLatest(isFinished, new EntityId(scheduledTaskId), batchName, processName, taskName);
-
-        //    if (eventLog != null)
-        //    {
-        //        actual = eventLog.TaskStatus;
-        //    }
-
-        //    Assert.That(expectedTaskStatus, Is.EqualTo(actual));
-        //}
-
-        //[TestCase]
-        //public void Test_StartTask()
-        //{
-        //    AppId applicationId = CoreInstance.ApplicationId;
-        //    String batchName = "UnitTesting";
-        //    String processName = LocationUtils.GetClassName();
-        //    String taskName = LocationUtils.GetFunctionName();
-
-        //    TheRepository!.Save(Arg.Any<IEventLog>()).Returns(args =>
-        //    {
-        //        IEventLog entity = (IEventLog)args[0];
-        //        entity.Id = new LogId(1);
-        //        entity.ApplicationId = new AppId(1);
-
-        //        return entity;
-        //    });
-
-        //    TheRepository!.Get(Arg.Any<LogId>()).Returns(args =>
-        //    {
-        //        IEventLog entity = CoreInstance.IoC.Get<IEventLog>();
-        //        entity.Id = new LogId(1);
-        //        entity.ApplicationId = new AppId(1);
-        //        entity.BatchName = batchName;
-        //        entity.ProcessName = processName;
-        //        entity.TaskName = taskName;
-        //        entity.LogSeverityId = new EntityId(LogSeverity.Information.Id());
-        //        entity.StartedOn = DateTimeService.SystemDateTimeNow;
-
-        //        return entity;
-        //    });
-
-        //    LogId logId = TheProcess!.StartTask(applicationId, batchName, processName, taskName);
-
-        //    Assert.That(logId.TheLogId > 0);
-
-        //    IEventLog eventLog = TheProcess!.Get(logId);
-
-        //    Assert.That(eventLog.Id.TheLogId, Is.EqualTo(logId.TheLogId));
-        //    Assert.That(eventLog.ApplicationId.TheAppId, Is.EqualTo(applicationId.TheAppId));
-        //    Assert.That(eventLog.BatchName, Is.EqualTo(batchName));
-        //    Assert.That(eventLog.ProcessName, Is.EqualTo(processName));
-        //    Assert.That(eventLog.TaskName, Is.EqualTo(taskName));
-        //    Assert.That(eventLog.LogSeverityId.ToInteger(), Is.EqualTo(LogSeverity.Information.Id()));
-        //    Assert.That(eventLog.StartedOn, Is.EqualTo(DateTimeService.SystemDateTimeNow));
-        //}
-
-        //[TestCase]
-        //public void Test_EndTask_1()
-        //{
-        //    AppId applicationId = CoreInstance.ApplicationId;
-        //    String batchName = "UnitTesting";
-        //    String processName = LocationUtils.GetClassName();
-        //    String taskName = LocationUtils.GetFunctionName();
-        //    LogSeverity logSeverity = LogSeverity.Warning;
-
-        //    TheRepository!.Save(Arg.Any<IEventLog>()).Returns(args =>
-        //    {
-        //        IEventLog entity = (IEventLog)args[0];
-        //        entity.Id = new LogId(1);
-
-        //        return entity;
-        //    });
-
-        //    TheRepository!.Get(Arg.Any<LogId>()).Returns(args =>
-        //    {
-        //        IEventLog entity = CoreInstance.IoC.Get<IEventLog>();
-        //        entity.Id = new LogId(1);
-        //        entity.ApplicationId = new AppId(1);
-        //        entity.BatchName = batchName;
-        //        entity.ProcessName = processName;
-        //        entity.TaskName = taskName;
-        //        entity.LogSeverityId = new EntityId(logSeverity.Id());
-        //        entity.StartedOn = DateTimeService.SystemDateTimeNow;
-
-        //        return entity;
-        //    });
-
-        //    LogId logId = TheProcess!.StartTask(applicationId, batchName, processName, taskName);
-
-        //    try
-        //    {
-        //        String message = $"{batchName} - {processName} - {taskName}";
-        //        throw new Exception(message);
-        //    }
-        //    catch (Exception exception)
-        //    {
-        //        TheProcess!.EndTask(logId, logSeverity, exception);
-        //    }
-
-        //    IEventLog eventLog = TheProcess!.Get(logId);
-
-        //    Assert.That(eventLog.Id.TheLogId, Is.EqualTo(logId.TheLogId));
-        //    Assert.That(eventLog.ApplicationId.TheAppId, Is.EqualTo(applicationId.TheAppId));
-        //    Assert.That(eventLog.BatchName, Is.EqualTo(batchName));
-        //    Assert.That(eventLog.ProcessName, Is.EqualTo(processName));
-        //    Assert.That(eventLog.TaskName, Is.EqualTo(taskName));
-        //    Assert.That(eventLog.LogSeverityId.ToInteger(), Is.EqualTo(logSeverity.Id()));
-        //    Assert.That(eventLog.StartedOn, Is.EqualTo(DateTimeService.SystemDateTimeNow));
-        //}
-
-        //[TestCase]
-        //public void Test_EndTask_2()
-        //{
-        //    AppId applicationId = CoreInstance.ApplicationId;
-        //    String batchName = "UnitTesting";
-        //    String processName = LocationUtils.GetClassName();
-        //    String taskName = LocationUtils.GetFunctionName();
-        //    String message = $"{batchName} - {processName} - {taskName}";
-        //    LogSeverity logSeverity = LogSeverity.Warning;
-
-        //    TheRepository!.Save(Arg.Any<IEventLog>()).Returns(args =>
-        //    {
-        //        IEventLog entity = (IEventLog)args[0];
-        //        entity.Id = new LogId(1);
-
-        //        return entity;
-        //    });
-
-        //    TheRepository!.Get(Arg.Any<LogId>()).Returns(args =>
-        //    {
-        //        IEventLog entity = CoreInstance.IoC.Get<IEventLog>();
-        //        entity.Id = new LogId(1);
-        //        entity.ApplicationId = new AppId(1);
-        //        entity.BatchName = batchName;
-        //        entity.ProcessName = processName;
-        //        entity.TaskName = taskName;
-        //        entity.LogSeverityId = new EntityId(logSeverity.Id());
-        //        entity.Information = message;
-        //        entity.StartedOn = DateTimeService.SystemDateTimeNow;
-
-        //        return entity;
-        //    });
-
-        //    LogId logId = TheProcess!.StartTask(applicationId, batchName, processName, taskName);
-
-        //    TheProcess!.EndTask(logId, logSeverity, message);
-
-        //    IEventLog eventLog = TheProcess!.Get(logId);
-
-        //    Assert.That(eventLog.Id.TheLogId, Is.EqualTo(logId.TheLogId));
-        //    Assert.That(eventLog.ApplicationId.TheAppId, Is.EqualTo(applicationId.TheAppId));
-        //    Assert.That(eventLog.BatchName, Is.EqualTo(batchName));
-        //    Assert.That(eventLog.ProcessName, Is.EqualTo(processName));
-        //    Assert.That(eventLog.TaskName, Is.EqualTo(taskName));
-        //    Assert.That(eventLog.LogSeverityId.ToInteger(), Is.EqualTo(logSeverity.Id()));
-        //    Assert.That(eventLog.Information, Is.EqualTo(message));
-        //    Assert.That(eventLog.StartedOn, Is.EqualTo(DateTimeService.SystemDateTimeNow));
-        //}
-
-        //[TestCase]
-        //public void Test_Update_EndTask()
-        //{
-        //    AppId applicationId = CoreInstance.ApplicationId;
-        //    String batchName = "UnitTesting";
-        //    String processName = LocationUtils.GetClassName();
-        //    String taskName = LocationUtils.GetFunctionName();
-        //    String message = $"{batchName} - {processName} - {taskName}";
-        //    LogSeverity logSeverity = LogSeverity.Warning;
-
-        //    TheRepository!.Save(Arg.Any<IEventLog>()).Returns(args =>
-        //    {
-        //        IEventLog entity = (IEventLog)args[0];
-        //        entity.Id = new LogId(1);
-
-        //        return entity;
-        //    });
-
-        //    TheRepository!.Get(Arg.Any<LogId>()).Returns(args =>
-        //    {
-        //        IEventLog entity = CoreInstance.IoC.Get<IEventLog>();
-        //        entity.Id = new LogId(1);
-        //        entity.ApplicationId = new AppId(1);
-        //        entity.BatchName = batchName;
-        //        entity.ProcessName = processName;
-        //        entity.TaskName = taskName;
-        //        entity.LogSeverityId = new EntityId(logSeverity.Id());
-        //        entity.Information = message + Environment.NewLine + message;
-        //        entity.StartedOn = DateTimeService.SystemDateTimeNow;
-
-        //        return entity;
-        //    });
-
-        //    LogId logId = TheProcess!.StartTask(applicationId, batchName, processName, taskName);
-
-        //    TheProcess!.UpdateLogEntry(logId, message);
-
-        //    TheProcess!.EndTask(logId, logSeverity, message);
-
-        //    IEventLog eventLog = TheProcess!.Get(logId);
-
-        //    Assert.That(eventLog.Id.TheLogId, Is.EqualTo(logId.TheLogId));
-        //    Assert.That(eventLog.ApplicationId.TheAppId, Is.EqualTo(applicationId.TheAppId));
-        //    Assert.That(eventLog.BatchName, Is.EqualTo(batchName));
-        //    Assert.That(eventLog.ProcessName, Is.EqualTo(processName));
-        //    Assert.That(eventLog.TaskName, Is.EqualTo(taskName));
-        //    Assert.That(eventLog.LogSeverityId.ToInteger(), Is.EqualTo(logSeverity.Id()));
-        //    Assert.That(eventLog.Information, Is.EqualTo(message + Environment.NewLine + message));
-        //    Assert.That(eventLog.StartedOn, Is.EqualTo(DateTimeService.SystemDateTimeNow));
-        //}
-
-        //[TestCase]
-        //public void Test_CreateLogEntry_Handling_ExceptionObjects()
-        //{
-        //    AppId applicationId = CoreInstance.ApplicationId;
-        //    String batchName = "UnitTesting";
-        //    String processName = LocationUtils.GetClassName();
-        //    String taskName = LocationUtils.GetFunctionName();
-        //    LogSeverity logSeverity = LogSeverity.Warning;
-
-        //    TheRepository!.Save(Arg.Any<IEventLog>()).Returns(args =>
-        //    {
-        //        IEventLog entity = (IEventLog)args[0];
-        //        entity.Id = new LogId(1);
-
-        //        return entity;
-        //    });
-
-        //    TheRepository!.Get(Arg.Any<LogId>()).Returns(args =>
-        //    {
-        //        IEventLog entity = CoreInstance.IoC.Get<IEventLog>();
-        //        entity.Id = new LogId(1);
-        //        entity.ParentId = new LogId(1);
-        //        entity.BatchName = String.Empty;
-        //        entity.ProcessName = String.Empty;
-        //        entity.TaskName = String.Empty;
-        //        entity.LogSeverityId = new EntityId(logSeverity.Id());
-        //        entity.StartedOn = DateTimeService.SystemDateTimeNow;
-
-        //        return entity;
-        //    });
-
-        //    LogId logId = TheProcess!.StartTask(applicationId, batchName, processName, taskName);
-        //    LogId updateLogId;
-
-        //    try
-        //    {
-        //        String message = $"{batchName} - {processName} - {taskName}";
-        //        throw new Exception(message);
-        //    }
-        //    catch (Exception exception)
-        //    {
-        //        updateLogId = TheProcess!.CreateLogEntry(logId, applicationId, logSeverity, exception);
-        //    }
-
-        //    IEventLog eventLog = TheProcess!.Get(new EntityId(updateLogId.ToInteger()));
-
-        //    Assert.That(eventLog.Id.TheLogId, Is.EqualTo(updateLogId.TheLogId));
-        //    Assert.That(eventLog.ParentId.TheLogId, Is.EqualTo(logId.TheLogId));
-        //    Assert.That(eventLog.BatchName, Is.EqualTo(String.Empty));
-        //    Assert.That(eventLog.ProcessName, Is.EqualTo(String.Empty));
-        //    Assert.That(eventLog.TaskName, Is.EqualTo(String.Empty));
-        //    Assert.That(eventLog.LogSeverityId.ToInteger(), Is.EqualTo(logSeverity.Id()));
-        //    Assert.That(eventLog.StartedOn, Is.EqualTo(DateTimeService.SystemDateTimeNow));
-        //}
-
-        //[TestCase]
-        //public void Test_CreateLogEntry_Parent_Child()
-        //{
-        //    AppId applicationId = CoreInstance.ApplicationId;
-        //    String batchName = "UnitTesting";
-        //    String processName = LocationUtils.GetClassName();
-        //    String taskName = LocationUtils.GetFunctionName();
-        //    String message = $"{batchName} - {processName} - {taskName}";
-        //    LogSeverity logSeverity = LogSeverity.Trace;
-
-        //    TheRepository!.Save(Arg.Any<IEventLog>()).Returns(args =>
-        //    {
-        //        IEventLog entity = (IEventLog)args[0];
-        //        entity.Id = new LogId(1);
-
-        //        return entity;
-        //    });
-
-        //    TheRepository!.Get(Arg.Any<LogId>()).Returns(args =>
-        //    {
-        //        IEventLog entity = CoreInstance.IoC.Get<IEventLog>();
-        //        entity.Id = new LogId(1);
-        //        entity.ParentId = new LogId(1);
-        //        entity.BatchName = batchName;
-        //        entity.ProcessName = processName;
-        //        entity.TaskName = taskName;
-        //        entity.LogSeverityId = new EntityId(logSeverity.Id());
-        //        entity.Information = message;
-        //        entity.StartedOn = DateTimeService.SystemDateTimeNow;
-
-        //        return entity;
-        //    });
-
-        //    LogId parentLogId = TheProcess!.StartTask(CoreInstance.ApplicationId, batchName, processName, taskName);
-
-        //    LogId logId = TheProcess!.CreateLogEntry(parentLogId, applicationId, batchName, processName, taskName, logSeverity, String.Empty);
-
-        //    TheProcess!.EndTask(logId, logSeverity, message);
-
-        //    IEventLog eventLog = TheProcess!.Get(logId);
-
-        //    Assert.That(eventLog.Id.TheLogId, Is.EqualTo(logId.TheLogId));
-        //    Assert.That(eventLog.ParentId.TheLogId, Is.EqualTo(parentLogId.TheLogId));
-        //    Assert.That(eventLog.BatchName, Is.EqualTo(batchName));
-        //    Assert.That(eventLog.ProcessName, Is.EqualTo(processName));
-        //    Assert.That(eventLog.TaskName, Is.EqualTo(taskName));
-        //    Assert.That(eventLog.LogSeverityId.ToInteger(), Is.EqualTo(logSeverity.Id()));
-        //    Assert.That(eventLog.Information, Is.EqualTo(message));
-        //    Assert.That(eventLog.StartedOn, Is.EqualTo(DateTimeService.SystemDateTimeNow));
-        //}
-
-        //[TestCase]
-        //public void Test_Update_1()
-        //{
-        //    AppId applicationId = CoreInstance.ApplicationId;
-        //    String batchName = "UnitTesting";
-        //    String processName = LocationUtils.GetClassName();
-        //    String taskName = LocationUtils.GetFunctionName();
-        //    String message = $"{batchName} - {processName} - {taskName}";
-        //    LogSeverity logSeverity = LogSeverity.Information;
-
-        //    TheRepository!.Save(Arg.Any<IEventLog>()).Returns(args =>
-        //    {
-        //        IEventLog entity = (IEventLog)args[0];
-        //        entity.Id = new LogId(1);
-
-        //        return entity;
-        //    });
-
-        //    TheRepository!.Get(Arg.Any<LogId>()).Returns(args =>
-        //    {
-        //        IEventLog entity = CoreInstance.IoC.Get<IEventLog>();
-        //        entity.Id = new LogId(1);
-        //        entity.ApplicationId = new AppId(1);
-        //        entity.BatchName = batchName;
-        //        entity.ProcessName = processName;
-        //        entity.TaskName = taskName;
-        //        entity.LogSeverityId = new EntityId(logSeverity.Id());
-        //        entity.Information = message + Environment.NewLine + message;
-        //        entity.StartedOn = DateTimeService.SystemDateTimeNow;
-
-        //        return entity;
-        //    });
-
-        //    LogId logId = TheProcess!.StartTask(applicationId, batchName, processName, taskName);
-
-        //    TheProcess!.UpdateLogEntry(logId, message);
-        //    TheProcess!.UpdateLogEntry(logId, message);
-
-        //    IEventLog eventLog = TheProcess!.Get(logId);
-
-        //    Assert.That(eventLog.Id.TheLogId, Is.EqualTo(logId.TheLogId));
-        //    Assert.That(eventLog.ApplicationId.TheAppId, Is.EqualTo(applicationId.TheAppId));
-        //    Assert.That(eventLog.BatchName, Is.EqualTo(batchName));
-        //    Assert.That(eventLog.ProcessName, Is.EqualTo(processName));
-        //    Assert.That(eventLog.TaskName, Is.EqualTo(taskName));
-        //    Assert.That(eventLog.LogSeverityId.ToInteger(), Is.EqualTo(logSeverity.Id()));
-        //    Assert.That(eventLog.Information, Is.EqualTo(message + Environment.NewLine + message));
-        //    Assert.That(eventLog.StartedOn, Is.EqualTo(DateTimeService.SystemDateTimeNow));
-        //}
     }
 }

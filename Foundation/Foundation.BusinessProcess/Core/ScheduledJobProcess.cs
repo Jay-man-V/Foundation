@@ -35,21 +35,21 @@ namespace Foundation.BusinessProcess.Core
         /// <param name="core">The Foundation Core service</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings</param>
         /// <param name="dateTimeService">The date time service</param>
-        /// <param name="repository">The data access.</param>
-        /// <param name="statusRepository">The status data access.</param>
-        /// <param name="userProfileRepository">The user profile data access.</param>
-        /// <param name="loggingService">The logging service.</param>
-        /// <param name="scheduleIntervalProcess">The schedule interval process.</param>
-        /// <param name="calendarProcess">The calendar process.</param>
+        /// <param name="repository">The data access</param>
+        /// <param name="statusRepository">The status data access</param>
+        /// <param name="userProfileRepository">The user profile data access</param>
+        /// <param name="loggingService">The logging service</param>
+        /// <param name="scheduleIntervalProcess">The schedule interval process</param>
+        /// <param name="calendarProcess">The calendar process</param>
         public ScheduledJobProcess
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
+            ILoggingService loggingService,
             IScheduledJobRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
-            ILoggingService loggingService,
             IScheduleIntervalProcess scheduleIntervalProcess,
             ICalendarProcess calendarProcess
         ) 
@@ -58,14 +58,14 @@ namespace Foundation.BusinessProcess.Core
                 core,
                 runTimeEnvironmentSettings,
                 dateTimeService,
+                loggingService,
                 repository,
                 statusRepository,
                 userProfileRepository
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, repository, statusRepository, userProfileRepository, scheduleIntervalProcess, calendarProcess, loggingService);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, scheduleIntervalProcess, calendarProcess);
 
-            LoggingService = loggingService;
             ScheduleIntervalProcess = scheduleIntervalProcess;
             CalendarProcess = calendarProcess;
 
@@ -73,14 +73,6 @@ namespace Foundation.BusinessProcess.Core
 
             LoggingHelpers.TraceCallReturn();
         }
-
-        /// <summary>
-        /// Gets the logging service
-        /// </summary>
-        /// <value>
-        /// The logging service
-        /// </value>
-        private ILoggingService LoggingService { get; }
 
         /// <summary>
         /// Gets the schedule interval process.

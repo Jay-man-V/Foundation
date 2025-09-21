@@ -25,20 +25,22 @@ namespace Foundation.BusinessProcess.Core
         /// Initialises a new instance of the <see cref="CountryProcess" /> class.
         /// </summary>
         /// <param name="core">The Foundation Core service</param>
-        /// <param name="runTimeEnvironmentSettings">The runtime environment settings.</param>
+        /// <param name="runTimeEnvironmentSettings">The runtime environment settings</param>
         /// <param name="dateTimeService">The date time service</param>
-        /// <param name="repository">The data access.</param>
-        /// <param name="statusRepository">The status data access.</param>
-        /// <param name="userProfileRepository">The user profile data access.</param>
-        /// <param name="currencyProcess">The currency process.</param>
-        /// <param name="languageProcess">The language process.</param>
-        /// <param name="timeZoneProcess">The time zone process.</param>
-        /// <param name="worldRegionProcess">The world region process.</param>
+        /// <param name="loggingService">The logging service</param>
+        /// <param name="repository">The data access</param>
+        /// <param name="statusRepository">The status data access</param>
+        /// <param name="userProfileRepository">The user profile data access</param>
+        /// <param name="currencyProcess">The currency process</param>
+        /// <param name="languageProcess">The language process</param>
+        /// <param name="timeZoneProcess">The time zone process</param>
+        /// <param name="worldRegionProcess">The world region process</param>
         public CountryProcess
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
+            ILoggingService loggingService,
             ICountryRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
@@ -53,12 +55,13 @@ namespace Foundation.BusinessProcess.Core
                 core,
                 runTimeEnvironmentSettings,
                 dateTimeService,
+                loggingService,
                 repository,
                 statusRepository,
                 userProfileRepository
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, repository, statusRepository, userProfileRepository, currencyProcess, languageProcess, timeZoneProcess, worldRegionProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, currencyProcess, languageProcess, timeZoneProcess, worldRegionProcess);
 
             CurrencyProcess = currencyProcess;
             LanguageProcess = languageProcess;

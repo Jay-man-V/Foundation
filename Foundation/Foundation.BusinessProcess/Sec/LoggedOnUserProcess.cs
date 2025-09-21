@@ -25,19 +25,21 @@ namespace Foundation.BusinessProcess.Sec
         /// Initialises a new instance of the <see cref="LoggedOnUserProcess" /> class.
         /// </summary>
         /// <param name="core">The Foundation Core service</param>
-        /// <param name="runTimeEnvironmentSettings">The runtime environment settings.</param>
+        /// <param name="runTimeEnvironmentSettings">The runtime environment settings</param>
         /// <param name="dateTimeService">The date time service</param>
-        /// <param name="repository">The data access.</param>
-        /// <param name="statusRepository">The status data access.</param>
-        /// <param name="userProfileRepository">The user profile data access.</param>
-        /// <param name="applicationProcess">The application process.</param>
-        /// <param name="roleProcess">The role process.</param>
-        /// <param name="userProfileProcess">The user profile process.</param>
+        /// <param name="loggingService">The logging service</param>
+        /// <param name="repository">The data access</param>
+        /// <param name="statusRepository">The status data access</param>
+        /// <param name="userProfileRepository">The user profile data access</param>
+        /// <param name="applicationProcess">The application process</param>
+        /// <param name="roleProcess">The role process</param>
+        /// <param name="userProfileProcess">The user profile process</param>
         public LoggedOnUserProcess
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
+            ILoggingService loggingService,
             ILoggedOnUserRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
@@ -50,12 +52,13 @@ namespace Foundation.BusinessProcess.Sec
                 core,
                 runTimeEnvironmentSettings,
                 dateTimeService,
+                loggingService,
                 repository,
                 statusRepository,
                 userProfileRepository
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, repository, statusRepository, userProfileRepository, applicationProcess, roleProcess, userProfileProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, applicationProcess, roleProcess, userProfileProcess);
 
             ApplicationProcess = applicationProcess;
             RoleProcess = roleProcess;

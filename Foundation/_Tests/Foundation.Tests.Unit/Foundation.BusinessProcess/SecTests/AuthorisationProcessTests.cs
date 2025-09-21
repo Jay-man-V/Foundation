@@ -30,7 +30,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             PermissionMatrixProcess = Substitute.For<IPermissionMatrixProcess>();
             IAuthenticationProcess authenticationProcess = Substitute.For<IAuthenticationProcess>();
 
-            TheProcess = new AuthorisationProcess(CoreInstance, PermissionMatrixProcess, authenticationProcess);
+            TheProcess = new AuthorisationProcess(CoreInstance, LoggingService, PermissionMatrixProcess, authenticationProcess);
         }
 
         private AuthenticationToken GetAuthenticationToken()

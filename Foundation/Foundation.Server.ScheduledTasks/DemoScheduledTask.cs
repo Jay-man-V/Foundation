@@ -38,8 +38,7 @@ namespace Foundation.Server.ScheduledTasks
                 core,
                 runTimeEnvironmentSettings,
                 dateTimeService,
-                loggingService,
-                calendarProcess
+                loggingService
             )
         {
             LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, calendarProcess);

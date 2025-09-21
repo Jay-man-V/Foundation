@@ -18,13 +18,15 @@ namespace Foundation.BusinessProcess.Sec
         /// </summary>
         /// <param name="core">The Foundation Core service</param>
         /// <param name="repository">The data access</param>
+        /// <param name="loggingService">The logging service</param>
         public AuthenticationProcess
         (
             ICore core,
+            ILoggingService loggingService,
             IAuthenticationRepository repository
         )
         {
-            LoggingHelpers.TraceCallEnter(core, repository);
+            LoggingHelpers.TraceCallEnter(core, loggingService, repository);
 
             Core = core;
             Repository = repository;

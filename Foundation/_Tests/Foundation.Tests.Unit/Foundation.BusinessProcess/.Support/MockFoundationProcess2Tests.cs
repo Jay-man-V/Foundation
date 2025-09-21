@@ -37,7 +37,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.Support
 
             CopyProperties(applicationProcess, CoreInstance.IoC.Get<IApplicationProcess>());
 
-            IMockFoundationModelProcess2 retVal = new MockFoundationModelProcess2(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, TheRepository!, StatusRepository!, UserProfileRepository!);
+            IMockFoundationModelProcess2 retVal = new MockFoundationModelProcess2(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService!, TheRepository!, StatusRepository!, UserProfileRepository!);
 
             return retVal;
         }
