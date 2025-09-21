@@ -383,6 +383,7 @@ namespace Foundation.Tests.Unit.Support
             String pattern1 = @"\d\d-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4} \d\d:\d\d:\d\d.\d\d\d";
             String pattern2 = @"\d\d-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4} \d\d:\d\d:\d\d";
             String pattern3 = @"([\d]{8}T[\d]{6})|([\d]{4}-[\d]{2}-[\d]{2} [\d]{2}_[\d]{2}_[\d]{2})";
+            String pattern4 = @"([\d]{8}T[\d]{6})|([\d]{4}-[\d]{2}-[\d]{2}T[\d]{2}:[\d]{2}:[\d]{2}\.[\d]{3})";
 
             Regex regex = new(pattern1);
             Match match = regex.Match(retVal);
@@ -403,6 +404,13 @@ namespace Foundation.Tests.Unit.Support
             if (match.Success)
             {
                 retVal = regex.Replace(retVal, "<<Date/Time>>");
+            }
+
+            regex = new(pattern4);
+            match = regex.Match(retVal);
+            if (match.Success)
+            {
+                retVal = regex.Replace(retVal, "<<yyyy-MM-DDTHH:mm:ss.fff>>");
             }
 
             return retVal;

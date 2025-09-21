@@ -12,7 +12,7 @@
     </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
+    <Compile Include="..\..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
     <Compile Include=".Mocks\CancelEventArgs.cs" />
     <Compile Include=".Mocks\MockApplicationStartup.cs" />
     <Compile Include=".Mocks\MockApplication.cs" />
@@ -209,35 +209,36 @@
     <Folder Include=".ExpectedResults\Foundation.Resources\Images\Logos\" />
     <Folder Include=".NetFramework\DependencyInjectionTests\" />
     <Folder Include=".Support\Configs\" />
-    <Folder Include="Foundation.BusinessProcess\CoreTests\" />
-    <Folder Include="Foundation.BusinessProcess\LogTests\" />
+    <Folder Include="Foundation.BusinessProcess\CoreTests\SchedulersTests\" />
+    <Folder Include="Foundation.BusinessProcess\CoreTests\NonWorkingDaySupportTests\" />
+    <Folder Include="Foundation.BusinessProcess\CoreTests\EnumProcessesTests\" />
     <Folder Include="Foundation.BusinessProcess\MainTests\" />
     <Folder Include="Foundation.Models\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Applications\Customer Contact\CustomerContact.Client\CustomerContact.Client.csproj" />
-    <ProjectReference Include="..\Foundation.BusinessProcess\Foundation.BusinessProcess.csproj" />
-    <ProjectReference Include="..\Foundation.Common\Foundation.Common.csproj" />
-    <ProjectReference Include="..\Foundation.Core\Foundation.Core.csproj" />
-    <ProjectReference Include="..\Foundation.DataAccess.Csv\Foundation.DataAccess.Csv.csproj" />
-    <ProjectReference Include="..\Foundation.DataAccess.Database\Foundation.DataAccess.Database.csproj" />
-    <ProjectReference Include="..\Foundation.DocumentGenerator\Foundation.DocumentGenerator.csproj" />
-    <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
-    <ProjectReference Include="..\Foundation.Models\Foundation.Models.csproj" />
-    <ProjectReference Include="..\Foundation.Repository\Foundation.Repository.csproj" />
-    <ProjectReference Include="..\Foundation.Resources\Foundation.Resources.csproj" />
-    <ProjectReference Include="..\Foundation.Server.ScheduledTasks\Foundation.Server.ScheduledTasks.csproj" />
-    <ProjectReference Include="..\Foundation.Services.Application\Foundation.Services.Application.csproj" />
-    <ProjectReference Include="..\Foundation.Services.FileIdentification\Foundation.Services.FileIdentification.csproj" />
-    <ProjectReference Include="..\Foundation.Services.Mail\Foundation.Services.Mail.csproj" />
-    <ProjectReference Include="..\Foundation.Services.MessageQueue\Foundation.Services.MessageQueue.csproj" />
-    <ProjectReference Include="..\Foundation.Services.UserInteraction\Foundation.Services.UserInteraction.csproj" />
-    <ProjectReference Include="..\Foundation.Services.WebApi\Foundation.Services.WebApi.csproj" />
-    <ProjectReference Include="..\Foundation.Service\Foundation.Service.csproj" />
-    <ProjectReference Include="..\Foundation.ViewModels\Foundation.ViewModels.csproj" />
-    <ProjectReference Include="..\Foundation.Views\Foundation.Views.csproj" />
-    <ProjectReference Include="..\Foundation.WorkflowEngine\Foundation.WorkflowEngine.csproj" />
+    <ProjectReference Include="..\..\..\Applications\Customer Contact\CustomerContact.Client\CustomerContact.Client.csproj" />
+    <ProjectReference Include="..\..\Foundation.BusinessProcess\Foundation.BusinessProcess.csproj" />
+    <ProjectReference Include="..\..\Foundation.Common\Foundation.Common.csproj" />
+    <ProjectReference Include="..\..\Foundation.Core\Foundation.Core.csproj" />
+    <ProjectReference Include="..\..\Foundation.DataAccess.Csv\Foundation.DataAccess.Csv.csproj" />
+    <ProjectReference Include="..\..\Foundation.DataAccess.Database\Foundation.DataAccess.Database.csproj" />
+    <ProjectReference Include="..\..\Foundation.DocumentGenerator\Foundation.DocumentGenerator.csproj" />
+    <ProjectReference Include="..\..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
+    <ProjectReference Include="..\..\Foundation.Models\Foundation.Models.csproj" />
+    <ProjectReference Include="..\..\Foundation.Repository\Foundation.Repository.csproj" />
+    <ProjectReference Include="..\..\Foundation.Resources\Foundation.Resources.csproj" />
+    <ProjectReference Include="..\..\Foundation.Server.ScheduledTasks\Foundation.Server.ScheduledTasks.csproj" />
+    <ProjectReference Include="..\..\Foundation.Services.Application\Foundation.Services.Application.csproj" />
+    <ProjectReference Include="..\..\Foundation.Services.FileIdentification\Foundation.Services.FileIdentification.csproj" />
+    <ProjectReference Include="..\..\Foundation.Services.Mail\Foundation.Services.Mail.csproj" />
+    <ProjectReference Include="..\..\Foundation.Services.MessageQueue\Foundation.Services.MessageQueue.csproj" />
+    <ProjectReference Include="..\..\Foundation.Services.UserInteraction\Foundation.Services.UserInteraction.csproj" />
+    <ProjectReference Include="..\..\Foundation.Services.WebApi\Foundation.Services.WebApi.csproj" />
+    <ProjectReference Include="..\..\Foundation.Service\Foundation.Service.csproj" />
+    <ProjectReference Include="..\..\Foundation.ViewModels\Foundation.ViewModels.csproj" />
+    <ProjectReference Include="..\..\Foundation.Views\Foundation.Views.csproj" />
+    <ProjectReference Include="..\..\Foundation.WorkflowEngine\Foundation.WorkflowEngine.csproj" />
   </ItemGroup>
 
   <ItemGroup>

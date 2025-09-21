@@ -507,13 +507,13 @@ namespace Foundation.Services.Application
         }
 
         /// <inheritdoc cref="IRemoteServiceApi.DownloadFile(IFileTransferSettings)"/>
-        public Stream DownloadFile(IFileTransferSettings fileTransferSettings)
+        public Stream? DownloadFile(IFileTransferSettings fileTransferSettings)
         {
             LoggingHelpers.TraceCallEnter(fileTransferSettings);
 
-            Task<Stream> t = DownloadFileAsync(fileTransferSettings);
+            Task<Stream?> t = DownloadFileAsync(fileTransferSettings);
             t.Wait();
-            Stream retVal = t.Result;
+            Stream? retVal = t.Result;
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -521,7 +521,7 @@ namespace Foundation.Services.Application
         }
 
         /// <inheritdoc cref="IRemoteServiceApi.DownloadFileAsync(IFileTransferSettings)"/>
-        public async Task<Stream> DownloadFileAsync(IFileTransferSettings fileTransferSettings)
+        public async Task<Stream?> DownloadFileAsync(IFileTransferSettings fileTransferSettings)
         {
             LoggingHelpers.TraceCallEnter(fileTransferSettings);
 

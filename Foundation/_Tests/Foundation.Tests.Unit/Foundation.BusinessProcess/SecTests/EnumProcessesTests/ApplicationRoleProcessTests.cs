@@ -10,7 +10,7 @@ using Foundation.BusinessProcess.Sec.EnumProcesses;
 using Foundation.Common;
 using Foundation.Interfaces;
 
-namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
+namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests.EnumProcessesTests
 {
     /// <summary>
     /// Summary description for ApplicationRoleProcessTests
