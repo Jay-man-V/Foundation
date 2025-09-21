@@ -504,6 +504,11 @@ namespace Foundation.Tests.Unit.Support
                 @"User: '\w+\\\w+'"
             ];
 
+            String[] patterns4 =
+            [
+                @"^(\w:\\Users)\\([\w]*)"
+            ];
+
             foreach (String pattern in patterns1)
             {
                 Regex regex = new(pattern);
@@ -531,6 +536,16 @@ namespace Foundation.Tests.Unit.Support
                 if (match.Success)
                 {
                     retVal = regex.Replace(retVal, @"User: '<<domain\user>>'");
+                }
+            }
+
+            foreach (String pattern in patterns4)
+            {
+                Regex regex = new(pattern);
+                Match match = regex.Match(retVal);
+                if (match.Success)
+                {
+                    retVal = regex.Replace(retVal, @"$1\<<user>>");
                 }
             }
 

@@ -126,6 +126,12 @@
     <None Include=".Support\SampleDocuments\Blank_5x5.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include=".ExpectedResults\Foundation.Resources\Images\Logos\JDV Software Logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".ExpectedResults\Foundation.Resources\EmailTemplates\Formal Template.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <EmbeddedResource Include=".Support\SampleDocuments\Embedded Documents\Embedded Sample Text Document.txt">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -205,8 +211,6 @@
 
   <ItemGroup>
     <Folder Include=".ExpectedResults\ExportToCsv\" />
-    <Folder Include=".ExpectedResults\Foundation.Resources\EmailTemplates\" />
-    <Folder Include=".ExpectedResults\Foundation.Resources\Images\Logos\" />
     <Folder Include=".NetFramework\DependencyInjectionTests\" />
     <Folder Include=".Support\Configs\" />
     <Folder Include="Foundation.BusinessProcess\CoreTests\SchedulersTests\" />

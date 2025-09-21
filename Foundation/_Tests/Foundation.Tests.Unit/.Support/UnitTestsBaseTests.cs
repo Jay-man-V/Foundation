@@ -129,6 +129,8 @@ namespace Foundation.Tests.Unit.Support
                 @"User: 'MyDomain\MyUser'",
                 @"User: MyDomain\MyUser",
                 @"User: .\UnitTestUserName",
+                @"C:\Users\jayes\OneDrive\Documents",
+                @"C:\Users\jayes\AppData\Local\Temp",
             ];
 
             String[] expectedResults =
@@ -138,6 +140,8 @@ namespace Foundation.Tests.Unit.Support
                 @"User: '<<domain\user>>'",
                 @"User: <<domain\user>>",
                 @"User: <<domain\user>>",
+                @"C:\Users\<<user>>\OneDrive\Documents",
+                @"C:\Users\<<user>>\AppData\Local\Temp",
             ];
 
             for (Int32 counter = 0; counter < inputs.Length; counter++)

@@ -7,22 +7,11 @@
 namespace Foundation.Tests.Unit.Support
 {
     /// <summary>
-    /// The unit test template class
+    /// Unit Tests for the <<template>> class
     /// </summary>
     [TestFixture]
     public class UnitTestTemplate : UnitTestBase
     {
-        /// <summary>
-        /// Tests the method1.
-        /// </summary>
-        [TestCase]
-        public void TestMethod1()
-        {
-            ////
-            //// TODO: Add test logic here
-            ////
-        }
-
         public override void TestInitialise()
         {
             base.TestInitialise();
@@ -33,5 +22,15 @@ namespace Foundation.Tests.Unit.Support
             base.TestCleanup();
         }
 
+        /// <summary>
+        /// Tests the method1.
+        /// </summary>
+        [TestCase]
+        public void TestMethod1()
+        {
+            ////
+            //// TODO: Add test logic here
+            ////
+        }
     }
 }

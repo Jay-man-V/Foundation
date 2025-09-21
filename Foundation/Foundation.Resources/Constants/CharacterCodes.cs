@@ -11,6 +11,10 @@ namespace Foundation.Resources
     /// </summary>
     public static class CharacterCodes
     {
+        /*
+         * Commonly used for file parsing
+         */
+
         /// <summary>
         /// \r or (Char)13
         /// </summary>
@@ -36,6 +40,10 @@ namespace Foundation.Resources
         /// </summary>
         public static Char SingleQuote => '\'';
 
+        /*
+         * Commonly used for random generation
+         */
+        
         /// <summary>
         /// List of English alphabetical upper case characters (A-Z)
         /// </summary>

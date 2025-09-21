@@ -19,6 +19,6 @@ namespace Foundation.Resources
         /// <summary>
         /// The temporary directory
         /// </summary>
-        public static String TempDirectory => Environment.GetEnvironmentVariable("TEMP", EnvironmentVariableTarget.User) ?? @"C:\Windows\Temp"; //: TODO - %USERPROFILE%\AppData\Local\Temp 
+        public static String TempDirectory => Environment.GetEnvironmentVariable("TEMP", EnvironmentVariableTarget.User) ?? Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\AppData\Local\Temp");
     }
 }
