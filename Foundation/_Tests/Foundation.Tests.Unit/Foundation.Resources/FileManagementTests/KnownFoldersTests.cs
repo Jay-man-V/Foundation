@@ -4,13 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.Reflection;
-using System.Runtime.InteropServices;
-
+using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Resources;
-
 using Foundation.Tests.Unit.Support;
+
+using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace Foundation.Tests.Unit.Foundation.Resources.FileManagementTests
 {
@@ -219,25 +219,16 @@ namespace Foundation.Tests.Unit.Foundation.Resources.FileManagementTests
 
             String expectedMessage = $"Unable to retrieve the known folder path '{knownFolder}'. It may not be available on this system.";
             Int32 expectedErrorCode = -2147024809;
-            Exception actualException = null;
 
-            try
+            ExternalException actualException = Assert.Throws<ExternalException>(() =>
             {
                 Boolean defaultUser = true;
                 KnownFolders.GetPath(knownFolder, KnownFolders.KnownFolderFlags.AliasOnly, defaultUser);
-            }
-            catch (Exception exception)
-            {
-                actualException = exception;
-            }
+            });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
-            Assert.That(actualException, Is.InstanceOf<ExternalException>());
-
-            ExternalException eeException = actualException as ExternalException;
-
-            Assert.That(eeException.Message, Is.EqualTo(expectedMessage));
-            Assert.That(eeException.ErrorCode, Is.EqualTo(expectedErrorCode));
+            Assert.That(actualException.Message, Is.EqualTo(expectedMessage));
+            Assert.That(actualException.ErrorCode, Is.EqualTo(expectedErrorCode));
         }
     }
 }

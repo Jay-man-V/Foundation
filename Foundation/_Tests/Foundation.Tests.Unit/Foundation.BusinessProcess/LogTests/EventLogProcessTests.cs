@@ -44,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
             ILogSeverityProcess logSeverityProcess = Substitute.For<ILogSeverityProcess>();
             ITaskStatusProcess taskStatusProcess = Substitute.For<ITaskStatusProcess>();
 
-            IEventLogProcess process = new EventLogProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService!, TheRepository!, StatusRepository!, UserProfileRepository!, logSeverityProcess, taskStatusProcess);
+            IEventLogProcess process = new EventLogProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, logSeverityProcess, taskStatusProcess);
 
             return process;
         }

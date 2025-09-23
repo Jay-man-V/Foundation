@@ -10,6 +10,7 @@ using System.Text;
 using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
+using Foundation.Repository;
 using Foundation.Repository.LocalModels;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
@@ -64,7 +65,7 @@ namespace Foundation.Repository.Core
 
             StringBuilder sql = new StringBuilder();
 
-            sql.AppendLine($"SELECT {FDC.Functions.IsNonWorkingDay} ( {DataLogicProvider.DatabaseParameterPrefix}{FDC.Country.EntityName}{FDC.Country.IsoCode}, {DataLogicProvider.DatabaseParameterPrefix}{FDC.NonWorkingDay.EntityName}{FDC.NonWorkingDay.Date} )");
+            sql.AppendLine($"SELECT {Functions.IsNonWorkingDay} ( {DataLogicProvider.DatabaseParameterPrefix}{FDC.Country.EntityName}{FDC.Country.IsoCode}, {DataLogicProvider.DatabaseParameterPrefix}{FDC.NonWorkingDay.EntityName}{FDC.NonWorkingDay.Date} )");
 
             IDatabaseParameters databaseParameters = new DatabaseParameters
             {
@@ -90,13 +91,13 @@ namespace Foundation.Repository.Core
 
             StringBuilder sql = new StringBuilder();
 
-            sql.AppendLine($"SELECT {FDC.Functions.GetNextWorkingDay.FunctionName} {DataLogicProvider.DatabaseParameterPrefix}( {FDC.Functions.GetNextWorkingDay.Parameters.StartDate}, {DataLogicProvider.DatabaseParameterPrefix}{FDC.Functions.GetNextWorkingDay.Parameters.IntervalType}, {DataLogicProvider.DatabaseParameterPrefix}{FDC.Functions.GetNextWorkingDay.Parameters.Interval} ) OPTION ( MaxRecursion 2000 )");
+            sql.AppendLine($"SELECT {Functions.GetNextWorkingDay.FunctionName} {DataLogicProvider.DatabaseParameterPrefix}( {Functions.GetNextWorkingDay.Parameters.StartDate}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.IntervalType}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.Interval} ) OPTION ( MaxRecursion 2000 )");
 
             DatabaseParameters databaseParameters =
             [
-                CreateParameter(FDC.Functions.GetNextWorkingDay.Parameters.StartDate, date),
-                CreateParameter(FDC.Functions.GetNextWorkingDay.Parameters.IntervalType, intervalType),
-                CreateParameter(FDC.Functions.GetNextWorkingDay.Parameters.Interval, interval),
+                CreateParameter(Functions.GetNextWorkingDay.Parameters.StartDate, date),
+                CreateParameter(Functions.GetNextWorkingDay.Parameters.IntervalType, intervalType),
+                CreateParameter(Functions.GetNextWorkingDay.Parameters.Interval, interval),
             ];
 
             Object? objectValue = ExecuteScalar(sql.ToString(), CommandType.Text, databaseParameters);
@@ -120,13 +121,13 @@ namespace Foundation.Repository.Core
 
             StringBuilder sql = new StringBuilder();
 
-            sql.AppendLine($"SELECT {FDC.Functions.CheckIsWorkingDayOrGetNextWorkingDay.FunctionName} ( {DataLogicProvider.DatabaseParameterPrefix}{FDC.Functions.CheckIsWorkingDayOrGetNextWorkingDay.Parameters.StartDate} ) OPTION ( MaxRecursion 2000 )");
+            sql.AppendLine($"SELECT {Functions.CheckIsWorkingDayOrGetNextWorkingDay.FunctionName} ( {DataLogicProvider.DatabaseParameterPrefix}{Functions.CheckIsWorkingDayOrGetNextWorkingDay.Parameters.StartDate} ) OPTION ( MaxRecursion 2000 )");
 
             sql = sql.Replace("@", DataLogicProvider.DatabaseParameterPrefix);
 
             DatabaseParameters databaseParameters =
             [
-                CreateParameter(FDC.Functions.CheckIsWorkingDayOrGetNextWorkingDay.Parameters.StartDate, date),
+                CreateParameter(Functions.CheckIsWorkingDayOrGetNextWorkingDay.Parameters.StartDate, date),
             ];
 
             Object? objectValue = ExecuteScalar(sql.ToString(), CommandType.Text, databaseParameters);
@@ -207,17 +208,17 @@ namespace Foundation.Repository.Core
 
             StringBuilder sql = new StringBuilder();
             sql.AppendLine("SELECT");
-            sql.AppendLine($"    MIN({FDC.Functions.GetListOfWorkingDates.Columns.Date}) AS FirstWorkingDayOfMonth,");
-            sql.AppendLine($"    MAX({FDC.Functions.GetListOfWorkingDates.Columns.Date}) AS LastWorkingDayOfMonth");
+            sql.AppendLine($"    MIN({Functions.GetListOfWorkingDates.Columns.Date}) AS FirstWorkingDayOfMonth,");
+            sql.AppendLine($"    MAX({Functions.GetListOfWorkingDates.Columns.Date}) AS LastWorkingDayOfMonth");
             sql.AppendLine("FROM");
-            sql.AppendLine($"    {FDC.Functions.GetListOfWorkingDates.FunctionName} ( {DataLogicProvider.DatabaseParameterPrefix}{FDC.Functions.GetListOfWorkingDates.Parameters.StartDate}, {DataLogicProvider.DatabaseParameterPrefix}{FDC.Functions.GetListOfWorkingDates.Parameters.EndDate} )");
+            sql.AppendLine($"    {Functions.GetListOfWorkingDates.FunctionName} ( {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetListOfWorkingDates.Parameters.StartDate}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetListOfWorkingDates.Parameters.EndDate} )");
             sql.AppendLine("WHERE");
-            sql.AppendLine($"    {FDC.Functions.GetListOfWorkingDates.Columns.DayOfWeekIndex} NOT IN ( 1 /* Sunday */ , 7 /* Saturday */ )"); // TODO: Need to move this to a lookup base on the country code
+            sql.AppendLine($"    {Functions.GetListOfWorkingDates.Columns.DayOfWeekIndex} NOT IN ( 1 /* Sunday */ , 7 /* Saturday */ )"); // TODO: Need to move this to a lookup base on the country code
 
             DatabaseParameters databaseParameters =
             [
-                CreateParameter(FDC.Functions.GetListOfWorkingDates.Parameters.StartDate, startOfMonth.Date),
-                CreateParameter(FDC.Functions.GetListOfWorkingDates.Parameters.EndDate, endOfMonth.Date),
+                CreateParameter(Functions.GetListOfWorkingDates.Parameters.StartDate, startOfMonth.Date),
+                CreateParameter(Functions.GetListOfWorkingDates.Parameters.EndDate, endOfMonth.Date),
             ];
 
             DataTable dt = ExecuteDataTable(sql.ToString(), CommandType.Text, databaseParameters);

@@ -30,6 +30,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess
             Assert.That(commonProcess!.Core, Is.Not.EqualTo(null));
             Assert.That(commonProcess!.RunTimeEnvironmentSettings, Is.Not.EqualTo(null));
             Assert.That(commonProcess!.DateTimeService, Is.Not.EqualTo(null));
+            Assert.That(commonProcess!.LoggingService, Is.Not.EqualTo(null));
         }
     }
 }

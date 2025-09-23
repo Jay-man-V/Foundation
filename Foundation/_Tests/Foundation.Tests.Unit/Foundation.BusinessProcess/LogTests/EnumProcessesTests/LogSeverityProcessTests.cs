@@ -41,7 +41,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests.EnumProcesse
 
         protected override ILogSeverityProcess CreateBusinessProcess(IDateTimeService dateTimeService)
         {
-            ILogSeverityProcess process = new LogSeverityProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService!, TheRepository!, StatusRepository!, UserProfileRepository!);
+            ILogSeverityProcess process = new LogSeverityProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!);
 
             return process;
         }

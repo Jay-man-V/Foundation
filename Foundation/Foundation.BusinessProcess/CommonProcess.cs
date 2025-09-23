@@ -66,6 +66,6 @@ namespace Foundation.BusinessProcess
         /// <value>
         /// The logging service.
         /// </value>
-        protected ILoggingService LoggingService { get; }
+        protected internal ILoggingService LoggingService { get; }
     }
 }

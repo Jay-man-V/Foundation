@@ -66,9 +66,12 @@ namespace Foundation.Tests.Unit.Support
         protected List<IUserProfile> UserProfileList { get; set; }
         protected List<ILoggedOnUser> LoggedOnUsersList { get; set; }
 
-        protected static class ErrorMessages
+        protected static class StandardErrorMessages
         {
-            public static readonly String ArgumentNullExpectedErrorMessage = "Empty {1} cannot be null. (Parameter '{0}')";
+            /// <summary>
+            /// Value cannot be null. (Parameter '{0}')
+            /// </summary>
+            public static readonly String ArgumentNullExpectedErrorMessage = "Value cannot be null. (Parameter '{0}')";
         }
         protected List<IStatus> GetListOfStatuses()
         {
@@ -684,12 +687,6 @@ namespace Foundation.Tests.Unit.Support
                 @"[\w]*-[\w]*-[\w]*-[\w]*-[\w]*"
             ];
 
-            String[] patterns2 =
-            [
-                @"[\w]*-[\w]*"
-            ];
-
-
             foreach (String pattern in patterns1)
             {
                 Regex regex = new Regex(pattern);
@@ -697,16 +694,6 @@ namespace Foundation.Tests.Unit.Support
                 if (match.Success)
                 {
                     retVal = regex.Replace(retVal, "anananan-anan-anan-anan-anananananan");
-                }
-            }
-
-            foreach (String pattern in patterns2)
-            {
-                Regex regex = new Regex(pattern);
-                Match match = regex.Match(retVal);
-                if (match.Success)
-                {
-                    retVal = regex.Replace(retVal, "anananan-anan");
                 }
             }
 

@@ -10,6 +10,7 @@ using System.Text;
 using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
+using Foundation.Resources;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
@@ -72,7 +73,7 @@ namespace Foundation.Repository.Core
             sql.AppendLine("FROM");
             sql.AppendLine($"    {FDC.TableNames.NonWorkingDay} nwd");
             sql.AppendLine("WHERE");
-            sql.AppendLine($"    nwd.{FDC.NonWorkingDay.StatusId} IN ( SELECT {FDC.Status.Id} FROM {FDC.Functions.GetListOfActiveStatuses} (1) ) AND");
+            sql.AppendLine($"    nwd.{FDC.NonWorkingDay.StatusId} IN ( SELECT {FDC.Status.Id} FROM {Functions.GetListOfActiveStatuses} (1) ) AND");
             sql.AppendLine(DataLogicProvider.GetDateComparisonSql($"nwd.{FDC.NonWorkingDay.Date}", DataLogicProvider.DatabaseParameterPrefix + FDC.NonWorkingDay.EntityName + FDC.NonWorkingDay.Date, " = 0 AND"));
             sql.AppendLine($"    nwd.{FDC.NonWorkingDay.CountryId} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.NonWorkingDay.EntityName}{FDC.NonWorkingDay.CountryId}");
 

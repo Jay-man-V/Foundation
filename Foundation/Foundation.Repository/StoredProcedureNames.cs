@@ -1,10 +1,10 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="StoredProcedures.cs" company="JDV Software Ltd">
+// <copyright file="StoredProcedureNames.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Foundation.Resources.Constants.DataColumns
+namespace Foundation.Repository
 {
     /// <summary>
     /// Stored Procedure Names

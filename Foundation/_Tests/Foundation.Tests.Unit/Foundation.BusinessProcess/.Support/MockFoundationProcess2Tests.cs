@@ -37,7 +37,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.Support
 
             CopyProperties(applicationProcess, CoreInstance.IoC.Get<IApplicationProcess>());
 
-            IMockFoundationModelProcess2 retVal = new MockFoundationModelProcess2(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService!, TheRepository!, StatusRepository!, UserProfileRepository!);
+            IMockFoundationModelProcess2 retVal = new MockFoundationModelProcess2(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!);
 
             return retVal;
         }
@@ -70,7 +70,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.Support
             retVal.UnitPrice = 123.456m;
             retVal.Quantity = 456.789m;
             retVal.Count = 147;
-            retVal.Name = Guid.NewGuid().ToString();
+            retVal.Name = $"Name{entityId:D2}";
             retVal.Code = "ABC";
             retVal.Description = Guid.NewGuid().ToString();
             retVal.ImagePicture = new Bitmap(10, 10);
@@ -132,16 +132,16 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.Support
         {
             String retVal = String.Empty;
             retVal += "Id,Status,Created By,Created On,Updated By,Updated On,Valid From,Valid To,Profile Picture,Name,Code,Description,Duration,Count,Is Closed,Is Open,Quantity,Unit Price,Execution Time" + Environment.NewLine;
-            retVal += "1,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,b55cbaa9-6,ABC,3ba35e54-a292-42d9-bd5e-07a7dd33a139,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
-            retVal += "2,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,b8da8347-9,ABC,15e61c19-0457-4823-ab2d-d90c4f80bdf4,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
-            retVal += "3,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,f50ae830-2,ABC,801d46f5-16e3-407e-8b97-c1c4e5427d3d,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
-            retVal += "4,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,2e39cf49-f,ABC,f1eba42d-f95a-48d7-a937-ff768edc6fad,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
-            retVal += "5,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,81bd00a3-4,ABC,6c7de580-e7f5-4b9f-91a7-388760d8475f,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
-            retVal += "6,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,4f55ecb2-5,ABC,b4c9ca5a-4d13-4d7c-8d68-4b0344a12143,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
-            retVal += "7,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,8c070d41-f,ABC,2f5bf570-a52a-467f-86b9-7e3d9671771d,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
-            retVal += "8,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,6e3a574e-6,ABC,13da0b76-a74f-4e11-8895-e6a8e334d26d,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
-            retVal += "9,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,233d9608-b,ABC,f417460f-dbcc-4aa6-8fb4-bec86b31bee9,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
-            retVal += "10,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,90e90f87-1,ABC,bdcf3ad5-5d8f-4834-82eb-74451bd6cd22,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "1,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name01,ABC,3ba35e54-a292-42d9-bd5e-07a7dd33a139,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "2,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name02,ABC,15e61c19-0457-4823-ab2d-d90c4f80bdf4,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "3,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name03,ABC,801d46f5-16e3-407e-8b97-c1c4e5427d3d,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "4,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name04,ABC,f1eba42d-f95a-48d7-a937-ff768edc6fad,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "5,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name05,ABC,6c7de580-e7f5-4b9f-91a7-388760d8475f,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "6,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name06,ABC,b4c9ca5a-4d13-4d7c-8d68-4b0344a12143,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "7,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name07,ABC,2f5bf570-a52a-467f-86b9-7e3d9671771d,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "8,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name08,ABC,13da0b76-a74f-4e11-8895-e6a8e334d26d,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "9,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name09,ABC,f417460f-dbcc-4aa6-8fb4-bec86b31bee9,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "10,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name10,ABC,bdcf3ad5-5d8f-4834-82eb-74451bd6cd22,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
 
             return retVal;
         }

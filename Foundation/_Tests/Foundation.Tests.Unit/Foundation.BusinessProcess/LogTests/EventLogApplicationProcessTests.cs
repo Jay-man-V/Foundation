@@ -45,7 +45,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
             //IApplicationProcess applicationProcess = new ApplicationProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, applicationRepository, StatusRepository!, UserProfileRepository!);
             IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
 
-            IEventLogApplicationProcess process = new EventLogApplicationProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService!, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess);
+            IEventLogApplicationProcess process = new EventLogApplicationProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess);
 
             return process;
         }

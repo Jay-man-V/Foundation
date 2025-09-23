@@ -215,7 +215,6 @@
     <Folder Include=".Support\Configs\" />
     <Folder Include="Foundation.BusinessProcess\CoreTests\SchedulersTests\" />
     <Folder Include="Foundation.BusinessProcess\CoreTests\NonWorkingDaySupportTests\" />
-    <Folder Include="Foundation.BusinessProcess\CoreTests\EnumProcessesTests\" />
     <Folder Include="Foundation.BusinessProcess\MainTests\" />
     <Folder Include="Foundation.Models\" />
   </ItemGroup>

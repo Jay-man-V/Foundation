@@ -41,7 +41,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
             IApplicationTypeProcess applicationTypeProcess = Substitute.For<IApplicationTypeProcess>();
 
-            IApplicationApplicationTypeProcess process = new ApplicationApplicationTypeProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService!, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess, applicationTypeProcess);
+            IApplicationApplicationTypeProcess process = new ApplicationApplicationTypeProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess, applicationTypeProcess);
 
             return process;
         }

@@ -39,11 +39,6 @@ namespace Foundation.Tests.Unit.Foundation.Models
 
             foreach (Type modelType in modelTypes)
             {
-                if (modelType == typeof(FModels.Specialised.GridColumnDefinition))
-                {
-                    continue;
-                }
-
                 String currentTypeName = modelType.FullName!;
                 String modelTypeCheckErrorMessage = $"The Model: '{currentTypeName}' does not have the expected base class of '{expectedTypeName}'";
 
@@ -387,13 +382,15 @@ namespace Foundation.Tests.Unit.Foundation.Models
 
         private List<Type> GetListOfValidTypes()
         {
-            Type type = typeof(FModels.Stg.ActiveDirectoryUser);
+            String targetNamespace = typeof(FModels.FoundationModel).Namespace!;
+            Type type = typeof(FModels.FoundationModel);
             Assembly modelAssembly = type.Assembly;
             Type[] allModelTypes = modelAssembly.GetTypes();
 
+            // Get a list of all types
             List<Type> retVal = allModelTypes.Where(t => !String.IsNullOrEmpty(t.FullName) &&
                                                          !String.IsNullOrEmpty(t.Namespace) &&
-                                                         t.Namespace.StartsWith("Foundation.Models") &&
+                                                         t.Namespace.StartsWith(targetNamespace) &&
                                                          !t.FullName.Contains("DisplayClass") &&
                                                          !t.Attributes.HasFlag(TypeAttributes.Abstract)
                                                     ).OrderBy(t2 => t2.Name).ToList();

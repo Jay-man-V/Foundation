@@ -54,7 +54,7 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="scheduledJob"></param>
         /// <returns></returns>
-        ServiceStatus GetServiceStatus(IScheduledJob scheduledJob);
+        ServiceStatus GetServiceStatus(IScheduledJob? scheduledJob);
 
         /// <summary>
         /// Gets the status of the Windows Service specified by <paramref name="serverName"/> on the target <paramref name="serverName"/>
@@ -62,14 +62,14 @@ namespace Foundation.Interfaces
         /// <param name="serverName">The name of the server hosting the service</param>
         /// <param name="serviceName">The name of the service to query</param>
         /// <returns></returns>
-        ServiceStatus GetServiceStatus(String serverName, String serviceName);
+        ServiceStatus GetServiceStatus(String serverName, String? serviceName);
 
         /// <summary>
         /// Determines the last run status of the given <paramref name="scheduledJob"/>
         /// </summary>
         /// <param name="scheduledJob">The <see cref="IScheduledJob"/> </param>
         /// <returns></returns>
-        TaskStatus GetJobLastRunStatus(IScheduledJob scheduledJob);
+        TaskStatus GetJobLastRunStatus(IScheduledJob? scheduledJob);
 
         /// <summary>
         /// Runs the given job

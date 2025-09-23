@@ -4,16 +4,15 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using DocumentFormat.OpenXml.Presentation;
-
-using Foundation.Interfaces;
-using Foundation.Interfaces.Helpers;
-using Foundation.Models.Specialised;
-using Foundation.Resources;
-using Foundation.Tests.Unit.Support;
-
 using System.Data;
 using System.Drawing;
+
+using Foundation.Common;
+using Foundation.Interfaces;
+using Foundation.Interfaces.Helpers;
+using Foundation.Resources;
+
+using Foundation.Tests.Unit.Support;
 
 namespace Foundation.Tests.Unit.Foundation.Common.Helpers
 {

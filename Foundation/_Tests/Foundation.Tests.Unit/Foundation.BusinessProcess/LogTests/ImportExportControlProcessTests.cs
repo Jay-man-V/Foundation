@@ -41,7 +41,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 
         protected override IImportExportControlProcess CreateBusinessProcess(IDateTimeService dateTimeService)
         {
-            IImportExportControlProcess process = new ImportExportControlProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService!, TheRepository!, StatusRepository!, UserProfileRepository!);
+            IImportExportControlProcess process = new ImportExportControlProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!);
 
             return process;
         }

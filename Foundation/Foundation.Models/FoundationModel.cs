@@ -53,12 +53,12 @@ namespace Foundation.Models
 
             this.IsChanged = false;
 
-            this.Id = new(-1);
+            this.Id = new EntityId(-1);
 
             this.EntityLife = EntityLife.Created;
             this.EntityState = EntityState.Dirty;
             this.Timestamp = [0];
-            this.EntityStatus = FEnums.EntityStatus.Active;
+            this.EntityStatus = EntityStatus.Active;
 
             this.ValidFrom = DateTime.MinValue;
             this.ValidTo = DateTime.MaxValue;
@@ -103,9 +103,9 @@ namespace Foundation.Models
 
         /// <inheritdoc cref="IFoundationModel.EntityStatus"/>
         [NotMapped]
-        public FEnums.EntityStatus EntityStatus
+        public EntityStatus EntityStatus
         {
-            get => (FEnums.EntityStatus)StatusId.ToInteger();
+            get => (EntityStatus)StatusId.ToInteger();
             set => StatusId = new((Int32)value);
         }
 
@@ -454,7 +454,7 @@ namespace Foundation.Models
                 retVal &= EqualityComparer<EntityState>.Default.Equals(this.EntityState, right.EntityState);
                 retVal &= EqualityComparer<DateTime?>.Default.Equals(this.ValidFrom, right.ValidFrom);
                 retVal &= EqualityComparer<DateTime?>.Default.Equals(this.ValidTo, right.ValidTo);
-                retVal &= EqualityComparer<FEnums.EntityStatus>.Default.Equals(this.EntityStatus, right.EntityStatus);
+                retVal &= EqualityComparer<EntityStatus>.Default.Equals(this.EntityStatus, right.EntityStatus);
                 retVal &= StructuralComparisons.StructuralEqualityComparer.Equals(this.Timestamp, right.Timestamp);
             }
 

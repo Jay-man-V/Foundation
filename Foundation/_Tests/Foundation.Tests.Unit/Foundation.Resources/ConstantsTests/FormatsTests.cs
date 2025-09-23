@@ -19,10 +19,10 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
     [TestFixture]
     public class FormatsTests : UnitTestBase
     {
-        private int Integer1 => 0;
-        private int Integer2 => 12;
-        private int Integer3 => 123;
-        private int Integer6 => 123456;
+        private Int32 Integer1 => 0;
+        private Int32 Integer2 => 12;
+        private Int32 Integer3 => 123;
+        private Int32 Integer6 => 123456;
         private long Integer15 => 123456789012345;
 
         private decimal Decimal1 => 0.0m;
@@ -43,7 +43,7 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         {
             // This test exists to ensure all the class members are tested/checked in the next test
             PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(Formats.DotNet));
-            int index = 0;
+            Int32 index = 0;
 
             Assert.That(propertyInfos[index++].Name, Is.EqualTo(nameof(Formats.DotNet.FromDate)));
             Assert.That(propertyInfos[index++].Name, Is.EqualTo(nameof(Formats.DotNet.ToDate)));
@@ -81,7 +81,7 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         {
             // This test exists to ensure all the class members are tested/checked in the next test
             PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(Formats.Excel));
-            int index = 0;
+            Int32 index = 0;
 
             Assert.That(propertyInfos[index++].Name, Is.EqualTo(nameof(Formats.Excel.FromDate)));
             Assert.That(propertyInfos[index++].Name, Is.EqualTo(nameof(Formats.Excel.ToDate)));
@@ -163,9 +163,9 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         [TestCase]
         public void Test_dotNet_Times()
         {
-            const string expectedTimeOnly = "20:27";
-            const string expectedTimeWithSeconds = "20:27:57";
-            const string expectedTimeWithMilliseconds = "20:27:57.798";
+            const String expectedTimeOnly = "20:27";
+            const String expectedTimeWithSeconds = "20:27:57";
+            const String expectedTimeWithMilliseconds = "20:27:57.798";
 
             Assert.That(DateTime1.ToString(Formats.DotNet.TimeOnly), Is.EqualTo(expectedTimeOnly));
             Assert.That(DateTime1.ToString(Formats.DotNet.TimeWithSeconds), Is.EqualTo(expectedTimeWithSeconds));
@@ -178,22 +178,22 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         [TestCase]
         public void Test_dotNet_Dates()
         {
-            const string expectedFromDate = "10-Jan-2021";
-            const string expectedToDate = "10-Jan-2021";
-            const string expectedFromDatetime = "10-Jan-2021 20:27";
-            const string expectedToDatetime = "10-Jan-2021 20:27";
-            const string expectedCreatedDateTime = "10-Jan-2021 20:27";
-            const string expectedUpdatedDateTime = "10-Jan-2021 20:27";
+            const String expectedFromDate = "10-Jan-2021";
+            const String expectedToDate = "10-Jan-2021";
+            const String expectedFromDatetime = "10-Jan-2021 20:27";
+            const String expectedToDatetime = "10-Jan-2021 20:27";
+            const String expectedCreatedDateTime = "10-Jan-2021 20:27";
+            const String expectedUpdatedDateTime = "10-Jan-2021 20:27";
 
-            const string expectedMonthYear = "Jan-2021";
-            const string expectedDateOnly = "10-Jan-2021";
-            const string expectedDateOnlyWithDoW = "Sun, 10-Jan-2021";
-            const string expectedDateTime = "10-Jan-2021 20:27";
-            const string expectedDateTimeSeconds = "10-Jan-2021 20:27:57";
-            const string expectedDateTimeMilliseconds = "10-Jan-2021 20:27:57.798";
-            const string expectedIso8601Date = "2021-01-10";
-            const string expectedIso8601DateTime = "2021-01-10T20:27:57";
-            const string expectedIso8601WithMilliseconds = "2021-01-10T20:27:57.798";
+            const String expectedMonthYear = "Jan-2021";
+            const String expectedDateOnly = "10-Jan-2021";
+            const String expectedDateOnlyWithDoW = "Sun, 10-Jan-2021";
+            const String expectedDateTime = "10-Jan-2021 20:27";
+            const String expectedDateTimeSeconds = "10-Jan-2021 20:27:57";
+            const String expectedDateTimeMilliseconds = "10-Jan-2021 20:27:57.798";
+            const String expectedIso8601Date = "2021-01-10";
+            const String expectedIso8601DateTime = "2021-01-10T20:27:57";
+            const String expectedIso8601WithMilliseconds = "2021-01-10T20:27:57.798";
 
             Assert.That(DateTime1.ToString(Formats.DotNet.FromDate), Is.EqualTo(expectedFromDate));
             Assert.That(DateTime1.ToString(Formats.DotNet.ToDate), Is.EqualTo(expectedToDate));
@@ -282,9 +282,9 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         [TestCase]
         public void Test_Excel_Times()
         {
-            const string expectedTimeOnly = "20:27";
-            const string expectedTimeWithSeconds = "20:27:57";
-            const string expectedTimeWithMilliseconds = "20:27:57.000";
+            const String expectedTimeOnly = "20:27";
+            const String expectedTimeWithSeconds = "20:27:57";
+            const String expectedTimeWithMilliseconds = "20:27:57.000";
 
             Assert.That(DateTime1.ToString(Formats.Excel.TimeOnly), Is.EqualTo(expectedTimeOnly));
             Assert.That(DateTime1.ToString(Formats.Excel.TimeWithSeconds), Is.EqualTo(expectedTimeWithSeconds));
@@ -297,22 +297,22 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         [TestCase]
         public void Test_Excel_Dates()
         {
-            const string expectedFromDate = "10-Jan-2021";
-            const string expectedToDate = "10-Jan-2021";
-            const string expectedFromDatetime = "10-Jan-2021 20:27";
-            const string expectedToDatetime = "10-Jan-2021 20:27";
-            const string expectedCreatedDateTime = "10-Jan-2021 20:27";
-            const string expectedUpdatedDateTime = "10-Jan-2021 20:27";
+            const String expectedFromDate = "10-Jan-2021";
+            const String expectedToDate = "10-Jan-2021";
+            const String expectedFromDatetime = "10-Jan-2021 20:27";
+            const String expectedToDatetime = "10-Jan-2021 20:27";
+            const String expectedCreatedDateTime = "10-Jan-2021 20:27";
+            const String expectedUpdatedDateTime = "10-Jan-2021 20:27";
 
-            const string expectedMonthYear = "Jan-2021";
-            const string expectedDateOnly = "10-Jan-2021";
-            const string expectedDateOnlyWithDoW = "Sun, 10-Jan-2021";
-            const string expectedDateTime = "10-Jan-2021 20:27";
-            const string expectedDateTimeSeconds = "10-Jan-2021 20:27:57";
-            const string expectedDateTimeMilliseconds = "10-Jan-2021 20:27:57.000";
-            const string expectedIso8601Date = "2021-01-10";
-            const string expectedIso8601DateTime = "2021-01-10T20:27:57";
-            const string expectedIso8601WithMilliseconds = "2021-01-10T20:27:57.000";
+            const String expectedMonthYear = "Jan-2021";
+            const String expectedDateOnly = "10-Jan-2021";
+            const String expectedDateOnlyWithDoW = "Sun, 10-Jan-2021";
+            const String expectedDateTime = "10-Jan-2021 20:27";
+            const String expectedDateTimeSeconds = "10-Jan-2021 20:27:57";
+            const String expectedDateTimeMilliseconds = "10-Jan-2021 20:27:57.000";
+            const String expectedIso8601Date = "2021-01-10";
+            const String expectedIso8601DateTime = "2021-01-10T20:27:57";
+            const String expectedIso8601WithMilliseconds = "2021-01-10T20:27:57.000";
 
             Assert.That(DateTime1.ToString(Formats.Excel.FromDate), Is.EqualTo(expectedFromDate));
             Assert.That(DateTime1.ToString(Formats.Excel.ToDate), Is.EqualTo(expectedToDate));

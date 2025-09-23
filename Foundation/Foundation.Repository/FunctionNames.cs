@@ -1,10 +1,10 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="Functions.cs" company="JDV Software Ltd">
+// <copyright file="FunctionNames.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Foundation.Resources.Constants.DataColumns
+namespace Foundation.Repository
 {
     /// <summary>
     /// Function Names

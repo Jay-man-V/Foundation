@@ -339,10 +339,15 @@ namespace Foundation.BusinessProcess.Core
             return retVal;
         }
 
-        /// <inheritdoc cref="IScheduledJobProcess.GetServiceStatus(String, String)"/>
-        public ServiceStatus GetServiceStatus(String serverName, String serviceName)
+        /// <inheritdoc cref="IScheduledJobProcess.GetServiceStatus(String, String?)"/>
+        public ServiceStatus GetServiceStatus(String serverName, String? serviceName)
         {
             ServiceStatus retVal = ServiceStatus.NotSet;
+
+            if (String.IsNullOrEmpty(serviceName))
+            {
+                throw new ArgumentNullException(nameof(serviceName));
+            }
 
             ServiceController serviceController = new ServiceController(serviceName, serverName);
 
@@ -365,8 +370,8 @@ namespace Foundation.BusinessProcess.Core
             return retVal;
         }
 
-        /// <inheritdoc cref="IScheduledJobProcess.GetServiceStatus(IScheduledJob)"/>
-        public ServiceStatus GetServiceStatus(IScheduledJob scheduledJob)
+        /// <inheritdoc cref="IScheduledJobProcess.GetServiceStatus(IScheduledJob?)"/>
+        public ServiceStatus GetServiceStatus(IScheduledJob? scheduledJob)
         {
             ServiceStatus retVal;
 
@@ -407,8 +412,8 @@ namespace Foundation.BusinessProcess.Core
             return retVal;
         }
 
-        /// <inheritdoc cref="IScheduledJobProcess.GetJobLastRunStatus(IScheduledJob)"/>
-        public FEnums.TaskStatus GetJobLastRunStatus(IScheduledJob scheduledJob)
+        /// <inheritdoc cref="IScheduledJobProcess.GetJobLastRunStatus(IScheduledJob?)"/>
+        public FEnums.TaskStatus GetJobLastRunStatus(IScheduledJob? scheduledJob)
         {
             FEnums.TaskStatus retVal = FEnums.TaskStatus.NotSet;
 

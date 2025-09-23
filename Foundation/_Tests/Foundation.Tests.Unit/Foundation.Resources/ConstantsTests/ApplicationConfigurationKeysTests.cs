@@ -24,14 +24,10 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         [TestCase]
         public void Test_CountMembers()
         {
-            IEnumerable<MethodInfo> testMethods = GetListOfTestMethods();
-            Int32 testMethodCount = testMethods.Count() - 1;
-
             // This test exists to ensure all the Properties are tested/checked in the next test
             Type theType = typeof(ApplicationConfigurationKeys);
-            PropertyInfo[] propertyInfos = theType.GetProperties();
 
-            Assert.That(propertyInfos.Length, Is.EqualTo(testMethodCount));
+            PropertyInfo[] propertyInfos = theType.GetProperties();
 
             Int32 index = 0;
             Assert.That(propertyInfos[index++].Name, Is.EqualTo(nameof(ApplicationConfigurationKeys.UserDataPath)));

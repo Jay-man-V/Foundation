@@ -21,7 +21,7 @@
 //    {
 //        public static IMockFoundationModel CreateTestEntity(ICore core, Int32 index)
 //        {
-//            IMockFoundationModel retVal = core.Container.Get<IMockFoundationModel>();
+//            IMockFoundationModel retVal = core.IoC.Get<IMockFoundationModel>();
 
 //            retVal.Name = $"Name: {index}";
 //            retVal.Code = $"Code: {index}";

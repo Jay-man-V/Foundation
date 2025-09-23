@@ -10,6 +10,7 @@ using System.Text;
 using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
+using Foundation.Repository;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
@@ -174,11 +175,11 @@ namespace Foundation.Repository.Sec
                     {
                         command.Transaction = transaction;
 
-                        String sql = FDC.StoredProcedures.LoadFromActiveDirectoryUsersFromStaging.ProcedureName;
+                        String sql = StoredProcedures.LoadFromActiveDirectoryUsersFromStaging.ProcedureName;
                         command.CommandText = sql;
                         command.CommandType = CommandType.StoredProcedure;
 
-                        command.Parameters.Add(FoundationDataAccess.CreateParameter(FDC.StoredProcedures.LoadFromActiveDirectoryUsersFromStaging.LoggedOnUserProfileId, loggedOnUserProfile.Id));
+                        command.Parameters.Add(FoundationDataAccess.CreateParameter(StoredProcedures.LoadFromActiveDirectoryUsersFromStaging.LoggedOnUserProfileId, loggedOnUserProfile.Id));
 
                         command.ExecuteNonQuery();
                     }

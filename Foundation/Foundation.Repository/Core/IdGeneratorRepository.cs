@@ -9,6 +9,7 @@ using System.Data;
 using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
+using Foundation.Repository;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
@@ -126,13 +127,13 @@ namespace Foundation.Repository.Core
         {
             LoggingHelpers.TraceCallEnter(applicationId, userProfile, idName);
 
-            String sql = FDC.StoredProcedures.GetNextId.ProcedureName;
+            String sql = StoredProcedures.GetNextId.ProcedureName;
 
             DatabaseParameters databaseParameters =
             [
-                FoundationDataAccess.CreateParameter(FDC.StoredProcedures.GetNextId.ApplicationId, applicationId),
-                FoundationDataAccess.CreateParameter(FDC.StoredProcedures.GetNextId.UserProfileId, userProfile.Id),
-                FoundationDataAccess.CreateParameter(FDC.StoredProcedures.GetNextId.IdName, idName)
+                FoundationDataAccess.CreateParameter(StoredProcedures.GetNextId.ApplicationId, applicationId),
+                FoundationDataAccess.CreateParameter(StoredProcedures.GetNextId.UserProfileId, userProfile.Id),
+                FoundationDataAccess.CreateParameter(StoredProcedures.GetNextId.IdName, idName)
             ];
 
             Object? result = FoundationDataAccess.ExecuteScalar(sql, CommandType.StoredProcedure, databaseParameters);
