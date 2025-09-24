@@ -53,9 +53,10 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.ComponentsTests
             IStatusRepository statusRepository = Substitute.For<IStatusRepository>();
             IUserProfileRepository userProfileRepository = Substitute.For<IUserProfileRepository>();
             IScheduleIntervalProcess scheduleIntervalProcess = Substitute.For<IScheduleIntervalProcess>();
+            IServiceControlWrapper serviceControlWrapper = Substitute.For<IServiceControlWrapper>();
 
             IScheduledJob scheduledJob = SchedulerSupport.CreateScheduledJob(CoreInstance, false, currentDate, ScheduleInterval.Seconds, 30);
-            IScheduledJobProcess process = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, repository, statusRepository, userProfileRepository, scheduleIntervalProcess, CalendarProcess);
+            IScheduledJobProcess process = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, repository, statusRepository, userProfileRepository, scheduleIntervalProcess, CalendarProcess, serviceControlWrapper);
 
             process.AlternateCreateScheduledTaskCalled -= SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
             process.AlternateCreateScheduledTaskCalled += SchedulerSupport.OnAlternateCreateScheduledTaskCalled;

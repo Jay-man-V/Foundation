@@ -262,19 +262,8 @@ namespace Foundation.Tests.Unit.Support
 
             LoggingService = Substitute.For<ILoggingService>();
 
-            IUserProfile userProfile = new FModels.Sec.UserProfile
-            {
-                Id = new EntityId(1),
-                StatusId = new EntityId(EntityStatus.Active.Id()),
-                CreatedOn = CreatedOnDateTime,
-                LastUpdatedOn = LastUpdatedOnDateTime,
-                ValidFrom = ValidFromDateTime,
-                ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
-
-                DisplayName = UserSecuritySupport.UnitTestAccountDisplayName,
-                IsSystemSupport = true,
-                Username = $@"{UserSecuritySupport.UnitTestAccountDomain}\{UserSecuritySupport.UnitTestAccountUserName}",
-            };
+            IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
+            IUserProfile userProfile = ResetLoggedOnUserProfile(userProfileProcess);
 
             FModels.Sec.Role systemAdministratorRole = new FModels.Sec.Role
             {
@@ -305,9 +294,6 @@ namespace Foundation.Tests.Unit.Support
 
             IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
             applicationProcess.Get(TestingApplicationId).Returns(application);
-
-            IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
-            userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(userProfile);
 
             ILoggedOnUserProcess loggedOnUserProcess = Substitute.For<ILoggedOnUserProcess>();
 
@@ -343,6 +329,27 @@ namespace Foundation.Tests.Unit.Support
 
             LoggedOnUserProcess = Substitute.For<ILoggedOnUserProcess>();
             LoggedOnUserProcess.GetLoggedOnUsers(Arg.Any<AppId>()).Returns(LoggedOnUsersList);
+        }
+
+        protected IUserProfile ResetLoggedOnUserProfile(IUserProfileProcess userProfileProcess)
+        {
+            IUserProfile userProfile = new FModels.Sec.UserProfile
+            {
+                Id = new EntityId(1),
+                StatusId = new EntityId(EntityStatus.Active.Id()),
+                CreatedOn = CreatedOnDateTime,
+                LastUpdatedOn = LastUpdatedOnDateTime,
+                ValidFrom = ValidFromDateTime,
+                ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
+
+                DisplayName = UserSecuritySupport.UnitTestAccountDisplayName,
+                IsSystemSupport = true,
+                Username = $@"{UserSecuritySupport.UnitTestAccountDomain}\{UserSecuritySupport.UnitTestAccountUserName}",
+            };
+
+            userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(userProfile);
+
+            return userProfile;
         }
 
         /// <summary>

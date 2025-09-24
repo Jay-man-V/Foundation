@@ -13,13 +13,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.7" />
+    <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.9" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Foundation.Common\Foundation.Common.csproj" />
     <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
     <ProjectReference Include="..\Foundation.Models\Foundation.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Core\Services\" />
   </ItemGroup>
 
 </Project>

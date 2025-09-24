@@ -158,18 +158,16 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
         [TestCase]
         public void Test_MakeListOfParentContacts()
         {
-            IMenuItemProcess process = CreateBusinessProcess();
-
-            IMenuItem parentMenuItem1 = CreateBlankEntity(process, 1);
-            IMenuItem parentMenuItem2 = CreateBlankEntity(process, 2);
+            IMenuItem parentMenuItem1 = CreateBlankEntity(TheProcess!, 1);
+            IMenuItem parentMenuItem2 = CreateBlankEntity(TheProcess!, 2);
 
             List<IMenuItem> menuItems =
             [
-                CreateEntity(process, 1),
-                CreateEntity(process, 2),
-                CreateEntity(process, 3),
-                CreateEntity(process, 4),
-                CreateEntity(process, 5),
+                CreateEntity(TheProcess!, 1),
+                CreateEntity(TheProcess!, 2),
+                CreateEntity(TheProcess!, 3),
+                CreateEntity(TheProcess!, 4),
+                CreateEntity(TheProcess!, 5),
             ];
 
             menuItems[0].ParentMenuItemId = parentMenuItem1.Id;
@@ -185,7 +183,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
             menuItems[3].Caption = "D";
             menuItems[4].Caption = "E";
 
-            List<IMenuItem> parentMenuItems = process.MakeListOfParentMenuItems(menuItems);
+            List<IMenuItem> parentMenuItems = TheProcess!.MakeListOfParentMenuItems(menuItems);
 
             Assert.That(parentMenuItems.Count, Is.EqualTo(2));
             Assert.That(parentMenuItems[0].ParentMenuItemId, Is.EqualTo(parentMenuItem1.Id));
@@ -195,8 +193,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
         [TestCase]
         public void Test_ApplyFilter_Application()
         {
-            IMenuItemProcess process = CreateBusinessProcess();
-
             IApplication application1 = Substitute.For<IApplication>();
             application1.Id = new AppId(1);
 
@@ -207,11 +203,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
 
             List<IMenuItem> menuItems =
             [
-                CreateEntity(process, 1),
-                CreateEntity(process, 2),
-                CreateEntity(process, 3),
-                CreateEntity(process, 4),
-                CreateEntity(process, 5),
+                CreateEntity(TheProcess!, 1),
+                CreateEntity(TheProcess!, 2),
+                CreateEntity(TheProcess!, 3),
+                CreateEntity(TheProcess!, 4),
+                CreateEntity(TheProcess!, 5),
             ];
 
             menuItems[0].ParentMenuItemId = new EntityId(0);
@@ -240,33 +236,31 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
             menuItems[4].ApplicationId = application1.Id;
             menuItems[4].ParentMenuItemId = new EntityId(5);
 
-            List<IMenuItem> filteredMenuItems1 = process.ApplyFilter(menuItems, application1, parentMenuItem);
+            List<IMenuItem> filteredMenuItems1 = TheProcess!.ApplyFilter(menuItems, application1, parentMenuItem);
             Assert.That(filteredMenuItems1.Count, Is.EqualTo(3));
 
-            List<IMenuItem> filteredMenuItems2 = process.ApplyFilter(menuItems, application2, parentMenuItem);
+            List<IMenuItem> filteredMenuItems2 = TheProcess!.ApplyFilter(menuItems, application2, parentMenuItem);
             Assert.That(filteredMenuItems2.Count, Is.EqualTo(2));
         }
 
         [TestCase]
         public void Test_ApplyFilter_ParentMenuItem()
         {
-            IMenuItemProcess process = CreateBusinessProcess();
-
             const IApplication? application = null;
 
-            IMenuItem parentMenuItem1 = CreateEntity(process, 1);
+            IMenuItem parentMenuItem1 = CreateEntity(TheProcess!, 1);
             parentMenuItem1.Id = new EntityId(1);
 
-            IMenuItem parentMenuItem2 = CreateEntity(process, 2);
+            IMenuItem parentMenuItem2 = CreateEntity(TheProcess!, 2);
             parentMenuItem2.Id = new EntityId(2);
 
             List<IMenuItem> menuItems =
             [
-                CreateEntity(process, 1),
-                CreateEntity(process, 2),
-                CreateEntity(process, 3),
-                CreateEntity(process, 4),
-                CreateEntity(process, 5),
+                CreateEntity(TheProcess!, 1),
+                CreateEntity(TheProcess!, 2),
+                CreateEntity(TheProcess!, 3),
+                CreateEntity(TheProcess!, 4),
+                CreateEntity(TheProcess!, 5),
             ];
 
             menuItems[0].ParentMenuItemId = new EntityId(0);
@@ -295,10 +289,10 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
             menuItems[4].ApplicationId = new AppId(1);
             menuItems[4].ParentMenuItemId = parentMenuItem1.Id;
 
-            List<IMenuItem> filteredContacts1 = process.ApplyFilter(menuItems, application, parentMenuItem1);
+            List<IMenuItem> filteredContacts1 = TheProcess!.ApplyFilter(menuItems, application, parentMenuItem1);
             Assert.That(filteredContacts1.Count, Is.EqualTo(3));
 
-            List<IMenuItem> filteredContacts2 = process.ApplyFilter(menuItems, application, parentMenuItem2);
+            List<IMenuItem> filteredContacts2 = TheProcess!.ApplyFilter(menuItems, application, parentMenuItem2);
             Assert.That(filteredContacts2.Count, Is.EqualTo(2));
         }
     }

@@ -154,8 +154,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         [TestCase]
         public void Test_ValidateEntity()
         {
-            IContactDetailProcess process = CreateBusinessProcess();
-            IContactDetail contactDetail = CreateEntity(process, 1);
+            IContactDetail contactDetail = CreateEntity(TheProcess!, 1);
             contactDetail.EmailAddress = new EmailAddress(new String('A', 150) + '@' + new String('B', 250));
 
             String aggregateErrorMessage = "One or more errors occurred. (The field EmailAddress must be a string or array type with a maximum length of '320'.)";
@@ -163,7 +162,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
             AggregateException actualException = Assert.Throws<AggregateException>(() =>
             {
-                process.ValidateEntity(contactDetail);
+                TheProcess!.ValidateEntity(contactDetail);
             });
 
             Assert.That(actualException, Is.Not.Null);
@@ -179,14 +178,13 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         [TestCase]
         public void Test_MakeListOfParentContacts()
         {
-            IContactDetailProcess process = CreateBusinessProcess();
             List<IContactDetail> contacts =
             [
-                CreateEntity(process, 1),
-                CreateEntity(process, 2),
-                CreateEntity(process, 3),
-                CreateEntity(process, 4),
-                CreateEntity(process, 5),
+                CreateEntity(TheProcess!, 1),
+                CreateEntity(TheProcess!, 2),
+                CreateEntity(TheProcess!, 3),
+                CreateEntity(TheProcess!, 4),
+                CreateEntity(TheProcess!, 5),
             ];
 
             contacts[0].ParentContactId = new EntityId(0);
@@ -195,7 +193,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             contacts[3].ParentContactId = new EntityId(0);
             contacts[4].ParentContactId = new EntityId(0);
 
-            List<IContactDetail> parentContactDetails = process.MakeListOfParentContacts(contacts);
+            List<IContactDetail> parentContactDetails = TheProcess!.MakeListOfParentContacts(contacts);
             Assert.That(parentContactDetails.Count, Is.EqualTo(0));
 
             Int32 counter = 1;
@@ -207,7 +205,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
                 contact.ParentContactId = new EntityId(counter);
             }
 
-            parentContactDetails = process.MakeListOfParentContacts(contacts);
+            parentContactDetails = TheProcess!.MakeListOfParentContacts(contacts);
             Assert.That(parentContactDetails.Count, Is.EqualTo(4));
 
             contacts[1].ParentContactId = new EntityId(1);
@@ -215,15 +213,13 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             contacts[3].ParentContactId = new EntityId(3);
             contacts[4].ParentContactId = new EntityId(1);
 
-            parentContactDetails = process.MakeListOfParentContacts(contacts);
+            parentContactDetails = TheProcess!.MakeListOfParentContacts(contacts);
             Assert.That(parentContactDetails.Count, Is.EqualTo(3));
         }
 
         [TestCase]
         public void Test_ApplyFilter_ContactType()
         {
-            IContactDetailProcess process = CreateBusinessProcess();
-
             IContactType contactType1 = CoreInstance.IoC.Get<IContactType>();
             contactType1.Id = new EntityId(1);
 
@@ -234,11 +230,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
             List<IContactDetail> contacts =
             [
-                CreateEntity(process, 1),
-                CreateEntity(process, 2),
-                CreateEntity(process, 3),
-                CreateEntity(process, 4),
-                CreateEntity(process, 5),
+                CreateEntity(TheProcess!, 1),
+                CreateEntity(TheProcess!, 2),
+                CreateEntity(TheProcess!, 3),
+                CreateEntity(TheProcess!, 4),
+                CreateEntity(TheProcess!, 5),
             ];
 
             contacts[0].ParentContactId = new EntityId(0);
@@ -267,33 +263,31 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             contacts[4].ContactTypeId = contactType1.Id;
             contacts[4].ParentContactId = new EntityId(5);
 
-            List<IContactDetail> filteredContacts1 = process.ApplyFilter(contacts, contactType1, parentContactDetail);
+            List<IContactDetail> filteredContacts1 = TheProcess!.ApplyFilter(contacts, contactType1, parentContactDetail);
             Assert.That(filteredContacts1.Count, Is.EqualTo(3));
 
-            List<IContactDetail> filteredContacts2 = process.ApplyFilter(contacts, contactType2, parentContactDetail);
+            List<IContactDetail> filteredContacts2 = TheProcess!.ApplyFilter(contacts, contactType2, parentContactDetail);
             Assert.That(filteredContacts2.Count, Is.EqualTo(2));
         }
 
         [TestCase]
         public void Test_ApplyFilter_ParentContact()
         {
-            IContactDetailProcess process = CreateBusinessProcess();
-
             const IContactType? contactType1 = null;
 
-            IContactDetail parentContactDetail1 = CreateEntity(process, 1);
+            IContactDetail parentContactDetail1 = CreateEntity(TheProcess!, 1);
             parentContactDetail1.Id = new EntityId(1);
 
-            IContactDetail parentContactDetail2 = CreateEntity(process, 2);
+            IContactDetail parentContactDetail2 = CreateEntity(TheProcess!, 2);
             parentContactDetail2.Id = new EntityId(2);
 
             List<IContactDetail> contacts =
             [
-                CreateEntity(process, 1),
-                CreateEntity(process, 2),
-                CreateEntity(process, 3),
-                CreateEntity(process, 4),
-                CreateEntity(process, 5),
+                CreateEntity(TheProcess!, 1),
+                CreateEntity(TheProcess!, 2),
+                CreateEntity(TheProcess!, 3),
+                CreateEntity(TheProcess!, 4),
+                CreateEntity(TheProcess!, 5),
             ];
 
             contacts[0].ParentContactId = new EntityId(0);
@@ -322,10 +316,10 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             contacts[4].ContactTypeId = new EntityId(1);
             contacts[4].ParentContactId = parentContactDetail1.Id;
 
-            List<IContactDetail> filteredContacts1 = process.ApplyFilter(contacts, contactType1, parentContactDetail1);
+            List<IContactDetail> filteredContacts1 = TheProcess!.ApplyFilter(contacts, contactType1, parentContactDetail1);
             Assert.That(filteredContacts1.Count, Is.EqualTo(3));
 
-            List<IContactDetail> filteredContacts2 = process.ApplyFilter(contacts, contactType1, parentContactDetail2);
+            List<IContactDetail> filteredContacts2 = TheProcess!.ApplyFilter(contacts, contactType1, parentContactDetail2);
             Assert.That(filteredContacts2.Count, Is.EqualTo(2));
         }
     }

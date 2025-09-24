@@ -4,14 +4,16 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using NSubstitute;
-
 using Foundation.BusinessProcess.Components;
 using Foundation.BusinessProcess.Core;
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Tests.Unit.Mocks;
 using Foundation.Tests.Unit.Support;
+
+using NSubstitute;
+
+using System.ServiceProcess;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;
@@ -32,6 +34,16 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override String ExpectedComboBoxDisplayMember => FDC.ScheduledJob.Name;
 
+        private IServiceControlWrapper? ServiceControlWrapper { get; set; }
+
+        public override void TestCleanup()
+        {
+            ServiceControlWrapper?.Dispose();
+            ServiceControlWrapper = null;
+
+            base.TestCleanup();
+        }
+
         protected override IScheduledJobRepository CreateRepository()
         {
             IScheduledJobRepository dataAccess = Substitute.For<IScheduledJobRepository>();
@@ -51,11 +63,13 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             SchedulerSupport.Core = CoreInstance;
             SchedulerSupport.RunTimeEnvironmentSettings = RunTimeEnvironmentSettings;
             SchedulerSupport.DateTimeService = DateTimeService;
+            SchedulerSupport.LoggingService = LoggingService;
 
             IScheduleIntervalProcess scheduleIntervalProcess = Substitute.For<IScheduleIntervalProcess>();
             ICalendarProcess calendarProcess = Substitute.For<ICalendarProcess>();
+            ServiceControlWrapper = Substitute.For<IServiceControlWrapper>();
 
-            IScheduledJobProcess process = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, scheduleIntervalProcess, calendarProcess);
+            IScheduledJobProcess process = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, scheduleIntervalProcess, calendarProcess, ServiceControlWrapper);
 
             process.AlternateCreateScheduledTaskCalled -= SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
             process.AlternateCreateScheduledTaskCalled += SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
@@ -785,6 +799,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             String serviceName = Guid.NewGuid().ToString();
 
             String errorMessage = $"Service '{serviceName}' was not found on computer '{serverName}'.";
+
+            ServiceControlWrapper!
+                .When(scw => scw.SetupController(Arg.Any<String>(), Arg.Any<String>()))
+                .Do(_ => throw new InvalidOperationException(errorMessage));
+
             InvalidOperationException actualException = Assert.Throws<InvalidOperationException>(() =>
             {
                 TheProcess!.GetServiceStatus(serverName, serviceName);
@@ -801,17 +820,28 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             String serviceName = "EventLog";
             ServiceStatus expected = ServiceStatus.Running;
 
+            ServiceControlWrapper!.SetupController(Arg.Any<String>(), Arg.Any<String>()).Returns(ServiceControlWrapper);
+            ServiceControlWrapper!.Status.Returns(ServiceControllerStatus.Running);
+
             ServiceStatus actual = TheProcess!.GetServiceStatus(serverName, serviceName);
 
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [TestCase]
-        public void Test_GetServiceStatus_WindowsService_KnownTask_Stopped()
+        [TestCase(ServiceStatus.Stopped, ServiceControllerStatus.Stopped)]
+        [TestCase(ServiceStatus.StartPending, ServiceControllerStatus.StartPending)]
+        [TestCase(ServiceStatus.StopPending, ServiceControllerStatus.StopPending)]
+        [TestCase(ServiceStatus.Running, ServiceControllerStatus.Running)]
+        [TestCase(ServiceStatus.ContinuePending, ServiceControllerStatus.ContinuePending)]
+        [TestCase(ServiceStatus.PauseEnding, ServiceControllerStatus.PausePending)]
+        [TestCase(ServiceStatus.Paused, ServiceControllerStatus.Paused)]
+        public void Test_GetServiceStatus_WindowsService_KnownTask_Stopped(ServiceStatus expected, ServiceControllerStatus serviceControllerStatus)
         {
             String serverName = ".";
-            String serviceName = "wuauserv"; // Windows Update
-            ServiceStatus expected = ServiceStatus.Stopped;
+            String serviceName = "Service";
+
+            ServiceControlWrapper!.SetupController(Arg.Any<String>(), Arg.Any<String>()).Returns(ServiceControlWrapper);
+            ServiceControlWrapper!.Status.Returns(serviceControllerStatus);
 
             ServiceStatus actual = TheProcess!.GetServiceStatus(serverName, serviceName);
 

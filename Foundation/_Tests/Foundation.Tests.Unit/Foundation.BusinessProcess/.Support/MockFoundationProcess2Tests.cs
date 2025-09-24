@@ -149,14 +149,13 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.Support
         [TestCase]
         public void Test_ValidateEntity()
         {
-            IMockFoundationModelProcess2 process = CreateBusinessProcess();
-            IMockFoundationModel mockFoundationModel = CreateEntity(process, 1);
+            IMockFoundationModel mockFoundationModel = CreateEntity(TheProcess!, 1);
 
             mockFoundationModel.Code = String.Empty;
 
             AggregateException actualException = Assert.Throws<AggregateException>(() =>
             {
-                process.ValidateEntity(mockFoundationModel);
+                TheProcess!.ValidateEntity(mockFoundationModel);
             });
 
             Assert.That(actualException.InnerExceptions.Count, Is.EqualTo(1));

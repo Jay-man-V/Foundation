@@ -11,7 +11,6 @@ using Foundation.BusinessProcess.Components;
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Interfaces.Helpers;
-using Foundation.Models.Specialised;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;
@@ -41,6 +40,7 @@ namespace Foundation.BusinessProcess.Core
         /// <param name="loggingService">The logging service</param>
         /// <param name="scheduleIntervalProcess">The schedule interval process</param>
         /// <param name="calendarProcess">The calendar process</param>
+        /// <param name="serviceControlWrapper">The service control wrapper</param>
         public ScheduledJobProcess
         (
             ICore core,
@@ -51,7 +51,8 @@ namespace Foundation.BusinessProcess.Core
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
             IScheduleIntervalProcess scheduleIntervalProcess,
-            ICalendarProcess calendarProcess
+            ICalendarProcess calendarProcess,
+            IServiceControlWrapper serviceControlWrapper
         ) 
             : base
             (
@@ -64,10 +65,11 @@ namespace Foundation.BusinessProcess.Core
                 userProfileRepository
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, scheduleIntervalProcess, calendarProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, scheduleIntervalProcess, calendarProcess, serviceControlWrapper);
 
             ScheduleIntervalProcess = scheduleIntervalProcess;
             CalendarProcess = calendarProcess;
+            ServiceControlWrapper = serviceControlWrapper;
 
             ScheduledTimers = new Dictionary<String, ServerProcessTimer>();
 
@@ -89,6 +91,14 @@ namespace Foundation.BusinessProcess.Core
         /// The calendar process.
         /// </value>
         private ICalendarProcess CalendarProcess { get; }
+
+        /// <summary>
+        /// Gets the service control wrapper
+        /// </summary>
+        /// <value>
+        /// The service control wrapper.
+        /// </value>
+        private IServiceControlWrapper ServiceControlWrapper { get; }
 
         /// <summary>
         /// Collection of Scheduled Timers
@@ -349,7 +359,7 @@ namespace Foundation.BusinessProcess.Core
                 throw new ArgumentNullException(nameof(serviceName));
             }
 
-            ServiceController serviceController = new ServiceController(serviceName, serverName);
+            IServiceControlWrapper serviceController = ServiceControlWrapper.SetupController(serviceName, serverName);
 
             switch (serviceController.Status)
             {

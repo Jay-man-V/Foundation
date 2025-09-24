@@ -142,7 +142,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         public void Test_ApplyFilter_ContractType()
         {
             List<IContract> contracts = new List<IContract>();
-            IContractProcess process = CreateBusinessProcess();
 
             IContractType contractType1 = CoreInstance.IoC.Get<IContractType>();
             contractType1.Id = new EntityId(1);
@@ -150,11 +149,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             IContractType contractType2 = CoreInstance.IoC.Get<IContractType>();
             contractType2.Id = new EntityId(2);
 
-            contracts.Add(CreateEntity(process, 1));
-            contracts.Add(CreateEntity(process, 2));
-            contracts.Add(CreateEntity(process, 3));
-            contracts.Add(CreateEntity(process, 4));
-            contracts.Add(CreateEntity(process, 5));
+            contracts.Add(CreateEntity(TheProcess!, 1));
+            contracts.Add(CreateEntity(TheProcess!, 2));
+            contracts.Add(CreateEntity(TheProcess!, 3));
+            contracts.Add(CreateEntity(TheProcess!, 4));
+            contracts.Add(CreateEntity(TheProcess!, 5));
 
             contracts[0].Id = new EntityId(0);
             contracts[0].ContractTypeId = new EntityId(1);
@@ -171,10 +170,10 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             contracts[4].Id = new EntityId(4);
             contracts[4].ContractTypeId = new EntityId(1);
 
-            List<IContract> filteredContacts1 = process.ApplyFilter(contracts, contractType1);
+            List<IContract> filteredContacts1 = TheProcess!.ApplyFilter(contracts, contractType1);
             Assert.That(filteredContacts1.Count, Is.EqualTo(3));
 
-            List<IContract> filteredContacts2 = process.ApplyFilter(contracts, contractType2);
+            List<IContract> filteredContacts2 = TheProcess!.ApplyFilter(contracts, contractType2);
             Assert.That(filteredContacts2.Count, Is.EqualTo(2));
         }
     }

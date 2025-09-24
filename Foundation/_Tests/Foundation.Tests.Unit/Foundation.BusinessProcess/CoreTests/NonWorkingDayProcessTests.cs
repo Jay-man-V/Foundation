@@ -158,15 +158,13 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         [TestCase]
         public void Test_ApplyFilter_Country()
         {
-            INonWorkingDayProcess process = CreateBusinessProcess();
-
             List<INonWorkingDay> nonWorkingDays = CreateListOfNonWorkingDays();
             ICountry country = CoreInstance.IoC.Get<ICountry>();
             country.Id = new EntityId(1);
             String year = String.Empty;
             String description = String.Empty;
 
-            List<INonWorkingDay> filteredNonWorkingDays = process.ApplyFilter(nonWorkingDays, country, year, description);
+            List<INonWorkingDay> filteredNonWorkingDays = TheProcess!.ApplyFilter(nonWorkingDays, country, year, description);
 
             Assert.That(filteredNonWorkingDays.Count, Is.EqualTo(8));
 
@@ -192,14 +190,12 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         [TestCase]
         public void Test_ApplyFilter_Year()
         {
-            INonWorkingDayProcess process = CreateBusinessProcess();
-
             List<INonWorkingDay> nonWorkingDays = CreateListOfNonWorkingDays();
             const ICountry? country = null;
             String year = "2022";
             String description = String.Empty;
 
-            List<INonWorkingDay> filteredNonWorkingDays = process.ApplyFilter(nonWorkingDays, country, year, description);
+            List<INonWorkingDay> filteredNonWorkingDays = TheProcess!.ApplyFilter(nonWorkingDays, country, year, description);
 
             Assert.That(filteredNonWorkingDays.Count, Is.EqualTo(6));
 
@@ -221,14 +217,12 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         [TestCase]
         public void Test_ApplyFilter_Description()
         {
-            INonWorkingDayProcess process = CreateBusinessProcess();
-
             List<INonWorkingDay> nonWorkingDays = CreateListOfNonWorkingDays();
             const ICountry? country = null;
             String year = String.Empty;
             const String description = "C1. Y2022. New Years Day";
 
-            List<INonWorkingDay> filteredNonWorkingDays = process.ApplyFilter(nonWorkingDays, country, year, description);
+            List<INonWorkingDay> filteredNonWorkingDays = TheProcess!.ApplyFilter(nonWorkingDays, country, year, description);
 
             Assert.That(filteredNonWorkingDays.Count, Is.EqualTo(1));
 
@@ -320,13 +314,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         [TestCase]
         public void Test_GetListOfNonWorkingDayYears()
         {
-            INonWorkingDayProcess process = CreateBusinessProcess();
-
             List<INonWorkingDay> nonWorkingDays = CreateListOfNonWorkingDays();
-            List<String> years = process.GetListOfNonWorkingDayYears(nonWorkingDays);
+            List<String> years = TheProcess!.GetListOfNonWorkingDayYears(nonWorkingDays);
 
             Assert.That(years.Count, Is.EqualTo(5));
-            Assert.That(years[0], Is.EqualTo(process.AllText));
+            Assert.That(years[0], Is.EqualTo(TheProcess!.AllText));
             Assert.That(years[1], Is.EqualTo("2023"));
             Assert.That(years[2], Is.EqualTo("2022"));
             Assert.That(years[3], Is.EqualTo("2021"));
@@ -336,14 +328,12 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         [TestCase]
         public void Test_GetListOfNonWorkingDayDescriptions()
         {
-            INonWorkingDayProcess process = CreateBusinessProcess();
-
             List<INonWorkingDay> nonWorkingDays = CreateListOfNonWorkingDays();
-            List<String> years = process.GetListOfNonWorkingDayDescriptions(nonWorkingDays);
+            List<String> years = TheProcess!.GetListOfNonWorkingDayDescriptions(nonWorkingDays);
 
             Assert.That(years.Count, Is.EqualTo(25));
-            Assert.That(years[0], Is.EqualTo(process.AllText));
-            Assert.That(years[1], Is.EqualTo(process.NoneText));
+            Assert.That(years[0], Is.EqualTo(TheProcess!.AllText));
+            Assert.That(years[1], Is.EqualTo(TheProcess!.NoneText));
             Assert.That(years[2], Is.EqualTo("C1. Y2020. New Years Day"));
             Assert.That(years[3], Is.EqualTo("C1. Y2020. Second New Years Day1"));
             Assert.That(years[4], Is.EqualTo("C1. Y2021. New Years Day"));

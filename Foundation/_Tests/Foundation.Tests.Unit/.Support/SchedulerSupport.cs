@@ -133,12 +133,10 @@ namespace Foundation.Tests.Unit.Support
 
             if (fullyQualifiedTypeName.TypeName == TaskImplementationType)
             {
-                ICalendarProcess calendarProcess = Substitute.For<ICalendarProcess>();
                 eventArgs.ServiceInstance = new MockScheduledTask(Core!, RunTimeEnvironmentSettings!, DateTimeService!, LoggingService!);
             }
             else if (fullyQualifiedTypeName.TypeName == TaskImplementationTypeWithError)
             {
-                ICalendarProcess calendarProcess = Substitute.For<ICalendarProcess>();
                 eventArgs.ServiceInstance = new MockScheduledTaskWithError(Core!, RunTimeEnvironmentSettings!, DateTimeService!, LoggingService!);
             }
         }

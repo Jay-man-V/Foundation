@@ -19,11 +19,16 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
     [TestFixture]
     public class CalendarProcessTests : UnitTestBase
     {
-        private ICalendarRepository? Repository { get; set; }
-        private ICalendarProcess CreateBusinessProcess()
+        private ICalendarRepository? TheRepository { get; set; }
+        private ICalendarProcess? TheProcess { get; set; }
+
+        public override void TestInitialise()
         {
-            Repository = Substitute.For<ICalendarRepository>();
-            ICalendarProcess process = new CalendarProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, Repository);
+            base.TestInitialise();
+
+            TheRepository = Substitute.For<ICalendarRepository>();
+
+            TheProcess = new CalendarProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, TheRepository);
 
             List<DateTime> holidayDates =
             [
@@ -32,19 +37,17 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
                 new(2020, 12, 25),
                 new(2020, 12, 28),
             ];
-            holidayDates.ForEach(hd => Repository.IsNonWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, hd).Returns(true));
+            holidayDates.ForEach(hd => TheRepository.IsNonWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, hd).Returns(true));
 
-            Repository.GetFirstWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, new DateTime(2025, 03, 26)).Returns(new DateTime(2025, 03, 03));
-            Repository.GetFirstWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, new DateTime(2025, 03, 01)).Returns(new DateTime(2025, 03, 03));
-            Repository.GetFirstWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, 2025, 03).Returns(new DateTime(2025, 03, 03));
-            Repository.GetFirstWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, 2025, 03).Returns(new DateTime(2025, 03, 03));
+            TheRepository.GetFirstWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, new DateTime(2025, 03, 26)).Returns(new DateTime(2025, 03, 03));
+            TheRepository.GetFirstWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, new DateTime(2025, 03, 01)).Returns(new DateTime(2025, 03, 03));
+            TheRepository.GetFirstWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, 2025, 03).Returns(new DateTime(2025, 03, 03));
+            TheRepository.GetFirstWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, 2025, 03).Returns(new DateTime(2025, 03, 03));
 
-            Repository.GetLastWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, new DateTime(2025, 05, 26)).Returns(new DateTime(2025, 05, 30));
-            Repository.GetLastWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, new DateTime(2025, 05, 01)).Returns(new DateTime(2025, 05, 30));
-            Repository.GetLastWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, 2025, 05).Returns(new DateTime(2025, 05, 30));
-            Repository.GetLastWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, 2025, 05).Returns(new DateTime(2025, 05, 30));
-
-            return process;
+            TheRepository.GetLastWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, new DateTime(2025, 05, 26)).Returns(new DateTime(2025, 05, 30));
+            TheRepository.GetLastWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, new DateTime(2025, 05, 01)).Returns(new DateTime(2025, 05, 30));
+            TheRepository.GetLastWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, 2025, 05).Returns(new DateTime(2025, 05, 30));
+            TheRepository.GetLastWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, 2025, 05).Returns(new DateTime(2025, 05, 30));
         }
 
 
@@ -59,11 +62,10 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         {
             DateTime expected = DateTime.Parse(expectedString);
             DateTime startDate = DateTime.Parse(startDateString);
-            ICalendarProcess process = CreateBusinessProcess();
 
-            Repository!.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, Arg.Any<DateTime>()).Returns(expected);
+            TheRepository!.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, Arg.Any<DateTime>()).Returns(expected);
 
-            DateTime actual = process.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, startDate);
+            DateTime actual = TheProcess!.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, startDate);
 
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -79,11 +81,10 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         {
             DateTime expected = DateTime.Parse(expectedString);
             DateTime startDate = DateTime.Parse(startDateString);
-            ICalendarProcess process = CreateBusinessProcess();
 
-            Repository!.GetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, Arg.Any<DateTime>(), Arg.Any<ScheduleInterval>(), Arg.Any<Int32>()).Returns(expected);
+            TheRepository!.GetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, Arg.Any<DateTime>(), Arg.Any<ScheduleInterval>(), Arg.Any<Int32>()).Returns(expected);
 
-            DateTime actual = process.GetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, startDate);
+            DateTime actual = TheProcess!.GetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, startDate);
 
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -94,11 +95,10 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         {
             DateTime expected = DateTime.Parse(expectedString);
             DateTime startDate = DateTime.Parse(startDateString);
-            ICalendarProcess process = CreateBusinessProcess();
 
-            Repository!.GetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, Arg.Any<DateTime>(), Arg.Any<ScheduleInterval>(), Arg.Any<Int32>()).Returns(expected);
+            TheRepository!.GetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, Arg.Any<DateTime>(), Arg.Any<ScheduleInterval>(), Arg.Any<Int32>()).Returns(expected);
 
-            DateTime actual = process.GetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, startDate, scheduleInterval, interval);
+            DateTime actual = TheProcess!.GetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, startDate, scheduleInterval, interval);
 
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -108,9 +108,8 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         public void Test_IsHoliday(Boolean expected, String startDateString)
         {
             DateTime startDate = DateTime.Parse(startDateString);
-            ICalendarProcess process = CreateBusinessProcess();
 
-            Boolean actual = process.IsHoliday(RunTimeEnvironmentSettings.StandardCountryCode, startDate);
+            Boolean actual = TheProcess!.IsHoliday(RunTimeEnvironmentSettings.StandardCountryCode, startDate);
 
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -120,9 +119,8 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         {
             DateTime expected = DateTime.Parse(expectedString);
             DateTime startDate = DateTime.Parse(startDateString);
-            ICalendarProcess process = CreateBusinessProcess();
 
-            DateTime actual = process.GetFirstWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, startDate);
+            DateTime actual = TheProcess!.GetFirstWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, startDate);
 
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -131,9 +129,8 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         public void Test_GetFirstWorkingDayOfMonth_Year_Month(String expectedString, Int32 year, Int32 month)
         {
             DateTime expected = DateTime.Parse(expectedString);
-            ICalendarProcess process = CreateBusinessProcess();
 
-            DateTime actual = process.GetFirstWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, year, month);
+            DateTime actual = TheProcess!.GetFirstWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, year, month);
 
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -143,9 +140,8 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         {
             DateTime expected = DateTime.Parse(expectedString);
             DateTime startDate = DateTime.Parse(startDateString);
-            ICalendarProcess process = CreateBusinessProcess();
 
-            DateTime actual = process.GetLastWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, startDate);
+            DateTime actual = TheProcess!.GetLastWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, startDate);
 
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -154,9 +150,8 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         public void Test_GetLastWorkingDayOfMonth_Year_Month(String expectedString, Int32 year, Int32 month)
         {
             DateTime expected = DateTime.Parse(expectedString);
-            ICalendarProcess process = CreateBusinessProcess();
 
-            DateTime actual = process.GetLastWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, year, month);
+            DateTime actual = TheProcess!.GetLastWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, year, month);
 
             Assert.That(actual, Is.EqualTo(expected));
         }

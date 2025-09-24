@@ -146,8 +146,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         [TestCase]
         public void Test_ApplyFilter_ConfigurationScope()
         {
-            IApplicationConfigurationProcess process = CreateBusinessProcess();
-
             IConfigurationScope configurationScope1 = CoreInstance.IoC.Get<IConfigurationScope>();
             configurationScope1.Id = new EntityId(1);
 
@@ -162,11 +160,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
             List<IApplicationConfiguration> applicationConfigurations =
             [
-                CreateEntity(process, 1),
-                CreateEntity(process, 2),
-                CreateEntity(process, 3),
-                CreateEntity(process, 4),
-                CreateEntity(process, 5),
+                CreateEntity(TheProcess!, 1),
+                CreateEntity(TheProcess!, 2),
+                CreateEntity(TheProcess!, 3),
+                CreateEntity(TheProcess!, 4),
+                CreateEntity(TheProcess!, 5),
             ];
 
             applicationConfigurations[0].ConfigurationScopeId = configurationScope1.Id;
@@ -195,18 +193,16 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             applicationConfigurations[4].ApplicationId = application1.Id;
             applicationConfigurations[4].CreatedByUserProfileId = userProfile1.Id;
 
-            List<IApplicationConfiguration> filteredApplicationConfigurations1 = process.ApplyFilter(applicationConfigurations, configurationScope1, application1, userProfile1);
+            List<IApplicationConfiguration> filteredApplicationConfigurations1 = TheProcess!.ApplyFilter(applicationConfigurations, configurationScope1, application1, userProfile1);
             Assert.That(filteredApplicationConfigurations1.Count, Is.EqualTo(3));
 
-            List<IApplicationConfiguration> filteredApplicationConfigurations2 = process.ApplyFilter(applicationConfigurations, configurationScope2, application1, userProfile1);
+            List<IApplicationConfiguration> filteredApplicationConfigurations2 = TheProcess!.ApplyFilter(applicationConfigurations, configurationScope2, application1, userProfile1);
             Assert.That(filteredApplicationConfigurations2.Count, Is.EqualTo(2));
         }
 
         [TestCase]
         public void Test_ApplyFilter_Application()
         {
-            IApplicationConfigurationProcess process = CreateBusinessProcess();
-
             IConfigurationScope configurationScope1 = CoreInstance.IoC.Get<IConfigurationScope>();
             configurationScope1.Id = new EntityId(1);
 
@@ -221,11 +217,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
             List<IApplicationConfiguration> applicationConfigurations =
             [
-                CreateEntity(process, 1),
-                CreateEntity(process, 2),
-                CreateEntity(process, 3),
-                CreateEntity(process, 4),
-                CreateEntity(process, 5),
+                CreateEntity(TheProcess!, 1),
+                CreateEntity(TheProcess!, 2),
+                CreateEntity(TheProcess!, 3),
+                CreateEntity(TheProcess!, 4),
+                CreateEntity(TheProcess!, 5),
             ];
 
             applicationConfigurations[0].ConfigurationScopeId = configurationScope1.Id;
@@ -254,10 +250,10 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             applicationConfigurations[4].ApplicationId = application1.Id;
             applicationConfigurations[4].CreatedByUserProfileId = userProfile1.Id;
 
-            List<IApplicationConfiguration> filteredApplicationConfigurations1 = process.ApplyFilter(applicationConfigurations, configurationScope1, application1, userProfile1);
+            List<IApplicationConfiguration> filteredApplicationConfigurations1 = TheProcess!.ApplyFilter(applicationConfigurations, configurationScope1, application1, userProfile1);
             Assert.That(filteredApplicationConfigurations1.Count, Is.EqualTo(3));
 
-            List<IApplicationConfiguration> filteredApplicationConfigurations2 = process.ApplyFilter(applicationConfigurations, configurationScope1, application2, userProfile1);
+            List<IApplicationConfiguration> filteredApplicationConfigurations2 = TheProcess!.ApplyFilter(applicationConfigurations, configurationScope1, application2, userProfile1);
             Assert.That(filteredApplicationConfigurations2.Count, Is.EqualTo(2));
         }
 
