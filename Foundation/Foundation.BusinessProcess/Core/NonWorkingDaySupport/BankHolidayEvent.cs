@@ -39,7 +39,7 @@ namespace Foundation.BusinessProcess.Core.NonWorkingDaySupport
         public String Title { get; set; }
 
         /// <summary>
-        /// Gets or sets the date as string.
+        /// Gets or sets the date as string. ()yyyy-MM-dd)
         /// </summary>
         /// <value>
         /// The date as string.
