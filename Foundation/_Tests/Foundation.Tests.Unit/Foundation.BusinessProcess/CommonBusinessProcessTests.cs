@@ -584,7 +584,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess
         {
             lock (SyncLock)
             {
-                ResetLoggedOnUserProfile(UserProfileProcess);
+                ResetLoggedOnUserProfile(CoreInstance.CurrentLoggedOnUser.UserProfile);
 
                 TEntity? entity = createEntity ? CreateEntity(TheProcess!, 1) : default;
 
@@ -623,7 +623,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess
         {
             lock (SyncLock)
             {
-                ResetLoggedOnUserProfile(UserProfileProcess);
+                ResetLoggedOnUserProfile(CoreInstance.CurrentLoggedOnUser.UserProfile);
 
                 CoreInstance.CurrentLoggedOnUser.UserProfile.IsSystemSupport = isSystemSupport;
                 if (!isSystemSupport)

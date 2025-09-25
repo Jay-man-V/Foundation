@@ -34,7 +34,7 @@ namespace Foundation.Common
         /// </summary>
         /// <param name="target">The action's owner.</param>
         /// <param name="action">The action will be associated to this instance.</param>
-        public WeakAction(Object target, Action action)
+        public WeakAction(Object? target, Action action)
         {
 #if NETFX_CORE
             if (action.GetMethodInfo().IsStatic)

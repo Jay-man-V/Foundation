@@ -20,7 +20,7 @@ namespace Foundation.Common
         public ExecutionTimer() :
             this
             (
-                new StackFrame(1)?.GetMethod()?.Name ?? String.Empty
+                new StackFrame(1).GetMethod()?.Name ?? String.Empty
             )
         {
         }
@@ -65,7 +65,7 @@ namespace Foundation.Common
         /// <value>
         /// The timer stopwatch.
         /// </value>
-        private Stopwatch TimerStopwatch { get; set; } = new Stopwatch();
+        private Stopwatch TimerStopwatch { get; set; } = new();
 
         /// <summary>
         /// Gets or sets the size of the indent.

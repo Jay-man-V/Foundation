@@ -134,9 +134,15 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
         [TestCase]
         public void Test_GetColumnDefinitionsForDisplayControl()
         {
-            List<IGridColumnDefinition> gridColumnDefinitions = TheProcess!.GetColumnDefinitionsForDisplayControl();
+            ResetLoggedOnUserProfile(CoreInstance.CurrentLoggedOnUser.UserProfile);
+            List<IGridColumnDefinition> gridColumnDefinitions1 = TheProcess!.GetColumnDefinitionsForDisplayControl();
+            Assert.That(gridColumnDefinitions1.Count, Is.EqualTo(7));
 
-            Assert.That(gridColumnDefinitions.Count, Is.EqualTo(7));
+            RemoveRoleFromLoggedOnUser(ApplicationRole.SystemSupervisor);
+            List<IGridColumnDefinition> gridColumnDefinitions2 = TheProcess!.GetColumnDefinitionsForDisplayControl();
+            Assert.That(gridColumnDefinitions2.Count, Is.EqualTo(6));
+
+            ResetLoggedOnUserProfile(CoreInstance.CurrentLoggedOnUser.UserProfile);
         }
 
         [TestCase]

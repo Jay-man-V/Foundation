@@ -23,10 +23,10 @@ namespace Foundation.Common
         {
             ReportName = reportName;
 
-            MyParameterValues = new();
+            MyParameterValues = [];
         }
 
-        private Dictionary<String, Object> MyParameterValues { get; set; }
+        private Dictionary<String, Object> MyParameterValues { get; }
 
         /// <inheritdoc cref="ReportName"/>
         public String ReportName { get; }

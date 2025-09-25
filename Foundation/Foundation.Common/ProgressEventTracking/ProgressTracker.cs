@@ -111,14 +111,11 @@ namespace Foundation.Common
             retVal.Append(FormatProgressItem(item));
             retVal.Append(Environment.NewLine);
 
-            if (item.History != null)
+            foreach (ProgressItem childItem in item.History)
             {
-                foreach (ProgressItem childItem in item.History)
-                {
-                    StringBuilder line = GenerateReport(childItem);
+                StringBuilder line = GenerateReport(childItem);
 
-                    retVal.Append(line);
-                }
+                retVal.Append(line);
             }
 
             return retVal;

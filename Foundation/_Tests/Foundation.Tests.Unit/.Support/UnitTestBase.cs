@@ -262,20 +262,24 @@ namespace Foundation.Tests.Unit.Support
 
             LoggingService = Substitute.For<ILoggingService>();
 
+            IUserProfile userProfile = new FModels.Sec.UserProfile
+            {
+                Id = new EntityId(1),
+                StatusId = new EntityId(EntityStatus.Active.Id()),
+                CreatedOn = CreatedOnDateTime,
+                LastUpdatedOn = LastUpdatedOnDateTime,
+                ValidFrom = ValidFromDateTime,
+                ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
+
+                DisplayName = UserSecuritySupport.UnitTestAccountDisplayName,
+                IsSystemSupport = true,
+                Username = $@"{UserSecuritySupport.UnitTestAccountDomain}\{UserSecuritySupport.UnitTestAccountUserName}",
+            };
+
+            ResetLoggedOnUserProfile(userProfile);
+
             IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
-            IUserProfile userProfile = ResetLoggedOnUserProfile(userProfileProcess);
-
-            FModels.Sec.Role systemAdministratorRole = new FModels.Sec.Role
-            {
-                Id = new EntityId(ApplicationRole.SystemAdministrator.Id())
-            };
-            userProfile.Roles.Add(systemAdministratorRole);
-
-            FModels.Sec.Role creatorRole = new FModels.Sec.Role
-            {
-                Id = new EntityId(ApplicationRole.Creator.Id())
-            };
-            userProfile.Roles.Add(creatorRole);
+            userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(userProfile);
 
             IApplication application = new FModels.Sec.Application
             {
@@ -331,23 +335,23 @@ namespace Foundation.Tests.Unit.Support
             LoggedOnUserProcess.GetLoggedOnUsers(Arg.Any<AppId>()).Returns(LoggedOnUsersList);
         }
 
-        protected IUserProfile ResetLoggedOnUserProfile(IUserProfileProcess userProfileProcess)
+        protected IUserProfile ResetLoggedOnUserProfile(IUserProfile userProfile)
         {
-            IUserProfile userProfile = new FModels.Sec.UserProfile
+            userProfile.Roles.Clear();
+
+            userProfile.IsSystemSupport = true;
+
+            FModels.Sec.Role systemAdministratorRole = new FModels.Sec.Role
             {
-                Id = new EntityId(1),
-                StatusId = new EntityId(EntityStatus.Active.Id()),
-                CreatedOn = CreatedOnDateTime,
-                LastUpdatedOn = LastUpdatedOnDateTime,
-                ValidFrom = ValidFromDateTime,
-                ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
-
-                DisplayName = UserSecuritySupport.UnitTestAccountDisplayName,
-                IsSystemSupport = true,
-                Username = $@"{UserSecuritySupport.UnitTestAccountDomain}\{UserSecuritySupport.UnitTestAccountUserName}",
+                Id = new EntityId(ApplicationRole.SystemAdministrator.Id())
             };
+            userProfile.Roles.Add(systemAdministratorRole);
 
-            userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(userProfile);
+            FModels.Sec.Role creatorRole = new FModels.Sec.Role
+            {
+                Id = new EntityId(ApplicationRole.Creator.Id())
+            };
+            userProfile.Roles.Add(creatorRole);
 
             return userProfile;
         }
@@ -375,6 +379,11 @@ namespace Foundation.Tests.Unit.Support
             if (roleToRemove != null)
             {
                 CoreInstance.CurrentLoggedOnUser.UserProfile.Roles.Remove(roleToRemove);
+            }
+
+            if (applicationRoleToRemove == ApplicationRole.SystemSupervisor)
+            {
+                CoreInstance.CurrentLoggedOnUser.UserProfile.IsSystemSupport = false;
             }
         }
 

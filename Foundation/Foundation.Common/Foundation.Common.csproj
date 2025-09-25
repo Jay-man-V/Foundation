@@ -22,8 +22,4 @@
     <ProjectReference Include="..\Foundation.Resources\Foundation.Resources.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Constants\" />
-  </ItemGroup>
-
 </Project>

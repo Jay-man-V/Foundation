@@ -8,7 +8,6 @@ using Foundation.BusinessProcess.Helpers;
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Interfaces.Helpers;
-using Foundation.Models.Specialised;
 using Foundation.Resources;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
@@ -140,7 +139,7 @@ namespace Foundation.BusinessProcess.Sec
         {
             LoggingHelpers.TraceCallEnter();
 
-            List<IGridColumnDefinition> retVal = new List<IGridColumnDefinition>();
+            List<IGridColumnDefinition> retVal = [];
             IGridColumnDefinition gridColumnDefinition;
 
             gridColumnDefinition = new GridColumnDefinition(75, FDC.LoggedOnUser.UserProfileId, "User Id", typeof(EntityId));
