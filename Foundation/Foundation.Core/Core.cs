@@ -19,7 +19,7 @@ namespace Foundation.Core
     {
         //https://learn.microsoft.com/en-us/dotnet/core/extensions/configuration-providers
 
-        private static readonly ConfigurationManager TheConfigurationManager = new ();
+        private static readonly ConfigurationManager TheConfigurationManager = new ConfigurationManager();
 
         private static IHost? TheHost { get; set; }
         private static HostApplicationBuilder? HostApplicationBuilder { get; set; }
@@ -83,7 +83,7 @@ namespace Foundation.Core
 
             if (CoreInstance == null)
             {
-                HostApplicationBuilderSettings settings = new()
+                HostApplicationBuilderSettings settings = new HostApplicationBuilderSettings()
                 {
                     Configuration = TheConfigurationManager,
                     ContentRootPath = Directory.GetCurrentDirectory(),

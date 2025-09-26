@@ -29,7 +29,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AssemblyHelpersTests.Fully
         [TestCase]
         public void Test_ConstructorDefault()
         {
-            FullyQualifiedTypeName fullyQualifiedTypeName = new();
+            FullyQualifiedTypeName fullyQualifiedTypeName = new FullyQualifiedTypeName();
 
             Assert.That(fullyQualifiedTypeName.ToString(), Is.EqualTo(String.Empty));
             Assert.That(fullyQualifiedTypeName.AssemblyName, Is.EqualTo(String.Empty));
@@ -42,7 +42,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AssemblyHelpersTests.Fully
         [TestCase]
         public void Test_ConstructorString()
         {
-            FullyQualifiedTypeName fullyQualifiedTypeNameObject = new(_fullyQualifiedTypeNameString);
+            FullyQualifiedTypeName fullyQualifiedTypeNameObject = new FullyQualifiedTypeName(_fullyQualifiedTypeNameString);
 
             Assert.That(fullyQualifiedTypeNameObject.ToString(), Is.EqualTo(_fullyQualifiedTypeNameString));
             Assert.That(fullyQualifiedTypeNameObject.AssemblyName, Is.EqualTo(AssemblyName));

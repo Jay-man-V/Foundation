@@ -33,7 +33,7 @@ namespace Foundation.Models.Sec
             set
             {
                 _id = value;
-                base.Id = new(value.ToInteger());
+                base.Id = new EntityId(value.ToInteger());
             }
         }
 

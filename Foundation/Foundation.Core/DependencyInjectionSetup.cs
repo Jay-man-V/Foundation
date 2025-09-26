@@ -19,7 +19,7 @@ namespace Foundation.Core
     /// </summary>
     public static class DependencyInjectionSetup
     {
-        private static readonly Object SyncLock = new();
+        private static readonly Object SyncLock = new Object();
         internal static IServiceCollection? ServiceCollection { get; private set; }
 
         /// <summary>

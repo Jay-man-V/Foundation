@@ -59,7 +59,7 @@ namespace Foundation.Services.Mail
 
             using (IMailWrapper client = MailWrapper.SetupMailer())
             {
-                MailMessage mailMessage = new()
+                MailMessage mailMessage = new MailMessage
                 {
                     FromAddress = mailFrom,
                     Subject = mailSubject,
@@ -83,7 +83,7 @@ namespace Foundation.Services.Mail
         {
             LoggingHelpers.TraceCallEnter(toAddress, fromAddress, subject, body, mailAttachments);
 
-            MailMessage mailMessage = new()
+            MailMessage mailMessage = new MailMessage
             {
                 FromAddress = fromAddress,
                 FromAddressDisplayName = fromAddressDisplayName,
@@ -113,7 +113,7 @@ namespace Foundation.Services.Mail
             newBody = newBody.Replace("$$SUBJECT$$", subject);
             newBody = newBody.Replace("$$BODY$$", body);
 
-            MailMessage mailMessage = new()
+            MailMessage mailMessage = new MailMessage
             {
                 FromAddress = fromAddress,
                 FromAddressDisplayName = fromAddressDisplayName,

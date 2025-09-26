@@ -118,7 +118,7 @@ namespace Foundation.Common
         /// <returns>The newly added Progress Item</returns>
         public ProgressItem AddHistory(MessageType eventType, String status, String message)
         {
-            ProgressItem newItem = new(DateTimeService, eventType, Action, status, message);
+            ProgressItem newItem = new ProgressItem(DateTimeService, eventType, Action, status, message);
             ProgressItem retVal = AddHistory(newItem);
 
             return retVal;

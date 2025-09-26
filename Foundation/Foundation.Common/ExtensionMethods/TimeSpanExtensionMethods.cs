@@ -62,21 +62,21 @@ namespace Foundation.Common
         public static TimeSpan Add(this TimeSpan currentValue, ScheduleInterval scheduleInterval, Int32 interval)
         {
             TimeSpan retVal = currentValue;
-            TimeSpan temp = new();
+            TimeSpan temp = new TimeSpan();
 
             switch (scheduleInterval)
             {
-                case ScheduleInterval.NotSet: temp = new(0, 0, 0, 0, interval); break;
-                case ScheduleInterval.Milliseconds: temp = new(0, 0, 0, 0, interval); break;
-                case ScheduleInterval.Seconds: temp = new(0, 0, 0, interval, 0); break;
-                case ScheduleInterval.Minutes: temp = new(0, 0, interval, 0, 0); break;
-                case ScheduleInterval.Hours: temp = new(0, interval, 0, 0, 0); break;
-                case ScheduleInterval.Days: temp = new(interval, 0, 0, 0, 0); break;
+                case ScheduleInterval.NotSet: temp = new TimeSpan(0, 0, 0, 0, interval); break;
+                case ScheduleInterval.Milliseconds: temp = new TimeSpan(0, 0, 0, 0, interval); break;
+                case ScheduleInterval.Seconds: temp = new TimeSpan(0, 0, 0, interval, 0); break;
+                case ScheduleInterval.Minutes: temp = new TimeSpan(0, 0, interval, 0, 0); break;
+                case ScheduleInterval.Hours: temp = new TimeSpan(0, interval, 0, 0, 0); break;
+                case ScheduleInterval.Days: temp = new TimeSpan(interval, 0, 0, 0, 0); break;
                 case ScheduleInterval.Weeks:
                 case ScheduleInterval.Months:
                 case ScheduleInterval.Years:
                 {
-                    DateTime zeroDate = new();
+                    DateTime zeroDate = new DateTime();
                     DateTime workingDate = zeroDate.Add(scheduleInterval, interval, temp);
                     temp = workingDate - zeroDate;
                     break;

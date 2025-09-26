@@ -72,7 +72,7 @@ namespace Foundation.Interfaces
         /// </returns>
         public static AppId FromObject(Object? x)
         {
-            AppId retVal = new(0);
+            AppId retVal = new AppId(0);
 
             if (x != null)
             {
@@ -81,12 +81,12 @@ namespace Foundation.Interfaces
                 if (objectType == AppIdType)
                 {
                     Int64 input = Convert.ToInt64(x);
-                    retVal = new(input);
+                    retVal = new AppId(input);
                 }
                 else if (objectType == typeof(AppId))
                 {
                     AppId input = (AppId)x;
-                    retVal = new(input);
+                    retVal = new AppId(input);
                 }
             }
 
@@ -202,7 +202,7 @@ namespace Foundation.Interfaces
         ///// </returns>
         //public static implicit operator AppId(Int64 x)
         //{
-        //    AppId retVal = new(x);
+        //    AppId retVal = new AppId(x);
 
         //    return retVal;
         //}

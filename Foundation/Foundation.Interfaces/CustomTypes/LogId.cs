@@ -72,7 +72,7 @@ namespace Foundation.Interfaces
         /// </returns>
         public static LogId FromObject(Object? x)
         {
-            LogId retVal = new(0L);
+            LogId retVal = new LogId(0L);
 
             if (x != null)
             {
@@ -81,12 +81,12 @@ namespace Foundation.Interfaces
                 if (objectType == LogIdType)
                 {
                     Int64 input = Convert.ToInt64(x);
-                    retVal = new(input);
+                    retVal = new LogId(input);
                 }
                 else if (objectType == typeof(LogId))
                 {
                     LogId input = (LogId)x;
-                    retVal = new(input);
+                    retVal = new LogId(input);
                 }
             }
 

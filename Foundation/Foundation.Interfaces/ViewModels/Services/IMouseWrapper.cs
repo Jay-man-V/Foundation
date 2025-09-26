@@ -24,6 +24,5 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <returns></returns>
         IMouseWrapper New();
-
     }
 }

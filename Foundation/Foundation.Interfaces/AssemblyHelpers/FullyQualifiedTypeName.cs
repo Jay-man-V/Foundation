@@ -36,7 +36,7 @@ namespace Foundation.Interfaces
 
             Value = xmlTypeName;
 
-            XmlDocument xmlDocument = new();
+            XmlDocument xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(Value);
 
             AssemblyName = xmlDocument.DocumentElement?.GetAttribute("assembly") ?? "Unknown assembly attribute";
@@ -87,7 +87,7 @@ namespace Foundation.Interfaces
         /// </returns>
         public static implicit operator FullyQualifiedTypeName(String fullyQualifiedTypeName)
         {
-            FullyQualifiedTypeName retVal = new(fullyQualifiedTypeName);
+            FullyQualifiedTypeName retVal = new FullyQualifiedTypeName(fullyQualifiedTypeName);
 
             return retVal;
         }

@@ -39,7 +39,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AssemblyHelpersTests.Fully
         [TestCase]
         public void Test_ImplicitCastToString()
         {
-            FullyQualifiedTypeName fullyQualifiedTypeName = new(_fullyQualifiedTypeNameString);
+            FullyQualifiedTypeName fullyQualifiedTypeName = new FullyQualifiedTypeName(_fullyQualifiedTypeNameString);
 
             String fullyQualifiedTypeNameString = fullyQualifiedTypeName;
 

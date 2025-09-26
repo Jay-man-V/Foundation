@@ -113,7 +113,7 @@ namespace Foundation.Common
             // function.
             if (LoggingBase.TraceSwitch.TraceVerbose)
             {
-                ContextInformation contextInfo = new();
+                ContextInformation contextInfo = new ContextInformation();
                 TraceCallEnter(contextInfo);
             }
         }
@@ -127,7 +127,7 @@ namespace Foundation.Common
         {
             if (LoggingBase.TraceSwitch.TraceVerbose)
             {
-                ContextInformation contextInfo = new(parameterValue);
+                ContextInformation contextInfo = new ContextInformation(parameterValue);
                 TraceCallEnter(contextInfo);
             }
         }
@@ -141,7 +141,7 @@ namespace Foundation.Common
         {
             if (LoggingBase.TraceSwitch.TraceVerbose)
             {
-                ContextInformation contextInfo = new(parameterValues);
+                ContextInformation contextInfo = new ContextInformation(parameterValues);
                 TraceCallEnter(contextInfo);
             }
         }
@@ -157,7 +157,7 @@ namespace Foundation.Common
             // function.
             if (LoggingBase.TraceSwitch.TraceVerbose)
             {
-                ContextInformation contextInfo = new();
+                ContextInformation contextInfo = new ContextInformation();
                 TraceCallReturn(null, contextInfo);
             }
         }
@@ -170,7 +170,7 @@ namespace Foundation.Common
         {
             if (LoggingBase.TraceSwitch.TraceVerbose)
             {
-                ContextInformation contextInfo = new();
+                ContextInformation contextInfo = new ContextInformation();
                 TraceCallReturn(returnValue, contextInfo);
             }
         }
@@ -181,7 +181,7 @@ namespace Foundation.Common
         /// <param name="contextInfo">The context information.</param>
         private static void TraceCallEnter(ContextInformation contextInfo)
         {
-            StringBuilder traceMessage = new();
+            StringBuilder traceMessage = new StringBuilder();
             traceMessage.Append($"{nameof(TraceCallEnter)}: {contextInfo}");
             WriteLogMessage(traceMessage);
             Trace.Indent();
@@ -195,7 +195,7 @@ namespace Foundation.Common
         private static void TraceCallReturn(Object? returnValue, ContextInformation contextInfo)
         {
             Trace.Unindent();
-            StringBuilder traceMessage = new();
+            StringBuilder traceMessage = new StringBuilder();
             traceMessage.Append($"{nameof(TraceCallReturn)}: {contextInfo}");
             if (returnValue != null)
             {

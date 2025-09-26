@@ -65,7 +65,7 @@ namespace Foundation.Common
         /// <value>
         /// The timer stopwatch.
         /// </value>
-        private Stopwatch TimerStopwatch { get; set; } = new();
+        private Stopwatch TimerStopwatch { get; set; } = new Stopwatch();
 
         /// <summary>
         /// Gets or sets the size of the indent.
@@ -91,7 +91,7 @@ namespace Foundation.Common
         /// </summary>
         public void StartTimer()
         {
-            TimerStopwatch = new();
+            TimerStopwatch = new Stopwatch();
             TimerStopwatch.Start();
 
             IndentSize += 4;

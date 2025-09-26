@@ -242,7 +242,7 @@ namespace Foundation.Common
                 else if (value.GetType() == typeof(Byte[]))
                 {
                     Byte[] byteArray = (Byte[])value;
-                    MemoryStream ms = new (byteArray);
+                    MemoryStream ms = new MemoryStream(byteArray);
                     retVal = Image.FromStream(ms);
                 }
             }
@@ -402,7 +402,7 @@ namespace Foundation.Common
             if (value != null && value != DBNull.Value)
             {
                 Int32.TryParse(value.ToString(), out Int32 temp);
-                retVal = new(temp);
+                retVal = new EntityId(temp);
             }
 
             LoggingHelpers.TraceCallReturn(retVal);
@@ -425,7 +425,7 @@ namespace Foundation.Common
             if (value != null && value != DBNull.Value)
             {
                 Int32.TryParse(value.ToString(), out Int32 temp);
-                retVal = new(temp);
+                retVal = new AppId(temp);
             }
 
             LoggingHelpers.TraceCallReturn(retVal);
@@ -448,7 +448,7 @@ namespace Foundation.Common
             if (value != null && value != DBNull.Value)
             {
                 Int32.TryParse(value.ToString(), out Int32 temp);
-                retVal = new(temp);
+                retVal = new LogId(temp);
             }
 
             LoggingHelpers.TraceCallReturn(retVal);
@@ -466,11 +466,11 @@ namespace Foundation.Common
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
-            EmailAddress retVal = new(defaultValue);
+            EmailAddress retVal = new EmailAddress(defaultValue);
 
             if (value != null && value != DBNull.Value)
             {
-                retVal = new(value.ToString());
+                retVal = new EmailAddress(value.ToString());
             }
 
             LoggingHelpers.TraceCallReturn(retVal);

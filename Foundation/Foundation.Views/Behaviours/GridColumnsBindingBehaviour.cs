@@ -252,8 +252,8 @@ namespace Foundation.Views.Behaviours
 
                 List<KeyValuePair<Boolean, String>> dropdown =
                 [
-                    new (true, gridColumnDefinition.TrueValue),
-                    new (false, gridColumnDefinition.FalseValue)
+                    new KeyValuePair<Boolean, String>(true, gridColumnDefinition.TrueValue),
+                    new KeyValuePair<Boolean, String>(false, gridColumnDefinition.FalseValue)
                 ];
 
                 dataGridColumn.ItemsSource = dropdown;

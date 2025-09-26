@@ -125,7 +125,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(String.IsNullOrEmpty(actual), Is.EqualTo(false));
             Assert.That(String.IsNullOrWhiteSpace(actual), Is.EqualTo(false));
 
-            FileInfo fi = new (actual);
+            FileInfo fi = new FileInfo(actual);
 
             String tempFolderPath = fi.DirectoryName ?? String.Empty;
             String tempFileName = fi.Name;

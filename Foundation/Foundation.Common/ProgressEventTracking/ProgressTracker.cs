@@ -40,7 +40,7 @@ namespace Foundation.Common
         /// <inheritdoc cref="IProgressEventTracker.AddEvent(IDateTimeService, MessageType, String, String, String)"/>
         public IProgressUpdater AddEvent(IDateTimeService dateTimeService, MessageType progressEvent, String action, String status, String message)
         {
-            ProgressItem newItem = new(dateTimeService, progressEvent, action, status, message);
+            ProgressItem newItem = new ProgressItem(dateTimeService, progressEvent, action, status, message);
 
             ProgressItems.Add(newItem);
 
@@ -53,7 +53,7 @@ namespace Foundation.Common
         public StringBuilder GenerateReport()
         {
             const String separator = "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-";
-            StringBuilder retVal = new();
+            StringBuilder retVal = new StringBuilder();
             foreach (ProgressItem item in ProgressItems)
             {
                 StringBuilder line = GenerateReport(item);
@@ -72,19 +72,19 @@ namespace Foundation.Common
         /// <inheritdoc cref="IProgressEventTracker.FormatProgressItem(ProgressItem)"/>
         public virtual StringBuilder FormatProgressItem(ProgressItem item)
         {
-            StringBuilder line = new();
+            StringBuilder retVal = new StringBuilder();
 
-            line.Append(" - ");
-            line.Append(item.TimeOfEntry.ToString(Formats.DotNet.DateTimeMilliseconds));
-            line.Append(" ");
-            line.Append(item.Action);
-            line.Append(" ");
-            line.Append(item.Status);
-            line.Append(" ");
-            line.Append(item.Message);
-            line.Append(Environment.NewLine);
+            retVal.Append(" - ");
+            retVal.Append(item.TimeOfEntry.ToString(Formats.DotNet.DateTimeMilliseconds));
+            retVal.Append(" ");
+            retVal.Append(item.Action);
+            retVal.Append(" ");
+            retVal.Append(item.Status);
+            retVal.Append(" ");
+            retVal.Append(item.Message);
+            retVal.Append(Environment.NewLine);
 
-            return line;
+            return retVal;
         }
 
         /// <inheritdoc cref="IProgressEventTracker.CopyReportToClipboard()"/>
@@ -94,7 +94,7 @@ namespace Foundation.Common
             if (handler != null)
             {
                 StringBuilder reportString = GenerateReport();
-                CopyToClipBoardEventArgs eventArgs = new(reportString.ToString());
+                CopyToClipBoardEventArgs eventArgs = new CopyToClipBoardEventArgs(reportString.ToString());
                 handler.Invoke(this, eventArgs);
             }
         }
@@ -106,7 +106,7 @@ namespace Foundation.Common
         /// <returns>The generated report</returns>
         protected StringBuilder GenerateReport(ProgressItem item)
         {
-            StringBuilder retVal = new();
+            StringBuilder retVal = new StringBuilder();
 
             retVal.Append(FormatProgressItem(item));
             retVal.Append(Environment.NewLine);

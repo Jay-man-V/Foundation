@@ -517,7 +517,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
             }
             else if (propertyType == typeof(List<EntityId>))
             {
-                retVal = new List<EntityId> { new(1), new(2), new(3), new(4), new(5), new(6), new(7), new(8), new(9), new(10) };
+                retVal = new List<EntityId> { new EntityId(1), new EntityId(2), new EntityId(3), new EntityId(4), new EntityId(5), new EntityId(6), new EntityId(7), new EntityId(8), new EntityId(9), new EntityId(10) };
             }
             else if (propertyType == typeof(EntityLife))
             {

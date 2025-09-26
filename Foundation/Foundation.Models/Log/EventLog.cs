@@ -52,7 +52,7 @@ namespace Foundation.Models.Log
             set
             {
                 _id = value;
-                base.Id = new(value.ToInteger());
+                base.Id = new EntityId(value.ToInteger());
             }
         }
 

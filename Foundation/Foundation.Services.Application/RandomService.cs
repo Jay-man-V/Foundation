@@ -13,7 +13,7 @@ namespace Foundation.Services.Application
     [DependencyInjectionTransient]
     public class RandomService : ServiceBase, IRandomService
     {
-        private static readonly Random Random = new();
+        private static readonly Random Random = new Random();
 
         /// <summary>
         /// 

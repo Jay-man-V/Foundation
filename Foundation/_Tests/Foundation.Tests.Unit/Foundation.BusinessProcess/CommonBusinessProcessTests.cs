@@ -55,9 +55,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess
         protected abstract String ExpectedScreenTitle { get; }
         protected abstract String ExpectedStatusBarText { get; }
 
-        protected virtual EntityId ExpectedNullId => new(-1);
-        protected virtual EntityId ExpectedAllId => new(-1);
-        protected virtual EntityId ExpectedNoneId => new(-2);
+        protected virtual EntityId ExpectedNullId => new EntityId(-1);
+        protected virtual EntityId ExpectedAllId => new EntityId(-1);
+        protected virtual EntityId ExpectedNoneId => new EntityId(-2);
         protected virtual String ExpectedNullText => String.Empty;
         protected virtual String ExpectedAllText => "<All>";
         protected virtual String ExpectedNoneText => "<None>";

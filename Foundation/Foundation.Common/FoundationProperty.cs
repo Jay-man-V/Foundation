@@ -59,13 +59,7 @@ namespace Foundation.Common
         {
             Object?[] args = [PropertyName, OldValue, NewValue];
 
-            FoundationProperty? retVal = Activator.CreateInstance(this.GetType(), args) as FoundationProperty;
-
-            if (retVal == null)
-            {
-                String message = $"The Type '{this.GetType()}' cannot be cloned but is calling FoundationProperty.Clone()";
-                throw new InvalidOperationException(message);
-            }
+            FoundationProperty retVal = (FoundationProperty)Activator.CreateInstance(this.GetType(), args)!;
 
             return retVal;
         }

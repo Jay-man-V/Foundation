@@ -445,7 +445,7 @@ namespace Foundation.Interfaces
             {
                 if (emailAddress.Length > 0)
                 {
-                    Regex regex = new(Constants.RegularExpressions.NormalAddress);
+                    Regex regex = new Regex(Constants.RegularExpressions.NormalAddress);
                     Match match = regex.Match(emailAddress);
 
                     retVal = match.Success;
@@ -468,7 +468,7 @@ namespace Foundation.Interfaces
             {
                 if (emailAddress.Length > 0)
                 {
-                    Regex regex = new(Constants.RegularExpressions.ValidButRare);
+                    Regex regex = new Regex(Constants.RegularExpressions.ValidButRare);
                     Match match = regex.Match(emailAddress);
 
                     retVal = match.Success;

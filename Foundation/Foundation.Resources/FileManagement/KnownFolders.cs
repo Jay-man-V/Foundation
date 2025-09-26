@@ -95,8 +95,8 @@ namespace Foundation.Resources
         /// <exception cref="ExternalException"></exception>
         internal static String GetPath(KnownFolder knownFolder, KnownFolderFlags flags, Boolean defaultUser)
         {
-            Guid folderId = new(KnownFolderGuids[(Int32)knownFolder]);
-            IntPtr defaultUserToken = new(defaultUser ? -1 : 0);
+            Guid folderId = new Guid(KnownFolderGuids[(Int32)knownFolder]);
+            IntPtr defaultUserToken = new IntPtr(defaultUser ? -1 : 0);
             Int32 result = SHGetKnownFolderPath(folderId, (UInt32)flags, defaultUserToken, out IntPtr outPath);
 
             String retVal;

@@ -106,7 +106,7 @@ namespace Foundation.Models
         public EntityStatus EntityStatus
         {
             get => (EntityStatus)StatusId.ToInteger();
-            set => StatusId = new((Int32)value);
+            set => StatusId = new EntityId((Int32)value);
         }
 
         /// <inheritdoc cref="IFoundationModel.StatusId"/>
@@ -192,7 +192,7 @@ namespace Foundation.Models
         protected virtual void OnPropertyChanging(String propertyName)
         {
             PropertyChangingEventHandler? handler = PropertyChanging;
-            handler?.Invoke(this, new(propertyName));
+            handler?.Invoke(this, new PropertyChangingEventArgs(propertyName));
         }
 
         /// <summary>
@@ -227,7 +227,7 @@ namespace Foundation.Models
         protected virtual void OnPropertyChanged(String propertyName)
         {
             PropertyChangedEventHandler? handler = PropertyChanged;
-            handler?.Invoke(this, new(propertyName));
+            handler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>
@@ -268,8 +268,8 @@ namespace Foundation.Models
                 else
                 {
                     TValue oldValue = storage;
-                    FoundationPropertyChangingEventArgs changingArgs = new(propertyName, oldValue, newValue);
-                    FoundationProperty foundationProperty = new(propertyName, oldValue, newValue);
+                    FoundationPropertyChangingEventArgs changingArgs = new FoundationPropertyChangingEventArgs(propertyName, oldValue, newValue);
+                    FoundationProperty foundationProperty = new FoundationProperty(propertyName, oldValue, newValue);
                     Boolean cancelFoundationProperty = OnFoundationPropertyChanging(changingArgs);
                     OnPropertyChanging(propertyName);
 
@@ -293,7 +293,7 @@ namespace Foundation.Models
                         EntityState = EntityState.Dirty;
                         IsChanged = true;
 
-                        FoundationPropertyChangedEventArgs changedArgs = new(propertyName, oldValue, newValue);
+                        FoundationPropertyChangedEventArgs changedArgs = new FoundationPropertyChangedEventArgs(propertyName, oldValue, newValue);
                         OnFoundationPropertyChanged(changedArgs);
                         OnPropertyChanged(propertyName);
                     }
@@ -332,8 +332,8 @@ namespace Foundation.Models
                 else
                 {
                     String oldValue = storage;
-                    FoundationPropertyChangingEventArgs changingArgs = new(propertyName, oldValue, newValue);
-                    FoundationProperty foundationProperty = new(propertyName, oldValue, newValue);
+                    FoundationPropertyChangingEventArgs changingArgs = new FoundationPropertyChangingEventArgs(propertyName, oldValue, newValue);
+                    FoundationProperty foundationProperty = new FoundationProperty(propertyName, oldValue, newValue);
                     Boolean cancelFoundationProperty = OnFoundationPropertyChanging(changingArgs);
                     OnPropertyChanging(propertyName);
 
@@ -364,7 +364,7 @@ namespace Foundation.Models
                         EntityState = EntityState.Dirty;
                         IsChanged = true;
 
-                        FoundationPropertyChangedEventArgs changedArgs = new(propertyName, oldValue, newValue);
+                        FoundationPropertyChangedEventArgs changedArgs = new FoundationPropertyChangedEventArgs(propertyName, oldValue, newValue);
                         OnFoundationPropertyChanged(changedArgs);
                         OnPropertyChanged(propertyName);
                     }
@@ -385,11 +385,7 @@ namespace Foundation.Models
         /// <inheritdoc cref="ICloneable.Clone"/>>
         public virtual Object Clone()
         {
-            if (Activator.CreateInstance(this.GetType()) is not FoundationModel retVal)
-            {
-                String message = $"The Type '{this.GetType()}' cannot be cloned but is calling {LocationUtils.GetFullyQualifiedFunctionName()}";
-                throw new InvalidOperationException(message);
-            }
+            FoundationModel retVal = (FoundationModel)Activator.CreateInstance(this.GetType())!;
 
             retVal.Initialising = true;
 

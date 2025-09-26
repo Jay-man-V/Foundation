@@ -214,7 +214,6 @@
     <Folder Include=".NetFramework\DependencyInjectionTests\" />
     <Folder Include=".Support\Configs\" />
     <Folder Include="Foundation.BusinessProcess\CoreTests\SchedulersTests\" />
-    <Folder Include="Foundation.BusinessProcess\MainTests\" />
     <Folder Include="Foundation.Models\" />
   </ItemGroup>
 

@@ -21,7 +21,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
     /// </summary>
     public class CoreTests // Do not inherit from UnitTestBase
     {
-        private AppId ApplicationId { get; } = new (123);
+        private AppId ApplicationId { get; } = new AppId(123);
         private String ApplicationName => "Unit Testing";
         private String ApplicationDescription => "Unit Testing Suite";
         private TraceLevel TraceLevel => TraceLevel.Off;

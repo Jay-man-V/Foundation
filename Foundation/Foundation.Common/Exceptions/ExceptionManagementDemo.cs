@@ -26,7 +26,7 @@ namespace Foundation.Common
             catch (Exception exception)
             {
                 if (throwNew)
-                    throw new("Failed in Method1", exception);
+                    throw new Exception("Failed in Method1", exception);
                 else
                     throw;
             }
@@ -47,7 +47,7 @@ namespace Foundation.Common
             catch (Exception exception)
             {
                 if (throwNew)
-                    throw new("Failed in Method2", exception);
+                    throw new Exception("Failed in Method2", exception);
                 else
                     throw;
             }
@@ -68,7 +68,7 @@ namespace Foundation.Common
             catch (Exception exception)
             {
                 if (throwNew)
-                    throw new("Failed in Method3", exception);
+                    throw new Exception("Failed in Method3", exception);
                 else
                     throw;
             }
@@ -82,7 +82,7 @@ namespace Foundation.Common
         private void Method4(Boolean throwException)
         {
             if (throwException)
-                throw new("It broke in Method 4");
+                throw new Exception("It broke in Method 4");
         }
     }
 }

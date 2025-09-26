@@ -33,7 +33,7 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
 
         private decimal Percentage1 => 0.05123456m;
 
-        private DateTime DateTime1 => new(2021, 1, 10, 20, 27, 57, 798);
+        private DateTime DateTime1 => new DateTime(2021, 1, 10, 20, 27, 57, 798);
 
         /// <summary>
         /// This test exists to force developers to come to this class if there are any changes to the DotNet Formats

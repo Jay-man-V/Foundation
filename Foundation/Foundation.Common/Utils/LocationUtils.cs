@@ -23,7 +23,7 @@ namespace Foundation.Common
         {
             String retVal = "<unknown>";
             
-            StackTrace stackTrace = new();
+            StackTrace stackTrace = new StackTrace();
             StackFrame? stackFrame = stackTrace.GetFrame(stackOffset);
 
             if (stackFrame != null)
@@ -53,7 +53,7 @@ namespace Foundation.Common
         {
             String retVal = "<unknown>";
 
-            StackTrace stackTrace = new();
+            StackTrace stackTrace = new StackTrace();
             StackFrame? stackFrame = stackTrace.GetFrame(stackOffset);
 
             if (stackFrame != null)
@@ -83,7 +83,7 @@ namespace Foundation.Common
         {
             String retVal = "<unknown>";
 
-            StackTrace stackTrace = new();
+            StackTrace stackTrace = new StackTrace();
             StackFrame? stackFrame = stackTrace.GetFrame(stackOffset);
 
             if (stackFrame != null)

@@ -63,7 +63,7 @@ namespace Foundation.Common
         /// </system.diagnostics>
         /// </code>
         /// </example>
-        public static TraceSwitch TraceSwitch { get; } = new("TraceLevelSwitch", String.Empty);
+        public static TraceSwitch TraceSwitch { get; } = new TraceSwitch("TraceLevelSwitch", String.Empty);
 
         /// <summary>
         /// Gets the requested log level.
@@ -103,7 +103,7 @@ namespace Foundation.Common
         {
             if (TraceSwitch.Level >= RequestedLogLevel)
             {
-                StringBuilder traceMessage = new();
+                StringBuilder traceMessage = new StringBuilder();
                 traceMessage.AppendLine($"{MessagePrefix}: {contextInfo} ");
                 ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, DateTimeService, exception);
                 String exceptionMessage = exceptionOutput.ToString();
@@ -124,7 +124,7 @@ namespace Foundation.Common
         {
             if (TraceSwitch.Level >= RequestedLogLevel)
             {
-                StringBuilder traceMessage = new();
+                StringBuilder traceMessage = new StringBuilder();
                 traceMessage.AppendLine($"{MessagePrefix}: {contextInfo} ");
                 ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, DateTimeService, exception, messageToLog, args);
                 String exceptionMessage = exceptionOutput.ToString();
@@ -144,7 +144,7 @@ namespace Foundation.Common
         {
             if (TraceSwitch.Level >= RequestedLogLevel)
             {
-                StringBuilder traceMessage = new();
+                StringBuilder traceMessage = new StringBuilder();
                 traceMessage.AppendLine($"{MessagePrefix}: {contextInfo} ");
                 if (args != null && args.Length > 0)
                 {
@@ -168,7 +168,7 @@ namespace Foundation.Common
         {
             if (TraceSwitch.Level >= RequestedLogLevel)
             {
-                StringBuilder traceMessage = new();
+                StringBuilder traceMessage = new StringBuilder();
                 traceMessage.AppendLine($"{MessagePrefix}: {contextInfo} ");
                 traceMessage.Append(MessageFormatter.RenderObjectValue(args));
 

@@ -126,7 +126,7 @@ namespace Foundation.Common
         /// </returns>
         public override String ToString()
         {
-            StringBuilder sb = new();
+            StringBuilder sb = new StringBuilder();
             sb.AppendLine($"User logon: {UserLogon}");
             sb.AppendLine($"Error occurred on: {ErrorDateTime.ToString(Formats.DotNet.DateTimeSeconds)}");
             sb.AppendLine($"Culture/UI Culture: {CultureInfo}/{UiCultureInfo}");

@@ -19,7 +19,7 @@ namespace Foundation.Resources
         /// <value>
         /// The default application font family.
         /// </value>
-        public static FontFamily DefaultApplicationFontFamily => new("Segoe UI");
+        public static FontFamily DefaultApplicationFontFamily => new FontFamily("Segoe UI");
 
         /// <summary>
         /// Gets the default fixed font family.
@@ -27,6 +27,6 @@ namespace Foundation.Resources
         /// <value>
         /// The default fixed font family.
         /// </value>
-        public static FontFamily DefaultFixedFontFamily => new("Lucida Console");
+        public static FontFamily DefaultFixedFontFamily => new FontFamily("Lucida Console");
     }
 }

@@ -17,6 +17,6 @@ namespace Foundation.Resources
         /// This is normally the '2199-Dec-31 23:59:59'
         /// </para>
         /// </summary>
-        public static DateTime DefaultValidToDateTime => new(2199, 12, 31, 23, 59, 59, DateTimeKind.Utc);
+        public static DateTime DefaultValidToDateTime => new DateTime(2199, 12, 31, 23, 59, 59, DateTimeKind.Utc);
     }
 }

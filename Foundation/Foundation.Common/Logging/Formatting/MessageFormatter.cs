@@ -81,7 +81,7 @@ namespace Foundation.Common
             {
                 if (objectToRender is IList renderList)
                 {
-                    StringBuilder renderedList = new();
+                    StringBuilder renderedList = new StringBuilder();
                     String outputText = "[{0}]->({1})";
 
                     for (Int32 arrayIndex = 0; arrayIndex < renderList.Count; arrayIndex++)
@@ -134,7 +134,7 @@ namespace Foundation.Common
         /// <returns></returns>
         private static ExceptionOutput InternalFormatMessage(IRunTimeEnvironmentSettings runTimeEnvironmentSettings, IDateTimeService dateTimeService, Exception exception)
         {
-            ExceptionOutput retVal = new(runTimeEnvironmentSettings, dateTimeService)
+            ExceptionOutput retVal = new ExceptionOutput(runTimeEnvironmentSettings, dateTimeService)
             {
                 ErrorSource = exception.Source ?? "unknown",
             };
@@ -209,7 +209,7 @@ namespace Foundation.Common
                 }
             }
 
-            StringBuilder sb = new();
+            StringBuilder sb = new StringBuilder();
             sb.AppendLine($"Error message: {exception.Message}");
             sb.AppendLine($"Error source: {exception.Source}");
 

@@ -54,7 +54,7 @@ namespace Foundation.Views
 
                 if (monitor != IntPtr.Zero)
                 {
-                    MONITORINFO monitorInfo = new()
+                    MONITORINFO monitorInfo = new MONITORINFO
                     {
                         cbSize = Marshal.SizeOf(typeof(MONITORINFO))
                     };

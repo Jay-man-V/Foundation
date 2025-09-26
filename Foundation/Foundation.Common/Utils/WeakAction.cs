@@ -46,7 +46,7 @@ namespace Foundation.Common
                 if (target == null)
                 {
                     // Keep a reference to the target to control the WeakAction's lifetime
-                    Reference = new(target);
+                    Reference = new WeakReference(target);
                 }
             }
             else
@@ -56,8 +56,8 @@ namespace Foundation.Common
 #else
                 Method = action.Method;
 #endif
-                ActionReference = new(action.Target);
-                Reference = new(target);
+                ActionReference = new WeakReference(action.Target);
+                Reference = new WeakReference(target);
             }
         }
 

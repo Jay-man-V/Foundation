@@ -56,7 +56,7 @@ namespace Foundation.Common
                 else
                 {
                     // All other types, the custom ones, use JSON to serialise it
-                    JsonSerializerSettings jsonSerializerSettings = new()
+                    JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings()
                     {
                         DateFormatHandling = DateFormatHandling.IsoDateFormat,
                         DateTimeZoneHandling = DateTimeZoneHandling.RoundtripKind,

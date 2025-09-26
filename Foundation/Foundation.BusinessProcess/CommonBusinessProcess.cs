@@ -97,13 +97,13 @@ namespace Foundation.BusinessProcess
 
 
         /// <inheritdoc cref="ICommonBusinessProcess.NullId"/>
-        public EntityId NullId => new(-1);
+        public EntityId NullId => new EntityId(-1);
 
         /// <inheritdoc cref="ICommonBusinessProcess.AllId"/>
-        public EntityId AllId => new(-1);
+        public EntityId AllId => new EntityId(-1);
 
         /// <inheritdoc cref="ICommonBusinessProcess.NoneId"/>
-        public EntityId NoneId => new(-2);
+        public EntityId NoneId => new EntityId(-2);
 
         /// <inheritdoc cref="ICommonBusinessProcess.AllText"/>
         public String AllText => "<All>";

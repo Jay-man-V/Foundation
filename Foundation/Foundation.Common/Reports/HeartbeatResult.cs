@@ -24,7 +24,7 @@ namespace Foundation.Common
         )
         {
             DateRun = dateTimeService.SystemDateTimeNow;
-            DateRun = new(DateRun.Year, DateRun.Month, DateRun.Day, DateRun.Hour, DateRun.Minute, DateRun.Second, DateRun.Millisecond, DateTimeKind.Unspecified);
+            DateRun = new DateTime(DateRun.Year, DateRun.Month, DateRun.Day, DateRun.Hour, DateRun.Minute, DateRun.Second, DateRun.Millisecond, DateTimeKind.Unspecified);
 
             Logs = [];
         }

@@ -29,7 +29,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.EventArgsTests
             FullyQualifiedTypeName fullyQualifiedTypeName = new FullyQualifiedTypeName(_fullyQualifiedTypeNameString);
             IScheduledTask serviceTask = CoreInstance.IoC.Get<IScheduledTask>();
 
-            CreateScheduledTaskEventArgs eventArgs = new(fullyQualifiedTypeName);
+            CreateScheduledTaskEventArgs eventArgs = new CreateScheduledTaskEventArgs(fullyQualifiedTypeName);
             eventArgs.ServiceInstance = serviceTask;
 
             Assert.That(eventArgs.FullyQualifiedTypeName, Is.EqualTo(fullyQualifiedTypeName));

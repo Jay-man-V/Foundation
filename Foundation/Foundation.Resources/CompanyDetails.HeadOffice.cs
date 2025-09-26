@@ -37,7 +37,7 @@ namespace Foundation.Resources
             {
                 get
                 {
-                    StringBuilder retVal = new();
+                    StringBuilder retVal = new StringBuilder();
 
                     retVal.AppendLine("56 Buckingham Road");
                     retVal.AppendLine("Edgware");
@@ -58,7 +58,7 @@ namespace Foundation.Resources
             {
                 get
                 {
-                    StringBuilder retVal = new(Address);
+                    StringBuilder retVal = new StringBuilder(Address);
 
                     retVal.AppendLine("England");
 

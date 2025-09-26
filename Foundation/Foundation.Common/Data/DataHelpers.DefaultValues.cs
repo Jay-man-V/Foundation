@@ -33,7 +33,7 @@ namespace Foundation.Common
         /// <value>
         /// The default entity identifier.
         /// </value>
-        public static EntityId DefaultEntityId => new(-1);
+        public static EntityId DefaultEntityId => new EntityId(-1);
 
         /// <summary>
         /// Gets the default application identifier.
@@ -41,7 +41,7 @@ namespace Foundation.Common
         /// <value>
         /// The default application identifier.
         /// </value>
-        public static AppId DefaultAppId => new(-1);
+        public static AppId DefaultAppId => new AppId(-1);
 
         /// <summary>
         /// Gets the default log identifier.
@@ -49,7 +49,7 @@ namespace Foundation.Common
         /// <value>
         /// The default log identifier.
         /// </value>
-        public static LogId DefaultLogId => new(-1);
+        public static LogId DefaultLogId => new LogId(-1);
 
         /// <summary>
         /// Gets the default task status.
@@ -73,7 +73,7 @@ namespace Foundation.Common
         /// <value>
         /// The default email address.
         /// </value>
-        public static EmailAddress DefaultEmailAddress => new();
+        public static EmailAddress DefaultEmailAddress => new EmailAddress();
 
         /// <summary>
         /// Gets the default string.
@@ -142,13 +142,13 @@ namespace Foundation.Common
 
                 //Image retVal = Bitmap.FromStream(ms);
 
-                Bitmap bmp = new(width, height);
+                Bitmap bmp = new Bitmap(width, height);
                 using (Graphics graphics = Graphics.FromImage(bmp))
                 {
                     graphics.FillRectangle(Brushes.Transparent, 0, 0, width, height);
                 }
 
-                MemoryStream ms = new();
+                MemoryStream ms = new MemoryStream();
 
                 bmp.Save(ms, ImageFormat.Bmp);
 

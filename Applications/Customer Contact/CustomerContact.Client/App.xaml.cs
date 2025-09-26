@@ -75,7 +75,7 @@ namespace CustomerContact.Client
             IDateTimeService dateTimeService = CoreInstance.IoC.Get<IDateTimeService>();
             IWpfApplicationObjects wpfApplicationObjects = CoreInstance.IoC.Get<IWpfApplicationObjects>();
 
-            AboutSplashScreenForm splashScreen = new ();
+            AboutSplashScreenForm splashScreen = new AboutSplashScreenForm();
             this.MainWindow = splashScreen;
             const Boolean isSplashScreen = true;
             AboutSplashScreenFormViewModel splashScreenViewModel = new AboutSplashScreenFormViewModel(CoreInstance, runTimeEnvironmentSettings, dateTimeService, wpfApplicationObjects, isSplashScreen);

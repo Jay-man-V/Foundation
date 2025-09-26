@@ -65,7 +65,7 @@ namespace Foundation.Common
             Namespace = DefaultText;
 
             // Get a reference to the stack trace which will contain a number of stack frames:
-            StackTrace stack = new (CaptureFileInfo);
+            StackTrace stack = new StackTrace(CaptureFileInfo);
             if (stack.FrameCount >= TargetStackFrame + 1)
             {
                 StackFrame? targetStackFrame = stack.GetFrame(TargetStackFrame);
@@ -86,7 +86,7 @@ namespace Foundation.Common
                     Namespace = callingMethod.ReflectedType.Namespace ?? DefaultText;
 
                     ParameterInfo[] methodParameters = callingMethod.GetParameters();
-                    StringBuilder methodArguments = new ();
+                    StringBuilder methodArguments = new StringBuilder();
                     for (Int16 parameterIndex = 0; parameterIndex < methodParameters.Length; parameterIndex++)
                     {
                         ParameterInfo methodParam = methodParameters[parameterIndex];

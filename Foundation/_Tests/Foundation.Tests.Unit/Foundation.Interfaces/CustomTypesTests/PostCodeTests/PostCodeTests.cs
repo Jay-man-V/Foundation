@@ -4,15 +4,11 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using NUnit.Framework;
-
 using Foundation.Interfaces;
 
 using Foundation.Tests.Unit.Support;
 
-namespace Foundation.Tests.Unit.Foundation.Common.CustomTypesTests.PostCodeTests
+namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.PostCodeTests
 {
     /// <summary>
     /// Post Code tests for the UK

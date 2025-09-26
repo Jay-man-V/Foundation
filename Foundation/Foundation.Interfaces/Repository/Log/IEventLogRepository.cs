@@ -32,6 +32,6 @@ namespace Foundation.Interfaces
         /// <param name="processName"></param>
         /// <param name="taskName"></param>
         /// <returns></returns>
-        IEventLog? GetLatest(Boolean isFinished, EntityId scheduledTaskId = new(), String? batchName = null, String? processName = null, String? taskName = null);
+        IEventLog? GetLatest(Boolean isFinished, EntityId scheduledTaskId = new EntityId(), String? batchName = null, String? processName = null, String? taskName = null);
     }
 }

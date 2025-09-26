@@ -72,7 +72,7 @@ namespace Foundation.Interfaces
         /// </returns>
         public static EntityId FromObject(Object? x)
         {
-            EntityId retVal = new(0);
+            EntityId retVal = new EntityId(0);
 
             if (x != null)
             {
@@ -81,12 +81,12 @@ namespace Foundation.Interfaces
                 if (objectType == EntityIdType)
                 {
                     Int64 input = Convert.ToInt64(x);
-                    retVal = new(input);
+                    retVal = new EntityId(input);
                 }
                 else if (objectType == typeof(EntityId))
                 {
                     EntityId input = (EntityId)x;
-                    retVal = new(input);
+                    retVal = new EntityId(input);
                 }
             }
 

@@ -24,17 +24,17 @@ namespace Foundation.Tests.Unit.Support
     [TestFixture]
     public abstract class UnitTestBase
     {
-        protected static Object SyncLock = new();
+        protected static Object SyncLock = new Object();
 
         protected String DatabaseServer = "Callisto";
         protected String BaseTemporaryOutputsPath => @"D:\Projects\JDVSoftware\TempOutputs\";
 
-        protected AppId TestingApplicationId = new(1);
-        protected DateTime CreatedOnDateTime => new(2000, 01, 01, 00, 00, 00, DateTimeKind.Utc);
-        protected DateTime LastUpdatedOnDateTime => new(2001, 12, 31, 11, 55, 22, DateTimeKind.Utc);
-        protected DateTime ValidFromDateTime => new(2000, 01, 01, 00, 00, 00, DateTimeKind.Utc);
-        protected DateTime SystemDateTime => new(2022, 11, 28, 13, 11, 54, DateTimeKind.Utc);
-        protected DateTime SystemDateTimeMs => new(2022, 11, 28, 13, 11, 54, 300, DateTimeKind.Utc);
+        protected AppId TestingApplicationId = new AppId(1);
+        protected DateTime CreatedOnDateTime => new DateTime(2000, 01, 01, 00, 00, 00, DateTimeKind.Utc);
+        protected DateTime LastUpdatedOnDateTime => new DateTime(2001, 12, 31, 11, 55, 22, DateTimeKind.Utc);
+        protected DateTime ValidFromDateTime => new DateTime(2000, 01, 01, 00, 00, 00, DateTimeKind.Utc);
+        protected DateTime SystemDateTime => new DateTime(2022, 11, 28, 13, 11, 54, DateTimeKind.Utc);
+        protected DateTime SystemDateTimeMs => new DateTime(2022, 11, 28, 13, 11, 54, 300, DateTimeKind.Utc);
 
         protected String EmailSmtpHostUsername => "email.smtp.host.username";
         protected String EmailSmtpHostPassword => "email.smtp.host.password";
@@ -407,28 +407,28 @@ namespace Foundation.Tests.Unit.Support
             String pattern3 = @"([\d]{8}T[\d]{6})|([\d]{4}-[\d]{2}-[\d]{2} [\d]{2}_[\d]{2}_[\d]{2})";
             String pattern4 = @"([\d]{8}T[\d]{6})|([\d]{4}-[\d]{2}-[\d]{2}T[\d]{2}:[\d]{2}:[\d]{2}\.[\d]{3})";
 
-            Regex regex = new(pattern1);
+            Regex regex = new Regex(pattern1);
             Match match = regex.Match(retVal);
             if (match.Success)
             {
                 retVal = regex.Replace(retVal, "<<dd-MMM-yyyy HH:mm:ss.fff>>");
             }
 
-            regex = new(pattern2);
+            regex = new Regex(pattern2);
             match = regex.Match(retVal);
             if (match.Success)
             {
                 retVal = regex.Replace(retVal, "<<dd-MMM-yyyy HH:mm:ss>>");
             }
 
-            regex = new(pattern3);
+            regex = new Regex(pattern3);
             match = regex.Match(retVal);
             if (match.Success)
             {
                 retVal = regex.Replace(retVal, "<<Date/Time>>");
             }
 
-            regex = new(pattern4);
+            regex = new Regex(pattern4);
             match = regex.Match(retVal);
             if (match.Success)
             {
@@ -461,7 +461,7 @@ namespace Foundation.Tests.Unit.Support
 
             foreach (String pattern in patterns)
             {
-                Regex regex = new(pattern);
+                Regex regex = new Regex(pattern);
                 Match match = regex.Match(retVal);
                 if (match.Success)
                 {
@@ -487,7 +487,7 @@ namespace Foundation.Tests.Unit.Support
 
             foreach (String pattern in patterns)
             {
-                Regex regex = new(pattern);
+                Regex regex = new Regex(pattern);
                 Match match = regex.Match(retVal);
                 if (match.Success)
                 {
@@ -530,7 +530,7 @@ namespace Foundation.Tests.Unit.Support
 
             foreach (String pattern in patterns1)
             {
-                Regex regex = new(pattern);
+                Regex regex = new Regex(pattern);
                 Match match = regex.Match(retVal);
                 if (match.Success)
                 {
@@ -540,7 +540,7 @@ namespace Foundation.Tests.Unit.Support
 
             foreach (String pattern in patterns2)
             {
-                Regex regex = new(pattern);
+                Regex regex = new Regex(pattern);
                 Match match = regex.Match(retVal);
                 if (match.Success)
                 {
@@ -550,7 +550,7 @@ namespace Foundation.Tests.Unit.Support
 
             foreach (String pattern in patterns3)
             {
-                Regex regex = new(pattern);
+                Regex regex = new Regex(pattern);
                 Match match = regex.Match(retVal);
                 if (match.Success)
                 {
@@ -560,7 +560,7 @@ namespace Foundation.Tests.Unit.Support
 
             foreach (String pattern in patterns4)
             {
-                Regex regex = new(pattern);
+                Regex regex = new Regex(pattern);
                 Match match = regex.Match(retVal);
                 if (match.Success)
                 {
@@ -586,7 +586,7 @@ namespace Foundation.Tests.Unit.Support
 
             foreach (String pattern in patterns1)
             {
-                Regex regex = new(pattern);
+                Regex regex = new Regex(pattern);
                 Match match = regex.Match(retVal);
                 if (match.Success)
                 {
@@ -612,7 +612,7 @@ namespace Foundation.Tests.Unit.Support
 
             foreach (String pattern in patterns1)
             {
-                Regex regex = new(pattern);
+                Regex regex = new Regex(pattern);
                 Match match = regex.Match(retVal);
                 if (match.Success)
                 {

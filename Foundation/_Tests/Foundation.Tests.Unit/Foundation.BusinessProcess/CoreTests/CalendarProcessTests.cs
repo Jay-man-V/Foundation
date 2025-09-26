@@ -32,10 +32,10 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
             List<DateTime> holidayDates =
             [
-                new(2019, 01, 01),
-                new(2019, 12, 25),
-                new(2020, 12, 25),
-                new(2020, 12, 28),
+                new DateTime(2019, 01, 01),
+                new DateTime(2019, 12, 25),
+                new DateTime(2020, 12, 25),
+                new DateTime(2020, 12, 28),
             ];
             holidayDates.ForEach(hd => TheRepository.IsNonWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, hd).Returns(true));
 

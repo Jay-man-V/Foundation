@@ -65,7 +65,7 @@ namespace Foundation.Resources
             String retVal;
             using (Stream resourceStream = GetResourceFileAsStream(resourceName))
             {
-                using (StreamReader reader = new(resourceStream))
+                using (StreamReader reader = new StreamReader(resourceStream))
                 {
                     retVal = reader.ReadToEnd();
                 }

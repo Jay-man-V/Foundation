@@ -20,7 +20,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.ExceptionsTests
         [TestCase]
         public void Test_Constructor_1()
         {
-            EntityId entityId = new(1234);
+            EntityId entityId = new EntityId(1234);
             String entityName = "Unit Testing Entity Name";
             String tableName = "Unit testing table name";
             IFoundationModel unitTestEntity = new MockFoundationModel();

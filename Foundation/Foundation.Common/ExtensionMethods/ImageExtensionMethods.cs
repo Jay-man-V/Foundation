@@ -23,7 +23,7 @@ namespace Foundation.Common
         public static Byte[] ToByteArray(this Image currentValue)
         {
             Byte[] retVal;
-            using (MemoryStream currentValueStream = new())
+            using (MemoryStream currentValueStream = new MemoryStream())
             {
                 currentValue.Save(currentValueStream, currentValue.RawFormat);
                 retVal = currentValueStream.ToArray();

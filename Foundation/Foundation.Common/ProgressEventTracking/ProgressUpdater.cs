@@ -133,7 +133,7 @@ namespace Foundation.Common
         /// <returns>The formatted progress item</returns>
         public virtual StringBuilder FormatProgressItem(ProgressItem item)
         {
-            StringBuilder line = new();
+            StringBuilder line = new StringBuilder();
 
             line.Append(item.TimeOfEntry.ToString(Formats.DotNet.DateTimeMilliseconds));
             line.Append(" ");

@@ -25,13 +25,13 @@ namespace Foundation.DocumentGenerator
     [DependencyInjectionTransient]
     public class SpreadsheetGenerator : ISpreadsheetGenerator
     {
-        private NumberingFormats NumberingFormats { get; } = new();
-        private CellFormats CellFormats { get; } = new();
+        private NumberingFormats NumberingFormats { get; } = new NumberingFormats();
+        private CellFormats CellFormats { get; } = new CellFormats();
         private SheetData? SheetData { get; set; }
-        private Fonts Fonts { get; } = new();
-        private Fills Fills { get; } = new();
-        private Borders Borders { get; } = new();
-        private CellStyleFormats CellStyleFormats { get; } = new();
+        private Fonts Fonts { get; } = new Fonts();
+        private Fills Fills { get; } = new Fills();
+        private Borders Borders { get; } = new Borders();
+        private CellStyleFormats CellStyleFormats { get; } = new CellStyleFormats();
 
         /// <summary>
         /// Exports the data.

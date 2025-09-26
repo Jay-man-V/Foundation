@@ -4,14 +4,11 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Text.RegularExpressions;
-
-using NUnit.Framework;
 
 using Foundation.Tests.Unit.Support;
 
-namespace Foundation.Tests.Unit.Foundation.Common.CustomTypesTests.PostCodeTests
+namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.PostCodeTests
 {
     /// <summary>
     /// Post Code tests for the UK

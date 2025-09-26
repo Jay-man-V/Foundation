@@ -104,7 +104,7 @@ namespace Foundation.Common
         /// <param name="logMessage">The message to be logged</param>
         private void InternalLogMessage(EventLogEntryType eventLogEntryType, String logMessage)
         {
-            EventLog logger = new(TargetEventLog, LocalMachineName, EventSource);
+            EventLog logger = new EventLog(TargetEventLog, LocalMachineName, EventSource);
             logger.WriteEntry(logMessage, eventLogEntryType);
         }
 

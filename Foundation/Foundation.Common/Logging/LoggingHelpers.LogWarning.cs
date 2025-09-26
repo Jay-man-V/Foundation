@@ -19,7 +19,7 @@ namespace Foundation.Common
         {
             if (LoggingBase.TraceSwitch.TraceWarning && WarningLogger != null)
             {
-                ContextInformation contextInfo = new(true);
+                ContextInformation contextInfo = new ContextInformation(true);
                 WarningLogger.LogMessage(contextInfo, messageToLog);
             }
         }
@@ -32,7 +32,7 @@ namespace Foundation.Common
         {
             if (LoggingBase.TraceSwitch.TraceWarning && WarningLogger != null)
             {
-                ContextInformation contextInfo = new(true);
+                ContextInformation contextInfo = new ContextInformation(true);
                 WarningLogger.LogMessage(contextInfo, parameterValues);
             }
         }
@@ -46,7 +46,7 @@ namespace Foundation.Common
         {
             if (LoggingBase.TraceSwitch.TraceWarning && WarningLogger != null)
             {
-                ContextInformation contextInfo = new(true);
+                ContextInformation contextInfo = new ContextInformation(true);
                 WarningLogger.LogMessage(contextInfo, messageToLog, parameterValues);
             }
         }
@@ -59,7 +59,7 @@ namespace Foundation.Common
         {
             if (LoggingBase.TraceSwitch.TraceWarning && WarningLogger != null)
             {
-                ContextInformation contextInfo = new(true);
+                ContextInformation contextInfo = new ContextInformation(true);
                 WarningLogger.LogMessage(contextInfo, exception);
             }
         }
@@ -74,7 +74,7 @@ namespace Foundation.Common
         {
             if (LoggingBase.TraceSwitch.TraceWarning && WarningLogger != null)
             {
-                ContextInformation contextInfo = new(true);
+                ContextInformation contextInfo = new ContextInformation(true);
                 WarningLogger.LogMessage(contextInfo, exception, messageToLog, messageValues);
             }
         }

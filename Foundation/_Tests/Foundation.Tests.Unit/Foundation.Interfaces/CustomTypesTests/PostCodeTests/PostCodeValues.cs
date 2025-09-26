@@ -4,9 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-namespace Foundation.Tests.Unit.Foundation.Common.CustomTypesTests.PostCodeTests
+namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.PostCodeTests
 {
     /// <summary>
     /// Post Code values for testing

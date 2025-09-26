@@ -18,8 +18,8 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
     [TestFixture]
     public class TimeWindowTests : UnitTestBase
     {
-        private readonly TimeSpan _startTime = new (9, 0, 0);
-        private readonly TimeSpan _endTime = new (17, 0, 0);
+        private readonly TimeSpan _startTime = new TimeSpan(9, 0, 0);
+        private readonly TimeSpan _endTime = new TimeSpan(17, 0, 0);
 
         [TestCase]
         public void Test_Constructor_and_Properties()

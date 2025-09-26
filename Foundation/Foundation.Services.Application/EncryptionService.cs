@@ -72,7 +72,7 @@ namespace Foundation.Services.Application
             }
 
             // TODO: Move HashAlgorithmName.SHA3_512 to constants or loaded configuration
-            Rfc2898DeriveBytes keyGenerator = new(keyPassword, salt, 10000, HashAlgorithmName.SHA3_512);
+            Rfc2898DeriveBytes keyGenerator = new Rfc2898DeriveBytes(keyPassword, salt, 10000, HashAlgorithmName.SHA3_512);
 
             using (SymmetricAlgorithm crypto = Create())
             {

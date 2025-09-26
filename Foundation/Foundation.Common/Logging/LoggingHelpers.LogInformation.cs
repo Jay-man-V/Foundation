@@ -19,7 +19,7 @@ namespace Foundation.Common
         {
             if (LoggingBase.TraceSwitch.TraceInfo && InformationLogger != null)
             {
-                ContextInformation contextInfo = new();
+                ContextInformation contextInfo = new ContextInformation();
                 InformationLogger.LogMessage(contextInfo, messageToLog);
             }
         }
@@ -32,7 +32,7 @@ namespace Foundation.Common
         {
             if (LoggingBase.TraceSwitch.TraceInfo && InformationLogger != null)
             {
-                ContextInformation contextInfo = new();
+                ContextInformation contextInfo = new ContextInformation();
                 InformationLogger.LogMessage(contextInfo, parameterValues);
             }
         }
@@ -46,7 +46,7 @@ namespace Foundation.Common
         {
             if (LoggingBase.TraceSwitch.TraceInfo && InformationLogger != null)
             {
-                ContextInformation contextInfo = new();
+                ContextInformation contextInfo = new ContextInformation();
                 InformationLogger.LogMessage(contextInfo, messageToLog, parameterValues);
             }
         }
@@ -59,7 +59,7 @@ namespace Foundation.Common
         {
             if (LoggingBase.TraceSwitch.TraceInfo && InformationLogger != null)
             {
-                ContextInformation contextInfo = new();
+                ContextInformation contextInfo = new ContextInformation();
                 InformationLogger.LogMessage(contextInfo, exception);
             }
         }
@@ -74,7 +74,7 @@ namespace Foundation.Common
         {
             if (LoggingBase.TraceSwitch.TraceInfo && InformationLogger != null)
             {
-                ContextInformation contextInfo = new();
+                ContextInformation contextInfo = new ContextInformation();
                 InformationLogger.LogMessage(contextInfo, exception, messageToLog, messageValues);
             }
         }

@@ -36,7 +36,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
             TheService = new EmailApi(CoreInstance, ApplicationConfigurationService, mailWrapper);
 
             String smtpMailPath = Path.Combine(BaseTemporaryOutputsPath, "SmtpMail");
-            DirectoryInfo smtpMailPathDirectoryInfo = new(smtpMailPath);
+            DirectoryInfo smtpMailPathDirectoryInfo = new DirectoryInfo(smtpMailPath);
             if (!smtpMailPathDirectoryInfo.Exists)
             {
                 smtpMailPathDirectoryInfo.Create();
@@ -48,7 +48,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
 
         private MailMessage CreateMailMessageForTests(String functionName)
         {
-            MailMessage mailMessage = new()
+            MailMessage mailMessage = new MailMessage 
             {
                 FromAddress = EmailFromAddress,
                 FromAddressDisplayName = EmailFromDisplayName,
@@ -77,7 +77,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
 
             foreach (String fileToAttach in filesToAttach)
             {
-                FileInfo fileInfo = new(fileToAttach);
+                FileInfo fileInfo = new FileInfo(fileToAttach);
 
                 IMailAttachment mailAttachment = CoreInstance.IoC.Get<IMailAttachment>();
 
