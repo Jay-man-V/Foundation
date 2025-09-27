@@ -17,23 +17,27 @@ namespace Foundation.Services.Application
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="injectedSystemDateTime"></param>
+        /// <param name="injectedSystemUtcDateTime"></param>
+        /// <param name="injectedSystemLocalDateTime"></param>
         internal DateTimeService
         (
-            DateTime injectedSystemDateTime
+            DateTime injectedSystemUtcDateTime,
+            DateTime injectedSystemLocalDateTime
         ) :
             this()
         {
             LoggingHelpers.TraceCallEnter();
 
-            InjectedSystemDateTime = injectedSystemDateTime;
+            InjectedSystemUtcDateTime = injectedSystemUtcDateTime;
+            InjectedSystemLocalDateTime = injectedSystemLocalDateTime;
             UseInjectedSystemDateTime = true;
 
             LoggingHelpers.TraceCallReturn();
         }
 
         private Boolean UseInjectedSystemDateTime { get; }
-        private DateTime InjectedSystemDateTime { get; }
+        private DateTime InjectedSystemUtcDateTime { get; }
+        private DateTime InjectedSystemLocalDateTime { get; }
 #endif
 
         /// <summary>
@@ -54,8 +58,8 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.StartOfWeek"/>
         public DayOfWeek StartOfWeek => DayOfWeek.Monday;
 
-        /// <inheritdoc cref="IDateTimeService.SystemDateTimeNow"/>
-        public DateTime SystemDateTimeNow
+        /// <inheritdoc cref="IDateTimeService.SystemUtcDateTimeNow"/>
+        public DateTime SystemUtcDateTimeNow
         {
             get
             {
@@ -64,7 +68,25 @@ namespace Foundation.Services.Application
 #if (DEBUG)
                 if (UseInjectedSystemDateTime)
                 {
-                    retVal = InjectedSystemDateTime;
+                    retVal = InjectedSystemUtcDateTime;
+                }
+#endif
+
+                return retVal;
+            }
+        }
+
+        /// <inheritdoc cref="IDateTimeService.SystemLocalDateTimeNow"/>
+        public DateTime SystemLocalDateTimeNow
+        {
+            get
+            {
+                DateTime retVal = DateTime.Now;
+
+#if (DEBUG)
+                if (UseInjectedSystemDateTime)
+                {
+                    retVal = InjectedSystemLocalDateTime;
                 }
 #endif
 
@@ -77,7 +99,7 @@ namespace Foundation.Services.Application
         {
             get
             {
-                DateTime retVal = SystemDateTimeNow;
+                DateTime retVal = SystemUtcDateTimeNow;
                 retVal = retVal.AddTicks(-(retVal.Ticks % TimeSpan.TicksPerSecond));
                 return retVal;
             }
@@ -88,7 +110,7 @@ namespace Foundation.Services.Application
         {
             get
             {
-                DateTime currentDateTime = SystemDateTimeNow;
+                DateTime currentDateTime = SystemUtcDateTimeNow;
                 DateTime retVal = GetStartOfMonth(currentDateTime);
 
                 return retVal;
@@ -100,7 +122,7 @@ namespace Foundation.Services.Application
         {
             get
             {
-                DateTime currentDateTime = SystemDateTimeNow;
+                DateTime currentDateTime = SystemUtcDateTimeNow;
                 DateTime retVal = GetEndOfMonth(currentDateTime);
 
                 return retVal;
@@ -112,7 +134,7 @@ namespace Foundation.Services.Application
         {
             get
             {
-                DateTime lastMonth = SystemDateTimeNow.AddMonths(-1);
+                DateTime lastMonth = SystemUtcDateTimeNow.AddMonths(-1);
                 DateTime retVal = GetStartOfMonth(lastMonth);
 
                 return retVal;
@@ -124,7 +146,7 @@ namespace Foundation.Services.Application
         {
             get
             {
-                DateTime lastMonth = SystemDateTimeNow.AddMonths(-1);
+                DateTime lastMonth = SystemUtcDateTimeNow.AddMonths(-1);
                 DateTime retVal = GetEndOfMonth(lastMonth);
 
                 return retVal;
@@ -228,7 +250,7 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter();
 
-            DateTime currentDateTime = SystemDateTimeNow.Date;
+            DateTime currentDateTime = SystemUtcDateTimeNow.Date;
             Int32 currentYear = currentDateTime.Year;
             Int32 currentMonth = currentDateTime.Month;
 
@@ -269,7 +291,7 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter();
 
-            DateTime currentDateTime = SystemDateTimeNow.Date;
+            DateTime currentDateTime = SystemUtcDateTimeNow.Date;
             Int32 currentYear = currentDateTime.Year;
             Int32 currentMonth = currentDateTime.Month;
 
@@ -310,7 +332,7 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter();
 
-            DateTime currentDateTime = SystemDateTimeNow.Date;
+            DateTime currentDateTime = SystemUtcDateTimeNow.Date;
             Int32 currentYear = currentDateTime.Year;
             Int32 currentMonth = currentDateTime.Month;
 
@@ -351,7 +373,7 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter();
 
-            DateTime currentDateTime = SystemDateTimeNow.Date;
+            DateTime currentDateTime = SystemUtcDateTimeNow.Date;
             Int32 currentYear = currentDateTime.Year;
             Int32 currentMonth = currentDateTime.Month;
 
@@ -392,7 +414,7 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter();
 
-            DateTime currentDateTime = SystemDateTimeNow.Date;
+            DateTime currentDateTime = SystemUtcDateTimeNow.Date;
             Int32 currentYear = currentDateTime.Year;
             Int32 currentMonth = currentDateTime.Month;
 
@@ -433,7 +455,7 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter();
 
-            DateTime currentDateTime = SystemDateTimeNow.Date;
+            DateTime currentDateTime = SystemUtcDateTimeNow.Date;
             Int32 currentYear = currentDateTime.Year;
             Int32 currentMonth = currentDateTime.Month;
 

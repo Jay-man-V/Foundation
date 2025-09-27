@@ -14,7 +14,7 @@ using System.Reflection;
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.Tests.Unit.Support;
+using Foundation.Tests.Unit.BaseClasses;
 
 using FEnums = Foundation.Interfaces;
 using FModels = Foundation.Models;

@@ -4,15 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
+using NSubstitute;
+
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Interfaces.Helpers;
 using Foundation.Resources;
-
-using NSubstitute;
-
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 

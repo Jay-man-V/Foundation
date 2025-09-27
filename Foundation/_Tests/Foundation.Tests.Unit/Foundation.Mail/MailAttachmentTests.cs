@@ -7,7 +7,7 @@
 using Foundation.Interfaces;
 using Foundation.Services.Mail;
 
-using Foundation.Tests.Unit.Support;
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Mail
 {
@@ -20,7 +20,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
         [TestCase]
         public void Test_Constructor()
         {
-            IMailAttachment mailAttachment = CoreInstance.IoC.Get<IMailAttachment>();
+            IMailAttachment mailAttachment = new MailAttachment();
 
             Type[] allInterfaces = mailAttachment.GetType().GetInterfaces();
 
@@ -32,7 +32,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
         [TestCase]
         public void Test_Clone()
         {
-            IMailAttachment mailAttachment = CoreInstance.IoC.Get<IMailAttachment>();
+            IMailAttachment mailAttachment = new MailAttachment();
 
             mailAttachment.Filename = "Filename";
             mailAttachment.Content = [0, 1, 2, 3, 5, 6, 7, 8, 9];

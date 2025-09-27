@@ -6,13 +6,15 @@
 
 using Foundation.Common;
 
+using Foundation.Tests.Unit.BaseClasses;
+
 namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.TimeSpanExtensionMethodsTests
 {
     /// <summary>
     /// The TimeSpan Extension Methods tests class
     /// </summary>
     [TestFixture]
-    public class IsBetweenNullableTests
+    public class IsBetweenNullableTests : UnitTestBase
     {
         [TestCase]
         public void TestIsBetween_Null()

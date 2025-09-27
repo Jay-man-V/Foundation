@@ -59,7 +59,7 @@ namespace Foundation.Tests.Unit.Mocks
 
         public MockFoundationModel(IDateTimeService dateTimeService)
         {
-            ValidFrom = dateTimeService.SystemDateTimeNow;
+            ValidFrom = dateTimeService.SystemUtcDateTimeNow;
             ValidTo = new DateTime(2100, 12, 31, 23, 59, 59);
         }
 

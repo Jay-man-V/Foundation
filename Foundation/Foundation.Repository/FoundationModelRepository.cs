@@ -886,7 +886,7 @@ namespace Foundation.Repository
 
             EntityLife entityLife = entity.EntityLife;
 
-            entity.LastUpdatedOn = DateTimeService.SystemDateTimeNow;
+            entity.LastUpdatedOn = DateTimeService.SystemUtcDateTimeNow;
 
             switch (entity.EntityLife)
             {
@@ -894,7 +894,7 @@ namespace Foundation.Repository
                 {
                     VerifyCanCreate(entity);
 
-                    entity.CreatedOn = DateTimeService.SystemDateTimeNow;
+                    entity.CreatedOn = DateTimeService.SystemUtcDateTimeNow;
                     EntityId newId = InsertNewEntity(conn, entity);
                     entity.Id = newId;
 
@@ -919,7 +919,7 @@ namespace Foundation.Repository
                         VerifyCanDelete(entity);
 
                         entity.EntityStatus = EntityStatus.Inactive;
-                        entity.ValidTo = DateTimeService.SystemDateTimeNow;
+                        entity.ValidTo = DateTimeService.SystemUtcDateTimeNow;
                         recordCount = DeleteEntity(conn, entity);
                     }
 
@@ -1105,7 +1105,7 @@ namespace Foundation.Repository
             [
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.StatusId}", entity.EntityStatus),
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedByUserProfileId}", Core.CurrentLoggedOnUser.Id),
-                FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedOn}", DateTimeService.SystemDateTimeNow)
+                FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedOn}", DateTimeService.SystemUtcDateTimeNow)
             ];
 
             if (HasValidityPeriodColumns)
@@ -1171,12 +1171,12 @@ namespace Foundation.Repository
             [
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.StatusId}", EntityStatus.Inactive),
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedByUserProfileId}", Core.CurrentLoggedOnUser.Id),
-                FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedOn}", DateTimeService.SystemDateTimeNow)
+                FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedOn}", DateTimeService.SystemUtcDateTimeNow)
             ];
 
             if (HasValidityPeriodColumns)
             {
-                databaseParameters.Add(FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.ValidTo}", DateTimeService.SystemDateTimeNow));
+                databaseParameters.Add(FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.ValidTo}", DateTimeService.SystemUtcDateTimeNow));
             }
 
             databaseParameters.Add(FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.Id}", entityId));

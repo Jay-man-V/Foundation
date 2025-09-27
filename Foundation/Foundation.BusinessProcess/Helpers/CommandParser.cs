@@ -151,7 +151,7 @@ namespace Foundation.BusinessProcess.Helpers
                 ExecutionDateTime = DateTime.ParseExact(parameters, Formats.DotNet.Iso8601DateTime, CultureInfo.InvariantCulture);
 
                 // Must have a Date/Time in the future
-                if (ExecutionDateTime < DateTimeService.SystemDateTimeNow)
+                if (ExecutionDateTime < DateTimeService.SystemUtcDateTimeNow)
                 {
                     String errorMessage = $"Invalid DateTime '{ExecutionDateTime.ToString(Formats.DotNet.Iso8601DateTime)}' passed to {this.GetType()} with Command '{commandName}'";
                     throw new ArgumentException(errorMessage, nameof(ExecutionDateTime));

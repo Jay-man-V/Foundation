@@ -6,6 +6,7 @@
 
 using Foundation.Common;
 
+using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Mocks;
 
 namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
@@ -14,7 +15,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
     /// The IEnumerable Extension Methods tests class
     /// </summary>
     [TestFixture]
-    public class IEnumerableExtensionMethodsTests
+    public class IEnumerableExtensionMethodsTests : UnitTestBase
     {
         [TestCase]
         public void Test_HasItems_IEnumerable_Null()

@@ -8,13 +8,15 @@ using System.Reflection;
 
 using Foundation.Common;
 
+using Foundation.Tests.Unit.BaseClasses;
+
 namespace Foundation.Tests.Unit.Foundation.Common
 {
     /// <summary>
     /// Unit Tests for the Foundation Property Changing Event Args class
     /// </summary>
     [TestFixture]
-    public class FoundationPropertyChangingEventArgsTests
+    public class FoundationPropertyChangingEventArgsTests : UnitTestBase
     {
         [TestCase]
         public void Test_Constructor()

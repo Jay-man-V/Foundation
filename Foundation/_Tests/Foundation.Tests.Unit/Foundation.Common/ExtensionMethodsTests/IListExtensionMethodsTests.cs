@@ -6,8 +6,8 @@
 
 using Foundation.Common;
 
+using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Mocks;
-using Foundation.Tests.Unit.Support;
 
 namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
 {
@@ -115,7 +115,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
         public void Test_Clone_List_Empty_2()
         {
             IList<RandomObject> aList1 = [];
-            IList<RandomObject> aList2 = aList1.Clone() as IList<RandomObject>;
+            IList<RandomObject>? aList2 = aList1.Clone() as IList<RandomObject>;
 
             Assert.That(aList2, Is.Not.SameAs(aList1));
             Assert.That(aList1.SequenceEqual(aList2), Is.EqualTo(true));
@@ -135,7 +135,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
         public void Test_Clone_List_WithItems_2()
         {
             IList<RandomObject> aList1 = [new RandomObject("String1"), new RandomObject("String2")];
-            IList<RandomObject> aList2 = aList1.Clone() as IList<RandomObject>;
+            IList<RandomObject>? aList2 = aList1.Clone() as IList<RandomObject>;
 
             Assert.That(aList2, Is.Not.SameAs(aList1));
             Assert.That(aList1.SequenceEqual(aList2), Is.EqualTo(true));
@@ -146,7 +146,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
         public void Test_Clone_List_WithItems_4()
         {
             IList<RandomObject> aList1 = [new RandomObject(), new RandomObject()];
-            IList<RandomObject> aList2 = aList1.Clone() as IList<RandomObject>;
+            IList<RandomObject>? aList2 = aList1.Clone() as IList<RandomObject>;
 
             Assert.That(aList2, Is.Not.SameAs(aList1));
             Assert.That(aList1.SequenceEqual(aList2), Is.EqualTo(true));

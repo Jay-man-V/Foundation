@@ -146,7 +146,7 @@ namespace CustomerContact.Client
                 ViewModel.DisplayUnhandledExceptionMessage(exception);
             }
 
-            ApplicationControl.LogUnhandledExceptionMessage(exception);
+            ApplicationControl.LogExceptionMessage(exception);
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Diagnostics;
 using NSubstitute;
 
 using Foundation.Interfaces;
+
 using Foundation.Tests.Unit.Mocks;
 using Foundation.Tests.Unit.Support;
 

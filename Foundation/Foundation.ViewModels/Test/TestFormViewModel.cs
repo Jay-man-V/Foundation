@@ -61,9 +61,9 @@ namespace Foundation.ViewModels.Test
         {
             using (MouseCursor)
             {
-                Debug.WriteLine($"{DateTimeService.SystemDateTimeNow}");
+                Debug.WriteLine($"{DateTimeService.SystemUtcDateTimeNow}");
                 TestSupportService.SimulateLongTask();
-                Debug.WriteLine($"{DateTimeService.SystemDateTimeNow}");
+                Debug.WriteLine($"{DateTimeService.SystemUtcDateTimeNow}");
             }
         }
 

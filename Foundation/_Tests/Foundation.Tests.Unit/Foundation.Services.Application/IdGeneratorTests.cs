@@ -10,7 +10,7 @@ using Foundation.Interfaces;
 using Foundation.Resources;
 using Foundation.Services.Application;
 
-using Foundation.Tests.Unit.Support;
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application
 {
@@ -19,6 +19,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         private AppId ApplicationId => new AppId(1);
         private IIdGeneratorService? TheService { get; set; }
         private IIdGeneratorRepository? TheRepository { get; set; }
+        private IUserProfile UserProfile { get; set; }
 
         public override void TestInitialise()
         {
@@ -27,6 +28,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             TheRepository = Substitute.For<IIdGeneratorRepository>();
 
             TheService = new IdGeneratorService(TheRepository);
+
+            UserProfile = Substitute.For<IUserProfile>();
         }
 
         public override void TestCleanup()
@@ -45,7 +48,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             const Int32 expected = 123;
             TheRepository!.GetNextId(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), Arg.Any<String>()).Returns(expected);
 
-            Int32 actual = TheService!.GetNextId(ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, IdNames.GenericId);
+            Int32 actual = TheService!.GetNextId(ApplicationId, UserProfile, IdNames.GenericId);
 
             Assert.That(actual, Is.EqualTo(expected));
         }

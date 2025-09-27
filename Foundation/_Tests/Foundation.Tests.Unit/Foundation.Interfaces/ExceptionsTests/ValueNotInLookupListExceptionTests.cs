@@ -6,9 +6,9 @@
 
 using Foundation.Common;
 using Foundation.Interfaces;
-using Foundation.Tests.Unit.Mocks;
 
-using Foundation.Tests.Unit.Support;
+using Foundation.Tests.Unit.BaseClasses;
+using Foundation.Tests.Unit.Mocks;
 
 namespace Foundation.Tests.Unit.Foundation.Interfaces.ExceptionsTests
 {

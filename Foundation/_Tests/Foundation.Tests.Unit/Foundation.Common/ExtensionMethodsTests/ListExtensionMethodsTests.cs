@@ -6,6 +6,7 @@
 
 using Foundation.Common;
 
+using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Mocks;
 
 namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
@@ -14,13 +15,13 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
     /// The List Extension Methods tests class
     /// </summary>
     [TestFixture]
-    public class ListExtensionMethodsTests
+    public class ListExtensionMethodsTests : UnitTestBase
     {
         [TestCase]
         public void Test_HasItems_List_Null()
         {
             List<Int32>? aList1 = null;
-            Assert.That(aList1.HasItems(), Is.EqualTo(false));
+            Assert.That(aList1!.HasItems(), Is.EqualTo(false));
         }
 
         [TestCase]
@@ -51,7 +52,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
         public void Test_Clone_List_Empty_2()
         {
             List<RandomObject> aList1 = [];
-            List<RandomObject> aList2 = aList1.Clone() as List<RandomObject>;
+            List<RandomObject>? aList2 = aList1.Clone() as List<RandomObject>;
 
             Assert.That(aList2, Is.Not.SameAs(aList1));
             Assert.That(aList2, Is.EquivalentTo(aList1));
@@ -71,7 +72,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
         public void Test_Clone_List_WithItems_2()
         {
             List<RandomObject> aList1 = [new RandomObject("String1"), new RandomObject("String2")];
-            List<RandomObject> aList2 = aList1.Clone() as List<RandomObject>;
+            List<RandomObject>? aList2 = aList1.Clone() as List<RandomObject>;
 
             Assert.That(aList2, Is.Not.SameAs(aList1));
             Assert.That(aList2, Is.EquivalentTo(aList1));
@@ -82,7 +83,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
         public void Test_Clone_List_WithItems_4()
         {
             List<RandomObject> aList1 = [new RandomObject(), new RandomObject()];
-            List<RandomObject> aList2 = aList1.Clone() as List<RandomObject>;
+            List<RandomObject>? aList2 = aList1.Clone() as List<RandomObject>;
 
             Assert.That(aList2, Is.Not.SameAs(aList1));
             Assert.That(aList2, Is.EquivalentTo(aList1));

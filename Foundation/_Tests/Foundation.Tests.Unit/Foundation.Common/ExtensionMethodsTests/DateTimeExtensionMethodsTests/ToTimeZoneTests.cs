@@ -8,6 +8,8 @@ using System.Globalization;
 
 using Foundation.Common;
 
+using Foundation.Tests.Unit.BaseClasses;
+
 namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.DateTimeExtensionMethodsTests
 {
     /// <summary>
@@ -19,7 +21,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.DateTime
     /// UK: Sun, Mar 26, 2023 1:00 AM - Sun, Oct 29, 2023 2:00 AM
     /// </summary>
     [TestFixture]
-    public class ToTimeZoneTests
+    public class ToTimeZoneTests : UnitTestBase
     {
         [TestCase("Eastern Standard Time", "2023-03-01 00:00:00", "2023-02-28 19:00:00")] // Input - US is in EST // Output UK is in GMT
         [TestCase("Eastern Standard Time", "2023-03-01 01:00:00", "2023-02-28 20:00:00")] // Input - US is in EST // Output UK is in GMT

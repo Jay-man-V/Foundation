@@ -11,6 +11,7 @@ using System.Resources;
 using Foundation.Common;
 using Foundation.Resources;
 
+using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Support;
 
 namespace Foundation.Tests.Unit.Foundation.Resources

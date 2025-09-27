@@ -7,20 +7,22 @@
 using System.Reflection;
 using System.Windows.Media.Imaging;
 
+using Foundation.Tests.Unit.BaseClasses;
+
 namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
 {
     /// <summary>
     /// The Bitmap Image Extension tests
     /// </summary>
     [TestFixture]
-    public class BitmapImageExtensionMethodsTests
+    public class BitmapImageExtensionMethodsTests : UnitTestBase
     {
         private BitmapImage LoadBitmapImage()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             String location = assembly.Location;
             FileInfo fileInfo = new FileInfo(location);
-            String imagePath = Path.Combine(fileInfo.DirectoryName, @".Support\SampleDocuments\32BitColour_16x16.bmp");
+            String imagePath = Path.Combine(fileInfo.DirectoryName!, @".Support\SampleDocuments\32BitColour_16x16.bmp");
             BitmapImage retVal = new BitmapImage(new Uri(imagePath));
 
             return retVal;

@@ -6,7 +6,7 @@
 
 using Foundation.BusinessProcess.Core.NonWorkingDaySupport;
 
-using Foundation.Tests.Unit.Support;
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.NonWorkingDaySupportTests
 {

@@ -30,7 +30,8 @@ namespace Foundation.Common
             ErrorMessage = String.Empty;
             ErrorSource = String.Empty;
             UserLogon = $@"{runTimeEnvironmentSettings.UserDomainName}\{runTimeEnvironmentSettings.UserName}";
-            ErrorDateTime = dateTimeService.SystemDateTimeNow;
+            ErrorUtcDateTime = dateTimeService.SystemUtcDateTimeNow;
+            ErrorLocalDateTime = dateTimeService.SystemLocalDateTimeNow;
             ComputerName = runTimeEnvironmentSettings.MachineName;
             CultureInfo = CultureInfo.CurrentCulture;
             UiCultureInfo = CultureInfo.CurrentUICulture;
@@ -47,12 +48,20 @@ namespace Foundation.Common
         public String UserLogon { get; }
 
         /// <summary>
-        /// Gets the error date time.
+        /// Gets the error local date time.
         /// </summary>
         /// <value>
         /// The error date time.
         /// </value>
-        public DateTime ErrorDateTime { get; }
+        public DateTime ErrorUtcDateTime { get; }
+
+        /// <summary>
+        /// Gets the error Utc date time.
+        /// </summary>
+        /// <value>
+        /// The error date time.
+        /// </value>
+        public DateTime ErrorLocalDateTime { get; }
 
         /// <summary>
         /// Gets the name of the computer.
@@ -128,16 +137,14 @@ namespace Foundation.Common
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"User logon: {UserLogon}");
-            sb.AppendLine($"Error occurred on: {ErrorDateTime.ToString(Formats.DotNet.DateTimeSeconds)}");
+            sb.AppendLine($"Error occurred on (utc): {ErrorUtcDateTime.ToString(Formats.DotNet.DateTimeSeconds)}");
+            sb.AppendLine($"Error occurred on (local): {ErrorLocalDateTime.ToString(Formats.DotNet.DateTimeSeconds)}");
             sb.AppendLine($"Culture/UI Culture: {CultureInfo}/{UiCultureInfo}");
             sb.AppendLine($"Current Thread - Culture/UI Culture: {ThreadCultureInfo}/{ThreadUiCultureInfo}");
 
             Assembly callingAssembly = Assembly.GetCallingAssembly();
-            if (callingAssembly != null)
-            {
-                sb.AppendLine($"Calling assembly: {callingAssembly.FullName}");
-                sb.AppendLine($"Assembly location: {callingAssembly.Location}");
-            }
+            sb.AppendLine($"Calling assembly: {callingAssembly.FullName}");
+            sb.AppendLine($"Assembly location: {callingAssembly.Location}");
 
             Assembly? entryAssembly = Assembly.GetEntryAssembly();
             if (entryAssembly != null)
@@ -147,11 +154,8 @@ namespace Foundation.Common
             }
 
             Assembly executingAssembly = Assembly.GetExecutingAssembly(); 
-            if (Assembly.GetExecutingAssembly() != null)
-            {
-                sb.AppendLine($"Executing assembly: {executingAssembly.FullName}");
-                sb.AppendLine($"Assembly location: {executingAssembly.Location}");
-            }
+            sb.AppendLine($"Executing assembly: {executingAssembly.FullName}");
+            sb.AppendLine($"Assembly location: {executingAssembly.Location}");
 
             sb.AppendLine($"Environment.CurrentDirectory: {Environment.CurrentDirectory}");
             sb.AppendLine($"Directory.GetCurrentDirectory: {Directory.GetCurrentDirectory()}");

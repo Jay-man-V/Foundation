@@ -27,7 +27,7 @@ namespace Foundation.Common
             SubTitle = String.Empty;
             PageHeader = String.Empty;
             PageFooter = String.Empty;
-            GeneratedOn = DateTimeService.SystemDateTimeNow;
+            GeneratedOn = DateTimeService.SystemUtcDateTimeNow;
             RequestedBy = String.Empty;
             Columns = [];
             DataSource = null;

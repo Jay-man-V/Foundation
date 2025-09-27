@@ -10,6 +10,8 @@ using NSubstitute.ClearExtensions;
 using Foundation.BusinessProcess.Components;
 using Foundation.BusinessProcess.Core;
 using Foundation.Interfaces;
+
+using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Support;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.ComponentsTests
@@ -20,19 +22,21 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.ComponentsTests
     [TestFixture]
     public class ServerProcessTimerTests : UnitTestBase
     {
+        private ICore? Core { get; set; }
         private ICalendarProcess? CalendarProcess { get; set; }
 
         public override void TestInitialise()
         {
             base.TestInitialise();
 
+            Core = Substitute.For<ICore>();
             CalendarProcess = Substitute.For<ICalendarProcess>();
 
             DateTimeService.ClearSubstitute();
             DateTimeService.SystemDateTimeNowWithoutMilliseconds.Returns(new DateTime(2022, 11, 27, 23, 11, 54));
-            DateTimeService.SystemDateTimeNow.Returns(new DateTime(2022, 11, 27, 23, 11, 54, 300));
+            DateTimeService.SystemUtcDateTimeNow.Returns(new DateTime(2022, 11, 27, 23, 11, 54, 300));
 
-            SchedulerSupport.Core = CoreInstance;
+            SchedulerSupport.Core = Core;
             SchedulerSupport.RunTimeEnvironmentSettings = RunTimeEnvironmentSettings;
             SchedulerSupport.DateTimeService = DateTimeService;
             SchedulerSupport.LoggingService = LoggingService;
@@ -44,7 +48,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.ComponentsTests
 
             TimeSpan startTime = new TimeSpan(9, 0, 0);
             TimeSpan endTime = new TimeSpan(17, 0, 0);
-            DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
 
             CalendarProcess!.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, currentDate + startTime).Returns(currentDate + startTime);
             CalendarProcess!.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, currentDate + endTime).Returns(currentDate + endTime);
@@ -55,8 +59,8 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.ComponentsTests
             IScheduleIntervalProcess scheduleIntervalProcess = Substitute.For<IScheduleIntervalProcess>();
             IServiceControlWrapper serviceControlWrapper = Substitute.For<IServiceControlWrapper>();
 
-            IScheduledJob scheduledJob = SchedulerSupport.CreateScheduledJob(CoreInstance, false, currentDate, ScheduleInterval.Seconds, 30);
-            IScheduledJobProcess process = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, repository, statusRepository, userProfileRepository, scheduleIntervalProcess, CalendarProcess, serviceControlWrapper);
+            IScheduledJob scheduledJob = SchedulerSupport.CreateScheduledJob(SchedulerSupport.Core!, false, currentDate, ScheduleInterval.Seconds, 30);
+            IScheduledJobProcess process = new ScheduledJobProcess(SchedulerSupport.Core!, RunTimeEnvironmentSettings, DateTimeService, LoggingService, repository, statusRepository, userProfileRepository, scheduleIntervalProcess, CalendarProcess, serviceControlWrapper);
 
             process.AlternateCreateScheduledTaskCalled -= SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
             process.AlternateCreateScheduledTaskCalled += SchedulerSupport.OnAlternateCreateScheduledTaskCalled;

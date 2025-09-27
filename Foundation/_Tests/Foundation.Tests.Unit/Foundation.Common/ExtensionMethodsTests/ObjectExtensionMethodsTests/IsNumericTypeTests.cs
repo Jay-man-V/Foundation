@@ -6,13 +6,15 @@
 
 using Foundation.Common;
 
+using Foundation.Tests.Unit.BaseClasses;
+
 namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.ObjectExtensionMethodsTests
 {
     /// <summary>
     /// The Object Extension tests
     /// </summary>
     [TestFixture]
-    public class IsNumericTypeTests
+    public class IsNumericTypeTests : UnitTestBase
     {
 
         [TestCase]

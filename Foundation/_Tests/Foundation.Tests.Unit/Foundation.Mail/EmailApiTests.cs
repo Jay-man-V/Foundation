@@ -4,14 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using NSubstitute;
+
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Services.Mail;
+
+using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Support;
-
-using NSubstitute;
-
-using System.Diagnostics;
 
 namespace Foundation.Tests.Unit.Foundation.Mail
 {
@@ -24,7 +24,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
     [DeploymentItem(@".Support\SampleDocuments\Sample PDF Document.pdf", @".Support\SampleDocuments\")]
     [DeploymentItem(@".Support\SampleDocuments\Sample Text Document.txt", @".Support\SampleDocuments\")]
     [DeploymentItem(@".Support\SampleDocuments\Sample Word Document.docx", @".Support\SampleDocuments\")]
-    public class EmailApiTests : UnitTestBase
+    public class EmailApiTests : BusinessProcessUnitTestBase
     {
         private IEmailApi? TheService { get; set; }
 
@@ -32,8 +32,10 @@ namespace Foundation.Tests.Unit.Foundation.Mail
         {
             base.TestInitialise();
 
+            ICore core = Substitute.For<ICore>();
+            IApplicationConfigurationService applicationConfigurationService = Substitute.For<IApplicationConfigurationService>();
             IMailWrapper mailWrapper = Substitute.For<IMailWrapper>();
-            TheService = new EmailApi(CoreInstance, ApplicationConfigurationService, mailWrapper);
+            TheService = new EmailApi(core, applicationConfigurationService, mailWrapper);
 
             String smtpMailPath = Path.Combine(BaseTemporaryOutputsPath, "SmtpMail");
             DirectoryInfo smtpMailPathDirectoryInfo = new DirectoryInfo(smtpMailPath);
@@ -73,13 +75,15 @@ namespace Foundation.Tests.Unit.Foundation.Mail
                 @".Support\SampleDocuments\Sample Word Document.docx",
             ];
 
+
+            // TODO: replace with IFileApi mock
             IFileApi fileApi = CoreInstance.IoC.Get<IFileApi>();
 
             foreach (String fileToAttach in filesToAttach)
             {
                 FileInfo fileInfo = new FileInfo(fileToAttach);
 
-                IMailAttachment mailAttachment = CoreInstance.IoC.Get<IMailAttachment>();
+                IMailAttachment mailAttachment = new MailAttachment();
 
                 mailAttachment.Filename = fileInfo.Name;
                 mailAttachment.Content = fileApi.GetFileContentsAsByteArray(fileToAttach);

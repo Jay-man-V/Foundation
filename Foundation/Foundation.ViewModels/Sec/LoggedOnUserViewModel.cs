@@ -211,7 +211,7 @@ namespace Foundation.ViewModels.Sec
             else
             {
                 DateTime executionCommandTime = DateTime.Parse(commandParameter);
-                if (executionCommandTime > DateTimeService.SystemDateTimeNow)
+                if (executionCommandTime > DateTimeService.SystemUtcDateTimeNow)
                 {
                     if (ExternalCommandName == CommandNames.Quit)
                     {
@@ -225,7 +225,7 @@ namespace Foundation.ViewModels.Sec
                         QuitCommandTimer.Tick -= QuitCommandTimer_Tick;
                         QuitCommandTimer.Tick += QuitCommandTimer_Tick;
 
-                        TimeSpan executionDelay = executionCommandTime - DateTimeService.SystemDateTimeNow;
+                        TimeSpan executionDelay = executionCommandTime - DateTimeService.SystemUtcDateTimeNow;
 
                         QuitCommandTimer.Interval = executionDelay;
 #if (DEBUG)

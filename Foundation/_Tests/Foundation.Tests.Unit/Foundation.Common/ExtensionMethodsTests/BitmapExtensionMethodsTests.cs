@@ -8,6 +8,7 @@ using System.Drawing;
 
 using Foundation.Common;
 
+using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Support;
 
 namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
@@ -17,7 +18,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
     /// </summary>
     [DeploymentItem(@".Support\SampleDocuments\32BitColour_16x16.bmp", @".Support\SampleDocuments")]
     [TestFixture]
-    public class BitmapExtensionMethodsTests
+    public class BitmapExtensionMethodsTests : UnitTestBase
     {
         private Bitmap LoadBitmap()
         {

@@ -4,17 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.BusinessProcess.Sec;
+using Microsoft.Extensions.Hosting;
+
 using Foundation.Core;
-using Foundation.Interfaces;
-using Foundation.Services.Application;
+
 using Foundation.Tests.Unit.NetFramework;
 using Foundation.Tests.Unit.Support;
-
-using Microsoft.Extensions.Hosting;
-using Microsoft.VisualStudio.TestPlatform.Common.Utilities;
-
-using System.Reflection;
 
 namespace Foundation.Tests.Unit.Foundation.Core
 {

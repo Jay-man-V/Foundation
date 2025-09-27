@@ -4,13 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.Common;
-using Foundation.Interfaces;
-using Foundation.Resources;
-using Foundation.Tests.Unit.Support;
-
 using System.Reflection;
 using System.Runtime.InteropServices;
+
+using Foundation.Interfaces;
+using Foundation.Resources;
+
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Resources.FileManagementTests
 {

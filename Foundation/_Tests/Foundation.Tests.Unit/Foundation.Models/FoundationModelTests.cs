@@ -11,8 +11,8 @@ using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Models;
 
+using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Mocks;
-using Foundation.Tests.Unit.Support;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;
@@ -32,7 +32,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_Constructor_1()
         {
-            IMockFoundationModel foundationModel = CoreInstance.IoC.Get<IMockFoundationModel>();
+            IMockFoundationModel foundationModel = new MockFoundationModel();
 
             Assert.That(foundationModel, Is.Not.EqualTo(null));
 
@@ -78,7 +78,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_InitialState()
         {
-            IMockFoundationModel foundationModel = CoreInstance.IoC.Get<IMockFoundationModel>();
+            IMockFoundationModel foundationModel = new MockFoundationModel();
 
             EntityId statusId = foundationModel.StatusId;
             Assert.That(statusId, Is.EqualTo(new EntityId(0)));
@@ -96,7 +96,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_SetProperties()
         {
-            IMockFoundationModel foundationModel = CoreInstance.IoC.Get<IMockFoundationModel>();
+            IMockFoundationModel foundationModel = new MockFoundationModel();
             MockFoundationModel mockFoundationModel = (MockFoundationModel)foundationModel;
 
             mockFoundationModel.FoundationPropertyChanged += (_, _) => { Assert.Fail("Method should not be called"); };
@@ -122,7 +122,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_Properties()
         {
-            IMockFoundationModel foundationModel = CoreInstance.IoC.Get<IMockFoundationModel>();
+            IMockFoundationModel foundationModel = new MockFoundationModel();
 
             foundationModel.Initialising = true;
             foundationModel.Code = "New Code";
@@ -139,7 +139,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_GetPropertyValue()
         {
-            IMockFoundationModel foundationModel = CoreInstance.IoC.Get<IMockFoundationModel>();
+            IMockFoundationModel foundationModel = new MockFoundationModel();
             FoundationModel fModel = (FoundationModel)foundationModel;
 
             EntityId entityId = new EntityId(123);
@@ -173,7 +173,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_Clone()
         {
-            IMockFoundationModel foundationModel = CoreInstance.IoC.Get<IMockFoundationModel>();
+            IMockFoundationModel foundationModel = new MockFoundationModel();
 
             foundationModel.Initialising = true;
             foundationModel.Code = "New Code";
@@ -195,7 +195,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_ChangedPropertiesDictionary()
         {
-            IMockFoundationModel foundationModel = CoreInstance.IoC.Get<IMockFoundationModel>();
+            IMockFoundationModel foundationModel = new MockFoundationModel();
             MockFoundationModel mockFoundationModel = (MockFoundationModel)foundationModel;
 
             String[] changedProperties = [nameof(IMockFoundationModel.Code), nameof(IMockFoundationModel.Description), nameof(IMockFoundationModel.Name)];
@@ -233,7 +233,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_ChangedPropertiesDictionaryWithOldValues()
         {
-            IMockFoundationModel foundationModel = CoreInstance.IoC.Get<IMockFoundationModel>();
+            IMockFoundationModel foundationModel = new MockFoundationModel();
             MockFoundationModel mockFoundationModel = (MockFoundationModel)foundationModel;
 
             String[] changedProperties = [nameof(IMockFoundationModel.Code), nameof(IMockFoundationModel.Name)];
@@ -261,7 +261,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_PropertyUpdating_1()
         {
-            IMockFoundationModel foundationModel = CoreInstance.IoC.Get<IMockFoundationModel>();
+            IMockFoundationModel foundationModel = new MockFoundationModel();
 
             Assert.That(foundationModel.Name, Is.EqualTo(String.Empty));
             Assert.That(foundationModel.EntityState, Is.EqualTo(EntityState.Dirty));
@@ -280,7 +280,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_PropertyUpdating_2()
         {
-            IMockFoundationModel foundationModel = CoreInstance.IoC.Get<IMockFoundationModel>();
+            IMockFoundationModel foundationModel = new MockFoundationModel();
             foundationModel.EntityState = EntityState.Saved;
             foundationModel.EntityLife = EntityLife.Loaded;
 
@@ -301,7 +301,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_PropertyUpdating_3()
         {
-            IMockFoundationModel foundationModel = CoreInstance.IoC.Get<IMockFoundationModel>();
+            IMockFoundationModel foundationModel = new MockFoundationModel();
             foundationModel.EntityState = EntityState.Saved;
             foundationModel.EntityLife = EntityLife.Loaded;
             foundationModel.Initialising = true;
@@ -323,7 +323,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_PropertyEventHandling_Success()
         {
-            IMockFoundationModel foundationModel = CoreInstance.IoC.Get<IMockFoundationModel>();
+            IMockFoundationModel foundationModel = new MockFoundationModel();
             MockFoundationModel mockFoundationModel = (MockFoundationModel)foundationModel;
 
             Assert.That(foundationModel.Name, Is.EqualTo(String.Empty));
@@ -358,7 +358,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_PropertyEventHandling_Cancel()
         {
-            IMockFoundationModel foundationModel = CoreInstance.IoC.Get<IMockFoundationModel>();
+            IMockFoundationModel foundationModel = new MockFoundationModel();
             MockFoundationModel mockFoundationModel = (MockFoundationModel)foundationModel;
 
             Assert.That(foundationModel.Name, Is.EqualTo(String.Empty));
@@ -384,7 +384,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
         [TestCase]
         public void Test_Entity_AcceptChanges()
         {
-            IMockFoundationModel foundationModel = CoreInstance.IoC.Get<IMockFoundationModel>();
+            IMockFoundationModel foundationModel = new MockFoundationModel();
 
             Assert.That(foundationModel.IsChanged, Is.EqualTo(false));
 

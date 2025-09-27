@@ -46,7 +46,7 @@ namespace Foundation.Views.Converters
             if (!DateTime.TryParse(stringValue, out DateTime dateValue))
             {
                 IDateTimeService dateTimeService = Core.Core.TheInstance.IoC.Get<IDateTimeService>();
-                dateValue = dateTimeService.SystemDateTimeNow;
+                dateValue = dateTimeService.SystemUtcDateTimeNow;
             }
 
             retVal = dateValue.ToString(dateFormat);

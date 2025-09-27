@@ -103,8 +103,8 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             retVal.Interval = 15;
             retVal.ScheduleIntervalId = new EntityId(2);
             retVal.IsEnabled = true;
-            retVal.LastRunDateTime = DateTimeService.SystemDateTimeNow;
-            retVal.NextRunDateTime = DateTimeService.SystemDateTimeNow;
+            retVal.LastRunDateTime = DateTimeService.SystemUtcDateTimeNow;
+            retVal.NextRunDateTime = DateTimeService.SystemUtcDateTimeNow;
             retVal.TaskImplementationType = Guid.NewGuid().ToString();
             retVal.TaskParameters = Guid.NewGuid().ToString();
 
@@ -162,7 +162,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         {
             TimeSpan startTime = new TimeSpan(9, 0, 0);
             TimeSpan endTime = new TimeSpan(17, 0, 0);
-            DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
             ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
             Int32 interval = 1;
 
@@ -186,7 +186,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         {
             TimeSpan startTime = new TimeSpan(9, 0, 0);
             TimeSpan endTime = new TimeSpan(17, 0, 0);
-            DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
             ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
             Int32 interval = 1;
 
@@ -226,7 +226,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         {
             TimeSpan startTime = new TimeSpan(9, 0, 0);
             TimeSpan endTime = new TimeSpan(17, 0, 0);
-            DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
             ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
             Int32 interval = 1;
 
@@ -268,7 +268,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         {
             TimeSpan startTime = new TimeSpan(9, 0, 0);
             TimeSpan endTime = new TimeSpan(17, 0, 0);
-            DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
             ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
             Int32 interval = 1;
 
@@ -310,7 +310,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         {
             TimeSpan startTime = new TimeSpan(9, 0, 0);
             TimeSpan endTime = new TimeSpan(17, 0, 0);
-            DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
             ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
             Int32 interval = 1;
 
@@ -354,7 +354,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         {
             TimeSpan startTime = new TimeSpan(9, 0, 0);
             TimeSpan endTime = new TimeSpan(17, 0, 0);
-            DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
             ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
             Int32 interval = 1;
 
@@ -396,7 +396,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         [TestCase]
         public void Test_StartJobs_DemoJob()
         {
-            DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
             ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
             Int32 interval = 1;
 
@@ -424,7 +424,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         {
             TimeSpan startTime = new TimeSpan(9, 0, 0);
             TimeSpan endTime = new TimeSpan(17, 0, 0);
-            DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
             ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
             Int32 interval = 1;
 
@@ -469,7 +469,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         {
             TimeSpan startTime = new TimeSpan(9, 0, 0);
             TimeSpan endTime = new TimeSpan(17, 0, 0);
-            DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
             ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
             Int32 interval = 1;
 
@@ -535,7 +535,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         {
             TimeSpan startTime = new TimeSpan(9, 0, 0);
             TimeSpan endTime = new TimeSpan(17, 0, 0);
-            DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
             ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
             Int32 interval = 1;
 
@@ -591,7 +591,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         {
             TimeSpan startTime = new TimeSpan(9, 0, 0);
             TimeSpan endTime = new TimeSpan(17, 0, 0);
-            DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
             ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
             Int32 interval = 1;
 
@@ -659,7 +659,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             {
                 TimeSpan startTime = new TimeSpan(9, 0, 0);
                 TimeSpan endTime = new TimeSpan(17, 0, 0);
-                DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+                DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
                 ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
                 Int32 interval = 1;
 
@@ -685,7 +685,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             {
                 TimeSpan startTime = new TimeSpan(9, 0, 0);
                 TimeSpan endTime = new TimeSpan(17, 0, 0);
-                DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+                DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
                 ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
                 Int32 interval = 1;
 
@@ -713,7 +713,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             {
                 TimeSpan startTime = new TimeSpan(9, 0, 0);
                 TimeSpan endTime = new TimeSpan(17, 0, 0);
-                DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+                DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
                 ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
                 Int32 interval = 1;
 
@@ -758,7 +758,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             ServiceStatus expected = ServiceStatus.Stopped;
             TimeSpan startTime = new TimeSpan(9, 0, 0);
             TimeSpan endTime = new TimeSpan(17, 0, 0);
-            DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
             ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
             Int32 interval = 1;
 
@@ -856,7 +856,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             {
                 TimeSpan startTime = new TimeSpan(9, 0, 0);
                 TimeSpan endTime = new TimeSpan(17, 0, 0);
-                DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+                DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
                 ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
                 Int32 interval = 1;
 
@@ -882,7 +882,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             {
                 TimeSpan startTime = new TimeSpan(9, 0, 0);
                 TimeSpan endTime = new TimeSpan(17, 0, 0);
-                DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+                DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
                 ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
                 Int32 interval = 1;
 
@@ -910,7 +910,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             {
                 TimeSpan startTime = new TimeSpan(9, 0, 0);
                 TimeSpan endTime = new TimeSpan(17, 0, 0);
-                DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+                DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
                 ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
                 Int32 interval = 1;
 
@@ -955,7 +955,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             FEnums.TaskStatus expected = FEnums.TaskStatus.Success;
             TimeSpan startTime = new TimeSpan(9, 0, 0);
             TimeSpan endTime = new TimeSpan(17, 0, 0);
-            DateTime currentDate = DateTimeService.SystemDateTimeNow.Date;
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
             ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
             Int32 interval = 1;
 

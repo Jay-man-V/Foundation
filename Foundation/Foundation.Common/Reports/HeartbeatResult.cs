@@ -23,7 +23,7 @@ namespace Foundation.Common
             IDateTimeService dateTimeService
         )
         {
-            DateRun = dateTimeService.SystemDateTimeNow;
+            DateRun = dateTimeService.SystemUtcDateTimeNow;
             DateRun = new DateTime(DateRun.Year, DateRun.Month, DateRun.Day, DateRun.Hour, DateRun.Minute, DateRun.Second, DateRun.Millisecond, DateTimeKind.Unspecified);
 
             Logs = [];

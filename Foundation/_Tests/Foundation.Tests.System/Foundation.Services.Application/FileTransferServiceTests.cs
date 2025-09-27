@@ -9,6 +9,7 @@ using NSubstitute;
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Services.Application;
+using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Support;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application
@@ -17,7 +18,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
     /// UnitTests for FileTransferServiceTests
     /// </summary>
     [TestFixture]
-    public class FileTransferServiceTests : UnitTestBase
+    public class FileTransferServiceTests : BusinessProcessUnitTestBase
     {
         private IFileTransferService? TheService { get; set; }
 

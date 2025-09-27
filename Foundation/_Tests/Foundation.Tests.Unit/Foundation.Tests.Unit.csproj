@@ -42,7 +42,7 @@
     <Compile Include=".NetFramework\NullCheckTests.cs" />
     <Compile Include=".NetFramework\WindowsImpersonationTests.cs" />
     <Compile Include=".NUnitSupport\DeploymentItem.cs" />
-    <Compile Include=".Support\AppConfigModifier.cs" />
+    <Compile Include=".Support\DotNetDomainLauncher.cs" />
     <Compile Include=".Support\ClassWillBeExcluded.cs" />
     <Compile Include=".Support\CustomTraceListener.cs" />
     <Compile Include=".Support\Dependency Injection Classes\DependencyInjectionClasses.cs" />
@@ -50,7 +50,8 @@
     <Compile Include=".Support\SchedulerSupport.cs" />
     <Compile Include=".Support\SerialiseTest.cs" />
     <Compile Include=".Support\TestEntitySupport.cs" />
-    <Compile Include=".Support\UnitTestBase.cs" />
+    <Compile Include=".BaseClasses\BusinessProcessUnitTestBase.cs" />
+    <Compile Include=".BaseClasses\UnitTestBase.cs" />
     <Compile Include=".Support\UnitTestingDatabaseProvider.cs" />
     <Compile Include=".Support\UnitTestsBaseTests.cs" />
     <Compile Include=".Support\UserSecuritySupport.cs" />

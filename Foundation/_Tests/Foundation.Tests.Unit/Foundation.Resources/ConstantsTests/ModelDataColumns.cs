@@ -1,15 +1,12 @@
-﻿
-//-----------------------------------------------------------------------
+﻿//-----------------------------------------------------------------------
 // <copyright file="ModelDataColumns.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
-using DocumentFormat.OpenXml.EMMA;
-
-using Foundation.Tests.Unit.Support;
-
 using System.Reflection;
+
+using Foundation.Tests.Unit.BaseClasses;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
@@ -148,7 +145,7 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         [TestCase]
         public void Test_ApplicationApplicationType()
         {
-            // This test exists to ensure all the Application Application Type are tested/checked in the next test
+            // This test exists to ensure all the Application/Application Type are tested/checked in the next test
             PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(FDC.ApplicationApplicationType));
             Int32 index = 0;
 

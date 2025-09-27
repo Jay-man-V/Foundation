@@ -71,11 +71,10 @@ namespace Foundation.Services.Application
             entity.ProcessName = processName;
             entity.LogSeverityId = new EntityId(LogSeverity.Information.Id());
             entity.TaskName = taskName;
-            entity.StartedOn = DateTimeService.SystemDateTimeNow;
+            entity.StartedOn = DateTimeService.SystemUtcDateTimeNow;
 
-            Repository.Save(entity);
-            IFoundationModel foundationModel = entity;
-            entity.Id = new LogId(foundationModel.Id.TheEntityId);
+            IEventLog savedEventLog = Repository.Save(entity);
+            entity.Id = savedEventLog.Id;
 
             retVal = entity.Id;
 
@@ -90,7 +89,7 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallEnter(logId, logSeverity, information);
 
             IEventLog entity = Repository.Get(logId);
-            entity.FinishedOn = DateTimeService.SystemDateTimeNow;
+            entity.FinishedOn = DateTimeService.SystemUtcDateTimeNow;
             entity.LogSeverityId = new EntityId(logSeverity.Id());
 
             if (!String.IsNullOrWhiteSpace(information))
@@ -134,12 +133,11 @@ namespace Foundation.Services.Application
             entity.ProcessName = processName;
             entity.LogSeverityId = new EntityId(logSeverity.Id());
             entity.TaskName = taskName;
-            entity.StartedOn = DateTimeService.SystemDateTimeNow;
+            entity.StartedOn = DateTimeService.SystemUtcDateTimeNow;
             entity.Information = information;
 
-            Repository.Save(entity);
-            IFoundationModel foundationModel = entity;
-            entity.Id = new LogId(foundationModel.Id.TheEntityId);
+            IEventLog savedEventLog = Repository.Save(entity);
+            entity.Id = savedEventLog.Id;
 
             retVal = entity.Id;
 
@@ -161,12 +159,11 @@ namespace Foundation.Services.Application
             entity.ApplicationId = applicationId;
             entity.ParentId = parentLogId;
             entity.LogSeverityId = new EntityId(logSeverity.Id());
-            entity.StartedOn = DateTimeService.SystemDateTimeNow;
+            entity.StartedOn = DateTimeService.SystemUtcDateTimeNow;
             entity.Information = exceptionOutput.ToString();
 
-            Repository.Save(entity);
-            IFoundationModel foundationModel = entity;
-            entity.Id = new LogId(foundationModel.Id.TheEntityId);
+            IEventLog savedEventLog = Repository.Save(entity);
+            entity.Id = savedEventLog.Id;
 
             retVal = entity.Id;
 

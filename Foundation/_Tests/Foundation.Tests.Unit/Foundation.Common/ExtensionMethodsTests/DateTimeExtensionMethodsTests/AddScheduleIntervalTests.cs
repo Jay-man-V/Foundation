@@ -7,13 +7,15 @@
 using Foundation.Common;
 using Foundation.Interfaces;
 
+using Foundation.Tests.Unit.BaseClasses;
+
 namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.DateTimeExtensionMethodsTests
 {
     /// <summary>
     /// Summary description for AddScheduleIntervalTests
     /// </summary>
     [TestFixture]
-    public class AddScheduleIntervalTests
+    public class AddScheduleIntervalTests : UnitTestBase
     {
         [TestCase]
         public void Test_Add_Other()

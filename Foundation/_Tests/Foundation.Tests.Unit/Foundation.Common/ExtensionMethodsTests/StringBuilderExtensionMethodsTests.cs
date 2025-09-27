@@ -8,13 +8,15 @@ using System.Text;
 
 using Foundation.Common;
 
+using Foundation.Tests.Unit.BaseClasses;
+
 namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
 {
     /// <summary>
     /// The StringBuilder Extension tests
     /// </summary>
     [TestFixture]
-    public class StringBuilderExtensionMethodsTests
+    public class StringBuilderExtensionMethodsTests : UnitTestBase
     {
         [TestCase]
         public void TestAppendFormatLine()

@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Foundation.BusinessProcess.Core.NonWorkingDaySupport;
 using Foundation.Resources;
 
+using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Support;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.NonWorkingDaySupportTests

@@ -6,13 +6,15 @@
 
 using Foundation.Common;
 
+using Foundation.Tests.Unit.BaseClasses;
+
 namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.DateTimeExtensionMethodsTests
 {
     /// <summary>
     /// The DateTime Extension tests
     /// </summary>
     [TestFixture]
-    public class IsBetweenNotNullableTests
+    public class IsBetweenNotNullableTests : UnitTestBase
     {
         [TestCase]
         public void TestIsBetween_True()

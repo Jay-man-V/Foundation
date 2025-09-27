@@ -66,7 +66,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
             retVal.ValidFrom = process.DefaultValidFromDateTime;
             retVal.ValidTo = process.DefaultValidToDateTime;
 
-            retVal.DataDate = DateTimeService.SystemDateTimeNow;
+            retVal.DataDate = DateTimeService.SystemUtcDateTimeNow;
             retVal.Name = Guid.NewGuid().ToString();
             retVal.DataStatusId = new EntityId(1);
 

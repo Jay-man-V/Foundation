@@ -21,7 +21,7 @@ namespace Foundation.Tests.Unit.NetFramework
     /// The unit test template class
     /// </summary>
     [TestFixture]
-    public class WindowsImpersonationTests : UnitTestBase
+    public class WindowsImpersonationTests
     {
         const Int32 Logon32ProviderDefault = 0;
         //This parameter causes LogonUser to create a primary token. 

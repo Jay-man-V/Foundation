@@ -12,13 +12,15 @@ using Foundation.Interfaces;
 using Foundation.Interfaces.Helpers;
 using Foundation.Resources;
 
+using Foundation.Tests.Unit.BaseClasses;
+
 namespace Foundation.Tests.Unit.Foundation.Common.Helpers
 {
     /// <summary>
     /// The Grid Column Definition Tests class
     /// </summary>
     [TestFixture]
-    public class GridColumnDefinitionTests
+    public class GridColumnDefinitionTests : UnitTestBase
     {
         [TestCase]
         public void Test_Constructor_Default()

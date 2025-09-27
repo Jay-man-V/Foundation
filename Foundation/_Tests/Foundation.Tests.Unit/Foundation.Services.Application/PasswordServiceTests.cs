@@ -11,7 +11,7 @@ using Foundation.Interfaces;
 using Foundation.Resources;
 using Foundation.Services.Application;
 
-using Foundation.Tests.Unit.Support;
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application
 {
@@ -22,6 +22,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
     public class PasswordServiceTests : UnitTestBase
     {
         private IPasswordGeneratorService? TheService { get; set; }
+        private IApplicationConfigurationService? ApplicationConfigurationService { get; set; }
         private IRestApi? RestApi { get; set; }
         private IRandomService? RandomService { get; set; }
 
@@ -29,10 +30,12 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             base.TestInitialise();
 
+            ICore core = Substitute.For<ICore>();
+            ApplicationConfigurationService = Substitute.For<IApplicationConfigurationService>();
             RestApi = Substitute.For<IRestApi>();
             RandomService = Substitute.For<IRandomService>();
 
-            TheService = new PasswordGeneratorService(CoreInstance, ApplicationConfigurationService, RestApi, RandomService);
+            TheService = new PasswordGeneratorService(core, ApplicationConfigurationService, RestApi, RandomService);
         }
 
         public override void TestCleanup()
@@ -77,7 +80,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 
             RestApi.ClearSubstitute();
 
-            ApplicationConfigurationService.Get<String>(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), randomPasswordGenerateUrlKey).Returns(passwordGenerateUrl);
+            ApplicationConfigurationService!.Get<String>(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), randomPasswordGenerateUrlKey).Returns(passwordGenerateUrl);
 
             InvalidOperationException actualException = Assert.Throws<InvalidOperationException>(() =>
             {

@@ -36,7 +36,7 @@ namespace Foundation.Tests.Unit.Mocks
         /// <inheritdoc cref="IScheduledTask.Process(LogId, String)"/>
         public override void Process(LogId logId, String taskParameters)
         {
-            DateTime currentDateTime = DateTimeService.SystemDateTimeNow;
+            DateTime currentDateTime = DateTimeService.SystemUtcDateTimeNow;
             String message = $"ProcessJob running at: {currentDateTime.ToString(Formats.DotNet.DateTimeSeconds)}";
 
             LoggingService.CreateLogEntry(logId, Core.ApplicationId, "batchName", "processName", "taskName", LogSeverity.Information, message);

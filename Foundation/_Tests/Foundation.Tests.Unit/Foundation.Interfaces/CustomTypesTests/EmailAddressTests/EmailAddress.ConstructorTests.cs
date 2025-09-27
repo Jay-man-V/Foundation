@@ -8,12 +8,14 @@ using System.Reflection;
 
 using Foundation.Interfaces;
 
+using Foundation.Tests.Unit.BaseClasses;
+
 namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.EmailAddressTests
 {
     /// <summary>
     /// Unit Tests for the Email Address type
     /// </summary>
-    public partial class EmailAddressTests
+    public partial class EmailAddressTests : UnitTestBase
     {
         [TestCase]
         public void Test_CountConstructors()

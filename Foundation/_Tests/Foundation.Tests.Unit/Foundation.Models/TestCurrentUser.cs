@@ -4,10 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using NUnit.Framework;
-
 using Foundation.Interfaces;
-
+using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Support;
 
 namespace Foundation.Tests.Unit.Foundation.Models
@@ -16,7 +14,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
     /// 
     /// </summary>
     [TestFixture]
-    public class TestCurrentUser : UnitTestBase
+    public class TestCurrentUser : BusinessProcessUnitTestBase
     {
         /// <summary>
         /// Tests the method1.

@@ -5,8 +5,9 @@
 //-----------------------------------------------------------------------
 
 using Foundation.Interfaces;
+using Foundation.Services.Application;
 
-using Foundation.Tests.Unit.Support;
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application
 {
@@ -19,7 +20,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_Properties()
         {
-            IRunTimeEnvironmentSettings service = CoreInstance.IoC.Get<IRunTimeEnvironmentSettings>();
+            IRunTimeEnvironmentSettings service = new RunTimeEnvironmentSettings();
             Assert.That(service, Is.Not.EqualTo(null));
 
             String[] arguments = service.Arguments;

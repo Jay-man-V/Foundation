@@ -71,8 +71,8 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
             retVal.ApplicationId = new AppId(1);
             retVal.UserProfileId = new EntityId(1);
-            retVal.LoggedOn = DateTimeService.SystemDateTimeNow;
-            retVal.LastActive = DateTimeService.SystemDateTimeNow;
+            retVal.LoggedOn = DateTimeService.SystemUtcDateTimeNow;
+            retVal.LastActive = DateTimeService.SystemUtcDateTimeNow;
             retVal.Command = Guid.NewGuid().ToString();
             
             return retVal;
@@ -127,7 +127,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override void UpdateEntityProperties(ILoggedOnUser entity)
         {
-            entity.LastActive = DateTimeService.SystemDateTimeNow;
+            entity.LastActive = DateTimeService.SystemUtcDateTimeNow;
             entity.Command += " Updated";
         }
 

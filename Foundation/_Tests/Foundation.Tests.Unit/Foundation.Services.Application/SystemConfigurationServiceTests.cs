@@ -4,10 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using NSubstitute;
+
 using Foundation.Interfaces;
 using Foundation.Services.Application;
 
-using Foundation.Tests.Unit.Support;
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application
 {
@@ -23,7 +25,9 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             base.TestInitialise();
 
-            TheService = new SystemConfigurationService(CoreInstance);
+            ICore core = Substitute.For<ICore>();
+
+            TheService = new SystemConfigurationService(core);
         }
 
         public override void TestCleanup()

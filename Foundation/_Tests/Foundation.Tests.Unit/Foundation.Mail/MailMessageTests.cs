@@ -7,7 +7,7 @@
 using Foundation.Interfaces;
 using Foundation.Services.Mail;
 
-using Foundation.Tests.Unit.Support;
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Mail
 {
@@ -20,7 +20,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
         [TestCase]
         public void Test_Constructor()
         {
-            IMailMessage mailMessage = CoreInstance.IoC.Get<IMailMessage>();
+            IMailMessage mailMessage = new MailMessage();
 
             Type[] allInterfaces = mailMessage.GetType().GetInterfaces();
 
@@ -32,7 +32,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
         [TestCase]
         public void Test_Clone()
         {
-            IMailMessage mailMessage = CoreInstance.IoC.Get<IMailMessage>();
+            IMailMessage mailMessage = new MailMessage();
 
             mailMessage.Body = "Mail Body";
             mailMessage.IsBodyHtml = true;

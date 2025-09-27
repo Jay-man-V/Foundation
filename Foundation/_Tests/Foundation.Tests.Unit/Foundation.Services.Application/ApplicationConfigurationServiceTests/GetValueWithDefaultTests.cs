@@ -10,7 +10,7 @@ using Foundation.Interfaces;
 using Foundation.Models.Core;
 using Foundation.Services.Application;
 
-using Foundation.Tests.Unit.Support;
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfigurationServiceTests
 {
@@ -22,6 +22,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
     {
         private IApplicationConfigurationService? TheService { get; set; }
         private IApplicationConfigurationRepository? TheRepository { get; set; }
+        private IUserProfile UserProfile { get; set; }
 
         public override void TestInitialise()
         {
@@ -30,6 +31,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository = Substitute.For<IApplicationConfigurationRepository>();
 
             TheService = new ApplicationConfigurationService(TheRepository);
+
+            UserProfile = Substitute.For<IUserProfile>();
         }
 
         public override void TestCleanup()
@@ -53,7 +56,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
-            Boolean actualValue = TheService!.Get(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key, defaultValue);
+            Boolean actualValue = TheService!.Get(applicationId, UserProfile, key, defaultValue);
 
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
@@ -69,7 +72,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
-            Boolean actualValue = TheService!.Get(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key, defaultValue);
+            Boolean actualValue = TheService!.Get(applicationId, UserProfile, key, defaultValue);
 
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
@@ -85,7 +88,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
-            TimeSpan actualValue = TheService!.Get(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key, defaultValue);
+            TimeSpan actualValue = TheService!.Get(applicationId, UserProfile, key, defaultValue);
 
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
@@ -101,7 +104,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
-            DateTime actualValue = TheService!.Get(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key, defaultValue);
+            DateTime actualValue = TheService!.Get(applicationId, UserProfile, key, defaultValue);
 
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
@@ -117,7 +120,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
-            DateTime actualValue = TheService!.Get(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key, defaultValue);
+            DateTime actualValue = TheService!.Get(applicationId, UserProfile, key, defaultValue);
 
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
@@ -133,7 +136,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
-            Guid actualValue = TheService!.Get(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key, defaultValue);
+            Guid actualValue = TheService!.Get(applicationId, UserProfile, key, defaultValue);
 
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
@@ -149,7 +152,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
-            Char actualValue = TheService!.Get(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key, defaultValue);
+            Char actualValue = TheService!.Get(applicationId, UserProfile, key, defaultValue);
 
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
@@ -165,7 +168,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
-            String actualValue = TheService!.Get(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key, defaultValue);
+            String actualValue = TheService!.Get(applicationId, UserProfile, key, defaultValue);
 
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
@@ -181,7 +184,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
-            Int16 actualValue = TheService!.Get(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key, defaultValue);
+            Int16 actualValue = TheService!.Get(applicationId, UserProfile, key, defaultValue);
 
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
@@ -197,7 +200,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
-            UInt16 actualValue = TheService!.Get(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key, defaultValue);
+            UInt16 actualValue = TheService!.Get(applicationId, UserProfile, key, defaultValue);
 
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
@@ -213,7 +216,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
-            Int32 actualValue = TheService!.Get(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key, defaultValue);
+            Int32 actualValue = TheService!.Get(applicationId, UserProfile, key, defaultValue);
 
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
@@ -229,7 +232,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
-            UInt32 actualValue = TheService!.Get(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key, defaultValue);
+            UInt32 actualValue = TheService!.Get(applicationId, UserProfile, key, defaultValue);
 
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
@@ -245,7 +248,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
-            Int64 actualValue = TheService!.Get(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key, defaultValue);
+            Int64 actualValue = TheService!.Get(applicationId, UserProfile, key, defaultValue);
 
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
@@ -261,7 +264,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
-            UInt64 actualValue = TheService!.Get(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key, defaultValue);
+            UInt64 actualValue = TheService!.Get(applicationId, UserProfile, key, defaultValue);
 
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
@@ -277,7 +280,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
-            Decimal actualValue = TheService!.Get(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key, defaultValue);
+            Decimal actualValue = TheService!.Get(applicationId, UserProfile, key, defaultValue);
 
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
@@ -293,7 +296,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
-            Double actualValue = TheService!.Get(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key, defaultValue);
+            Double actualValue = TheService!.Get(applicationId, UserProfile, key, defaultValue);
 
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
@@ -309,7 +312,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
-            Byte actualValue = TheService!.Get(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key, defaultValue);
+            Byte actualValue = TheService!.Get(applicationId, UserProfile, key, defaultValue);
 
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
@@ -325,7 +328,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
-            SByte actualValue = TheService!.Get(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key, defaultValue);
+            SByte actualValue = TheService!.Get(applicationId, UserProfile, key, defaultValue);
 
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }

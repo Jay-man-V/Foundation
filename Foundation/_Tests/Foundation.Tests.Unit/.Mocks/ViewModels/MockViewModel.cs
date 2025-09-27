@@ -4,12 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
 using Foundation.Interfaces;
 using Foundation.ViewModels;
 
-namespace Foundation.Tests.Unit.Mocks
+namespace Foundation.Tests.Unit.Mocks.ViewModels
 {
     public interface IMockViewModel : IViewModel
     {

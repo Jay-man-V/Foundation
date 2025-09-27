@@ -300,7 +300,7 @@ namespace Foundation.BusinessProcess.Core
                 scheduledJob.CancellationRequested = true;
 
                 Boolean forceExit = true;
-                DateTime startShutdownTime = DateTimeService.SystemDateTimeNow.AddSeconds(60);
+                DateTime startShutdownTime = DateTimeService.SystemUtcDateTimeNow.AddSeconds(60);
                 Int32 loopCount = 0;
                 while (scheduledJob.IsRunning && forceExit)
                 {
@@ -309,7 +309,7 @@ namespace Foundation.BusinessProcess.Core
                     // Allow for 60 * 4 seconds worth of checking for the job to stop
                     forceExit = (loopCount < (60 * 4) &&
                                  scheduledJob.IsRunning &&
-                                 startShutdownTime > DateTimeService.SystemDateTimeNow);
+                                 startShutdownTime > DateTimeService.SystemUtcDateTimeNow);
 
                     loopCount++;
                 }
@@ -530,7 +530,7 @@ namespace Foundation.BusinessProcess.Core
 
             Boolean retVal;
 
-            DateTime currentDatetime = DateTimeService.SystemDateTimeNow;
+            DateTime currentDatetime = DateTimeService.SystemUtcDateTimeNow;
 
             DateTime currentDate = currentDatetime.Date;
             TimeSpan currentTime = currentDatetime.TimeOfDay;

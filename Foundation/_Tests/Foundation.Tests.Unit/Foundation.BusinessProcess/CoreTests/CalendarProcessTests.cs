@@ -9,7 +9,7 @@ using NSubstitute;
 using Foundation.BusinessProcess.Core;
 using Foundation.Interfaces;
 
-using Foundation.Tests.Unit.Support;
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 {
@@ -26,9 +26,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         {
             base.TestInitialise();
 
+            ICore core = Substitute.For<ICore>();
+
             TheRepository = Substitute.For<ICalendarRepository>();
 
-            TheProcess = new CalendarProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, TheRepository);
+            TheProcess = new CalendarProcess(core, RunTimeEnvironmentSettings, DateTimeService, LoggingService, TheRepository);
 
             List<DateTime> holidayDates =
             [

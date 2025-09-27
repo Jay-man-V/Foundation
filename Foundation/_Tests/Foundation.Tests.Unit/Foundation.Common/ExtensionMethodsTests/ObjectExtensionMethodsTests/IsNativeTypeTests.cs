@@ -7,13 +7,15 @@
 using Foundation.Common;
 using Foundation.Interfaces;
 
+using Foundation.Tests.Unit.BaseClasses;
+
 namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.ObjectExtensionMethodsTests
 {
     /// <summary>
     /// The Object Extension tests
     /// </summary>
     [TestFixture]
-    public class IsNativeTypeTests
+    public class IsNativeTypeTests : UnitTestBase
     {
         [TestCase]
         public void Test_Struct_False()

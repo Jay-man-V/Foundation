@@ -4,15 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.Tests.Unit.Support;
-
 namespace Foundation.Tests.Unit.NetFramework
 {
     /// <summary>
     /// Simple .Net Framework tests
     /// </summary>
     [TestFixture]
-    public class NullCheckTests : UnitTestBase
+    public class NullCheckTests
     {
         /// <summary>
         ///

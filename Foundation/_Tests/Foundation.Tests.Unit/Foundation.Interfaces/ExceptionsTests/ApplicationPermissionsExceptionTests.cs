@@ -7,8 +7,8 @@
 using Foundation.Common;
 using Foundation.Interfaces;
 
+using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Mocks;
-using Foundation.Tests.Unit.Support;
 
 namespace Foundation.Tests.Unit.Foundation.Interfaces.ExceptionsTests
 {
@@ -16,7 +16,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.ExceptionsTests
     /// The ApplicationPermissionsException Tests
     /// </summary>
     [TestFixture]
-    public class ApplicationPermissionsExceptionTests : UnitTestBase
+    public class ApplicationPermissionsExceptionTests : BusinessProcessUnitTestBase
     {
         [TestCase]
         public void Test_Constructor_ValidEntity()

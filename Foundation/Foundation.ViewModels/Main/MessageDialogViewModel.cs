@@ -132,7 +132,7 @@ namespace Foundation.ViewModels.Main
             Message = ExceptionOutput.ErrorMessage;
             Detail = ExceptionOutput.ErrorDetail;
             Source = ExceptionOutput.ErrorSource;
-            MessageDateTime = ExceptionOutput.ErrorDateTime;
+            MessageDateTime = ExceptionOutput.ErrorUtcDateTime;
             ComputerName = ExceptionOutput.ComputerName;
             UserLogon = ExceptionOutput.UserLogon;
 

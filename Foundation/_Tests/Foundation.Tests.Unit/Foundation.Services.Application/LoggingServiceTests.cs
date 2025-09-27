@@ -4,14 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.Common;
-using Foundation.Interfaces;
-using Foundation.Services.Application;
-using Foundation.Tests.Unit.Support;
-
 using NSubstitute;
 
-using System;
+using Foundation.Common;
+using Foundation.Interfaces;
+using Foundation.Models.Log;
+using Foundation.Services.Application;
+
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application
 {
@@ -26,9 +26,11 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             base.TestInitialise();
 
+            ICore core = Substitute.For<ICore>();
+
             TheRepository = Substitute.For<IEventLogRepository>();
 
-            TheService = new LoggingService(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, TheRepository);
+            TheService = new LoggingService(core, RunTimeEnvironmentSettings, DateTimeService, TheRepository);
         }
 
         public override void TestCleanup()
@@ -44,7 +46,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetLatest()
         {
-            IEventLog eventLog = CoreInstance.IoC.Get<IEventLog>();
+            IEventLog eventLog = new EventLog();
             eventLog.Id = new LogId(123);
 
             TheRepository!.GetLatest(Arg.Any<Boolean>(), Arg.Any<EntityId>(), Arg.Any<String>(), Arg.Any<String>(), Arg.Any<String>()).Returns(eventLog);
@@ -89,7 +91,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             String taskName = LocationUtils.GetFunctionName();
             String information = initialEntry;
 
-            IEventLog entity = CoreInstance.IoC.Get<IEventLog>();
+            IEventLog entity = new EventLog();
             entity.Id = logId;
             entity.ApplicationId = TestingApplicationId;
             entity.BatchName = batchName;
@@ -126,7 +128,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             String taskName = LocationUtils.GetFunctionName();
             String information = String.Empty;
 
-            IEventLog entity = CoreInstance.IoC.Get<IEventLog>();
+            IEventLog entity = new EventLog();
             entity.Id = logId;
             entity.ApplicationId = TestingApplicationId;
             entity.BatchName = batchName;
@@ -178,7 +180,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(savedEventLog!.ProcessName, Is.EqualTo(processName));
             Assert.That(savedEventLog!.TaskName, Is.EqualTo(taskName));
             Assert.That(savedEventLog!.LogSeverityId.ToInteger(), Is.EqualTo(logSeverity.Id()));
-            Assert.That(savedEventLog!.StartedOn, Is.EqualTo(DateTimeService.SystemDateTimeNow));
+            Assert.That(savedEventLog!.StartedOn, Is.EqualTo(DateTimeService.SystemUtcDateTimeNow));
         }
 
         [TestCase]
@@ -211,7 +213,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(savedEventLog!.ProcessName, Is.EqualTo(String.Empty));
             Assert.That(savedEventLog!.TaskName, Is.EqualTo(String.Empty));
             Assert.That(savedEventLog!.LogSeverityId.ToInteger(), Is.EqualTo(logSeverity.Id()));
-            Assert.That(savedEventLog!.StartedOn, Is.EqualTo(DateTimeService.SystemDateTimeNow));
+            Assert.That(savedEventLog!.StartedOn, Is.EqualTo(DateTimeService.SystemUtcDateTimeNow));
             Assert.That(savedEventLog!.Information.Contains(updateMessage), Is.EqualTo(true));
         }
 
@@ -226,7 +228,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             String taskName = LocationUtils.GetFunctionName();
             String information = initialEntry;
 
-            IEventLog entity = CoreInstance.IoC.Get<IEventLog>();
+            IEventLog entity = new EventLog();
             entity.Id = logId;
             entity.ApplicationId = TestingApplicationId;
             entity.BatchName = batchName;
@@ -256,7 +258,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(savedEventLog!.ProcessName, Is.EqualTo(processName));
             Assert.That(savedEventLog!.TaskName, Is.EqualTo(taskName));
             Assert.That(savedEventLog!.LogSeverityId.ToInteger(), Is.EqualTo(logSeverity.Id()));
-            Assert.That(savedEventLog!.StartedOn, Is.EqualTo(DateTimeService.SystemDateTimeNow));
+            Assert.That(savedEventLog!.StartedOn, Is.EqualTo(DateTimeService.SystemUtcDateTimeNow));
             Assert.That(savedEventLog!.Information, Is.EqualTo(expected));
         }
     }

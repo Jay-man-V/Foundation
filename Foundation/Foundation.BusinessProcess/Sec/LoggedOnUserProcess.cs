@@ -191,7 +191,7 @@ namespace Foundation.BusinessProcess.Sec
         {
             LoggingHelpers.TraceCallEnter(applicationId, loggedOnUser);
 
-            CommandFormatter commandFormatter = new CommandFormatter(CommandNames.Quit, DateTimeService.SystemDateTimeNow.AddMinutes(10));
+            CommandFormatter commandFormatter = new CommandFormatter(CommandNames.Quit, DateTimeService.SystemUtcDateTimeNow.AddMinutes(10));
             String command = commandFormatter.ToString();
 
             EntityRepository.UpdateCommand(applicationId, loggedOnUser, command);
@@ -217,7 +217,7 @@ namespace Foundation.BusinessProcess.Sec
         {
             LoggingHelpers.TraceCallEnter(applicationId, loggedOnUser);
 
-            CommandFormatter commandFormatter = new CommandFormatter(CommandNames.Message, DateTimeService.SystemDateTimeNow, message);
+            CommandFormatter commandFormatter = new CommandFormatter(CommandNames.Message, DateTimeService.SystemUtcDateTimeNow, message);
             String command = commandFormatter.ToString();
 
             EntityRepository.UpdateCommand(applicationId, loggedOnUser, command);

@@ -4,14 +4,15 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.Common;
-using Foundation.Interfaces;
-using Foundation.Services.Application;
-using Foundation.Tests.Unit.Support;
+using System.Text;
 
 using NSubstitute;
 
-using System.Text;
+using Foundation.Common;
+using Foundation.Interfaces;
+using Foundation.Services.Application;
+
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application
 {

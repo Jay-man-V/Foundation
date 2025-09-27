@@ -10,7 +10,7 @@ using Foundation.BusinessProcess.Sec;
 using Foundation.Common;
 using Foundation.Interfaces;
 
-using Foundation.Tests.Unit.Support;
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 {
@@ -18,7 +18,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
     /// Summary description for AuthorisationProcessTests
     /// </summary>
     [TestFixture]
-    public class AuthorisationProcessTests : UnitTestBase
+    public class AuthorisationProcessTests : BusinessProcessUnitTestBase
     {
         private IPermissionMatrixProcess? PermissionMatrixProcess { get; set; }
         private IAuthorisationProcess? TheProcess { get; set; }
@@ -65,7 +65,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             String roles = String.Join(", ", CoreInstance.CurrentLoggedOnUser.UserProfile.Roles.Select(r => r.ApplicationRole));
             String functionKey = LocationUtils.GetFunctionName();
 
-            String errorMessage = $@"Application Id: '{applicationId}'. User: '{userFullLogonName}' does not have the required permissions. Assigned Roles are: '{roles}'. Function Key is: '{functionKey}'.";
+            String errorMessage = $"Application Id: '{applicationId}'. User: '{userFullLogonName}' does not have the required permissions. Assigned Roles are: '{roles}'. Function Key is: '{functionKey}'.";
 
             ApplicationPermissionsException actualException = Assert.Throws<ApplicationPermissionsException>(() =>
             {

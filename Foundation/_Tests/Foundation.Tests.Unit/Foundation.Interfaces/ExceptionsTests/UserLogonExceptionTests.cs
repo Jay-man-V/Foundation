@@ -6,7 +6,7 @@
 
 using Foundation.Interfaces;
 
-using Foundation.Tests.Unit.Support;
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Interfaces.ExceptionsTests
 {
@@ -24,7 +24,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.ExceptionsTests
 
             String errorMessage = UserLogonException.CannotLocateUserCredentials;
 
-            UserLogonException exception = new UserLogonException(CoreInstance.ApplicationId, RunTimeEnvironmentSettings.UserFullLogonName);
+            UserLogonException exception = new UserLogonException(TestingApplicationId, RunTimeEnvironmentSettings.UserFullLogonName);
 
             Assert.That(exception.UserCredentials, Is.EqualTo(userCredentials));
             Assert.That(exception.ProcessName, Is.EqualTo(processName));
@@ -42,7 +42,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.ExceptionsTests
 
             String errorMessage = "Please enter user name";
 
-            UserLogonException exception = new UserLogonException(CoreInstance.ApplicationId, userCredentials, errorMessage);
+            UserLogonException exception = new UserLogonException(TestingApplicationId, userCredentials, errorMessage);
 
             Assert.That(exception.UserCredentials, Is.EqualTo(userCredentials));
             Assert.That(exception.ProcessName, Is.EqualTo(processName));

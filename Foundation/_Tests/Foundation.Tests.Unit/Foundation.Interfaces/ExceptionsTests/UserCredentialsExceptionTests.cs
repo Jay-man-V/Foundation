@@ -6,7 +6,7 @@
 
 using Foundation.Interfaces;
 
-using Foundation.Tests.Unit.Support;
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Interfaces.ExceptionsTests
 {
@@ -24,7 +24,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.ExceptionsTests
 
             String errorMessage = "Cannot locate user credentials";
 
-            UserCredentialsException exception = new UserCredentialsException(CoreInstance.ApplicationId, userCredentials, processName, errorMessage);
+            UserCredentialsException exception = new UserCredentialsException(TestingApplicationId, userCredentials, processName, errorMessage);
 
             Assert.That(exception.UserCredentials, Is.EqualTo(userCredentials));
             Assert.That(exception.ProcessName, Is.EqualTo(processName));
@@ -44,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.ExceptionsTests
 
             String errorMessage = "Please enter user name";
 
-            UserCredentialsException exception = new UserCredentialsException(CoreInstance.ApplicationId, userCredentials, processName, errorMessage, innerException);
+            UserCredentialsException exception = new UserCredentialsException(TestingApplicationId, userCredentials, processName, errorMessage, innerException);
 
             Assert.That(exception.UserCredentials, Is.EqualTo(userCredentials));
             Assert.That(exception.ProcessName, Is.EqualTo(processName));

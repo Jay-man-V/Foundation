@@ -6,11 +6,11 @@
 
 using Foundation.BusinessProcess;
 
-using Foundation.Tests.Unit.Support;
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess
 {
-    public abstract class CommonProcessTests<TCommonProcess> : UnitTestBase
+    public abstract class CommonProcessTests<TCommonProcess> : BusinessProcessUnitTestBase
     {
         protected TCommonProcess? TheProcess { get; set; }
 
@@ -28,9 +28,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess
         {
             CommonProcess? commonProcess = TheProcess! as CommonProcess;
             Assert.That(commonProcess!.Core, Is.Not.EqualTo(null));
-            Assert.That(commonProcess!.RunTimeEnvironmentSettings, Is.Not.EqualTo(null));
-            Assert.That(commonProcess!.DateTimeService, Is.Not.EqualTo(null));
-            Assert.That(commonProcess!.LoggingService, Is.Not.EqualTo(null));
+            Assert.That(commonProcess.RunTimeEnvironmentSettings, Is.Not.EqualTo(null));
+            Assert.That(commonProcess.DateTimeService, Is.Not.EqualTo(null));
+            Assert.That(commonProcess.LoggingService, Is.Not.EqualTo(null));
         }
     }
 }

@@ -6,13 +6,15 @@
 
 using Foundation.Common;
 
+using Foundation.Tests.Unit.BaseClasses;
+
 namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.UInt32ExtensionMethodsTests
 {
     /// <summary>
     /// The UUInt32 Extension Methods tests class
     /// </summary>
     [TestFixture]
-    public class IsBetweenNotNullableTests
+    public class IsBetweenNotNullableTests : UnitTestBase
     {
         [TestCase]
         public void TestIsBetween_UInt32_True()

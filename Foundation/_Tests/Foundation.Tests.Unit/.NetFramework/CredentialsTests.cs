@@ -4,16 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Diagnostics;
 using System.Net;
-using System.IO;
 using System.Security.AccessControl;
 using System.Security.Principal;
-
-using NUnit.Framework;
-
-using Foundation.Tests.Unit.Support;
 
 namespace Foundation.Tests.Unit.NetFramework
 {
@@ -21,7 +15,7 @@ namespace Foundation.Tests.Unit.NetFramework
     /// Simple .Net Framework tests
     /// </summary>
     [TestFixture]
-    public class CredentialsTests : UnitTestBase
+    public class CredentialsTests
     {
         /// <summary>
         ///

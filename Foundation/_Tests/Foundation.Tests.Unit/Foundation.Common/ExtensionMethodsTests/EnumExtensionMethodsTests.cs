@@ -10,6 +10,8 @@ using System.ComponentModel.DataAnnotations;
 using Foundation.Common;
 using Foundation.Interfaces;
 
+using Foundation.Tests.Unit.BaseClasses;
+
 using DescriptionAttribute = System.ComponentModel.DescriptionAttribute;
 
 namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
@@ -18,7 +20,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
     /// The Enum Extension Methods tests class
     /// </summary>
     [TestFixture]
-    public class EnumExtensionMethodsTests
+    public class EnumExtensionMethodsTests : UnitTestBase
     {
         private enum EnumForTesting
         {

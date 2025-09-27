@@ -9,7 +9,7 @@ using System.Reflection;
 
 using Foundation.Interfaces;
 
-using Foundation.Tests.Unit.Support;
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
 {

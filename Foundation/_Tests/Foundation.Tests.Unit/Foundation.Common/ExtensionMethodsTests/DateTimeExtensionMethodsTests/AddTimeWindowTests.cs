@@ -7,13 +7,15 @@
 using Foundation.Common;
 using Foundation.Interfaces;
 
+using Foundation.Tests.Unit.BaseClasses;
+
 namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.DateTimeExtensionMethodsTests
 {
     /// <summary>
     /// Summary description for AddTimeWindowTests
     /// </summary>
     [TestFixture]
-    public class AddTimeWindowTests
+    public class AddTimeWindowTests : UnitTestBase
     {
         private static TimeSpan StartTime => new TimeSpan(9, 0, 0);
         private static TimeSpan EndTime => new TimeSpan(17, 0, 0);

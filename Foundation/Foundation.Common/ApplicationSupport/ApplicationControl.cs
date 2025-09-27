@@ -16,46 +16,34 @@ namespace Foundation.Common
         /// <summary>
         /// 
         /// </summary>
-        private static Action<Exception>? DisplayHandler { get; set; }
+        private static Action<Exception>? AdditionalExceptionHandler { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public static void ApplicationStart(Action<Exception>? displayHandler)
+        public static void ApplicationStart(Action<Exception>? additionalExceptionHandler)
         {
-            DisplayHandler = displayHandler;
+            AdditionalExceptionHandler = additionalExceptionHandler;
+
+            ApplicationClose(additionalExceptionHandler);
 
             // For catching Global uncaught exception
-            AppDomain.CurrentDomain.UnhandledException -= UnhandledExceptionOccurred;
-            AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionOccurred;
+            AppDomain.CurrentDomain.UnhandledException += AppDomain_UnhandledException;
 
-            TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="exception">The exception.</param>
-        public static void LogUnhandledExceptionMessage(Exception exception)
+        public static void ApplicationClose(Action<Exception>? additionalExceptionHandler)
         {
-            LoggingHelpers.LogErrorMessage(exception);
+            AdditionalExceptionHandler = additionalExceptionHandler;
 
-            // TODO
-            //Core.Core.Instance.Container.Reset();
-            //Core.Core.Instance.Container.Initialise();
-        }
+            // For catching Global uncaught exception
+            AppDomain.CurrentDomain.UnhandledException -= AppDomain_UnhandledException;
 
-        /// <summary>
-        /// Catches any unhandled exceptions.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="UnhandledExceptionEventArgs" /> instance containing the event data.</param>
-        private static void UnhandledExceptionOccurred(Object sender, UnhandledExceptionEventArgs args)
-        {
-            Exception exception = (Exception)args.ExceptionObject;
-
-            DisplayHandler?.Invoke(exception);
+            TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
         }
 
         /// <summary>
@@ -67,8 +55,21 @@ namespace Foundation.Common
         {
             Exception exception = args.Exception;
 
-            DisplayHandler?.Invoke(exception);
+            AdditionalExceptionHandler?.Invoke(exception);
+
             args.Handled = true;
+        }
+
+        /// <summary>
+        /// Catches any unhandled exceptions.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="UnhandledExceptionEventArgs" /> instance containing the event data.</param>
+        private static void AppDomain_UnhandledException(Object sender, UnhandledExceptionEventArgs args)
+        {
+            Exception exception = (Exception)args.ExceptionObject;
+
+            AdditionalExceptionHandler?.Invoke(exception);
         }
 
         /// <summary>
@@ -80,7 +81,24 @@ namespace Foundation.Common
         {
             Exception exception = args.Exception;
 
-            DisplayHandler?.Invoke(exception);
+            LogExceptionMessage(exception);
+
+            AdditionalExceptionHandler?.Invoke(exception);
+
+            args.SetObserved();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="exception">The exception.</param>
+        public static void LogExceptionMessage(Exception exception)
+        {
+            LoggingHelpers.LogErrorMessage(exception);
+
+            // TODO
+            //Core.Core.Instance.Container.Reset();
+            //Core.Core.Instance.Container.Initialise();
         }
     }
 }

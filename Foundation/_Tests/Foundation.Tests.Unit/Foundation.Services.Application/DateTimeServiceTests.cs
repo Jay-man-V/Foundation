@@ -8,7 +8,7 @@ using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Services.Application;
 
-using Foundation.Tests.Unit.Support;
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application
 {
@@ -19,15 +19,17 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
     public class DateTimeServiceTests : UnitTestBase
     {
         private IDateTimeService? TheService { get; set; }
-        private DateTime InjectedDateTime { get; set; }
+        private DateTime InjectedUtcDateTime { get; set; }
+        private DateTime InjectedLocalDateTime { get; set; }
 
         public override void TestInitialise()
         {
             base.TestInitialise();
 
-            InjectedDateTime = DateTime.UtcNow;
+            InjectedUtcDateTime = DateTime.UtcNow;
+            InjectedLocalDateTime = DateTime.Now;
 
-            TheService = new DateTimeService(InjectedDateTime);
+            TheService = new DateTimeService(InjectedUtcDateTime, InjectedLocalDateTime);
         }
 
         public override void TestCleanup()
@@ -40,12 +42,12 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_Scenario_NewValidityPeriod()
         {
-            DateTime currentDate = InjectedDateTime;
+            DateTime currentDate = InjectedUtcDateTime;
             DateTime t = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, 23, 59, 59);
             DateTime expected = DateTime.SpecifyKind(t.AddMonths(6), DateTimeKind.Utc);
 
             TimeSpan endTime = new TimeSpan(23, 59, 59);
-            DateTime actual = TheService!.MakeUtcDateTime(TheService!.SystemDateTimeNow.AddMonths(6), endTime);
+            DateTime actual = TheService!.MakeUtcDateTime(TheService!.SystemUtcDateTimeNow.AddMonths(6), endTime);
 
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -102,8 +104,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_SystemDateTimeNow()
         {
-            DateTime value = InjectedDateTime;
-            DateTime actualValue = TheService!.SystemDateTimeNow;
+            DateTime value = InjectedUtcDateTime;
+            DateTime actualValue = TheService!.SystemUtcDateTimeNow;
 
             Assert.That(actualValue.Date, Is.EqualTo(value.Date));
             Assert.That(actualValue.TimeOfDay.Hours, Is.EqualTo(value.TimeOfDay.Hours));
@@ -115,7 +117,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_SystemDateTimeNowWithoutMilliseconds()
         {
-            DateTime value = InjectedDateTime;
+            DateTime value = InjectedUtcDateTime;
             DateTime actualValue = TheService!.SystemDateTimeNowWithoutMilliseconds;
 
             Assert.That(actualValue.Date, Is.EqualTo(value.Date));
@@ -127,8 +129,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_StartOfMonth()
         {
-            Int32 year = TheService!.SystemDateTimeNow.Year;
-            Int32 month = TheService!.SystemDateTimeNow.Month;
+            Int32 year = TheService!.SystemUtcDateTimeNow.Year;
+            Int32 month = TheService!.SystemUtcDateTimeNow.Month;
 
             DateTime value = new DateTime(year, month, 1);
             DateTime actualValue = TheService!.StartOfMonth;
@@ -139,8 +141,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_EndOfMonth()
         {
-            Int32 year = TheService!.SystemDateTimeNow.Year;
-            Int32 month = TheService!.SystemDateTimeNow.Month;
+            Int32 year = TheService!.SystemUtcDateTimeNow.Year;
+            Int32 month = TheService!.SystemUtcDateTimeNow.Month;
 
             DateTime value = new DateTime(year, month, DateTime.DaysInMonth(year, month));
             DateTime actualValue = TheService!.EndOfMonth;
@@ -151,8 +153,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_StartOfLastMonth()
         {
-            Int32 year = TheService!.SystemDateTimeNow.Year;
-            Int32 month = TheService!.SystemDateTimeNow.Month;
+            Int32 year = TheService!.SystemUtcDateTimeNow.Year;
+            Int32 month = TheService!.SystemUtcDateTimeNow.Month;
 
             DateTime value = new DateTime(year, month, 1).AddMonths(-1);
             DateTime actualValue = TheService!.StartOfLastMonth;
@@ -163,8 +165,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_EndOfLastMonth()
         {
-            Int32 year = TheService!.SystemDateTimeNow.Year;
-            Int32 month = TheService!.SystemDateTimeNow.Month - 1;
+            Int32 year = TheService!.SystemUtcDateTimeNow.Year;
+            Int32 month = TheService!.SystemUtcDateTimeNow.Month - 1;
 
             if (month == 0)
             {
@@ -219,7 +221,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetPreviousQuarter()
         {
-            DateTimeService dateTimeService = new DateTimeService(new DateTime(2024, 05, 10));
+            DateTime workingDateTime = new DateTime(2024, 05, 10);
+            DateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
             DateTime startOfQuarter = new DateTime(2024, 01, 01);
             DateTime endOfQuarter = new DateTime(2024, 03, 31);
 
@@ -238,7 +241,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 
             for (DateTime dateLoop = startDate; dateLoop <= endDate; dateLoop = dateLoop.AddDays(1))
             {
-                DateTimeService dateTimeService = new DateTimeService(new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day));
+                DateTime workingDateTime = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
+                DateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
 
                 DateTime startOfQuarter = DateTime.MinValue;
                 DateTime endOfQuarter = DateTime.MaxValue;
@@ -275,7 +279,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetCurrentQuarter_SingleValue()
         {
-            DateTimeService dateTimeService = new DateTimeService(new DateTime(2024, 05, 10));
+            DateTimeService dateTimeService = new DateTimeService(new DateTime(2024, 05, 10), new DateTime(2024, 05, 10));
             DateTime startOfQuarter = new DateTime(2024, 04, 01);
             DateTime endOfQuarter = new DateTime(2024, 06, 30);
 
@@ -294,7 +298,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 
             for (DateTime dateLoop = startDate; dateLoop <= endDate; dateLoop = dateLoop.AddDays(1))
             {
-                DateTimeService dateTimeService = new DateTimeService(new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day));
+                DateTime workingDateTime = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
+                DateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
 
                 DateTime startOfQuarter = DateTime.MinValue;
                 DateTime endOfQuarter = DateTime.MaxValue;
@@ -331,7 +336,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetNextQuarter()
         {
-            DateTimeService dateTimeService = new DateTimeService(new DateTime(2024, 05, 10));
+            DateTime workingDateTime = new DateTime(2024, 05, 10);
+            DateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
             DateTime startOfQuarter = new DateTime(2024, 07, 01);
             DateTime endOfQuarter = new DateTime(2024, 09, 30);
 
@@ -350,7 +356,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 
             for (DateTime dateLoop = startDate; dateLoop <= endDate; dateLoop = dateLoop.AddDays(1))
             {
-                DateTimeService dateTimeService = new DateTimeService(new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day));
+                DateTime workingDateTime = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
+                DateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
 
                 DateTime startOfQuarter = DateTime.MinValue;
                 DateTime endOfQuarter = DateTime.MaxValue;

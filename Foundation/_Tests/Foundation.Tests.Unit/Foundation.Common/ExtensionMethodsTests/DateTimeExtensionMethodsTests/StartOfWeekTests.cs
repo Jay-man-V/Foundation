@@ -6,13 +6,15 @@
 
 using Foundation.Common;
 
+using Foundation.Tests.Unit.BaseClasses;
+
 namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.DateTimeExtensionMethodsTests
 {
     /// <summary>
     /// Summary description for StartOfWeekTests
     /// </summary>
     [TestFixture]
-    public class StartOfWeekTests
+    public class StartOfWeekTests : UnitTestBase
     {
         [TestCase]
         public void TestStartOfWeek_Sunday()

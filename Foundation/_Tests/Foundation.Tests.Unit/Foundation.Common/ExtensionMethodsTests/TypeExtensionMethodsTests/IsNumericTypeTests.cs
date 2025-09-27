@@ -6,13 +6,15 @@
 
 using Foundation.Common;
 
+using Foundation.Tests.Unit.BaseClasses;
+
 namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.TypeExtensionMethodsTests
 {
     /// <summary>
     /// The Type Extension tests
     /// </summary>
     [TestFixture]
-    public class IsNumericTypeTests
+    public class IsNumericTypeTests : UnitTestBase
     {
         [TestCase]
         public void TestIsNumericType_Int16_True()

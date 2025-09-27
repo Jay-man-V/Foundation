@@ -1,32 +1,27 @@
 ﻿////-----------------------------------------------------------------------
-//// <copyright file="AppConfigModifier.cs" company="JDV Software Ltd">
+//// <copyright file="DotNetDomainLauncher.cs" company="JDV Software Ltd">
 ////     Copyright (c) JDV Software Ltd. All rights reserved.
 //// </copyright>
 ////-----------------------------------------------------------------------
 
-//using System;
 //using System.Configuration;
-//using System.IO;
-//using System.Linq;
 //using System.Reflection;
-
-//using Foundation.Common;
 
 //namespace Foundation.Tests.Unit.Support
 //{
 //    /// <summary>
 //    /// The App Config Modifier class
 //    /// </summary>
-//    public class AppConfigModifier : IDisposable
+//    public class DotNetDomainLauncher : IDisposable
 //    {
 //        /// <summary>
-//        /// Initialises a new instance of the <see cref="AppConfigModifier"/> class.
+//        /// Initialises a new instance of the <see cref="DotNetDomainLauncher"/> class.
 //        /// </summary>
 //        /// <param name="appConfigFile">The application configuration file.</param>
-//        public AppConfigModifier(String appConfigFile)
+//        public DotNetDomainLauncher(String appConfigFile)
 //        {
 //            OldConfig = AppDomain.CurrentDomain.GetData("APP_CONFIG_FILE").ToString();
-//            TargetDomain = AppDomain.CreateDomain("UnitTesting", null, AppDomain.CurrentDomain.SetupInformation);
+//            TargetDomain = AppDomain.CreateDomain("UnitTesting");
 
 //            FileInfo fi = new FileInfo(OldConfig);
 //            String newConfig = Path.Combine(fi.DirectoryName, appConfigFile);

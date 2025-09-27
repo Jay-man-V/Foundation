@@ -9,7 +9,8 @@ using System.Text;
 
 using Foundation.Interfaces;
 using Foundation.Services.Application;
-using Foundation.Tests.Unit.Support;
+
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application
 {
@@ -84,7 +85,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GenerateHash_Bytes()
         {
-            Byte[] expectedValue = { 200, 231, 251, 151, 42, 227, 14, 43, 140, 10, 111, 199, 43, 231, 130, 130, 159, 189, 53, 248, 120, 252, 54, 77, 24, 113, 100, 96, 84, 50, 20, 208, 62, 109, 172, 145, 130, 246, 7, 68, 26, 124, 224, 130, 250, 205, 251, 137 };
+            Byte[] expectedValue = [200, 231, 251, 151, 42, 227, 14, 43, 140, 10, 111, 199, 43, 231, 130, 130, 159, 189, 53, 248, 120, 252, 54, 77, 24, 113, 100, 96, 84, 50, 20, 208, 62, 109, 172, 145, 130, 246, 7, 68, 26, 124, 224, 130, 250, 205, 251, 137];
             Byte[] actualValue = TheService!.GenerateHash(_sourceValueBytes, _sourceValueBytes);
 
             Assert.That(actualValue, Is.EquivalentTo(expectedValue));

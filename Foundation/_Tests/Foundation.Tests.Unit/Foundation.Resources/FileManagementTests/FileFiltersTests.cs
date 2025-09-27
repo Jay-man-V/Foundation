@@ -4,10 +4,11 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.Resources;
-using Foundation.Tests.Unit.Support;
-
 using System.Reflection;
+
+using Foundation.Resources;
+
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Resources.FileManagementTests
 {

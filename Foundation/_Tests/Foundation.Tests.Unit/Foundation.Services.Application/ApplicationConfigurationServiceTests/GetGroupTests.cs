@@ -7,8 +7,10 @@
 using NSubstitute;
 
 using Foundation.Interfaces;
+using Foundation.Models.Core;
 using Foundation.Services.Application;
-using Foundation.Tests.Unit.Support;
+
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfigurationServiceTests
 {
@@ -20,6 +22,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
     {
         private IApplicationConfigurationService? TheService { get; set; }
         private IApplicationConfigurationRepository? TheRepository { get; set; }
+        private IUserProfile? UserProfile { get; set; }
 
         public override void TestInitialise()
         {
@@ -28,6 +31,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             TheRepository = Substitute.For<IApplicationConfigurationRepository>();
 
             TheService = new ApplicationConfigurationService(TheRepository);
+
+            UserProfile = Substitute.For<IUserProfile>();
         }
 
         public override void TestCleanup()
@@ -42,7 +47,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
         private IApplicationConfiguration CreateReturnItem<TValue>(String key, TValue value)
         {
-            IApplicationConfiguration retVal = CoreInstance.IoC.Get<IApplicationConfiguration>();
+            IApplicationConfiguration retVal = new ApplicationConfiguration();
 
             retVal.Key = key;
             retVal.Value = value;
@@ -65,7 +70,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             TheRepository!.GetGroupValues(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValues);
 
-            List<IApplicationConfiguration> actualValues = TheService!.GetGroupValues(applicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, key);
+            List<IApplicationConfiguration> actualValues = TheService!.GetGroupValues(applicationId, UserProfile!, key);
 
             Assert.That(actualValues.Count, Is.EqualTo(3));
 

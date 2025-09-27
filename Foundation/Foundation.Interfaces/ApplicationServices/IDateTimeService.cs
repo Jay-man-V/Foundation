@@ -20,12 +20,20 @@ namespace Foundation.Interfaces
         DayOfWeek StartOfWeek { get; }
 
         /// <summary>
-        /// Gets the system date time now.
+        /// Gets the utc date time now.
         /// </summary>
         /// <value>
-        /// The system date time now.
+        /// The Utc date time now.
         /// </value>
-        DateTime SystemDateTimeNow { get; }
+        DateTime SystemUtcDateTimeNow { get; }
+
+        /// <summary>
+        /// Gets the system local date time now.
+        /// </summary>
+        /// <value>
+        /// The system local date time now.
+        /// </value>
+        DateTime SystemLocalDateTimeNow { get; }
 
         /// <summary>
         /// Gets the system date time now.

@@ -189,7 +189,7 @@ namespace Foundation.BusinessProcess
 
 
         /// <inheritdoc cref="ICommonBusinessProcess.DefaultValidFromDateTime"/>
-        public DateTime DefaultValidFromDateTime => DateTimeService.SystemDateTimeNow;
+        public DateTime DefaultValidFromDateTime => DateTimeService.SystemUtcDateTimeNow;
 
         /// <inheritdoc cref="ICommonBusinessProcess.DefaultValidToDateTime"/>
         public DateTime DefaultValidToDateTime => ApplicationDefaultValues.DefaultValidToDateTime;

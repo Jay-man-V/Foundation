@@ -8,13 +8,15 @@ using System.Drawing;
 
 using Foundation.Common;
 
+using Foundation.Tests.Unit.BaseClasses;
+
 namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
 {
     /// <summary>
     /// The Image Extension tests
     /// </summary>
     [TestFixture]
-    public class ImageExtensionMethodsTests
+    public class ImageExtensionMethodsTests : UnitTestBase
     {
         private Image LoadBitmap()
         {

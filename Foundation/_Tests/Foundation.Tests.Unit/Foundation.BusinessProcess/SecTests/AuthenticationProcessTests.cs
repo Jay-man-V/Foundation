@@ -9,7 +9,7 @@ using NSubstitute;
 using Foundation.BusinessProcess.Sec;
 using Foundation.Interfaces;
 
-using Foundation.Tests.Unit.Support;
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 {
@@ -17,7 +17,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
     /// Summary description for AuthenticationProcessTests
     /// </summary>
     [TestFixture]
-    public class AuthenticationProcessTests : UnitTestBase
+    public class AuthenticationProcessTests : BusinessProcessUnitTestBase
     {
         private IAuthenticationRepository? TheRepository { get; set; }
         private IIdGeneratorService? IdService { get; set; }
@@ -41,9 +41,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             EntityId authenticationTokenId = new EntityId(1);
             AppId applicationId = new AppId(1);
             EntityId userProfileId = new EntityId(2);
-            DateTime acquired = DateTimeService.SystemDateTimeNow.AddHours(-1);
+            DateTime acquired = DateTimeService.SystemUtcDateTimeNow.AddHours(-1);
             String token = IdService.NewUniqueIdentifier();
-            DateTime lastRefreshed = DateTimeService.SystemDateTimeNow.AddMinutes(-10);
+            DateTime lastRefreshed = DateTimeService.SystemUtcDateTimeNow.AddMinutes(-10);
 
             AuthenticationToken expectedAuthenticationToken = new AuthenticationToken(authenticationTokenId, applicationId, userProfileId, acquired, token, lastRefreshed);
 
@@ -69,9 +69,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             EntityId authenticationTokenId = new EntityId(1);
             AppId applicationId = new AppId(1);
             EntityId userProfileId = new EntityId(2);
-            DateTime acquired = DateTimeService.SystemDateTimeNow.AddHours(-1);
+            DateTime acquired = DateTimeService.SystemUtcDateTimeNow.AddHours(-1);
             String token = IdService.NewUniqueIdentifier();
-            DateTime lastRefreshed = DateTimeService.SystemDateTimeNow.AddMinutes(-10);
+            DateTime lastRefreshed = DateTimeService.SystemUtcDateTimeNow.AddMinutes(-10);
 
             AuthenticationToken expectedAuthenticationToken = new AuthenticationToken(authenticationTokenId, applicationId, userProfileId, acquired, token, lastRefreshed);
 
@@ -102,14 +102,14 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             EntityId authenticationTokenId = new EntityId(1);
             AppId applicationId = new AppId(1);
             EntityId userProfileId = new EntityId(2);
-            DateTime acquired = DateTimeService.SystemDateTimeNow.AddHours(-1);
+            DateTime acquired = DateTimeService.SystemUtcDateTimeNow.AddHours(-1);
             String token = IdService.NewUniqueIdentifier();
-            DateTime lastRefreshed = DateTimeService.SystemDateTimeNow.AddMinutes(-10);
+            DateTime lastRefreshed = DateTimeService.SystemUtcDateTimeNow.AddMinutes(-10);
 
             AuthenticationToken expectedAuthenticationToken = new AuthenticationToken(authenticationTokenId, applicationId, userProfileId, acquired, token, lastRefreshed);
             TheRepository!.AuthenticateUser(Arg.Any<AppId>(), Arg.Any<IUserProfile>()).Returns(expectedAuthenticationToken);
 
-            DateTime newLastRefreshed = DateTimeService.SystemDateTimeNow;
+            DateTime newLastRefreshed = DateTimeService.SystemUtcDateTimeNow;
             AuthenticationToken newAuthenticationToken = new AuthenticationToken(expectedAuthenticationToken, newLastRefreshed);
             TheRepository!.ValidateAuthenticationToken(ref newAuthenticationToken);
 

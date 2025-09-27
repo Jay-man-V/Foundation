@@ -26,7 +26,7 @@ namespace Foundation.Common
             DateTimeService = dateTimeService;
 
             Index = 0;
-            TimeOfEntry = DateTimeService.SystemDateTimeNow;
+            TimeOfEntry = DateTimeService.SystemUtcDateTimeNow;
             History = [];
 
             EventType = eventType;

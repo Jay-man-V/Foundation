@@ -5,11 +5,8 @@
 //-----------------------------------------------------------------------
 
 using Foundation.Interfaces;
-using Foundation.Tests.Unit.Support;
 
-using NSubstitute;
-
-using System;
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Interfaces.AssemblyHelpersTests.FullyQualifiedTypeNameTests
 {

@@ -4,9 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using NSubstitute;
+
 using Foundation.Interfaces;
 
-using Foundation.Tests.Unit.Support;
+using Foundation.Tests.Unit.BaseClasses;
+using Foundation.Tests.Unit.Mocks;
 
 namespace Foundation.Tests.Unit.Foundation.Interfaces.EventArgsTests
 {
@@ -27,10 +30,13 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.EventArgsTests
         public void Test_ConstructorDefault()
         {
             FullyQualifiedTypeName fullyQualifiedTypeName = new FullyQualifiedTypeName(_fullyQualifiedTypeNameString);
-            IScheduledTask serviceTask = CoreInstance.IoC.Get<IScheduledTask>();
+            ICore core = Substitute.For<ICore>();
+            IScheduledTask serviceTask = new MockScheduledTask(core, RunTimeEnvironmentSettings, DateTimeService, LoggingService);
 
-            CreateScheduledTaskEventArgs eventArgs = new CreateScheduledTaskEventArgs(fullyQualifiedTypeName);
-            eventArgs.ServiceInstance = serviceTask;
+            CreateScheduledTaskEventArgs eventArgs = new CreateScheduledTaskEventArgs(fullyQualifiedTypeName)
+            {
+                ServiceInstance = serviceTask
+            };
 
             Assert.That(eventArgs.FullyQualifiedTypeName, Is.EqualTo(fullyQualifiedTypeName));
             Assert.That(eventArgs.ServiceInstance, Is.EqualTo(serviceTask));

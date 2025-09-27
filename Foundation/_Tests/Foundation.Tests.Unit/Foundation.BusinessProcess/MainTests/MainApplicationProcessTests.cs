@@ -5,12 +5,9 @@
 //-----------------------------------------------------------------------
 
 using Foundation.BusinessProcess.Main;
-using NSubstitute;
-
-using Foundation.BusinessProcess.Sec;
 using Foundation.Interfaces;
-using Foundation.Tests.Unit.Support;
-using FDC = Foundation.Resources.Constants.DataColumns;
+
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.MainTests
 {
@@ -18,7 +15,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.MainTests
     /// Summary description for MainApplicationProcessTests
     /// </summary>
     [TestFixture]
-    public class MainApplicationProcessTests : UnitTestBase
+    public class MainApplicationProcessTests : BusinessProcessUnitTestBase
     {
         private IMainApplicationProcess? TheProcess { get; set; }
 
