@@ -17,8 +17,7 @@ using System.ServiceProcess;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;
-using FModels = Foundation.Models.Log;
-
+using FModels = Foundation.Models;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 {
@@ -79,7 +78,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IScheduledJob CreateBlankEntity(IScheduledJobProcess process, Int32 entityId)
         {
-            IScheduledJob retVal = CoreInstance.IoC.Get<IScheduledJob>();
+            IScheduledJob retVal = new FModels.Core.ScheduledJob();
 
             retVal.Id = new EntityId(entityId);
 
@@ -968,7 +967,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             TheRepository!.GetAllActive().Returns(scheduleTasks);
             LoggingService.GetLatest(isFinished: true, Arg.Any<EntityId>()).Returns
             (
-                new FModels.EventLog
+                new FModels.Log.EventLog
                 {
                     TaskStatusId = new EntityId(FEnums.TaskStatus.Success.Id())
                 }

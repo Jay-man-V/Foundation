@@ -10,6 +10,8 @@ using Foundation.BusinessProcess.Sec;
 using Foundation.Common;
 using Foundation.Interfaces;
 
+using FModels = Foundation.Models.Sec;
+
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 {
     /// <summary>
@@ -49,7 +51,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override IPermissionMatrix CreateBlankEntity(IPermissionMatrixProcess process, Int32 entityId)
         {
-            IPermissionMatrix retVal = CoreInstance.IoC.Get<IPermissionMatrix>();
+            IPermissionMatrix retVal = new FModels.PermissionMatrix();
 
             retVal.Id = new EntityId(entityId);
 

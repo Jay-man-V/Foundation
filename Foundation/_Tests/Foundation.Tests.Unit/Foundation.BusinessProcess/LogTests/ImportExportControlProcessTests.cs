@@ -10,6 +10,7 @@ using Foundation.BusinessProcess.Log;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Log;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 {
@@ -48,7 +49,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 
         protected override IImportExportControl CreateBlankEntity(IImportExportControlProcess process, Int32 entityId)
         {
-            IImportExportControl retVal = CoreInstance.IoC.Get<IImportExportControl>();
+            IImportExportControl retVal = new FModels.ImportExportControl();
 
             retVal.Id = new EntityId(entityId);
 

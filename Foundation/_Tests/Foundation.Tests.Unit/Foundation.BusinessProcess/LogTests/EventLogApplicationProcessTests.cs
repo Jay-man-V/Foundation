@@ -10,6 +10,7 @@ using Foundation.BusinessProcess.Log;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Log;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 {
@@ -52,7 +53,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 
         protected override IEventLogApplication CreateBlankEntity(IEventLogApplicationProcess process, Int32 entityId)
         {
-            IEventLogApplication retVal = CoreInstance.IoC.Get<IEventLogApplication>();
+            IEventLogApplication retVal = new FModels.EventLogApplication();
 
             retVal.Id = new EntityId(entityId);
 

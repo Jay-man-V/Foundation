@@ -4,12 +4,11 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 using NSubstitute;
 
 using Foundation.BusinessProcess.App;
 using Foundation.Interfaces;
+using Foundation.Models.App;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
@@ -59,7 +58,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
 
         protected override IMenuItem CreateBlankEntity(IMenuItemProcess process, Int32 entityId)
         {
-            IMenuItem retVal = CoreInstance.IoC.Get<IMenuItem>();
+            IMenuItem retVal = new MenuItem();
 
             retVal.Id = new EntityId(entityId);
 

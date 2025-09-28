@@ -51,7 +51,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.Support
 
         protected override IMockFoundationModel CreateBlankEntity(IMockFoundationModelProcess2 process, Int32 entityId)
         {
-            IMockFoundationModel retVal = CoreInstance.IoC.Get<IMockFoundationModel>();
+            IMockFoundationModel retVal = new MockFoundationModel();
 
             retVal.Id = new EntityId(entityId);
 

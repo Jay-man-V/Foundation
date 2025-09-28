@@ -25,6 +25,7 @@ namespace Foundation.Tests.Unit.BaseClasses
     public abstract class UnitTestBase
     {
         protected static Object SyncLock = new Object();
+        protected String TestingApplicationName = "UnitTesting";
         protected AppId TestingApplicationId = new AppId(1);
         protected String DatabaseServer = "Callisto";
         protected String BaseTemporaryOutputsPath => @"D:\Projects\JDVSoftware\TempOutputs\";

@@ -10,6 +10,8 @@ using Foundation.BusinessProcess.Sec;
 using Foundation.Common;
 using Foundation.Interfaces;
 
+using FModels = Foundation.Models.Sec;
+
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 {
     /// <summary>
@@ -49,7 +51,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override IApplicationUserRole CreateBlankEntity(IApplicationUserRoleProcess process, Int32 entityId)
         {
-            IApplicationUserRole retVal = CoreInstance.IoC.Get<IApplicationUserRole>();
+            IApplicationUserRole retVal = new FModels.ApplicationUserRole();
 
             retVal.Id = new EntityId(entityId);
 

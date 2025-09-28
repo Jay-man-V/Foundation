@@ -10,6 +10,7 @@ using Foundation.BusinessProcess.Log.EnumProcesses;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Log.EnumModels;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests.EnumProcessesTests
 {
@@ -48,7 +49,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests.EnumProcesse
 
         protected override ILogSeverity CreateBlankEntity(ILogSeverityProcess process, Int32 entityId)
         {
-            ILogSeverity retVal = CoreInstance.IoC.Get<ILogSeverity>();
+            ILogSeverity retVal = new FModels.LogSeverity();
 
             retVal.Id = new EntityId(entityId);
 

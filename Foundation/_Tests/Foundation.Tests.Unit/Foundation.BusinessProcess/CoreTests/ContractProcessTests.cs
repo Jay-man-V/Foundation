@@ -10,6 +10,7 @@ using Foundation.BusinessProcess.Core;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Core;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 {
@@ -59,7 +60,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IContract CreateBlankEntity(IContractProcess process, Int32 entityId)
         {
-            IContract retVal = CoreInstance.IoC.Get<IContract>();
+            IContract retVal = new FModels.Contract();
 
             retVal.Id = new EntityId(entityId);
 

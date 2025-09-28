@@ -10,6 +10,7 @@ using Foundation.BusinessProcess.Core;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Core;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 {
@@ -48,7 +49,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override ILanguage CreateBlankEntity(ILanguageProcess process, Int32 entityId)
         {
-            ILanguage retVal = CoreInstance.IoC.Get<ILanguage>();
+            ILanguage retVal = new FModels.Language();
 
             retVal.Id = new EntityId(entityId);
 

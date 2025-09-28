@@ -10,6 +10,7 @@ using Foundation.BusinessProcess.Core.EnumProcesses;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Core.EnumModels;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcessesTests
 {
@@ -48,7 +49,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
 
         protected override IScheduleInterval CreateBlankEntity(IScheduleIntervalProcess process, Int32 entityId)
         {
-            IScheduleInterval retVal = CoreInstance.IoC.Get<IScheduleInterval>();
+            IScheduleInterval retVal = new FModels.ScheduleInterval();
 
             retVal.Id = new EntityId(entityId);
 

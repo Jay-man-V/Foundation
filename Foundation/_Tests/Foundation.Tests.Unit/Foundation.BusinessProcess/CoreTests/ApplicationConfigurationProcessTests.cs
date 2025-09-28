@@ -11,6 +11,7 @@ using Foundation.Common;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Core;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 {
@@ -72,7 +73,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IApplicationConfiguration CreateBlankEntity(IApplicationConfigurationProcess process, Int32 entityId)
         {
-            IApplicationConfiguration retVal = CoreInstance.IoC.Get<IApplicationConfiguration>();
+            IApplicationConfiguration retVal = new FModels.ApplicationConfiguration();
 
             retVal.Id = new EntityId(entityId);
 

@@ -10,6 +10,8 @@ using Foundation.BusinessProcess.Sec.EnumProcesses;
 using Foundation.Common;
 using Foundation.Interfaces;
 
+using FModels = Foundation.Models.Sec.EnumModels;
+
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests.EnumProcessesTests
 {
     /// <summary>
@@ -48,7 +50,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests.EnumProcesse
 
         protected override IApplicationRole CreateBlankEntity(IApplicationRoleProcess process, Int32 entityId)
         {
-            IApplicationRole retVal = CoreInstance.IoC.Get<IApplicationRole>();
+            IApplicationRole retVal = new FModels.ApplicationRole();
 
             retVal.Id = new EntityId(entityId);
 

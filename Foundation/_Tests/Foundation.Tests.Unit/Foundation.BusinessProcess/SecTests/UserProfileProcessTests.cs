@@ -11,6 +11,7 @@ using Foundation.Interfaces;
 using Foundation.Tests.Unit.Support;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Sec;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 {
@@ -49,7 +50,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override IUserProfile CreateBlankEntity(IUserProfileProcess process, Int32 entityId)
         {
-            IUserProfile retVal = CoreInstance.IoC.Get<IUserProfile>();
+            IUserProfile retVal = new FModels.UserProfile();
 
             retVal.Id = new EntityId(entityId);
 

@@ -10,6 +10,7 @@ using Foundation.BusinessProcess.Stg;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Stg;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.StgTests
 {
@@ -52,7 +53,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.StgTests
 
         protected override IActiveDirectoryUser CreateBlankEntity(IActiveDirectoryUserProcess process, Int32 entityId)
         {
-            IActiveDirectoryUser retVal = CoreInstance.IoC.Get<IActiveDirectoryUser>();
+            IActiveDirectoryUser retVal = new FModels.ActiveDirectoryUser();
 
             retVal.Id = new EntityId(entityId);
 

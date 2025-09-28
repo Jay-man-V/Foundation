@@ -4,15 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using DocumentFormat.OpenXml.Wordprocessing;
-
-using Foundation.Interfaces;
-using Foundation.Tests.Unit.Mocks;
+using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 
 using NSubstitute;
 
-using System.ComponentModel.DataAnnotations;
-using System.Drawing;
+using Foundation.Interfaces;
+using Foundation.Tests.Unit.Mocks;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.Support
 {
@@ -62,7 +60,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.Support
 
         protected override IMockFoundationModel CreateBlankEntity(IMockFoundationModelProcess process, Int32 entityId)
         {
-            IMockFoundationModel retVal = CoreInstance.IoC.Get<IMockFoundationModel>();
+            IMockFoundationModel retVal = new MockFoundationModel();
 
             retVal.Id = new EntityId(entityId);
 

@@ -11,6 +11,7 @@ using Foundation.Interfaces;
 using Foundation.Interfaces.Helpers;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Sec;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 {
@@ -53,7 +54,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override ILoggedOnUser CreateBlankEntity(ILoggedOnUserProcess process, Int32 entityId)
         {
-            ILoggedOnUser retVal = CoreInstance.IoC.Get<ILoggedOnUser>();
+            ILoggedOnUser retVal = new FModels.LoggedOnUser();
 
             retVal.Id = new EntityId(entityId);
 

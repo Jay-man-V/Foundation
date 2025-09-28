@@ -10,6 +10,7 @@ using Foundation.BusinessProcess.Sec;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Sec;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 {
@@ -48,7 +49,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override IApplication CreateBlankEntity(IApplicationProcess process, Int32 entityId)
         {
-            IApplication retVal = CoreInstance.IoC.Get<IApplication>();
+            IApplication retVal = new FModels.Application();
 
             retVal.Id = new AppId(entityId);
 

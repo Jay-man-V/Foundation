@@ -12,6 +12,7 @@ using Foundation.BusinessProcess.Core;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Core;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 {
@@ -65,7 +66,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IContactDetail CreateBlankEntity(IContactDetailProcess process, Int32 entityId)
         {
-            IContactDetail retVal = CoreInstance.IoC.Get<IContactDetail>();
+            IContactDetail retVal = new FModels.ContactDetail();
 
             retVal.Id = new EntityId(entityId);
 

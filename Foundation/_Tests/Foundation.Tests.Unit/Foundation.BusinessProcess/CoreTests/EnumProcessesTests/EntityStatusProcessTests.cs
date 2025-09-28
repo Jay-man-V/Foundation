@@ -10,6 +10,7 @@ using Foundation.BusinessProcess.Core.EnumProcesses;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Core.EnumModels;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcessesTests
 {
@@ -48,7 +49,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
 
         protected override IEntityStatus CreateBlankEntity(IEntityStatusProcess process, Int32 entityId)
         {
-            IEntityStatus retVal = CoreInstance.IoC.Get<IEntityStatus>();
+            IEntityStatus retVal = new FModels.EntityStatus();
 
             retVal.Id = new EntityId(entityId);
 

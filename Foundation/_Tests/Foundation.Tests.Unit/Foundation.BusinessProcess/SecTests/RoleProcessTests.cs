@@ -10,6 +10,7 @@ using Foundation.BusinessProcess.Sec;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Sec;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 {
@@ -48,7 +49,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override IRole CreateBlankEntity(IRoleProcess process, Int32 entityId)
         {
-            IRole retVal = CoreInstance.IoC.Get<IRole>();
+            IRole retVal = new FModels.Role();
 
             retVal.Id = new EntityId(entityId);
 

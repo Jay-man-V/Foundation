@@ -10,6 +10,8 @@ using Foundation.BusinessProcess.Sec;
 using Foundation.Common;
 using Foundation.Interfaces;
 
+using FModels = Foundation.Models.Sec;
+
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 {
     /// <summary>
@@ -48,7 +50,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override IApplicationApplicationType CreateBlankEntity(IApplicationApplicationTypeProcess process, Int32 entityId)
         {
-            IApplicationApplicationType retVal = CoreInstance.IoC.Get<IApplicationApplicationType>();
+            IApplicationApplicationType retVal = new FModels.ApplicationApplicationType();
 
             retVal.Id = new EntityId(entityId);
 

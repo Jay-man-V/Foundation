@@ -7,8 +7,11 @@
 using NSubstitute;
 
 using Foundation.Common;
+using Foundation.Core;
 using Foundation.Interfaces;
+using Foundation.Models.Sec;
 using Foundation.Resources;
+
 using Foundation.Tests.Unit.Support;
 
 using FModels = Foundation.Models;
@@ -41,69 +44,79 @@ namespace Foundation.Tests.Unit.BaseClasses
         {
             List<IStatus> retVal = [];
 
-            FModels.Core.EnumModels.Status obj1 = (FModels.Core.EnumModels.Status)CoreInstance.IoC.Get<IStatus>();
-            obj1.Id = new EntityId(-1);
-            obj1.StatusId = new EntityId(EntityStatus.Active.Id());
-            obj1.CreatedByUserProfileId = new EntityId(1);
-            obj1.LastUpdatedByUserProfileId = new EntityId(1);
-            obj1.CreatedOn = CreatedOnDateTime;
-            obj1.LastUpdatedOn = LastUpdatedOnDateTime;
-            obj1.ValidFrom = ValidFromDateTime;
-            obj1.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
-            obj1.Name = "Inactive";
-            obj1.Description = "Inactive Description";
+            FModels.Core.EnumModels.Status obj1 = new FModels.Core.EnumModels.Status
+            {
+                Id = new EntityId(-1),
+                StatusId = new EntityId(EntityStatus.Active.Id()),
+                CreatedByUserProfileId = new EntityId(1),
+                LastUpdatedByUserProfileId = new EntityId(1),
+                CreatedOn = CreatedOnDateTime,
+                LastUpdatedOn = LastUpdatedOnDateTime,
+                ValidFrom = ValidFromDateTime,
+                ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
+                Name = "Inactive",
+                Description = "Inactive Description"
+            };
             retVal.Add(obj1);
 
-            FModels.Core.EnumModels.Status obj2 = (FModels.Core.EnumModels.Status)CoreInstance.IoC.Get<IStatus>();
-            obj2.Id = new EntityId(0);
-            obj2.StatusId = new EntityId(EntityStatus.Active.Id());
-            obj2.CreatedByUserProfileId = new EntityId(1);
-            obj2.LastUpdatedByUserProfileId = new EntityId(1);
-            obj2.CreatedOn = CreatedOnDateTime;
-            obj2.LastUpdatedOn = LastUpdatedOnDateTime;
-            obj2.ValidFrom = ValidFromDateTime;
-            obj2.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
-            obj2.Name = "Active";
-            obj2.Description = "Active Description";
+            FModels.Core.EnumModels.Status obj2 = new FModels.Core.EnumModels.Status
+            {
+                Id = new EntityId(0),
+                StatusId = new EntityId(EntityStatus.Active.Id()),
+                CreatedByUserProfileId = new EntityId(1),
+                LastUpdatedByUserProfileId = new EntityId(1),
+                CreatedOn = CreatedOnDateTime,
+                LastUpdatedOn = LastUpdatedOnDateTime,
+                ValidFrom = ValidFromDateTime,
+                ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
+                Name = "Active",
+                Description = "Active Description"
+            };
             retVal.Add(obj2);
 
-            FModels.Core.EnumModels.Status obj3 = (FModels.Core.EnumModels.Status)CoreInstance.IoC.Get<IStatus>();
-            obj3.Id = new EntityId(2);
-            obj3.StatusId = new EntityId(EntityStatus.Active.Id());
-            obj3.CreatedByUserProfileId = new EntityId(1);
-            obj3.LastUpdatedByUserProfileId = new EntityId(1);
-            obj3.CreatedOn = CreatedOnDateTime;
-            obj3.LastUpdatedOn = LastUpdatedOnDateTime;
-            obj3.ValidFrom = ValidFromDateTime;
-            obj3.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
-            obj3.Name = "Approved";
-            obj3.Description = "Approved Description";
+            FModels.Core.EnumModels.Status obj3 = new FModels.Core.EnumModels.Status
+            {
+                Id = new EntityId(2),
+                StatusId = new EntityId(EntityStatus.Active.Id()),
+                CreatedByUserProfileId = new EntityId(1),
+                LastUpdatedByUserProfileId = new EntityId(1),
+                CreatedOn = CreatedOnDateTime,
+                LastUpdatedOn = LastUpdatedOnDateTime,
+                ValidFrom = ValidFromDateTime,
+                ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
+                Name = "Approved",
+                Description = "Approved Description"
+            };
             retVal.Add(obj3);
 
-            FModels.Core.EnumModels.Status obj4 = (FModels.Core.EnumModels.Status)CoreInstance.IoC.Get<IStatus>();
-            obj4.Id = new EntityId(3);
-            obj4.StatusId = new EntityId(EntityStatus.Active.Id());
-            obj4.CreatedByUserProfileId = new EntityId(1);
-            obj4.LastUpdatedByUserProfileId = new EntityId(1);
-            obj4.CreatedOn = CreatedOnDateTime;
-            obj4.LastUpdatedOn = LastUpdatedOnDateTime;
-            obj4.ValidFrom = ValidFromDateTime;
-            obj4.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
-            obj4.Name = "PendingApproval";
-            obj4.Description = "Pending Approval";
+            FModels.Core.EnumModels.Status obj4 = new FModels.Core.EnumModels.Status
+            {
+                Id = new EntityId(3),
+                StatusId = new EntityId(EntityStatus.Active.Id()),
+                CreatedByUserProfileId = new EntityId(1),
+                LastUpdatedByUserProfileId = new EntityId(1),
+                CreatedOn = CreatedOnDateTime,
+                LastUpdatedOn = LastUpdatedOnDateTime,
+                ValidFrom = ValidFromDateTime,
+                ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
+                Name = "PendingApproval",
+                Description = "Pending Approval"
+            };
             retVal.Add(obj4);
 
-            FModels.Core.EnumModels.Status obj5 = (FModels.Core.EnumModels.Status)CoreInstance.IoC.Get<IStatus>();
-            obj5.Id = new EntityId(4);
-            obj5.StatusId = new EntityId(EntityStatus.Active.Id());
-            obj5.CreatedByUserProfileId = new EntityId(1);
-            obj5.LastUpdatedByUserProfileId = new EntityId(1);
-            obj5.CreatedOn = CreatedOnDateTime;
-            obj5.LastUpdatedOn = LastUpdatedOnDateTime;
-            obj5.ValidFrom = ValidFromDateTime;
-            obj5.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
-            obj5.Name = "InComplete";
-            obj5.Description = "In Complete";
+            FModels.Core.EnumModels.Status obj5 = new FModels.Core.EnumModels.Status
+            {
+                Id = new EntityId(4),
+                StatusId = new EntityId(EntityStatus.Active.Id()),
+                CreatedByUserProfileId = new EntityId(1),
+                LastUpdatedByUserProfileId = new EntityId(1),
+                CreatedOn = CreatedOnDateTime,
+                LastUpdatedOn = LastUpdatedOnDateTime,
+                ValidFrom = ValidFromDateTime,
+                ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
+                Name = "InComplete",
+                Description = "In Complete"
+            };
             retVal.Add(obj5);
 
             return retVal;
@@ -113,8 +126,8 @@ namespace Foundation.Tests.Unit.BaseClasses
         {
             List<ILoggedOnUser> retVal = [];
 
-            FModels.Sec.LoggedOnUser obj1 = (FModels.Sec.LoggedOnUser)CoreInstance.IoC.Get<ILoggedOnUser>();
-            retVal.Add(obj1);
+            LoggedOnUser loggedOnUser = new LoggedOnUser();
+            retVal.Add(loggedOnUser);
 
             return retVal;
         }
@@ -123,69 +136,79 @@ namespace Foundation.Tests.Unit.BaseClasses
         {
             List<IUserProfile> retVal = [];
 
-            FModels.Sec.UserProfile obj1 = (FModels.Sec.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
-            obj1.Id = new EntityId(1);
-            obj1.StatusId = new EntityId(EntityStatus.Active.Id());
-            obj1.CreatedByUserProfileId = new EntityId(1);
-            obj1.LastUpdatedByUserProfileId = new EntityId(1);
-            obj1.CreatedOn = CreatedOnDateTime;
-            obj1.LastUpdatedOn = LastUpdatedOnDateTime;
-            obj1.ValidFrom = ValidFromDateTime;
-            obj1.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
-            obj1.Username = "System";
-            obj1.DisplayName = "System Display Name";
+            UserProfile obj1 = new UserProfile
+            {
+                Id = new EntityId(1),
+                StatusId = new EntityId(EntityStatus.Active.Id()),
+                CreatedByUserProfileId = new EntityId(1),
+                LastUpdatedByUserProfileId = new EntityId(1),
+                CreatedOn = CreatedOnDateTime,
+                LastUpdatedOn = LastUpdatedOnDateTime,
+                ValidFrom = ValidFromDateTime,
+                ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
+                Username = "System",
+                DisplayName = "System Display Name"
+            };
             retVal.Add(obj1);
 
-            FModels.Sec.UserProfile obj2 = (FModels.Sec.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
-            obj2.Id = new EntityId(2);
-            obj2.StatusId = new EntityId(EntityStatus.Active.Id());
-            obj2.CreatedByUserProfileId = new EntityId(1);
-            obj2.LastUpdatedByUserProfileId = new EntityId(1);
-            obj2.CreatedOn = CreatedOnDateTime;
-            obj2.LastUpdatedOn = LastUpdatedOnDateTime;
-            obj2.ValidFrom = ValidFromDateTime;
-            obj2.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
-            obj2.Username = "EUROPA\\jayes";
-            obj2.DisplayName = "Jayesh Varsani";
+            UserProfile obj2 = new UserProfile
+            {
+                Id = new EntityId(2),
+                StatusId = new EntityId(EntityStatus.Active.Id()),
+                CreatedByUserProfileId = new EntityId(1),
+                LastUpdatedByUserProfileId = new EntityId(1),
+                CreatedOn = CreatedOnDateTime,
+                LastUpdatedOn = LastUpdatedOnDateTime,
+                ValidFrom = ValidFromDateTime,
+                ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
+                Username = "EUROPA\\jayes",
+                DisplayName = "Jayesh Varsani"
+            };
             retVal.Add(obj2);
 
-            FModels.Sec.UserProfile obj3 = (FModels.Sec.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
-            obj3.Id = new EntityId(3);
-            obj3.StatusId = new EntityId(EntityStatus.Active.Id());
-            obj3.CreatedByUserProfileId = new EntityId(1);
-            obj3.LastUpdatedByUserProfileId = new EntityId(1);
-            obj3.CreatedOn = CreatedOnDateTime;
-            obj3.LastUpdatedOn = LastUpdatedOnDateTime;
-            obj3.ValidFrom = ValidFromDateTime;
-            obj3.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
-            obj3.Username = "EUROPA\\DhanjiV";
-            obj3.DisplayName = "Dhanji K Varsani";
+            UserProfile obj3 = new UserProfile
+            {
+                Id = new EntityId(3),
+                StatusId = new EntityId(EntityStatus.Active.Id()),
+                CreatedByUserProfileId = new EntityId(1),
+                LastUpdatedByUserProfileId = new EntityId(1),
+                CreatedOn = CreatedOnDateTime,
+                LastUpdatedOn = LastUpdatedOnDateTime,
+                ValidFrom = ValidFromDateTime,
+                ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
+                Username = "EUROPA\\DhanjiV",
+                DisplayName = "Dhanji K Varsani"
+            };
             retVal.Add(obj3);
 
-            FModels.Sec.UserProfile obj4 = (FModels.Sec.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
-            obj4.Id = new EntityId(4);
-            obj4.StatusId = new EntityId(EntityStatus.Active.Id());
-            obj4.CreatedByUserProfileId = new EntityId(1);
-            obj4.LastUpdatedByUserProfileId = new EntityId(1);
-            obj4.CreatedOn = CreatedOnDateTime;
-            obj4.LastUpdatedOn = LastUpdatedOnDateTime;
-            obj4.ValidFrom = ValidFromDateTime;
-            obj4.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
-            obj4.Username = "EUROPA\\Priti";
-            obj4.DisplayName = "Priti Fatania";
+            UserProfile obj4 = new UserProfile
+            {
+                Id = new EntityId(4),
+                StatusId = new EntityId(EntityStatus.Active.Id()),
+                CreatedByUserProfileId = new EntityId(1),
+                LastUpdatedByUserProfileId = new EntityId(1),
+                CreatedOn = CreatedOnDateTime,
+                LastUpdatedOn = LastUpdatedOnDateTime,
+                ValidFrom = ValidFromDateTime,
+                ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
+                Username = "EUROPA\\Priti",
+                DisplayName = "Priti Fatania"
+            };
             retVal.Add(obj4);
 
-            FModels.Sec.UserProfile obj5 = (FModels.Sec.UserProfile)CoreInstance.IoC.Get<IUserProfile>();
-            obj5.Id = new EntityId(7);
-            obj5.StatusId = new EntityId(EntityStatus.Active.Id());
-            obj5.CreatedByUserProfileId = new EntityId(1);
-            obj5.LastUpdatedByUserProfileId = new EntityId(1);
-            obj5.CreatedOn = CreatedOnDateTime;
-            obj5.LastUpdatedOn = LastUpdatedOnDateTime;
-            obj5.ValidFrom = ValidFromDateTime;
-            obj5.ValidTo = ApplicationDefaultValues.DefaultValidToDateTime;
-            obj5.Username = "EUROPA\\UnitTestUserName";
-            obj5.DisplayName = "UnitTestUserName DisplayName";
+            UserProfile obj5 = new UserProfile
+            {
+                Id = new EntityId(7),
+                StatusId = new EntityId(EntityStatus.Active.Id()),
+                CreatedByUserProfileId = new EntityId(1),
+                LastUpdatedByUserProfileId = new EntityId(1),
+                CreatedOn = CreatedOnDateTime,
+                LastUpdatedOn = LastUpdatedOnDateTime,
+                ValidFrom = ValidFromDateTime,
+                ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
+                Username = "EUROPA\\UnitTestUserName",
+                DisplayName = "UnitTestUserName DisplayName"
+            };
             retVal.Add(obj5);
 
             return retVal;
@@ -198,7 +221,7 @@ namespace Foundation.Tests.Unit.BaseClasses
         {
             base.TestInitialise();
 
-            IUserProfile userProfile = new FModels.Sec.UserProfile
+            IUserProfile userProfile = new UserProfile
             {
                 Id = new EntityId(1),
                 StatusId = new EntityId(EntityStatus.Active.Id()),
@@ -214,10 +237,9 @@ namespace Foundation.Tests.Unit.BaseClasses
 
             ResetLoggedOnUserProfile(userProfile);
 
-            IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
-            userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(userProfile);
+            ICurrentUser loggedOnUser = new CurrentUser(userProfile);
 
-            IApplication application = new FModels.Sec.Application
+            IApplication application = new Application
             {
                 Id = TestingApplicationId,
                 StatusId = new EntityId(EntityStatus.Active.Id()),
@@ -235,9 +257,10 @@ namespace Foundation.Tests.Unit.BaseClasses
             IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
             applicationProcess.Get(TestingApplicationId).Returns(application);
 
-            ILoggedOnUserProcess loggedOnUserProcess = Substitute.For<ILoggedOnUserProcess>();
-
-            CoreInstance = Core.Core.Initialise(null, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, loggedOnUserProcess);
+            CoreInstance = Substitute.For<ICore>();
+            CoreInstance.ApplicationName.Returns(TestingApplicationName);
+            CoreInstance.ApplicationId.Returns(TestingApplicationId);
+            CoreInstance.CurrentLoggedOnUser.Returns(loggedOnUser);
 
             _ = new LoggingHelpers(CoreInstance, RunTimeEnvironmentSettings, DateTimeService);
 
@@ -292,13 +315,13 @@ namespace Foundation.Tests.Unit.BaseClasses
 
             userProfile.IsSystemSupport = true;
 
-            FModels.Sec.Role systemAdministratorRole = new FModels.Sec.Role
+            Role systemAdministratorRole = new Role
             {
                 Id = new EntityId(ApplicationRole.SystemAdministrator.Id())
             };
             userProfile.Roles.Add(systemAdministratorRole);
 
-            FModels.Sec.Role creatorRole = new FModels.Sec.Role
+            Role creatorRole = new Role
             {
                 Id = new EntityId(ApplicationRole.Creator.Id())
             };

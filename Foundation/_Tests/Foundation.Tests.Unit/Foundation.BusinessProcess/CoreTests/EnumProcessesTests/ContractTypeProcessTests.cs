@@ -10,6 +10,7 @@ using Foundation.BusinessProcess.Core.EnumProcesses;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Core.EnumModels;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcessesTests
 {
@@ -48,7 +49,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
 
         protected override IContractType CreateBlankEntity(IContractTypeProcess process, Int32 entityId)
         {
-            IContractType retVal = CoreInstance.IoC.Get<IContractType>();
+            IContractType retVal = new FModels.ContractType();
 
             retVal.Id = new EntityId(entityId);
 

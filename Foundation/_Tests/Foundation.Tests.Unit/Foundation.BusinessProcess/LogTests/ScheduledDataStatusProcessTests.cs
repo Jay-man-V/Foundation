@@ -10,6 +10,7 @@ using Foundation.BusinessProcess.Log;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Log;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 {
@@ -50,7 +51,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 
         protected override IScheduledDataStatus CreateBlankEntity(IScheduledDataStatusProcess process, Int32 entityId)
         {
-            IScheduledDataStatus retVal = CoreInstance.IoC.Get<IScheduledDataStatus>();
+            IScheduledDataStatus retVal = new FModels.ScheduledDataStatus();
 
             retVal.Id = new EntityId(entityId);
 

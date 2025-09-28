@@ -10,6 +10,7 @@ using Foundation.BusinessProcess.Core;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Core;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 {
@@ -48,7 +49,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override ICurrency CreateBlankEntity(ICurrencyProcess process, Int32 entityId)
         {
-            ICurrency retVal = CoreInstance.IoC.Get<ICurrency>();
+            ICurrency retVal = new FModels.Currency();
 
             retVal.Id = new EntityId(entityId);
 

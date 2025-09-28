@@ -10,6 +10,7 @@ using Foundation.BusinessProcess.Core;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Core;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 {
@@ -48,7 +49,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IOffice CreateBlankEntity(IOfficeProcess process, Int32 entityId)
         {
-            IOffice retVal = CoreInstance.IoC.Get<IOffice>();
+            IOffice retVal = new FModels.Office();
 
             retVal.Id = new EntityId(entityId);
 

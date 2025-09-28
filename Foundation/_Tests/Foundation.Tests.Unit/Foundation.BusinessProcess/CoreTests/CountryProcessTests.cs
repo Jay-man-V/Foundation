@@ -12,6 +12,7 @@ using Foundation.BusinessProcess.Core;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Core;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 {
@@ -56,7 +57,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override ICountry CreateBlankEntity(ICountryProcess process, Int32 entityId)
         {
-            ICountry retVal = CoreInstance.IoC.Get<ICountry>();
+            ICountry retVal = new FModels.Country();
 
             retVal.Id = new EntityId(entityId);
 

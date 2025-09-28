@@ -10,6 +10,7 @@ using Foundation.BusinessProcess.Core;
 using Foundation.Interfaces;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
+using FModels = Foundation.Models.Core;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 {
@@ -79,7 +80,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override INonWorkingDay CreateBlankEntity(INonWorkingDayProcess process, Int32 entityId)
         {
-            INonWorkingDay retVal = CoreInstance.IoC.Get<INonWorkingDay>();
+            INonWorkingDay retVal = new FModels.NonWorkingDay();
 
             retVal.Id = new EntityId(entityId);
 
@@ -232,7 +233,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         private INonWorkingDay CreateEntity(EntityId countryId, DateTime holidayDate, String description)
         {
-            INonWorkingDay retVal = CoreInstance.IoC.Get<INonWorkingDay>();
+            INonWorkingDay retVal = new FModels.NonWorkingDay();
 
             retVal.CountryId = countryId;
             retVal.Date = holidayDate;
