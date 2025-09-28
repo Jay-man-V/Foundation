@@ -1041,7 +1041,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess
         [TestCase]
         public void Test_ExportToCsv()
         {
-            List<IGridColumnDefinition> gridColumnDefinitions = TheProcess!.GetColumnDefinitions();
             List<TEntity> sourceData =
             [
                 CreateEntity(TheProcess!, 01),
@@ -1056,6 +1055,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess
                 CreateEntity(TheProcess!, 10),
             ];
 
+            List<IGridColumnDefinition> gridColumnDefinitions = TheProcess!.GetColumnDefinitions();
             String actualCsvData = TheProcess!.ExportToCsv(gridColumnDefinitions, sourceData);
             actualCsvData = FixUpStringWithReplacements(actualCsvData);
 

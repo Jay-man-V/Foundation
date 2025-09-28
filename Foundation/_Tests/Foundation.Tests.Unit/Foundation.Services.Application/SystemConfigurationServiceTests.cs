@@ -10,6 +10,7 @@ using Foundation.Interfaces;
 using Foundation.Services.Application;
 
 using Foundation.Tests.Unit.BaseClasses;
+using Microsoft.Extensions.Configuration;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application
 {
@@ -26,6 +27,9 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             base.TestInitialise();
 
             ICore core = Substitute.For<ICore>();
+
+            core.ConfigurationManager.GetConnectionString(Arg.Any<String>()).Returns("ABC");
+
 
             TheService = new SystemConfigurationService(core);
         }
@@ -47,6 +51,20 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             String expected = "System.Data.SqlClient";
 
             String actual = TheService!.GetDataProviderName(dataConnectionName);
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestCase]
+        public void Test_GetConnectionString()
+        {
+            String dataConnectionName = "UnitTesting";
+            String expected = "Server=Callisto;Database=UnitTesting;User Id=Jay;Password=pass;TrustServerCertificate=True;";
+
+            String actual = TheService!.GetConnectionString(dataConnectionName);
 
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -87,21 +105,6 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 
             Assert.That(actualException, Is.Not.EqualTo(null));
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestCase]
-        public void Test_GetConnectionString()
-        {
-            String dataConnectionName = "UnitTesting";
-            String expected = "Server=Callisto;Database=UnitTesting;User Id=Jay;Password=pass;TrustServerCertificate=True;";
-
-            String actual = TheService!.GetConnectionString(dataConnectionName);
-
-            Assert.That(actual, Is.EqualTo(expected));
         }
 
         /// <summary>

@@ -4,15 +4,16 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using NSubstitute;
-
+using Foundation.BusinessProcess.Sec;
 using Foundation.Common;
 using Foundation.Core;
 using Foundation.Interfaces;
+using Foundation.Models.App;
 using Foundation.Models.Sec;
 using Foundation.Resources;
-
 using Foundation.Tests.Unit.Support;
+
+using NSubstitute;
 
 using FModels = Foundation.Models;
 
@@ -237,8 +238,6 @@ namespace Foundation.Tests.Unit.BaseClasses
 
             ResetLoggedOnUserProfile(userProfile);
 
-            ICurrentUser loggedOnUser = new CurrentUser(userProfile);
-
             IApplication application = new Application
             {
                 Id = TestingApplicationId,
@@ -257,10 +256,20 @@ namespace Foundation.Tests.Unit.BaseClasses
             IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
             applicationProcess.Get(TestingApplicationId).Returns(application);
 
-            CoreInstance = Substitute.For<ICore>();
-            CoreInstance.ApplicationName.Returns(TestingApplicationName);
-            CoreInstance.ApplicationId.Returns(TestingApplicationId);
-            CoreInstance.CurrentLoggedOnUser.Returns(loggedOnUser);
+            UserProfileRepository = Substitute.For<IUserProfileRepository>();
+            UserProfileRepository.GetAllActive().Returns(UserProfileList);
+
+            UserProfileProcess = Substitute.For<IUserProfileProcess>();
+            UserProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(userProfile);
+            UserProfileProcess.GetAll(Arg.Any<Boolean>()).Returns(UserProfileList);
+
+            LoggedOnUserProcess = Substitute.For<ILoggedOnUserProcess>();
+
+            CoreInstance = Core.Core.Initialise(null, RunTimeEnvironmentSettings, applicationProcess, UserProfileProcess, LoggedOnUserProcess);
+            //CoreInstance = Substitute.For<ICore>();
+            //CoreInstance.ApplicationName.Returns(TestingApplicationName);
+            //CoreInstance.ApplicationId.Returns(TestingApplicationId);
+            //CoreInstance.CurrentLoggedOnUser.Returns(loggedOnUser);
 
             _ = new LoggingHelpers(CoreInstance, RunTimeEnvironmentSettings, DateTimeService);
 
@@ -277,21 +286,13 @@ namespace Foundation.Tests.Unit.BaseClasses
             StatusesList = GetListOfStatuses();
             UserProfileList = GetListOfUserProfiles();
             LoggedOnUsersList = GetListOfLoggedOnUsers();
+            LoggedOnUserProcess.GetLoggedOnUsers(Arg.Any<AppId>()).Returns(LoggedOnUsersList);
 
             StatusRepository = Substitute.For<IStatusRepository>();
             StatusRepository.GetAllActive().Returns(StatusesList);
 
             StatusProcess = Substitute.For<IStatusProcess>();
             StatusProcess.GetAll(Arg.Any<Boolean>()).Returns(StatusesList);
-
-            UserProfileRepository = Substitute.For<IUserProfileRepository>();
-            UserProfileRepository.GetAllActive().Returns(UserProfileList);
-
-            UserProfileProcess = Substitute.For<IUserProfileProcess>();
-            UserProfileProcess.GetAll(Arg.Any<Boolean>()).Returns(UserProfileList);
-
-            LoggedOnUserProcess = Substitute.For<ILoggedOnUserProcess>();
-            LoggedOnUserProcess.GetLoggedOnUsers(Arg.Any<AppId>()).Returns(LoggedOnUsersList);
         }
 
         /// <summary>
