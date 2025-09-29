@@ -10,7 +10,6 @@ using Foundation.Interfaces;
 using Foundation.Services.Application;
 
 using Foundation.Tests.Unit.BaseClasses;
-using Microsoft.Extensions.Configuration;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application
 {
@@ -20,6 +19,9 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
     [TestFixture]
     public class SystemConfigurationServiceTests : UnitTestBase
     {
+        private String ValidDataConnectionName => "UnitTesting";
+        private String InvalidDataConnectionName => "MadeUpNonExisting";
+
         private ISystemConfigurationService? TheService { get; set; }
 
         public override void TestInitialise()
@@ -27,9 +29,14 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             base.TestInitialise();
 
             ICore core = Substitute.For<ICore>();
+            IConfigurationWrapper configurationWrapper = Substitute.For<IConfigurationWrapper>();
 
-            core.ConfigurationManager.GetConnectionString(Arg.Any<String>()).Returns("ABC");
+            core.ConfigurationManager.Returns(configurationWrapper);
 
+            configurationWrapper.GetConnectionString(ValidDataConnectionName).Returns("providerName=System.Data.SqlClient;Server=DbServer;Database=DbName;User Id=UserId;Password=ThePassword;TrustServerCertificate=True;");
+
+            String? nullString = null;
+            configurationWrapper.GetConnectionString(InvalidDataConnectionName).Returns(nullString);
 
             TheService = new SystemConfigurationService(core);
         }
@@ -47,10 +54,9 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetDataProviderName()
         {
-            String dataConnectionName = "UnitTesting";
             String expected = "System.Data.SqlClient";
 
-            String actual = TheService!.GetDataProviderName(dataConnectionName);
+            String actual = TheService!.GetDataProviderName(ValidDataConnectionName);
 
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -61,10 +67,9 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetConnectionString()
         {
-            String dataConnectionName = "UnitTesting";
-            String expected = "Server=Callisto;Database=UnitTesting;User Id=Jay;Password=pass;TrustServerCertificate=True;";
+            String expected = "Server=DbServer;Database=DbName;User Id=UserId;Password=ThePassword;TrustServerCertificate=True;";
 
-            String actual = TheService!.GetConnectionString(dataConnectionName);
+            String actual = TheService!.GetConnectionString(ValidDataConnectionName);
 
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -95,16 +100,17 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetDataProviderName_Exception_NoDataProvider()
         {
-            String dataConnectionName = "UnitTestingNoProviderName";
-            String errorMessage = $"Unable to retrieve Data Provider for '{dataConnectionName}'. Check to make sure the connection is defined in the Configuration File.";
+            String parameterName = "dataConnectionName";
+            String errorMessage = $"Cannot load Connection named '{InvalidDataConnectionName}'. Check to make sure the connection is defined in the Configuration File. (Parameter '{parameterName}')";
 
-            InvalidOperationException actualException = Assert.Throws<InvalidOperationException>(() =>
+            ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
             {
-                _ = TheService!.GetDataProviderName(dataConnectionName);
+                _ = TheService!.GetDataProviderName(InvalidDataConnectionName);
             });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException.ParamName, Is.EqualTo(parameterName));
         }
 
         /// <summary>
@@ -113,13 +119,12 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetConnectionString_Exception()
         {
-            String dataConnectionName = "MadeUpNonExisting";
-            String parameterName = nameof(dataConnectionName);
-            String errorMessage = $"Cannot load Connection named '{dataConnectionName}'. Check to make sure the connection is defined in the Configuration File. (Parameter '{parameterName}')";
+            String parameterName = "dataConnectionName";
+            String errorMessage = $"Cannot load Connection named '{InvalidDataConnectionName}'. Check to make sure the connection is defined in the Configuration File. (Parameter '{parameterName}')";
 
             ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
             {
-                _ = TheService!.GetDataProviderName(dataConnectionName);
+                _ = TheService!.GetConnectionString(InvalidDataConnectionName);
             });
 
             Assert.That(actualException, Is.Not.EqualTo(null));

@@ -19,12 +19,12 @@ namespace Foundation.Core
     {
         //https://learn.microsoft.com/en-us/dotnet/core/extensions/configuration-providers
 
-        private static readonly ConfigurationManager TheConfigurationManager = new ConfigurationManager();
-
+        private static ConfigurationManager TheConfigurationManager { get; } = new ConfigurationManager();
+        private static IConfigurationWrapper ConfigurationWrapper { get; } = new ConfigurationWrapper(TheConfigurationManager);
         private static IHost? TheHost { get; set; }
         private static HostApplicationBuilder? HostApplicationBuilder { get; set; }
         private static IIoC? TheIoC { get; set; }
-        private static String TheApplicationName { get; set; } = String.Empty;
+        private static String TheApplicationName { get; set; } = "<not set>";
         private static AppId TheApplicationId { get; set; }
         private static TraceLevel TheTraceLevel { get; set; }
 
@@ -83,7 +83,7 @@ namespace Foundation.Core
 
             if (CoreInstance == null)
             {
-                HostApplicationBuilderSettings settings = new HostApplicationBuilderSettings()
+                HostApplicationBuilderSettings settings = new HostApplicationBuilderSettings
                 {
                     Configuration = TheConfigurationManager,
                     ContentRootPath = Directory.GetCurrentDirectory(),
@@ -185,7 +185,7 @@ namespace Foundation.Core
         public IIoC IoC => TheIoC!;
 
         /// <inheritdoc cref="ICore.ConfigurationManager"/>
-        public ConfigurationManager ConfigurationManager => TheConfigurationManager;
+        public IConfigurationWrapper ConfigurationManager => ConfigurationWrapper;
 
         /// <inheritdoc cref="ICore.Instance"/>
         public ICore Instance => TheInstance;

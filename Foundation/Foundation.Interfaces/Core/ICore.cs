@@ -47,7 +47,7 @@ namespace Foundation.Interfaces
         /// <summary>
         /// The .Net configuration manager
         /// </summary>
-        ConfigurationManager ConfigurationManager { get; }
+        IConfigurationWrapper ConfigurationManager { get; }
 
         /// <summary>
         /// 
