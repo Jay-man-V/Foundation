@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Diagnostics;
 using System.Windows.Threading;
 
 namespace Foundation.Common

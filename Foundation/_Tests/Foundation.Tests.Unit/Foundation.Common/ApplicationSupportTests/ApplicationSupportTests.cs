@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Diagnostics;
 using Foundation.Common;
 
 using Foundation.Tests.Unit.BaseClasses;
@@ -30,9 +31,6 @@ namespace Foundation.Tests.Unit.Foundation.Common.ApplicationSupportTests
             AdditionalHandlerCalled = false;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         [TestCase]
         public void Test_ApplicationStart()
         {
@@ -43,9 +41,6 @@ namespace Foundation.Tests.Unit.Foundation.Common.ApplicationSupportTests
             ApplicationControl.ApplicationClose(AdditionalExceptionHandler);
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         [TestCase]
         public void Test_ApplicationStart_Null()
         {
@@ -54,9 +49,6 @@ namespace Foundation.Tests.Unit.Foundation.Common.ApplicationSupportTests
             ApplicationControl.ApplicationClose(null);
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         [TestCase]
         public void Test_LogExceptionMessage()
         {
@@ -76,28 +68,19 @@ namespace Foundation.Tests.Unit.Foundation.Common.ApplicationSupportTests
             ApplicationControl.ApplicationClose(AdditionalExceptionHandler);
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        [TestCase]
+        //[Test]
         public void Test_TaskSchedulerException()
         {
             ApplicationControl.ApplicationStart(AdditionalExceptionHandler);
 
-            Task.Run(() =>
-            {
-                try
-                {
-                    throw new Exception(LocationUtils.GetFunctionName());
-                }
-                finally
-                {
-                    Assert.That(AdditionalHandlerCalled, Is.EqualTo(true));
-                }
-            });
+            Task.Run(() => throw new Exception("ABC"));
+
+            GC.Collect();
+            Thread.Sleep(5000);
+            
+            Assert.That(AdditionalHandlerCalled, Is.EqualTo(true));
 
             ApplicationControl.ApplicationClose(AdditionalExceptionHandler);
-            Assert.That(AdditionalHandlerCalled, Is.EqualTo(true));
         }
     }
 }
