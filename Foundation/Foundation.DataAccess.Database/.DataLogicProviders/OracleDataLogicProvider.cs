@@ -21,8 +21,19 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
     {
         public OracleDataLogicProvider()
         {
-            DbProviderFactories.RegisterFactory("System.Data.OracleClient", OracleClientFactory.Instance);
-            DbProviderFactories.RegisterFactory("Oracle.DataAccess.Client", OracleClientFactory.Instance);
+            String factoryName1 = "System.Data.OracleClient";
+            Boolean alreadyExists1 = DbProviderFactories.TryGetFactory(factoryName1, out _);
+            if (!alreadyExists1)
+            {
+                DbProviderFactories.RegisterFactory(factoryName1, OracleClientFactory.Instance);
+            }
+
+            String factoryName2 = "Oracle.DataAccess.Client";
+            Boolean alreadyExists2 = DbProviderFactories.TryGetFactory(factoryName2, out _);
+            if (!alreadyExists2)
+            {
+                DbProviderFactories.RegisterFactory(factoryName2, OracleClientFactory.Instance);
+            }
         }
 
         /// <inheritdoc cref="IDataLogicProvider.ValidToDateString" />

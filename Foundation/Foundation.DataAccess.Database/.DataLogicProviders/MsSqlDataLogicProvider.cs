@@ -21,8 +21,19 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
     {
         public MsSqlDataLogicProvider()
         {
-            DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
-            DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", SqlClientFactory.Instance);
+            String factoryName1 = "System.Data.SqlClient";
+            Boolean alreadyExists1 = DbProviderFactories.TryGetFactory(factoryName1, out _);
+            if (!alreadyExists1)
+            {
+                DbProviderFactories.RegisterFactory(factoryName1, SqlClientFactory.Instance);
+            }
+
+            String factoryName2 = "Microsoft.Data.SqlClient";
+            Boolean alreadyExists2 = DbProviderFactories.TryGetFactory(factoryName2, out _);
+            if (!alreadyExists2)
+            {
+                DbProviderFactories.RegisterFactory(factoryName2, SqlClientFactory.Instance);
+            }
         }
 
         /// <inheritdoc cref="IDataLogicProvider.ValidToDateString" />

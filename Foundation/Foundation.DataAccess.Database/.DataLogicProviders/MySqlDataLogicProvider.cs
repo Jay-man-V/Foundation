@@ -21,7 +21,12 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
     {
         public MySqlDataLogicProvider()
         {
-            DbProviderFactories.RegisterFactory("MySql.Data.MySqlClient", MySqlClientFactory.Instance);
+            String factoryName = "MySql.Data.MySqlClient";
+            Boolean alreadyExists = DbProviderFactories.TryGetFactory(factoryName, out _);
+            if (!alreadyExists)
+            {
+                DbProviderFactories.RegisterFactory(factoryName, MySqlClientFactory.Instance);
+            }
         }
 
         /// <inheritdoc cref="IDataLogicProvider.ValidToDateString" />
