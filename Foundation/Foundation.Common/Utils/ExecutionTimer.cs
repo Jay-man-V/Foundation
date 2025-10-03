@@ -12,7 +12,7 @@ namespace Foundation.Common
     /// Defines the ExecutionTimer class.
     /// Used to track how long a Process takes to execute
     /// </summary>
-    public class ExecutionTimer
+    public class ExecutionTimer : IDisposable
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ExecutionTimer"/> class.
@@ -65,15 +65,7 @@ namespace Foundation.Common
         /// <value>
         /// The timer stopwatch.
         /// </value>
-        private Stopwatch TimerStopwatch { get; set; } = new Stopwatch();
-
-        /// <summary>
-        /// Gets or sets the size of the indent.
-        /// </summary>
-        /// <value>
-        /// The size of the indent.
-        /// </value>
-        private Int32 IndentSize { get; set; }
+        private Stopwatch TimerStopwatch { get; } = new Stopwatch();
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="ExecutionTimer"/> to <see cref="String"/>.
@@ -91,12 +83,11 @@ namespace Foundation.Common
         /// </summary>
         public void StartTimer()
         {
-            TimerStopwatch = new Stopwatch();
+            TimerStopwatch.Reset();
             TimerStopwatch.Start();
 
-            IndentSize += 4;
-
-            Debug.WriteLine($"Start:{ProcessName.PadLeft(IndentSize, ' ')} => {ToString()}");
+            String message = $"Start: {ProcessName} => {DateTime.Now:yyyy MMM dd HH:mm:ss.fff}";
+            Debug.WriteLine(message);
         }
 
         /// <summary>
@@ -107,9 +98,8 @@ namespace Foundation.Common
             TimerStopwatch.Stop();
             Duration = TimerStopwatch.Elapsed;
 
-            IndentSize -= 4;
-
-            Debug.WriteLine($"Stop: {ProcessName.PadLeft(IndentSize, ' ')} => {ToString()}");
+            String message = $"Stop: {ProcessName} => {DateTime.Now:yyyy MMM dd HH:mm:ss.fff}";
+            Debug.WriteLine(message);
         }
 
         /// <summary>
@@ -118,8 +108,15 @@ namespace Foundation.Common
         /// <returns>A string that represents the current object.</returns>
         public override String ToString()
         {
-            String retVal = $"{ProcessName} {Duration}";
+            String retVal = $"{ProcessName} {Duration:c}";
             return retVal;
+        }
+
+        public void Dispose()
+        {
+            StopTimer();
+            String message = $"Duration: {ProcessName} => {ToString()}";
+            Debug.WriteLine(message);
         }
     }
 }
