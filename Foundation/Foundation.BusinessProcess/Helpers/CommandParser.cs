@@ -22,13 +22,43 @@ namespace Foundation.BusinessProcess.Helpers
         /// Constructs a new Command Parser with the supplied parameters
         /// </summary>
         /// <param name="dateTimeService"></param>
-        public CommandParser(IDateTimeService dateTimeService)
+        public CommandParser
+        (
+            IDateTimeService dateTimeService
+        )
         {
             LoggingHelpers.TraceCallEnter(dateTimeService);
 
             DateTimeService = dateTimeService;
 
             FullCommandText = String.Empty;
+
+            LoggingHelpers.TraceCallReturn();
+        }
+
+        private CommandParser
+        (
+            IDateTimeService dateTimeService,
+            String commandText
+        )
+        {
+            LoggingHelpers.TraceCallEnter(dateTimeService);
+
+            DateTimeService = dateTimeService;
+            FullCommandText = commandText;
+
+            Int32 pos = FullCommandText.IndexOf("=", StringComparison.InvariantCulture);
+
+            IsValid = (pos > 0);
+
+            if (IsValid)
+            {
+                CommandName = FullCommandText.Substring(0, pos).ToUpper();
+
+                Parameters = FullCommandText.Substring(pos + 1);
+            }
+
+            ValidateInput(CommandName, Parameters);
 
             LoggingHelpers.TraceCallReturn();
         }
@@ -81,25 +111,15 @@ namespace Foundation.BusinessProcess.Helpers
         /// </value>
         protected IDateTimeService DateTimeService { get; }
 
-        public void ParseCommand(String commandText)
+        public ICommandParser ParseCommand(String commandText)
         {
             LoggingHelpers.TraceCallEnter(DateTimeService, commandText);
 
-            FullCommandText = commandText;
-            Int32 pos = FullCommandText.IndexOf("=", StringComparison.InvariantCulture);
+            ICommandParser retVal = new CommandParser(DateTimeService, commandText);
 
-            IsValid = (pos > 0);
+            LoggingHelpers.TraceCallReturn(retVal);
 
-            if (IsValid)
-            {
-                CommandName = FullCommandText.Substring(0, pos).ToUpper();
-
-                Parameters = FullCommandText.Substring(pos + 1);
-            }
-
-            ValidateInput(CommandName, Parameters);
-
-            LoggingHelpers.TraceCallReturn();
+            return retVal;
         }
 
         /// <summary>

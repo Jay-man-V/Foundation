@@ -167,9 +167,9 @@ namespace Foundation.ViewModels
         {
             LoggingHelpers.TraceCallEnter(targetWindow, parentViewModel, formTitle);
 
-            if (StatusesList.Any()) { /* Do nothing - Forces the static constructor to run */ }
-            if (UserProfilesList.Any()) { /* Do nothing - Forces the static constructor to run */ }
-            if (LoggedOnUsersList.Any()) { /* Do nothing - Forces the static constructor to run */ }
+            if (StatusesList.HasItems()) { /* Do nothing - Forces the static constructor to run */ }
+            if (UserProfilesList.HasItems()) { /* Do nothing - Forces the static constructor to run */ }
+            if (LoggedOnUsersList.HasItems()) { /* Do nothing - Forces the static constructor to run */ }
             
             ThisWindow = targetWindow;
             ParentViewModel = parentViewModel;

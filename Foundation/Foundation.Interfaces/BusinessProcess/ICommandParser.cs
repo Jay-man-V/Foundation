@@ -15,7 +15,7 @@ namespace Foundation.Interfaces
         /// Parses the given command text
         /// </summary>
         /// <param name="commandText"></param>
-        void ParseCommand(String commandText);
+        ICommandParser ParseCommand(String commandText);
 
         /// <summary>
         /// Gets the full command text.

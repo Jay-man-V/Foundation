@@ -7,6 +7,7 @@
 using System.Reflection;
 
 using Foundation.BusinessProcess.Helpers;
+using Foundation.Interfaces;
 using Foundation.Resources;
 
 using Foundation.Tests.Unit.BaseClasses;
@@ -45,12 +46,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.HelpersTests
 
             CommandParser commandParser = new CommandParser(DateTimeService);
 
-            commandParser.ParseCommand(commandText);
-            DateTime parsedDateTime = commandParser.ExecutionDateTime;
+            ICommandParser parser2 = commandParser.ParseCommand(commandText);
 
-            Assert.That(commandParser.IsValid, Is.EqualTo(true));
-            Assert.That(commandParser.CommandName, Is.EqualTo(commandName));
-            Assert.That(parsedDateTime, Is.EqualTo(parameter));
+            Assert.That(parser2.IsValid, Is.EqualTo(true));
+            Assert.That(parser2.CommandName, Is.EqualTo(commandName));
+            Assert.That(parser2.ExecutionDateTime, Is.EqualTo(parameter));
         }
 
         [TestCase]
@@ -61,12 +61,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.HelpersTests
 
             CommandParser commandParser = new CommandParser(DateTimeService);
 
-            commandParser.ParseCommand(commandText);
-            DateTime parsedDateTime = commandParser.ExecutionDateTime;
+            ICommandParser parser2 = commandParser.ParseCommand(commandText);
 
-            Assert.That(commandParser.IsValid, Is.EqualTo(true));
-            Assert.That(commandParser.CommandName, Is.EqualTo(commandName));
-            Assert.That(DateTime.MinValue, Is.EqualTo(parsedDateTime));
+            Assert.That(parser2.IsValid, Is.EqualTo(true));
+            Assert.That(parser2.CommandName, Is.EqualTo(commandName));
+            Assert.That(parser2.ExecutionDateTime, Is.EqualTo(DateTime.MinValue));
         }
 
         [TestCase]
@@ -78,11 +77,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.HelpersTests
 
             CommandParser commandParser = new CommandParser(DateTimeService);
 
-            commandParser.ParseCommand(commandText);
+            ICommandParser parser2 = commandParser.ParseCommand(commandText);
 
-            Assert.That(commandParser.IsValid, Is.EqualTo(true));
-            Assert.That(commandParser.CommandName, Is.EqualTo(commandName));
-            Assert.That(commandParser.Parameters, Is.EqualTo(parameter));
+            Assert.That(parser2.IsValid, Is.EqualTo(true));
+            Assert.That(parser2.CommandName, Is.EqualTo(commandName));
+            Assert.That(parser2.Parameters, Is.EqualTo(parameter));
         }
 
         [TestCase]

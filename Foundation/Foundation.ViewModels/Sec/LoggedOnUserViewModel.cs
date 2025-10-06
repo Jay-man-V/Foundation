@@ -30,6 +30,7 @@ namespace Foundation.ViewModels.Sec
         /// <param name="wpfApplicationObjects">The wpf application objects collection.</param>
         /// <param name="fileApi">The file service.</param>
         /// <param name="loggedOnUserProcess">The logged on user process.</param>
+        /// <param name="commandParser">The command parser.</param>
         public LoggedOnUserViewModel
         (
             ICore core,
@@ -37,7 +38,8 @@ namespace Foundation.ViewModels.Sec
             IDateTimeService dateTimeService,
             IWpfApplicationObjects wpfApplicationObjects,
             IFileApi fileApi,
-            ILoggedOnUserProcess loggedOnUserProcess
+            ILoggedOnUserProcess loggedOnUserProcess,
+            ICommandParser commandParser
         ) :
             base
             (
@@ -55,6 +57,7 @@ namespace Foundation.ViewModels.Sec
             _externalCommandName = String.Empty;
 
             LoggedOnUserProcess = loggedOnUserProcess;
+            CommandParser = commandParser;
 
             LoggingHelpers.TraceCallReturn();
         }
@@ -69,6 +72,14 @@ namespace Foundation.ViewModels.Sec
         /// The logged on user process.
         /// </value>
         private new ILoggedOnUserProcess LoggedOnUserProcess { get; }
+
+        /// <summary>
+        /// Gets the Command Parser.
+        /// </summary>
+        /// <value>
+        /// The command parser.
+        /// </value>
+        private ICommandParser CommandParser { get; }
 
         /// <summary>
         /// Gets or sets the quit command timer.
@@ -187,8 +198,7 @@ namespace Foundation.ViewModels.Sec
             // Clear any command that has been set up
             LoggedOnUserProcess.ClearCommand(Core.ApplicationId, loggedOnUser);
 
-            ICommandParser commandParser = Core.IoC.Get<ICommandParser>();
-            commandParser.ParseCommand(loggedOnUser.Command);
+            ICommandParser commandParser = CommandParser.ParseCommand(loggedOnUser.Command);
 
             // Nothing to do, exit the function
             if (!commandParser.IsValid) return loggedOnUsers;
@@ -205,7 +215,7 @@ namespace Foundation.ViewModels.Sec
 
                     ExternalCommandTime = DateTime.MinValue;
                     ExternalCommandMessage = String.Empty;
-                    ExternalCommandName = String.Empty;
+                    ExternalCommandName = ExternalCommandName;
                 }
             }
             else

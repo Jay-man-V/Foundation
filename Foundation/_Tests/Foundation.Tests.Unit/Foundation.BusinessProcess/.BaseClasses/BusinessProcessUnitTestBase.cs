@@ -4,16 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.BusinessProcess.Sec;
+using NSubstitute;
+
 using Foundation.Common;
-using Foundation.Core;
 using Foundation.Interfaces;
-using Foundation.Models.App;
 using Foundation.Models.Sec;
 using Foundation.Resources;
-using Foundation.Tests.Unit.Support;
 
-using NSubstitute;
+using Foundation.Tests.Unit.Support;
 
 using FModels = Foundation.Models;
 
@@ -25,10 +23,6 @@ namespace Foundation.Tests.Unit.BaseClasses
     [TestFixture]
     public abstract class BusinessProcessUnitTestBase : UnitTestBase
     {
-        protected DateTime CreatedOnDateTime => new DateTime(2000, 01, 01, 00, 00, 00, DateTimeKind.Utc);
-        protected DateTime LastUpdatedOnDateTime => new DateTime(2001, 12, 31, 11, 55, 22, DateTimeKind.Utc);
-        protected DateTime ValidFromDateTime => new DateTime(2000, 01, 01, 00, 00, 00, DateTimeKind.Utc);
-
         protected ICore CoreInstance { get; set; }
         protected IApplicationConfigurationService ApplicationConfigurationService { get; set; }
         protected IStatusRepository? StatusRepository { get; set; }

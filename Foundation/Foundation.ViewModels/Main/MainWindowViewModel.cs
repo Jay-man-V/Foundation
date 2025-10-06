@@ -42,6 +42,7 @@ namespace Foundation.ViewModels.Main
         /// <param name="targetWindow">The target window.</param>
         /// <param name="applicationProcess">The application process.</param>
         /// <param name="menuItemProcess">The menu item process.</param>
+        /// <param name="commandParser">The command parser.</param>
         public MainWindowViewModel
         (
             ICore core,
@@ -51,7 +52,8 @@ namespace Foundation.ViewModels.Main
             IFileApi fileApi,
             IWindow targetWindow,
             IApplicationProcess applicationProcess,
-            IMenuItemProcess menuItemProcess
+            IMenuItemProcess menuItemProcess,
+            ICommandParser commandParser
         ) :
             base
             (
@@ -62,7 +64,7 @@ namespace Foundation.ViewModels.Main
                 ""
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, wpfApplicationObjects, fileApi, targetWindow);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, wpfApplicationObjects, fileApi, targetWindow, applicationProcess, menuItemProcess, commandParser);
 
             FileApi = fileApi;
             ApplicationProcess = applicationProcess;
@@ -84,7 +86,7 @@ namespace Foundation.ViewModels.Main
                 UserRole += role.Name;
             }
 
-            LoggedOnUsersViewModel = new LoggedOnUserViewModel(Core, RunTimeEnvironmentSettings, DateTimeService, wpfApplicationObjects, FileApi, LoggedOnUserProcess);
+            LoggedOnUsersViewModel = new LoggedOnUserViewModel(Core, RunTimeEnvironmentSettings, DateTimeService, wpfApplicationObjects, FileApi, LoggedOnUserProcess, commandParser);
             LoggedOnUsersViewModel.Initialise(targetWindow, this, "Logged on Users");
 
             _applicationMenuItems = [];

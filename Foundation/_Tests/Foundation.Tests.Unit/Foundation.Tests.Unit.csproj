@@ -50,7 +50,7 @@
     <Compile Include=".Support\SchedulerSupport.cs" />
     <Compile Include=".Support\SerialiseTest.cs" />
     <Compile Include=".Support\TestEntitySupport.cs" />
-    <Compile Include=".BaseClasses\BusinessProcessUnitTestBase.cs" />
+    <Compile Include="Foundation.BusinessProcess\.BaseClasses\BusinessProcessUnitTestBase.cs" />
     <Compile Include=".BaseClasses\UnitTestBase.cs" />
     <Compile Include=".Support\UnitTestingDatabaseProvider.cs" />
     <Compile Include=".Support\UnitTestsBaseTests.cs" />
@@ -58,6 +58,9 @@
     <Compile Include=".Support\_UnitTestTemplate.cs" />
     <Compile Include="Foundation.BusinessProcess\.Support\MockFoundationProcess2Tests.cs" />
     <Compile Include="Foundation.BusinessProcess\.Support\MockFoundationProcessTests.cs" />
+    <Compile Include="Foundation.ViewModels\.Support\EntityViewModelTestBaseClass.cs" />
+    <Compile Include="Foundation.ViewModels\.Support\GenericDataGridViewModelTestBaseClass.cs" />
+    <Compile Include="Foundation.ViewModels\.BaseClasses\ViewModelUnitTestBase.cs" />
   </ItemGroup>
 
   <ItemGroup>

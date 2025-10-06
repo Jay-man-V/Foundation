@@ -29,6 +29,12 @@ namespace Foundation.Tests.Unit.BaseClasses
         protected AppId TestingApplicationId = new AppId(1);
         protected String DatabaseServer = "Callisto";
         protected String BaseTemporaryOutputsPath => @"D:\Projects\JDVSoftware\TempOutputs\";
+
+        protected DateTime CreatedOnDateTime => new DateTime(2000, 01, 01, 00, 00, 00, DateTimeKind.Utc);
+        protected DateTime LastUpdatedOnDateTime => new DateTime(2001, 12, 31, 11, 55, 22, DateTimeKind.Utc);
+        protected DateTime ValidFromDateTime => new DateTime(2000, 01, 01, 00, 00, 00, DateTimeKind.Utc);
+        protected DateTime ValidToDateTime => new DateTime(2199, 12, 31, 23, 59, 59, DateTimeKind.Utc);
+
         protected DateTime SystemDateTime => new DateTime(2022, 11, 28, 13, 11, 54, DateTimeKind.Utc);
         protected DateTime SystemDateTimeMs => new DateTime(2022, 11, 28, 13, 11, 54, 300, DateTimeKind.Utc);
 

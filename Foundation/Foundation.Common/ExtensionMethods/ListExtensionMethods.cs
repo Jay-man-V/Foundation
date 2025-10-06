@@ -22,7 +22,7 @@ namespace Foundation.Common
         /// <returns>
         ///   <c>true</c> if the specified value has members; otherwise, <c>false</c>.
         /// </returns>
-        public static Boolean HasItems<TValue>(this List<TValue> val)
+        public static Boolean HasItems<TValue>(this List<TValue>? val)
         {
             return (val != null && val.Any());
         }
