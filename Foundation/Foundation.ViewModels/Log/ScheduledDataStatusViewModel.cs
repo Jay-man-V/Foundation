@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Log
     /// <summary>
     /// The User Interface interaction logic for ScheduledDataStatus maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IScheduledDataStatus}" />
+    /// <seealso cref="GenericDataGridViewModel{IScheduledDataStatus}" />
     [DependencyInjectionTransient]
-    public class ScheduledDataStatusViewModel : GenericDataGridViewModelBase<IScheduledDataStatus>, IScheduledDataStatusViewModel
+    public class ScheduledDataStatusViewModel : GenericDataGridViewModel<IScheduledDataStatus>, IScheduledDataStatusViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ScheduledDataStatusViewModel"/> class.

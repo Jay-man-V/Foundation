@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The User Profile view model interface
     /// </summary>
-    public interface IUserProfileViewModel : IGenericDataGridViewModelBase<IUserProfile>
+    public interface IUserProfileViewModel : IGenericDataGridViewModel<IUserProfile>
     {
     }
 }

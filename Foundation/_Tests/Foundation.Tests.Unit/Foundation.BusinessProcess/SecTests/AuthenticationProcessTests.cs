@@ -9,7 +9,7 @@ using NSubstitute;
 using Foundation.BusinessProcess.Sec;
 using Foundation.Interfaces;
 
-using Foundation.Tests.Unit.BaseClasses;
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 {
@@ -17,7 +17,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
     /// Summary description for AuthenticationProcessTests
     /// </summary>
     [TestFixture]
-    public class AuthenticationProcessTests : BusinessProcessUnitTestBase
+    public class AuthenticationProcessTests : BusinessProcessUnitTestsBase
     {
         private IAuthenticationRepository? TheRepository { get; set; }
         private IIdGeneratorService? IdService { get; set; }

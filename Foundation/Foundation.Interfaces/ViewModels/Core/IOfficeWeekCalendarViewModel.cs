@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Office Week Calendar view model interface
     /// </summary>
-    public interface IOfficeWeekCalendarViewModel : IGenericDataGridViewModelBase<IOfficeWeekCalendar>
+    public interface IOfficeWeekCalendarViewModel : IGenericDataGridViewModel<IOfficeWeekCalendar>
     {
     }
 }

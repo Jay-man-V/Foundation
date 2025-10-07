@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Stg
     /// <summary>
     /// The User Interface interaction logic for Active Directory User maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IActiveDirectoryUser}" />
+    /// <seealso cref="GenericDataGridViewModel{IActiveDirectoryUser}" />
     [DependencyInjectionTransient]
-    public class ActiveDirectoryUserViewModel : GenericDataGridViewModelBase<IActiveDirectoryUser>, IActiveDirectoryUserViewModel
+    public class ActiveDirectoryUserViewModel : GenericDataGridViewModel<IActiveDirectoryUser>, IActiveDirectoryUserViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ActiveDirectoryUserViewModel"/> class.
@@ -49,7 +49,7 @@ namespace Foundation.ViewModels.Stg
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="GenericDataGridViewModelBase{TModel}.RefreshData()"/>
+        /// <inheritdoc cref="GenericDataGridViewModel{TModel}.RefreshData()"/>
         protected override List<IActiveDirectoryUser> RefreshData()
         {
             LoggingHelpers.TraceCallEnter();

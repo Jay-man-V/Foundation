@@ -5,16 +5,22 @@
 //-----------------------------------------------------------------------
 
 using Foundation.BusinessProcess;
+using Foundation.Interfaces;
 
-using Foundation.Tests.Unit.BaseClasses;
-
-namespace Foundation.Tests.Unit.Foundation.BusinessProcess
+namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
 {
-    public abstract class CommonProcessTests<TCommonProcess> : BusinessProcessUnitTestBase
+    public abstract class CommonProcessTests<TCommonProcess> : BusinessProcessUnitTestsBase
     {
         protected TCommonProcess? TheProcess { get; set; }
 
-        protected abstract TCommonProcess CreateBusinessProcess();
+        protected virtual TCommonProcess CreateBusinessProcess()
+        {
+            TCommonProcess retVal = CreateBusinessProcess(DateTimeService);
+
+            return retVal;
+        }
+
+        protected abstract TCommonProcess CreateBusinessProcess(IDateTimeService dateTimeService);
 
         public override void TestInitialise()
         {

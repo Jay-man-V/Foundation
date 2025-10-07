@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Office view model interface
     /// </summary>
-    public interface IOfficeViewModel : IGenericDataGridViewModelBase<IOffice>
+    public interface IOfficeViewModel : IGenericDataGridViewModel<IOffice>
     {
     }
 }

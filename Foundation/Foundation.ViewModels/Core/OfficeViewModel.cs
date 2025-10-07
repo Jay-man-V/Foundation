@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core
     /// <summary>
     /// The User Interface interaction logic for Approval Status maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IOffice}" />
+    /// <seealso cref="GenericDataGridViewModel{IOffice}" />
     [DependencyInjectionTransient]
-    public class OfficeViewModel : GenericDataGridViewModelBase<IOffice>, IOfficeViewModel
+    public class OfficeViewModel : GenericDataGridViewModel<IOffice>, IOfficeViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="OfficeViewModel"/> class.

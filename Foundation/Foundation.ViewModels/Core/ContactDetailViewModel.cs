@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core
     /// <summary>
     /// The User Interface interaction logic for Contact Detail maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IContactDetail}" />
+    /// <seealso cref="GenericDataGridViewModel{IContactDetail}" />
     [DependencyInjectionTransient]
-    public class ContactDetailViewModel : GenericDataGridViewModelBase<IContactDetail>, IContactDetailViewModel
+    public class ContactDetailViewModel : GenericDataGridViewModel<IContactDetail>, IContactDetailViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ContactDetailViewModel"/> class.

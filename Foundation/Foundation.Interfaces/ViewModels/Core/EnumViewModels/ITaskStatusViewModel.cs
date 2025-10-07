@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Task Status view model interface
     /// </summary>
-    public interface ITaskStatusViewModel : IGenericDataGridViewModelBase<ITaskStatus>
+    public interface ITaskStatusViewModel : IGenericDataGridViewModel<ITaskStatus>
     {
     }
 }

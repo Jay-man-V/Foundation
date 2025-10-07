@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Event Log view model interface
     /// </summary>
-    public interface IEventLogViewModel : IGenericDataGridViewModelBase<IEventLog>
+    public interface IEventLogViewModel : IGenericDataGridViewModel<IEventLog>
     {
     }
 }

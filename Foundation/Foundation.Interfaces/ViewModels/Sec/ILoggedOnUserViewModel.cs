@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Logged On User view model interface
     /// </summary>
-    public interface ILoggedOnUserViewModel : IGenericDataGridViewModelBase<ILoggedOnUser>
+    public interface ILoggedOnUserViewModel : IGenericDataGridViewModel<ILoggedOnUser>
     {
     }
 }

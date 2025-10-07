@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Sec
     /// <summary>
     /// The User Interface interaction logic for User Profile maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IUserProfile}" />
+    /// <seealso cref="GenericDataGridViewModel{IUserProfile}" />
     [DependencyInjectionTransient]
-    public class UserProfileViewModel : GenericDataGridViewModelBase<IUserProfile>, IUserProfileViewModel
+    public class UserProfileViewModel : GenericDataGridViewModel<IUserProfile>, IUserProfileViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="UserProfileViewModel"/> class.

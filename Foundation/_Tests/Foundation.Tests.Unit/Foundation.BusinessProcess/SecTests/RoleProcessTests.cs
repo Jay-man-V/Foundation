@@ -9,6 +9,8 @@ using NSubstitute;
 using Foundation.BusinessProcess.Sec;
 using Foundation.Interfaces;
 
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
+
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FModels = Foundation.Models.Sec;
 
@@ -31,13 +33,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             IRoleRepository dataAccess = Substitute.For<IRoleRepository>();
 
             return dataAccess;
-        }
-
-        protected override IRoleProcess CreateBusinessProcess()
-        {
-            IRoleProcess process = CreateBusinessProcess(DateTimeService);
-
-            return process;
         }
 
         protected override IRoleProcess CreateBusinessProcess(IDateTimeService dateTimeService)

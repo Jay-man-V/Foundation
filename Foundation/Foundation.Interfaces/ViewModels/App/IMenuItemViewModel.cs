@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Menu Item view model interface
     /// </summary>
-    public interface IMenuItemViewModel : IGenericDataGridViewModelBase<IMenuItem>
+    public interface IMenuItemViewModel : IGenericDataGridViewModel<IMenuItem>
     {
     }
 }

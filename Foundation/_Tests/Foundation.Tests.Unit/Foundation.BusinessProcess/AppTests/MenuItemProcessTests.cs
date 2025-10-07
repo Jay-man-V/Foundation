@@ -10,6 +10,8 @@ using Foundation.BusinessProcess.App;
 using Foundation.Interfaces;
 using Foundation.Models.App;
 
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
+
 using FDC = Foundation.Resources.Constants.DataColumns;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
@@ -30,13 +32,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
         protected override string ExpectedFilter2DisplayMemberPath => FDC.MenuItem.Caption;
 
         protected override string ExpectedComboBoxDisplayMember => FDC.MenuItem.Caption;
-
-        protected override IMenuItemProcess CreateBusinessProcess()
-        {
-            IMenuItemProcess retVal = CreateBusinessProcess(DateTimeService);
-
-            return retVal;
-        }
 
         protected override IMenuItemProcess CreateBusinessProcess(IDateTimeService dateTimeService)
         {

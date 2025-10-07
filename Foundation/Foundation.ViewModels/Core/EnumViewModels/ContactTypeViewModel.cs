@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core.EnumViewModels
     /// <summary>
     /// The User Interface interaction logic for Contact Type maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IContactType}" />
+    /// <seealso cref="GenericDataGridViewModel{IContactType}" />
     [DependencyInjectionTransient]
-    public class ContactTypeViewModel : GenericDataGridViewModelBase<IContactType>, IContactTypeViewModel
+    public class ContactTypeViewModel : GenericDataGridViewModel<IContactType>, IContactTypeViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ContactTypeViewModel"/> class.

@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core
     /// <summary>
     /// The User Interface interaction logic for Department maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IDepartment}" />
+    /// <seealso cref="GenericDataGridViewModel{IDepartment}" />
     [DependencyInjectionTransient]
-    public class DepartmentViewModel : GenericDataGridViewModelBase<IDepartment>, IDepartmentViewModel
+    public class DepartmentViewModel : GenericDataGridViewModel<IDepartment>, IDepartmentViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="DepartmentViewModel"/> class.

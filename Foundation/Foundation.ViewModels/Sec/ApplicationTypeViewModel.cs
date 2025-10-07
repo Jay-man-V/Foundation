@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Sec
     /// <summary>
     /// The User Interface interaction logic for Application Type maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IApplicationType}" />
+    /// <seealso cref="GenericDataGridViewModel{IApplicationType}" />
     [DependencyInjectionTransient]
-    public class ApplicationTypeViewModel : GenericDataGridViewModelBase<IApplicationType>, IApplicationTypeViewModel
+    public class ApplicationTypeViewModel : GenericDataGridViewModel<IApplicationType>, IApplicationTypeViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ApplicationTypeViewModel"/> class.

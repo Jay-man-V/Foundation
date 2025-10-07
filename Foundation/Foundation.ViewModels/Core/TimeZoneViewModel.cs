@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core
     /// <summary>
     /// The User Interface interaction logic for Time Zone maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{ITimeZone}" />
+    /// <seealso cref="GenericDataGridViewModel{ITimeZone}" />
     [DependencyInjectionTransient]
-    public class TimeZoneViewModel : GenericDataGridViewModelBase<ITimeZone>, ITimeZoneViewModel
+    public class TimeZoneViewModel : GenericDataGridViewModel<ITimeZone>, ITimeZoneViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="TimeZoneViewModel"/> class.

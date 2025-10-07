@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Log
     /// <summary>
     /// The User Interface interaction logic for Event Log Application maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IEventLogApplication}" />
+    /// <seealso cref="GenericDataGridViewModel{IEventLogApplication}" />
     [DependencyInjectionTransient]
-    public class EventLogApplicationViewModel : GenericDataGridViewModelBase<IEventLogApplication>, IEventLogApplicationViewModel
+    public class EventLogApplicationViewModel : GenericDataGridViewModel<IEventLogApplication>, IEventLogApplicationViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="EventLogApplicationViewModel"/> class.

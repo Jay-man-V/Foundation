@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Sec
     /// <summary>
     /// The User Interface interaction logic for Permission Matrix maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IPermissionMatrix}" />
+    /// <seealso cref="GenericDataGridViewModel{IPermissionMatrix}" />
     [DependencyInjectionTransient]
-    public class PermissionMatrixViewModel : GenericDataGridViewModelBase<IPermissionMatrix>, IPermissionMatrixViewModel
+    public class PermissionMatrixViewModel : GenericDataGridViewModel<IPermissionMatrix>, IPermissionMatrixViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="RoleViewModel"/> class.

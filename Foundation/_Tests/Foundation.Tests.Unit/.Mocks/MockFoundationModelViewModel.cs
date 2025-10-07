@@ -9,11 +9,11 @@ using Foundation.ViewModels;
 
 namespace Foundation.Tests.Unit.Mocks
 {
-    public interface IMockFoundationModelViewModel : IGenericDataGridViewModelBase<IMockFoundationModel>
+    public interface IMockFoundationModelViewModel : IGenericDataGridViewModel<IMockFoundationModel>
     {
     }
 
-    public class MockFoundationModelViewModel : GenericDataGridViewModelBase<IMockFoundationModel>, IMockFoundationModelViewModel
+    public class MockFoundationModelViewModel : GenericDataGridViewModel<IMockFoundationModel>, IMockFoundationModelViewModel
     {
         public MockFoundationModelViewModel
         (

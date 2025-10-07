@@ -9,6 +9,8 @@ using NSubstitute;
 using Foundation.BusinessProcess.Core.EnumProcesses;
 using Foundation.Interfaces;
 
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
+
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FModels = Foundation.Models.Core.EnumModels;
 
@@ -31,13 +33,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
             IDataStatusRepository dataAccess = Substitute.For<IDataStatusRepository>();
 
             return dataAccess;
-        }
-
-        protected override IDataStatusProcess CreateBusinessProcess()
-        {
-            IDataStatusProcess process = CreateBusinessProcess(DateTimeService);
-
-            return process;
         }
 
         protected override IDataStatusProcess CreateBusinessProcess(IDateTimeService dateTimeService)

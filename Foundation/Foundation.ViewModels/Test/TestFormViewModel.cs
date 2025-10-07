@@ -16,7 +16,7 @@ namespace Foundation.ViewModels.Test
     /// 
     /// </summary>
     [DependencyInjectionTransient]
-    public class TestFormViewModel : ViewModelBase, ITestFormViewModel
+    public class TestFormViewModel : ViewModel, ITestFormViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="TestFormViewModel"/> class.

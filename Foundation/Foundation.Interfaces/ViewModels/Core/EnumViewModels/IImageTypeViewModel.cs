@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Image Type view model interface
     /// </summary>
-    public interface IImageTypeViewModel : IGenericDataGridViewModelBase<IImageType>
+    public interface IImageTypeViewModel : IGenericDataGridViewModel<IImageType>
     {
     }
 }

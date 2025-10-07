@@ -15,7 +15,7 @@ using Foundation.Interfaces;
 using Foundation.Resources;
 using Foundation.Services.Application;
 
-using Foundation.Tests.Unit.BaseClasses;
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
 using Foundation.Tests.Unit.Support;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application
@@ -24,7 +24,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
     /// UnitTests for FileServiceTests
     /// </summary>
     [TestFixture]
-    public class FileServiceTests : BusinessProcessUnitTestBase
+    public class FileServiceTests : BusinessProcessUnitTestsBase
     {
         private IFileApi? TheService { get; set; }
         public override void TestInitialise()

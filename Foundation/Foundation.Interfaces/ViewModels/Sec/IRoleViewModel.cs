@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Permission Matrix view model interface
     /// </summary>
-    public interface IPermissionMatrixViewModel : IGenericDataGridViewModelBase<IPermissionMatrix>
+    public interface IPermissionMatrixViewModel : IGenericDataGridViewModel<IPermissionMatrix>
     {
     }
 }

@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Sec
     /// <summary>
     /// The User Interface interaction logic for Application/User/Role maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IApplicationUserRole}" />
+    /// <seealso cref="GenericDataGridViewModel{IApplicationUserRole}" />
     [DependencyInjectionTransient]
-    public class ApplicationUserRoleViewModel : GenericDataGridViewModelBase<IApplicationUserRole>, IApplicationUserRoleViewModel
+    public class ApplicationUserRoleViewModel : GenericDataGridViewModel<IApplicationUserRole>, IApplicationUserRoleViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ApplicationUserRoleViewModel"/> class.

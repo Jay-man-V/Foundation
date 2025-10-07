@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Language view model interface
     /// </summary>
-    public interface ILanguageViewModel : IGenericDataGridViewModelBase<ILanguage>
+    public interface ILanguageViewModel : IGenericDataGridViewModel<ILanguage>
     {
     }
 }

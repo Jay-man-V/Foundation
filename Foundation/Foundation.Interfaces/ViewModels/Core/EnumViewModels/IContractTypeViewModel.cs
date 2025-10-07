@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Contract Type view model interface
     /// </summary>
-    public interface IContractTypeViewModel : IGenericDataGridViewModelBase<IContractType>
+    public interface IContractTypeViewModel : IGenericDataGridViewModel<IContractType>
     {
     }
 }

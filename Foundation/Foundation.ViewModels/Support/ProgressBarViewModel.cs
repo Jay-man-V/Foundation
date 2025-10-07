@@ -12,8 +12,8 @@ namespace Foundation.ViewModels.Support
     /// <summary>
     /// The User Interface interaction logic for the Progress Bar
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IApprovalStatus}" />
-    public class ProgressBarViewModel : ViewModelBase
+    /// <seealso cref="GenericDataGridViewModel{IApprovalStatus}" />
+    public class ProgressBarViewModel : ViewModel
     {
         /// <summary>Initialises a new instance of the <see cref="ProgressBarViewModel" /> class.</summary>
         /// <param name="core">The Foundation Core service.</param>

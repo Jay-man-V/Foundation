@@ -17,9 +17,9 @@ namespace Foundation.ViewModels.Test
     /// <summary>
     /// The User Interface interaction logic for Basic Controls
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IApplication}" />
+    /// <seealso cref="GenericDataGridViewModel{IApplication}" />
     [DependencyInjectionTransient]
-    public class BasicControlsViewModel : EntityViewModelBase<IApplication>, IBasicControlsViewModel
+    public class BasicControlsViewModel : EntityViewModel<IApplication>, IBasicControlsViewModel
     {
         ///// <summary>
         ///// Initialises a new instance of the <see cref="BasicControlsViewModel"/> class.

@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core
     /// <summary>
     /// The User Interface interaction logic for Language maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{ILanguage}" />
+    /// <seealso cref="GenericDataGridViewModel{ILanguage}" />
     [DependencyInjectionTransient]
-    public class LanguageViewModel : GenericDataGridViewModelBase<ILanguage>, ILanguageViewModel
+    public class LanguageViewModel : GenericDataGridViewModel<ILanguage>, ILanguageViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="LanguageViewModel"/> class.

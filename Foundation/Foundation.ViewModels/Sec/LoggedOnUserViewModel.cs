@@ -17,9 +17,9 @@ namespace Foundation.ViewModels.Sec
     /// <summary>
     /// The User Interface interaction logic for Logged On User maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{ILoggedOnUser}" />
+    /// <seealso cref="GenericDataGridViewModel{ILoggedOnUser}" />
     [DependencyInjectionTransient]
-    public class LoggedOnUserViewModel : GenericDataGridViewModelBase<ILoggedOnUser>, ILoggedOnUserViewModel
+    public class LoggedOnUserViewModel : GenericDataGridViewModel<ILoggedOnUser>, ILoggedOnUserViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="LoggedOnUserViewModel"/> class.

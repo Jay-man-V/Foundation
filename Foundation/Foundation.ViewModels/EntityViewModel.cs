@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="EntityViewModelBase.cs" company="JDV Software Ltd">
+// <copyright file="EntityViewModel.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -15,18 +15,18 @@ namespace Foundation.ViewModels
     /// <summary>
     /// Implements generic routines for an Entity based ViewModel
     /// </summary>
-    public abstract class EntityViewModelBase<TEntity> : ViewModelBase, IEntityViewModel
+    public abstract class EntityViewModel<TEntity> : ViewModel, IEntityViewModel
         where TEntity : IFoundationModel
     {
         private IFoundationModel _data = default!;
 
-        /// <summary>Initialises a new instance of the <see cref="EntityViewModelBase{TEntity}" /> class.</summary>
+        /// <summary>Initialises a new instance of the <see cref="EntityViewModel{TEntity}" /> class.</summary>
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The runtime environment settings.</param>
         /// <param name="dateTimeService">The date time service.</param>
         /// <param name="wpfApplicationObjects">The wpf application objects collection.</param>
         /// <param name="formTitle">The form title</param>
-        protected EntityViewModelBase
+        protected EntityViewModel
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
@@ -125,7 +125,7 @@ namespace Foundation.ViewModels
                 if (entityStatus == null)
                 {
                     const String sourceField = nameof(IFoundationModel.StatusId);
-                    const String lookupListName = nameof(ViewModelBase.StatusesList);
+                    const String lookupListName = nameof(ViewModel.StatusesList);
                     EntityId requestedId = _data.StatusId;
                     IFoundationModel sourceModel = _data;
                     throw new ValueNotInLookupListException(sourceField, lookupListName, requestedId, sourceModel);
@@ -134,7 +134,7 @@ namespace Foundation.ViewModels
                 if (createdByUserProfile == null)
                 {
                     const String sourceField = nameof(IFoundationModel.CreatedByUserProfileId);
-                    const String lookupListName = nameof(ViewModelBase.UserProfilesList);
+                    const String lookupListName = nameof(ViewModel.UserProfilesList);
                     EntityId requestedId = _data.StatusId;
                     IFoundationModel sourceModel = _data;
                     throw new ValueNotInLookupListException(sourceField, lookupListName, requestedId, sourceModel);
@@ -143,7 +143,7 @@ namespace Foundation.ViewModels
                 if (lastUpdatedByUserProfile == null)
                 {
                     const String sourceField = nameof(IFoundationModel.LastUpdatedByUserProfileId);
-                    const String lookupListName = nameof(ViewModelBase.UserProfilesList);
+                    const String lookupListName = nameof(ViewModel.UserProfilesList);
                     EntityId requestedId = _data.StatusId;
                     IFoundationModel sourceModel = _data;
                     throw new ValueNotInLookupListException(sourceField, lookupListName, requestedId, sourceModel);

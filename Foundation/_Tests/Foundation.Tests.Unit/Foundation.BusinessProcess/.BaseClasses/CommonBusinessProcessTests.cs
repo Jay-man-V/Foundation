@@ -15,7 +15,7 @@ using Foundation.Resources;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
-namespace Foundation.Tests.Unit.Foundation.BusinessProcess
+namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
 {
     public abstract class CommonBusinessProcessTests<TEntity, TCommonBusinessProcess, TRepository> : CommonProcessTests<TCommonBusinessProcess>
         where TEntity : IFoundationModel
@@ -39,7 +39,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess
         protected IEventLogProcess? EventLogProcess { get; set; }
 
 
-        protected abstract TCommonBusinessProcess CreateBusinessProcess(IDateTimeService dateTimeService);
         protected abstract TRepository CreateRepository();
         protected abstract TEntity CreateBlankEntity(TCommonBusinessProcess process, Int32 entityId);
         protected abstract TEntity CreateEntity(TCommonBusinessProcess process, Int32 entityId);

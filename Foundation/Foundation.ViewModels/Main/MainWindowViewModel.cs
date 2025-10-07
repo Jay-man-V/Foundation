@@ -27,7 +27,7 @@ namespace Foundation.ViewModels.Main
     /// </summary>
     /// <seealso cref="IMainWindowViewModel" />
     [DependencyInjectionTransient]
-    public class MainWindowViewModel : ViewModelBase, IMainWindowViewModel
+    public class MainWindowViewModel : ViewModel, IMainWindowViewModel
     {
         private bool _enabled;
 

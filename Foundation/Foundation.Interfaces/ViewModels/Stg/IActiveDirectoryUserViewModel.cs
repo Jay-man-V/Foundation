@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Active Directory User view model interface
     /// </summary>
-    public interface IActiveDirectoryUserViewModel : IGenericDataGridViewModelBase<IActiveDirectoryUser>
+    public interface IActiveDirectoryUserViewModel : IGenericDataGridViewModel<IActiveDirectoryUser>
     {
     }
 }

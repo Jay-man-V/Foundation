@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Scheduled Task view model interface
     /// </summary>
-    public interface IScheduledJobViewModel : IGenericDataGridViewModelBase<IScheduledJob>
+    public interface IScheduledJobViewModel : IGenericDataGridViewModel<IScheduledJob>
     {
     }
 }

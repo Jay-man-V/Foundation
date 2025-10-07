@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Non-Working Day view model interface
     /// </summary>
-    public interface INonWorkingDayViewModel : IGenericDataGridViewModelBase<INonWorkingDay>
+    public interface INonWorkingDayViewModel : IGenericDataGridViewModel<INonWorkingDay>
     {
     }
 }

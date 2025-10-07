@@ -9,6 +9,8 @@ using NSubstitute;
 using Foundation.BusinessProcess.Core;
 using Foundation.Interfaces;
 
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
+
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FModels = Foundation.Models.Core;
 
@@ -38,13 +40,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             IContractRepository dataAccess = Substitute.For<IContractRepository>();
 
             return dataAccess;
-        }
-
-        protected override IContractProcess CreateBusinessProcess()
-        {
-            IContractProcess process = CreateBusinessProcess(DateTimeService);
-
-            return process;
         }
 
         protected override IContractProcess CreateBusinessProcess(IDateTimeService dateTimeService)

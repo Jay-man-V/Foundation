@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core
     /// <summary>
     /// The User Interface interaction logic for World Region maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IWorldRegion}" />
+    /// <seealso cref="GenericDataGridViewModel{IWorldRegion}" />
     [DependencyInjectionTransient]
-    public class WorldRegionViewModel : GenericDataGridViewModelBase<IWorldRegion>, IWorldRegionViewModel
+    public class WorldRegionViewModel : GenericDataGridViewModel<IWorldRegion>, IWorldRegionViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="WorldRegionViewModel"/> class.

@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Log Severity view model interface
     /// </summary>
-    public interface ILogSeverityViewModel : IGenericDataGridViewModelBase<ILogSeverity>
+    public interface ILogSeverityViewModel : IGenericDataGridViewModel<ILogSeverity>
     {
     }
 }

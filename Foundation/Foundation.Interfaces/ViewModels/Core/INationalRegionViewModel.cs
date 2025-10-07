@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The National Region view model interface
     /// </summary>
-    public interface INationalRegionViewModel : IGenericDataGridViewModelBase<INationalRegion>
+    public interface INationalRegionViewModel : IGenericDataGridViewModel<INationalRegion>
     {
     }
 }

@@ -10,7 +10,7 @@ using Foundation.BusinessProcess.Sec;
 using Foundation.Common;
 using Foundation.Interfaces;
 
-using Foundation.Tests.Unit.BaseClasses;
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 {
@@ -18,7 +18,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
     /// Summary description for AuthorisationProcessTests
     /// </summary>
     [TestFixture]
-    public class AuthorisationProcessTests : BusinessProcessUnitTestBase
+    public class AuthorisationProcessTests : BusinessProcessUnitTestsBase
     {
         private IPermissionMatrixProcess? PermissionMatrixProcess { get; set; }
         private IAuthorisationProcess? TheProcess { get; set; }

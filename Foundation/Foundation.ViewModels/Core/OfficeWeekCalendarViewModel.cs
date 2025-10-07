@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core
     /// <summary>
     /// The User Interface interaction logic for Office Week Calendar maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IOfficeWeekCalendar}" />
+    /// <seealso cref="GenericDataGridViewModel{IOfficeWeekCalendar}" />
     [DependencyInjectionTransient]
-    public class OfficeWeekCalendarViewModel : GenericDataGridViewModelBase<IOfficeWeekCalendar>, IOfficeWeekCalendarViewModel
+    public class OfficeWeekCalendarViewModel : GenericDataGridViewModel<IOfficeWeekCalendar>, IOfficeWeekCalendarViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="OfficeWeekCalendarViewModel"/> class.

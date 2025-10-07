@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Department view model interface
     /// </summary>
-    public interface IDepartmentViewModel : IGenericDataGridViewModelBase<IDepartment>
+    public interface IDepartmentViewModel : IGenericDataGridViewModel<IDepartment>
     {
     }
 }

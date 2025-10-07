@@ -5,7 +5,8 @@
 //-----------------------------------------------------------------------
 
 using Foundation.Interfaces;
-using Foundation.Tests.Unit.BaseClasses;
+
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
 using Foundation.Tests.Unit.Support;
 
 namespace Foundation.Tests.Unit.Foundation.Models
@@ -14,7 +15,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
     /// 
     /// </summary>
     [TestFixture]
-    public class TestCurrentUser : BusinessProcessUnitTestBase
+    public class TestCurrentUser : BusinessProcessUnitTestsBase
     {
         /// <summary>
         /// Tests the method1.

@@ -16,7 +16,7 @@ namespace Foundation.ViewModels.Main
     /// <summary>
     /// The User Interface interaction logic for About/Splash Screen
     /// </summary>
-    public class AboutSplashScreenFormViewModel : ViewModelBase //, IAboutSplashScreenFormViewModel
+    public class AboutSplashScreenFormViewModel : ViewModel //, IAboutSplashScreenFormViewModel
     {
         /// <summary>Initialises a new instance of the <see cref="AboutSplashScreenFormViewModel" /> class.</summary>
         /// <param name="core">The Foundation Core service.</param>

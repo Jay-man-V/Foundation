@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Country view model interface
     /// </summary>
-    public interface ICountryViewModel : IGenericDataGridViewModelBase<ICountry>
+    public interface ICountryViewModel : IGenericDataGridViewModel<ICountry>
     {
     }
 }

@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Sec.EnumViewModels
     /// <summary>
     /// The User Interface interaction logic for Application Role maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IApplicationRole}" />
+    /// <seealso cref="GenericDataGridViewModel{IApplicationRole}" />
     [DependencyInjectionTransient]
-    public class ApplicationRoleViewModel : GenericDataGridViewModelBase<IApplicationRole>, IApplicationRoleViewModel
+    public class ApplicationRoleViewModel : GenericDataGridViewModel<IApplicationRole>, IApplicationRoleViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ApplicationRoleViewModel"/> class.

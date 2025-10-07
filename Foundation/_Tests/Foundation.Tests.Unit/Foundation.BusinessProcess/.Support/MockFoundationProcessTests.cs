@@ -10,6 +10,8 @@ using System.Drawing;
 using NSubstitute;
 
 using Foundation.Interfaces;
+
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
 using Foundation.Tests.Unit.Mocks;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.Support

@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.App
     /// <summary>
     /// The User Interface interaction logic for MenuItem maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IMenuItem}" />
+    /// <seealso cref="GenericDataGridViewModel{IMenuItem}" />
     [DependencyInjectionTransient]
-    public class MenuItemViewModel : GenericDataGridViewModelBase<IMenuItem>, IMenuItemViewModel
+    public class MenuItemViewModel : GenericDataGridViewModel<IMenuItem>, IMenuItemViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="MenuItemViewModel"/> class.

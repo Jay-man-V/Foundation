@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ViewModelBase.cs" company="JDV Software Ltd">
+// <copyright file="ViewModel.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -17,7 +17,7 @@ namespace Foundation.ViewModels
     /// Implements generic routines for all view models
     /// Implements INotifyPropertyChanged for all ViewModels
     /// </summary>
-    public abstract class ViewModelBase : IViewModel
+    public abstract class ViewModel : IViewModel
     {
         /// <summary>
         /// Occurs when a property value changes.
@@ -25,9 +25,9 @@ namespace Foundation.ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
-        /// Initialises the <see cref="ViewModelBase" /> class.
+        /// Initialises the <see cref="ViewModel" /> class.
         /// </summary>
-        static ViewModelBase()
+        static ViewModel()
         {
             LoggingHelpers.TraceCallEnter();
 
@@ -122,14 +122,14 @@ namespace Foundation.ViewModels
         }
 
         /// <summary>
-        /// Initialises a new instance of the <see cref="ViewModelBase" /> class.
+        /// Initialises a new instance of the <see cref="ViewModel" /> class.
         /// </summary>
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The runtime environment settings</param>
         /// <param name="dateTimeService">The date time service.</param>
         /// <param name="wpfApplicationObjects">The wpf application objects collection.</param>
         /// <param name="formTitle">The form title</param>
-        protected ViewModelBase
+        protected ViewModel
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,

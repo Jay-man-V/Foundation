@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core
     /// <summary>
     /// The User Interface interaction logic for Scheduled Job maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IScheduledJob}" />
+    /// <seealso cref="GenericDataGridViewModel{IScheduledJob}" />
     [DependencyInjectionTransient]
-    public class ScheduledJobViewModel : GenericDataGridViewModelBase<IScheduledJob>, IScheduledJobViewModel
+    public class ScheduledJobViewModel : GenericDataGridViewModel<IScheduledJob>, IScheduledJobViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ScheduledJobViewModel"/> class.

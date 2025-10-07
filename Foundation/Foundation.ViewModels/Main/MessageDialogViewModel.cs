@@ -17,7 +17,7 @@ namespace Foundation.ViewModels.Main
     /// <summary>
     /// The User Interface interaction logic for Message Dialogs
     /// </summary>
-    public class MessageDialogViewModel : ViewModelBase
+    public class MessageDialogViewModel : ViewModel
     {
         /// <summary>
         /// Local constants

@@ -14,9 +14,9 @@ namespace Foundation.ViewModels.Core
     /// <summary>
     /// The User Interface interaction logic for Approval Status maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IApplicationConfiguration}" />
+    /// <seealso cref="GenericDataGridViewModel{IApplicationConfiguration}" />
     [DependencyInjectionTransient]
-    public class ApplicationConfigurationViewModel : GenericDataGridViewModelBase<IApplicationConfiguration>, IApplicationConfigurationViewModel
+    public class ApplicationConfigurationViewModel : GenericDataGridViewModel<IApplicationConfiguration>, IApplicationConfigurationViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ApplicationConfigurationViewModel"/> class.

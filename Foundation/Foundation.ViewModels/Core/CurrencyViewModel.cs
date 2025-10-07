@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core
     /// <summary>
     /// The User Interface interaction logic for Currency maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{ICurrency}" />
+    /// <seealso cref="GenericDataGridViewModel{ICurrency}" />
     [DependencyInjectionTransient]
-    public class CurrencyViewModel : GenericDataGridViewModelBase<ICurrency>, ICurrencyViewModel
+    public class CurrencyViewModel : GenericDataGridViewModel<ICurrency>, ICurrencyViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="CurrencyViewModel"/> class.

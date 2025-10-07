@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core.EnumViewModels
     /// <summary>
     /// The User Interface interaction logic for Approval Status maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IConfigurationScope}" />
+    /// <seealso cref="GenericDataGridViewModel{IConfigurationScope}" />
     [DependencyInjectionTransient]
-    public class ConfigurationScopeViewModel : GenericDataGridViewModelBase<IConfigurationScope>, IConfigurationScopeViewModel
+    public class ConfigurationScopeViewModel : GenericDataGridViewModel<IConfigurationScope>, IConfigurationScopeViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ConfigurationScopeViewModel"/> class.

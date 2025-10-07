@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Time Zone view model interface
     /// </summary>
-    public interface ITimeZoneViewModel : IGenericDataGridViewModelBase<ITimeZone>
+    public interface ITimeZoneViewModel : IGenericDataGridViewModel<ITimeZone>
     {
     }
 }

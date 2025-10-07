@@ -9,6 +9,8 @@ using NSubstitute;
 using Foundation.BusinessProcess.Log;
 using Foundation.Interfaces;
 
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
+
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FModels = Foundation.Models.Log;
 
@@ -31,13 +33,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
             IScheduledDataStatusRepository dataAccess = Substitute.For<IScheduledDataStatusRepository>();
 
             return dataAccess;
-        }
-
-        protected override IScheduledDataStatusProcess CreateBusinessProcess()
-        {
-            IScheduledDataStatusProcess process = CreateBusinessProcess(DateTimeService);
-
-            return process;
         }
 
         protected override IScheduledDataStatusProcess CreateBusinessProcess(IDateTimeService dateTimeService)

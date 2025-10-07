@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Application Type view model interface
     /// </summary>
-    public interface IApplicationTypeViewModel : IGenericDataGridViewModelBase<IApplicationType>
+    public interface IApplicationTypeViewModel : IGenericDataGridViewModel<IApplicationType>
     {
     }
 }

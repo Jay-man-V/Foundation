@@ -4,16 +4,18 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.ServiceProcess;
+
+using NSubstitute;
+
 using Foundation.BusinessProcess.Components;
 using Foundation.BusinessProcess.Core;
 using Foundation.Common;
 using Foundation.Interfaces;
+
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
 using Foundation.Tests.Unit.Mocks;
 using Foundation.Tests.Unit.Support;
-
-using NSubstitute;
-
-using System.ServiceProcess;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;
@@ -48,13 +50,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             IScheduledJobRepository dataAccess = Substitute.For<IScheduledJobRepository>();
 
             return dataAccess;
-        }
-
-        protected override IScheduledJobProcess CreateBusinessProcess()
-        {
-            IScheduledJobProcess process = CreateBusinessProcess(DateTimeService);
-
-            return process;
         }
 
         protected override IScheduledJobProcess CreateBusinessProcess(IDateTimeService dateTimeService)

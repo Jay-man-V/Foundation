@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core.EnumViewModels
     /// <summary>
     /// The User Interface interaction logic for ScheduleInterval maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IScheduleInterval}" />
+    /// <seealso cref="GenericDataGridViewModel{IScheduleInterval}" />
     [DependencyInjectionTransient]
-    public class ScheduleIntervalViewModel : GenericDataGridViewModelBase<IScheduleInterval>, IScheduleIntervalViewModel
+    public class ScheduleIntervalViewModel : GenericDataGridViewModel<IScheduleInterval>, IScheduleIntervalViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ScheduleIntervalViewModel"/> class.

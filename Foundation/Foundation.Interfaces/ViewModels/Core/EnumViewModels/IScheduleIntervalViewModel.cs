@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Schedule Interval view model interface
     /// </summary>
-    public interface IScheduleIntervalViewModel : IGenericDataGridViewModelBase<IScheduleInterval>
+    public interface IScheduleIntervalViewModel : IGenericDataGridViewModel<IScheduleInterval>
     {
     }
 }

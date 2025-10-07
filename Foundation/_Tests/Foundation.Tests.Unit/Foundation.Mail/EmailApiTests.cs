@@ -10,7 +10,7 @@ using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Services.Mail;
 
-using Foundation.Tests.Unit.BaseClasses;
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
 using Foundation.Tests.Unit.Support;
 
 namespace Foundation.Tests.Unit.Foundation.Mail
@@ -24,7 +24,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
     [DeploymentItem(@".Support\SampleDocuments\Sample PDF Document.pdf", @".Support\SampleDocuments\")]
     [DeploymentItem(@".Support\SampleDocuments\Sample Text Document.txt", @".Support\SampleDocuments\")]
     [DeploymentItem(@".Support\SampleDocuments\Sample Word Document.docx", @".Support\SampleDocuments\")]
-    public class EmailApiTests : BusinessProcessUnitTestBase
+    public class EmailApiTests : BusinessProcessUnitTestsBase
     {
         private IEmailApi? TheService { get; set; }
 

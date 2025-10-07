@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="GenericDataGridViewModelBase.cs" company="JDV Software Ltd">
+// <copyright file="GenericDataGridViewModel.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -22,17 +22,17 @@ namespace Foundation.ViewModels
     /// Implements generic routines for a Data Grid based view model
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
-    public abstract class GenericDataGridViewModelBase<TModel> : ViewModelBase, IGenericDataGridViewModelBase<TModel>
+    public abstract class GenericDataGridViewModel<TModel> : ViewModel, IGenericDataGridViewModel<TModel>
         where TModel : IFoundationModel
     {
-        /// <summary>Initialises a new instance of the <see cref="GenericDataGridViewModelBase{TModel}" /> class.</summary>
+        /// <summary>Initialises a new instance of the <see cref="GenericDataGridViewModel{TModel}" /> class.</summary>
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The runtime environment settings</param>
         /// <param name="dateTimeService">The date time service.</param>
         /// <param name="wpfApplicationObjects">The wpf application objects collection.</param>
         /// <param name="fileApi">The file service.</param>
         /// <param name="commonBusinessProcess">The common business process.</param>
-        protected GenericDataGridViewModelBase
+        protected GenericDataGridViewModel
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
@@ -85,183 +85,183 @@ namespace Foundation.ViewModels
         /// <value>The common business process.</value>
         protected ICommonBusinessProcess<TModel> CommonBusinessProcess { get; }
         
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.CanRefreshData"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.CanRefreshData"/>
         public virtual Boolean CanRefreshData => CommonBusinessProcess.CanRefreshData();
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.RefreshButtonVisible"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.RefreshButtonVisible"/>
         public virtual Boolean RefreshButtonVisible => CommonBusinessProcess.CanRefreshData();
 
         private Boolean _refreshButtonEnabled;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.RefreshCommandEnabled"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.RefreshCommandEnabled"/>
         public Boolean RefreshCommandEnabled
         {
             get => _refreshButtonEnabled;
             protected internal set => SetPropertyValue(ref _refreshButtonEnabled, value);
         }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.RefreshCommand"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.RefreshCommand"/>
         public virtual ICommand RefreshCommand { get { return RelayCommandFactory.New(OnRefreshCommand_Execute, () => RefreshCommandEnabled); } }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.CanViewRecord"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.CanViewRecord"/>
         public virtual Boolean CanViewRecord => CommonBusinessProcess.CanViewRecord();
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.ViewButtonVisible"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.ViewButtonVisible"/>
         public virtual Boolean ViewButtonVisible => CommonBusinessProcess.CanViewRecord();
 
         private Boolean _viewButtonEnabled;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.ViewRecordCommandEnabled"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.ViewRecordCommandEnabled"/>
         public Boolean ViewRecordCommandEnabled
         {
             get => _viewButtonEnabled;
             protected internal set => SetPropertyValue(ref _viewButtonEnabled, value);
         }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.ViewRecordCommand"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.ViewRecordCommand"/>
         public ICommand ViewRecordCommand { get { return RelayCommandFactory.New<TModel>(OnViewRecordCommand_Execute, () => ViewRecordCommandEnabled); } }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.CanAddRecord"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.CanAddRecord"/>
         public virtual Boolean CanAddRecord => CommonBusinessProcess.CanAddRecord();
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.AddButtonVisible"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.AddButtonVisible"/>
         public virtual Boolean AddButtonVisible => CommonBusinessProcess.CanAddRecord();
 
         private Boolean _addButtonEnabled;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.AddRecordCommandEnabled"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.AddRecordCommandEnabled"/>
         public Boolean AddRecordCommandEnabled
         {
             get => _addButtonEnabled;
             protected internal set => SetPropertyValue(ref _addButtonEnabled, value);
         }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.AddRecordCommand"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.AddRecordCommand"/>
         public ICommand AddRecordCommand { get { return RelayCommandFactory.New(OnAddRecordCommand_Execute, () => AddRecordCommandEnabled); } }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.CanEditRecord"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.CanEditRecord"/>
         public virtual Boolean CanEditRecord => CommonBusinessProcess.CanEditRecord();
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.EditButtonVisible"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.EditButtonVisible"/>
         public virtual Boolean EditButtonVisible => CommonBusinessProcess.CanEditRecord();
 
         private Boolean _editButtonEnabled;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.EditRecordCommandEnabled"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.EditRecordCommandEnabled"/>
         public Boolean EditRecordCommandEnabled
         {
             get => _editButtonEnabled;
             protected internal set => SetPropertyValue(ref _editButtonEnabled, value);
         }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.EditRecordCommand"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.EditRecordCommand"/>
         public ICommand EditRecordCommand { get { return RelayCommandFactory.New<TModel>(OnEditRecordCommand_Execute, () => EditRecordCommandEnabled); } }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.CanDeleteRecord"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.CanDeleteRecord"/>
         public virtual Boolean CanDeleteRecord => CommonBusinessProcess.CanDeleteRecord();
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.DeleteButtonVisible"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.DeleteButtonVisible"/>
         public virtual Boolean DeleteButtonVisible => CommonBusinessProcess.CanDeleteRecord();
 
         private Boolean _deleteButtonEnabled;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.DeleteRecordCommandEnabled"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.DeleteRecordCommandEnabled"/>
         public Boolean DeleteRecordCommandEnabled
         {
             get => _deleteButtonEnabled;
             protected internal set => SetPropertyValue(ref _deleteButtonEnabled, value);
         }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.DeleteRecordCommand"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.DeleteRecordCommand"/>
         public ICommand DeleteRecordCommand { get { return RelayCommandFactory.New<TModel>(OnDeleteRecordCommand_Execute, () => DeleteRecordCommandEnabled); } }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.HasOptionalAction1"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.HasOptionalAction1"/>
         public virtual Boolean HasOptionalAction1 => CommonBusinessProcess.HasOptionalAction1;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Action1Name"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Action1Name"/>
         public virtual String Action1Name => CommonBusinessProcess.Action1Name;
 
         private Boolean _action1CommandEnabled;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Action1CommandEnabled"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Action1CommandEnabled"/>
         public Boolean Action1CommandEnabled
         {
             get => _action1CommandEnabled;
             protected internal set => SetPropertyValue(ref _action1CommandEnabled, value);
         }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Action1Command"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Action1Command"/>
         public virtual ICommand Action1Command { get { return RelayCommandFactory.New(OnAction1Command_Execute, () => Action1CommandEnabled); } }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.HasOptionalAction2"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.HasOptionalAction2"/>
         public virtual Boolean HasOptionalAction2 => CommonBusinessProcess.HasOptionalAction2;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Action2Name"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Action2Name"/>
         public virtual String Action2Name => CommonBusinessProcess.Action2Name;
 
         private Boolean _action2CommandEnabled;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Action2CommandEnabled"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Action2CommandEnabled"/>
         public Boolean Action2CommandEnabled
         {
             get => _action2CommandEnabled;
             protected internal set => SetPropertyValue(ref _action2CommandEnabled, value);
         }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Action2Command"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Action2Command"/>
         public virtual ICommand Action2Command { get { return RelayCommandFactory.New(OnAction2Command_Execute, () => Action2CommandEnabled); } }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.HasOptionalAction3"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.HasOptionalAction3"/>
         public virtual Boolean HasOptionalAction3 => CommonBusinessProcess.HasOptionalAction3;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Action3Name"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Action3Name"/>
         public virtual String Action3Name => CommonBusinessProcess.Action3Name;
 
         private Boolean _action3CommandEnabled;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Action3CommandEnabled"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Action3CommandEnabled"/>
         public Boolean Action3CommandEnabled
         {
             get => _action3CommandEnabled;
             protected internal set => SetPropertyValue(ref _action3CommandEnabled, value);
         }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Action3Command"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Action3Command"/>
         public virtual ICommand Action3Command { get { return RelayCommandFactory.New(OnAction3Command_Execute, () => Action3CommandEnabled); } }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.HasOptionalAction4"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.HasOptionalAction4"/>
         public virtual Boolean HasOptionalAction4 => CommonBusinessProcess.HasOptionalAction4;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Action4Name"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Action4Name"/>
         public virtual String Action4Name => CommonBusinessProcess.Action4Name;
 
         private Boolean _action4CommandEnabled;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Action4CommandEnabled"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Action4CommandEnabled"/>
         public Boolean Action4CommandEnabled
         {
             get => _action4CommandEnabled;
             protected internal set => SetPropertyValue(ref _action4CommandEnabled, value);
         }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Action4Command"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Action4Command"/>
         public virtual ICommand Action4Command { get { return RelayCommandFactory.New(OnAction4Command_Execute, () => Action4CommandEnabled); } }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.ActionsVisible"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.ActionsVisible"/>
         public virtual Boolean ActionsVisible =>
             HasOptionalAction1 ||
             HasOptionalAction2 ||
             HasOptionalAction3 ||
             HasOptionalAction4;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.HasOptionalDropDownParameter1"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.HasOptionalDropDownParameter1"/>
         public virtual Boolean HasOptionalDropDownParameter1 => CommonBusinessProcess.HasOptionalDropDownParameter1;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter1Name"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter1Name"/>
         public virtual String Filter1Name => CommonBusinessProcess.Filter1Name;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter1DisplayMemberPath"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter1DisplayMemberPath"/>
         public virtual String Filter1DisplayMemberPath => CommonBusinessProcess.Filter1DisplayMemberPath;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter1SelectedValuePath"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter1SelectedValuePath"/>
         public virtual String Filter1SelectedValuePath => CommonBusinessProcess.Filter1SelectedValuePath;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter1SelectionChangedCommand"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter1SelectionChangedCommand"/>
         public virtual ICommand Filter1SelectionChangedCommand => RelayCommandFactory.New<Object>(OnFilter1SelectionChangedCommand_Execute);
 
         private IEnumerable? _filter1DataSource;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter1DataSource"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter1DataSource"/>
         public virtual IEnumerable? Filter1DataSource
         {
             get => _filter1DataSource;
@@ -269,30 +269,30 @@ namespace Foundation.ViewModels
         }
 
         private Object? _filter1SelectedItem;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter1SelectedItem"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter1SelectedItem"/>
         public virtual Object? Filter1SelectedItem
         {
             get => _filter1SelectedItem;
             set => SetPropertyValue(ref _filter1SelectedItem, value);
         }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.HasOptionalDropDownParameter2"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.HasOptionalDropDownParameter2"/>
         public virtual Boolean HasOptionalDropDownParameter2 => CommonBusinessProcess.HasOptionalDropDownParameter2;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter2Name"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter2Name"/>
         public virtual String Filter2Name => CommonBusinessProcess.Filter2Name;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter2DisplayMemberPath"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter2DisplayMemberPath"/>
         public virtual String Filter2DisplayMemberPath => CommonBusinessProcess.Filter2DisplayMemberPath;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter2SelectedValuePath"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter2SelectedValuePath"/>
         public virtual String Filter2SelectedValuePath => CommonBusinessProcess.Filter2SelectedValuePath;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter2SelectionChangedCommand"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter2SelectionChangedCommand"/>
         public virtual ICommand Filter2SelectionChangedCommand => RelayCommandFactory.New<Object>(OnFilter2SelectionChangedCommand_Execute);
 
         private IEnumerable? _filter2DataSource;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter2DataSource"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter2DataSource"/>
         public virtual IEnumerable? Filter2DataSource
         {
             get => _filter2DataSource;
@@ -300,30 +300,30 @@ namespace Foundation.ViewModels
         }
 
         private Object? _filter2SelectedItem;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter2SelectedItem"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter2SelectedItem"/>
         public virtual Object? Filter2SelectedItem
         {
             get => _filter2SelectedItem;
             set => SetPropertyValue(ref _filter2SelectedItem, value);
         }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.HasOptionalDropDownParameter3"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.HasOptionalDropDownParameter3"/>
         public virtual Boolean HasOptionalDropDownParameter3 => CommonBusinessProcess.HasOptionalDropDownParameter3;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter3Name"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter3Name"/>
         public virtual String Filter3Name => CommonBusinessProcess.Filter3Name;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter3DisplayMemberPath"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter3DisplayMemberPath"/>
         public virtual String Filter3DisplayMemberPath => CommonBusinessProcess.Filter3DisplayMemberPath;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter3SelectedValuePath"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter3SelectedValuePath"/>
         public virtual String Filter3SelectedValuePath => CommonBusinessProcess.Filter3SelectedValuePath;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter3SelectionChangedCommand"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter3SelectionChangedCommand"/>
         public virtual ICommand Filter3SelectionChangedCommand => RelayCommandFactory.New<Object>(OnFilter3SelectionChangedCommand_Execute);
 
         private IEnumerable? _filter3DataSource;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter3DataSource"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter3DataSource"/>
         public virtual IEnumerable? Filter3DataSource
         {
             get => _filter3DataSource;
@@ -331,30 +331,30 @@ namespace Foundation.ViewModels
         }
 
         private Object? _filter3SelectedItem;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter3SelectedItem"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter3SelectedItem"/>
         public virtual Object? Filter3SelectedItem
         {
             get => _filter3SelectedItem;
             set => SetPropertyValue(ref _filter3SelectedItem, value);
         }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.HasOptionalDropDownParameter4"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.HasOptionalDropDownParameter4"/>
         public virtual Boolean HasOptionalDropDownParameter4 => CommonBusinessProcess.HasOptionalDropDownParameter4;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter4Name"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter4Name"/>
         public virtual String Filter4Name => CommonBusinessProcess.Filter4Name;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter4DisplayMemberPath"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter4DisplayMemberPath"/>
         public virtual String Filter4DisplayMemberPath => CommonBusinessProcess.Filter4DisplayMemberPath;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter4SelectedValuePath"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter4SelectedValuePath"/>
         public virtual String Filter4SelectedValuePath => CommonBusinessProcess.Filter4SelectedValuePath;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter4SelectionChangedCommand"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter4SelectionChangedCommand"/>
         public virtual ICommand Filter4SelectionChangedCommand => RelayCommandFactory.New<Object>(OnFilter4_SelectionChanged);
 
         private IEnumerable? _filter4DataSource;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter4DataSource"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter4DataSource"/>
         public virtual IEnumerable? Filter4DataSource
         {
             get => _filter4DataSource;
@@ -362,25 +362,25 @@ namespace Foundation.ViewModels
         }
 
         private Object? _filter4SelectedItem;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.Filter4SelectedItem"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Filter4SelectedItem"/>
         public virtual Object? Filter4SelectedItem
         {
             get => _filter4SelectedItem;
             set => SetPropertyValue(ref _filter4SelectedItem, value);
         }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.FiltersVisible"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.FiltersVisible"/>
         public virtual Boolean FiltersVisible =>
             HasOptionalDropDownParameter1 ||
             HasOptionalDropDownParameter2 ||
             HasOptionalDropDownParameter3 ||
             HasOptionalDropDownParameter4;
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.StatusBarText"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.StatusBarText"/>
         public virtual String StatusBarText => CommonBusinessProcess.StatusBarText;
 
         private ObservableCollection<IGridColumnDefinition>? _dataGridColumns;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.DataGridColumns"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.DataGridColumns"/>
         public ObservableCollection<IGridColumnDefinition> DataGridColumns
         {
             get
@@ -396,7 +396,7 @@ namespace Foundation.ViewModels
         }
 
         private List<IGridColumnDefinition>? _gridExportColumns;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.GridExportColumns"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.GridExportColumns"/>
         public List<IGridColumnDefinition> GridExportColumns
         {
             get
@@ -412,7 +412,7 @@ namespace Foundation.ViewModels
         }
 
         private TModel? _selectedItem;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.SelectedItem"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.SelectedItem"/>
         public TModel? SelectedItem
         {
             get => _selectedItem;
@@ -420,29 +420,29 @@ namespace Foundation.ViewModels
         }
 
         private List<TModel> _gridDataSource;
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.GridDataSource"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.GridDataSource"/>
         public List<TModel> GridDataSource
         {
             get => _gridDataSource;
             protected internal set => SetPropertyValue(ref _gridDataSource, value);
         }
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.SelectedGridItemChangedCommand"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.SelectedGridItemChangedCommand"/>
         public ICommand SelectedGridItemChangedCommand => RelayCommandFactory.New<TModel>(OnSelectedGrid_ItemChanged);
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.ExportGridToExcelCommand"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.ExportGridToExcelCommand"/>
         public ICommand ExportGridToExcelCommand => RelayCommandFactory.New<List<TModel>>(OnExportGridToExcelCommand_Execute);
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.ExportGridToCsvCommand"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.ExportGridToCsvCommand"/>
         public ICommand ExportGridToCsvCommand => RelayCommandFactory.New<List<TModel>>(OnExportGridToCsvCommand_Execute);
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.CopyGridToCsvCommand"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.CopyGridToCsvCommand"/>
         public ICommand CopyGridToCsvCommand => RelayCommandFactory.New<List<TModel>>(OnCopyGridToCsvCommand_Execute);
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.CopyRowToCsvCommand"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.CopyRowToCsvCommand"/>
         public ICommand CopyRowToCsvCommand => RelayCommandFactory.New<TModel>(OnCopyRowToCsvCommand_Execute);
 
-        /// <inheritdoc cref="IGenericDataGridViewModelBase{TModel}.CopyCellValueCommand"/>
+        /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.CopyCellValueCommand"/>
         public ICommand CopyCellValueCommand => RelayCommandFactory.New<Object>(OnCopyCellValueCommand_Execute);
 
         /// <summary>

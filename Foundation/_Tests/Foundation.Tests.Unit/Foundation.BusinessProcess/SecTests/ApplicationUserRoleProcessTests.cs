@@ -10,6 +10,8 @@ using Foundation.BusinessProcess.Sec;
 using Foundation.Common;
 using Foundation.Interfaces;
 
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
+
 using FModels = Foundation.Models.Sec;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
@@ -29,13 +31,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             IApplicationUserRoleRepository dataAccess = Substitute.For<IApplicationUserRoleRepository>();
 
             return dataAccess;
-        }
-
-        protected override IApplicationUserRoleProcess CreateBusinessProcess()
-        {
-            IApplicationUserRoleProcess process = CreateBusinessProcess(DateTimeService);
-
-            return process;
         }
 
         protected override IApplicationUserRoleProcess CreateBusinessProcess(IDateTimeService dateTimeService)

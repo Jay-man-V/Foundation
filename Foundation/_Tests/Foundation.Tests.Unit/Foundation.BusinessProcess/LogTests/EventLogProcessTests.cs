@@ -9,6 +9,8 @@ using NSubstitute;
 using Foundation.BusinessProcess.Log;
 using Foundation.Interfaces;
 
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
+
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FModels = Foundation.Models.Log;
 
@@ -31,13 +33,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
             IEventLogRepository dataAccess = Substitute.For<IEventLogRepository>();
 
             return dataAccess;
-        }
-
-        protected override IEventLogProcess CreateBusinessProcess()
-        {
-            IEventLogProcess process = CreateBusinessProcess(DateTimeService);
-
-            return process;
         }
 
         protected override IEventLogProcess CreateBusinessProcess(IDateTimeService dateTimeService)

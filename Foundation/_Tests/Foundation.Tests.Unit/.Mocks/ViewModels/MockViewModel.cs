@@ -1,49 +1,49 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="MockViewModel.cs" company="JDV Software Ltd">
-//     Copyright (c) JDV Software Ltd. All rights reserved.
-// </copyright>
-//-----------------------------------------------------------------------
+﻿////-----------------------------------------------------------------------
+//// <copyright file="MockViewModel.cs" company="JDV Software Ltd">
+////     Copyright (c) JDV Software Ltd. All rights reserved.
+//// </copyright>
+////-----------------------------------------------------------------------
 
-using Foundation.Interfaces;
-using Foundation.ViewModels;
+//using Foundation.Interfaces;
+//using Foundation.ViewModels;
 
-namespace Foundation.Tests.Unit.Mocks.ViewModels
-{
-    public interface IMockViewModel : IViewModel
-    {
-        String StringProperty { get; set; }
-    }
+//namespace Foundation.Tests.Unit.Mocks.ViewModels
+//{
+//    public interface IMockViewModel : IViewModel
+//    {
+//        String StringProperty { get; set; }
+//    }
 
-    public class MockViewModel : ViewModelBase, IMockViewModel
-    {
-        public MockViewModel
-        (
-            ICore core,
-            IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
-            IDateTimeService dateTimeService,
-            IWpfApplicationObjects wpfApplicationObjects
-        )
-            : base
-            (
-                core,
-                runTimeEnvironmentSettings,
-                dateTimeService,
-                wpfApplicationObjects,
-                "Mock View"
-            )
-        {
-        }
+//    public class MockViewModel : ViewModelBase, IMockViewModel
+//    {
+//        public MockViewModel
+//        (
+//            ICore core,
+//            IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
+//            IDateTimeService dateTimeService,
+//            IWpfApplicationObjects wpfApplicationObjects
+//        )
+//            : base
+//            (
+//                core,
+//                runTimeEnvironmentSettings,
+//                dateTimeService,
+//                wpfApplicationObjects,
+//                "Mock View"
+//            )
+//        {
+//        }
 
-        private String _stringProperty = String.Empty;
-        public string StringProperty
-        {
-            get => _stringProperty;
-            set => SetPropertyValue(ref _stringProperty, value);
-        }
+//        private String _stringProperty = String.Empty;
+//        public string StringProperty
+//        {
+//            get => _stringProperty;
+//            set => SetPropertyValue(ref _stringProperty, value);
+//        }
 
-        public override void Initialise()
-        {
-            // Does nothing
-        }
-    }
-}
+//        public override void Initialise()
+//        {
+//            // Does nothing
+//        }
+//    }
+//}

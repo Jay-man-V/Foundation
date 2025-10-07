@@ -90,7 +90,7 @@ namespace Foundation.Core
                     typeof(IFoundationModelRepository<>).Name,
                     nameof(IFoundationObjectId),
                     nameof(IFoundationModelTracking),
-                    typeof(IGenericDataGridViewModelBase<>).Name,
+                    typeof(IGenericDataGridViewModel<>).Name,
                     nameof(IViewModel)
                 ];
 

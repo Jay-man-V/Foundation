@@ -9,6 +9,8 @@ using NSubstitute;
 using Foundation.BusinessProcess.Stg;
 using Foundation.Interfaces;
 
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
+
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FModels = Foundation.Models.Stg;
 
@@ -35,13 +37,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.StgTests
             IActiveDirectoryUserRepository dataAccess = Substitute.For<IActiveDirectoryUserRepository>();
 
             return dataAccess;
-        }
-
-        protected override IActiveDirectoryUserProcess CreateBusinessProcess()
-        {
-            IActiveDirectoryUserProcess process = CreateBusinessProcess(DateTimeService);
-
-            return process;
         }
 
         protected override IActiveDirectoryUserProcess CreateBusinessProcess(IDateTimeService dateTimeService)

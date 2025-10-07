@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The World Region view model interface
     /// </summary>
-    public interface IWorldRegionViewModel : IGenericDataGridViewModelBase<IWorldRegion>
+    public interface IWorldRegionViewModel : IGenericDataGridViewModel<IWorldRegion>
     {
     }
 }

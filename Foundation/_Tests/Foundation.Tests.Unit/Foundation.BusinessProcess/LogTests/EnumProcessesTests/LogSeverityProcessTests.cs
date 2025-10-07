@@ -9,6 +9,8 @@ using NSubstitute;
 using Foundation.BusinessProcess.Log.EnumProcesses;
 using Foundation.Interfaces;
 
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
+
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FModels = Foundation.Models.Log.EnumModels;
 
@@ -31,13 +33,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests.EnumProcesse
             ILogSeverityRepository dataAccess = Substitute.For<ILogSeverityRepository>();
 
             return dataAccess;
-        }
-
-        protected override ILogSeverityProcess CreateBusinessProcess()
-        {
-            ILogSeverityProcess process = CreateBusinessProcess(DateTimeService);
-
-            return process;
         }
 
         protected override ILogSeverityProcess CreateBusinessProcess(IDateTimeService dateTimeService)

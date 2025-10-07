@@ -7,7 +7,7 @@
 using Foundation.BusinessProcess.Main;
 using Foundation.Interfaces;
 
-using Foundation.Tests.Unit.BaseClasses;
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.MainTests
 {
@@ -15,7 +15,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.MainTests
     /// Summary description for MainApplicationProcessTests
     /// </summary>
     [TestFixture]
-    public class MainApplicationProcessTests : BusinessProcessUnitTestBase
+    public class MainApplicationProcessTests : BusinessProcessUnitTestsBase
     {
         private IMainApplicationProcess? TheProcess { get; set; }
 
@@ -23,14 +23,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.MainTests
         {
             base.TestInitialise();
 
-            TheProcess = CreateBusinessProcess();
-        }
-
-        protected IMainApplicationProcess CreateBusinessProcess()
-        {
-            IMainApplicationProcess process = CreateBusinessProcess(DateTimeService);
-
-            return process;
+            TheProcess = CreateBusinessProcess(DateTimeService);
         }
 
         protected IMainApplicationProcess CreateBusinessProcess(IDateTimeService dateTimeService)

@@ -10,6 +10,8 @@ using Foundation.BusinessProcess.Sec.EnumProcesses;
 using Foundation.Common;
 using Foundation.Interfaces;
 
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
+
 using FModels = Foundation.Models.Sec.EnumModels;
 
 namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests.EnumProcessesTests
@@ -29,13 +31,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests.EnumProcesse
             IApplicationRoleRepository dataAccess = Substitute.For<IApplicationRoleRepository>();
 
             return dataAccess;
-        }
-
-        protected override IApplicationRoleProcess CreateBusinessProcess()
-        {
-            IApplicationRoleProcess process = CreateBusinessProcess(DateTimeService);
-
-            return process;
         }
 
         protected override IApplicationRoleProcess CreateBusinessProcess(IDateTimeService dateTimeService)

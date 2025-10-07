@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core
     /// <summary>
     /// The User Interface interaction logic for National Region maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{INationalRegion}" />
+    /// <seealso cref="GenericDataGridViewModel{INationalRegion}" />
     [DependencyInjectionTransient]
-    public class NationalRegionViewModel : GenericDataGridViewModelBase<INationalRegion>, INationalRegionViewModel
+    public class NationalRegionViewModel : GenericDataGridViewModel<INationalRegion>, INationalRegionViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="NationalRegionViewModel"/> class.

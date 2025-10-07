@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Contact view model interface
     /// </summary>
-    public interface IContactDetailViewModel : IGenericDataGridViewModelBase<IContactDetail>
+    public interface IContactDetailViewModel : IGenericDataGridViewModel<IContactDetail>
     {
     }
 }

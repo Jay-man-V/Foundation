@@ -12,7 +12,7 @@ namespace Foundation.ViewModels.Dialogs
     /// <summary>
     /// The User Interface interaction logic for generic Entity Search screen
     /// </summary>
-    public class SearchEntityViewModel : ViewModelBase
+    public class SearchEntityViewModel : ViewModel
     {
         private List<string> _selectedListItems;
         private List<string> _availableListItems;

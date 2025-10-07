@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Event Log Attachment view model interface
     /// </summary>
-    public interface IEventLogAttachmentViewModel : IGenericDataGridViewModelBase<IEventLogAttachment>
+    public interface IEventLogAttachmentViewModel : IGenericDataGridViewModel<IEventLogAttachment>
     {
     }
 }

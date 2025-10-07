@@ -1,21 +1,21 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="IGenericDataGridViewModelBase.cs" company="JDV Software Ltd">
+// <copyright file="IGenericDataGridViewModel.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-
-using Foundation.Interfaces.Helpers;
 
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
+using Foundation.Interfaces.Helpers;
+
 namespace Foundation.Interfaces
 {
     /// <summary>
-    /// Defines the behaviour of the Generic DataGrid View Model Base
+    /// Defines the behaviour of the Generic DataGrid View Model
     /// </summary>
-    public interface IGenericDataGridViewModelBase<TModel> : IViewModel
+    public interface IGenericDataGridViewModel<TModel> : IViewModel
         where TModel : IFoundationModel
     {
         /// <summary>Gets the status bar text.</summary>

@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Import export control view model interface
     /// </summary>
-    public interface IImportExportControlViewModel : IGenericDataGridViewModelBase<IImportExportControl>
+    public interface IImportExportControlViewModel : IGenericDataGridViewModel<IImportExportControl>
     {
     }
 }

@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Log
     /// <summary>
     /// The User Interface interaction logic for Event Log Application maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IImportExportControl}" />
+    /// <seealso cref="GenericDataGridViewModel{IImportExportControl}" />
     [DependencyInjectionTransient]
-    public class ImportExportControlViewModel : GenericDataGridViewModelBase<IImportExportControl>, IImportExportControlViewModel
+    public class ImportExportControlViewModel : GenericDataGridViewModel<IImportExportControl>, IImportExportControlViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ImportExportControlViewModel"/> class.

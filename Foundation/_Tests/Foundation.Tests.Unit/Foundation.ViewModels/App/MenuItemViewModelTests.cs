@@ -9,30 +9,31 @@ using NSubstitute;
 using Foundation.Interfaces;
 using Foundation.ViewModels.App;
 
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
-using FDC = Foundation.Resources.Constants.DataColumns;
-
-namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
+namespace Foundation.Tests.Unit.Foundation.ViewModels.App
 {
     /// <summary>
     /// Summary description for MenuItemViewModelTests
     /// </summary>
     [TestFixture]
-    public class MenuItemViewModelTests : GenericDataGridViewModelTestBaseClass<IMenuItem, IMenuItemViewModel, IMenuItemProcess>
+    public class MenuItemViewModelTests : GenericDataGridViewModelTests<IMenuItem, IMenuItemViewModel, IMenuItemProcess>
     {
-        protected override String ExpectedScreenTitle => "Menu Items";
-        protected override String ExpectedStatusBarText => "Number of Menu Items:";
+        private IApplicationProcess? ApplicationProcess { get; set; }
 
-        protected override Boolean ExpectedHasOptionalDropDownParameter1 => true;
-        protected override String ExpectedFilter1Name => "Application:";
-        protected override string ExpectedFilter1DisplayMemberPath => FDC.Application.Name;
+        protected override IMenuItemProcess CreateBusinessProcess()
+        {
+            IMenuItemProcess retVal = Substitute.For<IMenuItemProcess>();
 
-        protected override Boolean ExpectedHasOptionalDropDownParameter2 => true;
-        protected override String ExpectedFilter2Name => "Parent:";
-        protected override string ExpectedFilter2DisplayMemberPath => FDC.MenuItem.Caption;
+            return retVal;
+        }
 
-        private IApplicationProcess ApplicationProcess { get; set; }
+        protected override IMenuItemViewModel CreateViewModel()
+        {
+            IMenuItemViewModel retVal = CreateViewModel(DateTimeService);
+
+            return retVal;
+        }
 
         protected override IMenuItemViewModel CreateViewModel(IDateTimeService dateTimeService)
         {
@@ -43,12 +44,16 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             return viewModel;
         }
 
-        protected override IMenuItemProcess CreateBusinessProcess()
-        {
-            IMenuItemProcess process = Substitute.For<IMenuItemProcess>();
+        //protected override String ExpectedScreenTitle => "Menu Items";
+        //protected override String ExpectedStatusBarText => "Number of Menu Items:";
 
-            return process;
-        }
+        //protected override Boolean ExpectedHasOptionalDropDownParameter1 => true;
+        //protected override String ExpectedFilter1Name => "Application:";
+        //protected override string ExpectedFilter1DisplayMemberPath => FDC.Application.Name;
+
+        //protected override Boolean ExpectedHasOptionalDropDownParameter2 => true;
+        //protected override String ExpectedFilter2Name => "Parent:";
+        //protected override string ExpectedFilter2DisplayMemberPath => FDC.MenuItem.Caption;
 
         protected override IMenuItem CreateModel()
         {
@@ -65,52 +70,52 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             retVal.HelpText = Guid.NewGuid().ToString();
             retVal.MultiInstance = true;
             retVal.ShowInTab = true;
-            retVal.Icon = new Byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 10 };
+            retVal.Icon = [1, 2, 3, 4, 5, 6, 7, 8, 10];
 
             return retVal;
         }
 
-        protected override void SetupForRefreshData()
-        {
-            base.SetupForRefreshData();
+        //protected override void SetupForRefreshData()
+        //{
+        //    base.SetupForRefreshData();
 
-            List<IApplication> applications = new List<IApplication>
-            {
-                CoreInstance.IoC.Get<IApplication>(),
-                CoreInstance.IoC.Get<IApplication>(),
-            };
-            ApplicationProcess.GetAll().Returns(applications);
+        //    List<IApplication> applications = new List<IApplication>
+        //    {
+        //        CoreInstance.IoC.Get<IApplication>(),
+        //        CoreInstance.IoC.Get<IApplication>(),
+        //    };
+        //    ApplicationProcess.GetAll().Returns(applications);
 
-            //List<IMenuItem> menuItems = new List<IMenuItem>
-            //{
-            //    CoreInstance.IoC.Get<IMenuItem>(),
-            //    CoreInstance.IoC.Get<IMenuItem>(),
-            //};
-            //BusinessProcess.GetAll().Returns(menuItems);
+        //    //List<IMenuItem> menuItems = new List<IMenuItem>
+        //    //{
+        //    //    CoreInstance.IoC.Get<IMenuItem>(),
+        //    //    CoreInstance.IoC.Get<IMenuItem>(),
+        //    //};
+        //    //BusinessProcess.GetAll().Returns(menuItems);
 
-            List<IMenuItem> parentMenuItems = new List<IMenuItem>
-            {
-                CreateModel(),
-                CreateModel(),
-            };
-            BusinessProcess.MakeListOfParentMenuItems(Arg.Any<List<IMenuItem>>()).Returns(parentMenuItems);
+        //    List<IMenuItem> parentMenuItems = new List<IMenuItem>
+        //    {
+        //        CreateModel(),
+        //        CreateModel(),
+        //    };
+        //    BusinessProcess.MakeListOfParentMenuItems(Arg.Any<List<IMenuItem>>()).Returns(parentMenuItems);
 
-            List<IMenuItem> filteredData = new List<IMenuItem>();
-            BusinessProcess.ApplyFilter(Arg.Any<List<IMenuItem>>(), Arg.Any<IApplication>(), Arg.Any<IMenuItem>()).Returns(filteredData);
-        }
+        //    List<IMenuItem> filteredData = new List<IMenuItem>();
+        //    BusinessProcess.ApplyFilter(Arg.Any<List<IMenuItem>>(), Arg.Any<IApplication>(), Arg.Any<IMenuItem>()).Returns(filteredData);
+        //}
 
-        protected override Object CreateModelForDropDown1()
-        {
-            IApplication retVal = CoreInstance.IoC.Get<IApplication>();
+        //protected override Object CreateModelForDropDown1()
+        //{
+        //    IApplication retVal = CoreInstance.IoC.Get<IApplication>();
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
-        protected override Object CreateModelForDropDown2()
-        {
-            IMenuItem retVal = CoreInstance.IoC.Get<IMenuItem>();
+        //protected override Object CreateModelForDropDown2()
+        //{
+        //    IMenuItem retVal = CoreInstance.IoC.Get<IMenuItem>();
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
     }
 }

@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core
     /// <summary>
     /// The User Interface interaction logic for Country maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{ICountry}" />
+    /// <seealso cref="GenericDataGridViewModel{ICountry}" />
     [DependencyInjectionTransient]
-    public class CountryViewModel : GenericDataGridViewModelBase<ICountry>, ICountryViewModel
+    public class CountryViewModel : GenericDataGridViewModel<ICountry>, ICountryViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="CountryViewModel"/> class.

@@ -10,6 +10,8 @@ using Foundation.BusinessProcess.Sec;
 using Foundation.Interfaces;
 using Foundation.Interfaces.Helpers;
 
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
+
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FModels = Foundation.Models.Sec;
 
@@ -32,13 +34,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             ILoggedOnUserRepository dataAccess = Substitute.For<ILoggedOnUserRepository>();
 
             return dataAccess;
-        }
-
-        protected override ILoggedOnUserProcess CreateBusinessProcess()
-        {
-            ILoggedOnUserProcess process = CreateBusinessProcess(DateTimeService);
-
-            return process;
         }
 
         protected override ILoggedOnUserProcess CreateBusinessProcess(IDateTimeService dateTimeService)

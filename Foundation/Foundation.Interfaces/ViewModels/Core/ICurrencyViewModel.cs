@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Currency view model interface
     /// </summary>
-    public interface ICurrencyViewModel : IGenericDataGridViewModelBase<ICurrency>
+    public interface ICurrencyViewModel : IGenericDataGridViewModel<ICurrency>
     {
     }
 }

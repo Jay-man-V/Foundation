@@ -8,6 +8,8 @@ using NSubstitute;
 
 using Foundation.BusinessProcess.Sec;
 using Foundation.Interfaces;
+
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
 using Foundation.Tests.Unit.Support;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
@@ -32,13 +34,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             IUserProfileRepository dataAccess = Substitute.For<IUserProfileRepository>();
 
             return dataAccess;
-        }
-
-        protected override IUserProfileProcess CreateBusinessProcess()
-        {
-            IUserProfileProcess process = CreateBusinessProcess(DateTimeService);
-
-            return process;
         }
 
         protected override IUserProfileProcess CreateBusinessProcess(IDateTimeService dateTimeService)

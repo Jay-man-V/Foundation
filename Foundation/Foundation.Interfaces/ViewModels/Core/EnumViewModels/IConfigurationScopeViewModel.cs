@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Configuration Scope view model interface
     /// </summary>
-    public interface IConfigurationScopeViewModel : IGenericDataGridViewModelBase<IConfigurationScope>
+    public interface IConfigurationScopeViewModel : IGenericDataGridViewModel<IConfigurationScope>
     {
     }
 }

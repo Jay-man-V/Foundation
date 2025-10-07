@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Approval Status view model interface
     /// </summary>
-    public interface IApprovalStatusViewModel : IGenericDataGridViewModelBase<IApprovalStatus>
+    public interface IApprovalStatusViewModel : IGenericDataGridViewModel<IApprovalStatus>
     {
     }
 }

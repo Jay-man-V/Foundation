@@ -10,6 +10,8 @@ using Foundation.BusinessProcess.Core;
 using Foundation.Common;
 using Foundation.Interfaces;
 
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
+
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FModels = Foundation.Models.Core;
 
@@ -47,13 +49,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             IApplicationConfigurationRepository dataAccess = Substitute.For<IApplicationConfigurationRepository>();
 
             return dataAccess;
-        }
-
-        protected override IApplicationConfigurationProcess CreateBusinessProcess()
-        {
-            IApplicationConfigurationProcess process = CreateBusinessProcess(DateTimeService);
-
-            return process;
         }
 
         protected override IApplicationConfigurationProcess CreateBusinessProcess(IDateTimeService dateTimeService)

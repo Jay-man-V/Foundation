@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Application Role view model interface
     /// </summary>
-    public interface IApplicationRoleViewModel : IGenericDataGridViewModelBase<IApplicationRole>
+    public interface IApplicationRoleViewModel : IGenericDataGridViewModel<IApplicationRole>
     {
     }
 }

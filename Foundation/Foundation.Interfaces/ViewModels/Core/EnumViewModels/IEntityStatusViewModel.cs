@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Entity Status view model interface
     /// </summary>
-    public interface IEntityStatusViewModel : IGenericDataGridViewModelBase<IEntityStatus>
+    public interface IEntityStatusViewModel : IGenericDataGridViewModel<IEntityStatus>
     {
     }
 }

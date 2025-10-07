@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Log.EnumViewModels
     /// <summary>
     /// The User Interface interaction logic for Log Severity maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IApprovalStatus}" />
+    /// <seealso cref="GenericDataGridViewModel{IApprovalStatus}" />
     [DependencyInjectionTransient]
-    public class LogSeverityViewModel : GenericDataGridViewModelBase<ILogSeverity>, ILogSeverityViewModel
+    public class LogSeverityViewModel : GenericDataGridViewModel<ILogSeverity>, ILogSeverityViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="LogSeverityViewModel"/> class.

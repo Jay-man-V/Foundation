@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core
     /// <summary>
     /// The User Interface interaction logic for NonWorkingDay maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{INonWorkingDay}" />
+    /// <seealso cref="GenericDataGridViewModel{INonWorkingDay}" />
     [DependencyInjectionTransient]
-    public class NonWorkingDayViewModel : GenericDataGridViewModelBase<INonWorkingDay>, INonWorkingDayViewModel
+    public class NonWorkingDayViewModel : GenericDataGridViewModel<INonWorkingDay>, INonWorkingDayViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="NonWorkingDayViewModel"/> class.

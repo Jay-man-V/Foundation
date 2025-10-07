@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core
     /// <summary>
     /// The User Interface interaction logic for Contract maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModelBase{IContract}" />
+    /// <seealso cref="GenericDataGridViewModel{IContract}" />
     [DependencyInjectionTransient]
-    public class ContractViewModel : GenericDataGridViewModelBase<IContract>, IContractViewModel
+    public class ContractViewModel : GenericDataGridViewModel<IContract>, IContractViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ContractViewModel"/> class.

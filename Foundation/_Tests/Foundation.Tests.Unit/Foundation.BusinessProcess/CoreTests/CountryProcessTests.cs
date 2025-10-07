@@ -11,6 +11,8 @@ using Foundation.Tests.Unit.Support;
 using Foundation.BusinessProcess.Core;
 using Foundation.Interfaces;
 
+using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
+
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FModels = Foundation.Models.Core;
 
@@ -34,13 +36,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             ICountryRepository dataAccess = Substitute.For<ICountryRepository>();
 
             return dataAccess;
-        }
-
-        protected override ICountryProcess CreateBusinessProcess()
-        {
-            ICountryProcess process = CreateBusinessProcess(DateTimeService);
-
-            return process;
         }
 
         protected override ICountryProcess CreateBusinessProcess(IDateTimeService dateTimeService)

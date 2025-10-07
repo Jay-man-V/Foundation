@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="BusinessProcessUnitTestBase.cs" company="JDV Software Ltd">
+// <copyright file="BusinessProcessUnitTestsBase.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -7,21 +7,23 @@
 using NSubstitute;
 
 using Foundation.Common;
+using Foundation.Core;
 using Foundation.Interfaces;
 using Foundation.Models.Sec;
 using Foundation.Resources;
 
+using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Support;
 
 using FModels = Foundation.Models;
 
-namespace Foundation.Tests.Unit.BaseClasses
+namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
 {
     /// <summary>
-    /// The Business Process Unit Test Base class
+    /// The Business Process Unit Tests Base class
     /// </summary>
     [TestFixture]
-    public abstract class BusinessProcessUnitTestBase : UnitTestBase
+    public abstract class BusinessProcessUnitTestsBase : UnitTestBase
     {
         protected ICore CoreInstance { get; set; }
         protected IApplicationConfigurationService ApplicationConfigurationService { get; set; }
@@ -259,7 +261,7 @@ namespace Foundation.Tests.Unit.BaseClasses
 
             LoggedOnUserProcess = Substitute.For<ILoggedOnUserProcess>();
 
-            CoreInstance = Core.Core.Initialise(null, RunTimeEnvironmentSettings, applicationProcess, UserProfileProcess, LoggedOnUserProcess);
+            CoreInstance = global::Foundation.Core.Core.Initialise(null, RunTimeEnvironmentSettings, applicationProcess, UserProfileProcess, LoggedOnUserProcess);
             //CoreInstance = Substitute.For<ICore>();
             //CoreInstance.ApplicationName.Returns(TestingApplicationName);
             //CoreInstance.ApplicationId.Returns(TestingApplicationId);
