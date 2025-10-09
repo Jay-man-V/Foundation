@@ -5,6 +5,8 @@
 //-----------------------------------------------------------------------
 
 using Foundation.Interfaces;
+using Foundation.ViewModels;
+using NSubstitute;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
 {
@@ -19,10 +21,10 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
         //protected String ExpectedScreenTitle => String.Empty;
         //protected override String ExpectedStatusBarText => "Number of rows:";
 
+        protected GenericDataGridViewModel<TModel>? GenericDataGridViewModel => TheViewModel as GenericDataGridViewModel<TModel>;
         protected TBusinessProcess BusinessProcess { get; private set; }
 
         protected abstract TBusinessProcess CreateBusinessProcess();
-        //protected GenericDataGridViewModelBase<TModel> GenericDataGridViewModelBase { get; private set; }
 
         public override void TestInitialise()
         {
@@ -32,9 +34,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
             //SetBusinessProcessProperties(BusinessProcess);
 
             TheViewModel = CreateViewModel();
-            //GenericDataGridViewModelBase = TheViewModel as GenericDataGridViewModelBase<TModel>;
+            SetupFilterOptionsForReferencedBusinessProcess();
         }
-
 
         protected virtual TModel CreateBlankModel()
         {
@@ -206,11 +207,11 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
         //    SetupForRefreshData();
         //}
 
-        //protected virtual void SetupForRefreshData()
-        //{
-        //    List<TModel> entities = new List<TModel>();
-        //    BusinessProcess.GetAll().Returns(entities);
-        //}
+        protected virtual void SetupForRefreshData()
+        {
+            List<TModel> entities = [];
+            BusinessProcess.GetAll().Returns(entities);
+        }
 
         //protected virtual void CheckAction1Properties(TGenericDataGridViewModel viewModel)
         //{

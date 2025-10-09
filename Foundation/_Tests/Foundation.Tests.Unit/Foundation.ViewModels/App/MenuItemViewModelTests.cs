@@ -19,18 +19,21 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.App
     [TestFixture]
     public class MenuItemViewModelTests : GenericDataGridViewModelTests<IMenuItem, IMenuItemViewModel, IMenuItemProcess>
     {
+        protected override String ExpectedFormTitle => String.Empty;
+
         private IApplicationProcess? ApplicationProcess { get; set; }
 
         protected override IMenuItemProcess CreateBusinessProcess()
         {
             IMenuItemProcess retVal = Substitute.For<IMenuItemProcess>();
 
-            return retVal;
-        }
+            List<IMenuItem> parentMenuItems =
+            [
+                Substitute.For<IMenuItem>(),
+                Substitute.For<IMenuItem>(),
+            ];
 
-        protected override IMenuItemViewModel CreateViewModel()
-        {
-            IMenuItemViewModel retVal = CreateViewModel(DateTimeService);
+            retVal.MakeListOfParentMenuItems(Arg.Any<List<IMenuItem>>()).Returns(parentMenuItems);
 
             return retVal;
         }
@@ -39,9 +42,26 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.App
         {
             ApplicationProcess = Substitute.For<IApplicationProcess>();
 
+            SetupForRefreshData();
+
             IMenuItemViewModel viewModel = new MenuItemViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess, ApplicationProcess);
 
             return viewModel;
+        }
+
+        protected override void SetupFilterOptionsForReferencedBusinessProcess()
+        {
+            List<IApplication> allItems = [];
+            ApplicationProcess!.GetAll().Returns(allItems);
+
+            ApplicationProcess
+                .When(ap => ap.AddFilterOptionsAdditional(Arg.Any<List<IApplication>>()))
+                .Do((args) =>
+                {
+                    List<IApplication> aList = (List<IApplication>)args[0];
+                    aList.Add(Substitute.For<IApplication>());
+                    aList.Add(Substitute.For<IApplication>());
+                });
         }
 
         //protected override String ExpectedScreenTitle => "Menu Items";
@@ -75,34 +95,27 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.App
             return retVal;
         }
 
-        //protected override void SetupForRefreshData()
-        //{
-        //    base.SetupForRefreshData();
+        protected override void SetupForRefreshData()
+        {
+            base.SetupForRefreshData();
 
-        //    List<IApplication> applications = new List<IApplication>
-        //    {
-        //        CoreInstance.IoC.Get<IApplication>(),
-        //        CoreInstance.IoC.Get<IApplication>(),
-        //    };
-        //    ApplicationProcess.GetAll().Returns(applications);
+            List<IMenuItem> menuItems =
+            [
+                Substitute.For<IMenuItem>(),
+                Substitute.For<IMenuItem>(),
+            ];
+            BusinessProcess.GetAll().Returns(menuItems);
 
-        //    //List<IMenuItem> menuItems = new List<IMenuItem>
-        //    //{
-        //    //    CoreInstance.IoC.Get<IMenuItem>(),
-        //    //    CoreInstance.IoC.Get<IMenuItem>(),
-        //    //};
-        //    //BusinessProcess.GetAll().Returns(menuItems);
+            List<IMenuItem> parentMenuItems =
+            [
+                CreateModel(),
+                CreateModel()
+            ];
+            BusinessProcess.MakeListOfParentMenuItems(Arg.Any<List<IMenuItem>>()).Returns(parentMenuItems);
 
-        //    List<IMenuItem> parentMenuItems = new List<IMenuItem>
-        //    {
-        //        CreateModel(),
-        //        CreateModel(),
-        //    };
-        //    BusinessProcess.MakeListOfParentMenuItems(Arg.Any<List<IMenuItem>>()).Returns(parentMenuItems);
-
-        //    List<IMenuItem> filteredData = new List<IMenuItem>();
-        //    BusinessProcess.ApplyFilter(Arg.Any<List<IMenuItem>>(), Arg.Any<IApplication>(), Arg.Any<IMenuItem>()).Returns(filteredData);
-        //}
+            List<IMenuItem> filteredData = [];
+            BusinessProcess.ApplyFilter(Arg.Any<List<IMenuItem>>(), Arg.Any<IApplication>(), Arg.Any<IMenuItem>()).Returns(filteredData);
+        }
 
         //protected override Object CreateModelForDropDown1()
         //{

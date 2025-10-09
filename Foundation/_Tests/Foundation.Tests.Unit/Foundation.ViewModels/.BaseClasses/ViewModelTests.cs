@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Common;
 using NSubstitute;
 
 using Foundation.Interfaces;
@@ -18,7 +19,10 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
     public abstract class ViewModelTests<TViewModel> : ViewModelUnitTestsBase
         where TViewModel : IViewModel
     {
+        protected abstract String ExpectedFormTitle { get; }
+
         protected TViewModel? TheViewModel { get; set; }
+        protected ViewModel? TheViewModelBase => TheViewModel as ViewModel;
 
         protected virtual TViewModel CreateViewModel()
         {
@@ -34,321 +38,236 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
             base.TestInitialise();
         }
 
+        protected abstract void SetupFilterOptionsForReferencedBusinessProcess();
+
         [TestCase]
-        public void Test_CommonProcess_Properties()
+        public void Test_StaticConstructorAndMembers()
         {
-            ViewModel? viewModel = TheViewModel as ViewModel;
-            Assert.That(viewModel!.RunTimeEnvironmentSettings, Is.Not.EqualTo(null));
-            Assert.That(viewModel.CloseWindowCommand, Is.Not.EqualTo(null));
-            Assert.That(viewModel.DateTimeService, Is.Not.EqualTo(null));
-            Assert.That(viewModel.ExitApplicationCommand, Is.Not.EqualTo(null));
-            Assert.That(viewModel.FormTitle, Is.Not.EqualTo(null));
-            Assert.That(viewModel.HasPreviousNotificationMessage, Is.Not.EqualTo(null));
-            Assert.That(viewModel.IsSystemSupport, Is.Not.EqualTo(null));
-            Assert.That(viewModel.LastMessage, Is.Not.EqualTo(null));
-            Assert.That(viewModel.LastMessageHeader, Is.Not.EqualTo(null));
-            Assert.That(viewModel.LastMessageType, Is.Not.EqualTo(null));
-            Assert.That(viewModel.MessageBoxImage, Is.Not.EqualTo(null));
+            Assert.That(ViewModel.StatusProcess, Is.Not.EqualTo(null));
+            Assert.That(ViewModel.UserProfileProcess, Is.Not.EqualTo(null));
+            Assert.That(ViewModel.LoggedOnUserProcess, Is.Not.EqualTo(null));
+
+            Assert.That(ViewModel.StatusesList, Is.Not.EqualTo(null));
+            Assert.That(ViewModel.UserProfilesList, Is.Not.EqualTo(null));
+            Assert.That(ViewModel.LoggedOnUsersList, Is.Not.EqualTo(null));
+
+            Assert.That(ViewModel.StatusesList.Count, Is.EqualTo(5));
+            Assert.That(ViewModel.UserProfilesList.Count, Is.EqualTo(5));
+            Assert.That(ViewModel.LoggedOnUsersList.Count, Is.EqualTo(1));
+
+            Assert.That(ViewModel.StatusesList, Is.EqualTo(StatusesList));
+            Assert.That(ViewModel.UserProfilesList, Is.EqualTo(UserProfileList));
+            Assert.That(ViewModel.LoggedOnUsersList, Is.EqualTo(LoggedOnUsersList));
+
+            Assert.That(ViewModel.StatusesList.ToList(), Is.EquivalentTo(StatusesList.ToList()));
+            Assert.That(ViewModel.UserProfilesList.ToList(), Is.EquivalentTo(UserProfileList.ToList()));
+            Assert.That(ViewModel.LoggedOnUsersList.ToList(), Is.EquivalentTo(LoggedOnUsersList.ToList()));
         }
 
-        //protected abstract String ExpectedScreenTitle { get; }
 
+        [TestCase]
+        public void Test_ViewModelBaseConstructor()
+        {
+            Assert.That(TheViewModel!.FormTitle, Is.EqualTo(ExpectedFormTitle));
+            Assert.That(TheViewModel.Parameters, Is.InstanceOf<Dictionary<String, Object>>());
+            Assert.That(TheViewModel.Parameters.Count, Is.EqualTo(0));
+        }
+
+        [TestCase]
+        public void Test_Properties_InitialValues()
+        {
+            Assert.That(TheViewModelBase!.ApplicationWrapper, Is.Not.EqualTo(null));
+            Assert.That(TheViewModelBase.ClipBoardWrapper, Is.Not.EqualTo(null));
+            Assert.That(TheViewModelBase.CloseWindowCommand, Is.Not.EqualTo(null));
+            Assert.That(TheViewModelBase.DateTimeService, Is.Not.EqualTo(null));
+            Assert.That(TheViewModelBase.DialogService, Is.Not.EqualTo(null));
+            Assert.That(TheViewModelBase.DispatchTimerWrapper, Is.Not.EqualTo(null));
+            Assert.That(TheViewModelBase.ExitApplicationCommand, Is.Not.EqualTo(null));
+            Assert.That(TheViewModelBase.MouseCursor, Is.Not.Null);
+            Assert.That(TheViewModelBase.RunTimeEnvironmentSettings, Is.Not.EqualTo(null));
+            Assert.That(TheViewModelBase.WpfApplicationObjects, Is.Not.EqualTo(null));
+
+            Assert.That(TheViewModelBase.Parameters, Is.InstanceOf<Dictionary<String, Object>>());
+            Assert.That(TheViewModelBase.Parameters.Count, Is.EqualTo(0));
+
+            Assert.That(TheViewModelBase.IsSystemSupport, Is.EqualTo(true));
+            Assert.That(TheViewModelBase.FormTitle, Is.Not.EqualTo(null));
+            Assert.That(TheViewModelBase.HasPreviousNotificationMessage, Is.EqualTo(false));
+            Assert.That(TheViewModelBase.LastMessage, Is.EqualTo(String.Empty));
+            Assert.That(TheViewModelBase.LastMessageHeader, Is.EqualTo(String.Empty));
+            Assert.That(TheViewModelBase.LastMessageType, Is.EqualTo(MessageType.NotSet));
+            Assert.That(TheViewModelBase.MessageBoxImage, Is.EqualTo(MessageBoxImage.None));
+            Assert.That(TheViewModelBase.ScreenInstructions, Is.EqualTo(String.Empty));
+        }
+
+        [TestCase]
+        public void Test_Properties_SetValue()
+        {
+            String expectedFormTitle = Guid.NewGuid().ToString();
+            String expectedScreenInstructions = Guid.NewGuid().ToString();
+            MessageBoxImage expectedImage = MessageBoxImage.Information;
+
+            TheViewModelBase!.FormTitle = expectedFormTitle;
+            TheViewModelBase.MessageBoxImage = expectedImage;
+            TheViewModelBase.ScreenInstructions = expectedScreenInstructions;
+
+            Assert.That(TheViewModelBase.FormTitle, Is.EqualTo(expectedFormTitle));
+            Assert.That(TheViewModelBase.HasPreviousNotificationMessage, Is.EqualTo(false));
+            Assert.That(TheViewModelBase.LastMessage, Is.EqualTo(String.Empty));
+            Assert.That(TheViewModelBase.LastMessageHeader, Is.EqualTo(String.Empty));
+            Assert.That(TheViewModelBase.LastMessageType, Is.EqualTo(MessageType.NotSet));
+            Assert.That(TheViewModelBase.MessageBoxImage, Is.EqualTo(expectedImage));
+            Assert.That(TheViewModelBase.ScreenInstructions, Is.EqualTo(expectedScreenInstructions));
+        }
+
+        [TestCase]
+        public void Test_Initialise()
+        {
+            IWindow targetWindow = Substitute.For<IWindow>();
+            targetWindow.DataContext = Guid.NewGuid();
+
+            IViewModel parentViewModel = Substitute.For<IViewModel>();
+
+            String formTitle = Guid.NewGuid().ToString();
+
+            TheViewModel!.Initialise(targetWindow, parentViewModel, formTitle);
+
+            Assert.That(TheViewModelBase!.ThisWindow, Is.EqualTo(targetWindow));
+            Assert.That(TheViewModelBase.ThisWindow!.DataContext, Is.EqualTo(targetWindow.DataContext));
+
+            Assert.That(TheViewModel.ParentViewModel, Is.EqualTo(parentViewModel));
+
+            Assert.That(TheViewModel.FormTitle, Is.EqualTo(formTitle));
+
+            Assert.That(ViewModel.LoggedOnUsersList.Count, Is.EqualTo(1));
+            Assert.That(ViewModel.StatusesList.Count, Is.EqualTo(5));
+            Assert.That(ViewModel.LoggedOnUsersList.Count, Is.EqualTo(1));
+        }
+
+        [TestCase]
+        public void Test_NotifyPropertyChanged()
+        {
+            Int32 expectedChangedCount = 2;
+            Int32 changedPropertiesCount = 0;
+
+            String propertyName = "Property name not set";
+            TheViewModel!.PropertyChanged += (_, args) =>
+            {
+                Assert.That(args.PropertyName, Is.EqualTo(propertyName));
+                changedPropertiesCount++;
+            };
+
+            propertyName = nameof(TheViewModelBase.FormTitle);
+            TheViewModelBase!.FormTitle = Guid.NewGuid().ToString();
+
+            propertyName = nameof(TheViewModelBase.ScreenInstructions);
+            TheViewModelBase.ScreenInstructions = Guid.NewGuid().ToString();
+
+            Assert.That(changedPropertiesCount, Is.EqualTo(expectedChangedCount));
+        }
 
-        //protected virtual void CheckBaseClassProperties(TViewModel viewModel)
-        //{
-
-        //}
-
-        //protected virtual void InitialiseViewModel()
-        //{
-
-        //}
-
-
-        //[TestCase]
-        //public void Test_StaticConstructorAndMembers()
-        //{
-        //    ViewModel.StatusesList = null;
-        //    ViewModel.UserProfilesList = null;
-        //    ViewModel.LoggedOnUsersList = null;
-
-        //    Assert.That(ViewModel.StatusProcess, Is.Not.Null);
-        //    Assert.That(ViewModel.UserProfileProcess, Is.Not.Null);
-        //    Assert.That(ViewModel.LoggedOnUserProcess, Is.Not.Null);
-
-        //    Assert.That(ViewModel.StatusesList, Is.Not.Null);
-        //    Assert.That(ViewModel.UserProfilesList, Is.Not.Null);
-        //    Assert.That(ViewModel.LoggedOnUsersList, Is.Not.Null);
-
-        //    Assert.That(ViewModel.StatusesList, Is.EqualTo(StatusesList));
-        //    Assert.That(ViewModel.UserProfilesList, Is.EqualTo(UserProfileList));
-        //    Assert.That(ViewModel.LoggedOnUsersList, Is.EqualTo(LoggedOnUsersList));
-
-        //    Assert.That(ViewModel.StatusesList.ToList(), Is.EquivalentTo(StatusesList.ToList()));
-        //    Assert.That(ViewModel.UserProfilesList.ToList(), Is.EquivalentTo(UserProfileList.ToList()));
-        //    Assert.That(ViewModel.LoggedOnUsersList.ToList(), Is.EquivalentTo(LoggedOnUsersList.ToList()));
-        //}
-
-        //[TestCase]
-        //public void Test_ViewModelBaseConstructor()
-        //{
-        //    IViewModel viewModel = CreateViewModel();
-        //    ViewModel viewModelBase = (ViewModel)viewModel;
-
-        //    Assert.That(viewModel.FormTitle, Is.EqualTo(ExpectedScreenTitle));
-        //    Assert.That(viewModel.Parameters, Is.InstanceOf<Dictionary<String, Object>>());
-        //    Assert.That(viewModel.Parameters.Count, Is.EqualTo(0));
-
-        //    Assert.That(viewModelBase.DateTimeService, Is.Not.Null);
-        //    Assert.That(viewModelBase.RunTimeEnvironmentSettings, Is.Not.Null);
-        //}
-
-        //[TestCase]
-        //public void Test_MouseBusyCursor()
-        //{
-        //    IViewModel viewModel = CreateViewModel();
-        //    ViewModel viewModelBase = (ViewModel)viewModel;
-
-        //    Assert.That(viewModelBase.MouseCursor, Is.Not.Null);
-        //}
-
-        //[TestCase]
-        //public void Test_CurrentApplication()
-        //{
-        //    //TViewModel viewModel = CreateViewModel();
-        //    //ViewModelBase viewModelBase = viewModel as ViewModelBase;
-
-        //    //Application application = Application.Current;
-        //    //if (application == null)
-        //    //{
-        //    //    application = new Application();
-        //    //}
-
-        //    //viewModelBase.CurrentApplication = application;
-
-        //    //Assert.That(viewModelBase.CurrentApplication, Is.Not.Null);
-        //    //Assert.That(viewModelBase.CurrentApplication, Is.EqualTo(application));
-        //}
-
-        //[TestCase]
-        //public void Test_CurrentDispatcher()
-        //{
-        //    //TViewModel viewModel = CreateViewModel();
-        //    //ViewModelBase viewModelBase = viewModel as ViewModelBase;
-        //    //viewModelBase.CurrentDispatcher = Substitute.For<Dispatcher>();
-
-        //    //Assert.That(viewModelBase.CurrentDispatcher, Is.Not.Null);
-        //}
-
-        //[TestCase]
-        //public void Test_ViewModelBaseInitialise()
-        //{
-        //    IViewModel viewModel = CreateViewModel();
-        //    ViewModel viewModelBase = (ViewModel)viewModel;
-
-        //    IWindow targetWindow = Substitute.For<IWindow>();
-        //    targetWindow.DataContext = Guid.NewGuid();
-
-        //    IViewModel parentViewModel = Substitute.For<IViewModel>();
-
-        //    String formTitle = Guid.NewGuid().ToString();
-
-        //    InitialiseViewModel();
-
-        //    viewModel.Initialise(targetWindow, parentViewModel, formTitle);
-
-        //    Assert.That(viewModelBase.ThisWindow, Is.EqualTo(targetWindow));
-        //    Assert.That(viewModelBase.ThisWindow.DataContext, Is.EqualTo(targetWindow.DataContext));
-
-        //    Assert.That(viewModel.ParentViewModel, Is.EqualTo(parentViewModel));
-
-        //    Assert.That(viewModel.FormTitle, Is.EqualTo(formTitle));
-
-        //    Assert.That(ViewModel.LoggedOnUsersList!.Count, Is.EqualTo(1));
-        //    Assert.That(ViewModel.StatusesList!.Count, Is.EqualTo(5));
-        //    Assert.That(ViewModel.LoggedOnUsersList.Count, Is.EqualTo(1));
-        //}
-
-        //[TestCase]
-        //public void Test_ViewModelBaseProperties()
-        //{
-        //    IViewModel viewModel = CreateViewModel();
-        //    ViewModel viewModelBase = (ViewModel)viewModel;
-
-        //    String expectedFormTitle = Guid.NewGuid().ToString();
-        //    viewModelBase.FormTitle = expectedFormTitle;
-
-        //    String expectedScreenInstructions = Guid.NewGuid().ToString();
-        //    viewModelBase.ScreenInstructions = expectedScreenInstructions;
-
-        //    MessageBoxImage expectedImage = MessageBoxImage.Information;
-        //    viewModelBase.MessageBoxImage = expectedImage;
-
-        //    Assert.That(viewModelBase.FormTitle, Is.EqualTo(expectedFormTitle));
-        //    Assert.That(viewModelBase.ScreenInstructions, Is.EqualTo(expectedScreenInstructions));
-        //    Assert.That(viewModelBase.IsSystemSupport, Is.EqualTo(CoreInstance.CurrentLoggedOnUser.IsSystemSupport));
-        //    Assert.That(viewModelBase.MessageBoxImage, Is.EqualTo(expectedImage));
-        //}
-
-        //[TestCase]
-        //public void Test_OpenLastNotificationCommand_Disabled()
-        //{
-        //    IViewModel viewModel = CreateViewModel();
-        //    ViewModel viewModelBase = (ViewModel)viewModel;
-
-        //    viewModelBase.HasPreviousNotificationMessage = false;
-        //    Boolean canExecute = viewModelBase.OpenLastNotificationCommand.CanExecute(null);
-        //    Assert.That(canExecute, Is.EqualTo(false));
-
-        //    viewModelBase.OpenLastNotificationCommand.Execute(null);
-        //    DialogService.DidNotReceiveWithAnyArgs().ShowNotificationMessage(Arg.Any<MessageType>(), Arg.Any<String>(), Arg.Any<String>());
-        //}
-
-        //[TestCase]
-        //public void Test_OpenLastNotificationCommand_HasMessage()
-        //{
-        //    IViewModel viewModel = CreateViewModel();
-        //    ViewModel viewModelBase = (ViewModel)viewModel;
-
-        //    MessageType messageType = MessageType.Information;
-        //    String messageHeader = Guid.NewGuid().ToString();
-        //    String message = Guid.NewGuid().ToString();
-
-        //    viewModelBase.HasPreviousNotificationMessage = true;
-        //    Boolean canExecute = viewModelBase.OpenLastNotificationCommand.CanExecute(null);
-        //    Assert.That(canExecute, Is.EqualTo(true));
-
-        //    viewModelBase.ShowNotificationMessage(messageType, messageHeader, message);
-        //    DialogService.Received().ShowNotificationMessage(messageType, messageHeader, message);
-
-        //    viewModelBase.OpenLastNotificationCommand.Execute(null);
-        //    DialogService.Received().ShowNotificationMessage(messageType, messageHeader, message);
-
-        //    Assert.That(viewModelBase.LastMessageType, Is.EqualTo(messageType));
-        //    Assert.That(viewModelBase.LastMessageHeader, Is.EqualTo(messageHeader));
-        //    Assert.That(viewModelBase.LastMessage, Is.EqualTo(message));
-        //}
-
-        //[TestCase]
-        //public void Test_OpenLastNotificationCommand_NoMessage()
-        //{
-        //    IViewModel viewModel = CreateViewModel();
-        //    ViewModel viewModelBase = (ViewModel)viewModel;
-
-        //    MessageType messageType = MessageType.Information;
-        //    String messageHeader = Guid.NewGuid().ToString();
-        //    String message = Guid.NewGuid().ToString();
-
-        //    viewModelBase.OpenLastNotificationCommand.Execute(null);
-        //    DialogService.DidNotReceive().ShowNotificationMessage(messageType, messageHeader, message);
-        //}
-
-        //[TestCase]
-        //public void Test_OnCloseWindowCommand_Execute()
-        //{
-        //    IViewModel viewModel = CreateViewModel();
-        //    ViewModel viewModelBase = (ViewModel)viewModel;
-
-        //    IWindow window = Substitute.For<IWindow>();
-
-        //    String formTitle = LocationUtils.GetFunctionName();
-
-        //    InitialiseViewModel();
-
-        //    viewModel.Initialise(window, null, formTitle);
-
-        //    Boolean canExecute = viewModelBase.CloseWindowCommand.CanExecute(null);
-        //    Assert.That(canExecute, Is.EqualTo(true));
-
-        //    viewModelBase.CloseWindowCommand.Execute(window);
-
-        //    window.Received().Close();
-        //}
-
-        //[TestCase]
-        //public void Test_OnExitApplicationCommand_Execute()
-        //{
-        //    IViewModel viewModel = CreateViewModel();
-        //    ViewModel viewModelBase = (ViewModel)viewModel;
-
-        //    IWindow window = Substitute.For<IWindow>();
-
-        //    String formTitle = LocationUtils.GetFunctionName();
-
-        //    InitialiseViewModel();
-
-        //    viewModel.Initialise(window, null, formTitle);
-
-        //    Boolean canExecute = viewModelBase.ExitApplicationCommand.CanExecute(null);
-        //    Assert.That(canExecute, Is.EqualTo(true));
-
-        //    //viewModelBase.CurrentApplication = CurrentApplication;
-        //    //System.Windows.Window mainWindow = Substitute.For<System.Windows.Window>();
-        //    //viewModelBase.CurrentApplication.MainWindow = mainWindow;
-
-        //    viewModelBase.ExitApplicationCommand.Execute(window);
-
-        //    //mainWindow.Received().Close();
-        //}
-
-        //[TestCase]
-        //public void Test_ShowNotificationMessage()
-        //{
-        //    IViewModel viewModel = CreateViewModel();
-        //    ViewModel viewModelBase = (ViewModel)viewModel;
-
-        //    MessageType messageType = MessageType.Information;
-        //    String messageHeader = Guid.NewGuid().ToString();
-        //    String message = Guid.NewGuid().ToString();
-
-        //    viewModelBase.ShowNotificationMessage(messageType, messageHeader, message);
-
-        //    DialogService.Received().ShowNotificationMessage(messageType, messageHeader, message);
-        //}
-
-        //[TestCase]
-        //public void Test_NotifyPropertyChanged()
-        //{
-        //    IViewModel viewModel = CreateViewModel();
-        //    ViewModel viewModelBase = (ViewModel)viewModel;
-
-        //    Int32 propertyCount = 2;
-        //    Int32 changedPropertiesCount = 0;
-
-        //    String propertyName = "Property name not set";
-        //    viewModel.PropertyChanged += (_, args) =>
-        //    {
-        //        Assert.That(args.PropertyName, Is.EqualTo(propertyName));
-        //        changedPropertiesCount++;
-        //    };
-
-        //    propertyName = nameof(viewModelBase.FormTitle);
-        //    viewModelBase.FormTitle = Guid.NewGuid().ToString();
-
-        //    propertyName = nameof(viewModelBase.ScreenInstructions);
-        //    viewModelBase.ScreenInstructions = Guid.NewGuid().ToString();
-
-        //    Assert.That(changedPropertiesCount, Is.EqualTo(propertyCount));
-        //}
-
-        //[TestCase]
-        //public void Test_CanExecuteParamIsNotNull_Null()
-        //{
-        //    IViewModel viewModel = CreateViewModel();
-        //    ViewModel viewModelBase = (ViewModel)viewModel;
-
-        //    Boolean canExecute = viewModelBase.CanExecuteParamIsNotNull(null);
-        //    Assert.That(canExecute, Is.EqualTo(false));
-        //}
-
-        //[TestCase]
-        //public void Test_CanExecuteParamIsNotNull_NotNull()
-        //{
-        //    IViewModel viewModel = CreateViewModel();
-        //    ViewModel viewModelBase = (ViewModel)viewModel;
-
-        //    Boolean canExecute = viewModelBase.CanExecuteParamIsNotNull(new Object());
-        //    Assert.That(canExecute, Is.EqualTo(true));
-        //}
+        [TestCase]
+        public void Test_OpenLastNotificationCommand_HasMessage()
+        {
+            MessageType messageType = MessageType.Information;
+            String messageHeader = Guid.NewGuid().ToString();
+            String message = Guid.NewGuid().ToString();
+
+            TheViewModelBase!.HasPreviousNotificationMessage = true;
+            Boolean canExecute = TheViewModelBase.OpenLastNotificationCommand.CanExecute(null);
+            Assert.That(canExecute, Is.EqualTo(true));
+
+            TheViewModelBase.ShowNotificationMessage(messageType, messageHeader, message);
+            DialogService.Received().ShowNotificationMessage(messageType, messageHeader, message);
+
+            TheViewModelBase.OpenLastNotificationCommand.Execute(null);
+            DialogService.Received().ShowNotificationMessage(messageType, messageHeader, message);
+
+            Assert.That(TheViewModelBase.LastMessageType, Is.EqualTo(messageType));
+            Assert.That(TheViewModelBase.LastMessageHeader, Is.EqualTo(messageHeader));
+            Assert.That(TheViewModelBase.LastMessage, Is.EqualTo(message));
+        }
+
+        [TestCase]
+        public void Test_OpenLastNotificationCommand_NoMessage()
+        {
+            MessageType messageType = MessageType.Information;
+            String messageHeader = Guid.NewGuid().ToString();
+            String message = Guid.NewGuid().ToString();
+
+            TheViewModelBase!.OpenLastNotificationCommand.Execute(null);
+            DialogService.DidNotReceive().ShowNotificationMessage(messageType, messageHeader, message);
+        }
+
+        [TestCase]
+        public void Test_OpenLastNotificationCommand_Disabled()
+        {
+            TheViewModelBase!.HasPreviousNotificationMessage = false;
+            Boolean canExecute = TheViewModelBase.OpenLastNotificationCommand.CanExecute(null);
+            Assert.That(canExecute, Is.EqualTo(false));
+
+            TheViewModelBase.OpenLastNotificationCommand.Execute(null);
+            DialogService.DidNotReceiveWithAnyArgs().ShowNotificationMessage(Arg.Any<MessageType>(), Arg.Any<String>(), Arg.Any<String>());
+        }
+
+        [TestCase]
+        public void Test_OnCloseWindowCommand_Execute()
+        {
+            IWindow window = Substitute.For<IWindow>();
+
+            String formTitle = LocationUtils.GetFunctionName();
+
+            TheViewModel!.Initialise(window, null, formTitle);
+
+            Boolean canExecute = TheViewModelBase!.CloseWindowCommand.CanExecute(null);
+            Assert.That(canExecute, Is.EqualTo(true));
+
+            TheViewModelBase.CloseWindowCommand.Execute(window);
+
+            window.Received().Close();
+        }
+
+        [TestCase]
+        public void Test_OnExitApplicationCommand_Execute()
+        {
+            IWindow window = Substitute.For<IWindow>();
+
+            String formTitle = LocationUtils.GetFunctionName();
+
+            TheViewModel!.Initialise(window, null, formTitle);
+
+            Boolean canExecute = TheViewModelBase!.ExitApplicationCommand.CanExecute(null);
+            Assert.That(canExecute, Is.EqualTo(true));
+
+            TheViewModelBase.ExitApplicationCommand.Execute(window);
+
+            ApplicationWrapper.MainWindow.Received().Close();
+        }
+
+        [TestCase]
+        public void Test_ShowNotificationMessage()
+        {
+            MessageType messageType = MessageType.Information;
+            String messageHeader = Guid.NewGuid().ToString();
+            String message = Guid.NewGuid().ToString();
+
+            TheViewModelBase!.ShowNotificationMessage(messageType, messageHeader, message);
+
+            DialogService.Received().ShowNotificationMessage(messageType, messageHeader, message);
+        }
+
+        [TestCase]
+        public void Test_CanExecuteParamIsNotNull_Null()
+        {
+            Boolean canExecute = TheViewModelBase!.CanExecuteParamIsNotNull(null);
+            Assert.That(canExecute, Is.EqualTo(false));
+        }
+
+        [TestCase]
+        public void Test_CanExecuteParamIsNotNull_NotNull()
+        {
+            Boolean canExecute = TheViewModelBase!.CanExecuteParamIsNotNull(new Object());
+            Assert.That(canExecute, Is.EqualTo(true));
+        }
     }
 }

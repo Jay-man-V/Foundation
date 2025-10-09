@@ -249,6 +249,10 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
                 Description = "Unit Testing suite",
             };
 
+            StatusesList = GetListOfStatuses();
+            UserProfileList = GetListOfUserProfiles();
+            LoggedOnUsersList = GetListOfLoggedOnUsers();
+
             IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
             applicationProcess.Get(TestingApplicationId).Returns(application);
 
@@ -279,9 +283,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
             ApplicationConfigurationService.Get<String>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailFromAddress).Returns(EmailFromAddress);
             ApplicationConfigurationService.Get<String>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailFromDisplayName).Returns(EmailFromDisplayName);
 
-            StatusesList = GetListOfStatuses();
-            UserProfileList = GetListOfUserProfiles();
-            LoggedOnUsersList = GetListOfLoggedOnUsers();
             LoggedOnUserProcess.GetLoggedOnUsers(Arg.Any<AppId>()).Returns(LoggedOnUsersList);
 
             StatusRepository = Substitute.For<IStatusRepository>();

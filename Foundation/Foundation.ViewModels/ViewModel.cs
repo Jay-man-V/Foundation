@@ -67,19 +67,7 @@ namespace Foundation.ViewModels
         /// This is not a list of all the current active Status entities
         /// </para>
         /// </summary>
-        public static List<IStatus> StatusesList
-        {
-            get
-            {
-                if (_statusesList == null)
-                {
-                    _statusesList = StatusProcess.GetAll(false);
-                }
-
-                return _statusesList;
-            }
-            internal set => _statusesList = value;
-        }
+        public static List<IStatus> StatusesList => _statusesList ??= StatusProcess.GetAll(false);
 
         /// <summary>
         /// List of <see cref="IUserProfile"/>. This is a list ALL the User Profile entities within the system. 
@@ -87,19 +75,7 @@ namespace Foundation.ViewModels
         /// This is not a list of all the current active User Profile entities
         /// </para>
         /// </summary>
-        public static List<IUserProfile> UserProfilesList
-        {
-            get
-            {
-                if (_userProfilesList == null)
-                {
-                    _userProfilesList = UserProfileProcess.GetAll(false);
-                }
-
-                return _userProfilesList;
-            }
-            internal set => _userProfilesList = value;
-        }
+        public static List<IUserProfile> UserProfilesList => _userProfilesList ??= UserProfileProcess.GetAll(false);
 
         /// <summary>
         /// Gets the logged on users list.
@@ -107,19 +83,7 @@ namespace Foundation.ViewModels
         /// <value>
         /// The logged on users list.
         /// </value>
-        public static List<ILoggedOnUser> LoggedOnUsersList
-        {
-            get
-            {
-                if (_loggedOnUsersList == null)
-                {
-                    _loggedOnUsersList = LoggedOnUserProcess.GetLoggedOnUsers(Foundation.Core.Core.TheInstance.ApplicationId);
-                }
-
-                return _loggedOnUsersList;
-            }
-            internal set => _loggedOnUsersList = value;
-        }
+        public static List<ILoggedOnUser> LoggedOnUsersList => _loggedOnUsersList ??= LoggedOnUserProcess.GetLoggedOnUsers(Foundation.Core.Core.TheInstance.ApplicationId);
 
         /// <summary>
         /// Initialises a new instance of the <see cref="ViewModel" /> class.
@@ -224,31 +188,31 @@ namespace Foundation.ViewModels
         /// Gets the Wpf Application Objects
         /// </summary>
         /// <value>The Wpf Application Objects.</value>
-        protected IWpfApplicationObjects WpfApplicationObjects { get; }
+        protected internal IWpfApplicationObjects WpfApplicationObjects { get; }
 
         /// <summary>
         /// Gets the application wrapper.
         /// </summary>
         /// <value>The application wrapper.</value>
-        protected IApplicationWrapper ApplicationWrapper { get; }
+        protected internal IApplicationWrapper ApplicationWrapper { get; }
 
         /// <summary>
         /// Gets the clip board wrapper.
         /// </summary>
         /// <value>The clip board wrapper.</value>
-        protected IClipBoardWrapper ClipBoardWrapper { get; }
+        protected internal IClipBoardWrapper ClipBoardWrapper { get; }
 
         /// <summary>
         /// Gets the dialog service.
         /// </summary>
         /// <value>The dialog service.</value>
-        protected IDialogService DialogService { get; }
+        protected internal IDialogService DialogService { get; }
 
         /// <summary>
         /// Gets the dispatch timer wrapper.
         /// </summary>
         /// <value>The dispatch timer wrapper.</value>
-        protected IDispatcherTimerWrapper DispatchTimerWrapper { get; }
+        protected internal IDispatcherTimerWrapper DispatchTimerWrapper { get; }
 
         /// <summary>
         /// Gets the Mouse Cursor
@@ -287,7 +251,7 @@ namespace Foundation.ViewModels
         /// <value>
         /// The open last notification command.
         /// </value>
-        public ICommand OpenLastNotificationCommand { get { return RelayCommandFactory.New(OnOpenLastNotification_Execute, () => HasPreviousNotificationMessage); } }
+        public ICommand OpenLastNotificationCommand => RelayCommandFactory.New(OnOpenLastNotification_Execute, () => HasPreviousNotificationMessage);
 
         /// <summary
         /// >Gets the close window command.
