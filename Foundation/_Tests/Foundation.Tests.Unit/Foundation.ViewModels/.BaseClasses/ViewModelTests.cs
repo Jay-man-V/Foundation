@@ -4,9 +4,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.Common;
 using NSubstitute;
 
+using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.ViewModels;
 
@@ -33,15 +33,10 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
 
         protected abstract TViewModel CreateViewModel(IDateTimeService dateTimeService);
 
-        public override void TestInitialise()
-        {
-            base.TestInitialise();
-        }
-
         protected abstract void SetupFilterOptionsForReferencedBusinessProcess();
 
         [TestCase]
-        public void Test_StaticConstructorAndMembers()
+        public void Test_ViewModel_StaticConstructorAndMembers()
         {
             Assert.That(ViewModel.StatusProcess, Is.Not.EqualTo(null));
             Assert.That(ViewModel.UserProfileProcess, Is.Not.EqualTo(null));
@@ -64,9 +59,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
             Assert.That(ViewModel.LoggedOnUsersList.ToList(), Is.EquivalentTo(LoggedOnUsersList.ToList()));
         }
 
-
         [TestCase]
-        public void Test_ViewModelBaseConstructor()
+        public void Test_ViewModel_Constructor()
         {
             Assert.That(TheViewModel!.FormTitle, Is.EqualTo(ExpectedFormTitle));
             Assert.That(TheViewModel.Parameters, Is.InstanceOf<Dictionary<String, Object>>());
@@ -74,7 +68,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
         }
 
         [TestCase]
-        public void Test_Properties_InitialValues()
+        public void Test_ViewModel_Properties_InitialValues()
         {
             Assert.That(TheViewModelBase!.ApplicationWrapper, Is.Not.EqualTo(null));
             Assert.That(TheViewModelBase.ClipBoardWrapper, Is.Not.EqualTo(null));
@@ -101,7 +95,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
         }
 
         [TestCase]
-        public void Test_Properties_SetValue()
+        public void Test_ViewModel_Properties_SetValue()
         {
             String expectedFormTitle = Guid.NewGuid().ToString();
             String expectedScreenInstructions = Guid.NewGuid().ToString();
@@ -121,7 +115,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
         }
 
         [TestCase]
-        public void Test_Initialise()
+        public void Test_ViewModel_Initialise()
         {
             IWindow targetWindow = Substitute.For<IWindow>();
             targetWindow.DataContext = Guid.NewGuid();
@@ -145,7 +139,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
         }
 
         [TestCase]
-        public void Test_NotifyPropertyChanged()
+        public void Test_ViewModel_NotifyPropertyChanged()
         {
             Int32 expectedChangedCount = 2;
             Int32 changedPropertiesCount = 0;

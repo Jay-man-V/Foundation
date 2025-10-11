@@ -77,13 +77,13 @@ namespace Foundation.ViewModels
         /// Gets the file service.
         /// </summary>
         /// <value>The file service.</value>
-        protected IFileApi FileApi { get; }
+        protected internal IFileApi FileApi { get; }
 
         /// <summary>
         /// Gets the common business process.
         /// </summary>
         /// <value>The common business process.</value>
-        protected ICommonBusinessProcess<TModel> CommonBusinessProcess { get; }
+        protected internal ICommonBusinessProcess<TModel> CommonBusinessProcess { get; }
         
         /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.CanRefreshData"/>
         public virtual Boolean CanRefreshData => CommonBusinessProcess.CanRefreshData();
@@ -959,7 +959,7 @@ namespace Foundation.ViewModels
                 if (!canEditRecord)
                 {
                     String processName = $"{GetType()}::{nameof(OnEditRecordCommand_Execute)}";
-                    ApplicationRole[] permissions = { ApplicationRole.OwnEditor, ApplicationRole.AllEditor };
+                    ApplicationRole[] permissions = [ApplicationRole.OwnEditor, ApplicationRole.AllEditor];
                     throw new ApplicationPermissionsException(Core.ApplicationId, processName, permissions, entity, Core.CurrentLoggedOnUser.UserProfile);
                 }
             }
@@ -983,7 +983,7 @@ namespace Foundation.ViewModels
                 if (!canDeleteRecord)
                 {
                     String processName = $"{GetType()}::{LocationUtils.GetFunctionName()}";
-                    ApplicationRole[] permissions = { ApplicationRole.OwnDelete, ApplicationRole.AllDelete };
+                    ApplicationRole[] permissions = [ApplicationRole.OwnDelete, ApplicationRole.AllDelete];
                     throw new ApplicationPermissionsException(Core.ApplicationId, processName, permissions, entity, Core.CurrentLoggedOnUser.UserProfile);
                 }
             }

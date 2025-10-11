@@ -11,6 +11,8 @@ using Foundation.ViewModels.App;
 
 using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
+using FDC = Foundation.Resources.Constants.DataColumns;
+
 namespace Foundation.Tests.Unit.Foundation.ViewModels.App
 {
     /// <summary>
@@ -19,7 +21,16 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.App
     [TestFixture]
     public class MenuItemViewModelTests : GenericDataGridViewModelTests<IMenuItem, IMenuItemViewModel, IMenuItemProcess>
     {
-        protected override String ExpectedFormTitle => String.Empty;
+        protected override String ExpectedFormTitle => "Menu Items";
+        protected override String ExpectedStatusBarText => "Number of Menu Items:";
+
+        protected override Boolean ExpectedHasOptionalDropDownParameter1 => true;
+        protected override String ExpectedFilter1Name => "Application:";
+        protected override String ExpectedFilter1DisplayMemberPath => FDC.Application.Name;
+
+        protected override Boolean ExpectedHasOptionalDropDownParameter2 => true;
+        protected override String ExpectedFilter2Name => "Parent:";
+        protected override String ExpectedFilter2DisplayMemberPath => FDC.MenuItem.Caption;
 
         private IApplicationProcess? ApplicationProcess { get; set; }
 
@@ -63,17 +74,6 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.App
                     aList.Add(Substitute.For<IApplication>());
                 });
         }
-
-        //protected override String ExpectedScreenTitle => "Menu Items";
-        //protected override String ExpectedStatusBarText => "Number of Menu Items:";
-
-        //protected override Boolean ExpectedHasOptionalDropDownParameter1 => true;
-        //protected override String ExpectedFilter1Name => "Application:";
-        //protected override string ExpectedFilter1DisplayMemberPath => FDC.Application.Name;
-
-        //protected override Boolean ExpectedHasOptionalDropDownParameter2 => true;
-        //protected override String ExpectedFilter2Name => "Parent:";
-        //protected override string ExpectedFilter2DisplayMemberPath => FDC.MenuItem.Caption;
 
         protected override IMenuItem CreateModel()
         {
