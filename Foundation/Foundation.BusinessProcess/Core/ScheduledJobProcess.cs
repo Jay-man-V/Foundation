@@ -415,8 +415,8 @@ namespace Foundation.BusinessProcess.Core
             }
             else
             {
-                String exception = $"Scheduled Job with name '{scheduledJob.Name}' does not exist or was not loaded";
-                throw new ArgumentException(exception, nameof(scheduledJob));
+                String errorMessage = $"Scheduled Job with name '{scheduledJob.Name}' does not exist or was not loaded";
+                throw new ArgumentException(errorMessage, nameof(scheduledJob));
             }
 
             return retVal;
@@ -454,8 +454,8 @@ namespace Foundation.BusinessProcess.Core
             }
             else
             {
-                String exception = $"Scheduled Job with name '{scheduledJob.Name}' does not exist or was not loaded";
-                throw new ArgumentException(exception, nameof(scheduledJob));
+                String errorMessage = $"Scheduled Job with name '{scheduledJob.Name}' does not exist or was not loaded";
+                throw new ArgumentException(errorMessage, nameof(scheduledJob));
             }
 
             return retVal;

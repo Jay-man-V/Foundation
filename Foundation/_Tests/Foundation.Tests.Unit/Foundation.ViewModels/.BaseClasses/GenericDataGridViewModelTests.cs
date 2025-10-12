@@ -4,15 +4,16 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.Collections.ObjectModel;
-using System.Text;
-
-using NSubstitute;
-
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Interfaces.Helpers;
 using Foundation.ViewModels;
+
+using NSubstitute;
+using NSubstitute.ExceptionExtensions;
+
+using System.Collections.ObjectModel;
+using System.Text;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
@@ -178,11 +179,6 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
             businessProcess.CanViewRecord().Returns(tempProcess.CanViewRecord());
             businessProcess.CanEditRecord().Returns(tempProcess.CanEditRecord());
             businessProcess.CanDeleteRecord().Returns(tempProcess.CanDeleteRecord());
-        }
-
-        protected virtual void InitialiseViewModel()
-        {
-            SetupForRefreshData();
         }
 
         protected virtual void SetupForRefreshData()
@@ -977,32 +973,19 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
             IFoundationModel model = CreateModel();
             String userCredentials = CoreInstance.CurrentLoggedOnUser.Username;
             String expectedErrorMessage = $"Application Id: '{TestingApplicationId}'. User: '{userCredentials}' does not have the required permissions. Required permission is: '{requiredPermissions}'";
-            Exception? actualException = null;
 
-            try
+            ApplicationPermissionsException actualException = Assert.Throws<ApplicationPermissionsException>(() =>
             {
                 TheGenericDataGridViewModel!.ViewRecordCommandEnabled = true;
-
                 BusinessProcess.CanViewRecord(Arg.Any<IUserProfile>(), Arg.Any<TModel>()).Returns(false);
-
                 TheGenericDataGridViewModel!.ViewRecordCommand.Execute(model);
-            }
-            catch (Exception exception)
-            {
-                actualException = exception;
-            }
+            });
 
-            Assert.That(actualException, Is.Not.EqualTo(null));
-            Assert.That(actualException, Is.InstanceOf<ApplicationPermissionsException>());
-
-            ApplicationPermissionsException ape = (ApplicationPermissionsException)actualException;
-
-            String actualErrorMessage = actualException.Message;
-            Assert.That(actualErrorMessage, Is.EqualTo(expectedErrorMessage));
-            Assert.That(ape.ProcessName, Is.EqualTo(processName));
-            Assert.That(ape.RequiredPermission, Is.EqualTo(requiredPermissions));
-            Assert.That(ape.UserCredentials, Is.EqualTo(userCredentials));
-            Assert.That(ape.FoundationModel, Is.EqualTo(model));
+            Assert.That(actualException.Message, Is.EqualTo(expectedErrorMessage));
+            Assert.That(actualException.ProcessName, Is.EqualTo(processName));
+            Assert.That(actualException.RequiredPermission, Is.EqualTo(requiredPermissions));
+            Assert.That(actualException.UserCredentials, Is.EqualTo(userCredentials));
+            Assert.That(actualException.FoundationModel, Is.EqualTo(model));
         }
 
         [TestCase]
@@ -1059,32 +1042,19 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
             const IFoundationModel? model = null;
             String userCredentials = CoreInstance.CurrentLoggedOnUser.Username;
             String expectedErrorMessage = $"Application Id: '{TestingApplicationId}'. User: '{userCredentials}' does not have the required permissions. Required permission is: '{requiredPermissions}'";
-            Exception? actualException = null;
 
-            try
+            ApplicationPermissionsException actualException = Assert.Throws<ApplicationPermissionsException>(() =>
             {
                 TheGenericDataGridViewModel!.AddRecordCommandEnabled = true;
-
                 BusinessProcess.CanAddRecord(Arg.Any<IUserProfile>()).Returns(false);
-
                 TheGenericDataGridViewModel!.AddRecordCommand.Execute(model);
-            }
-            catch (Exception exception)
-            {
-                actualException = exception;
-            }
+            });
 
-            Assert.That(actualException, Is.Not.EqualTo(null));
-            Assert.That(actualException, Is.InstanceOf<ApplicationPermissionsException>());
-
-            ApplicationPermissionsException ape = (ApplicationPermissionsException)actualException;
-
-            String actualErrorMessage = actualException.Message;
-            Assert.That(actualErrorMessage, Is.EqualTo(expectedErrorMessage));
-            Assert.That(ape.ProcessName, Is.EqualTo(processName));
-            Assert.That(ape.RequiredPermission, Is.EqualTo(requiredPermissions));
-            Assert.That(ape.UserCredentials, Is.EqualTo(userCredentials));
-            Assert.That(ape.FoundationModel, Is.EqualTo(model));
+            Assert.That(actualException.Message, Is.EqualTo(expectedErrorMessage));
+            Assert.That(actualException.ProcessName, Is.EqualTo(processName));
+            Assert.That(actualException.RequiredPermission, Is.EqualTo(requiredPermissions));
+            Assert.That(actualException.UserCredentials, Is.EqualTo(userCredentials));
+            Assert.That(actualException.FoundationModel, Is.EqualTo(model));
         }
 
         [TestCase]
@@ -1141,32 +1111,19 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
             IFoundationModel model = CreateModel();
             String userCredentials = CoreInstance.CurrentLoggedOnUser.Username;
             String expectedErrorMessage = $"Application Id: '{TestingApplicationId}'. User: '{userCredentials}' does not have the required permissions. Required permission is: '{requiredPermissions}'";
-            Exception? actualException = null;
 
-            try
+            ApplicationPermissionsException actualException = Assert.Throws<ApplicationPermissionsException>(() =>
             {
                 TheGenericDataGridViewModel!.EditRecordCommandEnabled = true;
-
                 BusinessProcess.CanEditRecord(Arg.Any<IUserProfile>(), Arg.Any<TModel>()).Returns(false);
-
                 TheGenericDataGridViewModel!.EditRecordCommand.Execute(model);
-            }
-            catch (Exception exception)
-            {
-                actualException = exception;
-            }
+            });
 
-            Assert.That(actualException, Is.Not.EqualTo(null));
-            Assert.That(actualException, Is.InstanceOf<ApplicationPermissionsException>());
-
-            ApplicationPermissionsException ape = (ApplicationPermissionsException)actualException;
-
-            String actualErrorMessage = actualException.Message;
-            Assert.That(actualErrorMessage, Is.EqualTo(expectedErrorMessage));
-            Assert.That(ape.ProcessName, Is.EqualTo(processName));
-            Assert.That(ape.RequiredPermission, Is.EqualTo(requiredPermissions));
-            Assert.That(ape.UserCredentials, Is.EqualTo(userCredentials));
-            Assert.That(ape.FoundationModel, Is.EqualTo(model));
+            Assert.That(actualException.Message, Is.EqualTo(expectedErrorMessage));
+            Assert.That(actualException.ProcessName, Is.EqualTo(processName));
+            Assert.That(actualException.RequiredPermission, Is.EqualTo(requiredPermissions));
+            Assert.That(actualException.UserCredentials, Is.EqualTo(userCredentials));
+            Assert.That(actualException.FoundationModel, Is.EqualTo(model));
         }
 
         [TestCase]
@@ -1223,32 +1180,19 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
             IFoundationModel model = CreateModel();
             String userCredentials = CoreInstance.CurrentLoggedOnUser.Username;
             String expectedErrorMessage = $"Application Id: '{TestingApplicationId}'. User: '{userCredentials}' does not have the required permissions. Required permission is: '{requiredPermissions}'";
-            Exception? actualException = null;
 
-            try
+            ApplicationPermissionsException actualException = Assert.Throws<ApplicationPermissionsException>(() =>
             {
                 TheGenericDataGridViewModel!.DeleteRecordCommandEnabled = true;
-
                 BusinessProcess.CanDeleteRecord(Arg.Any<IUserProfile>(), Arg.Any<TModel>()).Returns(false);
-
                 TheGenericDataGridViewModel!.DeleteRecordCommand.Execute(model);
-            }
-            catch (Exception exception)
-            {
-                actualException = exception;
-            }
+            });
 
-            Assert.That(actualException, Is.Not.EqualTo(null));
-            Assert.That(actualException, Is.InstanceOf<ApplicationPermissionsException>());
-
-            ApplicationPermissionsException ape = (ApplicationPermissionsException)actualException;
-
-            String actualErrorMessage = actualException.Message;
-            Assert.That(actualErrorMessage, Is.EqualTo(expectedErrorMessage));
-            Assert.That(ape.ProcessName, Is.EqualTo(processName));
-            Assert.That(ape.RequiredPermission, Is.EqualTo(requiredPermissions));
-            Assert.That(ape.UserCredentials, Is.EqualTo(userCredentials));
-            Assert.That(ape.FoundationModel, Is.EqualTo(model));
+            Assert.That(actualException.Message, Is.EqualTo(expectedErrorMessage));
+            Assert.That(actualException.ProcessName, Is.EqualTo(processName));
+            Assert.That(actualException.RequiredPermission, Is.EqualTo(requiredPermissions));
+            Assert.That(actualException.UserCredentials, Is.EqualTo(userCredentials));
+            Assert.That(actualException.FoundationModel, Is.EqualTo(model));
         }
 
         [TestCase]
