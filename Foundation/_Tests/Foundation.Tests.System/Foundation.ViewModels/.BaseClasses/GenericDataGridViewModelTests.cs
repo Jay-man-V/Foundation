@@ -33,8 +33,6 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
             BusinessProcess = CreateBusinessProcess();
             SetBusinessProcessProperties(BusinessProcess);
 
-            SetupForRefreshData();
-
             TheViewModel = CreateViewModel();
             SetupFilterOptionsForReferencedBusinessProcess();
         }
@@ -65,9 +63,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
             return retVal;
         }
 
-        protected virtual String ExpectedStatusBarText { get; } = Guid.NewGuid().ToString();
-        protected virtual String ExpectedComboBoxDisplayMember { get; } = Guid.NewGuid().ToString();
-        protected virtual String ExpectedComboBoxValueMember { get; } = Guid.NewGuid().ToString();
+        protected virtual String ExpectedStatusBarText { get; } = String.Empty;
+
         protected virtual Boolean ExpectedCanRefreshData { get; } = true;
         protected virtual Boolean ExpectedRefreshButtonVisible { get; } = true;
         protected virtual Boolean ExpectedRefreshButtonEnabled { get; } = true;
@@ -90,7 +87,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
         protected virtual String ExpectedAction1Name { get; } = "Action1";
         protected virtual Boolean ExpectedHasOptionalDropDownParameter1 { get; } = false;
         protected virtual String ExpectedFilter1Name { get; } = "Filter1";
-        protected virtual String ExpectedFilter1DisplayMemberPath { get; } = Guid.NewGuid().ToString();
+        protected virtual String ExpectedFilter1DisplayMemberPath { get; } = String.Empty;
         protected virtual String ExpectedFilter1SelectedValuePath { get; } = FDC.FoundationEntity.Id;
 
         protected virtual Boolean ExpectedHasOptionalAction2 { get; } = false;
@@ -98,7 +95,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
         protected virtual String ExpectedAction2Name { get; } = "Action2";
         protected virtual Boolean ExpectedHasOptionalDropDownParameter2 { get; } = false;
         protected virtual String ExpectedFilter2Name { get; } = "Filter2";
-        protected virtual String ExpectedFilter2DisplayMemberPath { get; } = Guid.NewGuid().ToString();
+        protected virtual String ExpectedFilter2DisplayMemberPath { get; } = String.Empty;
         protected virtual String ExpectedFilter2SelectedValuePath { get; } = FDC.FoundationEntity.Id;
 
         protected virtual Boolean ExpectedHasOptionalAction3 { get; } = false;
@@ -106,7 +103,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
         protected virtual String ExpectedAction3Name { get; } = "Action3";
         protected virtual Boolean ExpectedHasOptionalDropDownParameter3 { get; } = false;
         protected virtual String ExpectedFilter3Name { get; } = "Filter3";
-        protected virtual String ExpectedFilter3DisplayMemberPath { get; } = Guid.NewGuid().ToString();
+        protected virtual String ExpectedFilter3DisplayMemberPath { get; } = String.Empty;
         protected virtual String ExpectedFilter3SelectedValuePath { get; } = FDC.FoundationEntity.Id;
 
         protected virtual Boolean ExpectedHasOptionalAction4 { get; } = false;
@@ -114,19 +111,9 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
         protected virtual String ExpectedAction4Name { get; } = "Action4";
         protected virtual Boolean ExpectedHasOptionalDropDownParameter4 { get; } = false;
         protected virtual String ExpectedFilter4Name { get; } = "Filter4";
-        protected virtual String ExpectedFilter4DisplayMemberPath { get; } = Guid.NewGuid().ToString();
+        protected virtual String ExpectedFilter4DisplayMemberPath { get; } = String.Empty;
         protected virtual String ExpectedFilter4SelectedValuePath { get; } = FDC.FoundationEntity.Id;
 
-
-        protected virtual void SetupForRefreshData()
-        {
-            List<TModel> items =
-            [
-                CreateModel(1),
-                CreateModel(2)
-            ];
-            BusinessProcess.GetAll().Returns(items);
-        }
 
         protected void SetBusinessProcessProperties(TBusinessProcess businessProcess)
         {
@@ -143,10 +130,10 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
 
             businessProcess.NullId.Returns(new EntityId(-1));
 
-            businessProcess.StatusBarText.Returns(ExpectedStatusBarText);
+            //businessProcess.StatusBarText.Returns(tempProcess.StatusBarText);
 
-            businessProcess.ComboBoxDisplayMember.Returns(ExpectedComboBoxDisplayMember);
-            businessProcess.ComboBoxValueMember.Returns(ExpectedComboBoxValueMember);
+            //businessProcess.ComboBoxDisplayMember.Returns(tempProcess.ComboBoxDisplayMember);
+            //businessProcess.ComboBoxValueMember.Returns(tempProcess.ComboBoxValueMember);
 
             businessProcess.HasOptionalAction1.Returns(ExpectedHasOptionalAction1);
             businessProcess.Action1Name.Returns(ExpectedAction1Name);
@@ -160,37 +147,37 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
             businessProcess.HasOptionalAction4.Returns(ExpectedHasOptionalAction4);
             businessProcess.Action4Name.Returns(ExpectedAction4Name);
 
-            businessProcess.HasOptionalDropDownParameter1.Returns(ExpectedHasOptionalDropDownParameter1);
-            businessProcess.Filter1Name.Returns(ExpectedFilter1Name);
-            businessProcess.Filter1DisplayMemberPath.Returns(ExpectedFilter1DisplayMemberPath);
-            businessProcess.Filter1SelectedValuePath.Returns(ExpectedFilter1SelectedValuePath);
+            //businessProcess.HasOptionalDropDownParameter1.Returns(tempProcess.HasOptionalDropDownParameter1);
+            //businessProcess.Filter1Name.Returns(tempProcess.Filter1Name);
+            //businessProcess.Filter1DisplayMemberPath.Returns(tempProcess.Filter1DisplayMemberPath);
+            //businessProcess.Filter1SelectedValuePath.Returns(tempProcess.Filter1SelectedValuePath);
 
-            businessProcess.HasOptionalDropDownParameter2.Returns(ExpectedHasOptionalDropDownParameter2);
-            businessProcess.Filter2Name.Returns(ExpectedFilter2Name);
-            businessProcess.Filter2DisplayMemberPath.Returns(ExpectedFilter2DisplayMemberPath);
-            businessProcess.Filter2SelectedValuePath.Returns(ExpectedFilter2SelectedValuePath);
+            //businessProcess.HasOptionalDropDownParameter2.Returns(tempProcess.HasOptionalDropDownParameter2);
+            //businessProcess.Filter2Name.Returns(tempProcess.Filter2Name);
+            //businessProcess.Filter2DisplayMemberPath.Returns(tempProcess.Filter2DisplayMemberPath);
+            //businessProcess.Filter2SelectedValuePath.Returns(tempProcess.Filter2SelectedValuePath);
 
-            businessProcess.HasOptionalDropDownParameter3.Returns(ExpectedHasOptionalDropDownParameter3);
-            businessProcess.Filter3Name.Returns(ExpectedFilter3Name);
-            businessProcess.Filter3DisplayMemberPath.Returns(ExpectedFilter3DisplayMemberPath);
-            businessProcess.Filter3SelectedValuePath.Returns(ExpectedFilter3SelectedValuePath);
+            //businessProcess.HasOptionalDropDownParameter3.Returns(tempProcess.HasOptionalDropDownParameter3);
+            //businessProcess.Filter3Name.Returns(tempProcess.Filter3Name);
+            //businessProcess.Filter3DisplayMemberPath.Returns(tempProcess.Filter3DisplayMemberPath);
+            //businessProcess.Filter3SelectedValuePath.Returns(tempProcess.Filter3SelectedValuePath);
 
-            businessProcess.HasOptionalDropDownParameter4.Returns(ExpectedHasOptionalDropDownParameter4);
-            businessProcess.Filter4Name.Returns(ExpectedFilter4Name);
-            businessProcess.Filter4DisplayMemberPath.Returns(ExpectedFilter4DisplayMemberPath);
-            businessProcess.Filter4SelectedValuePath.Returns(ExpectedFilter4SelectedValuePath);
+            //businessProcess.HasOptionalDropDownParameter4.Returns(tempProcess.HasOptionalDropDownParameter4);
+            //businessProcess.Filter4Name.Returns(tempProcess.Filter4Name);
+            //businessProcess.Filter4DisplayMemberPath.Returns(tempProcess.Filter4DisplayMemberPath);
+            //businessProcess.Filter4SelectedValuePath.Returns(tempProcess.Filter4SelectedValuePath);
 
             businessProcess.CanRefreshData().Returns(ExpectedCanRefreshData);
-            businessProcess.CanAddRecord().Returns(ExpectedCanAddRecord);
-            businessProcess.CanViewRecord().Returns(ExpectedCanViewRecord);
-            businessProcess.CanEditRecord().Returns(ExpectedCanEditRecord);
-            businessProcess.CanDeleteRecord().Returns(ExpectedCanDeleteRecord);
+            //businessProcess.CanAddRecord().Returns(tempProcess.CanAddRecord());
+            //businessProcess.CanViewRecord().Returns(tempProcess.CanViewRecord());
+            //businessProcess.CanEditRecord().Returns(tempProcess.CanEditRecord());
+            //businessProcess.CanDeleteRecord().Returns(tempProcess.CanDeleteRecord());
         }
 
-
-        protected virtual void SetupFilterOptionsForReferencedBusinessProcess()
+        protected virtual void SetupForRefreshData()
         {
-
+            List<TModel> entities = [];
+            BusinessProcess.GetAll().Returns(entities);
         }
 
         protected virtual void CheckAction1Properties()

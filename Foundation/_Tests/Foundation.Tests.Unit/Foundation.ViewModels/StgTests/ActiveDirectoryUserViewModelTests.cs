@@ -4,18 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-using NUnit.Framework;
-
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.ViewModels;
-
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
 using Foundation.ViewModels.Stg;
+
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.StgTests
 {
@@ -23,24 +17,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.StgTests
     /// Summary description for ActiveDirectoryUserViewModelTests
     /// </summary>
     [TestFixture]
-    public class ActiveDirectoryUserViewModelTests : GenericDataGridViewModelTestBaseClass<IActiveDirectoryUser, IActiveDirectoryUserViewModel, IActiveDirectoryUserProcess>
+    public class ActiveDirectoryUserViewModelTests : GenericDataGridViewModelTests<IActiveDirectoryUser, IActiveDirectoryUserViewModel, IActiveDirectoryUserProcess>
     {
-        protected override String ExpectedScreenTitle => "Active Directory Users";
-        protected override String ExpectedStatusBarText => "Number of Active Directory Users:";
-
-        protected override Boolean ExpectedHasOptionalAction1 => true;
-        protected override String ExpectedAction1Name => "Save to Staging";
-        protected override Boolean ExpectedHasOptionalAction2 => true;
-        protected override String ExpectedAction2Name => "Sync User Profiles";
-
-
-        protected override IActiveDirectoryUserViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            IActiveDirectoryUserViewModel viewModel = new ActiveDirectoryUserViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
-
-            return viewModel;
-        }
-
         protected override IActiveDirectoryUserProcess CreateBusinessProcess()
         {
             IActiveDirectoryUserProcess process = Substitute.For<IActiveDirectoryUserProcess>();
@@ -48,9 +26,18 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.StgTests
             return process;
         }
 
-        protected override IActiveDirectoryUser CreateModel()
+        protected override IActiveDirectoryUser CreateBlankModel(int entityId)
         {
-            IActiveDirectoryUser retVal = base.CreateModel();
+            IActiveDirectoryUser retVal = Substitute.For<IActiveDirectoryUser>();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override IActiveDirectoryUser CreateModel(Int32 entityId)
+        {
+            IActiveDirectoryUser retVal = base.CreateModel(entityId);
 
             retVal.Name = Guid.NewGuid().ToString();
             retVal.FullName = Guid.NewGuid().ToString();
@@ -59,42 +46,49 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.StgTests
             return retVal;
         }
 
-        protected override Object SetupForAction1Command(IActiveDirectoryUserViewModel viewModel)
+        protected override IActiveDirectoryUserViewModel CreateViewModel(IDateTimeService dateTimeService)
         {
-            Object retVal = base.SetupForAction1Command(viewModel);
+            IActiveDirectoryUserViewModel viewModel = new ActiveDirectoryUserViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
 
-            List<IActiveDirectoryUser> entities = new List<IActiveDirectoryUser>();
+            return viewModel;
+        }
+
+        protected override Object SetupForAction1Command()
+        {
+            Object retVal = base.SetupForAction1Command();
+
+            List<IActiveDirectoryUser> entities = [];
             BusinessProcess.GetAll().Returns(entities);
 
-            viewModel.RefreshCommand.Execute(null);
+            TheViewModel!.RefreshCommand.Execute(null);
 
             return retVal;
         }
 
-        protected override void AssertForAction1Command(IActiveDirectoryUserViewModel viewModel)
+        protected override void AssertForAction1Command()
         {
-            base.AssertForAction1Command(viewModel);
+            base.AssertForAction1Command();
 
-            Assert.That(viewModel.Action1CommandEnabled, Is.EqualTo(false));
+            Assert.That(TheViewModel!.Action1CommandEnabled, Is.EqualTo(false));
         }
 
-        protected override Object SetupForAction2Command(IActiveDirectoryUserViewModel viewModel)
+        protected override Object SetupForAction2Command()
         {
-            Object retVal = base.SetupForAction2Command(viewModel);
+            Object retVal = base.SetupForAction2Command();
 
-            List<IActiveDirectoryUser> entities = new List<IActiveDirectoryUser>();
+            List<IActiveDirectoryUser> entities = [];
             BusinessProcess.GetAll().Returns(entities);
 
-            viewModel.RefreshCommand.Execute(null);
+            TheViewModel!.RefreshCommand.Execute(null);
 
             return retVal;
         }
 
-        protected override void AssertForAction2Command(IActiveDirectoryUserViewModel viewModel)
+        protected override void AssertForAction2Command()
         {
-            base.AssertForAction2Command(viewModel);
+            base.AssertForAction2Command();
 
-            Assert.That(viewModel.Action2CommandEnabled, Is.EqualTo(false));
+            Assert.That(TheViewModel!.Action2CommandEnabled, Is.EqualTo(false));
         }
     }
 }

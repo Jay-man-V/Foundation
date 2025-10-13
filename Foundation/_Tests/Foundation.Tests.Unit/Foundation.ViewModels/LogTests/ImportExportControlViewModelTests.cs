@@ -4,17 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using NUnit.Framework;
-
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.ViewModels;
-
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
 using Foundation.ViewModels.Log;
+
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.LogTests
 {
@@ -22,18 +17,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.LogTests
     /// Summary description for ImportExportControlViewModelTests
     /// </summary>
     [TestFixture]
-    public class ImportExportControlViewModelTests : GenericDataGridViewModelTestBaseClass<IImportExportControl, IImportExportControlViewModel, IImportExportControlProcess>
+    public class ImportExportControlViewModelTests : GenericDataGridViewModelTests<IImportExportControl, IImportExportControlViewModel, IImportExportControlProcess>
     {
-        protected override String ExpectedScreenTitle => "Import/Export Control";
-        protected override String ExpectedStatusBarText => "Number of Import/Export Controls:";
-
-        protected override IImportExportControlViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            IImportExportControlViewModel viewModel = new ImportExportControlViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
-
-            return viewModel;
-        }
-
         protected override IImportExportControlProcess CreateBusinessProcess()
         {
             IImportExportControlProcess process = Substitute.For<IImportExportControlProcess>();
@@ -41,14 +26,30 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.LogTests
             return process;
         }
 
-        protected override IImportExportControl CreateModel()
+        protected override IImportExportControl CreateBlankModel(Int32 entityId)
         {
-            IImportExportControl retVal = base.CreateModel();
+            IImportExportControl retVal = Substitute.For<IImportExportControl>();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override IImportExportControl CreateModel(Int32 entityId)
+        {
+            IImportExportControl retVal = base.CreateModel(entityId);
 
             retVal.ProcessedOn = new DateTime(2025, 01, 25, 23, 03, 15);
             retVal.Name = Guid.NewGuid().ToString();
 
             return retVal;
+        }
+
+        protected override IImportExportControlViewModel CreateViewModel(IDateTimeService dateTimeService)
+        {
+            IImportExportControlViewModel viewModel = new ImportExportControlViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
+
+            return viewModel;
         }
     }
 }

@@ -15,17 +15,17 @@
       <Compile Remove="Foundation.ViewModels\CoreTests\**" />
       <Compile Remove="Foundation.ViewModels\LogTests\**" />
       <Compile Remove="Foundation.ViewModels\SecTests\**" />
-      <Compile Remove="Foundation.ViewModels\Services\**" />
+      <Compile Remove="Foundation.ViewModels\ServicesTests\**" />
       <Compile Remove="Foundation.ViewModels\StgTests\**" />
       <EmbeddedResource Remove="Foundation.ViewModels\CoreTests\**" />
       <EmbeddedResource Remove="Foundation.ViewModels\LogTests\**" />
       <EmbeddedResource Remove="Foundation.ViewModels\SecTests\**" />
-      <EmbeddedResource Remove="Foundation.ViewModels\Services\**" />
+      <EmbeddedResource Remove="Foundation.ViewModels\ServicesTests\**" />
       <EmbeddedResource Remove="Foundation.ViewModels\StgTests\**" />
       <None Remove="Foundation.ViewModels\CoreTests\**" />
       <None Remove="Foundation.ViewModels\LogTests\**" />
       <None Remove="Foundation.ViewModels\SecTests\**" />
-      <None Remove="Foundation.ViewModels\Services\**" />
+      <None Remove="Foundation.ViewModels\ServicesTests\**" />
       <None Remove="Foundation.ViewModels\StgTests\**" />
     </ItemGroup>
 
@@ -84,6 +84,25 @@
     <Compile Include="Foundation.ViewModels\.BaseClasses\GenericDataGridViewModelUnitTestsBase.cs" />
     <Compile Include="Foundation.ViewModels\.BaseClasses\ViewModelTests.cs" />
     <Compile Include="Foundation.ViewModels\.BaseClasses\ViewModelUnitTestsBase.cs" />
+    <Compile Include="Foundation.ViewModels\CoreTests\EnumProcessesTests\ApprovalStatusViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\CoreTests\EnumProcessesTests\ConfigurationScopeViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\CoreTests\EnumProcessesTests\ContactTypeViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\CoreTests\EnumProcessesTests\ContractTypeViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\CoreTests\EnumProcessesTests\DataStatusViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\CoreTests\EnumProcessesTests\EntityStatusViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\CoreTests\EnumProcessesTests\ImageTypeViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\CoreTests\EnumProcessesTests\ScheduleIntervalViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\CoreTests\EnumProcessesTests\StatusViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\CoreTests\EnumProcessesTests\TaskStatusViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\LogTests\EnumProcessesTests\LogSeverityViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\LogTests\EventLogApplicationViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\LogTests\EventLogAttachmentViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\LogTests\EventLogViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\LogTests\ImportExportControlViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\LogTests\ScheduledDataStatusViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\SecTests\EnumProcessesTests\ApplicationRoleViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\ServicesTests\MouseBusyCursorTests.cs" />
+    <Compile Include="Foundation.ViewModels\StgTests\ActiveDirectoryUserViewModelTests.cs" />
   </ItemGroup>
 
   <ItemGroup>

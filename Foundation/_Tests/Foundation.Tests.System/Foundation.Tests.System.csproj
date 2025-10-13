@@ -10,6 +10,12 @@
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Compile Remove="Foundation.ViewModels\**" />
+      <EmbeddedResource Remove="Foundation.ViewModels\**" />
+      <None Remove="Foundation.ViewModels\**" />
+    </ItemGroup>
+
   <ItemGroup>
     <Compile Include="..\..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
   </ItemGroup>

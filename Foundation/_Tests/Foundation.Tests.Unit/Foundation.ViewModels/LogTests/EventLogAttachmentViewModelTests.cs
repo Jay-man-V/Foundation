@@ -4,17 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using NUnit.Framework;
-
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.ViewModels;
-
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
 using Foundation.ViewModels.Log;
+
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.LogTests
 {
@@ -22,18 +17,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.LogTests
     /// Summary description for EventLogAttachmentViewModelTests
     /// </summary>
     [TestFixture]
-    public class EventLogAttachmentViewModelTests : GenericDataGridViewModelTestBaseClass<IEventLogAttachment, IEventLogAttachmentViewModel, IEventLogAttachmentProcess>
+    public class EventLogAttachmentViewModelTests : GenericDataGridViewModelTests<IEventLogAttachment, IEventLogAttachmentViewModel, IEventLogAttachmentProcess>
     {
-        protected override String ExpectedScreenTitle => "Event Log Attachments";
-        protected override String ExpectedStatusBarText => "Number of Event Log Attachments:";
-
-        protected override IEventLogAttachmentViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            IEventLogAttachmentViewModel viewModel = new EventLogAttachmentViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
-
-            return viewModel;
-        }
-
         protected override IEventLogAttachmentProcess CreateBusinessProcess()
         {
             IEventLogAttachmentProcess process = Substitute.For<IEventLogAttachmentProcess>();
@@ -41,15 +26,31 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.LogTests
             return process;
         }
 
-        protected override IEventLogAttachment CreateModel()
+        protected override IEventLogAttachment CreateBlankModel(Int32 entityId)
         {
-            IEventLogAttachment retVal = base.CreateModel();
+            IEventLogAttachment retVal = Substitute.For<IEventLogAttachment>();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override IEventLogAttachment CreateModel(Int32 entityId)
+        {
+            IEventLogAttachment retVal = base.CreateModel(entityId);
 
             retVal.EventLogId = new LogId(1);
             retVal.AttachmentFileName = Guid.NewGuid().ToString();
             retVal.Attachment = new Byte[123];
 
             return retVal;
+        }
+
+        protected override IEventLogAttachmentViewModel CreateViewModel(IDateTimeService dateTimeService)
+        {
+            IEventLogAttachmentViewModel viewModel = new EventLogAttachmentViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
+
+            return viewModel;
         }
     }
 }

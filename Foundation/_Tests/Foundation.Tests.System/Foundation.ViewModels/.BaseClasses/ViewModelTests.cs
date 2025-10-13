@@ -32,6 +32,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
 
         protected abstract TViewModel CreateViewModel(IDateTimeService dateTimeService);
 
+        protected abstract void SetupFilterOptionsForReferencedBusinessProcess();
+
         [TestCase]
         public void Test_ViewModel_StaticConstructorAndMembers()
         {

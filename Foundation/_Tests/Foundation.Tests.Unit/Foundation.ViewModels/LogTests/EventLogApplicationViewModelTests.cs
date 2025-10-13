@@ -4,17 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using NUnit.Framework;
-
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.ViewModels;
-
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
 using Foundation.ViewModels.Log;
+
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.LogTests
 {
@@ -22,18 +17,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.LogTests
     /// Summary description for EventLogApplicationViewModelTests
     /// </summary>
     [TestFixture]
-    public class EventLogApplicationViewModelTests : GenericDataGridViewModelTestBaseClass<IEventLogApplication, IEventLogApplicationViewModel, IEventLogApplicationProcess>
+    public class EventLogApplicationViewModelTests : GenericDataGridViewModelTests<IEventLogApplication, IEventLogApplicationViewModel, IEventLogApplicationProcess>
     {
-        protected override String ExpectedScreenTitle => "Event Log Applications";
-        protected override String ExpectedStatusBarText => "Number of Event Log Applications:";
-
-        protected override IEventLogApplicationViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            IEventLogApplicationViewModel viewModel = new EventLogApplicationViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
-
-            return viewModel;
-        }
-
         protected override IEventLogApplicationProcess CreateBusinessProcess()
         {
             IEventLogApplicationProcess process = Substitute.For<IEventLogApplicationProcess>();
@@ -41,15 +26,31 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.LogTests
             return process;
         }
 
-        protected override IEventLogApplication CreateModel()
+        protected override IEventLogApplication CreateBlankModel(Int32 entityId)
         {
-            IEventLogApplication retVal = base.CreateModel();
+            IEventLogApplication retVal = Substitute.For<IEventLogApplication>();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override IEventLogApplication CreateModel(Int32 entityId)
+        {
+            IEventLogApplication retVal = base.CreateModel(entityId);
 
             retVal.ApplicationId = new AppId(1);
             retVal.ProcessName = Guid.NewGuid().ToString();
             retVal.ShortName = Guid.NewGuid().ToString();
 
             return retVal;
+        }
+
+        protected override IEventLogApplicationViewModel CreateViewModel(IDateTimeService dateTimeService)
+        {
+            IEventLogApplicationViewModel viewModel = new EventLogApplicationViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
+
+            return viewModel;
         }
     }
 }

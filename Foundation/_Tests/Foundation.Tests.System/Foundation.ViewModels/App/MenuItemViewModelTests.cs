@@ -22,6 +22,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.App
     public class MenuItemViewModelTests : GenericDataGridViewModelTests<IMenuItem, IMenuItemViewModel, IMenuItemProcess>
     {
         protected override String ExpectedFormTitle => "Menu Items";
+
         protected override String ExpectedStatusBarText => "Number of Menu Items:";
 
         protected override Boolean ExpectedHasOptionalDropDownParameter1 => true;
@@ -45,6 +46,35 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.App
             ];
 
             retVal.MakeListOfParentMenuItems(Arg.Any<List<IMenuItem>>()).Returns(parentMenuItems);
+
+            return retVal;
+        }
+
+        protected override IMenuItem CreateBlankModel(Int32 entityId)
+        {
+            IMenuItem retVal = Substitute.For<IMenuItem>();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override IMenuItem CreateModel(Int32 entityId)
+        {
+            IMenuItem retVal = base.CreateModel(entityId);
+
+            retVal.ApplicationId = new AppId(1);
+            retVal.ParentMenuItemId = new EntityId(1);
+            retVal.Name = Guid.NewGuid().ToString();
+            retVal.Caption = Guid.NewGuid().ToString();
+            retVal.ControllerAssembly = Guid.NewGuid().ToString();
+            retVal.ControllerType = Guid.NewGuid().ToString();
+            retVal.ViewAssembly = Guid.NewGuid().ToString();
+            retVal.ViewType = Guid.NewGuid().ToString();
+            retVal.HelpText = Guid.NewGuid().ToString();
+            retVal.MultiInstance = true;
+            retVal.ShowInTab = true;
+            retVal.Icon = [1, 2, 3, 4, 5, 6, 7, 8, 10];
 
             return retVal;
         }
@@ -75,26 +105,6 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.App
                 });
         }
 
-        protected override IMenuItem CreateModel()
-        {
-            IMenuItem retVal = base.CreateModel();
-
-            retVal.ApplicationId = new AppId(1);
-            retVal.ParentMenuItemId = new EntityId(1);
-            retVal.Name = Guid.NewGuid().ToString();
-            retVal.Caption = Guid.NewGuid().ToString();
-            retVal.ControllerAssembly = Guid.NewGuid().ToString();
-            retVal.ControllerType = Guid.NewGuid().ToString();
-            retVal.ViewAssembly = Guid.NewGuid().ToString();
-            retVal.ViewType = Guid.NewGuid().ToString();
-            retVal.HelpText = Guid.NewGuid().ToString();
-            retVal.MultiInstance = true;
-            retVal.ShowInTab = true;
-            retVal.Icon = [1, 2, 3, 4, 5, 6, 7, 8, 10];
-
-            return retVal;
-        }
-
         protected override void SetupForRefreshData()
         {
             base.SetupForRefreshData();
@@ -108,8 +118,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.App
 
             List<IMenuItem> parentMenuItems =
             [
-                CreateModel(),
-                CreateModel()
+                CreateModel(1),
+                CreateModel(2)
             ];
             BusinessProcess.MakeListOfParentMenuItems(Arg.Any<List<IMenuItem>>()).Returns(parentMenuItems);
 
@@ -117,18 +127,18 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.App
             BusinessProcess.ApplyFilter(Arg.Any<List<IMenuItem>>(), Arg.Any<IApplication>(), Arg.Any<IMenuItem>()).Returns(filteredData);
         }
 
-        //protected override Object CreateModelForDropDown1()
-        //{
-        //    IApplication retVal = CoreInstance.IoC.Get<IApplication>();
+        protected override Object CreateModelForDropDown1()
+        {
+            IApplication retVal = Substitute.For<IApplication>();
 
-        //    return retVal;
-        //}
+            return retVal;
+        }
 
-        //protected override Object CreateModelForDropDown2()
-        //{
-        //    IMenuItem retVal = CoreInstance.IoC.Get<IMenuItem>();
+        protected override Object CreateModelForDropDown2()
+        {
+            IMenuItem retVal = Substitute.For<IMenuItem>();
 
-        //    return retVal;
-        //}
+            return retVal;
+        }
     }
 }

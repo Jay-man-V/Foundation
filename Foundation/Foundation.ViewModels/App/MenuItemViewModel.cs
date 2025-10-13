@@ -124,6 +124,8 @@ namespace Foundation.ViewModels.App
         {
             LoggingHelpers.TraceCallEnter(selectedFilter);
 
+            base.ApplyFilter1(selectedFilter);
+
             if (selectedFilter is IApplication application &&
                 Filter2SelectedItem is IMenuItem menuItem)
             {
@@ -139,6 +141,8 @@ namespace Foundation.ViewModels.App
         protected override void ApplyFilter2(Object? selectedFilter)
         {
             LoggingHelpers.TraceCallEnter(selectedFilter);
+
+            base.ApplyFilter2(selectedFilter);
 
             if (Filter1SelectedItem is IApplication application &&
                 selectedFilter is IMenuItem menuItem)

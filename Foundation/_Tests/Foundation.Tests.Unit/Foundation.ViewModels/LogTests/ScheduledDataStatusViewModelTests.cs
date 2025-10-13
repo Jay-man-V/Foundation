@@ -4,36 +4,21 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using NUnit.Framework;
-
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.ViewModels;
-
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
 using Foundation.ViewModels.Log;
 
-namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
+
+namespace Foundation.Tests.Unit.Foundation.ViewModels.LogTests
 {
     /// <summary>
     /// Summary description for ScheduledDataStatusViewModelTests
     /// </summary>
     [TestFixture]
-    public class ScheduledDataStatusViewModelTests : GenericDataGridViewModelTestBaseClass<IScheduledDataStatus, IScheduledDataStatusViewModel, IScheduledDataStatusProcess>
+    public class ScheduledDataStatusViewModelTests : GenericDataGridViewModelTests<IScheduledDataStatus, IScheduledDataStatusViewModel, IScheduledDataStatusProcess>
     {
-        protected override String ExpectedScreenTitle => "Scheduled Data Statuses";
-        protected override String ExpectedStatusBarText => "Number of Scheduled Data Statuses:";
-
-        protected override IScheduledDataStatusViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            IScheduledDataStatusViewModel viewModel = new ScheduledDataStatusViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
-
-            return viewModel;
-        }
-
         protected override IScheduledDataStatusProcess CreateBusinessProcess()
         {
             IScheduledDataStatusProcess process = Substitute.For<IScheduledDataStatusProcess>();
@@ -41,15 +26,31 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             return process;
         }
 
-        protected override IScheduledDataStatus CreateModel()
+        protected override IScheduledDataStatus CreateBlankModel(Int32 entityId)
         {
-            IScheduledDataStatus retVal = base.CreateModel();
+            IScheduledDataStatus retVal = Substitute.For<IScheduledDataStatus>();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override IScheduledDataStatus CreateModel(Int32 entityId)
+        {
+            IScheduledDataStatus retVal = base.CreateModel(entityId);
 
             retVal.DataDate = DateTimeService.SystemUtcDateTimeNow;
             retVal.Name = Guid.NewGuid().ToString();
             retVal.DataStatusId = new EntityId(1);
 
             return retVal;
+        }
+
+        protected override IScheduledDataStatusViewModel CreateViewModel(IDateTimeService dateTimeService)
+        {
+            IScheduledDataStatusViewModel viewModel = new ScheduledDataStatusViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
+
+            return viewModel;
         }
     }
 }
