@@ -7,11 +7,10 @@
 using NSubstitute;
 
 using Foundation.Interfaces;
-
-using FDC = Foundation.Resources.Constants.DataColumns;
-
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
+using Foundation.Models.Core;
 using Foundation.ViewModels.Core;
+
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
 {
@@ -19,27 +18,35 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
     /// Summary description for NonWorkingDayViewModelTests
     /// </summary>
     [TestFixture]
-    public class NonWorkingDayViewModelTests : GenericDataGridViewModelTestBaseClass<INonWorkingDay, INonWorkingDayViewModel, INonWorkingDayProcess>
+    public class NonWorkingDayViewModelTests : GenericDataGridViewModelTests<INonWorkingDay, INonWorkingDayViewModel, INonWorkingDayProcess>
     {
-        protected override String ExpectedScreenTitle => "Non-Working Days";
-        protected override String ExpectedStatusBarText => "Number of Non-Working Days:";
+        protected override INonWorkingDayProcess CreateBusinessProcess()
+        {
+            INonWorkingDayProcess process = Substitute.For<INonWorkingDayProcess>();
 
-        protected override Boolean ExpectedHasOptionalAction1 => true;
-        protected override String ExpectedAction1Name => "Refresh from Government source";
+            return process;
+        }
 
-        protected override Boolean ExpectedHasOptionalDropDownParameter1 => true;
-        protected override String ExpectedFilter1Name => "Country:";
-        protected override String ExpectedFilter1DisplayMemberPath => FDC.Country.AbbreviatedName;
+        protected override INonWorkingDay CreateBlankModel(Int32 entityId)
+        {
+            INonWorkingDay retVal = new NonWorkingDay();
 
-        protected override Boolean ExpectedHasOptionalDropDownParameter2 => true;
-        protected override String ExpectedFilter2Name => "Year:";
-        protected override String ExpectedFilter2DisplayMemberPath => ".";
-        protected override String ExpectedFilter2SelectedValuePath => ".";
+            retVal.Id = new EntityId(entityId);
 
-        protected override Boolean ExpectedHasOptionalDropDownParameter3 => true;
-        protected override String ExpectedFilter3Name => "Description:";
-        protected override String ExpectedFilter3DisplayMemberPath => ".";
-        protected override String ExpectedFilter3SelectedValuePath => ".";
+            return retVal;
+        }
+
+        protected override INonWorkingDay CreateModel(Int32 entityId)
+        {
+            INonWorkingDay retVal = base.CreateModel(entityId);
+
+            retVal.Date = DateTimeService.SystemUtcDateTimeNow.Date;
+            retVal.CountryId = new EntityId(1);
+            retVal.Description = Guid.NewGuid().ToString();
+            retVal.Notes = Guid.NewGuid().ToString();
+
+            return retVal;
+        }
 
         protected override INonWorkingDayViewModel CreateViewModel(IDateTimeService dateTimeService)
         {
@@ -50,64 +57,45 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             return viewModel;
         }
 
-        protected override INonWorkingDayProcess CreateBusinessProcess()
-        {
-            INonWorkingDayProcess process = Substitute.For<INonWorkingDayProcess>();
-
-            return process;
-        }
-
-        protected override INonWorkingDay CreateModel()
-        {
-            INonWorkingDay retVal = base.CreateModel();
-
-            retVal.Date = DateTimeService.SystemUtcDateTimeNow.Date;
-            retVal.CountryId = new EntityId(1);
-            retVal.Description = Guid.NewGuid().ToString();
-            retVal.Notes = Guid.NewGuid().ToString();
-
-            return retVal;
-        }
-
         protected override void SetupForRefreshData()
         {
             base.SetupForRefreshData();
 
-            List<ICountry> countries = new List<ICountry>
-            {
-                CoreInstance.IoC.Get<ICountry>(),
-            };
+            List<ICountry> countries =
+            [
+                Substitute.For<ICountry>(),
+            ];
             BusinessProcess.GetListOfNonWorkingDayCountries(Arg.Any<List<INonWorkingDay>>()).Returns(countries);
 
-            List<String> years = new List<String>
-            {
+            List<String> years =
+            [
                 "2024",
-            };
+            ];
             BusinessProcess.GetListOfNonWorkingDayYears(Arg.Any<List<INonWorkingDay>>()).Returns(years);
 
-            List<String> descriptions = new List<String>
-            {
+            List<String> descriptions =
+            [
                 "A Description",
-            };
+            ];
             BusinessProcess.GetListOfNonWorkingDayDescriptions(Arg.Any<List<INonWorkingDay>>()).Returns(descriptions);
 
             List<INonWorkingDay> nonWorkingDays = new List<INonWorkingDay>();
             BusinessProcess.ApplyFilter(Arg.Any<List<INonWorkingDay>>(), Arg.Any<ICountry>(), Arg.Any<String>(), Arg.Any<String>()).Returns(nonWorkingDays);
         }
 
-        protected override object SetupForAction1Command(INonWorkingDayViewModel viewModel)
+        protected override object SetupForAction1Command()
         {
-            ICountry retVal = CoreInstance.IoC.Get<ICountry>();
+            ICountry retVal = Substitute.For<ICountry>();
 
-            viewModel.Filter1SelectedItem = retVal;
+            TheViewModel!.Filter1SelectedItem = retVal;
 
-            IEnumerable<ICountry> countries = MakeListOfCountries();
+;           IEnumerable<ICountry> countries = MakeListOfCountries();
             BusinessProcess.GetListOfNonWorkingDayCountries(Arg.Any<IEnumerable<INonWorkingDay>>()).Returns(countries);
 
-            List<String> years = new List<String> { "2021", "2022", "2023", "2024", "2025" };
+            List<String> years = ["2021", "2022", "2023", "2024", "2025"];
             BusinessProcess.GetListOfNonWorkingDayYears(Arg.Any<List<INonWorkingDay>>()).Returns(years);
 
-            List<String> descriptions = new List<String> { "Desc 1", "Desc 2", "Desc 3", "Desc 4", "Desc 5" };
+            List<String> descriptions = ["Desc 1", "Desc 2", "Desc 3", "Desc 4", "Desc 5"];
             BusinessProcess.GetListOfNonWorkingDayDescriptions(Arg.Any<List<INonWorkingDay>>()).Returns(descriptions);
 
             return retVal;
@@ -115,7 +103,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
 
         protected override Object CreateModelForDropDown1()
         {
-            return CoreInstance.IoC.Get<INonWorkingDay>();
+            return Substitute.For<INonWorkingDay>();
         }
 
         protected override Object CreateModelForDropDown2()
@@ -125,18 +113,18 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
 
         protected override Object CreateModelForDropDown3()
         {
-            return CoreInstance.IoC.Get<INonWorkingDay>();
+            return Substitute.For<INonWorkingDay>();
         }
 
         private List<ICountry> MakeListOfCountries()
         {
-            List<ICountry> retVal = new List<ICountry>
-            {
-                CoreInstance.IoC.Get<ICountry>(),
-                CoreInstance.IoC.Get<ICountry>(),
-                CoreInstance.IoC.Get<ICountry>(),
-                CoreInstance.IoC.Get<ICountry>(),
-            };
+            List<ICountry> retVal =
+            [
+                Substitute.For<ICountry>(),
+                Substitute.For<ICountry>(),
+                Substitute.For<ICountry>(),
+                Substitute.For<ICountry>(),
+            ];
             retVal[0].Id = new EntityId(1);
             retVal[1].Id = new EntityId(2);
             retVal[2].Id = new EntityId(3);

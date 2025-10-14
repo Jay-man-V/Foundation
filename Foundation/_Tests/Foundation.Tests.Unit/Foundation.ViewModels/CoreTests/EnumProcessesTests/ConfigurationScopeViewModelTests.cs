@@ -11,6 +11,8 @@ using Foundation.ViewModels.Core.EnumViewModels;
 
 using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
+using FModels = Foundation.Models.Core.EnumModels;
+
 namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests.EnumProcessesTests
 {
     /// <summary>
@@ -28,7 +30,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests.EnumProcessesTes
 
         protected override IConfigurationScope CreateBlankModel(Int32 entityId)
         {
-            IConfigurationScope retVal = Substitute.For<IConfigurationScope>();
+            IConfigurationScope retVal = new FModels.ConfigurationScope();
 
             retVal.Id = new EntityId(entityId);
 

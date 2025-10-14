@@ -4,17 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using NUnit.Framework;
-
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.ViewModels;
-
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
+using Foundation.Models.Core;
 using Foundation.ViewModels.Core;
+
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
 {
@@ -22,18 +18,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
     /// Summary description for CurrencyViewModelTests
     /// </summary>
     [TestFixture]
-    public class CurrencyViewModelTests : GenericDataGridViewModelTestBaseClass<ICurrency, ICurrencyViewModel, ICurrencyProcess>
+    public class CurrencyViewModelTests : GenericDataGridViewModelTests<ICurrency, ICurrencyViewModel, ICurrencyProcess>
     {
-        protected override String ExpectedScreenTitle => "Currencies";
-        protected override String ExpectedStatusBarText => "Number of Currencies:";
-
-        protected override ICurrencyViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            ICurrencyViewModel viewModel = new CurrencyViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
-
-            return viewModel;
-        }
-
         protected override ICurrencyProcess CreateBusinessProcess()
         {
             ICurrencyProcess process = Substitute.For<ICurrencyProcess>();
@@ -41,9 +27,18 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             return process;
         }
 
-        protected override ICurrency CreateModel()
+        protected override ICurrency CreateBlankModel(Int32 entityId)
         {
-            ICurrency retVal = base.CreateModel();
+            ICurrency retVal = new Currency();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override ICurrency CreateModel(Int32 entityId)
+        {
+            ICurrency retVal = base.CreateModel(entityId);
 
             retVal.PrefixSymbol = true;
             retVal.Symbol = Guid.NewGuid().ToString();
@@ -53,6 +48,13 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             retVal.NumberToBasic = 100;
 
             return retVal;
+        }
+
+        protected override ICurrencyViewModel CreateViewModel(IDateTimeService dateTimeService)
+        {
+            ICurrencyViewModel viewModel = new CurrencyViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
+
+            return viewModel;
         }
     }
 }

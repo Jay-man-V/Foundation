@@ -4,17 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using NUnit.Framework;
-
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.ViewModels;
-
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
+using Foundation.Models.Sec;
 using Foundation.ViewModels.Sec;
+
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
 {
@@ -22,18 +18,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
     /// Summary description for ApplicationUserRoleViewModelTests
     /// </summary>
     [TestFixture]
-    public class ApplicationUserRoleViewModelTests : GenericDataGridViewModelTestBaseClass<IApplicationUserRole, IApplicationUserRoleViewModel, IApplicationUserRoleProcess>
+    public class ApplicationUserRoleViewModelTests : GenericDataGridViewModelTests<IApplicationUserRole, IApplicationUserRoleViewModel, IApplicationUserRoleProcess>
     {
-        protected override String ExpectedScreenTitle => "Application/User/Roles";
-        protected override String ExpectedStatusBarText => "Number of Application/User/Roles:";
-
-        protected override IApplicationUserRoleViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            IApplicationUserRoleViewModel viewModel = new ApplicationUserRoleViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
-
-            return viewModel;
-        }
-
         protected override IApplicationUserRoleProcess CreateBusinessProcess()
         {
             IApplicationUserRoleProcess process = Substitute.For<IApplicationUserRoleProcess>();
@@ -41,15 +27,31 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
             return process;
         }
 
-        protected override IApplicationUserRole CreateModel()
+        protected override IApplicationUserRole CreateBlankModel(Int32 entityId)
         {
-            IApplicationUserRole retVal = base.CreateModel();
+            IApplicationUserRole retVal = new ApplicationUserRole();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override IApplicationUserRole CreateModel(Int32 entityId)
+        {
+            IApplicationUserRole retVal = base.CreateModel(entityId);
 
             retVal.ApplicationId = new AppId(1);
             retVal.UserProfileId = new EntityId(2);
             retVal.RoleId = new EntityId(3);
 
             return retVal;
+        }
+
+        protected override IApplicationUserRoleViewModel CreateViewModel(IDateTimeService dateTimeService)
+        {
+            IApplicationUserRoleViewModel viewModel = new ApplicationUserRoleViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
+
+            return viewModel;
         }
     }
 }

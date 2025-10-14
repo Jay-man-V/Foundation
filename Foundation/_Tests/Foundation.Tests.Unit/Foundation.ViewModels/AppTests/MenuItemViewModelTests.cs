@@ -7,6 +7,7 @@
 using NSubstitute;
 
 using Foundation.Interfaces;
+using Foundation.Models.App;
 using Foundation.ViewModels.App;
 
 using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
@@ -38,7 +39,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.AppTests
 
         protected override IMenuItem CreateBlankModel(Int32 entityId)
         {
-            IMenuItem retVal = Substitute.For<IMenuItem>();
+            IMenuItem retVal = new MenuItem();
 
             retVal.Id = new EntityId(entityId);
 

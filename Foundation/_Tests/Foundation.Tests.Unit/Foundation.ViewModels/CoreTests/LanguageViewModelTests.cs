@@ -4,17 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using NUnit.Framework;
-
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.ViewModels;
-
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
+using Foundation.Models.Core;
 using Foundation.ViewModels.Core;
+
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
 {
@@ -22,18 +18,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
     /// Summary description for LanguageViewModelTests
     /// </summary>
     [TestFixture]
-    public class LanguageViewModelTests : GenericDataGridViewModelTestBaseClass<ILanguage, ILanguageViewModel, ILanguageProcess>
+    public class LanguageViewModelTests : GenericDataGridViewModelTests<ILanguage, ILanguageViewModel, ILanguageProcess>
     {
-        protected override String ExpectedScreenTitle => "Languages";
-        protected override String ExpectedStatusBarText => "Number of Languages:";
-
-        protected override ILanguageViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            ILanguageViewModel viewModel = new LanguageViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
-
-            return viewModel;
-        }
-
         protected override ILanguageProcess CreateBusinessProcess()
         {
             ILanguageProcess process = Substitute.For<ILanguageProcess>();
@@ -41,9 +27,18 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             return process;
         }
 
-        protected override ILanguage CreateModel()
+        protected override ILanguage CreateBlankModel(Int32 entityId)
         {
-            ILanguage retVal = base.CreateModel();
+            ILanguage retVal = new Language();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override ILanguage CreateModel(Int32 entityId)
+        {
+            ILanguage retVal = base.CreateModel(entityId);
 
             retVal.EnglishName = Guid.NewGuid().ToString();
             retVal.NativeName = Guid.NewGuid().ToString();
@@ -51,6 +46,13 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             retVal.UiCultureCode = Guid.NewGuid().ToString();
 
             return retVal;
+        }
+
+        protected override ILanguageViewModel CreateViewModel(IDateTimeService dateTimeService)
+        {
+            ILanguageViewModel viewModel = new LanguageViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
+
+            return viewModel;
         }
     }
 }

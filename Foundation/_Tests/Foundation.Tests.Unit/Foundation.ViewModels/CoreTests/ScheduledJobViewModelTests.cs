@@ -4,17 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using NUnit.Framework;
-
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.ViewModels;
-
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
+using Foundation.Models.Core;
 using Foundation.ViewModels.Core;
+
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
 {
@@ -22,18 +18,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
     /// Summary description for ScheduledJobViewModelTests
     /// </summary>
     [TestFixture]
-    public class ScheduledJobViewModelTests : GenericDataGridViewModelTestBaseClass<IScheduledJob, IScheduledJobViewModel, IScheduledJobProcess>
+    public class ScheduledJobViewModelTests : GenericDataGridViewModelTests<IScheduledJob, IScheduledJobViewModel, IScheduledJobProcess>
     {
-        protected override String ExpectedScreenTitle => "Scheduled Jobs";
-        protected override String ExpectedStatusBarText => "Number of Scheduled Jobs:";
-
-        protected override IScheduledJobViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            IScheduledJobViewModel viewModel = new ScheduledJobViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
-
-            return viewModel;
-        }
-
         protected override IScheduledJobProcess CreateBusinessProcess()
         {
             IScheduledJobProcess process = Substitute.For<IScheduledJobProcess>();
@@ -41,9 +27,18 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             return process;
         }
 
-        protected override IScheduledJob CreateModel()
+        protected override IScheduledJob CreateBlankModel(Int32 entityId)
         {
-            IScheduledJob retVal = base.CreateModel();
+            IScheduledJob retVal = new ScheduledJob();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override IScheduledJob CreateModel(Int32 entityId)
+        {
+            IScheduledJob retVal = base.CreateModel(entityId);
 
             retVal.Name = Guid.NewGuid().ToString();
             retVal.ScheduleIntervalId = new EntityId(1);
@@ -60,6 +55,13 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             retVal.IsRunning = false;
 
             return retVal;
+        }
+
+        protected override IScheduledJobViewModel CreateViewModel(IDateTimeService dateTimeService)
+        {
+            IScheduledJobViewModel viewModel = new ScheduledJobViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
+
+            return viewModel;
         }
     }
 }

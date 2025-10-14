@@ -11,6 +11,8 @@ using Foundation.ViewModels.Core.EnumViewModels;
 
 using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
+using FModels = Foundation.Models.Core.EnumModels;
+
 namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests.EnumProcessesTests
 {
     /// <summary>
@@ -28,7 +30,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests.EnumProcessesTes
 
         protected override ITaskStatus CreateBlankModel(Int32 entityId)
         {
-            ITaskStatus retVal = Substitute.For<ITaskStatus>();
+            ITaskStatus retVal = new FModels.TaskStatus();
 
             retVal.Id = new EntityId(entityId);
 

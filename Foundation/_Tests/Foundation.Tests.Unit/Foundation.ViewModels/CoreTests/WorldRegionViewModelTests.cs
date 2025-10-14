@@ -4,17 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using NUnit.Framework;
-
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.ViewModels;
-
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
+using Foundation.Models.Core;
 using Foundation.ViewModels.Core;
+
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
 {
@@ -22,18 +18,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
     /// Summary description for WorldRegionViewModelTests
     /// </summary>
     [TestFixture]
-    public class WorldRegionViewModelTests : GenericDataGridViewModelTestBaseClass<IWorldRegion, IWorldRegionViewModel, IWorldRegionProcess>
+    public class WorldRegionViewModelTests : GenericDataGridViewModelTests<IWorldRegion, IWorldRegionViewModel, IWorldRegionProcess>
     {
-        protected override String ExpectedScreenTitle => "World Regions";
-        protected override String ExpectedStatusBarText => "Number of World Regions:";
-
-        protected override IWorldRegionViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            IWorldRegionViewModel viewModel = new WorldRegionViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
-
-            return viewModel;
-        }
-
         protected override IWorldRegionProcess CreateBusinessProcess()
         {
             IWorldRegionProcess process = Substitute.For<IWorldRegionProcess>();
@@ -41,13 +27,29 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             return process;
         }
 
-        protected override IWorldRegion CreateModel()
+        protected override IWorldRegion CreateBlankModel(Int32 entityId)
         {
-            IWorldRegion retVal = base.CreateModel();
+            IWorldRegion retVal = new WorldRegion();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override IWorldRegion CreateModel(Int32 entityId)
+        {
+            IWorldRegion retVal = base.CreateModel(entityId);
 
             retVal.Name = Guid.NewGuid().ToString();
 
             return retVal;
+        }
+
+        protected override IWorldRegionViewModel CreateViewModel(IDateTimeService dateTimeService)
+        {
+            IWorldRegionViewModel viewModel = new WorldRegionViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
+
+            return viewModel;
         }
     }
 }

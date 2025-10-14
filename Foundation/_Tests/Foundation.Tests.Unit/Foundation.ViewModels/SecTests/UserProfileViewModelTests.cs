@@ -4,17 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using NUnit.Framework;
-
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.ViewModels;
-
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
+using Foundation.Models.Sec;
 using Foundation.ViewModels.Sec;
+
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
 {
@@ -22,18 +18,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
     /// Summary description for UserProfileViewModelTests
     /// </summary>
     [TestFixture]
-    public class UserProfileViewModelTests : GenericDataGridViewModelTestBaseClass<IUserProfile, IUserProfileViewModel, IUserProfileProcess>
+    public class UserProfileViewModelTests : GenericDataGridViewModelTests<IUserProfile, IUserProfileViewModel, IUserProfileProcess>
     {
-        protected override String ExpectedScreenTitle => "User Profiles";
-        protected override String ExpectedStatusBarText => "Number of User Profiles:";
-
-        protected override IUserProfileViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            IUserProfileViewModel viewModel = new UserProfileViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
-
-            return viewModel;
-        }
-
         protected override IUserProfileProcess CreateBusinessProcess()
         {
             IUserProfileProcess process = Substitute.For<IUserProfileProcess>();
@@ -41,9 +27,18 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
             return process;
         }
 
-        protected override IUserProfile CreateModel()
+        protected override IUserProfile CreateBlankModel(Int32 entityId)
         {
-            IUserProfile retVal = base.CreateModel();
+            IUserProfile retVal = new UserProfile();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override IUserProfile CreateModel(Int32 entityId)
+        {
+            IUserProfile retVal = base.CreateModel(entityId);
 
             retVal.ExternalKeyId = Guid.NewGuid().ToString();
             retVal.Username = Guid.NewGuid().ToString();
@@ -52,6 +47,13 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
             retVal.ContactDetailId = new EntityId(1);
 
             return retVal;
+        }
+
+        protected override IUserProfileViewModel CreateViewModel(IDateTimeService dateTimeService)
+        {
+            IUserProfileViewModel viewModel = new UserProfileViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
+
+            return viewModel;
         }
     }
 }

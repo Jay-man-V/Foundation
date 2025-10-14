@@ -4,19 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using NUnit.Framework;
-
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.Models;
 using Foundation.Models.Sec;
-using Foundation.ViewModels;
-
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
 using Foundation.ViewModels.Sec;
+
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
 {
@@ -24,18 +18,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
     /// Summary description for RoleViewModelTests
     /// </summary>
     [TestFixture]
-    public class RoleViewModelTests : GenericDataGridViewModelTestBaseClass<IRole, IRoleViewModel, IRoleProcess>
+    public class RoleViewModelTests : GenericDataGridViewModelTests<IRole, IRoleViewModel, IRoleProcess>
     {
-        protected override String ExpectedScreenTitle => "Roles";
-        protected override String ExpectedStatusBarText => "Number of Roles:";
-
-        protected override IRoleViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            IRoleViewModel viewModel = new RoleViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
-
-            return viewModel;
-        }
-
         protected override IRoleProcess CreateBusinessProcess()
         {
             IRoleProcess process = Substitute.For<IRoleProcess>();
@@ -43,9 +27,18 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
             return process;
         }
 
-        protected override IRole CreateModel()
+        protected override IRole CreateBlankModel(Int32 entityId)
         {
-            IRole retVal = base.CreateModel();
+            IRole retVal = new Role();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override IRole CreateModel(Int32 entityId)
+        {
+            IRole retVal = base.CreateModel(entityId);
             Role role = (Role)retVal;
 
             retVal.Name = Guid.NewGuid().ToString();
@@ -53,6 +46,13 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
             role.SystemSupportOnly = true;
 
             return retVal;
+        }
+
+        protected override IRoleViewModel CreateViewModel(IDateTimeService dateTimeService)
+        {
+            IRoleViewModel viewModel = new RoleViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
+
+            return viewModel;
         }
     }
 }

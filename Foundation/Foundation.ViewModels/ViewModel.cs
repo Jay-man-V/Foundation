@@ -4,12 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Common;
+using Foundation.Interfaces;
+
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-
-using Foundation.Common;
-using Foundation.Interfaces;
 
 namespace Foundation.ViewModels
 {
@@ -29,6 +30,26 @@ namespace Foundation.ViewModels
         /// </summary>
         static ViewModel()
         {
+            //LoggingHelpers.TraceCallEnter();
+
+            ///* These steps must be performed as soon as possible before other actions run */
+
+            //StatusProcess = Foundation.Core.Core.TheInstance.IoC.Get<IStatusProcess>();
+            //UserProfileProcess = Foundation.Core.Core.TheInstance.IoC.Get<IUserProfileProcess>();
+            //LoggedOnUserProcess = Foundation.Core.Core.TheInstance.IoC.Get<ILoggedOnUserProcess>();
+
+            ///******************************************************************************/
+
+            //LoggingHelpers.TraceCallReturn();
+        }
+
+        private static AppId? _applicationid;
+        private static List<IStatus>? _statusesList;
+        private static List<IUserProfile>? _userProfilesList;
+        private static List<ILoggedOnUser>? _loggedOnUsersList;
+
+        public static void InitialiseStaticMembers()
+        {
             LoggingHelpers.TraceCallEnter();
 
             /* These steps must be performed as soon as possible before other actions run */
@@ -41,10 +62,6 @@ namespace Foundation.ViewModels
 
             LoggingHelpers.TraceCallReturn();
         }
-
-        private static List<IStatus>? _statusesList;
-        private static List<IUserProfile>? _userProfilesList;
-        private static List<ILoggedOnUser>? _loggedOnUsersList;
 
         /// <summary>
         /// Gets the Status process
@@ -60,6 +77,20 @@ namespace Foundation.ViewModels
         /// Gets the Logged on user process
         /// </summary>
         protected internal static ILoggedOnUserProcess LoggedOnUserProcess { get; internal set; }
+
+        public static AppId ApplicationId
+        {
+            get
+            {
+                if (_applicationid == null)
+                {
+                    _applicationid = Foundation.Core.Core.TheInstance.ApplicationId;
+                }
+
+                return _applicationid.Value;
+            }
+            set => _applicationid = value;
+        }
 
         /// <summary>
         /// List of <see cref="IStatus"/>. This is a list ALL the Status entities within the system.
@@ -83,7 +114,7 @@ namespace Foundation.ViewModels
         /// <value>
         /// The logged on users list.
         /// </value>
-        public static List<ILoggedOnUser> LoggedOnUsersList => _loggedOnUsersList ??= LoggedOnUserProcess.GetLoggedOnUsers(Foundation.Core.Core.TheInstance.ApplicationId);
+        public static List<ILoggedOnUser> LoggedOnUsersList => _loggedOnUsersList ??= LoggedOnUserProcess.GetLoggedOnUsers(ApplicationId);
 
         /// <summary>
         /// Initialises a new instance of the <see cref="ViewModel" /> class.

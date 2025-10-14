@@ -7,6 +7,7 @@
 using NSubstitute;
 
 using Foundation.Interfaces;
+using Foundation.Models.Stg;
 using Foundation.ViewModels.Stg;
 
 using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
@@ -26,9 +27,9 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.StgTests
             return process;
         }
 
-        protected override IActiveDirectoryUser CreateBlankModel(int entityId)
+        protected override IActiveDirectoryUser CreateBlankModel(Int32 entityId)
         {
-            IActiveDirectoryUser retVal = Substitute.For<IActiveDirectoryUser>();
+            IActiveDirectoryUser retVal = new ActiveDirectoryUser();
 
             retVal.Id = new EntityId(entityId);
 

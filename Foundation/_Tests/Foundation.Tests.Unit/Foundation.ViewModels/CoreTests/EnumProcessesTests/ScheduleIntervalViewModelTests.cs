@@ -11,6 +11,8 @@ using Foundation.ViewModels.Core.EnumViewModels;
 
 using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
+using FModels = Foundation.Models.Core.EnumModels;
+
 namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests.EnumProcessesTests
 {
     /// <summary>
@@ -28,7 +30,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests.EnumProcessesTes
 
         protected override IScheduleInterval CreateBlankModel(Int32 entityId)
         {
-            IScheduleInterval retVal = Substitute.For<IScheduleInterval>();
+            IScheduleInterval retVal = new FModels.ScheduleInterval();
 
             retVal.Id = new EntityId(entityId);
 

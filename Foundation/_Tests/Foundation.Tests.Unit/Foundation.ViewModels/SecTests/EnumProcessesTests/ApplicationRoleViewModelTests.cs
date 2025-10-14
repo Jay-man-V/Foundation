@@ -11,6 +11,8 @@ using Foundation.ViewModels.Sec.EnumViewModels;
 
 using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
+using FModels = Foundation.Models.Sec.EnumModels;
+
 namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests.EnumProcessesTests
 {
     /// <summary>
@@ -26,9 +28,9 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests.EnumProcessesTest
             return process;
         }
 
-        protected override IApplicationRole CreateBlankModel(int entityId)
+        protected override IApplicationRole CreateBlankModel(Int32 entityId)
         {
-            IApplicationRole retVal = Substitute.For<IApplicationRole>();
+            IApplicationRole retVal = new FModels.ApplicationRole();
 
             retVal.Id = new EntityId(entityId);
 

@@ -4,17 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using NUnit.Framework;
-
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.ViewModels;
-
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
 using Foundation.ViewModels.Core;
+
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
+
+using FModels = Foundation.Models.Core;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
 {
@@ -22,18 +19,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
     /// Summary description for TimeZoneViewModelTests
     /// </summary>
     [TestFixture]
-    public class TimeZoneViewModelTests : GenericDataGridViewModelTestBaseClass<ITimeZone, ITimeZoneViewModel, ITimeZoneProcess>
+    public class TimeZoneViewModelTests : GenericDataGridViewModelTests<ITimeZone, ITimeZoneViewModel, ITimeZoneProcess>
     {
-        protected override String ExpectedScreenTitle => "Time Zones";
-        protected override String ExpectedStatusBarText => "Number of Time Zones:";
-
-        protected override ITimeZoneViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            ITimeZoneViewModel viewModel = new TimeZoneViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
-
-            return viewModel;
-        }
-
         protected override ITimeZoneProcess CreateBusinessProcess()
         {
             ITimeZoneProcess process = Substitute.For<ITimeZoneProcess>();
@@ -41,9 +28,18 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             return process;
         }
 
-        protected override ITimeZone CreateModel()
+        protected override ITimeZone CreateBlankModel(Int32 entityId)
         {
-            ITimeZone retVal = base.CreateModel();
+            ITimeZone retVal = new FModels.TimeZone();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override ITimeZone CreateModel(Int32 entityId)
+        {
+            ITimeZone retVal = base.CreateModel(entityId);
 
             retVal.Code = Guid.NewGuid().ToString();
             retVal.Description = Guid.NewGuid().ToString();
@@ -51,6 +47,13 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             retVal.HasDaylightSavings = true;
 
             return retVal;
+        }
+
+        protected override ITimeZoneViewModel CreateViewModel(IDateTimeService dateTimeService)
+        {
+            ITimeZoneViewModel viewModel = new TimeZoneViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
+
+            return viewModel;
         }
     }
 }

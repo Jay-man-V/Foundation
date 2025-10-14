@@ -45,6 +45,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
 
             FileApi = Substitute.For<IFileApi>();
 
+            ViewModel.ApplicationId = new AppId(1);
             ViewModel.StatusProcess = StatusProcess;
             ViewModel.UserProfileProcess = UserProfileProcess;
             ViewModel.LoggedOnUserProcess = LoggedOnUserProcess;

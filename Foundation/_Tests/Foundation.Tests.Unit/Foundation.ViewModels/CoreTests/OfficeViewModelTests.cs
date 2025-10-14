@@ -4,17 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using NUnit.Framework;
-
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.ViewModels;
-
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
+using Foundation.Models.Core;
 using Foundation.ViewModels.Core;
+
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
 {
@@ -22,18 +18,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
     /// Summary description for OfficeViewModelTests
     /// </summary>
     [TestFixture]
-    public class OfficeViewModelTests : GenericDataGridViewModelTestBaseClass<IOffice, IOfficeViewModel, IOfficeProcess>
+    public class OfficeViewModelTests : GenericDataGridViewModelTests<IOffice, IOfficeViewModel, IOfficeProcess>
     {
-        protected override String ExpectedScreenTitle => "Offices";
-        protected override String ExpectedStatusBarText => "Number of Offices:";
-
-        protected override IOfficeViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            IOfficeViewModel viewModel = new OfficeViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
-
-            return viewModel;
-        }
-
         protected override IOfficeProcess CreateBusinessProcess()
         {
             IOfficeProcess process = Substitute.For<IOfficeProcess>();
@@ -41,9 +27,18 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             return process;
         }
 
-        protected override IOffice CreateModel()
+        protected override IOffice CreateBlankModel(Int32 entityId)
         {
-            IOffice retVal = base.CreateModel();
+            IOffice retVal = new Office();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override IOffice CreateModel(Int32 entityId)
+        {
+            IOffice retVal = base.CreateModel(entityId);
 
             retVal.Code = Guid.NewGuid().ToString();
             retVal.ShortName = Guid.NewGuid().ToString();
@@ -51,6 +46,13 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             retVal.OfficeWeekCalendarId = new EntityId(0);
 
             return retVal;
+        }
+
+        protected override IOfficeViewModel CreateViewModel(IDateTimeService dateTimeService)
+        {
+            IOfficeViewModel viewModel = new OfficeViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
+
+            return viewModel;
         }
     }
 }

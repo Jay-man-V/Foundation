@@ -7,11 +7,10 @@
 using NSubstitute;
 
 using Foundation.Interfaces;
+using Foundation.Models.Core;
 using Foundation.ViewModels.Core;
 
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
-
-using FDC = Foundation.Resources.Constants.DataColumns;
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
 {
@@ -19,23 +18,9 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
     /// Summary description for ContractViewModelTests
     /// </summary>
     [TestFixture]
-    public class ContractViewModelTests : GenericDataGridViewModelTestBaseClass<IContract, IContractViewModel, IContractProcess>
+    public class ContractViewModelTests : GenericDataGridViewModelTests<IContract, IContractViewModel, IContractProcess>
     {
-        protected override String ExpectedScreenTitle => "Contracts";
-        protected override String ExpectedStatusBarText => "Number of Contracts:";
-
-        protected override Boolean ExpectedHasOptionalDropDownParameter1 => true;
-        protected override String ExpectedFilter1Name => "Contract Type:";
-        protected override string ExpectedFilter1DisplayMemberPath => FDC.ContractType.Description;
-
-        private IContractTypeProcess ContractTypeProcess { get; set; }
-
-        protected override IContractViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            IContractViewModel viewModel = new ContractViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess, ContractTypeProcess);
-
-            return viewModel;
-        }
+        private IContractTypeProcess? ContractTypeProcess { get; set; }
 
         protected override IContractProcess CreateBusinessProcess()
         {
@@ -45,9 +30,18 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             return process;
         }
 
-        protected override IContract CreateModel()
+        protected override IContract CreateBlankModel(int entityId)
         {
-            IContract retVal = base.CreateModel();
+            IContract retVal = new Contract();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override IContract CreateModel(Int32 entityId)
+        {
+            IContract retVal = base.CreateModel(entityId);
 
             retVal.ContractTypeId = new EntityId(1);
             retVal.ContractReference = Guid.NewGuid().ToString();
@@ -59,15 +53,22 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             return retVal;
         }
 
+        protected override IContractViewModel CreateViewModel(IDateTimeService dateTimeService)
+        {
+            IContractViewModel viewModel = new ContractViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess, ContractTypeProcess!);
+
+            return viewModel;
+        }
+
         protected override void SetupForRefreshData()
         {
             base.SetupForRefreshData();
 
-            List<IContractType> allContractTypes = new List<IContractType>
-            {
-                CoreInstance.IoC.Get<IContractType>(),
-            };
-            ContractTypeProcess.GetAll().Returns(allContractTypes);
+            List<IContractType> allContractTypes =
+            [
+                Substitute.For<IContractType>(),
+            ];
+            ContractTypeProcess!.GetAll().Returns(allContractTypes);
 
             List<IContract> filteredData = new List<IContract>();
             BusinessProcess.ApplyFilter(Arg.Any<List<IContract>>(), Arg.Any<IContractType>()).Returns(filteredData);
@@ -75,7 +76,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
 
         protected override Object CreateModelForDropDown1()
         {
-            return CoreInstance.IoC.Get<IContactType>();
+            return Substitute.For<IContactType>();
         }
     }
 }

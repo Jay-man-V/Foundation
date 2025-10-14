@@ -8,10 +8,11 @@ using NSubstitute;
 
 using Foundation.BusinessProcess.Helpers;
 using Foundation.Interfaces;
-using Foundation.Models.Sec;
 using Foundation.Resources;
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
+using Foundation.Models.Sec;
 using Foundation.ViewModels.Sec;
+
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
 {
@@ -19,20 +20,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
     /// Summary description for LoggedOnUserViewModelTests
     /// </summary>
     [TestFixture]
-    public class LoggedOnUserViewModelTests : GenericDataGridViewModelTestBaseClass<ILoggedOnUser, ILoggedOnUserViewModel, ILoggedOnUserProcess>
+    public class LoggedOnUserViewModelTests : GenericDataGridViewModelTests<ILoggedOnUser, ILoggedOnUserViewModel, ILoggedOnUserProcess>
     {
-        protected override String ExpectedScreenTitle => "Logged On Users";
-        protected override String ExpectedStatusBarText => "Number of Logged On Users:";
-
-        protected override ILoggedOnUserViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            ICommandParser commandParser = new CommandParser(dateTimeService);
-
-            ILoggedOnUserViewModel viewModel = new LoggedOnUserViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess, commandParser);
-
-            return viewModel;
-        }
-
         protected override ILoggedOnUserProcess CreateBusinessProcess()
         {
             ILoggedOnUserProcess process = Substitute.For<ILoggedOnUserProcess>();
@@ -40,9 +29,18 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
             return process;
         }
 
-        protected override ILoggedOnUser CreateModel()
+        protected override ILoggedOnUser CreateBlankModel(Int32 entityId)
         {
-            ILoggedOnUser retVal = base.CreateModel();
+            ILoggedOnUser retVal = new LoggedOnUser();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override ILoggedOnUser CreateModel(Int32 entityId)
+        {
+            ILoggedOnUser retVal = base.CreateModel(entityId);
             LoggedOnUser loggedOnUser = (LoggedOnUser)retVal;
 
             retVal.ApplicationId = new AppId(1);
@@ -57,12 +55,21 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
             return retVal;
         }
 
+        protected override ILoggedOnUserViewModel CreateViewModel(IDateTimeService dateTimeService)
+        {
+            ICommandParser commandParser = new CommandParser(dateTimeService);
+
+            ILoggedOnUserViewModel viewModel = new LoggedOnUserViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess, commandParser);
+
+            return viewModel;
+        }
+
         protected override void SetupForRefreshData()
         {
-            List<ILoggedOnUser> entities = new List<ILoggedOnUser>
-            {
-                CreateModel(),
-            };
+            List<ILoggedOnUser> entities =
+            [
+                CreateModel(1),
+            ];
 
             BusinessProcess.GetLoggedOnUsers(Arg.Any<AppId>()).Returns(entities);
         }
@@ -70,10 +77,10 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
         [TestCase]
         public void Test_RefreshWithAbortCommand()
         {
-            List<ILoggedOnUser> entities = new List<ILoggedOnUser>
-            {
-                CreateModel(),
-            };
+            List<ILoggedOnUser> entities =
+            [
+                CreateModel(1),
+            ];
 
             String commandName = CommandNames.Abort;
             entities[0].Command = $"{commandName}=";
@@ -92,10 +99,10 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
         [TestCase]
         public void Test_RefreshWithQuitCommand()
         {
-            List<ILoggedOnUser> entities = new List<ILoggedOnUser>
-            {
-                CreateModel(),
-            };
+            List<ILoggedOnUser> entities =
+            [
+                CreateModel(1),
+            ];
 
             String commandName = CommandNames.Quit;
             DateTime parameter = DateTimeService.SystemDateTimeNowWithoutMilliseconds.AddMinutes(15);
@@ -116,10 +123,10 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
         [TestCase]
         public void Test_RefreshWithMessage()
         {
-            List<ILoggedOnUser> entities = new List<ILoggedOnUser>
-            {
-                CreateModel(),
-            };
+            List<ILoggedOnUser> entities =
+            [
+                CreateModel(1),
+            ];
 
             String commandName = CommandNames.Message;
             DateTime parameter = DateTimeService.SystemDateTimeNowWithoutMilliseconds.AddDays(1);

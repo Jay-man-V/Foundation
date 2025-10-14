@@ -4,17 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using NUnit.Framework;
-
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.ViewModels;
-
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
+using Foundation.Models.Sec;
 using Foundation.ViewModels.Sec;
+
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
 {
@@ -22,18 +18,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
     /// Summary description for ApplicationTypeViewModelTests
     /// </summary>
     [TestFixture]
-    public class ApplicationTypeViewModelTests : GenericDataGridViewModelTestBaseClass<IApplicationType, IApplicationTypeViewModel, IApplicationTypeProcess>
+    public class ApplicationTypeViewModelTests : GenericDataGridViewModelTests<IApplicationType, IApplicationTypeViewModel, IApplicationTypeProcess>
     {
-        protected override String ExpectedScreenTitle => "Application Types";
-        protected override String ExpectedStatusBarText => "Number of Application Types:";
-
-        protected override IApplicationTypeViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            IApplicationTypeViewModel viewModel = new ApplicationTypeViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
-
-            return viewModel;
-        }
-
         protected override IApplicationTypeProcess CreateBusinessProcess()
         {
             IApplicationTypeProcess process = Substitute.For<IApplicationTypeProcess>();
@@ -41,14 +27,30 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
             return process;
         }
 
-        protected override IApplicationType CreateModel()
+        protected override IApplicationType CreateBlankModel(Int32 entityId)
         {
-            IApplicationType retVal = base.CreateModel();
+            IApplicationType retVal = new ApplicationType();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override IApplicationType CreateModel(Int32 entityId)
+        {
+            IApplicationType retVal = base.CreateModel(entityId);
 
             retVal.Name = Guid.NewGuid().ToString();
             retVal.Description = Guid.NewGuid().ToString();
 
             return retVal;
+        }
+
+        protected override IApplicationTypeViewModel CreateViewModel(IDateTimeService dateTimeService)
+        {
+            IApplicationTypeViewModel viewModel = new ApplicationTypeViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
+
+            return viewModel;
         }
     }
 }

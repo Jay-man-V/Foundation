@@ -7,6 +7,7 @@
 using NSubstitute;
 
 using Foundation.Interfaces;
+using Foundation.Models.Core.EnumModels;
 using Foundation.ViewModels.Core.EnumViewModels;
 
 using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
@@ -28,7 +29,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests.EnumProcessesTes
 
         protected override IContactType CreateBlankModel(Int32 entityId)
         {
-            IContactType retVal = Substitute.For<IContactType>();
+            IContactType retVal = new ContactType();
 
             retVal.Id = new EntityId(entityId);
 

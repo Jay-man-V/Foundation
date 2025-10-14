@@ -7,6 +7,7 @@
 using NSubstitute;
 
 using Foundation.Interfaces;
+using Foundation.Models.Core.EnumModels;
 using Foundation.ViewModels.Core.EnumViewModels;
 
 using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
@@ -28,7 +29,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests.EnumProcessesTes
 
         protected override IImageType CreateBlankModel(Int32 entityId)
         {
-            IImageType retVal = Substitute.For<IImageType>();
+            IImageType retVal = new ImageType();
 
             retVal.Id = new EntityId(entityId);
 

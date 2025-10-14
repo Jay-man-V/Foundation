@@ -4,17 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using NUnit.Framework;
-
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.ViewModels;
-
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
+using Foundation.Models.Core;
 using Foundation.ViewModels.Core;
+
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
 {
@@ -22,18 +18,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
     /// Summary description for NationalRegionViewModelTests
     /// </summary>
     [TestFixture]
-    public class NationalRegionViewModelTests : GenericDataGridViewModelTestBaseClass<INationalRegion, INationalRegionViewModel, INationalRegionProcess>
+    public class NationalRegionViewModelTests : GenericDataGridViewModelTests<INationalRegion, INationalRegionViewModel, INationalRegionProcess>
     {
-        protected override String ExpectedScreenTitle => "National Regions";
-        protected override String ExpectedStatusBarText => "Number of National Regions:";
-
-        protected override INationalRegionViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            INationalRegionViewModel viewModel = new NationalRegionViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
-
-            return viewModel;
-        }
-
         protected override INationalRegionProcess CreateBusinessProcess()
         {
             INationalRegionProcess process = Substitute.For<INationalRegionProcess>();
@@ -41,9 +27,18 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             return process;
         }
 
-        protected override INationalRegion CreateModel()
+        protected override INationalRegion CreateBlankModel(Int32 entityId)
         {
-            INationalRegion retVal = base.CreateModel();
+            INationalRegion retVal = new NationalRegion();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override INationalRegion CreateModel(Int32 entityId)
+        {
+            INationalRegion retVal = base.CreateModel(entityId);
 
             retVal.CountryId = new EntityId(1);
             retVal.Abbreviation = Guid.NewGuid().ToString();
@@ -51,6 +46,13 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             retVal.FullName = Guid.NewGuid().ToString();
 
             return retVal;
+        }
+
+        protected override INationalRegionViewModel CreateViewModel(IDateTimeService dateTimeService)
+        {
+            INationalRegionViewModel viewModel = new NationalRegionViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
+
+            return viewModel;
         }
     }
 }

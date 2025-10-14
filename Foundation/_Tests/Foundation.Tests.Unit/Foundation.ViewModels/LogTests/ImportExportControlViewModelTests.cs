@@ -7,6 +7,7 @@
 using NSubstitute;
 
 using Foundation.Interfaces;
+using Foundation.Models.Log;
 using Foundation.ViewModels.Log;
 
 using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
@@ -28,7 +29,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.LogTests
 
         protected override IImportExportControl CreateBlankModel(Int32 entityId)
         {
-            IImportExportControl retVal = Substitute.For<IImportExportControl>();
+            IImportExportControl retVal = new ImportExportControl();
 
             retVal.Id = new EntityId(entityId);
 

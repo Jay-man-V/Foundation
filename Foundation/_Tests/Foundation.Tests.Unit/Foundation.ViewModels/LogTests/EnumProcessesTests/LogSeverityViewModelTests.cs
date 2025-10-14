@@ -11,6 +11,8 @@ using Foundation.ViewModels.Log.EnumViewModels;
 
 using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
+using FModels = Foundation.Models.Log.EnumModels;
+
 namespace Foundation.Tests.Unit.Foundation.ViewModels.LogTests.EnumProcessesTests
 {
     /// <summary>
@@ -28,7 +30,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.LogTests.EnumProcessesTest
 
         protected override ILogSeverity CreateBlankModel(Int32 entityId)
         {
-            ILogSeverity retVal = Substitute.For<ILogSeverity>();
+            ILogSeverity retVal = new FModels.LogSeverity();
 
             retVal.Id = new EntityId(entityId);
 

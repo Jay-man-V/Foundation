@@ -7,6 +7,7 @@
 using NSubstitute;
 
 using Foundation.Interfaces;
+using Foundation.Models.Log;
 using Foundation.ViewModels.Log;
 
 using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
@@ -28,7 +29,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.LogTests
 
         protected override IEventLog CreateBlankModel(Int32 entityId)
         {
-            IEventLog retVal = Substitute.For<IEventLog>();
+            IEventLog retVal = new EventLog();
 
             retVal.Id = new LogId(entityId);
 

@@ -4,17 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
-using NUnit.Framework;
-
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.ViewModels;
-
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
+using Foundation.Models.Sec;
 using Foundation.ViewModels.Sec;
+
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
 {
@@ -22,18 +18,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
     /// Summary description for PermissionMatrixViewModelTests
     /// </summary>
     [TestFixture]
-    public class PermissionMatrixViewModelTests : GenericDataGridViewModelTestBaseClass<IPermissionMatrix, IPermissionMatrixViewModel, IPermissionMatrixProcess>
+    public class PermissionMatrixViewModelTests : GenericDataGridViewModelTests<IPermissionMatrix, IPermissionMatrixViewModel, IPermissionMatrixProcess>
     {
-        protected override String ExpectedScreenTitle => "Permissions Matrix";
-        protected override String ExpectedStatusBarText => "Number of Permission Matrices:";
-
-        protected override IPermissionMatrixViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            IPermissionMatrixViewModel viewModel = new PermissionMatrixViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
-
-            return viewModel;
-        }
-
         protected override IPermissionMatrixProcess CreateBusinessProcess()
         {
             IPermissionMatrixProcess process = Substitute.For<IPermissionMatrixProcess>();
@@ -41,9 +27,18 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
             return process;
         }
 
-        protected override IPermissionMatrix CreateModel()
+        protected override IPermissionMatrix CreateBlankModel(Int32 entityId)
         {
-            IPermissionMatrix retVal = base.CreateModel();
+            IPermissionMatrix retVal = new PermissionMatrix();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override IPermissionMatrix CreateModel(Int32 entityId)
+        {
+            IPermissionMatrix retVal = base.CreateModel(entityId);
 
             retVal.ApplicationId = new AppId(1);
             retVal.RoleId = new EntityId(1);
@@ -52,6 +47,13 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
             retVal.Permission = Guid.NewGuid().ToString();
 
             return retVal;
+        }
+
+        protected override IPermissionMatrixViewModel CreateViewModel(IDateTimeService dateTimeService)
+        {
+            IPermissionMatrixViewModel viewModel = new PermissionMatrixViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess);
+
+            return viewModel;
         }
     }
 }

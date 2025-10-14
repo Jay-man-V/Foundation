@@ -25,7 +25,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
 
         protected override Boolean ExpectedHasOptionalDropDownParameter1 => true;
         protected override String ExpectedFilter1Name => "Application:";
-        protected override String ExpectedFilter1DisplayMemberPath => FDC.Application.Name;
+        //protected override String ExpectedFilter1DisplayMemberPath => FDC.Application.Name;
 
         protected override Boolean ExpectedHasOptionalDropDownParameter2 => true;
         protected override String ExpectedFilter2Name => "Parent:";

@@ -7,11 +7,10 @@
 using NSubstitute;
 
 using Foundation.Interfaces;
+using Foundation.Models.Core;
 using Foundation.ViewModels.Core;
 
-using Foundation.Tests.Unit.Foundation.ViewModels.Support;
-
-using FDC = Foundation.Resources.Constants.DataColumns;
+using Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
 {
@@ -19,27 +18,9 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
     /// Summary description for ContactDetailViewModelTests
     /// </summary>
     [TestFixture]
-    public class ContactDetailViewModelTests : GenericDataGridViewModelTestBaseClass<IContactDetail, IContactDetailViewModel, IContactDetailProcess>
+    public class ContactDetailViewModelTests : GenericDataGridViewModelTests<IContactDetail, IContactDetailViewModel, IContactDetailProcess>
     {
-        protected override String ExpectedScreenTitle => "Contacts";
-        protected override String ExpectedStatusBarText => "Number of Contacts:";
-
-        protected override Boolean ExpectedHasOptionalDropDownParameter1 => true;
-        protected override String ExpectedFilter1Name => "Contact Type:";
-        protected override string ExpectedFilter1DisplayMemberPath => FDC.ContactType.Name;
-
-        protected override Boolean ExpectedHasOptionalDropDownParameter2 => true;
-        protected override String ExpectedFilter2Name => "Parent Contact:";
-        protected override string ExpectedFilter2DisplayMemberPath => FDC.ContactDetail.DisplayName;
-
-        private IContactTypeProcess ContactTypeProcess { get; set; }
-
-        protected override IContactDetailViewModel CreateViewModel(IDateTimeService dateTimeService)
-        {
-            IContactDetailViewModel viewModel = new ContactDetailViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess, ContactTypeProcess);
-
-            return viewModel;
-        }
+        private IContactTypeProcess? ContactTypeProcess { get; set; }
 
         protected override IContactDetailProcess CreateBusinessProcess()
         {
@@ -49,9 +30,18 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             return process;
         }
 
-        protected override IContactDetail CreateModel()
+        protected override IContactDetail CreateBlankModel(Int32 entityId)
         {
-            IContactDetail retVal = base.CreateModel();
+            IContactDetail retVal = new ContactDetail();
+
+            retVal.Id = new EntityId(entityId);
+
+            return retVal;
+        }
+
+        protected override IContactDetail CreateModel(Int32 entityId)
+        {
+            IContactDetail retVal = base.CreateModel(entityId);
 
             retVal.ParentContactId = new EntityId(1);
             retVal.ContractId = new EntityId(2);
@@ -74,38 +64,46 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             return retVal;
         }
 
+        protected override IContactDetailViewModel CreateViewModel(IDateTimeService dateTimeService)
+        {
+            IContactDetailViewModel viewModel = new ContactDetailViewModel(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, WpfApplicationObjects, FileApi, BusinessProcess, ContactTypeProcess!);
+
+            return viewModel;
+        }
+
+
         protected override void SetupForRefreshData()
         {
             base.SetupForRefreshData();
 
-            List<IContactType> contactTypes = new List<IContactType>
-            {
-                CoreInstance.IoC.Get<IContactType>(),
-                CoreInstance.IoC.Get<IContactType>(),
-            };
-            ContactTypeProcess.GetAll().Returns(contactTypes);
+            List<IContactType> contactTypes =
+            [
+                Substitute.For<IContactType>(),
+                Substitute.For<IContactType>(),
+            ];
+            ContactTypeProcess!.GetAll().Returns(contactTypes);
 
-            List<IContactDetail> parentContacts = new List<IContactDetail>
-            {
-                CreateModel(),
-                CreateModel(),
-            };
+            List<IContactDetail> parentContacts =
+            [
+                CreateModel(1),
+                CreateModel(2),
+            ];
             BusinessProcess.MakeListOfParentContacts(Arg.Any<List<IContactDetail>>()).Returns(parentContacts);
 
-            List<IContactDetail> filteredData = new List<IContactDetail>();
+            List<IContactDetail> filteredData = [];
             BusinessProcess.ApplyFilter(Arg.Any<List<IContactDetail>>(), Arg.Any<IContactType>(), Arg.Any<IContactDetail>()).Returns(filteredData);
         }
 
         protected override Object CreateModelForDropDown1()
         {
-            IContactType retVal = CoreInstance.IoC.Get<IContactType>();
+            IContactType retVal = Substitute.For<IContactType>();
 
             return retVal;
         }
 
         protected override Object CreateModelForDropDown2()
         {
-            IContactDetail retVal = CoreInstance.IoC.Get<IContactDetail>();
+            IContactDetail retVal = Substitute.For<IContactDetail>();
 
             return retVal;
         }
