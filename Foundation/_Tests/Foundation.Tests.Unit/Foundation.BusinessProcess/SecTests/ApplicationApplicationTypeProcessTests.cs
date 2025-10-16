@@ -28,9 +28,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override IApplicationApplicationTypeRepository CreateRepository()
         {
-            IApplicationApplicationTypeRepository dataAccess = Substitute.For<IApplicationApplicationTypeRepository>();
+            IApplicationApplicationTypeRepository retVal = Substitute.For<IApplicationApplicationTypeRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IApplicationApplicationTypeProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -38,12 +40,15 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
             IApplicationTypeProcess applicationTypeProcess = Substitute.For<IApplicationTypeProcess>();
 
+            SetProperties(applicationProcess);
+            SetProperties(applicationTypeProcess);
+
             IApplicationApplicationTypeProcess process = new ApplicationApplicationTypeProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess, applicationTypeProcess);
 
             return process;
         }
 
-        protected override IApplicationApplicationType CreateBlankEntity(IApplicationApplicationTypeProcess process, Int32 entityId)
+        protected override IApplicationApplicationType CreateBlankEntity(Int32 entityId)
         {
             IApplicationApplicationType retVal = new FModels.ApplicationApplicationType();
 
@@ -54,7 +59,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override IApplicationApplicationType CreateEntity(IApplicationApplicationTypeProcess process, Int32 entityId)
         {
-            IApplicationApplicationType retVal = CreateBlankEntity(process, entityId);
+            IApplicationApplicationType retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
 

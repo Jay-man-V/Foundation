@@ -46,9 +46,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IApplicationConfigurationRepository CreateRepository()
         {
-            IApplicationConfigurationRepository dataAccess = Substitute.For<IApplicationConfigurationRepository>();
+            IApplicationConfigurationRepository retVal = Substitute.For<IApplicationConfigurationRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IApplicationConfigurationProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -57,16 +59,17 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
             IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
 
-            CopyProperties(configurationScopeProcess, CoreInstance.IoC.Get<IConfigurationScopeProcess>());
-            CopyProperties(applicationProcess, CoreInstance.IoC.Get<IApplicationProcess>());
-            CopyProperties(userProfileProcess, CoreInstance.IoC.Get<IUserProfileProcess>());
+            SetComboBoxProperties(configurationScopeProcess);
+            SetComboBoxProperties(applicationProcess);
+            SetComboBoxProperties(userProfileProcess);
+            userProfileProcess.ComboBoxDisplayMember.Returns(FDC.UserProfile.DisplayName);
 
             IApplicationConfigurationProcess process = new ApplicationConfigurationProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, configurationScopeProcess, applicationProcess, userProfileProcess);
 
             return process;
         }
 
-        protected override IApplicationConfiguration CreateBlankEntity(IApplicationConfigurationProcess process, Int32 entityId)
+        protected override IApplicationConfiguration CreateBlankEntity(Int32 entityId)
         {
             IApplicationConfiguration retVal = new FModels.ApplicationConfiguration();
 
@@ -77,7 +80,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IApplicationConfiguration CreateEntity(IApplicationConfigurationProcess process, Int32 entityId)
         {
-            IApplicationConfiguration retVal = CreateBlankEntity(process, entityId);
+            IApplicationConfiguration retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
             retVal.LastUpdatedOn = process.DefaultValidFromDateTime;

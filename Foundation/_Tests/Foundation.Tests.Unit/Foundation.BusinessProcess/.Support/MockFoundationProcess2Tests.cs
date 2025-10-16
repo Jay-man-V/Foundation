@@ -34,11 +34,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.Support
 
         protected override IMockFoundationModelProcess2 CreateBusinessProcess(IDateTimeService dateTimeService)
         {
-            IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
-
-            CopyProperties(applicationProcess, CoreInstance.IoC.Get<IApplicationProcess>());
-
             IMockFoundationModelProcess2 retVal = new MockFoundationModelProcess2(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!);
+
+            SetProperties(retVal);
 
             return retVal;
         }
@@ -50,7 +48,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.Support
             return retVal;
         }
 
-        protected override IMockFoundationModel CreateBlankEntity(IMockFoundationModelProcess2 process, Int32 entityId)
+        protected override IMockFoundationModel CreateBlankEntity(Int32 entityId)
         {
             IMockFoundationModel retVal = new MockFoundationModel();
 
@@ -61,7 +59,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.Support
 
         protected override IMockFoundationModel CreateEntity(IMockFoundationModelProcess2 process, Int32 entityId)
         {
-            IMockFoundationModel retVal = CreateBlankEntity(process, entityId);
+            IMockFoundationModel retVal = CreateBlankEntity(entityId);
 
             retVal.ValidFrom = process.DefaultValidFromDateTime;
             retVal.ValidTo = process.DefaultValidToDateTime;

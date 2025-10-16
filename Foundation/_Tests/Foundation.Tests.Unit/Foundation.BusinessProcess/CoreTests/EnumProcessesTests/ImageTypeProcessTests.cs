@@ -30,9 +30,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
 
         protected override IImageTypeRepository CreateRepository()
         {
-            IImageTypeRepository dataAccess = Substitute.For<IImageTypeRepository>();
+            IImageTypeRepository retVal = Substitute.For<IImageTypeRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IImageTypeProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
             return process;
         }
 
-        protected override IImageType CreateBlankEntity(IImageTypeProcess process, Int32 entityId)
+        protected override IImageType CreateBlankEntity(Int32 entityId)
         {
             IImageType retVal = new FModels.ImageType();
 
@@ -53,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
 
         protected override IImageType CreateEntity(IImageTypeProcess process, Int32 entityId)
         {
-            IImageType retVal = CreateBlankEntity(process, entityId);
+            IImageType retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
 

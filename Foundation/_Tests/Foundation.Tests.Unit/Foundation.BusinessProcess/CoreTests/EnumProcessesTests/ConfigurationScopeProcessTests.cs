@@ -30,9 +30,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
 
         protected override IConfigurationScopeRepository CreateRepository()
         {
-            IConfigurationScopeRepository dataAccess = Substitute.For<IConfigurationScopeRepository>();
+            IConfigurationScopeRepository retVal = Substitute.For<IConfigurationScopeRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(false);
+
+            return retVal;
         }
 
         protected override IConfigurationScopeProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
             return process;
         }
 
-        protected override IConfigurationScope CreateBlankEntity(IConfigurationScopeProcess process, Int32 entityId)
+        protected override IConfigurationScope CreateBlankEntity(Int32 entityId)
         {
             IConfigurationScope retVal = new FModels.ConfigurationScope();
 
@@ -53,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
 
         protected override IConfigurationScope CreateEntity(IConfigurationScopeProcess process, Int32 entityId)
         {
-            IConfigurationScope retVal = CreateBlankEntity(process, entityId);
+            IConfigurationScope retVal = CreateBlankEntity(entityId);
 
             retVal.ValidFrom = process.DefaultValidFromDateTime;
             retVal.ValidTo = process.DefaultValidToDateTime;

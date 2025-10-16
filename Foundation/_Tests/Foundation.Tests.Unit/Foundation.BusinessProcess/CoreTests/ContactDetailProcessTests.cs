@@ -40,9 +40,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IContactDetailRepository CreateRepository()
         {
-            IContactDetailRepository dataAccess = Substitute.For<IContactDetailRepository>();
+            IContactDetailRepository retVal = Substitute.For<IContactDetailRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IContactDetailProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -52,14 +54,17 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             INationalRegionProcess nationalRegionProcess = Substitute.For<INationalRegionProcess>();
             ICountryProcess countryProcess = Substitute.For<ICountryProcess>();
 
-            CopyProperties(contactTypeProcess, CoreInstance.IoC.Get<IContactTypeProcess>());
+            SetComboBoxProperties(contractProcess);
+            SetComboBoxProperties(contactTypeProcess);
+            SetComboBoxProperties(nationalRegionProcess);
+            SetComboBoxProperties(countryProcess);
 
             IContactDetailProcess process = new ContactDetailProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, contractProcess, contactTypeProcess, nationalRegionProcess, countryProcess);
 
             return process;
         }
 
-        protected override IContactDetail CreateBlankEntity(IContactDetailProcess process, Int32 entityId)
+        protected override IContactDetail CreateBlankEntity(Int32 entityId)
         {
             IContactDetail retVal = new FModels.ContactDetail();
 
@@ -70,7 +75,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IContactDetail CreateEntity(IContactDetailProcess process, Int32 entityId)
         {
-            IContactDetail retVal = CreateBlankEntity(process, entityId);
+            IContactDetail retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
             retVal.LastUpdatedOn = process.DefaultValidFromDateTime;

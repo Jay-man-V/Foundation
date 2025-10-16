@@ -30,9 +30,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IOfficeRepository CreateRepository()
         {
-            IOfficeRepository dataAccess = Substitute.For<IOfficeRepository>();
+            IOfficeRepository retVal = Substitute.For<IOfficeRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IOfficeProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             return process;
         }
 
-        protected override IOffice CreateBlankEntity(IOfficeProcess process, Int32 entityId)
+        protected override IOffice CreateBlankEntity(Int32 entityId)
         {
             IOffice retVal = new FModels.Office();
 
@@ -53,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IOffice CreateEntity(IOfficeProcess process, Int32 entityId)
         {
-            IOffice retVal = CreateBlankEntity(process, entityId);
+            IOffice retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
             retVal.LastUpdatedOn = process.DefaultValidFromDateTime;

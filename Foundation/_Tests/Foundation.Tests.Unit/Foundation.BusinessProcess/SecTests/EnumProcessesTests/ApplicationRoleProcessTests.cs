@@ -28,9 +28,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests.EnumProcesse
 
         protected override IApplicationRoleRepository CreateRepository()
         {
-            IApplicationRoleRepository dataAccess = Substitute.For<IApplicationRoleRepository>();
+            IApplicationRoleRepository retVal = Substitute.For<IApplicationRoleRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IApplicationRoleProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -38,12 +40,15 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests.EnumProcesse
             IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
             IRoleProcess roleProcess = Substitute.For<IRoleProcess>();
 
+            SetProperties(applicationProcess);
+            SetProperties(roleProcess);
+
             IApplicationRoleProcess process = new ApplicationRoleProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess, roleProcess);
 
             return process;
         }
 
-        protected override IApplicationRole CreateBlankEntity(IApplicationRoleProcess process, Int32 entityId)
+        protected override IApplicationRole CreateBlankEntity(Int32 entityId)
         {
             IApplicationRole retVal = new FModels.ApplicationRole();
 
@@ -54,7 +59,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests.EnumProcesse
 
         protected override IApplicationRole CreateEntity(IApplicationRoleProcess process, Int32 entityId)
         {
-            IApplicationRole retVal = CreateBlankEntity(process, entityId);
+            IApplicationRole retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
 

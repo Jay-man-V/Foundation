@@ -30,9 +30,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests.EnumProcesse
 
         protected override ILogSeverityRepository CreateRepository()
         {
-            ILogSeverityRepository dataAccess = Substitute.For<ILogSeverityRepository>();
+            ILogSeverityRepository retVal = Substitute.For<ILogSeverityRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override ILogSeverityProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests.EnumProcesse
             return process;
         }
 
-        protected override ILogSeverity CreateBlankEntity(ILogSeverityProcess process, Int32 entityId)
+        protected override ILogSeverity CreateBlankEntity(Int32 entityId)
         {
             ILogSeverity retVal = new FModels.LogSeverity();
 
@@ -53,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests.EnumProcesse
 
         protected override ILogSeverity CreateEntity(ILogSeverityProcess process, Int32 entityId)
         {
-            ILogSeverity retVal = CreateBlankEntity(process, entityId);
+            ILogSeverity retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
 

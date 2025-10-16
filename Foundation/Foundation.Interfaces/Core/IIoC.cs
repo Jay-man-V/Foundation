@@ -4,8 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Microsoft.Extensions.DependencyInjection;
-
 namespace Foundation.Interfaces
 {
     /// <summary>

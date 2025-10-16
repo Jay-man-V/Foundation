@@ -30,9 +30,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override ILanguageRepository CreateRepository()
         {
-            ILanguageRepository dataAccess = Substitute.For<ILanguageRepository>();
+            ILanguageRepository retVal = Substitute.For<ILanguageRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override ILanguageProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             return process;
         }
 
-        protected override ILanguage CreateBlankEntity(ILanguageProcess process, Int32 entityId)
+        protected override ILanguage CreateBlankEntity(Int32 entityId)
         {
             ILanguage retVal = new FModels.Language();
 
@@ -53,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override ILanguage CreateEntity(ILanguageProcess process, Int32 entityId)
         {
-            ILanguage retVal = CreateBlankEntity(process, entityId);
+            ILanguage retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
             retVal.LastUpdatedOn = process.DefaultValidFromDateTime;

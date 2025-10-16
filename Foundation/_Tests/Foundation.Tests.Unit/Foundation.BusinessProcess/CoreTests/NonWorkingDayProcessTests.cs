@@ -49,9 +49,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override INonWorkingDayRepository CreateRepository()
         {
-            INonWorkingDayRepository dataAccess = Substitute.For<INonWorkingDayRepository>();
+            INonWorkingDayRepository retVal = Substitute.For<INonWorkingDayRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override INonWorkingDayProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -60,20 +62,14 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             ICountryProcess countryProcess = Substitute.For<ICountryProcess>();
             IHttpApi httpWebApi = Substitute.For<IHttpApi>();
 
-            CopyProperties(countryProcess, CoreInstance.IoC.Get<ICountryProcess>());
+            SetComboBoxProperties(countryProcess);
 
             INonWorkingDayProcess process = new NonWorkingDayProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationConfigurationService, countryProcess, httpWebApi);
 
             return process;
         }
 
-        private void CopyProperties(ICountryProcess substitute, ICountryProcess concrete)
-        {
-            substitute.ComboBoxDisplayMember.Returns(concrete.ComboBoxDisplayMember);
-            substitute.ComboBoxValueMember.Returns(concrete.ComboBoxValueMember);
-        }
-
-        protected override INonWorkingDay CreateBlankEntity(INonWorkingDayProcess process, Int32 entityId)
+        protected override INonWorkingDay CreateBlankEntity(Int32 entityId)
         {
             INonWorkingDay retVal = new FModels.NonWorkingDay();
 
@@ -84,7 +80,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override INonWorkingDay CreateEntity(INonWorkingDayProcess process, Int32 entityId)
         {
-            INonWorkingDay retVal = CreateBlankEntity(process, entityId);
+            INonWorkingDay retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
             retVal.LastUpdatedOn = process.DefaultValidFromDateTime;

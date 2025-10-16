@@ -30,9 +30,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IOfficeWeekCalendarRepository CreateRepository()
         {
-            IOfficeWeekCalendarRepository dataAccess = Substitute.For<IOfficeWeekCalendarRepository>();
+            IOfficeWeekCalendarRepository retVal = Substitute.For<IOfficeWeekCalendarRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IOfficeWeekCalendarProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             return process;
         }
 
-        protected override IOfficeWeekCalendar CreateBlankEntity(IOfficeWeekCalendarProcess process, Int32 entityId)
+        protected override IOfficeWeekCalendar CreateBlankEntity(Int32 entityId)
         {
             IOfficeWeekCalendar retVal = new FModels.OfficeWeekCalendar();
 
@@ -53,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IOfficeWeekCalendar CreateEntity(IOfficeWeekCalendarProcess process, Int32 entityId)
         {
-            IOfficeWeekCalendar retVal = CreateBlankEntity(process, entityId);
+            IOfficeWeekCalendar retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
             retVal.LastUpdatedOn = process.DefaultValidFromDateTime;

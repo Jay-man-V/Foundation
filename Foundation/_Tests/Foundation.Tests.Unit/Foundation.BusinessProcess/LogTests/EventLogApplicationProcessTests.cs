@@ -30,23 +30,25 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 
         protected override IEventLogApplicationRepository CreateRepository()
         {
-            IEventLogApplicationRepository dataAccess = Substitute.For<IEventLogApplicationRepository>();
+            IEventLogApplicationRepository retVal = Substitute.For<IEventLogApplicationRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IEventLogApplicationProcess CreateBusinessProcess(IDateTimeService dateTimeService)
         {
-            //IApplicationRepository applicationRepository = Substitute.For<IApplicationRepository>();
-            //IApplicationProcess applicationProcess = new ApplicationProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, applicationRepository, StatusRepository!, UserProfileRepository!);
             IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
+
+            SetProperties(applicationProcess);
 
             IEventLogApplicationProcess process = new EventLogApplicationProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess);
 
             return process;
         }
 
-        protected override IEventLogApplication CreateBlankEntity(IEventLogApplicationProcess process, Int32 entityId)
+        protected override IEventLogApplication CreateBlankEntity(Int32 entityId)
         {
             IEventLogApplication retVal = new FModels.EventLogApplication();
 
@@ -57,7 +59,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 
         protected override IEventLogApplication CreateEntity(IEventLogApplicationProcess process, Int32 entityId)
         {
-            IEventLogApplication retVal = CreateBlankEntity(process, entityId);
+            IEventLogApplication retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
 

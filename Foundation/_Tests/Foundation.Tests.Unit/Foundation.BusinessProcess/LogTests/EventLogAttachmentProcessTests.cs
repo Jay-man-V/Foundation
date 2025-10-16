@@ -30,9 +30,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 
         protected override IEventLogAttachmentRepository CreateRepository()
         {
-            IEventLogAttachmentRepository dataAccess = Substitute.For<IEventLogAttachmentRepository>();
+            IEventLogAttachmentRepository retVal = Substitute.For<IEventLogAttachmentRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(false);
+
+            return retVal;
         }
 
         protected override IEventLogAttachmentProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
             return process;
         }
 
-        protected override IEventLogAttachment CreateBlankEntity(IEventLogAttachmentProcess process, Int32 entityId)
+        protected override IEventLogAttachment CreateBlankEntity(Int32 entityId)
         {
             IEventLogAttachment retVal = new FModels.EventLogAttachment();
 
@@ -53,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 
         protected override IEventLogAttachment CreateEntity(IEventLogAttachmentProcess process, Int32 entityId)
         {
-            IEventLogAttachment retVal = CreateBlankEntity(process, entityId);
+            IEventLogAttachment retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
 

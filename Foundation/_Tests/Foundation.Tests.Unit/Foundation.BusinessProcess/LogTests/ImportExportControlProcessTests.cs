@@ -30,9 +30,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 
         protected override IImportExportControlRepository CreateRepository()
         {
-            IImportExportControlRepository dataAccess = Substitute.For<IImportExportControlRepository>();
+            IImportExportControlRepository retVal = Substitute.For<IImportExportControlRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(false);
+
+            return retVal;
         }
 
         protected override IImportExportControlProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
             return process;
         }
 
-        protected override IImportExportControl CreateBlankEntity(IImportExportControlProcess process, Int32 entityId)
+        protected override IImportExportControl CreateBlankEntity(Int32 entityId)
         {
             IImportExportControl retVal = new FModels.ImportExportControl();
 
@@ -53,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 
         protected override IImportExportControl CreateEntity(IImportExportControlProcess process, Int32 entityId)
         {
-            IImportExportControl retVal = CreateBlankEntity(process, entityId);
+            IImportExportControl retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
 

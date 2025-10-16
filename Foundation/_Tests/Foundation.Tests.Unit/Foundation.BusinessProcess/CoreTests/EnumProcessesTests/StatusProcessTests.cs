@@ -30,9 +30,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
 
         protected override IStatusRepository CreateRepository()
         {
-            IStatusRepository dataAccess = Substitute.For<IStatusRepository>();
+            IStatusRepository retVal = Substitute.For<IStatusRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IStatusProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
             return process;
         }
 
-        protected override IStatus CreateBlankEntity(IStatusProcess process, Int32 entityId)
+        protected override IStatus CreateBlankEntity(Int32 entityId)
         {
             IStatus retVal = new FModels.Status();
 
@@ -53,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
 
         protected override IStatus CreateEntity(IStatusProcess process, Int32 entityId)
         {
-            IStatus retVal = CreateBlankEntity(process, entityId);
+            IStatus retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
             retVal.LastUpdatedOn = process.DefaultValidFromDateTime;

@@ -47,9 +47,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IScheduledJobRepository CreateRepository()
         {
-            IScheduledJobRepository dataAccess = Substitute.For<IScheduledJobRepository>();
+            IScheduledJobRepository retVal = Substitute.For<IScheduledJobRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IScheduledJobProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -71,7 +73,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             return process;
         }
 
-        protected override IScheduledJob CreateBlankEntity(IScheduledJobProcess process, Int32 entityId)
+        protected override IScheduledJob CreateBlankEntity(Int32 entityId)
         {
             IScheduledJob retVal = new FModels.Core.ScheduledJob();
 
@@ -82,7 +84,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IScheduledJob CreateEntity(IScheduledJobProcess process, Int32 entityId)
         {
-            IScheduledJob retVal = CreateBlankEntity(process, entityId);
+            IScheduledJob retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = TheProcess!.DefaultValidFromDateTime;
             retVal.LastUpdatedOn = process.DefaultValidFromDateTime;

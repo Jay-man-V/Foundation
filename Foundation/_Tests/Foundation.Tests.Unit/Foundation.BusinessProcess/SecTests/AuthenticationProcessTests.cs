@@ -114,9 +114,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             TheRepository!.ValidateAuthenticationToken(ref newAuthenticationToken);
 
             TheRepository.WhenForAnyArgs(x => x.ValidateAuthenticationToken(ref newAuthenticationToken))
-                .Do(x =>
+                .Do(args =>
                 {
-                    x[0] = newAuthenticationToken;
+                    args[0] = newAuthenticationToken;
                 });
 
 

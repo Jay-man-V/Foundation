@@ -37,23 +37,25 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IContractRepository CreateRepository()
         {
-            IContractRepository dataAccess = Substitute.For<IContractRepository>();
+            IContractRepository retVal = Substitute.For<IContractRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IContractProcess CreateBusinessProcess(IDateTimeService dateTimeService)
         {
             IContractTypeProcess contractTypeProcess = Substitute.For<IContractTypeProcess>();
 
-            CopyProperties(contractTypeProcess, CoreInstance.IoC.Get<IContractTypeProcess>());
+            SetComboBoxProperties(contractTypeProcess);
 
             IContractProcess process = new ContractProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, contractTypeProcess);
 
             return process;
         }
 
-        protected override IContract CreateBlankEntity(IContractProcess process, Int32 entityId)
+        protected override IContract CreateBlankEntity(Int32 entityId)
         {
             IContract retVal = new FModels.Contract();
 
@@ -64,7 +66,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IContract CreateEntity(IContractProcess process, Int32 entityId)
         {
-            IContract retVal = CreateBlankEntity(process, entityId);
+            IContract retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
             retVal.LastUpdatedOn = process.DefaultValidFromDateTime;

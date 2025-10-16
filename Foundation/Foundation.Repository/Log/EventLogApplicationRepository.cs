@@ -48,9 +48,6 @@ namespace Foundation.Repository.Log
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="FoundationModelRepository{TModel}.HasValidityPeriodColumns"/>
-        public override Boolean HasValidityPeriodColumns => true;
-
         /// <inheritdoc cref="FoundationModelRepository{TModel}.EntityName"/>
         protected override String EntityName => FDC.EventLogApplication.EntityName;
 

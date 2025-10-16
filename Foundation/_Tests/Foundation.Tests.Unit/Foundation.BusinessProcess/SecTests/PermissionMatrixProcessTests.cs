@@ -28,9 +28,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override IPermissionMatrixRepository CreateRepository()
         {
-            IPermissionMatrixRepository dataAccess = Substitute.For<IPermissionMatrixRepository>();
+            IPermissionMatrixRepository retVal = Substitute.For<IPermissionMatrixRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IPermissionMatrixProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -39,12 +41,16 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             IRoleProcess roleProcess = Substitute.For<IRoleProcess>();
             IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
 
+            SetProperties(applicationProcess);
+            SetProperties(roleProcess);
+            SetProperties(userProfileProcess);
+
             IPermissionMatrixProcess process = new PermissionMatrixProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess, roleProcess, userProfileProcess);
 
             return process;
         }
 
-        protected override IPermissionMatrix CreateBlankEntity(IPermissionMatrixProcess process, Int32 entityId)
+        protected override IPermissionMatrix CreateBlankEntity(Int32 entityId)
         {
             IPermissionMatrix retVal = new FModels.PermissionMatrix();
 
@@ -55,7 +61,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override IPermissionMatrix CreateEntity(IPermissionMatrixProcess process, Int32 entityId)
         {
-            IPermissionMatrix retVal = CreateBlankEntity(process, entityId);
+            IPermissionMatrix retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
 

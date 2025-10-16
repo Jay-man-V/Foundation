@@ -82,7 +82,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.AppTests
 
             ApplicationProcess
                 .When(ap => ap.AddFilterOptionsAdditional(Arg.Any<List<IApplication>>()))
-                .Do((args) =>
+                .Do(args =>
                 {
                     List<IApplication> aList = (List<IApplication>)args[0];
                     aList.Add(Substitute.For<IApplication>());

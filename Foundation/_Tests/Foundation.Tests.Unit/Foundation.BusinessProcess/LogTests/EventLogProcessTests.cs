@@ -30,9 +30,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 
         protected override IEventLogRepository CreateRepository()
         {
-            IEventLogRepository dataAccess = Substitute.For<IEventLogRepository>();
+            IEventLogRepository retVal = Substitute.For<IEventLogRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(false);
+
+            return retVal;
         }
 
         protected override IEventLogProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -40,12 +42,15 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
             ILogSeverityProcess logSeverityProcess = Substitute.For<ILogSeverityProcess>();
             ITaskStatusProcess taskStatusProcess = Substitute.For<ITaskStatusProcess>();
 
+            SetProperties(logSeverityProcess);
+            SetProperties(taskStatusProcess);
+
             IEventLogProcess process = new EventLogProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, logSeverityProcess, taskStatusProcess);
 
             return process;
         }
 
-        protected override IEventLog CreateBlankEntity(IEventLogProcess process, Int32 entityId)
+        protected override IEventLog CreateBlankEntity(Int32 entityId)
         {
             IEventLog retVal = new FModels.EventLog();
 
@@ -56,7 +61,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 
         protected override IEventLog CreateEntity(IEventLogProcess process, Int32 entityId)
         {
-            IEventLog retVal = CreateBlankEntity(process, entityId);
+            IEventLog retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
 

@@ -30,9 +30,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IWorldRegionRepository CreateRepository()
         {
-            IWorldRegionRepository dataAccess = Substitute.For<IWorldRegionRepository>();
+            IWorldRegionRepository retVal = Substitute.For<IWorldRegionRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IWorldRegionProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             return process;
         }
 
-        protected override IWorldRegion CreateBlankEntity(IWorldRegionProcess process, Int32 entityId)
+        protected override IWorldRegion CreateBlankEntity(Int32 entityId)
         {
             IWorldRegion retVal = new FModels.WorldRegion();
 
@@ -53,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IWorldRegion CreateEntity(IWorldRegionProcess process, Int32 entityId)
         {
-            IWorldRegion retVal = CreateBlankEntity(process, entityId);
+            IWorldRegion retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
             retVal.LastUpdatedOn = process.DefaultValidFromDateTime;

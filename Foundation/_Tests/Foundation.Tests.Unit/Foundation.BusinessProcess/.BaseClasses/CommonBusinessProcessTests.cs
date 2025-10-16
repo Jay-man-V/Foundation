@@ -7,6 +7,7 @@
 using System.ComponentModel.DataAnnotations;
 
 using NSubstitute;
+using NSubstitute.ClearExtensions;
 
 using Foundation.Common;
 using Foundation.Interfaces;
@@ -40,7 +41,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
 
 
         protected abstract TRepository CreateRepository();
-        protected abstract TEntity CreateBlankEntity(TCommonBusinessProcess process, Int32 entityId);
+        protected abstract TEntity CreateBlankEntity(Int32 entityId);
         protected abstract TEntity CreateEntity(TCommonBusinessProcess process, Int32 entityId);
         protected abstract void UpdateEntityProperties(TEntity entity);
         protected abstract void CheckBlankEntry(TEntity entity);
@@ -98,17 +99,24 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
 
         protected Int32 StandardColumnDefinitionsCount => TheRepository!.HasValidityPeriodColumns ? 8 : 7;
 
-        public override void TestInitialise()
+        protected override TCommonBusinessProcess CreateBusinessProcess()
         {
-            base.TestInitialise();
-
             EventLogProcess = Substitute.For<IEventLogProcess>();
 
             TheRepository = CreateRepository();
 
-            TheProcess = CreateBusinessProcess();
+            TCommonBusinessProcess retVal = base.CreateBusinessProcess();
 
-            SetRepositoryProperties();
+            CoreInstance.IoC.ClearSubstitute();
+            SetupFilterOptions(CoreInstance);
+            //CoreInstance.IoC.Get<IMenuItem>().Returns(new MenuItem());
+
+            return retVal;
+        }
+
+        public override void TestInitialise()
+        {
+            base.TestInitialise();
         }
 
         public override void TestCleanup()
@@ -121,22 +129,22 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
             base.TestCleanup();
         }
 
-        protected void CopyProperties(ICommonBusinessProcess substitute, ICommonBusinessProcess concrete)
+        protected virtual void SetupFilterOptions(ICore core)
         {
-            substitute.NullId.Returns(concrete.NullId);
-            substitute.AllId.Returns(concrete.AllId);
-            substitute.NoneId.Returns(concrete.NoneId);
-            substitute.ComboBoxDisplayMember.Returns(concrete.ComboBoxDisplayMember);
-            substitute.ComboBoxValueMember.Returns(concrete.ComboBoxValueMember);
+            core.IoC.Get<TEntity>().Returns(CreateBlankEntity(1), CreateBlankEntity(2));
         }
 
-        [TestCase]
-        public void Test_CommonBusinessProcess_Properties()
+        protected void SetProperties(ICommonBusinessProcess substitute)
         {
-            //CommonBusinessProcess<TEntity, TRepository> commonProcess = TheService!;
-            //Assert.That(commonProcess!.Core, Is.Not.EqualTo(null));
-            //Assert.That(commonProcess!.RunTimeEnvironmentSettings, Is.Not.EqualTo(null));
-            //Assert.That(commonProcess!.DateTimeService, Is.Not.EqualTo(null));
+            substitute.NullId.Returns(ExpectedNullId);
+            substitute.AllId.Returns(ExpectedAllId);
+            substitute.NoneId.Returns(ExpectedNoneId);
+        }
+
+        protected void SetComboBoxProperties(ICommonBusinessProcess substitute)
+        {
+            substitute.ComboBoxDisplayMember.Returns(ExpectedFilter1DisplayMemberPath);
+            substitute.ComboBoxValueMember.Returns(ExpectedFilter1ValueMemberPath);
         }
 
         protected virtual void CheckBaseClassProperties(TCommonBusinessProcess process)
@@ -149,7 +157,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
             Assert.That(actualEntity.Id, Is.EqualTo(expectedEntity.Id));
         }
 
-        private void CompareEntityBaseProperties(TRepository repository, TEntity expectedEntity, TEntity actualEntity)
+        private void CompareEntityBaseProperties(TEntity expectedEntity, TEntity actualEntity)
         {
             CompareEntityBaseProperties_Id(expectedEntity, actualEntity);
             Assert.That(actualEntity.CreatedByUserProfileId, Is.EqualTo(expectedEntity.CreatedByUserProfileId));
@@ -167,13 +175,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
                 Assert.That(actualEntity.ValidFrom, Is.EqualTo(expectedEntity.ValidFrom));
                 Assert.That(actualEntity.ValidTo, Is.EqualTo(expectedEntity.ValidTo));
             }
-        }
-
-        protected void SetRepositoryProperties()
-        {
-            TRepository tempRepository = CoreInstance.IoC.Get<TRepository>();
-
-            TheRepository!.HasValidityPeriodColumns.Returns(tempRepository.HasValidityPeriodColumns);
         }
 
         protected virtual void Test_NullId(TCommonBusinessProcess process)
@@ -524,7 +525,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
         {
             AggregateException actualException = Assert.Throws<AggregateException>(() =>
             {
-                TEntity entity1 = CreateBlankEntity(TheProcess!, 1);
+                TEntity entity1 = CreateBlankEntity(1);
                 TheProcess!.ValidateEntity(entity1);
             });
 
@@ -544,7 +545,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
         [TestCase]
         public void Test_IsValidEntity()
         {
-            TEntity entity1 = CreateBlankEntity(TheProcess!, 1);
+            TEntity entity1 = CreateBlankEntity(1);
             List<ValidationException> validationExceptions = TheProcess!.IsValidEntity(entity1);
 
             foreach (ValidationException validationException in validationExceptions)
@@ -565,9 +566,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
         [TestCase]
         public void Test_CanViewRecord_Default()
         {
-            TCommonBusinessProcess process = CreateBusinessProcess();
-
-            Boolean actual = process.CanViewRecord();
+            Boolean actual = TheProcess!.CanViewRecord();
 
             Assert.That(actual, Is.EqualTo(ExpectedCanViewData));
         }
@@ -897,7 +896,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
 
             TEntity loadedEntity = TheProcess!.Get(savedEntityId);
 
-            CompareEntityBaseProperties(TheRepository!, savedEntity, loadedEntity);
+            CompareEntityBaseProperties(savedEntity, loadedEntity);
         }
 
         [TestCase]
@@ -938,9 +937,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
             List<TEntity> loadedEntities = TheProcess!.Get(savedEntityIds).ToList();
 
             Assert.That(loadedEntities.Count, Is.EqualTo(savedEntityIds.Count));
-            CompareEntityBaseProperties(TheRepository!, savedEntity1, loadedEntities[0]);
-            CompareEntityBaseProperties(TheRepository!, savedEntity2, loadedEntities[1]);
-            CompareEntityBaseProperties(TheRepository!, savedEntity3, loadedEntities[2]);
+            CompareEntityBaseProperties(savedEntity1, loadedEntities[0]);
+            CompareEntityBaseProperties(savedEntity2, loadedEntities[1]);
+            CompareEntityBaseProperties(savedEntity3, loadedEntities[2]);
         }
 
         [TestCase]
@@ -981,9 +980,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
             List<TEntity> loadedEntities = TheProcess!.GetAll();
 
             Assert.That(loadedEntities.Count, Is.EqualTo(savedEntityIds.Count));
-            CompareEntityBaseProperties(TheRepository!, savedEntity1, loadedEntities[0]);
-            CompareEntityBaseProperties(TheRepository!, savedEntity2, loadedEntities[1]);
-            CompareEntityBaseProperties(TheRepository!, savedEntity3, loadedEntities[2]);
+            CompareEntityBaseProperties(savedEntity1, loadedEntities[0]);
+            CompareEntityBaseProperties(savedEntity2, loadedEntities[1]);
+            CompareEntityBaseProperties(savedEntity3, loadedEntities[2]);
         }
 
         [TestCase]
@@ -1006,9 +1005,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
             List<TEntity> loadedEntities = TheProcess!.GetAll(excludeDeleted);
 
             Assert.That(loadedEntities.Count, Is.EqualTo(entities.Count));
-            CompareEntityBaseProperties(TheRepository!, entity2, loadedEntities[0]);
-            CompareEntityBaseProperties(TheRepository!, entity3, loadedEntities[1]);
-            CompareEntityBaseProperties(TheRepository!, entity4, loadedEntities[2]);
+            CompareEntityBaseProperties(entity2, loadedEntities[0]);
+            CompareEntityBaseProperties(entity3, loadedEntities[1]);
+            CompareEntityBaseProperties(entity4, loadedEntities[2]);
         }
 
         [TestCase]
@@ -1031,10 +1030,10 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
             List<TEntity> loadedEntities = TheProcess!.GetAll(excludeDeleted);
 
             Assert.That(loadedEntities.Count, Is.EqualTo(entities.Count));
-            CompareEntityBaseProperties(TheRepository!, entity1, loadedEntities[0]);
-            CompareEntityBaseProperties(TheRepository!, entity2, loadedEntities[1]);
-            CompareEntityBaseProperties(TheRepository!, entity3, loadedEntities[2]);
-            CompareEntityBaseProperties(TheRepository!, entity4, loadedEntities[3]);
+            CompareEntityBaseProperties(entity1, loadedEntities[0]);
+            CompareEntityBaseProperties(entity2, loadedEntities[1]);
+            CompareEntityBaseProperties(entity3, loadedEntities[2]);
+            CompareEntityBaseProperties(entity4, loadedEntities[3]);
         }
 
         [TestCase]
@@ -1068,7 +1067,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
         public void Test_ExportToCsv_NullProperty()
         {
             String paramName = "MadeUpPropertyName";
-            String entityType = CreateBlankEntity(TheProcess!, 1).GetType().ToString();
+            String entityType = CreateBlankEntity(1).GetType().ToString();
             String errorMessage = $"Cannot find property called '{paramName}' in type {entityType}. {TheProcess!.GetType()}.ExportToExcel. (Parameter '{paramName}')";
 
             ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>

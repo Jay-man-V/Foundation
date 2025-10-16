@@ -30,9 +30,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IDepartmentRepository CreateRepository()
         {
-            IDepartmentRepository dataAccess = Substitute.For<IDepartmentRepository>();
+            IDepartmentRepository retVal = Substitute.For<IDepartmentRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IDepartmentProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             return process;
         }
 
-        protected override IDepartment CreateBlankEntity(IDepartmentProcess process, Int32 entityId)
+        protected override IDepartment CreateBlankEntity(Int32 entityId)
         {
             IDepartment retVal = new FModels.Department();
 
@@ -53,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IDepartment CreateEntity(IDepartmentProcess process, Int32 entityId)
         {
-            IDepartment retVal = CreateBlankEntity(process, entityId);
+            IDepartment retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
             retVal.LastUpdatedOn = process.DefaultValidFromDateTime;

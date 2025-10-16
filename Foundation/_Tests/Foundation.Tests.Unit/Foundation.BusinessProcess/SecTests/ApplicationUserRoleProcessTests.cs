@@ -28,9 +28,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override IApplicationUserRoleRepository CreateRepository()
         {
-            IApplicationUserRoleRepository dataAccess = Substitute.For<IApplicationUserRoleRepository>();
+            IApplicationUserRoleRepository retVal = Substitute.For<IApplicationUserRoleRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IApplicationUserRoleProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -39,12 +41,16 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             IRoleProcess roleProcess = Substitute.For<IRoleProcess>();
             IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
 
+            SetProperties(applicationProcess);
+            SetProperties(roleProcess);
+            SetProperties(userProfileProcess);
+
             IApplicationUserRoleProcess process = new ApplicationUserRoleProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess, roleProcess, userProfileProcess);
 
             return process;
         }
 
-        protected override IApplicationUserRole CreateBlankEntity(IApplicationUserRoleProcess process, Int32 entityId)
+        protected override IApplicationUserRole CreateBlankEntity(Int32 entityId)
         {
             IApplicationUserRole retVal = new FModels.ApplicationUserRole();
 
@@ -55,7 +61,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override IApplicationUserRole CreateEntity(IApplicationUserRoleProcess process, Int32 entityId)
         {
-            IApplicationUserRole retVal = CreateBlankEntity(process, entityId);
+            IApplicationUserRole retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
 

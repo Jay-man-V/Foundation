@@ -33,9 +33,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override ICountryRepository CreateRepository()
         {
-            ICountryRepository dataAccess = Substitute.For<ICountryRepository>();
+            ICountryRepository retVal = Substitute.For<ICountryRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override ICountryProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -45,12 +47,17 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             ITimeZoneProcess timeZoneProcess = Substitute.For<ITimeZoneProcess>();
             IWorldRegionProcess worldRegionProcess = Substitute.For<IWorldRegionProcess>();
 
+            SetProperties(currencyProcess);
+            SetProperties(languageProcess);
+            SetProperties(timeZoneProcess);
+            SetProperties(worldRegionProcess);
+
             ICountryProcess process = new CountryProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, currencyProcess, languageProcess, timeZoneProcess, worldRegionProcess);
 
             return process;
         }
 
-        protected override ICountry CreateBlankEntity(ICountryProcess process, Int32 entityId)
+        protected override ICountry CreateBlankEntity(Int32 entityId)
         {
             ICountry retVal = new FModels.Country();
 
@@ -61,7 +68,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override ICountry CreateEntity(ICountryProcess process, Int32 entityId)
         {
-            ICountry retVal = CreateBlankEntity(process, entityId);
+            ICountry retVal = CreateBlankEntity(entityId);
 
             IFileApi fileApi = CoreInstance.IoC.Get<IFileApi>();
 

@@ -30,9 +30,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
 
         protected override IScheduleIntervalRepository CreateRepository()
         {
-            IScheduleIntervalRepository dataAccess = Substitute.For<IScheduleIntervalRepository>();
+            IScheduleIntervalRepository retVal = Substitute.For<IScheduleIntervalRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IScheduleIntervalProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
             return process;
         }
 
-        protected override IScheduleInterval CreateBlankEntity(IScheduleIntervalProcess process, Int32 entityId)
+        protected override IScheduleInterval CreateBlankEntity(Int32 entityId)
         {
             IScheduleInterval retVal = new FModels.ScheduleInterval();
 
@@ -53,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
 
         protected override IScheduleInterval CreateEntity(IScheduleIntervalProcess process, Int32 entityId)
         {
-            IScheduleInterval retVal = CreateBlankEntity(process, entityId);
+            IScheduleInterval retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
             retVal.LastUpdatedOn = process.DefaultValidFromDateTime;

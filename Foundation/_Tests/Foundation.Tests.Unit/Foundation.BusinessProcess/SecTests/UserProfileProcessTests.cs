@@ -31,9 +31,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override IUserProfileRepository CreateRepository()
         {
-            IUserProfileRepository dataAccess = Substitute.For<IUserProfileRepository>();
+            IUserProfileRepository retVal = Substitute.For<IUserProfileRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IUserProfileProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -43,7 +45,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             return process;
         }
 
-        protected override IUserProfile CreateBlankEntity(IUserProfileProcess process, Int32 entityId)
+        protected override IUserProfile CreateBlankEntity(Int32 entityId)
         {
             IUserProfile retVal = new FModels.UserProfile();
 
@@ -54,7 +56,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override IUserProfile CreateEntity(IUserProfileProcess process, Int32 entityId)
         {
-            IUserProfile retVal = CreateBlankEntity(process, entityId);
+            IUserProfile retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
 

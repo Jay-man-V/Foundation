@@ -23,7 +23,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
     [TestFixture]
     public class LoggedOnUserProcessTests : CommonBusinessProcessTests<ILoggedOnUser, ILoggedOnUserProcess, ILoggedOnUserRepository>
     {
-        protected override Int32 ColumnDefinitionsCount => 9;
+        protected override Int32 ColumnDefinitionsCount => 11;
         protected override String ExpectedScreenTitle => "Logged On Users";
         protected override String ExpectedStatusBarText => "Number of Logged On Users:";
 
@@ -31,9 +31,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override ILoggedOnUserRepository CreateRepository()
         {
-            ILoggedOnUserRepository dataAccess = Substitute.For<ILoggedOnUserRepository>();
+            ILoggedOnUserRepository retVal = Substitute.For<ILoggedOnUserRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override ILoggedOnUserProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,12 +44,16 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             IRoleProcess roleProcess = Substitute.For<IRoleProcess>();
             IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
 
+            SetProperties(applicationProcess);
+            SetProperties(roleProcess);
+            SetProperties(userProfileProcess);
+
             ILoggedOnUserProcess process = new LoggedOnUserProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess, roleProcess, userProfileProcess);
 
             return process;
         }
 
-        protected override ILoggedOnUser CreateBlankEntity(ILoggedOnUserProcess process, Int32 entityId)
+        protected override ILoggedOnUser CreateBlankEntity(Int32 entityId)
         {
             ILoggedOnUser retVal = new FModels.LoggedOnUser();
 
@@ -58,7 +64,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override ILoggedOnUser CreateEntity(ILoggedOnUserProcess process, Int32 entityId)
         {
-            ILoggedOnUser retVal = CreateBlankEntity(process, entityId);
+            ILoggedOnUser retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
 
@@ -146,7 +152,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
         {
             AppId applicationId = new AppId(1);
 
-            ILoggedOnUser loggedOnUser = CreateBlankEntity(TheProcess!, 1);
+            ILoggedOnUser loggedOnUser = CreateBlankEntity(1);
 
             TheProcess!.SendQuitCommand(applicationId, loggedOnUser);
         }
@@ -156,7 +162,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
         {
             AppId applicationId = new AppId(1);
 
-            ILoggedOnUser loggedOnUser = CreateBlankEntity(TheProcess!, 1);
+            ILoggedOnUser loggedOnUser = CreateBlankEntity(1);
 
             TheProcess!.SendAbortCommand(applicationId, loggedOnUser);
         }
@@ -167,7 +173,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             AppId applicationId = new AppId(1);
             String message = "Testing message";
 
-            ILoggedOnUser loggedOnUser = CreateBlankEntity(TheProcess!, 1);
+            ILoggedOnUser loggedOnUser = CreateBlankEntity(1);
 
             TheProcess!.SendMessageCommand(applicationId, loggedOnUser, message);
         }
@@ -177,7 +183,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
         {
             AppId applicationId = new AppId(1);
 
-            ILoggedOnUser loggedOnUser = CreateBlankEntity(TheProcess!, 1);
+            ILoggedOnUser loggedOnUser = CreateBlankEntity(1);
 
             TheProcess!.ClearCommand(applicationId, loggedOnUser);
         }

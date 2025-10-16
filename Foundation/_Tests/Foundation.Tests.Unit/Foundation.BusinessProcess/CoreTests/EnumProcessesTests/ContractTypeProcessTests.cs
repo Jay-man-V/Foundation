@@ -30,9 +30,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
 
         protected override IContractTypeRepository CreateRepository()
         {
-            IContractTypeRepository dataAccess = Substitute.For<IContractTypeRepository>();
+            IContractTypeRepository retVal = Substitute.For<IContractTypeRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IContractTypeProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
             return process;
         }
 
-        protected override IContractType CreateBlankEntity(IContractTypeProcess process, Int32 entityId)
+        protected override IContractType CreateBlankEntity(Int32 entityId)
         {
             IContractType retVal = new FModels.ContractType();
 
@@ -53,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
 
         protected override IContractType CreateEntity(IContractTypeProcess process, Int32 entityId)
         {
-            IContractType retVal = CreateBlankEntity(process, entityId);
+            IContractType retVal = CreateBlankEntity(entityId);
 
             retVal.ValidFrom = process.DefaultValidFromDateTime;
             retVal.ValidTo = process.DefaultValidToDateTime;

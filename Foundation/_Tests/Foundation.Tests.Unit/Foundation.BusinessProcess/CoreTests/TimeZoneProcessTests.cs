@@ -30,9 +30,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override ITimeZoneRepository CreateRepository()
         {
-            ITimeZoneRepository dataAccess = Substitute.For<ITimeZoneRepository>();
+            ITimeZoneRepository retVal = Substitute.For<ITimeZoneRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override ITimeZoneProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             return process;
         }
 
-        protected override ITimeZone CreateBlankEntity(ITimeZoneProcess process, Int32 entityId)
+        protected override ITimeZone CreateBlankEntity(Int32 entityId)
         {
             ITimeZone retVal = new FModels.TimeZone();
 
@@ -53,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override ITimeZone CreateEntity(ITimeZoneProcess process, Int32 entityId)
         {
-            ITimeZone retVal = CreateBlankEntity(process, entityId);
+            ITimeZone retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
             retVal.LastUpdatedOn = process.DefaultValidFromDateTime;

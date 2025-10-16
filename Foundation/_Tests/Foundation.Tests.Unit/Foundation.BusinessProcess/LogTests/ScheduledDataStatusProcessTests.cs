@@ -30,21 +30,25 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 
         protected override IScheduledDataStatusRepository CreateRepository()
         {
-            IScheduledDataStatusRepository dataAccess = Substitute.For<IScheduledDataStatusRepository>();
+            IScheduledDataStatusRepository retVal = Substitute.For<IScheduledDataStatusRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IScheduledDataStatusProcess CreateBusinessProcess(IDateTimeService dateTimeService)
         {
             IDataStatusProcess dataStatusProcess = Substitute.For<IDataStatusProcess>();
 
+            SetProperties(dataStatusProcess);
+
             IScheduledDataStatusProcess process = new ScheduledDataStatusProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, dataStatusProcess);
 
             return process;
         }
 
-        protected override IScheduledDataStatus CreateBlankEntity(IScheduledDataStatusProcess process, Int32 entityId)
+        protected override IScheduledDataStatus CreateBlankEntity(Int32 entityId)
         {
             IScheduledDataStatus retVal = new FModels.ScheduledDataStatus();
 
@@ -55,7 +59,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 
         protected override IScheduledDataStatus CreateEntity(IScheduledDataStatusProcess process, Int32 entityId)
         {
-            IScheduledDataStatus retVal = CreateBlankEntity(process, entityId);
+            IScheduledDataStatus retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
 

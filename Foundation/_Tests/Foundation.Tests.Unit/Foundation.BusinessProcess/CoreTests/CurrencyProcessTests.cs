@@ -30,9 +30,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override ICurrencyRepository CreateRepository()
         {
-            ICurrencyRepository dataAccess = Substitute.For<ICurrencyRepository>();
+            ICurrencyRepository retVal = Substitute.For<ICurrencyRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override ICurrencyProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             return process;
         }
 
-        protected override ICurrency CreateBlankEntity(ICurrencyProcess process, Int32 entityId)
+        protected override ICurrency CreateBlankEntity(Int32 entityId)
         {
             ICurrency retVal = new FModels.Currency();
 
@@ -53,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override ICurrency CreateEntity(ICurrencyProcess process, Int32 entityId)
         {
-            ICurrency retVal = CreateBlankEntity(process, entityId);
+            ICurrency retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
             retVal.LastUpdatedOn = process.DefaultValidFromDateTime;

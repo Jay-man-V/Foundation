@@ -23,16 +23,19 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
     public class ApprovalStatusProcessTests : CommonBusinessProcessTests<IApprovalStatus, IApprovalStatusProcess, IApprovalStatusRepository>
     {
         protected override int ColumnDefinitionsCount => 9;
-        protected override string ExpectedScreenTitle => "Approval Statuses";
-        protected override string ExpectedStatusBarText => "Number of Approval Statuses:";
+        protected override String ExpectedScreenTitle => "Approval Statuses";
+        protected override String ExpectedStatusBarText => "Number of Approval Statuses:";
 
-        protected override string ExpectedComboBoxDisplayMember => FDC.ApprovalStatus.Name;
+        protected override String ExpectedComboBoxDisplayMember => FDC.ApprovalStatus.Name;
+        //protected override String ExpectedFilter1DisplayMemberPath => FDC.ApprovalStatus.Name;
 
         protected override IApprovalStatusRepository CreateRepository()
         {
-            IApprovalStatusRepository dataAccess = Substitute.For<IApprovalStatusRepository>();
+            IApprovalStatusRepository retVal = Substitute.For<IApprovalStatusRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IApprovalStatusProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,7 +45,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
             return process;
         }
 
-        protected override IApprovalStatus CreateBlankEntity(IApprovalStatusProcess process, Int32 entityId)
+        protected override IApprovalStatus CreateBlankEntity(Int32 entityId)
         {
             IApprovalStatus retVal = new FModels.ApprovalStatus();
 
@@ -53,7 +56,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
 
         protected override IApprovalStatus CreateEntity(IApprovalStatusProcess process, Int32 entityId)
         {
-            IApprovalStatus retVal = CreateBlankEntity(process, entityId);
+            IApprovalStatus retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
 

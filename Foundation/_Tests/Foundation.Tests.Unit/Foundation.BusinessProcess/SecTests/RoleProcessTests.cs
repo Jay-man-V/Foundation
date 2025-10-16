@@ -30,9 +30,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override IRoleRepository CreateRepository()
         {
-            IRoleRepository dataAccess = Substitute.For<IRoleRepository>();
+            IRoleRepository retVal = Substitute.For<IRoleRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IRoleProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             return process;
         }
 
-        protected override IRole CreateBlankEntity(IRoleProcess process, Int32 entityId)
+        protected override IRole CreateBlankEntity(Int32 entityId)
         {
             IRole retVal = new FModels.Role();
 
@@ -53,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override IRole CreateEntity(IRoleProcess process, Int32 entityId)
         {
-            IRole retVal = CreateBlankEntity(process, entityId);
+            IRole retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
 

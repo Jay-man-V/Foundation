@@ -30,9 +30,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IIdGeneratorRepository CreateRepository()
         {
-            IIdGeneratorRepository dataAccess = Substitute.For<IIdGeneratorRepository>();
+            IIdGeneratorRepository retVal = Substitute.For<IIdGeneratorRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(false);
+
+            return retVal;
         }
 
         protected override IIdGeneratorProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             return process;
         }
 
-        protected override IIdGenerator CreateBlankEntity(IIdGeneratorProcess process, Int32 entityId)
+        protected override IIdGenerator CreateBlankEntity(Int32 entityId)
         {
             IIdGenerator retVal = new FModels.IdGenerator();
 
@@ -53,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IIdGenerator CreateEntity(IIdGeneratorProcess process, Int32 entityId)
         {
-            IIdGenerator retVal = CreateBlankEntity(process, entityId);
+            IIdGenerator retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
             retVal.LastUpdatedOn = process.DefaultValidFromDateTime;

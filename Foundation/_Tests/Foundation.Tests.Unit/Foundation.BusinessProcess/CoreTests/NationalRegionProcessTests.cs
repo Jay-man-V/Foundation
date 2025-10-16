@@ -30,21 +30,25 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override INationalRegionRepository CreateRepository()
         {
-            INationalRegionRepository dataAccess = Substitute.For<INationalRegionRepository>();
+            INationalRegionRepository retVal = Substitute.For<INationalRegionRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override INationalRegionProcess CreateBusinessProcess(IDateTimeService dateTimeService)
         {
             ICountryProcess countryProcess = Substitute.For<ICountryProcess>();
 
+            SetProperties(countryProcess);
+
             INationalRegionProcess process = new NationalRegionProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, countryProcess);
 
             return process;
         }
 
-        protected override INationalRegion CreateBlankEntity(INationalRegionProcess process, Int32 entityId)
+        protected override INationalRegion CreateBlankEntity(Int32 entityId)
         {
             INationalRegion retVal = new FModels.NationalRegion();
 
@@ -55,7 +59,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override INationalRegion CreateEntity(INationalRegionProcess process, Int32 entityId)
         {
-            INationalRegion retVal = CreateBlankEntity(process, entityId);
+            INationalRegion retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
             retVal.LastUpdatedOn = process.DefaultValidFromDateTime;

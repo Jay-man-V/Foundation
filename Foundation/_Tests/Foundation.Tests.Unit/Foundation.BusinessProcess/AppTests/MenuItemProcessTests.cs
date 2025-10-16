@@ -25,7 +25,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
 
         protected override Boolean ExpectedHasOptionalDropDownParameter1 => true;
         protected override String ExpectedFilter1Name => "Application:";
-        //protected override String ExpectedFilter1DisplayMemberPath => FDC.Application.Name;
+        protected override String ExpectedFilter1DisplayMemberPath => FDC.Application.Name;
 
         protected override Boolean ExpectedHasOptionalDropDownParameter2 => true;
         protected override String ExpectedFilter2Name => "Parent:";
@@ -37,7 +37,8 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
         {
             IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
 
-            CopyProperties(applicationProcess, CoreInstance.IoC.Get<IApplicationProcess>());
+            SetProperties(applicationProcess);
+            SetComboBoxProperties(applicationProcess);
 
             IMenuItemProcess retVal = new MenuItemProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess);
 
@@ -48,10 +49,12 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
         {
             IMenuItemRepository retVal = Substitute.For<IMenuItemRepository>();
 
+            retVal.HasValidityPeriodColumns.Returns(true);
+
             return retVal;
         }
 
-        protected override IMenuItem CreateBlankEntity(IMenuItemProcess process, Int32 entityId)
+        protected override IMenuItem CreateBlankEntity(Int32 entityId)
         {
             IMenuItem retVal = new MenuItem();
 
@@ -62,7 +65,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
 
         protected override IMenuItem CreateEntity(IMenuItemProcess process, Int32 entityId)
         {
-            IMenuItem retVal = CreateBlankEntity(process, entityId);
+            IMenuItem retVal = CreateBlankEntity(entityId);
 
             retVal.ValidFrom = process.DefaultValidFromDateTime;
             retVal.ValidTo = process.DefaultValidToDateTime;
@@ -152,8 +155,8 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
         [TestCase]
         public void Test_MakeListOfParentContacts()
         {
-            IMenuItem parentMenuItem1 = CreateBlankEntity(TheProcess!, 1);
-            IMenuItem parentMenuItem2 = CreateBlankEntity(TheProcess!, 2);
+            IMenuItem parentMenuItem1 = CreateBlankEntity(1);
+            IMenuItem parentMenuItem2 = CreateBlankEntity(2);
 
             List<IMenuItem> menuItems =
             [

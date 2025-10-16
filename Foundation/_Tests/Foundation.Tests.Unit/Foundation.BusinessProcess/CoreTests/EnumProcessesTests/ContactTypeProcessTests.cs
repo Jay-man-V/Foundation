@@ -30,9 +30,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
 
         protected override IContactTypeRepository CreateRepository()
         {
-            IContactTypeRepository dataAccess = Substitute.For<IContactTypeRepository>();
+            IContactTypeRepository retVal = Substitute.For<IContactTypeRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IContactTypeProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -42,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
             return process;
         }
 
-        protected override IContactType CreateBlankEntity(IContactTypeProcess process, Int32 entityId)
+        protected override IContactType CreateBlankEntity(Int32 entityId)
         {
             IContactType retVal = new FModels.ContactType();
 
@@ -53,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
 
         protected override IContactType CreateEntity(IContactTypeProcess process, Int32 entityId)
         {
-            IContactType retVal = CreateBlankEntity(process, entityId);
+            IContactType retVal = CreateBlankEntity(entityId);
 
             retVal.ValidFrom = process.DefaultValidFromDateTime;
             retVal.ValidTo = process.DefaultValidToDateTime;

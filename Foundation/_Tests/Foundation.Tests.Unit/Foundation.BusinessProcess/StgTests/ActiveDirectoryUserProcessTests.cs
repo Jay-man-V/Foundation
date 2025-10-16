@@ -34,9 +34,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.StgTests
 
         protected override IActiveDirectoryUserRepository CreateRepository()
         {
-            IActiveDirectoryUserRepository dataAccess = Substitute.For<IActiveDirectoryUserRepository>();
+            IActiveDirectoryUserRepository retVal = Substitute.For<IActiveDirectoryUserRepository>();
 
-            return dataAccess;
+            retVal.HasValidityPeriodColumns.Returns(true);
+
+            return retVal;
         }
 
         protected override IActiveDirectoryUserProcess CreateBusinessProcess(IDateTimeService dateTimeService)
@@ -46,7 +48,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.StgTests
             return process;
         }
 
-        protected override IActiveDirectoryUser CreateBlankEntity(IActiveDirectoryUserProcess process, Int32 entityId)
+        protected override IActiveDirectoryUser CreateBlankEntity(Int32 entityId)
         {
             IActiveDirectoryUser retVal = new FModels.ActiveDirectoryUser();
 
@@ -57,7 +59,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.StgTests
 
         protected override IActiveDirectoryUser CreateEntity(IActiveDirectoryUserProcess process, Int32 entityId)
         {
-            IActiveDirectoryUser retVal = CreateBlankEntity(process, entityId);
+            IActiveDirectoryUser retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
 
