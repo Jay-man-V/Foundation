@@ -58,7 +58,11 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.StgTests
         {
             Object retVal = base.SetupForAction1Command();
 
-            List<IActiveDirectoryUser> entities = [];
+            List<IActiveDirectoryUser> entities =
+            [
+                Substitute.For<IActiveDirectoryUser>(),
+                Substitute.For<IActiveDirectoryUser>(),
+            ];
             BusinessProcess.GetAll().Returns(entities);
 
             TheViewModel!.RefreshCommand.Execute(null);

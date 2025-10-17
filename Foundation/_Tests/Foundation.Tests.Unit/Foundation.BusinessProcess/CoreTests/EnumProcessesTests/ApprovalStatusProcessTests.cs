@@ -27,7 +27,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
         protected override String ExpectedStatusBarText => "Number of Approval Statuses:";
 
         protected override String ExpectedComboBoxDisplayMember => FDC.ApprovalStatus.Name;
-        //protected override String ExpectedFilter1DisplayMemberPath => FDC.ApprovalStatus.Name;
 
         protected override IApprovalStatusRepository CreateRepository()
         {

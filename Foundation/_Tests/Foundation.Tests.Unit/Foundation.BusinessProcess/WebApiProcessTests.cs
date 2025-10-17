@@ -48,7 +48,7 @@
 //        public void Test_DownloadString_JsonData()
 //        {
 //            Encoding encoding = Encoding.UTF8;
-//            IFileService fileService = CoreInstance.IoC.Get<IFileService>();
+//            IFileService fileService = Substitute.For<IFileService>();
 //            String expectedResponse = fileApi.GetFileContentsAsText(@".Support\SampleDocuments\WebResponse.json", encoding);
 //            IWebApi webApi = Substitute.For<IWebApi>();
 //            webApi.DownloadString(Arg.Any<IFileTransferSettings>()).Returns(expectedResponse);
@@ -87,7 +87,7 @@
 //        public void Test_DownloadStringAsync_JsonData()
 //        {
 //            Encoding encoding = Encoding.UTF8;
-//            IFileService fileService = CoreInstance.IoC.Get<IFileService>();
+//            IFileService fileService = Substitute.For<IFileService>();
 //            String expectedResponse = fileApi.GetFileContentsAsText(@".Support\SampleDocuments\WebResponse.json", encoding);
 //            IWebApi webApi = Substitute.For<IWebApi>();
 //            webApi.DownloadString(Arg.Any<IFileTransferSettings>()).Returns(expectedResponse);

@@ -221,10 +221,10 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         [TestCase]
         public void Test_ApplyFilter_ContactType()
         {
-            IContactType contactType1 = CoreInstance.IoC.Get<IContactType>();
+            IContactType contactType1 = Substitute.For<IContactType>();
             contactType1.Id = new EntityId(1);
 
-            IContactType contactType2 = CoreInstance.IoC.Get<IContactType>();
+            IContactType contactType2 = Substitute.For<IContactType>();
             contactType2.Id = new EntityId(2);
 
             const IContactDetail? parentContactDetail = null;

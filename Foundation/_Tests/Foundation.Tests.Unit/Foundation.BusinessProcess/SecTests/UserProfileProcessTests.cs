@@ -126,7 +126,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
         {
             AppId appId = new AppId(1);
 
-            IUserProfile expectedUserProfile = CoreInstance.IoC.Get<IUserProfile>();
+            IUserProfile expectedUserProfile = Substitute.For<IUserProfile>();
             expectedUserProfile.Id = new EntityId(1);
             expectedUserProfile.DisplayName = "Unit Testing user name";
             expectedUserProfile.ExternalKeyId = Guid.NewGuid().ToString();
@@ -148,7 +148,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             AppId appId = new AppId(1);
             EntityId userProfileId = new EntityId(1);
 
-            IUserProfile expectedUserProfile = CoreInstance.IoC.Get<IUserProfile>();
+            IUserProfile expectedUserProfile = Substitute.For<IUserProfile>();
             expectedUserProfile.Id = new EntityId(1);
             expectedUserProfile.DisplayName = "Unit Testing user name";
             expectedUserProfile.ExternalKeyId = Guid.NewGuid().ToString();
@@ -171,7 +171,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             String domainName = $"{UserSecuritySupport.UnitTestAccountDomain}";
             String username = $"{UserSecuritySupport.UnitTestAccountUserName}";
 
-            IUserProfile expectedUserProfile = CoreInstance.IoC.Get<IUserProfile>();
+            IUserProfile expectedUserProfile = Substitute.For<IUserProfile>();
             expectedUserProfile.Id = new EntityId(1);
             expectedUserProfile.DisplayName = "Unit Testing user name";
             expectedUserProfile.ExternalKeyId = Guid.NewGuid().ToString();

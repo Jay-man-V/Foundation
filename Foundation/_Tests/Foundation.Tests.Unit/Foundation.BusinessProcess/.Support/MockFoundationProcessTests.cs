@@ -19,34 +19,15 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.Support
     [TestFixture]
     public class MockFoundationProcessTests : CommonBusinessProcessTests<IMockFoundationModel, IMockFoundationModelProcess, IMockFoundationModelRepository>
     {
-        protected override Int32 ColumnDefinitionsCount => 19;
+        protected override Int32 ColumnDefinitionsCount => 17;
         protected override String ExpectedScreenTitle => String.Empty;
-        //protected override String ExpectedScreenTitle => "Mocks Items";
-        //protected override String ExpectedStatusBarText => String.Empty;
         protected override String ExpectedStatusBarText => "Number of rows:";
 
-        //protected override Boolean ExpectedHasOptionalDropDownParameter1 => false;
-        //protected override String ExpectedFilter1Name => "Mocks:";
-        //protected override String ExpectedFilter1DisplayMemberPath => "Code";
-
-        //protected override Boolean ExpectedHasOptionalDropDownParameter2 => true;
-        //protected override String ExpectedFilter2Name => "Parent:";
-        //protected override string ExpectedFilter2DisplayMemberPath => FDC.MockFoundationModel.Caption;
-
         protected override string ExpectedComboBoxDisplayMember => "Made up property name";
-
-        protected override IMockFoundationModelProcess CreateBusinessProcess()
-        {
-            IMockFoundationModelProcess retVal = CreateBusinessProcess(DateTimeService);
-
-            return retVal;
-        }
 
         protected override IMockFoundationModelProcess CreateBusinessProcess(IDateTimeService dateTimeService)
         {
             IMockFoundationModelProcess retVal = new MockFoundationModelProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!);
-
-            SetProperties(retVal);
 
             return retVal;
         }
@@ -140,17 +121,17 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.Support
         protected override String GetCsvSampleData()
         {
             String retVal = String.Empty;
-            retVal += "Id,Status,Created By,Created On,Updated By,Updated On,Valid From,Valid To,Profile Picture,Name,Code,Description,Duration,Count,Is Closed,Is Open,Quantity,Unit Price,Execution Time" + Environment.NewLine;
-            retVal += "1,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name01,ABC,3ba35e54-a292-42d9-bd5e-07a7dd33a139,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
-            retVal += "2,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name02,ABC,15e61c19-0457-4823-ab2d-d90c4f80bdf4,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
-            retVal += "3,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name03,ABC,801d46f5-16e3-407e-8b97-c1c4e5427d3d,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
-            retVal += "4,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name04,ABC,f1eba42d-f95a-48d7-a937-ff768edc6fad,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
-            retVal += "5,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name05,ABC,6c7de580-e7f5-4b9f-91a7-388760d8475f,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
-            retVal += "6,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name06,ABC,b4c9ca5a-4d13-4d7c-8d68-4b0344a12143,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
-            retVal += "7,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name07,ABC,2f5bf570-a52a-467f-86b9-7e3d9671771d,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
-            retVal += "8,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name08,ABC,13da0b76-a74f-4e11-8895-e6a8e334d26d,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
-            retVal += "9,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name09,ABC,f417460f-dbcc-4aa6-8fb4-bec86b31bee9,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
-            retVal += "10,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,System.Drawing.Bitmap,Name10,ABC,bdcf3ad5-5d8f-4834-82eb-74451bd6cd22,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "Id,Status,Created By,Created On,Updated By,Updated On,Profile Picture,Name,Code,Description,Duration,Count,Is Closed,Is Open,Quantity,Unit Price,Execution Time" + Environment.NewLine;
+            retVal += "1,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,System.Drawing.Bitmap,Name01,ABC,e9b66186-c540-47ed-b929-0497b57c0cd7,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "2,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,System.Drawing.Bitmap,Name02,ABC,914f58e9-d556-47a3-8381-6609296760fc,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "3,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,System.Drawing.Bitmap,Name03,ABC,3a752dae-dd7b-4343-9985-b445cdb45909,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "4,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,System.Drawing.Bitmap,Name04,ABC,9d9a8ce1-c443-47a0-94af-092b7400a7a5,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "5,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,System.Drawing.Bitmap,Name05,ABC,b55f2caa-061b-43d0-a475-652e94652ec3,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "6,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,System.Drawing.Bitmap,Name06,ABC,5baf568d-6470-4e93-a2fc-96ab27e09b32,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "7,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,System.Drawing.Bitmap,Name07,ABC,345cdced-5332-4864-8f1f-a56fd6e618de,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "8,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,System.Drawing.Bitmap,Name08,ABC,04d642f4-8ca8-4da8-9ec6-49fd9246584d,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "9,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,System.Drawing.Bitmap,Name09,ABC,d4777e64-3899-4b47-abb7-a6446d58e354,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
+            retVal += "10,0,0,0001-01-01T00:00:00.000,0,0001-01-01T00:00:00.000,System.Drawing.Bitmap,Name10,ABC,b4e9969c-a856-41a4-9a75-f7419b2da28e,1.02:03:04.0050000,147,True,True,456.789,123.456,2025-09-17T19:46:30.000" + Environment.NewLine;
 
             return retVal;
         }

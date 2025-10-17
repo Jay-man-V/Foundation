@@ -103,7 +103,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
 
         protected override Object CreateModelForDropDown1()
         {
-            return Substitute.For<INonWorkingDay>();
+            return Substitute.For<ICountry>();
         }
 
         protected override Object CreateModelForDropDown2()
@@ -113,7 +113,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
 
         protected override Object CreateModelForDropDown3()
         {
-            return Substitute.For<INonWorkingDay>();
+            return Guid.NewGuid().ToString();
         }
 
         private List<ICountry> MakeListOfCountries()

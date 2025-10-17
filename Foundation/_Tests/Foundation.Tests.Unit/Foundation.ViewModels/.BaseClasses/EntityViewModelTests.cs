@@ -67,7 +67,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
 
         //protected TModel CreateBlankModel()
         //{
-        //    TModel retVal = CoreInstance.IoC.Get<TModel>();
+        //    TModel retVal = Substitute.For<TModel>();
 
         //    return retVal;
         //}

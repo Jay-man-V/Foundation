@@ -144,7 +144,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 
             NotImplementedException actualException = Assert.Throws<NotImplementedException>(() =>
             {
-                IEventLogAttachment entity = CoreInstance.IoC.Get<IEventLogAttachment>();
+                IEventLogAttachment entity = Substitute.For<IEventLogAttachment>();
                 TheProcess!.Delete(entity);
             });
 
@@ -156,8 +156,8 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
         {
             List<IEventLogAttachment> eventLogAttachments = 
             [
-                CoreInstance.IoC.Get<IEventLogAttachment>(),
-                CoreInstance.IoC.Get<IEventLogAttachment>(),
+                Substitute.For<IEventLogAttachment>(),
+                Substitute.For<IEventLogAttachment>(),
             ];
 
             TheRepository!

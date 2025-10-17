@@ -77,7 +77,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
 
 
             // TODO: replace with IFileApi mock
-            IFileApi fileApi = CoreInstance.IoC.Get<IFileApi>();
+            IFileApi fileApi = Substitute.For<IFileApi>();
 
             foreach (String fileToAttach in filesToAttach)
             {

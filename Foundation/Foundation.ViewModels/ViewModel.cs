@@ -43,7 +43,7 @@ namespace Foundation.ViewModels
             //LoggingHelpers.TraceCallReturn();
         }
 
-        private static AppId? _applicationid;
+        private static AppId? _applicationId;
         private static List<IStatus>? _statusesList;
         private static List<IUserProfile>? _userProfilesList;
         private static List<ILoggedOnUser>? _loggedOnUsersList;
@@ -82,14 +82,14 @@ namespace Foundation.ViewModels
         {
             get
             {
-                if (_applicationid == null)
+                if (_applicationId == null)
                 {
-                    _applicationid = Foundation.Core.Core.TheInstance.ApplicationId;
+                    _applicationId = Foundation.Core.Core.TheInstance.ApplicationId;
                 }
 
-                return _applicationid.Value;
+                return _applicationId.Value;
             }
-            set => _applicationid = value;
+            set => _applicationId = value;
         }
 
         /// <summary>

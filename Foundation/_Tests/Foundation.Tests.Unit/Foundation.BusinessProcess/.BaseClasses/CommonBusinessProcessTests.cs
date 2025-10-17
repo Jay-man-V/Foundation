@@ -109,7 +109,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
 
             CoreInstance.IoC.ClearSubstitute();
             SetupFilterOptions(CoreInstance);
-            //CoreInstance.IoC.Get<IMenuItem>().Returns(new MenuItem());
 
             return retVal;
         }

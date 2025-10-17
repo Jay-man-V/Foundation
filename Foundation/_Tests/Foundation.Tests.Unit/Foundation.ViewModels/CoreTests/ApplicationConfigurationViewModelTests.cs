@@ -83,5 +83,20 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             List<IApplicationConfiguration> filteredData = [];
             BusinessProcess.ApplyFilter(Arg.Any<List<IApplicationConfiguration>>(), Arg.Any<IConfigurationScope>(), Arg.Any<IApplication>(), Arg.Any<IUserProfile>()).Returns(filteredData);
         }
+
+        protected override Object CreateModelForDropDown1()
+        {
+            return Substitute.For<IConfigurationScope>();
+        }
+
+        protected override Object CreateModelForDropDown2()
+        {
+            return Substitute.For<IApplication>();
+        }
+
+        protected override Object CreateModelForDropDown3()
+        {
+            return Substitute.For<IUserProfile>();
+        }
     }
 }

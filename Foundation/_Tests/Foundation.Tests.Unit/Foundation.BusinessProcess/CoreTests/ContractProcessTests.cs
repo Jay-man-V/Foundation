@@ -141,10 +141,10 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         {
             List<IContract> contracts = new List<IContract>();
 
-            IContractType contractType1 = CoreInstance.IoC.Get<IContractType>();
+            IContractType contractType1 = Substitute.For<IContractType>();
             contractType1.Id = new EntityId(1);
 
-            IContractType contractType2 = CoreInstance.IoC.Get<IContractType>();
+            IContractType contractType2 = Substitute.For<IContractType>();
             contractType2.Id = new EntityId(2);
 
             contracts.Add(CreateEntity(TheProcess!, 1));

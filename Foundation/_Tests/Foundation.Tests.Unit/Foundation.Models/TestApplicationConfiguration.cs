@@ -32,7 +32,7 @@
 //        [TestCase]
 //        public void Test_AllProperties()
 //        {
-//            IApplicationConfiguration<String> applicationConfiguration = CoreInstance.IoC.Get<IApplicationConfiguration<String>>();
+//            IApplicationConfiguration<String> applicationConfiguration = Substitute.For<IApplicationConfiguration<String>>();
 
 //            Assert.That(applicationConfiguration, Is.Not.Null);
 
@@ -69,7 +69,7 @@
 //        [TestCase]
 //        public void Test_Clone()
 //        {
-//            IApplicationConfiguration<String> applicationConfiguration = CoreInstance.IoC.Get<IApplicationConfiguration<String>>();
+//            IApplicationConfiguration<String> applicationConfiguration = Substitute.For<IApplicationConfiguration<String>>();
 //            IApplicationConfiguration<String> cloned = (IApplicationConfiguration<String>)applicationConfiguration.Clone();
 
 //            Assert.That(applicationConfiguration, Is.Not.Null);
@@ -93,14 +93,14 @@
 //        [TestCase]
 //        public void Test_IEquatable()
 //        {
-//            IApplicationConfiguration applicationConfiguration1 = CoreInstance.IoC.Get<IApplicationConfiguration>();
+//            IApplicationConfiguration applicationConfiguration1 = Substitute.For<IApplicationConfiguration>();
 //            IEquatable<ApplicationConfiguration> equatableAc = applicationConfiguration1 as IEquatable<ApplicationConfiguration<String>>;
 //            IEquatable<IApplicationConfiguration<String>> equatableIac = applicationConfiguration1 as IEquatable<IApplicationConfiguration<String>>;
 
 //            applicationConfiguration1.Key = Guid.NewGuid().ToString();
 //            applicationConfiguration1.Value = Guid.NewGuid().ToString();
 
-//            IApplicationConfiguration<String> applicationConfiguration2 = CoreInstance.IoC.Get<IApplicationConfiguration<String>>();
+//            IApplicationConfiguration<String> applicationConfiguration2 = Substitute.For<IApplicationConfiguration<String>>();
 //            applicationConfiguration2.Key = Guid.NewGuid().ToString();
 //            applicationConfiguration2.Value = Guid.NewGuid().ToString();
 

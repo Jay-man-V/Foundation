@@ -21,7 +21,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.HelpersTests
         public void TestCountCommands()
         {
             // This test is here to ensure each of the commands are tested, if a command is added or removed, this test will fail
-            String[] knownCommands = { CommandNames.Abort, CommandNames.Message, CommandNames.Quit };
+            String[] knownCommands = [CommandNames.Abort, CommandNames.Message, CommandNames.Quit];
 
             Assert.That(CommandNames.AllCommands, Is.EquivalentTo(knownCommands));
             Assert.That(CommandNames.AllCommands.Length, Is.EqualTo(knownCommands.Length));

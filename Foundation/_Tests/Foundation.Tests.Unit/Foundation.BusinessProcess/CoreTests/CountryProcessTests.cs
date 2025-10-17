@@ -70,7 +70,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         {
             ICountry retVal = CreateBlankEntity(entityId);
 
-            IFileApi fileApi = CoreInstance.IoC.Get<IFileApi>();
+            IFileApi fileApi = Substitute.For<IFileApi>();
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
             retVal.LastUpdatedOn = process.DefaultValidFromDateTime;

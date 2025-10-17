@@ -130,7 +130,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
 
         protected void SetBusinessProcessProperties(TBusinessProcess businessProcess)
         {
-            //TBusinessProcess tempProcess = CoreInstance.IoC.Get<TBusinessProcess>();
+            //TBusinessProcess tempProcess = Substitute.For<TBusinessProcess>();
 
             ExpectedFormTitle = Guid.NewGuid().ToString();
             businessProcess.ScreenTitle.Returns(ExpectedFormTitle);

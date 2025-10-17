@@ -112,17 +112,17 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
         protected override String GetCsvSampleData()
         {
             String retVal = String.Empty;
-            retVal += "Id,Created By,Created On,Updated By,Updated On,Application Name,Display Name,Logged On Since,Last Active" + Environment.NewLine;
-            retVal += "1,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
-            retVal += "2,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
-            retVal += "3,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
-            retVal += "4,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
-            retVal += "5,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
-            retVal += "6,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
-            retVal += "7,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
-            retVal += "8,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
-            retVal += "9,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
-            retVal += "10,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
+            retVal += "Id,Created By,Created On,Updated By,Updated On,Valid From,Valid To,Application Name,Display Name,Logged On Since,Last Active" + Environment.NewLine;
+            retVal += "1,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
+            retVal += "2,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
+            retVal += "3,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
+            retVal += "4,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
+            retVal += "5,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
+            retVal += "6,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
+            retVal += "7,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
+            retVal += "8,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
+            retVal += "9,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
+            retVal += "10,0,2022-11-28T13:11:54.300,0,0001-01-01T00:00:00.000,2022-11-28T13:11:54.300,2199-12-31T23:59:59.000,1,1,2022-11-28T13:11:54.300,2022-11-28T13:11:54.300" + Environment.NewLine;
 
             return retVal;
         }
@@ -211,11 +211,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
             List<ILoggedOnUser> expectedLoggedOnUsers =
             [
-                CoreInstance.IoC.Get<ILoggedOnUser>(),
-                CoreInstance.IoC.Get<ILoggedOnUser>(),
-                CoreInstance.IoC.Get<ILoggedOnUser>(),
-                CoreInstance.IoC.Get<ILoggedOnUser>(),
-                CoreInstance.IoC.Get<ILoggedOnUser>(),
+                Substitute.For<ILoggedOnUser>(),
+                Substitute.For<ILoggedOnUser>(),
+                Substitute.For<ILoggedOnUser>(),
+                Substitute.For<ILoggedOnUser>(),
+                Substitute.For<ILoggedOnUser>(),
             ];
 
             expectedLoggedOnUsers[0].Id = new EntityId(1);

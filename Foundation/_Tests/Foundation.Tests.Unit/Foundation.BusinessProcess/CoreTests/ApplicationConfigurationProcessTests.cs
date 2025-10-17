@@ -145,16 +145,16 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         [TestCase]
         public void Test_ApplyFilter_ConfigurationScope()
         {
-            IConfigurationScope configurationScope1 = CoreInstance.IoC.Get<IConfigurationScope>();
+            IConfigurationScope configurationScope1 = Substitute.For<IConfigurationScope>();
             configurationScope1.Id = new EntityId(1);
 
-            IConfigurationScope configurationScope2 = CoreInstance.IoC.Get<IConfigurationScope>();
+            IConfigurationScope configurationScope2 = Substitute.For<IConfigurationScope>();
             configurationScope2.Id = new EntityId(2);
 
-            IApplication application1 = CoreInstance.IoC.Get<IApplication>();
+            IApplication application1 = Substitute.For<IApplication>();
             application1.Id = new AppId(0);
 
-            IUserProfile userProfile1 = CoreInstance.IoC.Get<IUserProfile>();
+            IUserProfile userProfile1 = Substitute.For<IUserProfile>();
             userProfile1.Id = new EntityId(1);
 
             List<IApplicationConfiguration> applicationConfigurations =
@@ -202,16 +202,16 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         [TestCase]
         public void Test_ApplyFilter_Application()
         {
-            IConfigurationScope configurationScope1 = CoreInstance.IoC.Get<IConfigurationScope>();
+            IConfigurationScope configurationScope1 = Substitute.For<IConfigurationScope>();
             configurationScope1.Id = new EntityId(1);
 
-            IApplication application1 = CoreInstance.IoC.Get<IApplication>();
+            IApplication application1 = Substitute.For<IApplication>();
             application1.Id = new AppId(1);
 
-            IApplication application2 = CoreInstance.IoC.Get<IApplication>();
+            IApplication application2 = Substitute.For<IApplication>();
             application2.Id = new AppId(2);
 
-            IUserProfile userProfile1 = CoreInstance.IoC.Get<IUserProfile>();
+            IUserProfile userProfile1 = Substitute.For<IUserProfile>();
             userProfile1.Id = new EntityId(1);
 
             List<IApplicationConfiguration> applicationConfigurations =
@@ -261,16 +261,16 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         {
             IApplicationConfigurationProcess process = CreateBusinessProcess();
 
-            IConfigurationScope configurationScope1 = CoreInstance.IoC.Get<IConfigurationScope>();
+            IConfigurationScope configurationScope1 = Substitute.For<IConfigurationScope > ();
             configurationScope1.Id = new EntityId(1);
 
-            IApplication application1 = CoreInstance.IoC.Get<IApplication>();
+            IApplication application1 = Substitute.For<IApplication>();
             application1.Id = new AppId(1);
 
-            IUserProfile userProfile1 = CoreInstance.IoC.Get<IUserProfile>();
+            IUserProfile userProfile1 = Substitute.For<IUserProfile>();
             userProfile1.Id = new EntityId(1);
 
-            IUserProfile userProfile2 = CoreInstance.IoC.Get<IUserProfile>();
+            IUserProfile userProfile2 = Substitute.For<IUserProfile>();
             userProfile2.Id = new EntityId(2);
 
             List<IApplicationConfiguration> applicationConfigurations =

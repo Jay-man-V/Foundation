@@ -151,7 +151,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         public void Test_ApplyFilter_Country()
         {
             List<INonWorkingDay> nonWorkingDays = CreateListOfNonWorkingDays();
-            ICountry country = CoreInstance.IoC.Get<ICountry>();
+            ICountry country = Substitute.For<ICountry>();
             country.Id = new EntityId(1);
             String year = String.Empty;
             String description = String.Empty;
@@ -282,10 +282,10 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
             List<ICountry> countriesToReturn =
             [
-                CoreInstance.IoC.Get<ICountry>(),
-                CoreInstance.IoC.Get<ICountry>(),
-                CoreInstance.IoC.Get<ICountry>(),
-                CoreInstance.IoC.Get<ICountry>(),
+                Substitute.For<ICountry>(),
+                Substitute.For<ICountry>(),
+                Substitute.For<ICountry>(),
+                Substitute.For<ICountry>(),
             ];
             countriesToReturn[0].Id = new EntityId(1);
             countriesToReturn[1].Id = new EntityId(2);
@@ -372,7 +372,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
     }
 }";
 
-            ICountry country = CoreInstance.IoC.Get<ICountry>();
+            ICountry country = Substitute.For<ICountry>();
 
             const INonWorkingDay? nonWorkingDay = null;
             TheRepository!.Get(Arg.Any<EntityId>(), Arg.Any<DateTime>()).Returns(nonWorkingDay);
