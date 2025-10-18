@@ -211,7 +211,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             while (!processJobCalled &&
                    testStartTime.AddMinutes(1) > DateTime.Now)
             {
-                Thread.Sleep(new TimeSpan(0, 0, 10));
+                Thread.Sleep(new TimeSpan(0, 0, 2));
             }
 
             Assert.That(processJobCalled, Is.EqualTo(true));
@@ -253,7 +253,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             while (!processJobCalled &&
                    testStartTime.AddMinutes(1) > DateTime.Now)
             {
-                Thread.Sleep(new TimeSpan(0, 0, 10));
+                Thread.Sleep(new TimeSpan(0, 0, 2));
             }
 
             Assert.That(processJobCalled, Is.EqualTo(true));
@@ -295,7 +295,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             while (!processJobCalled &&
                    testStartTime.AddMinutes(1) > DateTime.Now)
             {
-                Thread.Sleep(new TimeSpan(0, 0, 10));
+                Thread.Sleep(new TimeSpan(0, 0, 2));
             }
 
             Assert.That(processJobCalled, Is.EqualTo(true));
@@ -337,9 +337,10 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
             DateTime testStartTime = DateTime.Now;
 
-            while (testStartTime.AddMinutes(1) > DateTime.Now)
+            while (!exceptionRaisedDuringTest &&
+                   testStartTime.AddMinutes(1) > DateTime.Now)
             {
-                Thread.Sleep(new TimeSpan(0, 0, 10));
+                Thread.Sleep(new TimeSpan(0, 0, 2));
             }
 
             Assert.That(exceptionRaisedDuringTest, Is.EqualTo(true));
@@ -381,7 +382,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             while (!processJobCalled &&
                    testStartTime.AddMinutes(1) > DateTime.Now)
             {
-                Thread.Sleep(new TimeSpan(0, 0, 10));
+                Thread.Sleep(new TimeSpan(0, 0, 2));
             }
 
             Assert.That(scheduledJobProcess.ScheduledTimers.Count, Is.EqualTo(1));
@@ -452,7 +453,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             while (!processJobCalled &&
                    testStartTime.AddMinutes(1) > DateTime.Now)
             {
-                Thread.Sleep(new TimeSpan(0, 0, 10));
+                Thread.Sleep(new TimeSpan(0, 0, 2));
             }
 
             Assert.That(scheduledJobProcess.ScheduledTimers.Count, Is.EqualTo(1));
@@ -498,7 +499,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             while (!processJobCalled1 &&
                    testStartTime.AddMinutes(1) > DateTime.Now)
             {
-                Thread.Sleep(new TimeSpan(0, 0, 10));
+                Thread.Sleep(new TimeSpan(0, 0, 2));
             }
 
             Assert.That(processJobCalled1, Is.EqualTo(true));
@@ -520,7 +521,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             while (!processJobCalled2 &&
                    testStartTime.AddMinutes(1) > DateTime.Now)
             {
-                Thread.Sleep(new TimeSpan(0, 0, 10));
+                Thread.Sleep(new TimeSpan(0, 0, 2));
             }
 
             Assert.That(processJobCalled2, Is.EqualTo(true));
@@ -555,15 +556,15 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
                 processJobCalled = true;
 
                 Int32 loopCount = 0;
-                while (loopCount < 1000)
+                while (loopCount < 10)
                 {
-                    Thread.Sleep(150);
+                    Thread.Sleep(new TimeSpan(0, 0, 0, 150));
                     //Debug.WriteLine($"{DateTime.Now:dd-MMM-yyyy HH:mm:ss}");
                     loopCount++;
                 }
             };
 
-            Thread.Sleep(250);
+            Thread.Sleep(new TimeSpan(0, 0, 0, 250));
 
             TheProcess!.StartJobs(new LogId(0));
             Assert.That(serverProcessTimer.Enabled, Is.EqualTo(true));
@@ -620,7 +621,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             while (!processJobCalled1 &&
                    testStartTime.AddMinutes(1) > DateTime.Now)
             {
-                Thread.Sleep(new TimeSpan(0, 0, 10));
+                Thread.Sleep(new TimeSpan(0, 0, 2));
             }
 
             TheProcess!.StopJobs(new LogId(0));
@@ -640,7 +641,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             while (!processJobCalled2 &&
                    testStartTime.AddMinutes(1) > DateTime.Now)
             {
-                Thread.Sleep(new TimeSpan(0, 0, 10));
+                Thread.Sleep(new TimeSpan(0, 0, 2));
             }
 
             Assert.That(processJobCalled1, Is.EqualTo(true));

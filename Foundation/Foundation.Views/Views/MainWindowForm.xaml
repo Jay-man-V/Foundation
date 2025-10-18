@@ -142,7 +142,7 @@
                 DockPanel.Dock="Right"
                 Background="Transparent"
                 BorderBrush="{x:Null}"
-                Click="MaximizeButton_Click"
+                Click="MaximizeRestoreButton_Click"
                 Content="{StaticResource WindowMaximiseIcon}"
             />
             <Button
@@ -150,9 +150,9 @@
                 DockPanel.Dock="Right"
                 Background="Transparent"
                 BorderBrush="{x:Null}"
-                Content="{StaticResource WindowMaximiseIcon}"
+                Click="MaximizeRestoreButton_Click"
+                Content="{StaticResource WindowRestoreIcon}"
             />
-            <!--Click="RestoreButton_Click"-->
             <Button
                 DockPanel.Dock="Right"
                 Background="Transparent"

@@ -170,7 +170,7 @@ namespace Foundation.ViewModels.Main
         /// <value>
         /// The application name.
         /// </value>
-        public string ApplicationName { get; private set; }
+        public String ApplicationName { get; private set; }
 
         /// <summary>
         /// Gets the version.
@@ -178,7 +178,7 @@ namespace Foundation.ViewModels.Main
         /// <value>
         /// The version.
         /// </value>
-        public string Version { get; }
+        public String Version { get; }
 
         /// <summary>
         /// Gets the logged on username.
@@ -186,7 +186,7 @@ namespace Foundation.ViewModels.Main
         /// <value>
         /// The logged on username.
         /// </value>
-        public string LoggedOnUsername { get; }
+        public String LoggedOnUsername { get; }
 
         /// <summary>
         /// Gets the logged on user display name.
@@ -194,7 +194,7 @@ namespace Foundation.ViewModels.Main
         /// <value>
         /// The logged on user display name.
         /// </value>
-        public string LoggedOnUserDisplayName { get; }
+        public String LoggedOnUserDisplayName { get; }
 
         /// <summary>
         /// Gets the user role.
@@ -202,7 +202,7 @@ namespace Foundation.ViewModels.Main
         /// <value>
         /// The user role.
         /// </value>
-        public string UserRole { get; }
+        public String UserRole { get; }
 
         /// <summary>
         /// Gets the database.
@@ -210,7 +210,7 @@ namespace Foundation.ViewModels.Main
         /// <value>
         /// The database.
         /// </value>
-        public string Database { get; }
+        public String Database { get; }
 
         /// <summary>
         /// Gets the environment.
@@ -218,7 +218,7 @@ namespace Foundation.ViewModels.Main
         /// <value>
         /// The environment.
         /// </value>
-        public string Environment { get; }
+        public String Environment { get; }
 
         /// <summary>
         /// Gets the re show last exception error dialog.
@@ -495,15 +495,15 @@ namespace Foundation.ViewModels.Main
             using (MouseCursor)
             {
                 if (menuItem != null &&
-                    !string.IsNullOrEmpty(menuItem.ControllerAssembly) &&
-                    !string.IsNullOrEmpty(menuItem.ViewAssembly))
+                    !String.IsNullOrEmpty(menuItem.ControllerAssembly) &&
+                    !String.IsNullOrEmpty(menuItem.ViewAssembly))
                 {
                     ChildWindowCounter++;
 
-                    string controllerAssembly = menuItem.ControllerAssembly;
-                    string controllerType = menuItem.ControllerType;
-                    string viewAssembly = menuItem.ViewAssembly;
-                    string viewType = menuItem.ViewType;
+                    String controllerAssembly = menuItem.ControllerAssembly;
+                    String controllerType = menuItem.ControllerType;
+                    String viewAssembly = menuItem.ViewAssembly;
+                    String viewType = menuItem.ViewType;
                     IViewModel viewModel;
                     try
                     {
@@ -687,8 +687,8 @@ namespace Foundation.ViewModels.Main
             {
                 IRandomService randomService = Core.IoC.Get<IRandomService>();
                 MessageType messageType = (MessageType)randomService.RandomInt32(1, 6);
-                string messageHeader = messageType.ToString();
-                string message = $"{messageType} Content";
+                String messageHeader = messageType.ToString();
+                String message = $"{messageType} Content";
                 ShowNotificationMessage(messageType, messageHeader, message);
             }
 

@@ -32,7 +32,13 @@ namespace Foundation.Views
         ) :
             this()
         {
+            this.Loaded += MainWindowForm_Loaded;
             this.Title = caption;
+        }
+
+        private void MainWindowForm_Loaded(object sender, RoutedEventArgs e)
+        {
+            RefreshMaximizeRestoreButton();
         }
 
         /// <summary>
@@ -107,7 +113,7 @@ namespace Foundation.Views
         /// <summary>
         /// MaximizedButton_Clicked
         /// </summary>
-        private void MaximizeButton_Click(Object? sender, RoutedEventArgs e)
+        private void MaximizeRestoreButton_Click(Object? sender, RoutedEventArgs e)
         {
             AdjustWindowSize();
         }
