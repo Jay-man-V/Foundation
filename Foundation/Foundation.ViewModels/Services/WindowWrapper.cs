@@ -15,23 +15,11 @@ namespace Foundation.ViewModels.Services
     [DependencyInjectionSingleton]
     internal class WindowWrapper : IWindowWrapper
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public WindowWrapper()
-        {
-            Window = Application.Current.MainWindow;
-        }
-
-        private Window? Window { get; }
-
         /// <inheritdoc cref="IWindowWrapper.Close()"/>
         public void Close()
         {
-            if (Window != null)
-            {
-                Window.Close();
-            }
+            Window? window = Application.Current.MainWindow;
+            window?.Close();
         }
     }
 }

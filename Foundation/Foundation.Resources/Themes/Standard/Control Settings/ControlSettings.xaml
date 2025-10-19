@@ -94,6 +94,8 @@
     </Style>
 
     <Style TargetType="DataGridCell">
+        <Setter Property="FontFamily" Value="{DynamicResource DefaultFixedFontFamily}"/>
+        <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}" />
         <Setter Property="Padding" Value="3, 0, 3, 0"/>
         <Setter Property="Template">
             <Setter.Value>

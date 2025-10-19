@@ -14,6 +14,9 @@
     WindowState="Normal"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
+
+    Loaded="MainWindowForm_Loaded"
+
     >
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="22" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
@@ -30,12 +33,12 @@
         <KeyBinding Command="{Binding ExitApplicationCommand}" Gesture="Alt+F4" />
     </Window.InputBindings>
 
-    <!--<Border Style="{StaticResource WindowMainPanelStyle}">
+    <DockPanel>
+
+        <Border DockPanel.Dock="Top" Style="{StaticResource WindowMainPanelStyle}">
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="22" />
-                <RowDefinition Height="*" />
                 <RowDefinition Height="22" />
             </Grid.RowDefinitions>
 
@@ -119,24 +122,29 @@
                 </Button>
             </Grid>
         </Grid>
-    </Border>-->
+    </Border>
 
-    <DockPanel>
-        <DockPanel
+
+        <!--<DockPanel
             x:Name="TitleBar"
             DockPanel.Dock="Top"
-            Background="BurlyWood"
+            Background="{StaticResource ApplicationWindowTitleBrush}"
+        >
+            --><!--
             LastChildFill="True"
             MouseDown="TitleBar_MouseDown"
-        >
+            --><!--
+
             <Button
                 Name="CloseButton"
                 DockPanel.Dock="Right"
                 Background="Transparent"
                 BorderBrush="{x:Null}"
-                Click="CloseButton_Click"
-                Content="{StaticResource WindowCloseIcon}"
-            />
+                Click="CloseButton_Click">
+                <Image Height="16" Width="16" Source="{StaticResource WindowCloseImage}" />
+            </Button>
+            --><!--Content="{StaticResource WindowCloseIcon}"--><!--
+
             <Button
                 Name="MaximizeButton"
                 DockPanel.Dock="Right"
@@ -144,22 +152,30 @@
                 BorderBrush="{x:Null}"
                 Click="MaximizeRestoreButton_Click"
                 Content="{StaticResource WindowMaximiseIcon}"
-            />
+                >
+                --><!--<Image Height="16" Width="16" Source="{StaticResource WindowMaximiseImage}" />--><!--
+            </Button>
+            --><!--Content="{StaticResource WindowMaximiseIcon}"--><!--
+
             <Button
                 Name="RestoreButton"
                 DockPanel.Dock="Right"
                 Background="Transparent"
                 BorderBrush="{x:Null}"
-                Click="MaximizeRestoreButton_Click"
-                Content="{StaticResource WindowRestoreIcon}"
-            />
+                Click="MaximizeRestoreButton_Click">
+                <Image Height="16" Width="16" Source="{StaticResource WindowRestoreImage}" />
+            </Button>
+            --><!--Content="{StaticResource WindowRestoreIcon}"--><!--
+
             <Button
+                Name="MinimiseButton"
                 DockPanel.Dock="Right"
                 Background="Transparent"
                 BorderBrush="{x:Null}"
-                Click="MinimizeButton_Click"
-                Content="{StaticResource WindowMinimiseIcon}"
-            />
+                Click="MinimizeButton_Click">
+                <Image Height="16" Width="16" Source="{StaticResource WindowMinimiseImage}" />
+            </Button>
+            --><!--Content="{StaticResource WindowMinimiseIcon}"--><!--
 
             <StackPanel
                 Name="TitleBarStackPanel"
@@ -181,7 +197,7 @@
                 VerticalContentAlignment="Center"
                 Content="{Binding FormTitle}"
             />
-        </DockPanel>
+        </DockPanel>-->
         <DockPanel LastChildFill="True">
             <Menu DockPanel.Dock="Top">
                 <Menu.ItemsPanel>

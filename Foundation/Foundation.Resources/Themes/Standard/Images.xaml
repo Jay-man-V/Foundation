@@ -12,6 +12,10 @@
     <ImageSource x:Key="CopyIcon">pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/Copy_16x.png</ImageSource>
     <ImageSource x:Key="CutIcon">pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/Cut_16x.png</ImageSource>
     <ImageSource x:Key="PasteIcon">pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/Paste_16x.png</ImageSource>
+    <ImageSource x:Key="WindowCloseImage">pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/WindowActions/Close_16x16.png</ImageSource>
+    <ImageSource x:Key="WindowMinimiseImage">pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/WindowActions/Minimise_16x16.png</ImageSource>
+    <ImageSource x:Key="WindowMaximiseImage">pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/WindowActions/Maximise_16x16.png</ImageSource>
+    <ImageSource x:Key="WindowRestoreImage">pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/WindowActions/Restore_16x16.png</ImageSource>
 
     <Image x:Key="WindowCloseIcon" x:Shared="false" Width="16" Height="16" Source="pack://Application:,,,/Foundation.Resources;component/Themes/Standard/Images/WindowActions/Close_16x16.png">
         <Image.ToolTip>

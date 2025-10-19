@@ -103,55 +103,55 @@ namespace Foundation.BusinessProcess.App
             List<IGridColumnDefinition> retVal = GetStandardEntityColumnDefinitions();
             IGridColumnDefinition gridColumnDefinition;
 
-            gridColumnDefinition = new GridColumnDefinition(300, FDC.MenuItem.Icon, "Icon", typeof(Image));
+            gridColumnDefinition = new GridColumnDefinition(150, FDC.MenuItem.Icon, "Icon", typeof(Image));
             retVal.Add(gridColumnDefinition);
 
-            gridColumnDefinition = new GridColumnDefinition(300, FDC.MenuItem.MultiInstance, "Multi Instance", typeof(String));
+            gridColumnDefinition = new GridColumnDefinition(150, FDC.MenuItem.MultiInstance, "Multi Instance", typeof(String));
             retVal.Add(gridColumnDefinition);
 
-            gridColumnDefinition = new GridColumnDefinition(300, FDC.MenuItem.ShowInTab, "Show in Tab", typeof(String));
+            gridColumnDefinition = new GridColumnDefinition(150, FDC.MenuItem.ShowInTab, "Show in Tab", typeof(String));
             retVal.Add(gridColumnDefinition);
 
-            gridColumnDefinition = new GridColumnDefinition(300, FDC.MenuItem.Depth, "Depth", typeof(Int32));
+            gridColumnDefinition = new GridColumnDefinition(150, FDC.MenuItem.Depth, "Depth", typeof(Int32));
             retVal.Add(gridColumnDefinition);
 
             gridColumnDefinition = new GridColumnDefinition(150, FDC.MenuItem.ApplicationId, "Application", typeof(AppId))
             {
-                TextAlignment = TextAlignment.Centre,
+                TextAlignment = TextAlignment.Left,
                 DataSource = ApplicationProcess.GetAll(excludeDeleted: false),
                 ValueMember = ApplicationProcess.ComboBoxValueMember,
                 DisplayMember = ApplicationProcess.ComboBoxDisplayMember,
             };
             retVal.Add(gridColumnDefinition);
 
-            gridColumnDefinition = new GridColumnDefinition(150, FDC.MenuItem.ParentMenuItemId, "Parent Menu Item", typeof(String))
+            gridColumnDefinition = new GridColumnDefinition(200, FDC.MenuItem.ParentMenuItemId, "Parent Menu Item", typeof(String))
             {
-                TextAlignment = TextAlignment.Centre,
+                TextAlignment = TextAlignment.Left,
                 DataSource = GetAll(excludeDeleted: false),
                 ValueMember = ComboBoxValueMember,
                 DisplayMember = ComboBoxDisplayMember,
             };
             retVal.Add(gridColumnDefinition);
 
-            gridColumnDefinition = new GridColumnDefinition(115, FDC.MenuItem.Name, "Name", typeof(String));
+            gridColumnDefinition = new GridColumnDefinition(200, FDC.MenuItem.Name, "Name", typeof(String));
             retVal.Add(gridColumnDefinition);
 
-            gridColumnDefinition = new GridColumnDefinition(115, FDC.MenuItem.Caption, "Caption", typeof(String));
+            gridColumnDefinition = new GridColumnDefinition(200, FDC.MenuItem.Caption, "Caption", typeof(String));
             retVal.Add(gridColumnDefinition);
 
-            gridColumnDefinition = new GridColumnDefinition(300, FDC.MenuItem.HelpText, "Help text", typeof(String));
+            gridColumnDefinition = new GridColumnDefinition(500, FDC.MenuItem.HelpText, "Help text", typeof(String));
             retVal.Add(gridColumnDefinition);
 
-            gridColumnDefinition = new GridColumnDefinition(150, FDC.MenuItem.ControllerAssembly, "Controller Assembly", typeof(String));
+            gridColumnDefinition = new GridColumnDefinition(300, FDC.MenuItem.ControllerAssembly, "Controller Assembly", typeof(String));
             retVal.Add(gridColumnDefinition);
 
-            gridColumnDefinition = new GridColumnDefinition(300, FDC.MenuItem.ControllerType, "Controller Type", typeof(String));
+            gridColumnDefinition = new GridColumnDefinition(600, FDC.MenuItem.ControllerType, "Controller Type", typeof(String));
             retVal.Add(gridColumnDefinition);
 
-            gridColumnDefinition = new GridColumnDefinition(150, FDC.MenuItem.ViewAssembly, "View Assembly", typeof(String));
+            gridColumnDefinition = new GridColumnDefinition(300, FDC.MenuItem.ViewAssembly, "View Assembly", typeof(String));
             retVal.Add(gridColumnDefinition);
 
-            gridColumnDefinition = new GridColumnDefinition(300, FDC.MenuItem.ViewType, "View Type", typeof(String));
+            gridColumnDefinition = new GridColumnDefinition(600, FDC.MenuItem.ViewType, "View Type", typeof(String));
             retVal.Add(gridColumnDefinition);
 
             LoggingHelpers.TraceCallReturn(retVal);

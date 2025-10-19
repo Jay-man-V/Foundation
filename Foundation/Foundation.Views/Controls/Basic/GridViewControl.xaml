@@ -15,7 +15,6 @@
     d:DesignHeight="400"
     d:DesignWidth="550"
 >
-
     <controls:StdWindowPanel>
         <controls:StdWindowPanel.ToolBar>
             <ToolBarTray IsLocked="True" x:Name="StandardToolBarTray">

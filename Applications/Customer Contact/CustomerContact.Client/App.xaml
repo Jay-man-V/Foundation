@@ -2,7 +2,7 @@
     x:Class="CustomerContact.Client.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
->
+    xmlns:converters="clr-namespace:Foundation.Views.Converters;assembly=Foundation.Views">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -18,8 +18,10 @@
                 <!--<ResourceDictionary Source="pack://application:,,,/Foundation.Views;component/Controls/Base/StdWindowPanel.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
 
-            <!--<converter:DateTimeToStringConverter x:Key="DateTimeToStringConverter" />-->
+            <BooleanToVisibilityConverter x:Key="BoolToVis" />
 
+            <converters:DateTimeToStringConverter x:Key="DateTimeToStringConverter" />
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

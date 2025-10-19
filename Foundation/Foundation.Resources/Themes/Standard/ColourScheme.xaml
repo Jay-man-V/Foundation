@@ -12,6 +12,18 @@
         <GradientStop Color="LightCyan" Offset="1"/>
     </LinearGradientBrush>
 
+    <LinearGradientBrush x:Key="ApplicationWindowTitleBrush" EndPoint="1,0" StartPoint="0,0">
+        <GradientStop Color="CadetBlue" Offset="0" />
+        <GradientStop Color="LightCyan" Offset="1"/>
+        <!--<GradientStop Color="Red" Offset="0" />
+        <GradientStop Color="Orange" Offset="0.1667"/>
+        <GradientStop Color="Yellow" Offset="0.3333"/>
+        <GradientStop Color="Green"  Offset="0.5000"/>
+        <GradientStop Color="Blue"   Offset="0.6667"/>
+        <GradientStop Color="Indigo" Offset="0.8333"/>
+        <GradientStop Color="Violet" Offset="1"/>-->
+    </LinearGradientBrush>
+
     <LinearGradientBrush x:Key="DefaultWindowTitleBrush" EndPoint="1,0" StartPoint="0,0">
         <GradientStop Color="CornflowerBlue" Offset="0" />
         <GradientStop Color="LightCyan" Offset="1"/>

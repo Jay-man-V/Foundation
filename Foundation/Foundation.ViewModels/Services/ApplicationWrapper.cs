@@ -32,5 +32,11 @@ namespace Foundation.ViewModels.Services
 
         /// <inheritdoc cref="IApplicationWrapper.MainWindow"/>
         public IWindowWrapper MainWindow { get; }
+
+        /// <inheritdoc cref="IApplicationWrapper.Shutdown(Int32)"/>
+        public void Shutdown(Int32 exitCode)
+        {
+            CurrentApplication.Shutdown(exitCode);
+        }
     }
 }

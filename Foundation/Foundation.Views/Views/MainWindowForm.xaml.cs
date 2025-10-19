@@ -32,7 +32,6 @@ namespace Foundation.Views
         ) :
             this()
         {
-            this.Loaded += MainWindowForm_Loaded;
             this.Title = caption;
         }
 
@@ -267,6 +266,7 @@ namespace Foundation.Views
         private void OnCloseButtonClick(object sender, RoutedEventArgs e)
         {
             this.Close();
+            Application.Current.Shutdown(0);
         }
 
         private void RefreshMaximizeRestoreButton()

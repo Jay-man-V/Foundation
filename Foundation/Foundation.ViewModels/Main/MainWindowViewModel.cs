@@ -4,19 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.ViewModels.Dialogs;
 using Foundation.ViewModels.Sec;
 using Foundation.Views;
 using Foundation.Views.Controls;
+
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 using FEnums = Foundation.Interfaces;
 
@@ -88,6 +89,14 @@ namespace Foundation.ViewModels.Main
 
             LoggedOnUsersViewModel = new LoggedOnUserViewModel(Core, RunTimeEnvironmentSettings, DateTimeService, wpfApplicationObjects, FileApi, LoggedOnUserProcess, commandParser);
             LoggedOnUsersViewModel.Initialise(targetWindow, this, "Logged on Users");
+
+            Assembly? entryAssembly = Assembly.GetEntryAssembly();
+
+            if (entryAssembly != null)
+            {
+                FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(entryAssembly.Location);
+                Version = $"{fileVersionInfo.ProductVersion}";
+            }
 
             _applicationMenuItems = [];
             _tabItems = [];
@@ -508,6 +517,7 @@ namespace Foundation.ViewModels.Main
                     try
                     {
                         viewModel = Core.IoC.Get<IViewModel>(controllerAssembly, controllerType);
+                        viewModel.Initialise(null, this, menuItem.Caption);
                     }
                     catch (Exception exception)
                     {
@@ -521,12 +531,13 @@ namespace Foundation.ViewModels.Main
                         if (contentControl is IWindow targetWindow)
                         {
                             viewModel.Initialise(targetWindow, this, menuItem.Caption);
-                            contentControl.DataContext = viewModel;
                         }
+
+                        contentControl.DataContext = viewModel;
                     }
                     catch (Exception exception)
                     {
-                        throw new Exception($"Unable to View - {menuItem.Caption}: '{viewType}' from '{viewAssembly}'", exception);
+                        throw new Exception($"Unable to open View - {menuItem.Caption}: '{viewType}' from '{viewAssembly}'", exception);
                     }
 
                     TabItem? tabItem = null;

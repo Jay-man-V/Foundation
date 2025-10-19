@@ -13,7 +13,16 @@
     d:DesignHeight="300"
     d:DesignWidth="600"
 >
-    <basic:GridViewControl
+    <!--<UserControl.Resources>
+        <Style TargetType="{x:Type DataGridRowHeader}">
+            <Setter Property="FontSize" Value="{DynamicResource SmallContentFontSize}"/>
+        </Style>
+        <Style TargetType="{x:Type DataGridCell}">
+            <Setter Property="FontSize" Value="{DynamicResource SmallContentFontSize}"/>
+        </Style>
+    </UserControl.Resources>-->
+
+        <basic:GridViewControl
         x:Name="GridViewControl"
         RefreshCommand="{Binding RefreshCommand}" RefreshButtonVisibility="{Binding RefreshButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" RefreshButtonEnabled="{Binding RefreshCommandEnabled}"
         ViewCommand="{Binding ViewRecordCommand}" ViewButtonVisibility="{Binding ViewButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" ViewButtonEnabled="{Binding ViewRecordCommandEnabled}"

@@ -10,7 +10,6 @@
                 <ControlTemplate TargetType="{x:Type local:StdWindowPanel}">
                     <DockPanel LastChildFill="True">
                         <DockPanel.Resources>
-                            <BooleanToVisibilityConverter x:Key="BoolToVis" />
                             <Style x:Key="LineStyle" TargetType="Line">
                                 <Setter Property="Stroke" Value="Red" />
                                 <Setter Property="Stretch" Value="Fill" />

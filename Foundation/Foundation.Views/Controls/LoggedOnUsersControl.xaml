@@ -15,7 +15,6 @@
     d:DesignHeight="300" d:DesignWidth="1000"
     >
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVis" />
         <Style TargetType="{x:Type DataGridRowHeader}">
             <Setter Property="FontSize" Value="{DynamicResource SmallContentFontSize}"/>
         </Style>

@@ -369,6 +369,7 @@ namespace Foundation.ViewModels
             using (MouseCursor)
             {
                 ApplicationWrapper.MainWindow.Close();
+                ApplicationWrapper.Shutdown(0);
             }
 
             LoggingHelpers.TraceCallReturn();
