@@ -4,11 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Interfaces;
+
+using System.Diagnostics;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
-
-using Foundation.Interfaces;
+using System.Windows.Interop;
 
 namespace Foundation.Views
 {
@@ -129,7 +132,18 @@ namespace Foundation.Views
             Int32 distanceBetweenNotifications = 40;
 
             // Only show notifications in the applications window area
-            Rectangle workingArea = new Rectangle((Int32)Owner.Left - 20, (Int32)Owner.Top, (Int32)Owner.Width, (Int32)Owner.Height);
+            Rectangle workingArea;
+
+            if (Owner.WindowState != WindowState.Maximized)
+            {
+                workingArea = new Rectangle((Int32)Owner.Left - 20, (Int32)Owner.Top, (Int32)Owner.Width, (Int32)Owner.Height);
+            }
+            else
+            {
+                var rect = GetWindowRectangle(Owner);
+
+                workingArea = new Rectangle(rect.Left, rect.Top, rect.Right, rect.Bottom);
+            }
 
             // Show notifications on the desktop area
             //Rectangle workingArea = new Rectangle(0, 0, (Int32)SystemParameters.PrimaryScreenWidth, (Int32)SystemParameters.PrimaryScreenHeight);
@@ -161,6 +175,29 @@ namespace Foundation.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
+        }
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+
+        // Make sure RECT is actually OUR defined struct, not the windows rect.
+        public static RECT GetWindowRectangle(Window window)
+        {
+            RECT rect;
+            GetWindowRect((new WindowInteropHelper(window)).Handle, out rect);
+
+            return rect;
         }
     }
 }

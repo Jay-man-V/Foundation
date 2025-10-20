@@ -67,5 +67,13 @@ namespace Foundation.Resources.Constants.DataColumns
         /// The value.
         /// </value>
         public static String Value => "Value";
+
+        /// <summary>
+        /// Gets whether the value is encrypted.
+        /// </summary>
+        /// <value>
+        /// The encrypted.
+        /// </value>
+        public static String IsEncrypted => "IsEncrypted";
     }
 }

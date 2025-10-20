@@ -26,6 +26,7 @@ namespace Foundation.Models.Core
         private EntityId _configurationScopeId;
         private String _key = String.Empty;
         private Object? _value;
+        private Boolean _isEncrypted;
 
         /// <inheritdoc cref="IApplicationConfiguration.ConfigurationScope"/>
         [NotMapped]
@@ -68,6 +69,14 @@ namespace Foundation.Models.Core
             set => this.SetPropertyValue(ref _value, value, FDC.ApplicationConfiguration.Lengths.Value);
         }
 
+        /// <inheritdoc cref="IApplicationConfiguration.IsEncrypted"/>
+        [Column(nameof(FDC.ApplicationConfiguration.IsEncrypted))]
+        public Boolean IsEncrypted
+        {
+            get => this._isEncrypted;
+            set => this.SetPropertyValue(ref _isEncrypted, value);
+        }
+
         /// <inheritdoc cref="IFoundationModel.GetPropertyValue(String)"/>
         public override Object? GetPropertyValue(String propertyName)
         {
@@ -79,6 +88,7 @@ namespace Foundation.Models.Core
                 case nameof(ConfigurationScopeId): retVal = ConfigurationScopeId; break;
                 case nameof(Key): retVal = Key; break;
                 case nameof(Value): retVal = Value; break;
+                case nameof(IsEncrypted): retVal = IsEncrypted; break;
             }
 
             return retVal;
@@ -94,6 +104,7 @@ namespace Foundation.Models.Core
             retVal._configurationScopeId = this._configurationScopeId;
             retVal._key = this._key;
             retVal._value = this._value;
+            retVal._isEncrypted = this._isEncrypted;
 
             retVal.Initialising = false;
 
@@ -144,6 +155,8 @@ namespace Foundation.Models.Core
                 {
                     hashCode = hashCode * constant + EqualityComparer<Object>.Default.GetHashCode(Value);
                 }
+
+                hashCode = hashCode * constant + EqualityComparer<Boolean>.Default.GetHashCode(IsEncrypted);
             }
 
             return hashCode;
@@ -164,6 +177,7 @@ namespace Foundation.Models.Core
                 retVal &= EqualityComparer<EntityId>.Default.Equals(this.ConfigurationScopeId, right.ConfigurationScopeId);
                 retVal &= EqualityComparer<String>.Default.Equals(this.Key, right.Key);
                 retVal &= EqualityComparer<Object>.Default.Equals(this.Value, right.Value);
+                retVal &= EqualityComparer<Boolean>.Default.Equals(this.IsEncrypted, right.IsEncrypted);
             }
 
             return retVal;

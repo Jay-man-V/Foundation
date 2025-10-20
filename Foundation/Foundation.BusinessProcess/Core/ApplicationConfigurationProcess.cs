@@ -175,6 +175,11 @@ namespace Foundation.BusinessProcess.Core
             gridColumnDefinition = new GridColumnDefinition(500, FDC.ApplicationConfiguration.Value, "Value", typeof(String));
             retVal.Add(gridColumnDefinition);
 
+            gridColumnDefinition = new GridColumnDefinition(110, FDC.ApplicationConfiguration.IsEncrypted, "Is encrypted?", typeof(Boolean));
+            gridColumnDefinition.TrueValue = "Y";
+            gridColumnDefinition.FalseValue = String.Empty;
+            retVal.Add(gridColumnDefinition);
+
             LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;

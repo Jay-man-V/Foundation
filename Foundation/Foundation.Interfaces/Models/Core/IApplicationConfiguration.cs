@@ -38,5 +38,10 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <value>The value.</value>
         Object? Value { get; set; }
+
+        /// <summary>
+        /// Whether the configuration value is encrypted.
+        /// </summary>
+        Boolean IsEncrypted { get; set; }
     }
 }
