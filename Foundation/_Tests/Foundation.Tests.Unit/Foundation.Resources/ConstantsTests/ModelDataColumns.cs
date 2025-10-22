@@ -171,6 +171,7 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
             index++; Assert.That(FDC.ApplicationConfiguration.ConfigurationScopeId, Is.EqualTo(nameof(FDC.ApplicationConfiguration.ConfigurationScopeId)));
             index++; Assert.That(FDC.ApplicationConfiguration.Key, Is.EqualTo(nameof(FDC.ApplicationConfiguration.Key)));
             index++; Assert.That(FDC.ApplicationConfiguration.Value, Is.EqualTo(nameof(FDC.ApplicationConfiguration.Value)));
+            index++; Assert.That(FDC.ApplicationConfiguration.IsEncrypted, Is.EqualTo(nameof(FDC.ApplicationConfiguration.IsEncrypted)));
 
             Assert.That(propertyInfos.Length, Is.EqualTo(index));
         }

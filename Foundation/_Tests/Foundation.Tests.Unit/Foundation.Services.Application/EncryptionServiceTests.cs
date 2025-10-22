@@ -18,6 +18,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 {
     public class EncryptionServiceTests : UnitTestBase
     {
+        private const String PassPhrase = "EncryptionServiceTests";
         private const String Password = "tHiSiSmYpAsSwOrD!£$%^";
 
         private const String SourceValueString = "AbCdEfGhIjKlMnOpQrStUvWxYz1234567980!£$%^&*()_+";
@@ -139,6 +140,17 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
              String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
 
              Assert.That(decryptedData, Is.EqualTo(SourceValueString));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_PassPhrase_String()
+        {
+            String encryptedData = TheService!.EncryptData(PassPhrase, SourceValueString);
+            Assert.That(encryptedData, Is.Not.Empty);
+            Assert.That(encryptedData, Is.Not.EqualTo(SourceValueString));
+
+            String decryptedData = TheService!.DecryptData(PassPhrase, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(SourceValueString));
         }
 
         [TestCase]

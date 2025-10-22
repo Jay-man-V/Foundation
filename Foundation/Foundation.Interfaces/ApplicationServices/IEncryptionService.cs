@@ -79,6 +79,14 @@ namespace Foundation.Interfaces
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="passPhrase"></param>
+        /// <param name="dataToEncrypt"></param>
+        /// <returns></returns>
+        String EncryptData(String passPhrase, String dataToEncrypt);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="keyLocation"></param>
         /// <param name="keyName"></param>
         /// <param name="dataToDecrypt"></param>
@@ -93,6 +101,14 @@ namespace Foundation.Interfaces
         /// <param name="dataToDecrypt"></param>
         /// <returns></returns>
         String DecryptData(Byte[] key, Byte[] iv, String dataToDecrypt);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="passPhrase"></param>
+        /// <param name="dataToDecrypt"></param>
+        /// <returns></returns>
+        String DecryptData(String passPhrase, String dataToDecrypt);
 
         /* Byte[] encryption/decryption functions */
 

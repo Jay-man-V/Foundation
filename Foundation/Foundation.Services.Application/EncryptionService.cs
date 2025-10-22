@@ -4,11 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.IO;
-using System.Security.Cryptography;
-
 using Foundation.Common;
 using Foundation.Interfaces;
+
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
+using System.Windows.Input;
 
 namespace Foundation.Services.Application
 {
@@ -173,6 +175,22 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
+        /// <inheritdoc cref="IEncryptionService.EncryptData(String, String)"/>
+        public String EncryptData(String passPhrase, String dataToEncrypt)
+        {
+            LoggingHelpers.TraceCallEnter($"{nameof(passPhrase)} not logged", $"{nameof(dataToEncrypt)} not logged");
+
+            Byte[] salt = Encoding.ASCII.GetBytes(passPhrase);
+
+            GenerateKeys(passPhrase, salt, out Byte[] key, out Byte[] iv);
+
+            String retVal = EncryptData(key, iv, dataToEncrypt);
+
+            LoggingHelpers.TraceCallReturn($"{nameof(retVal)} not logged");
+
+            return retVal;
+        }
+
         /// <inheritdoc cref="IEncryptionService.DecryptData(String, String, String)"/>
         public String DecryptData(String keyLocation, String keyName, String dataToDecrypt)
         {
@@ -218,6 +236,22 @@ namespace Foundation.Services.Application
 
                 crypto.Clear();
             }
+
+            LoggingHelpers.TraceCallReturn($"{nameof(retVal)} not logged");
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IEncryptionService.DecryptData(String, String)"/>
+        public String DecryptData(String passPhrase, String dataToDecrypt)
+        {
+            LoggingHelpers.TraceCallEnter($"{nameof(passPhrase)} not logged", $"{nameof(dataToDecrypt)} not logged");
+
+            Byte[] salt = Encoding.ASCII.GetBytes(passPhrase);
+
+            GenerateKeys(passPhrase, salt, out Byte[] key, out Byte[] iv);
+
+            String retVal = DecryptData(key, iv, dataToDecrypt);
 
             LoggingHelpers.TraceCallReturn($"{nameof(retVal)} not logged");
 

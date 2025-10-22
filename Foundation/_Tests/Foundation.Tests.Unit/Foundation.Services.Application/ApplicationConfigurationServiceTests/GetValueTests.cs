@@ -23,6 +23,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
     {
         private IApplicationConfigurationService? TheService { get; set; }
         private IApplicationConfigurationRepository? TheRepository { get; set; }
+        private IEncryptionService EncryptionService { get; set; }
         private IUserProfile UserProfile { get; set; }
 
         public override void TestInitialise()
@@ -30,8 +31,9 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             base.TestInitialise();
 
             TheRepository = Substitute.For<IApplicationConfigurationRepository>();
+            EncryptionService = Substitute.For<IEncryptionService>();
 
-            TheService = new ApplicationConfigurationService(TheRepository);
+            TheService = new ApplicationConfigurationService(TheRepository, EncryptionService);
 
             UserProfile = Substitute.For<IUserProfile>();
         }
@@ -118,14 +120,21 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             }
         }
 
-        [TestCase]
-        public void Test_Get_Boolean_True()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Get_Boolean_True(Boolean encrypted)
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = "true" };
+            const String value = "true";
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = value, IsEncrypted = encrypted };
             const Boolean expectedValue = true;
 
+            if (encrypted)
+            {
+                EncryptionService.DecryptData(key, expectedValueFromDatabase.Value!.ToString()!).Returns(value);
+            }
+
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
             Boolean actualValue = TheService!.Get<Boolean>(applicationId, UserProfile, key);
@@ -133,14 +142,21 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [TestCase]
-        public void Test_Get_Boolean_False()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Get_Boolean_False(Boolean encrypted)
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = "false" };
+            const String value = "false";
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = value, IsEncrypted = encrypted };
             const Boolean expectedValue = false;
 
+            if (encrypted)
+            {
+                EncryptionService.DecryptData(key, expectedValueFromDatabase.Value!.ToString()!).Returns(value);
+            }
+
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
             Boolean actualValue = TheService!.Get<Boolean>(applicationId, UserProfile, key);
@@ -148,13 +164,20 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [TestCase]
-        public void Test_Get_TimeSpan()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Get_TimeSpan(Boolean encrypted)
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = "10:05:00" };
+            const String value = "10:05:00";
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = value, IsEncrypted = encrypted };
             TimeSpan expectedValue = new TimeSpan(10, 5, 0);
+
+            if (encrypted)
+            {
+                EncryptionService.DecryptData(key, expectedValueFromDatabase.Value!.ToString()!).Returns(value);
+            }
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
@@ -163,14 +186,21 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [TestCase]
-        public void Test_Get_Date()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Get_Date(Boolean encrypted)
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = "2023-09-08" };
+            const String value = "2023-09-08";
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = value, IsEncrypted = encrypted };
             DateTime expectedValue = new DateTime(2023, 09, 08);
 
+            if (encrypted)
+            {
+                EncryptionService.DecryptData(key, expectedValueFromDatabase.Value!.ToString()!).Returns(value);
+            }
+
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
             DateTime actualValue = TheService!.Get<DateTime>(applicationId, UserProfile, key);
@@ -178,14 +208,21 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [TestCase]
-        public void Test_Get_DateTime()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Get_DateTime(Boolean encrypted)
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = "2023-09-08 21:38:45" };
+            const String value = "2023-09-08 21:38:45";
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = value, IsEncrypted = encrypted };
             DateTime expectedValue = new DateTime(2023, 09, 08, 21, 38, 45);
 
+            if (encrypted)
+            {
+                EncryptionService.DecryptData(key, expectedValueFromDatabase.Value!.ToString()!).Returns(value);
+            }
+
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
             DateTime actualValue = TheService!.Get<DateTime>(applicationId, UserProfile, key);
@@ -193,14 +230,21 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [TestCase]
-        public void Test_Get_DateTimeMilliseconds()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Get_DateTimeMilliseconds(Boolean encrypted)
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = "2023-09-08 21:38:45.123" };
+            const String value = "2023-09-08 21:38:45.123";
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = value, IsEncrypted = encrypted };
             DateTime expectedValue = new DateTime(2023, 09, 08, 21, 38, 45, 123);
 
+            if (encrypted)
+            {
+                EncryptionService.DecryptData(key, expectedValueFromDatabase.Value!.ToString()!).Returns(value);
+            }
+
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
             DateTime actualValue = TheService!.Get<DateTime>(applicationId, UserProfile, key);
@@ -208,13 +252,20 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [TestCase]
-        public void Test_Get_Guid()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Get_Guid(Boolean encrypted)
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = new Guid("{0B368339-E43E-4AFF-9FBC-C9F0074FD068}") };
-            Guid expectedValue = new Guid("{0B368339-E43E-4AFF-9FBC-C9F0074FD068}");
+            const String value = "{0B368339-E43E-4AFF-9FBC-C9F0074FD068}";
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = value, IsEncrypted = encrypted };
+            Guid expectedValue = Guid.Parse(value);
+
+            if (encrypted)
+            {
+                EncryptionService.DecryptData(key, expectedValueFromDatabase.Value!.ToString()!).Returns(value);
+            }
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
@@ -223,13 +274,20 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [TestCase]
-        public void Test_Get_Char()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Get_Char(Boolean encrypted)
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = 'Z' };
+            const Char value = 'Z';
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = value, IsEncrypted = encrypted};
             Char expectedValue = Convert.ToChar(expectedValueFromDatabase.Value);
+
+            if (encrypted)
+            {
+                EncryptionService.DecryptData(key, expectedValueFromDatabase.Value!.ToString()!).Returns(expectedValue.ToString());
+            }
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
@@ -238,13 +296,20 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [TestCase]
-        public void Test_Get_String()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Get_String(Boolean encrypted)
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = "{0B368339-E43E-4AFF-9FBC-C9F0074FD068}" };
+            const String value = "{0B368339-E43E-4AFF-9FBC-C9F0074FD068}";
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = value, IsEncrypted = encrypted };
             String expectedValue = $"{expectedValueFromDatabase.Value}";
+
+            if (encrypted)
+            {
+                EncryptionService.DecryptData(key, expectedValueFromDatabase.Value!.ToString()!).Returns(value);
+            }
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
@@ -253,13 +318,20 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [TestCase]
-        public void Test_Get_Int16()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Get_Int16(Boolean encrypted)
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = "32767" };
+            const String value = "32767";
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = value, IsEncrypted = encrypted };
             const Int16 expectedValue = Int16.MaxValue;
+
+            if (encrypted)
+            {
+                EncryptionService.DecryptData(key, expectedValueFromDatabase.Value!.ToString()!).Returns(value);
+            }
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
@@ -268,13 +340,20 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [TestCase]
-        public void Test_Get_UInt16()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Get_UInt16(Boolean encrypted)
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = "65535" };
+            const String value = "65535";
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = value, IsEncrypted = encrypted };
             const UInt16 expectedValue = UInt16.MaxValue;
+
+            if (encrypted)
+            {
+                EncryptionService.DecryptData(key, expectedValueFromDatabase.Value!.ToString()!).Returns(value);
+            }
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
@@ -283,13 +362,20 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [TestCase]
-        public void Test_Get_Int32()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Get_Int32(Boolean encrypted)
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = "2147483647" };
+            const String value = "2147483647";
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = value, IsEncrypted = encrypted };
             const Int32 expectedValue = Int32.MaxValue;
+
+            if (encrypted)
+            {
+                EncryptionService.DecryptData(key, expectedValueFromDatabase.Value!.ToString()!).Returns(value);
+            }
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
@@ -298,13 +384,20 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [TestCase]
-        public void Test_Get_UInt32()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Get_UInt32(Boolean encrypted)
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = "4294967295" };
+            const String value = "4294967295";
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = value, IsEncrypted = encrypted };
             const UInt32 expectedValue = UInt32.MaxValue;
+
+            if (encrypted)
+            {
+                EncryptionService.DecryptData(key, expectedValueFromDatabase.Value!.ToString()!).Returns(value);
+            }
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
@@ -313,13 +406,20 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [TestCase]
-        public void Test_Get_Int64()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Get_Int64(Boolean encrypted)
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = "9223372036854775807" };
+            const String value = "9223372036854775807";
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = value, IsEncrypted = encrypted };
             const Int64 expectedValue = Int64.MaxValue;
+
+            if (encrypted)
+            {
+                EncryptionService.DecryptData(key, expectedValueFromDatabase.Value!.ToString()!).Returns(value);
+            }
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
@@ -328,13 +428,20 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [TestCase]
-        public void Test_Get_UInt64()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Get_UInt64(Boolean encrypted)
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = "18446744073709551615" };
+            const String value = "18446744073709551615";
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = value, IsEncrypted = encrypted };
             const UInt64 expectedValue = UInt64.MaxValue;
+
+            if (encrypted)
+            {
+                EncryptionService.DecryptData(key, expectedValueFromDatabase.Value!.ToString()!).Returns(value);
+            }
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
@@ -343,13 +450,20 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [TestCase]
-        public void Test_Get_Decimal()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Get_Decimal(Boolean encrypted)
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = "79228162514264337593543950335" };
+            const String value = "79228162514264337593543950335";
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = value, IsEncrypted = encrypted };
             const Decimal expectedValue = Decimal.MaxValue;
+
+            if (encrypted)
+            {
+                EncryptionService.DecryptData(key, expectedValueFromDatabase.Value!.ToString()!).Returns(value);
+            }
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
@@ -358,13 +472,20 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [TestCase]
-        public void Test_Get_Double()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Get_Double(Boolean encrypted)
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = "1.79769313486232" };
+            const String value = "1.79769313486232";
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = value, IsEncrypted = encrypted };
             const Double expectedValue = 1.79769313486232d;
+
+            if (encrypted)
+            {
+                EncryptionService.DecryptData(key, expectedValueFromDatabase.Value!.ToString()!).Returns(value);
+            }
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
@@ -373,13 +494,20 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [TestCase]
-        public void Test_Get_Byte()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Get_Byte(Boolean encrypted)
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = "255" };
+            const String value = "255";
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = value, IsEncrypted = encrypted };
             const Byte expectedValue = Byte.MaxValue;
+
+            if (encrypted)
+            {
+                EncryptionService.DecryptData(key, expectedValueFromDatabase.Value!.ToString()!).Returns(value);
+            }
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 
@@ -388,13 +516,20 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
             Assert.That(actualValue, Is.EqualTo(expectedValue));
         }
 
-        [TestCase]
-        public void Test_Get_SByte()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Get_SByte(Boolean encrypted)
         {
             AppId applicationId = new AppId(0);
             const String key = "value";
-            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = "127" };
+            const String value = "127";
+            IApplicationConfiguration expectedValueFromDatabase = new ApplicationConfiguration { Value = value, IsEncrypted = encrypted };
             const SByte expectedValue = SByte.MaxValue;
+
+            if (encrypted)
+            {
+                EncryptionService.DecryptData(key, expectedValueFromDatabase.Value!.ToString()!).Returns(value);
+            }
 
             TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), key).Returns(expectedValueFromDatabase);
 

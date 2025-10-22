@@ -17,9 +17,11 @@ namespace Foundation.Services.Application
         /// 
         /// </summary>
         /// <param name="repository">The data access.</param>
+        /// <param name="encryptionService">The encryption service</param>
         public ApplicationConfigurationService
         (
-            IApplicationConfigurationRepository repository
+            IApplicationConfigurationRepository repository,
+            IEncryptionService encryptionService
         ) : 
             base
             (
@@ -28,10 +30,12 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallEnter(repository);
 
             Repository = repository;
+            EncryptionService = encryptionService;
 
             LoggingHelpers.TraceCallReturn();
         }
         private IApplicationConfigurationRepository Repository { get; }
+        private IEncryptionService EncryptionService { get; }
 
         /// <inheritdoc cref="IApplicationConfigurationService.SetValue{TValue}(AppId, IUserProfile, ConfigurationScope, String, TValue)"/>
         public void SetValue<TValue>(AppId applicationId, IUserProfile userProfile, ConfigurationScope configurationScope, String key, TValue newValue)
@@ -66,6 +70,11 @@ namespace Foundation.Services.Application
 
             String? loadedValue = applicationConfiguration.Value.ToString();
 
+            if (applicationConfiguration.IsEncrypted)
+            {
+                loadedValue = EncryptionService.DecryptData(key, loadedValue);
+            }
+
             TValue retVal = SerialisationHelpers.Deserialise<TValue>(loadedValue);
 
             LoggingHelpers.TraceCallReturn(retVal);
@@ -90,6 +99,11 @@ namespace Foundation.Services.Application
             else
             {
                 String? loadedValue = applicationConfiguration.Value.ToString();
+
+                if (applicationConfiguration.IsEncrypted)
+                {
+                    loadedValue = EncryptionService.DecryptData(key, loadedValue);
+                }
 
                 retVal = SerialisationHelpers.Deserialise<TValue>(loadedValue);
             }
