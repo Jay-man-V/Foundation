@@ -37,12 +37,17 @@ namespace Foundation.Services.Application
         private IApplicationConfigurationRepository Repository { get; }
         private IEncryptionService EncryptionService { get; }
 
-        /// <inheritdoc cref="IApplicationConfigurationService.SetValue{TValue}(AppId, IUserProfile, ConfigurationScope, String, TValue)"/>
-        public void SetValue<TValue>(AppId applicationId, IUserProfile userProfile, ConfigurationScope configurationScope, String key, TValue newValue)
+        /// <inheritdoc cref="IApplicationConfigurationService.SetValue{TValue}(AppId, IUserProfile, ConfigurationScope, String, Boolean, TValue)"/>
+        public void SetValue<TValue>(AppId applicationId, IUserProfile userProfile, ConfigurationScope configurationScope, String key, Boolean isEncrypted, TValue newValue)
         {
             LoggingHelpers.TraceCallEnter(applicationId, userProfile, configurationScope, key, newValue);
 
             String valueToSave = SerialisationHelpers.Serialise(newValue);
+
+            if (isEncrypted)
+            {
+                valueToSave = EncryptionService.EncryptData(key, valueToSave);
+            }
 
             Repository.SetValue(applicationId, userProfile, configurationScope, key, valueToSave);
 
@@ -69,6 +74,12 @@ namespace Foundation.Services.Application
             }
 
             String? loadedValue = applicationConfiguration.Value.ToString();
+
+            if (String.IsNullOrEmpty(loadedValue))
+            {
+                String errorMessage = $"Configuration value with Key '{key}' for application id '{applicationId.TheAppId}' could not be read as a string.";
+                throw new NullValueException(errorMessage);
+            }
 
             if (applicationConfiguration.IsEncrypted)
             {

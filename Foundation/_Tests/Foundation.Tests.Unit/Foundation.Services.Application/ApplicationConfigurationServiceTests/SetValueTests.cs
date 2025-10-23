@@ -61,7 +61,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
                 EncryptionService.EncryptData(key, value.ToString()).Returns(value.ToString());
             }
 
-            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, value);
+            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, encrypted, value);
 
             TheRepository!.Received().SetValue(applicationId, UserProfile, configurationScope, key, value.ToString());
         }
@@ -80,7 +80,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
                 EncryptionService.EncryptData(key, value.ToString()).Returns(value.ToString());
             }
 
-            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, value);
+            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, encrypted, value);
 
             TheRepository!.Received().SetValue(applicationId, UserProfile, configurationScope, key, value.ToString());
         }
@@ -99,7 +99,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
                 EncryptionService.EncryptData(key, value.ToString()).Returns(value.ToString());
             }
 
-            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, value);
+            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, encrypted, value);
 
             TheRepository!.Received().SetValue(applicationId, UserProfile, configurationScope, key, value.ToString());
         }
@@ -115,10 +115,10 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             if (encrypted)
             {
-                EncryptionService.EncryptData(key, value.ToString()).Returns(value.ToString());
+                EncryptionService.EncryptData(key, value).Returns(value);
             }
 
-            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, value);
+            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, encrypted, value);
 
             TheRepository!.Received().SetValue(applicationId, UserProfile, configurationScope, key, value);
         }
@@ -137,7 +137,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
                 EncryptionService.EncryptData(key, value.ToString()).Returns(value.ToString());
             }
 
-            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, value);
+            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, encrypted, value);
 
             TheRepository!.Received().SetValue(applicationId, UserProfile, configurationScope, key, value.ToString());
         }
@@ -156,7 +156,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
                 EncryptionService.EncryptData(key, value.ToString()).Returns(value.ToString());
             }
 
-            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, value);
+            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, encrypted, value);
 
             TheRepository!.Received().SetValue(applicationId, UserProfile, configurationScope, key, value.ToString());
         }
@@ -175,7 +175,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
                 EncryptionService.EncryptData(key, value.ToString()).Returns(value.ToString());
             }
 
-            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, value);
+            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, encrypted, value);
 
             TheRepository!.Received().SetValue(applicationId, UserProfile, configurationScope, key, value.ToString());
         }
@@ -194,7 +194,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
                 EncryptionService.EncryptData(key, value.ToString()).Returns(value.ToString());
             }
 
-            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, value);
+            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, encrypted, value);
 
             TheRepository!.Received().SetValue(applicationId, UserProfile, configurationScope, key, value.ToString());
         }
@@ -213,7 +213,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
                 EncryptionService.EncryptData(key, value.ToString()).Returns(value.ToString());
             }
 
-            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, value);
+            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, encrypted, value);
 
             TheRepository!.Received().SetValue(applicationId, UserProfile, configurationScope, key, value.ToString());
         }
@@ -232,7 +232,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
                 EncryptionService.EncryptData(key, value.ToString()).Returns(value.ToString());
             }
 
-            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, value);
+            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, encrypted, value);
 
             TheRepository!.Received().SetValue(applicationId, UserProfile, configurationScope, key, value.ToString());
         }
@@ -251,7 +251,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
                 EncryptionService.EncryptData(key, value.ToString()).Returns(value.ToString());
             }
 
-            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, value);
+            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, encrypted, value);
 
             TheRepository!.Received().SetValue(applicationId, UserProfile, configurationScope, key, value.ToString());
         }
@@ -270,7 +270,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
                 EncryptionService.EncryptData(key, value.ToString()).Returns(value.ToString());
             }
 
-            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, value);
+            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, encrypted, value);
 
             TheRepository!.Received().SetValue(applicationId, UserProfile, configurationScope, key, value.ToString());
         }
@@ -289,7 +289,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
                 EncryptionService.EncryptData(key, value.ToString()).Returns(value.ToString());
             }
 
-            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, value);
+            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, encrypted, value);
 
             TheRepository!.Received().SetValue(applicationId, UserProfile, configurationScope, key, $"{value}");
         }
@@ -308,7 +308,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
                 EncryptionService.EncryptData(key, value.ToString()).Returns(value.ToString());
             }
 
-            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, value);
+            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, encrypted, value);
 
             TheRepository!.Received().SetValue(applicationId, UserProfile, configurationScope, key, $"{value}");
         }
@@ -327,7 +327,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
                 EncryptionService.EncryptData(key, value.ToString()).Returns(value.ToString());
             }
 
-            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, value);
+            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, encrypted, value);
 
             TheRepository!.Received().SetValue(applicationId, UserProfile, configurationScope, key, value.ToString());
         }
@@ -346,7 +346,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
                 EncryptionService.EncryptData(key, value.ToString()).Returns(value.ToString());
             }
 
-            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, value);
+            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, encrypted, value);
 
             TheRepository!.Received().SetValue(applicationId, UserProfile, configurationScope, key, value.ToString());
         }
@@ -363,10 +363,10 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             if (encrypted)
             {
-                EncryptionService.EncryptData(key, value.ToString()).Returns(value.ToString());
+                EncryptionService.EncryptData(key, value.ToString(Formats.DotNet.Iso8601DateTimeMilliseconds)).Returns(value.ToString(Formats.DotNet.Iso8601DateTimeMilliseconds));
             }
 
-            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, value);
+            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, encrypted, value);
 
             TheRepository!.Received().SetValue(applicationId, UserProfile, configurationScope, key, expected);
         }
@@ -383,10 +383,10 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             if (encrypted)
             {
-                EncryptionService.EncryptData(key, value.ToString()).Returns(value.ToString());
+                EncryptionService.EncryptData(key, value.ToString(Formats.DotNet.Iso8601DateTimeMilliseconds)).Returns(value.ToString(Formats.DotNet.Iso8601DateTimeMilliseconds));
             }
 
-            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, value);
+            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, encrypted, value);
 
             TheRepository!.Received().SetValue(applicationId, UserProfile, configurationScope, key, expected);
         }
@@ -403,10 +403,10 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
 
             if (encrypted)
             {
-                EncryptionService.EncryptData(key, value.ToString()).Returns(value.ToString());
+                EncryptionService.EncryptData(key, value.ToString(Formats.DotNet.Iso8601DateTimeMilliseconds)).Returns(value.ToString(Formats.DotNet.Iso8601DateTimeMilliseconds));
             }
 
-            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, value);
+            TheService!.SetValue(applicationId, UserProfile, configurationScope, key, encrypted, value);
 
             TheRepository!.Received().SetValue(applicationId, UserProfile, configurationScope, key, expected);
         }

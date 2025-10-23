@@ -574,7 +574,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             while (!processJobCalled &&
                    testStartTime.AddMinutes(1) > DateTime.Now)
             {
-                Thread.Sleep(new TimeSpan(0, 0, 10));
+                Thread.Sleep(new TimeSpan(0, 0, 0, 150));
             }
 
             TheProcess!.StopJobs(new LogId(0));
