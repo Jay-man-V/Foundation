@@ -67,8 +67,6 @@ namespace Foundation.Tests.Unit.Foundation.Core
             LoggedOnUserProcess = null;
             Application = null;
             UserProfile = null;
-
-            typeof(global::Foundation.Core.Core).TypeInitializer!.Invoke(null, []);
         }
 
         [TestCase]

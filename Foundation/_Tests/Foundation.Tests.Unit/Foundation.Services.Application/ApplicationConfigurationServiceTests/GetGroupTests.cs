@@ -9,7 +9,6 @@ using NSubstitute;
 using Foundation.Interfaces;
 using Foundation.Models.Core;
 using Foundation.Services.Application;
-
 using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfigurationServiceTests
@@ -28,10 +27,13 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         {
             base.TestInitialise();
 
+            ICore core = Substitute.For<ICore>();
             TheRepository = Substitute.For<IApplicationConfigurationRepository>();
             IEncryptionService encryptionService = Substitute.For<IEncryptionService>();
 
-            TheService = new ApplicationConfigurationService(TheRepository, encryptionService);
+            TheService = new ApplicationConfigurationService(core, TheRepository);//, EncryptionService);
+            ApplicationConfigurationService applicationConfigurationService = (ApplicationConfigurationService)TheService;
+            applicationConfigurationService.EncryptionService = encryptionService;
 
             UserProfile = Substitute.For<IUserProfile>();
         }

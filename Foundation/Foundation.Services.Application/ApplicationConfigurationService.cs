@@ -16,12 +16,14 @@ namespace Foundation.Services.Application
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="core">The Foundation Core service.</param>
         /// <param name="repository">The data access.</param>
         /// <param name="encryptionService">The encryption service</param>
         public ApplicationConfigurationService
         (
-            IApplicationConfigurationRepository repository,
-            IEncryptionService encryptionService
+            ICore core,
+            IApplicationConfigurationRepository repository //,
+            //IEncryptionService encryptionService // Cannot have this here otherwise circular dependency
         ) : 
             base
             (
@@ -29,13 +31,30 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter(repository);
 
+            Core = core;
             Repository = repository;
-            EncryptionService = encryptionService;
+            //EncryptionService = encryptionService;
 
             LoggingHelpers.TraceCallReturn();
         }
+        private ICore Core { get; }
         private IApplicationConfigurationRepository Repository { get; }
-        private IEncryptionService EncryptionService { get; }
+
+        private IEncryptionService? _encryptionService;
+
+        internal IEncryptionService EncryptionService
+        {
+            get
+            {
+                if (_encryptionService is null)
+                {
+                    _encryptionService = Core.IoC.Get<IEncryptionService>();
+                }
+
+                return _encryptionService;
+            } 
+            set => _encryptionService = value;
+        }
 
         /// <inheritdoc cref="IApplicationConfigurationService.SetValue{TValue}(AppId, IUserProfile, ConfigurationScope, String, Boolean, TValue)"/>
         public void SetValue<TValue>(AppId applicationId, IUserProfile userProfile, ConfigurationScope configurationScope, String key, Boolean isEncrypted, TValue newValue)
