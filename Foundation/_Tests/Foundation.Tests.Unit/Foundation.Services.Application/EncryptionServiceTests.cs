@@ -32,9 +32,12 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             base.TestInitialise();
 
+            ICore core = Substitute.For<ICore>();
             FileApi = Substitute.For<IFileApi>();
 
-            TheService = new EncryptionService(FileApi);
+            TheService = new EncryptionService(core);
+            EncryptionService encryptionService = (EncryptionService)TheService;
+            encryptionService.FileApi = FileApi;
         }
 
         public override void TestCleanup()

@@ -26,13 +26,10 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfi
         {
             base.TestInitialise();
 
-            ICore core = Substitute.For<ICore>();
             TheRepository = Substitute.For<IApplicationConfigurationRepository>();
             IEncryptionService encryptionService = Substitute.For<IEncryptionService>();
 
-            TheService = new ApplicationConfigurationService(core, TheRepository);//, EncryptionService);
-            ApplicationConfigurationService applicationConfigurationService = (ApplicationConfigurationService)TheService;
-            applicationConfigurationService.EncryptionService = encryptionService;
+            TheService = new ApplicationConfigurationService(TheRepository, encryptionService);
 
             UserProfile = Substitute.For<IUserProfile>();
         }

@@ -4,13 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.Common;
-using Foundation.Interfaces;
-
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using System.Windows.Input;
+
+using Foundation.Common;
+using Foundation.Interfaces;
 
 namespace Foundation.Services.Application
 {
@@ -22,28 +21,39 @@ namespace Foundation.Services.Application
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="core">The Foundation Core service</param>
         public EncryptionService
         (
-            IFileApi fileApi
-        ) :
-            base
-            (
-            )
+            ICore core
+        )
         {
-            LoggingHelpers.TraceCallEnter(fileApi);
-
-            FileApi = fileApi;
-
-            LoggingHelpers.TraceCallReturn();
+            Core = core;
         }
-
-        private IFileApi FileApi { get; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns>An implementation of the currently used <see cref="SymmetricAlgorithm"/></returns>
         private SymmetricAlgorithm Create() { return Aes.Create(); }
+
+        private ICore Core { get; set; }
+
+        private IFileApi? _fileApi;
+
+        // Do not add to the constructor, as it may cause circular dependencies
+        internal IFileApi FileApi
+        {
+            get
+            {
+                if (_fileApi is null)
+                {
+                    _fileApi = Core.IoC.Get<IFileApi>();
+                }
+
+                return _fileApi;
+            }
+            set => _fileApi = value;
+        }
 
         /// <inheritdoc cref="IEncryptionService.GenerateSalt(Int32)"/>
         public Byte[] GenerateSalt(Int32 saltSize = 1024)
