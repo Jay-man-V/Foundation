@@ -21,13 +21,13 @@ namespace Foundation.Services.Application
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="core">The Foundation Core service</param>
+        /// <param name="fileApi">The file API service</param>
         public EncryptionService
         (
-            ICore core
+            IFileApi fileApi
         )
         {
-            Core = core;
+            FileApi = fileApi;
         }
 
         /// <summary>
@@ -36,24 +36,7 @@ namespace Foundation.Services.Application
         /// <returns>An implementation of the currently used <see cref="SymmetricAlgorithm"/></returns>
         private SymmetricAlgorithm Create() { return Aes.Create(); }
 
-        private ICore Core { get; set; }
-
-        private IFileApi? _fileApi;
-
-        // Do not add to the constructor, as it may cause circular dependencies
-        internal IFileApi FileApi
-        {
-            get
-            {
-                if (_fileApi is null)
-                {
-                    _fileApi = Core.IoC.Get<IFileApi>();
-                }
-
-                return _fileApi;
-            }
-            set => _fileApi = value;
-        }
+        private IFileApi FileApi { get; }
 
         /// <inheritdoc cref="IEncryptionService.GenerateSalt(Int32)"/>
         public Byte[] GenerateSalt(Int32 saltSize = 1024)

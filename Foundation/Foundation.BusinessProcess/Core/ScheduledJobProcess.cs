@@ -563,14 +563,14 @@ namespace Foundation.BusinessProcess.Core
 
             ServerProcessTimer? serverProcessTimer = (ServerProcessTimer?)sender;
 
-            if (serverProcessTimer == null ||
-                //serverProcessTimer.ScheduledJob == null ||
-                serverProcessTimer.ScheduledJob.ScheduledTask == null)
-            {
-                return;
-            }
+            //if (serverProcessTimer == null ||
+            //    //serverProcessTimer.ScheduledJob == null ||
+            //    serverProcessTimer.ScheduledJob.ScheduledTask == null)
+            //{
+            //    return;
+            //}
 
-            IScheduledJob scheduledJob = serverProcessTimer.ScheduledJob;
+            IScheduledJob scheduledJob = serverProcessTimer!.ScheduledJob;
 
             // Default to reschedule based on the Interval
             Int32 rescheduleInterval = 0;
@@ -666,6 +666,5 @@ namespace Foundation.BusinessProcess.Core
 
             return logId;
         }
-
     }
 }

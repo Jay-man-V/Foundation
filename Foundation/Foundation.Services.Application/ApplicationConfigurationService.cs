@@ -4,8 +4,11 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.IO;
+
 using Foundation.Common;
 using Foundation.Interfaces;
+using Foundation.Resources;
 
 namespace Foundation.Services.Application
 {
@@ -16,10 +19,12 @@ namespace Foundation.Services.Application
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="core">The Foundation Core Service.</param>
         /// <param name="repository">The data access.</param>
         /// <param name="encryptionService">The encryption service</param>
         public ApplicationConfigurationService
         (
+            ICore core,
             IApplicationConfigurationRepository repository,
             IEncryptionService encryptionService
         ) : 
@@ -27,16 +32,52 @@ namespace Foundation.Services.Application
             (
             )
         {
-            LoggingHelpers.TraceCallEnter(repository);
+            LoggingHelpers.TraceCallEnter(core, repository, encryptionService);
 
+            Core = core;
             Repository = repository;
             EncryptionService = encryptionService;
 
             LoggingHelpers.TraceCallReturn();
         }
 
+        private ICore Core { get; }
         private IApplicationConfigurationRepository Repository { get; }
         internal IEncryptionService EncryptionService { get; }
+
+        /// <inheritdoc cref="IApplicationConfigurationService.UserDataPath"/>
+        public String UserDataPath
+        {
+            get
+            {
+                String configuredUserDataPath = Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.UserDataPath);
+
+                String retVal = configuredUserDataPath;
+                if (!retVal.Trim().EndsWith(Path.DirectorySeparatorChar))
+                {
+                    retVal += Path.DirectorySeparatorChar;
+                }
+
+                return retVal;
+            }
+        }
+
+        /// <inheritdoc cref="IApplicationConfigurationService.SystemDataPath"/>
+        public String SystemDataPath
+        {
+            get
+            {
+                String configuredSystemDataPath = Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.SystemDataPath);
+
+                String retVal = configuredSystemDataPath;
+                if (!retVal.Trim().EndsWith(Path.DirectorySeparatorChar))
+                {
+                    retVal += Path.DirectorySeparatorChar;
+                }
+
+                return retVal;
+            }
+        }
 
         /// <inheritdoc cref="IApplicationConfigurationService.SetValue{TValue}(AppId, IUserProfile, ConfigurationScope, String, Boolean, TValue)"/>
         public void SetValue<TValue>(AppId applicationId, IUserProfile userProfile, ConfigurationScope configurationScope, String key, Boolean isEncrypted, TValue newValue)

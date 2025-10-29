@@ -12,7 +12,6 @@ using System.Text;
 
 using Foundation.Common;
 using Foundation.Interfaces;
-using Foundation.Resources;
 
 namespace Foundation.Services.Application
 {
@@ -20,56 +19,6 @@ namespace Foundation.Services.Application
     [DependencyInjectionTransient]
     public class FileService : ServiceBase, IFileApi
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="core">The Foundation Core Service.</param>
-        /// <param name="applicationConfigurationService">The application configuration service.</param>
-        public FileService
-        (
-            ICore core,
-            IApplicationConfigurationService applicationConfigurationService
-        ) :
-            base
-            (
-            )
-        {
-            LoggingHelpers.TraceCallEnter(core, applicationConfigurationService);
-
-            Core = core;
-            ApplicationConfigurationService = applicationConfigurationService;
-
-            LoggingHelpers.TraceCallReturn();
-        }
-
-        private ICore Core { get; }
-        private IApplicationConfigurationService ApplicationConfigurationService { get; }
-
-
-        /// <inheritdoc cref="IFileApi.UserDataPath"/>
-        public String UserDataPath
-        {
-            get
-            {
-                String configuredUserDataPath = ApplicationConfigurationService.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.UserDataPath);
-                String retVal = MakeDataPath(configuredUserDataPath, String.Empty);
-
-                return retVal;
-            }
-        }
-
-        /// <inheritdoc cref="IFileApi.SystemDataPath"/>
-        public String SystemDataPath
-        {
-            get
-            {
-                String configuredSystemDataPath = ApplicationConfigurationService.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.SystemDataPath);
-                String retVal = MakeDataPath(configuredSystemDataPath, String.Empty);
-
-                return retVal;
-            }
-        }
-
         /// <inheritdoc cref="IFileApi.MakeDataPath(String, String)"/>
         public String MakeDataPath(String baseFolder, String targetFolder)
         {
@@ -77,9 +26,9 @@ namespace Foundation.Services.Application
 
             String retVal = Path.Combine(baseFolder, targetFolder);
 
-            if (!retVal.Trim().EndsWith(@"\"))
+            if (!retVal.Trim().EndsWith(Path.DirectorySeparatorChar))
             {
-                retVal += @"\";
+                retVal += Path.DirectorySeparatorChar;
             }
 
             LoggingHelpers.TraceCallReturn(retVal);

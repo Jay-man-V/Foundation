@@ -281,7 +281,6 @@
     <Folder Include=".ExpectedResults\ExportToCsv\" />
     <Folder Include=".NetFramework\DependencyInjectionTests\" />
     <Folder Include=".Support\Configs\" />
-    <Folder Include="Foundation.BusinessProcess\CoreTests\SchedulersTests\" />
     <Folder Include="Foundation.Models\" />
     <Folder Include="Foundation.ViewModels\.Support\" />
   </ItemGroup>

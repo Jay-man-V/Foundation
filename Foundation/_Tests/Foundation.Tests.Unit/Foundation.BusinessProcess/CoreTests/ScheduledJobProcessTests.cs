@@ -4,12 +4,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.ServiceProcess;
-
-using NSubstitute;
-
 using Foundation.BusinessProcess.Components;
 using Foundation.BusinessProcess.Core;
+using Foundation.BusinessProcess.Core.EnumProcesses;
 using Foundation.Common;
 using Foundation.Interfaces;
 
@@ -17,6 +14,11 @@ using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
 using Foundation.Tests.Unit.Mocks;
 using Foundation.Tests.Unit.Support;
 
+using NSubstitute;
+
+using System.Globalization;
+using System.ServiceProcess;
+using NSubstitute.ClearExtensions;
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;
 using FModels = Foundation.Models;
@@ -178,6 +180,31 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         }
 
         [TestCase]
+        public void Test_RunJob()
+        {
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
+            ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
+            Int32 interval = 1;
+
+            LoggingService.StartTask(Arg.Any<AppId>(), Arg.Any<String>(), Arg.Any<String>(), Arg.Any<String>()).Returns(new LogId(1));
+
+            IScheduledJob scheduledJob = SchedulerSupport.CreateScheduledJob(CoreInstance, false, currentDate, scheduleInterval, interval);
+            scheduledJob.ScheduledTask = TheProcess!.CreateScheduledTask(scheduledJob);
+            MockScheduledTask? mockScheduledTask = (MockScheduledTask?)scheduledJob.ScheduledTask;
+
+            Boolean processJobCalled = false;
+            mockScheduledTask!.ProcessJobCalled += (_, _) =>
+            {
+                processJobCalled = true;
+            };
+
+            LogId logId = TheProcess!.RunJob(new LogId(0), scheduledJob);
+
+            Assert.That(processJobCalled, Is.EqualTo(true));
+            Assert.That(logId, Is.EqualTo(new LogId(1)));
+        }
+
+        [TestCase]
         public void Test_StartJobs_NoInitialise()
         {
             TimeSpan startTime = new TimeSpan(9, 0, 0);
@@ -215,6 +242,25 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             }
 
             Assert.That(processJobCalled, Is.EqualTo(true));
+        }
+
+        [TestCase]
+        public void Test_StartJobs_NoJobs()
+        {
+            LogId logId = new LogId(0);
+            List<IScheduledJob> scheduleTasks = [];
+
+            TheRepository!.GetAllActive().Returns(scheduleTasks);
+
+            ScheduledJobProcess scheduledJobProcess = (ScheduledJobProcess)TheProcess!;
+            TheProcess!.StartJobs(logId);
+
+            Assert.That(scheduledJobProcess.ScheduledTimers.Count, Is.EqualTo(0));
+
+            String batchName = "Batch Scheduler";
+            String processName = nameof(ScheduledJobProcess);
+            LoggingService.Received(1).CreateLogEntry(logId, CoreInstance.ApplicationId, batchName, processName, Arg.Any<String>(), LogSeverity.Information, "No jobs found to start");
+
         }
 
         [TestCase]
@@ -749,10 +795,12 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             Assert.That(actualException.ParamName, Is.EqualTo(paramName));
         }
 
-        [TestCase]
-        public void Test_GetServiceStatus_IScheduledJob_KnownTask()
+        [TestCase(ServiceStatus.Stopped, false, false)]
+        [TestCase(ServiceStatus.Running, false, true)]
+        [TestCase(ServiceStatus.Running, true, true)]
+        [TestCase(ServiceStatus.Running, true, false)]
+        public void Test_GetServiceStatus_IScheduledJob_KnownTask(ServiceStatus expected, Boolean timerEnabled, Boolean jobRunning)
         {
-            ServiceStatus expected = ServiceStatus.Stopped;
             TimeSpan startTime = new TimeSpan(9, 0, 0);
             TimeSpan endTime = new TimeSpan(17, 0, 0);
             DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
@@ -760,11 +808,15 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             Int32 interval = 1;
 
             IScheduledJob scheduledJob = SchedulerSupport.CreateScheduledJob(CoreInstance, false, currentDate, startTime, endTime, scheduleInterval, interval);
+            scheduledJob.IsRunning = jobRunning;
             List<IScheduledJob> scheduleTasks = [scheduledJob];
 
             TheRepository!.GetAllActive().Returns(scheduleTasks);
 
             TheProcess!.InitialiseJobs(new LogId(0));
+            ScheduledJobProcess scheduledJobProcess = (ScheduledJobProcess)TheProcess!;
+            Dictionary<String, ServerProcessTimer> scheduledTimers = scheduledJobProcess.ScheduledTimers;
+            scheduledTimers[scheduledJob.Name].Enabled = timerEnabled;
 
             ServiceStatus actual = TheProcess!.GetServiceStatus(scheduledJob);
 
@@ -976,6 +1028,212 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             FEnums.TaskStatus actual = TheProcess!.GetJobLastRunStatus(scheduledJob);
 
             Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [TestCase(ScheduleInterval.NotSet, 100, "2022-11-28 09:00:00.000")]
+        [TestCase(ScheduleInterval.Milliseconds, 0, "2022-11-28 09:00:00.000")]
+        [TestCase(ScheduleInterval.Milliseconds, 100, "2022-11-28 09:00:00.000")]
+        [TestCase(ScheduleInterval.Seconds, 30, "2022-11-28 09:00:00.000")]
+        [TestCase(ScheduleInterval.Minutes, 30, "2022-11-28 09:00:00.000")]
+        [TestCase(ScheduleInterval.Hours, 3, "2022-11-28 09:00:00.000")]
+        [TestCase(ScheduleInterval.Days, 3, "2022-11-30 09:00:00.000")]
+        [TestCase(ScheduleInterval.Weeks, 3, "2022-12-18 09:00:00.000")]
+        [TestCase(ScheduleInterval.Months, 3, "2023-02-27 09:00:00.000")]
+        [TestCase(ScheduleInterval.Years, 3, "2025-11-27 09:00:00.000")]
+        [TestCase(ScheduleInterval.Other, 100, "2022-11-28 09:00:00.000")]
+        public void Test_ScheduleNextRun(ScheduleInterval scheduleInterval, Int32 interval, String expectedNextRunDate)
+        {
+            DateTime expectedNextRunDateTime = DateTime.ParseExact(expectedNextRunDate, "yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture);
+
+            LogId parentLogId = new LogId(0);
+
+            DateTimeService.ClearSubstitute();
+            DateTimeService.SystemDateTimeNowWithoutMilliseconds.Returns(new DateTime(2022, 11, 27, 12, 11, 54));
+            DateTimeService.SystemUtcDateTimeNow.Returns(new DateTime(2022, 11, 27, 12, 11, 54, 300));
+
+            TimeSpan startTime = new TimeSpan(9, 0, 0);
+            TimeSpan endTime = new TimeSpan(17, 0, 0);
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
+            DateTime nextDate = currentDate.AddDays(1);
+
+            ICalendarProcess calendarProcess = Substitute.For<ICalendarProcess>();
+            IScheduleIntervalProcess scheduleIntervalProcess = Substitute.For<IScheduleIntervalProcess>();
+
+            calendarProcess.CheckIsWorkingDayOrGetNextWorkingDay(Arg.Any<String>(), currentDate + startTime).Returns(nextDate + startTime);
+            calendarProcess.CheckIsWorkingDayOrGetNextWorkingDay(Arg.Any<String>(), currentDate + endTime).Returns(nextDate + endTime);
+
+            IScheduledJob scheduledJob = SchedulerSupport.CreateScheduledJob(CoreInstance, true, currentDate, startTime, endTime, scheduleInterval, interval);
+            DateTime checkDate = DateTimeService.SystemDateTimeNowWithoutMilliseconds.Add(scheduledJob.ScheduleInterval, scheduledJob.Interval, scheduledJob.StartTime).Date;
+            DateTime returnDate = DateTimeService.SystemDateTimeNowWithoutMilliseconds.Add(scheduledJob.ScheduleInterval, scheduledJob.Interval, scheduledJob.StartTime).Date;
+            calendarProcess.CheckIsWorkingDayOrGetNextWorkingDay(Arg.Any<String>(), checkDate).Returns(returnDate);
+
+            IScheduledJobProcess scheduledJobProcess = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, scheduleIntervalProcess, calendarProcess, ServiceControlWrapper!);
+
+            SchedulerSupport.Core = CoreInstance;
+            SchedulerSupport.RunTimeEnvironmentSettings = RunTimeEnvironmentSettings;
+            SchedulerSupport.DateTimeService = DateTimeService;
+            SchedulerSupport.LoggingService = LoggingService;
+            scheduledJobProcess.AlternateCreateScheduledTaskCalled -= SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
+            scheduledJobProcess.AlternateCreateScheduledTaskCalled += SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
+
+            scheduledJob.ScheduledTask = scheduledJobProcess.CreateScheduledTask(scheduledJob);
+
+            scheduledJobProcess.RunJob(parentLogId, scheduledJob);
+
+            DateTime actualNextRun = scheduledJob.NextRunDateTime;
+
+            Assert.That(actualNextRun, Is.EqualTo(expectedNextRunDateTime));
+        }
+
+        [TestCase(ScheduleInterval.NotSet, 100, "2022-11-28 09:00:00.000")]
+        [TestCase(ScheduleInterval.Milliseconds, 0, "2022-11-28 09:00:00.000")]
+        [TestCase(ScheduleInterval.Milliseconds, 100, "2022-11-28 09:00:00.000")]
+        [TestCase(ScheduleInterval.Seconds, 30, "2022-11-28 09:00:00.000")]
+        [TestCase(ScheduleInterval.Minutes, 30, "2022-11-28 09:00:00.000")]
+        [TestCase(ScheduleInterval.Hours, 3, "2022-11-28 09:00:00.000")]
+        [TestCase(ScheduleInterval.Days, 3, "2022-11-30 09:00:00.000")]
+        [TestCase(ScheduleInterval.Weeks, 3, "2022-12-18 09:00:00.000")]
+        [TestCase(ScheduleInterval.Months, 3, "2023-02-27 09:00:00.000")]
+        [TestCase(ScheduleInterval.Years, 3, "2025-11-27 09:00:00.000")]
+        [TestCase(ScheduleInterval.Other, 100, "2022-11-28 09:00:00.000")]
+        public void Test_RunBeforeStartTime(ScheduleInterval scheduleInterval, Int32 interval, String expectedNextRunDate)
+        {
+            DateTime expectedNextRunDateTime = DateTime.ParseExact(expectedNextRunDate, "yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture);
+
+            LogId parentLogId = new LogId(0);
+
+            DateTimeService.ClearSubstitute();
+            DateTimeService.SystemDateTimeNowWithoutMilliseconds.Returns(new DateTime(2022, 11, 27, 04, 11, 54));
+            DateTimeService.SystemUtcDateTimeNow.Returns(new DateTime(2022, 11, 27, 12, 04, 54, 300));
+
+            TimeSpan startTime = new TimeSpan(9, 0, 0);
+            TimeSpan endTime = new TimeSpan(17, 0, 0);
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
+            DateTime nextDate = currentDate.AddDays(1);
+
+            ICalendarProcess calendarProcess = Substitute.For<ICalendarProcess>();
+            IScheduleIntervalProcess scheduleIntervalProcess = Substitute.For<IScheduleIntervalProcess>();
+
+            calendarProcess.CheckIsWorkingDayOrGetNextWorkingDay(Arg.Any<String>(), currentDate + startTime).Returns(nextDate + startTime);
+            calendarProcess.CheckIsWorkingDayOrGetNextWorkingDay(Arg.Any<String>(), currentDate + endTime).Returns(nextDate + endTime);
+
+            IScheduledJob scheduledJob = SchedulerSupport.CreateScheduledJob(CoreInstance, true, currentDate, startTime, endTime, scheduleInterval, interval);
+            DateTime checkDate = DateTimeService.SystemDateTimeNowWithoutMilliseconds.Add(scheduledJob.ScheduleInterval, scheduledJob.Interval, scheduledJob.StartTime).Date;
+            DateTime returnDate = DateTimeService.SystemDateTimeNowWithoutMilliseconds.Add(scheduledJob.ScheduleInterval, scheduledJob.Interval, scheduledJob.StartTime).Date;
+            calendarProcess.CheckIsWorkingDayOrGetNextWorkingDay(Arg.Any<String>(), checkDate).Returns(returnDate);
+
+            IScheduledJobProcess scheduledJobProcess = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, scheduleIntervalProcess, calendarProcess, ServiceControlWrapper!);
+
+            SchedulerSupport.Core = CoreInstance;
+            SchedulerSupport.RunTimeEnvironmentSettings = RunTimeEnvironmentSettings;
+            SchedulerSupport.DateTimeService = DateTimeService;
+            SchedulerSupport.LoggingService = LoggingService;
+            scheduledJobProcess.AlternateCreateScheduledTaskCalled -= SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
+            scheduledJobProcess.AlternateCreateScheduledTaskCalled += SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
+
+            scheduledJob.ScheduledTask = scheduledJobProcess.CreateScheduledTask(scheduledJob);
+
+            scheduledJobProcess.RunJob(parentLogId, scheduledJob);
+
+            DateTime actualNextRun = scheduledJob.NextRunDateTime;
+
+            Assert.That(actualNextRun, Is.EqualTo(expectedNextRunDateTime));
+        }
+
+        [TestCase(ScheduleInterval.NotSet, 100, "2022-11-28 09:00:00.000")]
+        [TestCase(ScheduleInterval.Milliseconds, 0, "2022-11-28 09:00:00.000")]
+        [TestCase(ScheduleInterval.Milliseconds, 100, "2022-11-28 09:00:00.000")]
+        [TestCase(ScheduleInterval.Seconds, 30, "2022-11-28 09:00:00.000")]
+        [TestCase(ScheduleInterval.Minutes, 30, "2022-11-28 09:00:00.000")]
+        [TestCase(ScheduleInterval.Hours, 3, "2022-11-28 09:00:00.000")]
+        [TestCase(ScheduleInterval.Days, 3, "2022-11-30 09:00:00.000")]
+        [TestCase(ScheduleInterval.Weeks, 3, "2022-12-18 09:00:00.000")]
+        [TestCase(ScheduleInterval.Months, 3, "2023-02-27 09:00:00.000")]
+        [TestCase(ScheduleInterval.Years, 3, "2025-11-27 09:00:00.000")]
+        [TestCase(ScheduleInterval.Other, 100, "2022-11-28 09:00:00.000")]
+        public void Test_RunAfterEndTime(ScheduleInterval scheduleInterval, Int32 interval, String expectedNextRunDate)
+        {
+            DateTime expectedNextRunDateTime = DateTime.ParseExact(expectedNextRunDate, "yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture);
+
+            LogId parentLogId = new LogId(0);
+
+            DateTimeService.ClearSubstitute();
+            DateTimeService.SystemDateTimeNowWithoutMilliseconds.Returns(new DateTime(2022, 11, 27, 23, 11, 54));
+            DateTimeService.SystemUtcDateTimeNow.Returns(new DateTime(2022, 11, 27, 12, 23, 54, 300));
+
+            TimeSpan startTime = new TimeSpan(9, 0, 0);
+            TimeSpan endTime = new TimeSpan(17, 0, 0);
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
+            DateTime nextDate = currentDate.AddDays(1);
+
+            ICalendarProcess calendarProcess = Substitute.For<ICalendarProcess>();
+            IScheduleIntervalProcess scheduleIntervalProcess = Substitute.For<IScheduleIntervalProcess>();
+
+            calendarProcess.CheckIsWorkingDayOrGetNextWorkingDay(Arg.Any<String>(), currentDate + startTime).Returns(nextDate + startTime);
+            calendarProcess.CheckIsWorkingDayOrGetNextWorkingDay(Arg.Any<String>(), currentDate + endTime).Returns(nextDate + endTime);
+
+            IScheduledJob scheduledJob = SchedulerSupport.CreateScheduledJob(CoreInstance, true, currentDate, startTime, endTime, scheduleInterval, interval);
+            DateTime checkDate = DateTimeService.SystemDateTimeNowWithoutMilliseconds.Add(scheduledJob.ScheduleInterval, scheduledJob.Interval, scheduledJob.StartTime).Date;
+            DateTime returnDate = DateTimeService.SystemDateTimeNowWithoutMilliseconds.Add(scheduledJob.ScheduleInterval, scheduledJob.Interval, scheduledJob.StartTime).Date;
+            calendarProcess.CheckIsWorkingDayOrGetNextWorkingDay(Arg.Any<String>(), checkDate).Returns(returnDate);
+
+            IScheduledJobProcess scheduledJobProcess = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, scheduleIntervalProcess, calendarProcess, ServiceControlWrapper!);
+
+            SchedulerSupport.Core = CoreInstance;
+            SchedulerSupport.RunTimeEnvironmentSettings = RunTimeEnvironmentSettings;
+            SchedulerSupport.DateTimeService = DateTimeService;
+            SchedulerSupport.LoggingService = LoggingService;
+            scheduledJobProcess.AlternateCreateScheduledTaskCalled -= SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
+            scheduledJobProcess.AlternateCreateScheduledTaskCalled += SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
+
+            scheduledJob.ScheduledTask = scheduledJobProcess.CreateScheduledTask(scheduledJob);
+
+            scheduledJobProcess.RunJob(parentLogId, scheduledJob);
+
+            DateTime actualNextRun = scheduledJob.NextRunDateTime;
+
+            Assert.That(actualNextRun, Is.EqualTo(expectedNextRunDateTime));
+        }
+
+        [TestCase(ScheduleInterval.Seconds, 60)]
+        public void Test_ScheduleNextRun_WithError(ScheduleInterval scheduleInterval, Int32 interval)
+        {
+            DateTimeService.ClearSubstitute();
+            DateTimeService.SystemDateTimeNowWithoutMilliseconds.Returns(new DateTime(2022, 11, 27, 12, 11, 54));
+            DateTimeService.SystemUtcDateTimeNow.Returns(new DateTime(2022, 11, 27, 12, 11, 54, 300));
+
+            TimeSpan startTime = new TimeSpan(9, 0, 0);
+            TimeSpan endTime = new TimeSpan(17, 0, 0);
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
+
+            ICalendarProcess calendarProcess = Substitute.For<ICalendarProcess>();
+            IScheduleIntervalProcess scheduleIntervalProcess = Substitute.For<IScheduleIntervalProcess>();
+
+            IScheduledJob scheduledJob = SchedulerSupport.CreateScheduledJobWithError(CoreInstance, true, currentDate, startTime, endTime, scheduleInterval, interval);
+            DateTime checkDate = DateTimeService.SystemDateTimeNowWithoutMilliseconds.Add(scheduledJob.ScheduleInterval, scheduledJob.Interval, scheduledJob.StartTime).Date;
+            DateTime returnDate = DateTimeService.SystemDateTimeNowWithoutMilliseconds.Add(scheduledJob.ScheduleInterval, scheduledJob.Interval, scheduledJob.StartTime).Date;
+            calendarProcess.CheckIsWorkingDayOrGetNextWorkingDay(Arg.Any<String>(), checkDate).Returns(returnDate);
+
+            IScheduledJobProcess scheduledJobProcess = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, scheduleIntervalProcess, calendarProcess, ServiceControlWrapper!);
+
+            SchedulerSupport.Core = CoreInstance;
+            SchedulerSupport.RunTimeEnvironmentSettings = RunTimeEnvironmentSettings;
+            SchedulerSupport.DateTimeService = DateTimeService;
+            SchedulerSupport.LoggingService = LoggingService;
+            scheduledJobProcess.AlternateCreateScheduledTaskCalled -= SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
+            scheduledJobProcess.AlternateCreateScheduledTaskCalled += SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
+
+            scheduledJob.ScheduledTask = scheduledJobProcess.CreateScheduledTask(scheduledJob);
+
+            TheRepository!.GetAllActive().Returns([scheduledJob]);
+            scheduledJobProcess.InitialiseJobs(Arg.Any<LogId>());
+            scheduledJobProcess.StartJobs(Arg.Any<LogId>());
+
+            Thread.Sleep(new TimeSpan(0, 0, 15));
+
+            DateTime actualNextRun = scheduledJob.NextRunDateTime;
+
+            Assert.That(actualNextRun, Is.EqualTo(DateTimeService.SystemDateTimeNowWithoutMilliseconds.AddSeconds(interval)));
         }
     }
 }

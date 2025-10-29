@@ -31,7 +31,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             base.TestInitialise();
 
-            TheService = new FileService(CoreInstance, ApplicationConfigurationService);
+            TheService = new FileService();
         }
 
         public override void TestCleanup()
@@ -84,37 +84,6 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        [TestCase]
-        public void Test_UserDataPath()
-        {
-            String userDataPath = @".\UserData\";
-
-            ApplicationConfigurationService.Get<String>(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), ApplicationConfigurationKeys.UserDataPath).Returns(userDataPath);
-
-            String expected = @".\UserData\";
-            String actual = TheService!.UserDataPath;
-
-            Assert.That(actual, Is.EqualTo(expected));
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        [TestCase]
-        public void Test_SystemDataPath()
-        {
-            String systemDataPath = @"\SystemData\";
-
-            ApplicationConfigurationService.Get<String>(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), ApplicationConfigurationKeys.SystemDataPath).Returns(systemDataPath);
-
-            String expected = @"\SystemData\";
-            String actual = TheService!.SystemDataPath;
-
-            Assert.That(actual, Is.EqualTo(expected));
-        }
 
         [TestCase]
         public void Test_GetNewTempFilePath()

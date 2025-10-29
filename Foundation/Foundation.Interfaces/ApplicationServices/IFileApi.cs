@@ -16,16 +16,6 @@ namespace Foundation.Interfaces
     public interface IFileApi : IRemoteServiceApi
     {
         /// <summary>
-        /// Retrieves the UserDataPath from configuration
-        /// </summary>
-        String UserDataPath { get; }
-
-        /// <summary>
-        /// Retrieves the SystemDataPath from the configuration
-        /// </summary>
-        String SystemDataPath { get; }
-
-        /// <summary>
         /// Combines the <paramref name="baseFolder"/> and the <paramref name="targetFolder"/> to make a valid folder path.
         /// Function will ensure a trailing '\' is added to the returned value
         /// </summary>

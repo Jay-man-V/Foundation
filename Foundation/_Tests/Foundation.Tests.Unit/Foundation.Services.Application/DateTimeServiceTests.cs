@@ -102,6 +102,19 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         }
 
         [TestCase]
+        public void Test_LocalDateTimeNow()
+        {
+            DateTime value = InjectedLocalDateTime;
+            DateTime actualValue = TheService!.SystemLocalDateTimeNow;
+
+            Assert.That(actualValue.Date, Is.EqualTo(value.Date));
+            Assert.That(actualValue.TimeOfDay.Hours, Is.EqualTo(value.TimeOfDay.Hours));
+            Assert.That(actualValue.TimeOfDay.Minutes, Is.EqualTo(value.TimeOfDay.Minutes));
+            Assert.That(actualValue.TimeOfDay.Seconds, Is.EqualTo(value.TimeOfDay.Seconds));
+            Assert.That(actualValue.TimeOfDay.Milliseconds, Is.EqualTo(value.TimeOfDay.Milliseconds));
+        }
+
+        [TestCase]
         public void Test_SystemDateTimeNow()
         {
             DateTime value = InjectedUtcDateTime;

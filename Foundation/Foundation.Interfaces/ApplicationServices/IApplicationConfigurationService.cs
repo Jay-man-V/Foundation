@@ -12,6 +12,16 @@ namespace Foundation.Interfaces
     public interface IApplicationConfigurationService
     {
         /// <summary>
+        /// Retrieves the UserDataPath from configuration
+        /// </summary>
+        String UserDataPath { get; }
+
+        /// <summary>
+        /// Retrieves the SystemDataPath from the configuration
+        /// </summary>
+        String SystemDataPath { get; }
+
+        /// <summary>
         /// Saves the <paramref name="newValue"/> to the repository and converting to a <see cref="String"/> where required
         /// </summary>
         /// <param name="applicationId">The application id.</param>

@@ -26,18 +26,14 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         private String OutputFolder => Path.Combine(BaseTemporaryOutputsPath, LocationUtils.GetClassName());
 
         private IEncryptionService? TheService { get; set; }
-        private IFileApi FileApi { get; set; }
 
         public override void TestInitialise()
         {
             base.TestInitialise();
 
-            ICore core = Substitute.For<ICore>();
-            FileApi = Substitute.For<IFileApi>();
+            IFileApi fileApi = Substitute.For<IFileApi>();
 
-            TheService = new EncryptionService(core);
-            EncryptionService encryptionService = (EncryptionService)TheService;
-            encryptionService.FileApi = FileApi;
+            TheService = new EncryptionService(fileApi);
         }
 
         public override void TestCleanup()
