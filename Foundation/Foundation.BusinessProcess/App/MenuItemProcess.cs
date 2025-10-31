@@ -115,7 +115,7 @@ namespace Foundation.BusinessProcess.App
             gridColumnDefinition = new GridColumnDefinition(150, FDC.MenuItem.Depth, "Depth", typeof(Int32));
             retVal.Add(gridColumnDefinition);
 
-            gridColumnDefinition = new GridColumnDefinition(150, FDC.MenuItem.ApplicationId, "Application", typeof(AppId))
+            gridColumnDefinition = new GridColumnDefinition(150, FDC.MenuItem.ApplicationId, "Application", typeof(String))
             {
                 TextAlignment = TextAlignment.Left,
                 DataSource = ApplicationProcess.GetAll(excludeDeleted: false),
@@ -180,9 +180,9 @@ namespace Foundation.BusinessProcess.App
             if (parentMenuItem != null)
             {
                 retVal = retVal.Where(mi => (mi.ParentMenuItemId == parentMenuItem.Id) ||                   // Matching Application
-                                            (parentMenuItem.Id == this.AllId) ||                            // All records
-                                            (parentMenuItem.Id == this.NoneId &&
-                                             mi.Id == this.NullId)                                          // No Application
+                                            (parentMenuItem.Id == this.AllId ||                             // All records
+                                            (parentMenuItem.Id == this.NoneId) &&
+                                             mi.ParentMenuItemId == this.NullId)                            // No Application
                 ).ToList();
             }
 

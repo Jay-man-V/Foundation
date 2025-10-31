@@ -15,7 +15,7 @@ namespace Foundation.Interfaces
     /// A struct to hold an Application Id alongside validation routines
     /// </summary>
     [DebuggerDisplay("{TheAppId}")]
-    public readonly struct AppId : IEquatable<AppId>, IComparable<AppId>
+    public readonly struct AppId : IEquatable<AppId>, IComparable<AppId>//, IConvertible
     {
         /// <summary>
         /// The underlying type of the App Id
@@ -436,5 +436,90 @@ namespace Foundation.Interfaces
                 return retVal;
             }
         }
+
+        //public TypeCode GetTypeCode()
+        //{
+        //    return TypeCode.Int64;
+        //}
+
+        //public bool ToBoolean(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public byte ToByte(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public char ToChar(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public DateTime ToDateTime(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public decimal ToDecimal(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public double ToDouble(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public short ToInt16(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public int ToInt32(IFormatProvider? provider)
+        //{
+        //    return (Int32)TheAppId;
+        //}
+
+        //public long ToInt64(IFormatProvider? provider)
+        //{
+        //    return TheAppId;
+        //}
+
+        //public sbyte ToSByte(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public float ToSingle(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public string ToString(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public object ToType(Type conversionType, IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public ushort ToUInt16(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public uint ToUInt32(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public ulong ToUInt64(IFormatProvider? provider)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
