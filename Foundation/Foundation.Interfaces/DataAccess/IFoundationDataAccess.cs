@@ -231,7 +231,7 @@ namespace Foundation.Interfaces
         /// <param name="parameterName">Name of the parameter.</param>
         /// <param name="parameterValue">The parameter value.</param>
         /// <returns>Instance of DbParameter</returns>
-        IDbDataParameter CreateParameter(String parameterName, EntityId? parameterValue);
+        IDbDataParameter CreateParameter(String parameterName, EntityId parameterValue);
 
         /// <summary>
         /// Creates the parameter.
@@ -247,7 +247,15 @@ namespace Foundation.Interfaces
         /// <param name="parameterName">Name of the parameter.</param>
         /// <param name="parameterValue">The parameter value.</param>
         /// <returns>Instance of DbParameter</returns>
-        IDbDataParameter CreateParameter(String parameterName, LogId? parameterValue);
+        IDbDataParameter CreateParameter(String parameterName, LogId parameterValue);
+
+        /// <summary>
+        /// Creates the parameter.
+        /// </summary>
+        /// <param name="parameterName">Name of the parameter.</param>
+        /// <param name="parameterValue">The parameter value.</param>
+        /// <returns>Instance of DbParameter</returns>
+        IDbDataParameter CreateParameter(String parameterName, EmailAddress parameterValue);
 
         /// <summary>
         /// Creates the parameter.

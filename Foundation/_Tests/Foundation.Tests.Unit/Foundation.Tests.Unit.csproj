@@ -12,21 +12,27 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Foundation.DataAccess.DatabaseTests\**" />
       <Compile Remove="Foundation.ViewModels\CoreTests\**" />
       <Compile Remove="Foundation.ViewModels\LogTests\**" />
       <Compile Remove="Foundation.ViewModels\SecTests\**" />
       <Compile Remove="Foundation.ViewModels\ServicesTests\**" />
       <Compile Remove="Foundation.ViewModels\StgTests\**" />
+      <Compile Remove="FoundationDataAccess.DatabaseTests\**" />
+      <EmbeddedResource Remove="Foundation.DataAccess.DatabaseTests\**" />
       <EmbeddedResource Remove="Foundation.ViewModels\CoreTests\**" />
       <EmbeddedResource Remove="Foundation.ViewModels\LogTests\**" />
       <EmbeddedResource Remove="Foundation.ViewModels\SecTests\**" />
       <EmbeddedResource Remove="Foundation.ViewModels\ServicesTests\**" />
       <EmbeddedResource Remove="Foundation.ViewModels\StgTests\**" />
+      <EmbeddedResource Remove="FoundationDataAccess.DatabaseTests\**" />
+      <None Remove="Foundation.DataAccess.DatabaseTests\**" />
       <None Remove="Foundation.ViewModels\CoreTests\**" />
       <None Remove="Foundation.ViewModels\LogTests\**" />
       <None Remove="Foundation.ViewModels\SecTests\**" />
       <None Remove="Foundation.ViewModels\ServicesTests\**" />
       <None Remove="Foundation.ViewModels\StgTests\**" />
+      <None Remove="FoundationDataAccess.DatabaseTests\**" />
     </ItemGroup>
 
   <ItemGroup>
@@ -78,6 +84,9 @@
     <Compile Include="Foundation.BusinessProcess\.BaseClasses\CommonProcessTests.cs" />
     <Compile Include="Foundation.BusinessProcess\.Support\MockFoundationProcess2Tests.cs" />
     <Compile Include="Foundation.BusinessProcess\.Support\MockFoundationProcessTests.cs" />
+    <Compile Include="Foundation.DataAccess.Csv\.Support\MyCsvRecord.cs" />
+    <Compile Include="Foundation.DataAccess.Database\.Support\ComplexTestEntityRepository.cs" />
+    <Compile Include="Foundation.DataAccess.Database\.Support\SimpleTestEntityRepository.cs" />
     <Compile Include="Foundation.ViewModels\.BaseClasses\EntityViewModelTests.cs" />
     <Compile Include="Foundation.ViewModels\.BaseClasses\EntityViewModelUnitTestsBase.cs" />
     <Compile Include="Foundation.ViewModels\.BaseClasses\GenericDataGridViewModelTests.cs" />
@@ -281,7 +290,9 @@
     <Folder Include=".ExpectedResults\ExportToCsv\" />
     <Folder Include=".NetFramework\DependencyInjectionTests\" />
     <Folder Include=".Support\Configs\" />
+    <Folder Include="Foundation.DataAccess.Database\.DataLogicProvidersTests\" />
     <Folder Include="Foundation.Models\" />
+    <Folder Include="Foundation.Repository\" />
     <Folder Include="Foundation.ViewModels\.Support\" />
   </ItemGroup>
 

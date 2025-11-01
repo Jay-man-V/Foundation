@@ -224,6 +224,7 @@ namespace Foundation.DataAccess.Database
             DbType retVal;
 
             if (parameterType == typeof(String)) retVal = DbType.String;
+            else if (parameterType == typeof(EmailAddress)) retVal = DbType.String;
             else if (parameterType == typeof(EntityId)) retVal = EntityId.DbType;
             else if (parameterType == typeof(AppId)) retVal = AppId.DbType;
             else if (parameterType == typeof(LogId)) retVal = LogId.DbType;
@@ -310,17 +311,13 @@ namespace Foundation.DataAccess.Database
 
             IDbDataParameter retVal;
 
-            if (useNullForThisValue is null)
-            {
-                throw new ArgumentNullException(nameof(useNullForThisValue));
-            }
-
-            if (useNullForThisValue.Equals(parameterValue) ||
+            if (useNullForThisValue != null &&
+                useNullForThisValue.Equals(parameterValue) ||
                 parameterValue == null)
             {
                 retVal = CreateParameter(parameterName, DbType.Object, DBNull.Value);
 
-                Type parameterType = useNullForThisValue.GetType();
+                Type parameterType = useNullForThisValue!.GetType();
 
                 if (parameterValue != null)
                 {
@@ -531,20 +528,20 @@ namespace Foundation.DataAccess.Database
             return retVal;
         }
 
-        /// <inheritdoc cref="IFoundationDataAccess.CreateParameter(String, EntityId?)"/>
-        public IDbDataParameter CreateParameter(String parameterName, EntityId? parameterValue)
+        /// <inheritdoc cref="IFoundationDataAccess.CreateParameter(String, EntityId)"/>
+        public IDbDataParameter CreateParameter(String parameterName, EntityId parameterValue)
         {
             LoggingHelpers.TraceCallEnter(parameterName, parameterValue);
 
             IDbDataParameter retVal;
 
-            if (!parameterValue.HasValue || parameterValue.Value.TheEntityId is 0L or -1L)
+            if (parameterValue.TheEntityId is 0L or -1L)
             {
                 retVal = CreateParameter(parameterName, EntityId.DbType, DBNull.Value);
             }
             else
             {
-                retVal = InternalCreateParameter(parameterName, parameterValue.Value.ToInteger());
+                retVal = InternalCreateParameter(parameterName, parameterValue.ToInteger());
             }
 
             LoggingHelpers.TraceCallReturn(retVal);
@@ -573,20 +570,41 @@ namespace Foundation.DataAccess.Database
             return retVal;
         }
 
-        /// <inheritdoc cref="IFoundationDataAccess.CreateParameter(String, LogId?)"/>
-        public IDbDataParameter CreateParameter(String parameterName, LogId? parameterValue)
+        /// <inheritdoc cref="IFoundationDataAccess.CreateParameter(String, LogId)"/>
+        public IDbDataParameter CreateParameter(String parameterName, LogId parameterValue)
         {
             LoggingHelpers.TraceCallEnter(parameterName, parameterValue);
 
             IDbDataParameter retVal;
 
-            if (!parameterValue.HasValue || parameterValue.Value.TheLogId is 0L or -1L)
+            if (parameterValue.TheLogId is 0L or -1L)
             {
                 retVal = CreateParameter(parameterName, LogId.DbType, DBNull.Value);
             }
             else
             {
-                retVal = InternalCreateParameter(parameterName, parameterValue.Value.ToInteger());
+                retVal = InternalCreateParameter(parameterName, parameterValue.ToInteger());
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IFoundationDataAccess.CreateParameter(String, EmailAddress)"/>
+        public IDbDataParameter CreateParameter(String parameterName, EmailAddress parameterValue)
+        {
+            LoggingHelpers.TraceCallEnter(parameterName, parameterValue);
+
+            IDbDataParameter retVal;
+
+            if (String.IsNullOrEmpty(parameterValue.ToString()))
+            {
+                retVal = CreateParameter(parameterName, DbType.String, DBNull.Value);
+            }
+            else
+            {
+                retVal = InternalCreateParameter(parameterName, parameterValue.ToString());
             }
 
             LoggingHelpers.TraceCallReturn(retVal);
