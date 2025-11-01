@@ -64,7 +64,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             SetComboBoxProperties(userProfileProcess);
             userProfileProcess.ComboBoxDisplayMember.Returns(FDC.UserProfile.DisplayName);
 
-            IApplicationConfigurationProcess process = new ApplicationConfigurationProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, configurationScopeProcess, applicationProcess, userProfileProcess);
+            IApplicationConfigurationProcess process = new ApplicationConfigurationProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, configurationScopeProcess, applicationProcess, userProfileProcess);
 
             return process;
         }

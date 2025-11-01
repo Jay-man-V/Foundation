@@ -29,6 +29,7 @@ namespace Foundation.BusinessProcess.Core
         /// <param name="statusRepository">The status data access</param>
         /// <param name="userProfileRepository">The user profile data access</param>
         /// <param name="countryProcess">The country process</param>
+        /// <param name="reportGenerator">The report generator service</param>
         public NationalRegionProcess
         (
             ICore core,
@@ -38,6 +39,7 @@ namespace Foundation.BusinessProcess.Core
             INationalRegionRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
+            IReportGenerator reportGenerator,
             ICountryProcess countryProcess
         ) 
             : base
@@ -48,10 +50,11 @@ namespace Foundation.BusinessProcess.Core
                 loggingService,
                 repository,
                 statusRepository,
-                userProfileRepository
+                userProfileRepository,
+                reportGenerator
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, countryProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, reportGenerator, countryProcess);
 
             CountryProcess = countryProcess;
 

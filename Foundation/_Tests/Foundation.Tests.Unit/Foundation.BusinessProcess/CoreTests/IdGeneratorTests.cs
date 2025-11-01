@@ -39,7 +39,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IIdGeneratorProcess CreateBusinessProcess(IDateTimeService dateTimeService)
         {
-            IIdGeneratorProcess process = new IdGeneratorProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!);
+            IIdGeneratorProcess process = new IdGeneratorProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!);
 
             return process;
         }

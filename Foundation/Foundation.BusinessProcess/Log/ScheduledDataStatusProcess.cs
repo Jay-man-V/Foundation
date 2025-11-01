@@ -28,6 +28,7 @@ namespace Foundation.BusinessProcess.Log
         /// <param name="repository">The data access</param>
         /// <param name="statusRepository">The status data access</param>
         /// <param name="userProfileRepository">The user profile data access</param>
+        /// <param name="reportGenerator">The report generator service</param>
         /// <param name="dataStatusProcess">The data status process</param>
         public ScheduledDataStatusProcess
         (
@@ -38,6 +39,7 @@ namespace Foundation.BusinessProcess.Log
             IScheduledDataStatusRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
+            IReportGenerator reportGenerator,
             IDataStatusProcess dataStatusProcess
         ) 
             : base
@@ -48,10 +50,11 @@ namespace Foundation.BusinessProcess.Log
                 loggingService,
                 repository,
                 statusRepository,
-                userProfileRepository
+                userProfileRepository,
+                reportGenerator
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, dataStatusProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, reportGenerator, dataStatusProcess);
 
             DataStatusProcess = dataStatusProcess;
 

@@ -30,6 +30,7 @@ namespace Foundation.BusinessProcess.App
         /// <param name="repository">The data access</param>
         /// <param name="statusRepository">The status data access</param>
         /// <param name="userProfileRepository">The user profile data access</param>
+        /// <param name="reportGenerator">The report generator service</param>
         /// <param name="applicationProcess">The application process</param>
         public MenuItemProcess
         (
@@ -40,6 +41,7 @@ namespace Foundation.BusinessProcess.App
             IMenuItemRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
+            IReportGenerator reportGenerator,
             IApplicationProcess applicationProcess
         )
             : base
@@ -50,10 +52,11 @@ namespace Foundation.BusinessProcess.App
                 loggingService,
                 repository,
                 statusRepository,
-                userProfileRepository
+                userProfileRepository,
+                reportGenerator
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, applicationProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, reportGenerator, applicationProcess);
 
             ApplicationProcess = applicationProcess;
 

@@ -39,7 +39,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override IRoleProcess CreateBusinessProcess(IDateTimeService dateTimeService)
         {
-            IRoleProcess process = new RoleProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!);
+            IRoleProcess process = new RoleProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!);
 
             return process;
         }

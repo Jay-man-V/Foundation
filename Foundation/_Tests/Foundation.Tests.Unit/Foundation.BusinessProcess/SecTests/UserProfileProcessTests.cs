@@ -40,7 +40,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override IUserProfileProcess CreateBusinessProcess(IDateTimeService dateTimeService)
         {
-            IUserProfileProcess process = new UserProfileProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!);
+            IUserProfileProcess process = new UserProfileProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, ReportGenerator!);
 
             return process;
         }

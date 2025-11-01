@@ -40,6 +40,7 @@ namespace Foundation.BusinessProcess
         /// <param name="repository">The repository</param>
         /// <param name="statusRepository">The status repository</param>
         /// <param name="userProfileRepository">The user profile repository</param>
+        /// <param name="reportGenerator">The report generator</param>
         protected CommonBusinessProcess
         (
             ICore core,
@@ -48,7 +49,8 @@ namespace Foundation.BusinessProcess
             ILoggingService loggingService,
             TRepository repository,
             IStatusRepository statusRepository,
-            IUserProfileRepository userProfileRepository
+            IUserProfileRepository userProfileRepository,
+            IReportGenerator reportGenerator
         ) :
             base
             (
@@ -58,11 +60,12 @@ namespace Foundation.BusinessProcess
                 loggingService
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, reportGenerator);
 
             EntityRepository = repository;
             StatusRepository = statusRepository;
             UserProfileRepository = userProfileRepository;
+            ReportGenerator = reportGenerator;
 
             LoggingHelpers.TraceCallReturn();
         }
@@ -88,8 +91,16 @@ namespace Foundation.BusinessProcess
         /// </value>
         protected IUserProfileRepository UserProfileRepository { get; }
 
+        /// <summary>
+        /// Gets the report generator.
+        /// </summary>
+        /// <value>
+        /// The report generator.
+        /// </value>
+        protected IReportGenerator ReportGenerator { get; }
 
-        /// <inheritdoc cref="ICommonBusinessProcess.ScreenTitle"/>
+
+            /// <inheritdoc cref="ICommonBusinessProcess.ScreenTitle"/>
         public virtual String ScreenTitle => String.Empty;
 
         /// <inheritdoc cref="ICommonBusinessProcess.StatusBarText"/>

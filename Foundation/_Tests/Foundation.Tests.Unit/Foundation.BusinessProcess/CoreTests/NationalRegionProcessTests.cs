@@ -43,7 +43,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
             SetProperties(countryProcess);
 
-            INationalRegionProcess process = new NationalRegionProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, countryProcess);
+            INationalRegionProcess process = new NationalRegionProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, countryProcess);
 
             return process;
         }

@@ -35,6 +35,7 @@ namespace Foundation.Tests.Unit.Mocks
         /// <param name="repository">The data access.</param>
         /// <param name="statusRepository">The status data access.</param>
         /// <param name="userProfileRepository">The user profile data access.</param>
+        /// <param name="reportGenerator">The report generator service</param>
         public MockFoundationModelProcess
         (
             ICore core,
@@ -43,7 +44,8 @@ namespace Foundation.Tests.Unit.Mocks
             ILoggingService loggingService,
             IMockFoundationModelRepository repository,
             IStatusRepository statusRepository,
-            IUserProfileRepository userProfileRepository
+            IUserProfileRepository userProfileRepository,
+            IReportGenerator reportGenerator
         )
             : base
             (
@@ -53,7 +55,8 @@ namespace Foundation.Tests.Unit.Mocks
                 loggingService,
                 repository,
                 statusRepository,
-                userProfileRepository
+                userProfileRepository,
+                reportGenerator
             )
         {
         }
@@ -126,6 +129,7 @@ namespace Foundation.Tests.Unit.Mocks
         /// <param name="repository">The data access.</param>
         /// <param name="statusRepository">The status data access.</param>
         /// <param name="userProfileRepository">The user profile data access.</param>
+        /// <param name="reportGenerator">The report generator service</param>
         public MockFoundationModelProcess2
         (
             ICore core,
@@ -134,7 +138,8 @@ namespace Foundation.Tests.Unit.Mocks
             ILoggingService loggingService,
             IMockFoundationModelRepository repository,
             IStatusRepository statusRepository,
-            IUserProfileRepository userProfileRepository
+            IUserProfileRepository userProfileRepository,
+            IReportGenerator reportGenerator
         )
             : base
             (
@@ -144,7 +149,8 @@ namespace Foundation.Tests.Unit.Mocks
                 loggingService,
                 repository,
                 statusRepository,
-                userProfileRepository
+                userProfileRepository,
+                reportGenerator
             )
         {
         }

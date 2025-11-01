@@ -39,7 +39,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IDepartmentProcess CreateBusinessProcess(IDateTimeService dateTimeService)
         {
-            IDepartmentProcess process = new DepartmentProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!);
+            IDepartmentProcess process = new DepartmentProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!);
 
             return process;
         }

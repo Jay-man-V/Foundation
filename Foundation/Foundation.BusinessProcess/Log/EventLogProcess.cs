@@ -28,6 +28,7 @@ namespace Foundation.BusinessProcess.Log
         /// <param name="repository">The data access</param>
         /// <param name="statusRepository">The status data access</param>
         /// <param name="userProfileRepository">The user profile data access</param>
+        /// <param name="reportGenerator">The report generator service</param>
         /// <param name="logSeverityProcess">The log severity process</param>
         /// <param name="taskStatusProcess">The task status process</param>
         public EventLogProcess
@@ -39,6 +40,7 @@ namespace Foundation.BusinessProcess.Log
             IEventLogRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
+            IReportGenerator reportGenerator,
             ILogSeverityProcess logSeverityProcess,
             ITaskStatusProcess taskStatusProcess
         )
@@ -50,10 +52,11 @@ namespace Foundation.BusinessProcess.Log
                 loggingService,
                 repository,
                 statusRepository,
-                userProfileRepository
+                userProfileRepository,
+                reportGenerator
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, logSeverityProcess, taskStatusProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, reportGenerator, logSeverityProcess, taskStatusProcess);
 
             LogSeverityProcess = logSeverityProcess;
             TaskStatusProcess = taskStatusProcess;

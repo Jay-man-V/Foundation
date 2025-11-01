@@ -28,6 +28,7 @@ namespace Foundation.BusinessProcess.Core
         /// <param name="repository">The data access</param>
         /// <param name="statusRepository">The status data access</param>
         /// <param name="userProfileRepository">The user profile data access</param>
+        /// <param name="reportGenerator">The report generator service</param>
         /// <param name="contractProcess">The contract process</param>
         /// <param name="contactTypeProcess">The contact type process</param>
         /// <param name="nationalRegionProcess">The national region process</param>
@@ -41,6 +42,7 @@ namespace Foundation.BusinessProcess.Core
             IContactDetailRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
+            IReportGenerator reportGenerator,
             IContractProcess contractProcess,
             IContactTypeProcess contactTypeProcess,
             INationalRegionProcess nationalRegionProcess,
@@ -54,10 +56,11 @@ namespace Foundation.BusinessProcess.Core
                 loggingService,
                 repository,
                 statusRepository,
-                userProfileRepository
+                userProfileRepository,
+                reportGenerator
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, contractProcess, contactTypeProcess, nationalRegionProcess, countryProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, reportGenerator, contractProcess, contactTypeProcess, nationalRegionProcess, countryProcess);
 
             ContractProcess = contractProcess;
             ContactTypeProcess = contactTypeProcess;

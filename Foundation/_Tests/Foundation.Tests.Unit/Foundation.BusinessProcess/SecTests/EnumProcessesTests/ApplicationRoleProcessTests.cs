@@ -43,7 +43,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests.EnumProcesse
             SetProperties(applicationProcess);
             SetProperties(roleProcess);
 
-            IApplicationRoleProcess process = new ApplicationRoleProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess, roleProcess);
+            IApplicationRoleProcess process = new ApplicationRoleProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, applicationProcess, roleProcess);
 
             return process;
         }

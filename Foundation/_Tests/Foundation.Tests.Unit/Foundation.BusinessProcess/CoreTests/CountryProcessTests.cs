@@ -52,7 +52,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             SetProperties(timeZoneProcess);
             SetProperties(worldRegionProcess);
 
-            ICountryProcess process = new CountryProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, currencyProcess, languageProcess, timeZoneProcess, worldRegionProcess);
+            ICountryProcess process = new CountryProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, currencyProcess, languageProcess, timeZoneProcess, worldRegionProcess);
 
             return process;
         }

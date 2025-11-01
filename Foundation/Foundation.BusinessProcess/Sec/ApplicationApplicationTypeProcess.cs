@@ -28,6 +28,7 @@ namespace Foundation.BusinessProcess.Sec
         /// <param name="repository">The data access</param>
         /// <param name="statusRepository">The status data access</param>
         /// <param name="userProfileRepository">The user profile data access</param>
+        /// <param name="reportGenerator">The report generator service</param>
         /// <param name="applicationProcess">The application process</param>
         /// <param name="applicationTypeProcess">The application type process</param>
         public ApplicationApplicationTypeProcess
@@ -39,6 +40,7 @@ namespace Foundation.BusinessProcess.Sec
             IApplicationApplicationTypeRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
+            IReportGenerator reportGenerator,
             IApplicationProcess applicationProcess,
             IApplicationTypeProcess applicationTypeProcess
         )
@@ -50,10 +52,11 @@ namespace Foundation.BusinessProcess.Sec
                 loggingService,
                 repository,
                 statusRepository,
-                userProfileRepository
+                userProfileRepository,
+                reportGenerator
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, applicationProcess, applicationTypeProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, reportGenerator, applicationProcess, applicationTypeProcess);
 
             ApplicationProcess = applicationProcess;
             ApplicationTypeProcess = applicationTypeProcess;

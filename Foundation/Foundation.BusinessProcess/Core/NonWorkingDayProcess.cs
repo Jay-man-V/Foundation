@@ -34,6 +34,7 @@ namespace Foundation.BusinessProcess.Core
         /// <param name="repository">The data access</param>
         /// <param name="statusRepository">The status data access</param>
         /// <param name="userProfileRepository">The user profile data access</param>
+        /// <param name="reportGenerator">The report generator service</param>
         /// <param name="applicationConfigurationService">The application configuration service</param>
         /// <param name="countryProcess">The country process</param>
         /// <param name="httpWebApi">The http web API</param>
@@ -46,6 +47,7 @@ namespace Foundation.BusinessProcess.Core
             INonWorkingDayRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
+            IReportGenerator reportGenerator,
             IApplicationConfigurationService applicationConfigurationService,
             ICountryProcess countryProcess,
             IHttpApi httpWebApi
@@ -58,10 +60,11 @@ namespace Foundation.BusinessProcess.Core
                 loggingService,
                 repository,
                 statusRepository,
-                userProfileRepository
+                userProfileRepository,
+                reportGenerator
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, applicationConfigurationService, countryProcess, httpWebApi);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, reportGenerator, applicationConfigurationService, countryProcess, httpWebApi);
 
             ApplicationConfigurationService = applicationConfigurationService;
             CountryProcess = countryProcess;

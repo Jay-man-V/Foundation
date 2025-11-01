@@ -120,7 +120,6 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetDataProviderName_Exception_BadlyFormatter()
         {
-            String parameterName = "dataConnectionName";
             String errorMessage = $"Unable to retrieve Data Provider for '{InvalidDataConnectionName}'. Check to make sure the connection is defined in the Configuration File.";
 
             ConfigurationWrapper!.ClearSubstitute();

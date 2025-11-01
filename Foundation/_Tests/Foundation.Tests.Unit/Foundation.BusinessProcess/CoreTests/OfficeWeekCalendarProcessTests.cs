@@ -39,7 +39,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override IOfficeWeekCalendarProcess CreateBusinessProcess(IDateTimeService dateTimeService)
         {
-            IOfficeWeekCalendarProcess process = new OfficeWeekCalendarProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!);
+            IOfficeWeekCalendarProcess process = new OfficeWeekCalendarProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!);
 
             return process;
         }

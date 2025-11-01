@@ -48,7 +48,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             SetProperties(roleProcess);
             SetProperties(userProfileProcess);
 
-            ILoggedOnUserProcess process = new LoggedOnUserProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess, roleProcess, userProfileProcess);
+            ILoggedOnUserProcess process = new LoggedOnUserProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, applicationProcess, roleProcess, userProfileProcess);
 
             return process;
         }

@@ -29,6 +29,7 @@ namespace Foundation.BusinessProcess.Core
         /// <param name="repository">The data access</param>
         /// <param name="statusRepository">The status data access</param>
         /// <param name="userProfileRepository">The user profile data access</param>
+        /// <param name="reportGenerator">The report generator service</param>
         /// <param name="contractTypeProcess">The contract type process</param>
         public ContractProcess
         (
@@ -39,6 +40,7 @@ namespace Foundation.BusinessProcess.Core
             IContractRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
+            IReportGenerator reportGenerator,
             IContractTypeProcess contractTypeProcess
         )
             : base
@@ -49,10 +51,11 @@ namespace Foundation.BusinessProcess.Core
                 loggingService,
                 repository,
                 statusRepository,
-                userProfileRepository
+                userProfileRepository,
+                reportGenerator
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, contractTypeProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, reportGenerator, contractTypeProcess);
 
             ContractTypeProcess = contractTypeProcess;
 

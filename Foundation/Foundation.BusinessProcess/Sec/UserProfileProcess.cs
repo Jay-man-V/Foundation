@@ -27,6 +27,7 @@ namespace Foundation.BusinessProcess.Sec
         /// <param name="loggingService">The logging service</param>
         /// <param name="repository">The data access</param>
         /// <param name="statusRepository">The status data access</param>
+        /// <param name="reportGenerator">The report generator service</param>
         public UserProfileProcess
         (
             ICore core,
@@ -34,7 +35,8 @@ namespace Foundation.BusinessProcess.Sec
             IDateTimeService dateTimeService,
             ILoggingService loggingService,
             IUserProfileRepository repository,
-            IStatusRepository statusRepository
+            IStatusRepository statusRepository,
+            IReportGenerator reportGenerator
         )
             : base
             (
@@ -44,10 +46,11 @@ namespace Foundation.BusinessProcess.Sec
                 loggingService,
                 repository,
                 statusRepository,
-                repository
+                repository,
+                reportGenerator
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, repository);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, repository, reportGenerator);
 
             LoggingHelpers.TraceCallReturn();
         }

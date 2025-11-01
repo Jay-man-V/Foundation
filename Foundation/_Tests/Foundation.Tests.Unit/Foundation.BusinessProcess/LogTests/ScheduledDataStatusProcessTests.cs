@@ -43,7 +43,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 
             SetProperties(dataStatusProcess);
 
-            IScheduledDataStatusProcess process = new ScheduledDataStatusProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, dataStatusProcess);
+            IScheduledDataStatusProcess process = new ScheduledDataStatusProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, dataStatusProcess);
 
             return process;
         }

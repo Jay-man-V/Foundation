@@ -29,6 +29,7 @@ namespace Foundation.BusinessProcess.Log
         /// <param name="statusRepository">The status data access</param>
         /// <param name="userProfileRepository">The user profile data access</param>
         /// <param name="applicationProcess">The application process</param>
+        /// <param name="reportGenerator">The report generator service</param>
         public EventLogApplicationProcess
         (
             ICore core,
@@ -38,6 +39,7 @@ namespace Foundation.BusinessProcess.Log
             IEventLogApplicationRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
+            IReportGenerator reportGenerator,
             IApplicationProcess applicationProcess
         )
             : base
@@ -48,10 +50,11 @@ namespace Foundation.BusinessProcess.Log
                 loggingService,
                 repository,
                 statusRepository,
-                userProfileRepository
+                userProfileRepository,
+                reportGenerator
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, applicationProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, reportGenerator, applicationProcess);
 
             ApplicationProcess = applicationProcess;
 

@@ -45,7 +45,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             SetProperties(roleProcess);
             SetProperties(userProfileProcess);
 
-            IApplicationUserRoleProcess process = new ApplicationUserRoleProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess, roleProcess, userProfileProcess);
+            IApplicationUserRoleProcess process = new ApplicationUserRoleProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, applicationProcess, roleProcess, userProfileProcess);
 
             return process;
         }

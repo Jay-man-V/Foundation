@@ -27,7 +27,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.Support
 
         protected override IMockFoundationModelProcess CreateBusinessProcess(IDateTimeService dateTimeService)
         {
-            IMockFoundationModelProcess retVal = new MockFoundationModelProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!);
+            IMockFoundationModelProcess retVal = new MockFoundationModelProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!);
 
             return retVal;
         }

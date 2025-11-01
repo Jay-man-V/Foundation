@@ -43,7 +43,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
 
             SetProperties(applicationProcess);
 
-            IEventLogApplicationProcess process = new EventLogApplicationProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess);
+            IEventLogApplicationProcess process = new EventLogApplicationProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, applicationProcess);
 
             return process;
         }

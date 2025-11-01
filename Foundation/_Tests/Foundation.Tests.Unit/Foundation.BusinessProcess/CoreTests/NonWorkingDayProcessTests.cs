@@ -64,7 +64,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
             SetComboBoxProperties(countryProcess);
 
-            INonWorkingDayProcess process = new NonWorkingDayProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationConfigurationService, countryProcess, httpWebApi);
+            INonWorkingDayProcess process = new NonWorkingDayProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, applicationConfigurationService, countryProcess, httpWebApi);
 
             return process;
         }
@@ -278,7 +278,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             ICountryProcess countryProcess = Substitute.For<ICountryProcess>();
             IHttpApi httpWebApi = Substitute.For<IHttpApi>();
 
-            INonWorkingDayProcess process = new NonWorkingDayProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationConfigurationService, countryProcess, httpWebApi);
+            INonWorkingDayProcess process = new NonWorkingDayProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, applicationConfigurationService, countryProcess, httpWebApi);
 
             List<ICountry> countriesToReturn =
             [
@@ -380,7 +380,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             applicationConfigurationService.Get<String>(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), Arg.Any<String>()).Returns("Configuration Value");
             httpWebApi.DownloadString(Arg.Any<IFileTransferSettings>()).Returns(inputJsonData);
 
-            INonWorkingDayProcess process = new NonWorkingDayProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationConfigurationService, countryProcess, httpWebApi);
+            INonWorkingDayProcess process = new NonWorkingDayProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, applicationConfigurationService, countryProcess, httpWebApi);
 
             process.UpdateBankHolidayCalendarFromGovernmentSource(country);
 

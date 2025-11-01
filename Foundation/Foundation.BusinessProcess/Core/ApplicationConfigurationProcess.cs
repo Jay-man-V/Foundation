@@ -31,6 +31,7 @@ namespace Foundation.BusinessProcess.Core
         /// <param name="configurationScopeProcess">The configuration scope process</param>
         /// <param name="applicationProcess">The application process</param>
         /// <param name="userProfileProcess">The user profile process</param>
+        /// <param name="reportGenerator">The report generator service</param>
         public ApplicationConfigurationProcess
         (
             ICore core,
@@ -40,6 +41,7 @@ namespace Foundation.BusinessProcess.Core
             IApplicationConfigurationRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
+            IReportGenerator reportGenerator,
             IConfigurationScopeProcess configurationScopeProcess,
             IApplicationProcess applicationProcess,
             IUserProfileProcess userProfileProcess
@@ -52,10 +54,11 @@ namespace Foundation.BusinessProcess.Core
                 loggingService,
                 repository,
                 statusRepository,
-                userProfileRepository
+                userProfileRepository,
+                reportGenerator
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, configurationScopeProcess, applicationProcess, userProfileProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, reportGenerator, configurationScopeProcess, applicationProcess, userProfileProcess);
 
             ConfigurationScopeProcess = configurationScopeProcess;
             ApplicationProcess = applicationProcess;

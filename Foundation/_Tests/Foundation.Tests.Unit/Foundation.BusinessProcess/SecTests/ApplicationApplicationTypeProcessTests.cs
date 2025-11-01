@@ -43,7 +43,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             SetProperties(applicationProcess);
             SetProperties(applicationTypeProcess);
 
-            IApplicationApplicationTypeProcess process = new ApplicationApplicationTypeProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess, applicationTypeProcess);
+            IApplicationApplicationTypeProcess process = new ApplicationApplicationTypeProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, applicationProcess, applicationTypeProcess);
 
             return process;
         }

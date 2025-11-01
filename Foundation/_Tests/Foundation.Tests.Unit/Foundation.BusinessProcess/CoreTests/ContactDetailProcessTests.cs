@@ -59,7 +59,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             SetComboBoxProperties(nationalRegionProcess);
             SetComboBoxProperties(countryProcess);
 
-            IContactDetailProcess process = new ContactDetailProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, contractProcess, contactTypeProcess, nationalRegionProcess, countryProcess);
+            IContactDetailProcess process = new ContactDetailProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, contractProcess, contactTypeProcess, nationalRegionProcess, countryProcess);
 
             return process;
         }

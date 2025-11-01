@@ -44,7 +44,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
 
             SetComboBoxProperties(ApplicationProcess);
 
-            IMenuItemProcess retVal = new MenuItemProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, ApplicationProcess);
+            IMenuItemProcess retVal = new MenuItemProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, ApplicationProcess);
 
             return retVal;
         }

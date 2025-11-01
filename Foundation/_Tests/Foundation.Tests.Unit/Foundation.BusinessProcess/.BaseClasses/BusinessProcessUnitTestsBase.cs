@@ -29,6 +29,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
         protected IApplicationConfigurationService ApplicationConfigurationService { get; set; }
         protected IStatusRepository? StatusRepository { get; set; }
         protected IUserProfileRepository? UserProfileRepository { get; set; }
+        protected IReportGenerator? ReportGenerator { get; set; }
         protected IStatusProcess StatusProcess { get; set; }
         protected IUserProfileProcess UserProfileProcess { get; set; }
         protected ILoggedOnUserProcess LoggedOnUserProcess { get; set; }
@@ -257,6 +258,8 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
 
             IApplicationProcess applicationProcess = Substitute.For<IApplicationProcess>();
             applicationProcess.Get(TestingApplicationId).Returns(application);
+
+            ReportGenerator = Substitute.For<IReportGenerator>();
 
             UserProfileRepository = Substitute.For<IUserProfileRepository>();
             UserProfileRepository.GetAllActive().Returns(UserProfileList);

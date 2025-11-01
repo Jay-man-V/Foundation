@@ -30,6 +30,7 @@ namespace Foundation.BusinessProcess.Core
         /// <param name="repository">The data access</param>
         /// <param name="statusRepository">The status data access</param>
         /// <param name="userProfileRepository">The user profile data access</param>
+        /// <param name="reportGenerator">The report generator service</param>
         /// <param name="currencyProcess">The currency process</param>
         /// <param name="languageProcess">The language process</param>
         /// <param name="timeZoneProcess">The time zone process</param>
@@ -43,6 +44,7 @@ namespace Foundation.BusinessProcess.Core
             ICountryRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
+            IReportGenerator reportGenerator,
             ICurrencyProcess currencyProcess,
             ILanguageProcess languageProcess,
             ITimeZoneProcess timeZoneProcess,
@@ -57,10 +59,11 @@ namespace Foundation.BusinessProcess.Core
                 loggingService,
                 repository,
                 statusRepository,
-                userProfileRepository
+                userProfileRepository,
+                reportGenerator
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, currencyProcess, languageProcess, timeZoneProcess, worldRegionProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, reportGenerator, currencyProcess, languageProcess, timeZoneProcess, worldRegionProcess);
 
             CurrencyProcess = currencyProcess;
             LanguageProcess = languageProcess;

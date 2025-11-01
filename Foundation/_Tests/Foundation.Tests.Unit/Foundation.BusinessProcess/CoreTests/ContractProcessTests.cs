@@ -50,7 +50,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
             SetComboBoxProperties(contractTypeProcess);
 
-            IContractProcess process = new ContractProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, contractTypeProcess);
+            IContractProcess process = new ContractProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, contractTypeProcess);
 
             return process;
         }

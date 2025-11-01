@@ -45,7 +45,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.LogTests
             SetProperties(logSeverityProcess);
             SetProperties(taskStatusProcess);
 
-            IEventLogProcess process = new EventLogProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, logSeverityProcess, taskStatusProcess);
+            IEventLogProcess process = new EventLogProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, logSeverityProcess, taskStatusProcess);
 
             return process;
         }

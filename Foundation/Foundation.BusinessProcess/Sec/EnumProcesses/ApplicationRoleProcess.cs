@@ -28,6 +28,7 @@ namespace Foundation.BusinessProcess.Sec.EnumProcesses
         /// <param name="repository">The data access</param>
         /// <param name="statusRepository">The status data access</param>
         /// <param name="userProfileRepository">The user profile data access</param>
+        /// <param name="reportGenerator">The report generator service</param>
         /// <param name="applicationProcess">The application process</param>
         /// <param name="roleProcess">The role process</param>
         public ApplicationRoleProcess
@@ -39,6 +40,7 @@ namespace Foundation.BusinessProcess.Sec.EnumProcesses
             IApplicationRoleRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
+            IReportGenerator reportGenerator,
             IApplicationProcess applicationProcess,
             IRoleProcess roleProcess
         )
@@ -50,10 +52,11 @@ namespace Foundation.BusinessProcess.Sec.EnumProcesses
                 loggingService,
                 repository,
                 statusRepository,
-                userProfileRepository
+                userProfileRepository,
+                reportGenerator
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, applicationProcess, roleProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, reportGenerator, applicationProcess, roleProcess);
 
             ApplicationProcess = applicationProcess;
             RoleProcess = roleProcess;

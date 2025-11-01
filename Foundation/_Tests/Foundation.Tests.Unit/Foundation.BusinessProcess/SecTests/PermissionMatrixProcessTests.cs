@@ -45,7 +45,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             SetProperties(roleProcess);
             SetProperties(userProfileProcess);
 
-            IPermissionMatrixProcess process = new PermissionMatrixProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, applicationProcess, roleProcess, userProfileProcess);
+            IPermissionMatrixProcess process = new PermissionMatrixProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, applicationProcess, roleProcess, userProfileProcess);
 
             return process;
         }

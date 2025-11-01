@@ -67,7 +67,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             ICalendarProcess calendarProcess = Substitute.For<ICalendarProcess>();
             ServiceControlWrapper = Substitute.For<IServiceControlWrapper>();
 
-            IScheduledJobProcess process = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, scheduleIntervalProcess, calendarProcess, ServiceControlWrapper);
+            IScheduledJobProcess process = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, scheduleIntervalProcess, calendarProcess, ServiceControlWrapper);
 
             process.AlternateCreateScheduledTaskCalled -= SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
             process.AlternateCreateScheduledTaskCalled += SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
@@ -1067,7 +1067,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             DateTime returnDate = DateTimeService.SystemDateTimeNowWithoutMilliseconds.Add(scheduledJob.ScheduleInterval, scheduledJob.Interval, scheduledJob.StartTime).Date;
             calendarProcess.CheckIsWorkingDayOrGetNextWorkingDay(Arg.Any<String>(), checkDate).Returns(returnDate);
 
-            IScheduledJobProcess scheduledJobProcess = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, scheduleIntervalProcess, calendarProcess, ServiceControlWrapper!);
+            IScheduledJobProcess scheduledJobProcess = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, scheduleIntervalProcess, calendarProcess, ServiceControlWrapper!);
 
             SchedulerSupport.Core = CoreInstance;
             SchedulerSupport.RunTimeEnvironmentSettings = RunTimeEnvironmentSettings;
@@ -1122,7 +1122,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             DateTime returnDate = DateTimeService.SystemDateTimeNowWithoutMilliseconds.Add(scheduledJob.ScheduleInterval, scheduledJob.Interval, scheduledJob.StartTime).Date;
             calendarProcess.CheckIsWorkingDayOrGetNextWorkingDay(Arg.Any<String>(), checkDate).Returns(returnDate);
 
-            IScheduledJobProcess scheduledJobProcess = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, scheduleIntervalProcess, calendarProcess, ServiceControlWrapper!);
+            IScheduledJobProcess scheduledJobProcess = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, scheduleIntervalProcess, calendarProcess, ServiceControlWrapper!);
 
             SchedulerSupport.Core = CoreInstance;
             SchedulerSupport.RunTimeEnvironmentSettings = RunTimeEnvironmentSettings;
@@ -1177,7 +1177,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             DateTime returnDate = DateTimeService.SystemDateTimeNowWithoutMilliseconds.Add(scheduledJob.ScheduleInterval, scheduledJob.Interval, scheduledJob.StartTime).Date;
             calendarProcess.CheckIsWorkingDayOrGetNextWorkingDay(Arg.Any<String>(), checkDate).Returns(returnDate);
 
-            IScheduledJobProcess scheduledJobProcess = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, scheduleIntervalProcess, calendarProcess, ServiceControlWrapper!);
+            IScheduledJobProcess scheduledJobProcess = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, scheduleIntervalProcess, calendarProcess, ServiceControlWrapper!);
 
             SchedulerSupport.Core = CoreInstance;
             SchedulerSupport.RunTimeEnvironmentSettings = RunTimeEnvironmentSettings;
@@ -1214,7 +1214,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             DateTime returnDate = DateTimeService.SystemDateTimeNowWithoutMilliseconds.Add(scheduledJob.ScheduleInterval, scheduledJob.Interval, scheduledJob.StartTime).Date;
             calendarProcess.CheckIsWorkingDayOrGetNextWorkingDay(Arg.Any<String>(), checkDate).Returns(returnDate);
 
-            IScheduledJobProcess scheduledJobProcess = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!, scheduleIntervalProcess, calendarProcess, ServiceControlWrapper!);
+            IScheduledJobProcess scheduledJobProcess = new ScheduledJobProcess(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!, scheduleIntervalProcess, calendarProcess, ServiceControlWrapper!);
 
             SchedulerSupport.Core = CoreInstance;
             SchedulerSupport.RunTimeEnvironmentSettings = RunTimeEnvironmentSettings;

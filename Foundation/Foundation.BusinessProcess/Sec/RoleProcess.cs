@@ -28,6 +28,7 @@ namespace Foundation.BusinessProcess.Sec
         /// <param name="repository">The data access</param>
         /// <param name="statusRepository">The status data access</param>
         /// <param name="userProfileRepository">The user profile data access</param>
+        /// <param name="reportGenerator">The report generator service</param>
         public RoleProcess
         (
             ICore core,
@@ -36,7 +37,8 @@ namespace Foundation.BusinessProcess.Sec
             ILoggingService loggingService,
             IRoleRepository repository,
             IStatusRepository statusRepository,
-            IUserProfileRepository userProfileRepository
+            IUserProfileRepository userProfileRepository,
+            IReportGenerator reportGenerator
         )
             : base
             (
@@ -46,10 +48,11 @@ namespace Foundation.BusinessProcess.Sec
                 loggingService,
                 repository,
                 statusRepository,
-                userProfileRepository
+                userProfileRepository,
+                reportGenerator
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, reportGenerator);
 
             LoggingHelpers.TraceCallReturn();
         }
