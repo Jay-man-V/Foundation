@@ -243,6 +243,7 @@ namespace Foundation.DataAccess.Database
             else if (parameterType == typeof(DateTime)) retVal = DbType.DateTime;
             else if (parameterType == typeof(TimeSpan)) retVal = DbType.Time;
             else if (parameterType == typeof(Bitmap)) retVal = DbType.Binary;
+            else if (parameterType == typeof(Object)) retVal = DbType.Object;
             else
             {
                 String errorMessage = $"The type of the parameter is unhandled. Type: '{parameterType}'. Name: '{parameterName}'";
@@ -267,7 +268,8 @@ namespace Foundation.DataAccess.Database
 
             Type parameterType = typeof(Object);
 
-            if (parameterValue == null)
+            if (parameterValue == null ||
+                (parameterValue is String value && String.IsNullOrEmpty(value)))
             {
                 retVal.Value = DBNull.Value;
             }

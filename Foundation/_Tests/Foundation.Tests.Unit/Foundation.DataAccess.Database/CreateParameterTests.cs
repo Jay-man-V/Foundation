@@ -52,7 +52,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
         }
 
         [TestCase]
-        public void Test_String_Valid()
+        public void Test_String_Valid_1()
         {
             String parameterName = LocationUtils.GetFunctionName();
             String parameterValue = "parameter Value";
@@ -66,7 +66,20 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
         }
 
         [TestCase]
-        public void Test_String_Empty()
+        public void Test_String_Valid_2()
+        {
+            String parameterName = LocationUtils.GetFunctionName();
+            String parameterValue = "parameter Value";
+            DbType dbType = DbType.String;
+            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
+
+            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
+            Assert.That(dataParameter.Value, Is.EqualTo(parameterValue));
+            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
+        }
+
+        [TestCase]
+        public void Test_String_Empty_1()
         {
             String parameterName = LocationUtils.GetFunctionName();
             String parameterValue = String.Empty;
@@ -80,13 +93,39 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
         }
 
         [TestCase]
-        public void Test_String_Null()
+        public void Test_String_Empty_2()
+        {
+            String parameterName = LocationUtils.GetFunctionName();
+            String parameterValue = String.Empty;
+            DbType dbType = DbType.Object;
+            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
+
+            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
+            Assert.That(dataParameter.Value, Is.EqualTo(DBNull.Value));
+            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
+        }
+
+        [TestCase]
+        public void Test_String_Null_1()
         {
             String parameterName = LocationUtils.GetFunctionName();
             const String? parameterValue = null;
             String useThisValueForNull = String.Empty;
             DbType dbType = DbType.String;
             IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue, useThisValueForNull);
+
+            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
+            Assert.That(dataParameter.Value, Is.EqualTo(DBNull.Value));
+            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
+        }
+
+        [TestCase]
+        public void Test_String_Null_2()
+        {
+            String parameterName = LocationUtils.GetFunctionName();
+            const String? parameterValue = null;
+            DbType dbType = DbType.Object;
+            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
 
             Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
             Assert.That(dataParameter.Value, Is.EqualTo(DBNull.Value));
@@ -582,37 +621,15 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
         }
 
-        [TestCase]
-        public void Test_EntityStatus_Inactive_Valid()
+        [TestCase(EntityStatus.Incomplete)]
+        [TestCase(EntityStatus.Active)]
+        [TestCase(EntityStatus.Approved)]
+        [TestCase(EntityStatus.PendingApproval)]
+        [TestCase(EntityStatus.Incomplete)]
+        public void Test_EntityStatus_Valid(EntityStatus entityStatus)
         {
             String parameterName = LocationUtils.GetFunctionName();
-            EntityStatus parameterValue = EntityStatus.Inactive;
-            DbType dbType = DbType.Int32;
-            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
-
-            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
-            Assert.That(dataParameter.Value, Is.EqualTo((Int32)parameterValue));
-            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
-        }
-
-        [TestCase]
-        public void Test_EntityStatus_Active_Valid()
-        {
-            String parameterName = LocationUtils.GetFunctionName();
-            EntityStatus parameterValue = EntityStatus.Active;
-            DbType dbType = DbType.Int32;
-            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
-
-            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
-            Assert.That(dataParameter.Value, Is.EqualTo((Int32)parameterValue));
-            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
-        }
-
-        [TestCase]
-        public void Test_EntityStatus_Incomplete_Valid()
-        {
-            String parameterName = LocationUtils.GetFunctionName();
-            EntityStatus parameterValue = EntityStatus.Incomplete;
+            EntityStatus parameterValue = entityStatus;
             DbType dbType = DbType.Int32;
             IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
 
@@ -633,11 +650,55 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             // EntityStatus types cannot be null, therefore there is no test
         }
 
+        [TestCase(LogSeverity.NotSet)]
+        [TestCase(LogSeverity.Trace)]
+        [TestCase(LogSeverity.Information)]
+        [TestCase(LogSeverity.Success)]
+        [TestCase(LogSeverity.Audit)]
+        [TestCase(LogSeverity.Warning)]
+        [TestCase(LogSeverity.Error)]
+        public void Test_LogSeverity_Valid(LogSeverity logSeverity)
+        {
+            String parameterName = LocationUtils.GetFunctionName();
+            LogSeverity parameterValue = logSeverity;
+            DbType dbType = DbType.Int32;
+            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
+
+            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
+            Assert.That(dataParameter.Value, Is.EqualTo(parameterValue.Id()));
+            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
+        }
+
         [TestCase]
-        public void Test_EmailAddress_Valid()
+        public void Test_LogSeverity_Empty()
+        {
+            // LogSeverity types cannot be empty, therefore there is no test
+        }
+
+        [TestCase]
+        public void Test_LogSeverity_Null()
+        {
+            // LogSeverity types cannot be null, therefore there is no test
+        }
+
+        [TestCase]
+        public void Test_EmailAddress_Valid_1()
         {
             String parameterName = LocationUtils.GetFunctionName();
             EmailAddress parameterValue = new EmailAddress("Test@Domain.name");
+            DbType dbType = DbType.String;
+            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
+
+            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
+            Assert.That(dataParameter.Value, Is.EqualTo(parameterValue));
+            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
+        }
+
+        [TestCase]
+        public void Test_EmailAddress_Valid_2()
+        {
+            String parameterName = LocationUtils.GetFunctionName();
+            EmailAddress? parameterValue = new EmailAddress("Test@Domain.name");
             DbType dbType = DbType.String;
             IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
 
