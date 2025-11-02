@@ -7,6 +7,7 @@
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Globalization;
 
 using NSubstitute;
 
@@ -132,21 +133,9 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
         }
 
-        [TestCase]
-        public void Test_Boolean_True_Valid()
-        {
-            String parameterName = LocationUtils.GetFunctionName();
-            const Boolean parameterValue = true;
-            DbType dbType = DbType.Boolean;
-            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
-
-            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
-            Assert.That(dataParameter.Value, Is.EqualTo(parameterValue));
-            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
-        }
-
-        [TestCase]
-        public void Test_Boolean_False_Valid()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Boolean_Valid(Boolean value)
         {
             String parameterName = LocationUtils.GetFunctionName();
             const Boolean parameterValue = false;
@@ -394,6 +383,31 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
         }
 
+        [TestCase(null)]
+        [TestCase("2025-11-02")]
+        public void Test_DateTime_Nullable(String? value)
+        {
+            String parameterName = LocationUtils.GetFunctionName();
+            DateTime? parameterValue = null;
+            if (value != null)
+            {
+                parameterValue = DateTime.ParseExact(value, "yyyy-mm-dd", CultureInfo.InvariantCulture);
+            }
+            DbType dbType = DbType.DateTime;
+            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
+
+            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
+            if (value == null)
+            {
+                Assert.That(dataParameter.Value, Is.EqualTo(DBNull.Value));
+            }
+            else
+            {
+                Assert.That(dataParameter.Value, Is.EqualTo(DateTime.ParseExact(value, "yyyy-mm-dd", CultureInfo.InvariantCulture)));
+            }
+            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
+        }
+
         [TestCase]
         public void Test_TimeSpan_Valid()
         {
@@ -526,6 +540,34 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
         }
 
+        [TestCase(null)]
+        [TestCase(0)]
+        [TestCase(123)]
+        public void Test_EntityId_Object(Int64? value)
+        {
+            String parameterName = LocationUtils.GetFunctionName();
+            Object? parameterValue = null;
+            if (value != null)
+            {
+                parameterValue = new EntityId(value.Value);
+            }
+
+            EntityId useThisValueForNull = new EntityId();
+            DbType dbType = DbType.Int64;
+            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue, useThisValueForNull);
+
+            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
+            if (value is null or 0)
+            {
+                Assert.That(dataParameter.Value, Is.EqualTo(DBNull.Value));
+            }
+            else
+            {
+                Assert.That(dataParameter.Value, Is.EqualTo(value));
+            }
+            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
+        }
+
         [TestCase]
         public void Test_EntityId_NotSet()
         {
@@ -567,6 +609,34 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
         }
 
+        [TestCase(null)]
+        [TestCase(0)]
+        [TestCase(123)]
+        public void Test_AppId_Object(Int64? value)
+        {
+            String parameterName = LocationUtils.GetFunctionName();
+            Object? parameterValue = null;
+            if (value != null)
+            {
+                parameterValue = new AppId(value.Value);
+            }
+
+            AppId useThisValueForNull = new AppId();
+            DbType dbType = DbType.Int64;
+            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue, useThisValueForNull);
+
+            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
+            if (value is null or 0)
+            {
+                Assert.That(dataParameter.Value, Is.EqualTo(DBNull.Value));
+            }
+            else
+            {
+                Assert.That(dataParameter.Value, Is.EqualTo(value));
+            }
+            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
+        }
+
         [TestCase]
         public void Test_AppId_NotSet()
         {
@@ -605,6 +675,34 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
 
             Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
             Assert.That(dataParameter.Value, Is.EqualTo(DBNull.Value));
+            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
+        }
+
+        [TestCase(null)]
+        [TestCase(0)]
+        [TestCase(123)]
+        public void Test_LogId_Object(Int64? value)
+        {
+            String parameterName = LocationUtils.GetFunctionName();
+            Object? parameterValue = null;
+            if (value != null)
+            {
+                parameterValue = new LogId(value.Value);
+            }
+
+            LogId useThisValueForNull = new LogId();
+            DbType dbType = DbType.Int64;
+            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue, useThisValueForNull);
+
+            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
+            if (value is null or 0)
+            {
+                Assert.That(dataParameter.Value, Is.EqualTo(DBNull.Value));
+            }
+            else
+            {
+                Assert.That(dataParameter.Value, Is.EqualTo(value));
+            }
             Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
         }
 
