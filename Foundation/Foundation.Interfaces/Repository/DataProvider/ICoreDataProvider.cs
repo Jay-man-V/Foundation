@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ISecurityDatabaseProvider.cs" company="JDV Software Ltd">
+// <copyright file="ICoreDataProvider.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -7,10 +7,10 @@
 namespace Foundation.Interfaces
 {
     /// <summary>
-    /// Defines the IDatabaseProvider behaviours.
+    /// Defines the ICoreDataProvider behaviours.
     /// Defines requirements
     /// </summary>
-    public interface ISecurityDatabaseProvider : IDatabaseProvider
+    public interface ICoreDataProvider : IDataProvider
     {
     }
 }

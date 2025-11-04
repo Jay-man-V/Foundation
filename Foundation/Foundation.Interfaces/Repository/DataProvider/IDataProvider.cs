@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ICoreDatabaseProvider.cs" company="JDV Software Ltd">
+// <copyright file="IDataProvider.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -7,10 +7,14 @@
 namespace Foundation.Interfaces
 {
     /// <summary>
-    /// Defines the IDatabaseProvider behaviours.
+    /// Defines the IDataProvider behaviours.
     /// Defines requirements
     /// </summary>
-    public interface ICoreDatabaseProvider : IDatabaseProvider
+    public interface IDataProvider
     {
+        /// <summary>
+        /// The name of the connection to be used
+        /// </summary>
+        String ConnectionName { get; }
     }
 }

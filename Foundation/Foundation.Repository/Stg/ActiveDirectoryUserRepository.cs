@@ -9,9 +9,9 @@ using System.Security.Principal;
 using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
+using Foundation.Repository.DataProvider;
 
 using DS = System.DirectoryServices;
-
 using FDC = Foundation.Resources.Constants.DataColumns;
 
 namespace Foundation.Repository.Stg
@@ -29,14 +29,14 @@ namespace Foundation.Repository.Stg
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
-        /// <param name="databaseProvider">The Core Database Provider.</param>
+        /// <param name="foundationDataAccess">The foundation data access.</param>
         /// <param name="dateTimeService">The date/time service.</param>
         public ActiveDirectoryUserRepository
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             ISystemConfigurationService systemConfigurationService,
-            ICoreDatabaseProvider databaseProvider,
+            IFoundationDataAccess foundationDataAccess,
             IDateTimeService dateTimeService
         ) :
             base
@@ -44,11 +44,12 @@ namespace Foundation.Repository.Stg
                 core,
                 runTimeEnvironmentSettings,
                 systemConfigurationService,
-                databaseProvider,
+                foundationDataAccess,
+                new StagingDataProvider(),
                 dateTimeService
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, databaseProvider, dateTimeService);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, foundationDataAccess, dateTimeService);
 
             LoggingHelpers.TraceCallReturn();
         }

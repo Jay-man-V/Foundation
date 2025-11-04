@@ -4,9 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.Repository;
 using Foundation.Interfaces;
-
+using Foundation.Repository;
 using Foundation.Tests.Unit.Support;
 
 namespace Foundation.Tests.Unit.Mocks
@@ -27,7 +26,8 @@ namespace Foundation.Tests.Unit.Mocks
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             ISystemConfigurationService systemConfigurationService,
-            IUnitTestingDatabaseProvider databaseProvider,
+            IFoundationDataAccess foundationDataAccess,
+            IUnitTestingDataProvider dataProvider,
             IDateTimeService dateTimeService
         ) :
             base
@@ -35,7 +35,8 @@ namespace Foundation.Tests.Unit.Mocks
                 core,
                 runTimeEnvironmentSettings,
                 systemConfigurationService,
-                databaseProvider,
+                foundationDataAccess,
+                dataProvider,
                 dateTimeService
             )
         {

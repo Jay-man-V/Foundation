@@ -13,7 +13,7 @@ namespace Foundation.Interfaces
     public interface IFoundationModelRepository<TModel> : IDisposable where TModel : IFoundationModel
     {
         /// <summary>
-        /// Gets or sets a value indicating whether this instance has static data columns.
+        /// Gets a value indicating whether this instance has static data columns.
         /// </summary>
         /// <value>
         ///   <c>true</c> if this instance has static data columns; otherwise, <c>false</c>.

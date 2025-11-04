@@ -25,23 +25,23 @@ namespace Foundation.DataAccess.Database
         /// </summary>
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
-        /// <param name="databaseProvider">The database provider.</param>
+        /// <param name="dataProvider">The data provider.</param>
         public FoundationDataAccess
         (
             ICore core,
             ISystemConfigurationService systemConfigurationService,
-            IDatabaseProvider databaseProvider
+            IDataProvider dataProvider
         )
         {
-            LoggingHelpers.TraceCallEnter(core, databaseProvider);
+            LoggingHelpers.TraceCallEnter(core, dataProvider);
 
             Core = core;
-            DatabaseProvider = databaseProvider;
+            DataProvider = dataProvider;
 
             DatabaseConnection = null;
             DatabaseTransaction = null;
 
-            String connectionStringKey = DatabaseProvider.ConnectionName;
+            String connectionStringKey = DataProvider.ConnectionName;
             ConnectionString = systemConfigurationService.GetConnectionString(connectionStringKey);
             DatabaseProviderName = systemConfigurationService.GetDataProviderName(connectionStringKey);
 
@@ -100,11 +100,6 @@ namespace Foundation.DataAccess.Database
         protected ICore Core { get; }
 
         /// <summary>
-        /// The database provider
-        /// </summary>
-        protected IDatabaseProvider DatabaseProvider { get; }
-
-        /// <summary>
         /// Gets the database connection.
         /// </summary>
         /// <value>
@@ -119,6 +114,9 @@ namespace Foundation.DataAccess.Database
         /// The database provider name.
         /// </value>
         protected String DatabaseProviderName { get; }
+
+        /// <inheritdoc cref="IFoundationDataAccess.DataProvider"/>
+        public IDataProvider DataProvider { get; }
 
         /// <inheritdoc cref="IFoundationDataAccess.DatabaseTransaction"/>
         public IDbTransaction? DatabaseTransaction { get; private set; }

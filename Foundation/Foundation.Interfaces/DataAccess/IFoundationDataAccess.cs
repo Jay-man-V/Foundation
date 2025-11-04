@@ -14,6 +14,12 @@ namespace Foundation.Interfaces
     public interface IFoundationDataAccess : IDisposable
     {
         /// <summary>
+        /// Gets the data provider.
+        /// Directs data operations to the correct source
+        /// </summary>
+        IDataProvider DataProvider { get; }
+
+        /// <summary>
         /// Gets the database parameter prefix.
         /// </summary>
         /// <value>

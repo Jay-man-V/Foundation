@@ -21,7 +21,7 @@ namespace Foundation.BusinessProcess.Helpers
         /// <summary>
         /// Constructs a new Command Parser with the supplied parameters
         /// </summary>
-        /// <param name="dateTimeService"></param>
+        /// <param name="dateTimeService">The date/time service.</param>
         public CommandParser
         (
             IDateTimeService dateTimeService

@@ -6,8 +6,8 @@
 
 using System.Data;
 
-using Foundation.Repository;
 using Foundation.Interfaces;
+using Foundation.Repository;
 
 using Foundation.Tests.Unit.Mocks;
 using Foundation.Tests.Unit.Support;
@@ -21,7 +21,8 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database.Support
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             ISystemConfigurationService systemConfigurationService,
-            IUnitTestingDatabaseProvider databaseProvider,
+            IFoundationDataAccess foundationDataAccess,
+            IUnitTestingDataProvider dataProvider,
             IDateTimeService dateTimeService
         ) :
             base
@@ -29,7 +30,8 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database.Support
                 core,
                 runTimeEnvironmentSettings,
                 systemConfigurationService,
-                databaseProvider,
+                foundationDataAccess,
+                dataProvider,
                 dateTimeService
             )
         {

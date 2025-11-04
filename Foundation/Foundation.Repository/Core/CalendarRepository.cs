@@ -10,7 +10,7 @@ using System.Text;
 using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
-using Foundation.Repository;
+using Foundation.Repository.DataProvider;
 using Foundation.Repository.LocalModels;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
@@ -30,24 +30,22 @@ namespace Foundation.Repository.Core
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
-        /// <param name="databaseProvider"></param>
-        /// <param name="dateTimeService"></param>
+        /// <param name="dateTimeService">The date/time service.</param>
         public CalendarRepository
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             ISystemConfigurationService systemConfigurationService,
-            ICoreDatabaseProvider databaseProvider,
             IDateTimeService dateTimeService
         ) :
             base
             (
                 core,
                 systemConfigurationService,
-                databaseProvider
+                new CoreDataProvider()
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, databaseProvider, dateTimeService);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, dateTimeService);
 
             DateTimeService = dateTimeService;
 

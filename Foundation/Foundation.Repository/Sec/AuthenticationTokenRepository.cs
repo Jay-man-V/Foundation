@@ -10,7 +10,7 @@ using System.Text;
 using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
-
+using Foundation.Repository.DataProvider;
 using FDC = Foundation.Resources.Constants.DataColumns;
 
 namespace Foundation.Repository.Sec
@@ -27,22 +27,20 @@ namespace Foundation.Repository.Sec
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
-        /// <param name="databaseProvider"></param>
         public AuthenticationTokenRepository
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
-            ISystemConfigurationService systemConfigurationService,
-            ISecurityDatabaseProvider databaseProvider
+            ISystemConfigurationService systemConfigurationService
         ) :
             base
             (
                 core,
                 systemConfigurationService,
-                databaseProvider
+                new SecurityDataProvider()
             )
         {
-            LoggingHelpers.TraceCallEnter(core, systemConfigurationService, runTimeEnvironmentSettings, databaseProvider);
+            LoggingHelpers.TraceCallEnter(core, systemConfigurationService, runTimeEnvironmentSettings);
 
             LoggingHelpers.TraceCallReturn();
         }

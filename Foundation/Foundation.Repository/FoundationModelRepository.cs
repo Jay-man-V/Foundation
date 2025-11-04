@@ -34,25 +34,25 @@ namespace Foundation.Repository
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
-        /// <param name="databaseProvider">The database provider.</param>
+        /// <param name="foundationDataAccess">The foundation data access.</param>
+        /// <param name="dataProvider">The data provider.</param>
         /// <param name="dateTimeService">The date/time service.</param>
         protected FoundationModelRepository
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             ISystemConfigurationService systemConfigurationService,
-            IDatabaseProvider databaseProvider,
+            IFoundationDataAccess foundationDataAccess,
+            IDataProvider dataProvider,
             IDateTimeService dateTimeService
         )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, databaseProvider, dateTimeService);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, foundationDataAccess, dataProvider, dateTimeService);
 
             Core = core;
             RunTimeEnvironmentSettings = runTimeEnvironmentSettings;
-            FoundationDataAccess = new FoundationDataAccess(Core, systemConfigurationService, databaseProvider);
+            FoundationDataAccess = new FoundationDataAccess(core, systemConfigurationService, dataProvider);
             DateTimeService = dateTimeService;
-
-            DataLogicProvider = FoundationDataAccess.DataLogicProvider;
 
             _entityProperties = [];
             _entityInsertColumns = String.Empty;
@@ -93,7 +93,7 @@ namespace Foundation.Repository
         /// <value>
         /// The data logic provider.
         /// </value>
-        protected internal IDataLogicProvider DataLogicProvider { get; }
+        protected internal IDataLogicProvider DataLogicProvider => FoundationDataAccess.DataLogicProvider;
 
         /// <summary>
         /// Gets the date time service.

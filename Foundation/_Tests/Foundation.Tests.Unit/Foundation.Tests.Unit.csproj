@@ -76,7 +76,7 @@
     <Compile Include=".Support\TestEntitySupport.cs" />
     <Compile Include="Foundation.BusinessProcess\.BaseClasses\BusinessProcessUnitTestsBase.cs" />
     <Compile Include=".BaseClasses\UnitTestBase.cs" />
-    <Compile Include=".Support\UnitTestingDatabaseProvider.cs" />
+    <Compile Include=".Support\UnitTestingDataProvider.cs" />
     <Compile Include=".Support\UnitTestsBaseTests.cs" />
     <Compile Include=".Support\UserSecuritySupport.cs" />
     <Compile Include=".Support\_UnitTestTemplate.cs" />

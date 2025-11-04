@@ -36,12 +36,13 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
 
             ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
             {
-                IUnitTestingDatabaseProvider databaseProvider = Substitute.For<IUnitTestingDatabaseProvider>();
-                databaseProvider.ConnectionName.Returns(connectionStringKey);
+                IUnitTestingDataProvider dataProvider = Substitute.For<IUnitTestingDataProvider>();
+                dataProvider.ConnectionName.Returns(connectionStringKey);
 
                 ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
+                IFoundationDataAccess dataAccess = Substitute.For<IFoundationDataAccess>();
 
-                _ = new ComplexTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, databaseProvider, DateTimeService);
+                _ = new ComplexTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataAccess, dataProvider, DateTimeService);
             });
 
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
@@ -59,14 +60,16 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
 
             ICore core = Substitute.For<ICore>();
 
-            IUnitTestingDatabaseProvider databaseProvider = Substitute.For<IUnitTestingDatabaseProvider>();
-            databaseProvider.ConnectionName.Returns(connectionStringKey);
+            IUnitTestingDataProvider dataProvider = Substitute.For<IUnitTestingDataProvider>();
+            dataProvider.ConnectionName.Returns(connectionStringKey);
 
             ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("Microsoft Sql Server Connection String");
             systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("System.Data.SqlClient");
 
-            ComplexTestEntityRepository obj = new ComplexTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, databaseProvider, DateTimeService);
+            IFoundationDataAccess dataAccess = Substitute.For<IFoundationDataAccess>();
+
+            ComplexTestEntityRepository obj = new ComplexTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataAccess, dataProvider, DateTimeService);
             String actualDataProviderName = obj.GetDataProviderName();
             IDataLogicProvider actualDataLogicProvider = obj.GetDataLogicProvider();
 
@@ -86,14 +89,16 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
 
             ICore core = Substitute.For<ICore>();
 
-            IUnitTestingDatabaseProvider databaseProvider = Substitute.For<IUnitTestingDatabaseProvider>();
-            databaseProvider.ConnectionName.Returns(connectionStringKey);
+            IUnitTestingDataProvider dataProvider = Substitute.For<IUnitTestingDataProvider>();
+            dataProvider.ConnectionName.Returns(connectionStringKey);
 
             ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("MySql Connection String");
             systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("MySql.Data.MySqlClient");
 
-            ComplexTestEntityRepository obj = new ComplexTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, databaseProvider, DateTimeService);
+            IFoundationDataAccess dataAccess = Substitute.For<IFoundationDataAccess>();
+
+            ComplexTestEntityRepository obj = new ComplexTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataAccess, dataProvider, DateTimeService);
             String actualDataProviderName = obj.GetDataProviderName();
             IDataLogicProvider actualDataLogicProvider = obj.GetDataLogicProvider();
 
@@ -113,14 +118,16 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
 
             ICore core = Substitute.For<ICore>();
 
-            IUnitTestingDatabaseProvider databaseProvider = Substitute.For<IUnitTestingDatabaseProvider>();
-            databaseProvider.ConnectionName.Returns(connectionStringKey);
+            IUnitTestingDataProvider dataProvider = Substitute.For<IUnitTestingDataProvider>();
+            dataProvider.ConnectionName.Returns(connectionStringKey);
 
             ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("Oracle Connection String");
             systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("System.Data.OracleClient");
 
-            ComplexTestEntityRepository obj = new ComplexTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, databaseProvider, DateTimeService);
+            IFoundationDataAccess dataAccess = Substitute.For<IFoundationDataAccess>();
+
+            ComplexTestEntityRepository obj = new ComplexTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataAccess, dataProvider, DateTimeService);
             String actualDataProviderName = obj.GetDataProviderName();
             IDataLogicProvider actualDataLogicProvider = obj.GetDataLogicProvider();
 

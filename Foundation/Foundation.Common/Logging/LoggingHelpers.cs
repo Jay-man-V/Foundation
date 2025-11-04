@@ -24,7 +24,7 @@ namespace Foundation.Common
         /// <exception cref="ConfigurationErrorsException">Raised if the Configuration file does not contain the correct setup</exception>
         /// <param name="core">The Foundation Core service</param>
         /// <param name="runTimeEnvironmentSettings">The runtime environment settings</param>
-        /// <param name="dateTimeService"></param>
+        /// <param name="dateTimeService">The date/time service.</param>
         public LoggingHelpers
         (
             ICore core,

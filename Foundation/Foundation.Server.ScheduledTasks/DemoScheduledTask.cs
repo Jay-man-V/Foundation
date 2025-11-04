@@ -22,7 +22,7 @@ namespace Foundation.Server.ScheduledTasks
         /// </summary>
         /// <param name="core"></param>
         /// <param name="runTimeEnvironmentSettings"></param>
-        /// <param name="dateTimeService"></param>
+        /// <param name="dateTimeService">The date/time service.</param>
         /// <param name="loggingService"></param>
         /// <param name="calendarProcess"></param>
         public DemoScheduledTask

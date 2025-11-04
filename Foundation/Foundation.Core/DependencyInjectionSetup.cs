@@ -85,7 +85,6 @@ namespace Foundation.Core
                 [
                     nameof(ICommonBusinessProcess),
                     typeof(ICommonBusinessProcess<>).Name,
-                    nameof(IFoundationDataAccess),
                     nameof(IFoundationModel),
                     typeof(IFoundationModelRepository<>).Name,
                     nameof(IFoundationObjectId),

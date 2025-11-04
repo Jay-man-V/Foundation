@@ -10,7 +10,7 @@ using System.Text;
 using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
-
+using Foundation.Repository.DataProvider;
 using FDC = Foundation.Resources.Constants.DataColumns;
 
 namespace Foundation.Repository.Specialised
@@ -43,23 +43,21 @@ namespace Foundation.Repository.Specialised
         /// </summary>
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
-        /// <param name="databaseProvider"></param>
         public DbSchemaTableRepository
         (
             ICore core,
-            ISystemConfigurationService systemConfigurationService,
-            ISchemaDatabaseProvider databaseProvider
+            ISystemConfigurationService systemConfigurationService
         ) :
             base
             (
                 core,
                 systemConfigurationService,
-                databaseProvider
+                new SchemaDataProvider()
             )
         {
-            LoggingHelpers.TraceCallEnter(core, databaseProvider);
+            LoggingHelpers.TraceCallEnter(core, systemConfigurationService);
 
-            DbSchemaColumnRepository = new DatabaseSchemaColumnRepository(core, systemConfigurationService, databaseProvider);
+            DbSchemaColumnRepository = new DatabaseSchemaColumnRepository(core, systemConfigurationService);
 
             LoggingHelpers.TraceCallReturn();
         }

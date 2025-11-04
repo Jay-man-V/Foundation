@@ -27,14 +27,16 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
         {
             ICore core = Substitute.For<ICore>();
 
-            IUnitTestingDatabaseProvider databaseProvider = Substitute.For<IUnitTestingDatabaseProvider>();
-            databaseProvider.ConnectionName.Returns("UnitTesting");
+            IUnitTestingDataProvider dataProvider = Substitute.For<IUnitTestingDataProvider>();
+            dataProvider.ConnectionName.Returns("UnitTesting");
 
             ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("Unit Testing Connection String");
             systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("System.Data.SqlClient");
 
-            SimpleTestEntityRepository retVal = new SimpleTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, databaseProvider, DateTimeService);
+            IFoundationDataAccess dataAccess = Substitute.For<IFoundationDataAccess>();
+
+            SimpleTestEntityRepository retVal = new SimpleTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataAccess, dataProvider, DateTimeService);
 
             return retVal;
         }
@@ -47,14 +49,16 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
         {
             ICore core = Substitute.For<ICore>();
 
-            IUnitTestingDatabaseProvider databaseProvider = Substitute.For<IUnitTestingDatabaseProvider>();
-            databaseProvider.ConnectionName.Returns("UnitTesting");
+            IUnitTestingDataProvider dataProvider = Substitute.For<IUnitTestingDataProvider>();
+            dataProvider.ConnectionName.Returns("UnitTesting");
 
             ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("Unit Testing Connection String");
             systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("System.Data.SqlClient");
 
-            ComplexTestEntityRepository obj = new ComplexTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, databaseProvider, DateTimeService);
+            IFoundationDataAccess dataAccess = Substitute.For<IFoundationDataAccess>();
+
+            ComplexTestEntityRepository obj = new ComplexTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataAccess, dataProvider, DateTimeService);
 
             Assert.That(obj, Is.Not.EqualTo(null));
             Assert.That(obj, Is.InstanceOf<FoundationModelRepository<IMockFoundationModel>>());
