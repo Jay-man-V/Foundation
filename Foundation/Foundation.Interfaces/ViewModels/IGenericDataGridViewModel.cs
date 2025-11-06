@@ -15,6 +15,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// Defines the behaviour of the Generic DataGrid View Model
     /// </summary>
+    [DependencyInjectionIgnore]
     public interface IGenericDataGridViewModel<TModel> : IViewModel
         where TModel : IFoundationModel
     {

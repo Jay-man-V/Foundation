@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The User Profile Data Access interface
     /// </summary>
-    public interface IUserProfileRepository : IFoundationModelRepository<IUserProfile>
+    public interface IUserProfileRepository : IFoundationModelDataAccess<IUserProfile>
     {
         /// <summary>
         /// Gets the specified application identifier.

@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The National Region Data Access interface
     /// </summary>
-    public interface INationalRegionRepository : IFoundationModelRepository<INationalRegion>
+    public interface INationalRegionRepository : IFoundationModelDataAccess<INationalRegion>
     {
     }
 }

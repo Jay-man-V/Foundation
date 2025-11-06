@@ -16,7 +16,7 @@ namespace Foundation.BusinessProcess.Sec.EnumProcesses
     /// The Application Role Business Process
     /// </summary>
     [DependencyInjectionTransient]
-    public class ApplicationRoleProcess : CommonBusinessProcess<IApplicationRole, IApplicationRoleRepository>, IApplicationRoleProcess
+    public class ApplicationRoleProcess : CommonBusinessProcess<IApplicationRole, IApplicationRoleDataAccess>, IApplicationRoleProcess
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ApplicationRoleProcess" /> class.
@@ -37,7 +37,7 @@ namespace Foundation.BusinessProcess.Sec.EnumProcesses
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
             ILoggingService loggingService,
-            IApplicationRoleRepository repository,
+            IApplicationRoleDataAccess repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
             IReportGenerator reportGenerator,

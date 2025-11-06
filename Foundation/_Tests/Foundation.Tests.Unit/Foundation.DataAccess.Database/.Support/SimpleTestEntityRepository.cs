@@ -21,7 +21,6 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database.Support
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             ISystemConfigurationService systemConfigurationService,
-            IFoundationDataAccess foundationDataAccess,
             IUnitTestingDataProvider dataProvider,
             IDateTimeService dateTimeService
         ) :
@@ -30,7 +29,6 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database.Support
                 core,
                 runTimeEnvironmentSettings,
                 systemConfigurationService,
-                foundationDataAccess,
                 dataProvider,
                 dateTimeService
             )

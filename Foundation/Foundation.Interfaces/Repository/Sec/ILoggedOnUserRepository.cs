@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Logged On User Data Access interface
     /// </summary>
-    public interface ILoggedOnUserRepository : IFoundationModelRepository<ILoggedOnUser>
+    public interface ILoggedOnUserRepository : IFoundationModelDataAccess<ILoggedOnUser>
     {
         /// <summary>
         /// Updates the command.

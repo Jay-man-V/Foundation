@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Country Data Access interface
     /// </summary>
-    public interface ICountryRepository : IFoundationModelRepository<ICountry>
+    public interface ICountryRepository : IFoundationModelDataAccess<ICountry>
     {
     }
 }

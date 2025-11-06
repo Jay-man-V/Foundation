@@ -10,7 +10,7 @@ using System.Text;
 using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
-using Foundation.Repository.DataProvider;
+
 using FDC = Foundation.Resources.Constants.DataColumns;
 
 namespace Foundation.Repository.Specialised
@@ -20,7 +20,7 @@ namespace Foundation.Repository.Specialised
     /// </summary>
     /// <see cref="IDatabaseSchemaColumn" />
     [DependencyInjectionTransient]
-    public class DatabaseSchemaColumnRepository : FoundationDataAccess, IDatabaseSchemaColumnRepository
+    public class DatabaseSchemaColumnRepository : FoundationDataAccess, IDatabaseSchemaColumnDataAccess
     {
         /// <summary>
         /// Gets the name of the entity.
@@ -43,26 +43,28 @@ namespace Foundation.Repository.Specialised
         /// </summary>
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
+        /// <param name="schemaDataProvider">The schema data provider.</param>
         public DatabaseSchemaColumnRepository
         (
             ICore core,
-            ISystemConfigurationService systemConfigurationService
+            ISystemConfigurationService systemConfigurationService,
+            ISchemaDataProvider schemaDataProvider
         ) :
             base
             (
                 core,
                 systemConfigurationService,
-                new SchemaDataProvider()
+                schemaDataProvider.ConnectionName
             )
         {
-            LoggingHelpers.TraceCallEnter(core, systemConfigurationService);
+            LoggingHelpers.TraceCallEnter(core, systemConfigurationService, schemaDataProvider);
 
             // Does nothing
 
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="IDatabaseSchemaColumnRepository.GetAllColumns(IDatabaseSchemaTable)"/>
+        /// <inheritdoc cref="IDatabaseSchemaColumnDataAccess.GetAllColumns(IDatabaseSchemaTable)"/>
         public List<IDatabaseSchemaColumn> GetAllColumns(IDatabaseSchemaTable databaseSchemaTable)
         {
             LoggingHelpers.TraceCallEnter(databaseSchemaTable);
@@ -74,7 +76,7 @@ namespace Foundation.Repository.Specialised
             return retVal;
         }
 
-        /// <inheritdoc cref="IDatabaseSchemaColumnRepository.GetAllColumns(String, String, String)"/>
+        /// <inheritdoc cref="IDatabaseSchemaColumnDataAccess.GetAllColumns(String, String, String)"/>
         public List<IDatabaseSchemaColumn> GetAllColumns(String tableCatalog, String tableSchema, String tableName)
         {
             LoggingHelpers.TraceCallEnter(tableCatalog, tableSchema, tableName);

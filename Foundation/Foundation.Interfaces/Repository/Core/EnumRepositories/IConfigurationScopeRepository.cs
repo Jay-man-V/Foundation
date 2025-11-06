@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Configuration Scope Data Access interface
     /// </summary>
-    public interface IConfigurationScopeRepository : IFoundationModelRepository<IConfigurationScope>
+    public interface IConfigurationScopeRepository : IFoundationModelDataAccess<IConfigurationScope>
     {
     }
 }

@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Application Configuration Data Access interface
     /// </summary>
-    public interface IApplicationConfigurationRepository : IFoundationModelRepository<IApplicationConfiguration>
+    public interface IApplicationConfigurationRepository : IFoundationModelDataAccess<IApplicationConfiguration>
     {
         /// <summary>
         /// Saves the <paramref name="newValue"/> to the repository and converting to a <see cref="String"/> where required

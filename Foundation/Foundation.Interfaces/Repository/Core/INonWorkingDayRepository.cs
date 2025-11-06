@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Non-Working Day Data Access interface
     /// </summary>
-    public interface INonWorkingDayRepository : IFoundationModelRepository<INonWorkingDay>
+    public interface INonWorkingDayRepository : IFoundationModelDataAccess<INonWorkingDay>
     {
         /// <summary>Gets the specified country identifier.</summary>
         /// <param name="countryId">The country identifier.</param>

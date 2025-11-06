@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Entity Status Entity Access interface
     /// </summary>
-    public interface IEntityStatusRepository : IFoundationModelRepository<IEntityStatus>
+    public interface IEntityStatusRepository : IFoundationModelDataAccess<IEntityStatus>
     {
     }
 }

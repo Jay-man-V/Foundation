@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Schedule Interval Data Access interface
     /// </summary>
-    public interface IScheduleIntervalRepository : IFoundationModelRepository<IScheduleInterval>
+    public interface IScheduleIntervalRepository : IFoundationModelDataAccess<IScheduleInterval>
     {
     }
 }

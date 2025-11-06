@@ -6,7 +6,6 @@
 
 using Foundation.Common;
 using Foundation.Interfaces;
-using Foundation.Repository.DataProvider;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
@@ -17,7 +16,7 @@ namespace Foundation.Repository.Sec.EnumRepositories
     /// </summary>
     /// <see cref="IApplicationRole" />
     [DependencyInjectionTransient]
-    public class ApplicationRoleRepository : FoundationModelRepository<IApplicationRole>, IApplicationRoleRepository
+    public class ApplicationRoleRepository : FoundationModelRepository<IApplicationRole>, IApplicationRoleDataAccess
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ApplicationRoleRepository"/> class.
@@ -25,14 +24,14 @@ namespace Foundation.Repository.Sec.EnumRepositories
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
-        /// <param name="foundationDataAccess">The foundation data access.</param>
+        /// <param name="securityDataProvider">The security data provider.</param>
         /// <param name="dateTimeService">The date/time service.</param>
         public ApplicationRoleRepository
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             ISystemConfigurationService systemConfigurationService,
-            IFoundationDataAccess foundationDataAccess,
+            ISecurityDataProvider securityDataProvider,
             IDateTimeService dateTimeService
         ) :
             base
@@ -40,12 +39,11 @@ namespace Foundation.Repository.Sec.EnumRepositories
                 core,
                 runTimeEnvironmentSettings,
                 systemConfigurationService,
-                foundationDataAccess,
-                new SecurityDataProvider(),
+                securityDataProvider,
                 dateTimeService
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, foundationDataAccess, dateTimeService);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, securityDataProvider, dateTimeService);
 
             LoggingHelpers.TraceCallReturn();
         }

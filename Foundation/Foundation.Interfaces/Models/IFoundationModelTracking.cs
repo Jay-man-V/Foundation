@@ -9,6 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The interface Foundation Model Tracking definition
     /// </summary>
+    [DependencyInjectionIgnore]
     public interface IFoundationModelTracking
     {
         /// <summary>

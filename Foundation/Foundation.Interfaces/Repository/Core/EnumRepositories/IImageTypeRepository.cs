@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Image Type Data Access interface
     /// </summary>
-    public interface IImageTypeRepository : IFoundationModelRepository<IImageType>
+    public interface IImageTypeRepository : IFoundationModelDataAccess<IImageType>
     {
     }
 }

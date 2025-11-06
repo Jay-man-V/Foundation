@@ -23,7 +23,7 @@ namespace Foundation.BusinessProcess.Sec
         (
             ICore core,
             ILoggingService loggingService,
-            IAuthenticationRepository repository
+            IAuthenticationDataAccess repository
         )
         {
             LoggingHelpers.TraceCallEnter(core, loggingService, repository);
@@ -42,7 +42,7 @@ namespace Foundation.BusinessProcess.Sec
         /// <summary>
         /// Gets the data access
         /// </summary>
-        private IAuthenticationRepository Repository { get; }
+        private IAuthenticationDataAccess Repository { get; }
 
         /// <inheritdoc cref="IAuthenticationProcess.AuthenticateUser(AppId)"/>
         public AuthenticationToken AuthenticateUser(AppId applicationId)

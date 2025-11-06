@@ -16,7 +16,7 @@ namespace Foundation.BusinessProcess.Sec
     /// The Application Business Process
     /// </summary>
     [DependencyInjectionTransient]
-    public class ApplicationProcess : CommonBusinessProcess<IApplication, IApplicationRepository>, IApplicationProcess
+    public class ApplicationProcess : CommonBusinessProcess<IApplication, IApplicationDataAccess>, IApplicationProcess
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ApplicationProcess" /> class.
@@ -35,7 +35,7 @@ namespace Foundation.BusinessProcess.Sec
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
             ILoggingService loggingService,
-            IApplicationRepository repository,
+            IApplicationDataAccess repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
             IReportGenerator reportGenerator

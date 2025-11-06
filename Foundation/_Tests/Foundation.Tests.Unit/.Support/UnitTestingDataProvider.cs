@@ -4,18 +4,35 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 
 namespace Foundation.Tests.Unit.Support
 {
-    public interface IUnitTestingDataProvider : IDataProvider
+    public interface IUnitTestingDataProvider : IDataProvider, IFoundationDataAccess
     {
 
     }
 
     [DependencyInjectionTransient]
-    public class UnitTestingDataProvider : IUnitTestingDataProvider
+    public class UnitTestingDataProvider : FoundationDataAccess, IUnitTestingDataProvider
     {
-        public String ConnectionName => "UnitTesting";
+        public UnitTestingDataProvider
+        (
+            ICore core,
+            ISystemConfigurationService systemConfigurationService,
+            String connectionName
+        ) :
+            base
+            (
+                core,
+                systemConfigurationService,
+                connectionName
+            )
+        {
+            ConnectionName = connectionName;
+        }
+
+        public String ConnectionName { get; }
     }
 }

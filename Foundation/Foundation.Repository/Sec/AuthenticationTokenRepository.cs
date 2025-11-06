@@ -10,7 +10,7 @@ using System.Text;
 using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
-using Foundation.Repository.DataProvider;
+
 using FDC = Foundation.Resources.Constants.DataColumns;
 
 namespace Foundation.Repository.Sec
@@ -19,7 +19,7 @@ namespace Foundation.Repository.Sec
     /// Defines the Role Data Access class
     /// </summary>
     [DependencyInjectionTransient]
-    public class AuthenticationTokenRepository : FoundationDataAccess, IAuthenticationRepository
+    public class AuthenticationTokenRepository : FoundationDataAccess, IAuthenticationDataAccess
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="AuthenticationTokenRepository"/> class.
@@ -27,20 +27,22 @@ namespace Foundation.Repository.Sec
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
+        /// <param name="securityDataProvider">The security data provider.</param>
         public AuthenticationTokenRepository
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
-            ISystemConfigurationService systemConfigurationService
+            ISystemConfigurationService systemConfigurationService,
+            ISecurityDataProvider securityDataProvider
         ) :
             base
             (
                 core,
                 systemConfigurationService,
-                new SecurityDataProvider()
+                securityDataProvider.ConnectionName
             )
         {
-            LoggingHelpers.TraceCallEnter(core, systemConfigurationService, runTimeEnvironmentSettings);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, securityDataProvider);
 
             LoggingHelpers.TraceCallReturn();
         }
@@ -57,7 +59,7 @@ namespace Foundation.Repository.Sec
         /// <value>The name of the table.</value>
         protected String TableName => FDC.TableNames.AuthenticationToken;
 
-        /// <inheritdoc cref="IAuthenticationRepository.AuthenticateUser(AppId, IUserProfile)"/>
+        /// <inheritdoc cref="IAuthenticationDataAccess.AuthenticateUser(AppId, IUserProfile)"/>
         public AuthenticationToken AuthenticateUser(AppId applicationId, IUserProfile userProfile)
         {
             LoggingHelpers.TraceCallEnter(applicationId, userProfile);
@@ -79,7 +81,7 @@ namespace Foundation.Repository.Sec
             return retVal;
         }
 
-        /// <inheritdoc cref="IAuthenticationRepository.ValidateAuthenticationToken(ref AuthenticationToken)"/>
+        /// <inheritdoc cref="IAuthenticationDataAccess.ValidateAuthenticationToken(ref AuthenticationToken)"/>
         public void ValidateAuthenticationToken(ref AuthenticationToken authenticationToken)
         {
             LoggingHelpers.TraceCallEnter(authenticationToken);
@@ -121,7 +123,7 @@ namespace Foundation.Repository.Sec
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="IAuthenticationRepository.ExpireAuthenticationToken"/>
+        /// <inheritdoc cref="IAuthenticationDataAccess.ExpireAuthenticationToken"/>
         public void ExpireAuthenticationToken(ref AuthenticationToken authenticationToken)
         {
             LoggingHelpers.TraceCallEnter(authenticationToken);

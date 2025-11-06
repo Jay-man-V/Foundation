@@ -21,7 +21,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
     public abstract class CommonBusinessProcessTests<TEntity, TCommonBusinessProcess, TRepository> : CommonProcessTests<TCommonBusinessProcess>
         where TEntity : IFoundationModel
         where TCommonBusinessProcess : ICommonBusinessProcess<TEntity>
-        where TRepository : IFoundationModelRepository<TEntity>
+        where TRepository : IFoundationModelDataAccess<TEntity>
     {
         public class MyErrorMessages
         {

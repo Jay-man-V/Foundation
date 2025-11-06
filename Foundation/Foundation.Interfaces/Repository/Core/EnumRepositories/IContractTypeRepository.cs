@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Contract Type Data Access interface
     /// </summary>
-    public interface IContractTypeRepository : IFoundationModelRepository<IContractType>
+    public interface IContractTypeRepository : IFoundationModelDataAccess<IContractType>
     {
     }
 }

@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Department Data Access interface
     /// </summary>
-    public interface IDepartmentRepository : IFoundationModelRepository<IDepartment>
+    public interface IDepartmentRepository : IFoundationModelDataAccess<IDepartment>
     {
     }
 }

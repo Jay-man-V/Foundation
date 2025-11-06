@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Loader;
@@ -48,6 +49,7 @@ namespace Foundation.Core
                 List<Type> requiredTypes = allTypes.Where(t => !t.IsAbstract &&                 // Exclude abstract classes
                                                                !t.IsInterface &&                // Exclude interfaces
                                                                t.GetInterfaces().Length >= 1 && // Include classes that implement at least 1 interface
+                                                               !t.GetCustomAttributes<DependencyInjectionIgnoreAttribute>().Any() &&        // Exclude classes marked to be ignored
                                                                (
                                                                    t.GetCustomAttributes<DependencyInjectionSingletonAttribute>().Any() ||  // Include Singleton classes
                                                                    t.GetCustomAttributes<DependencyInjectionTransientAttribute>().Any() ||  // Include Transient classes
@@ -74,28 +76,28 @@ namespace Foundation.Core
             }
         }
 
-        /// <summary>
-        /// List of excluded interfaces, interfaces that will be removed from consideration of Dependency Injection
-        /// </summary>
-        private static List<String> ExcludedInterfaces
-        {
-            get
-            {
-                List<String> excludedInterfaces =
-                [
-                    nameof(ICommonBusinessProcess),
-                    typeof(ICommonBusinessProcess<>).Name,
-                    nameof(IFoundationModel),
-                    typeof(IFoundationModelRepository<>).Name,
-                    nameof(IFoundationObjectId),
-                    nameof(IFoundationModelTracking),
-                    typeof(IGenericDataGridViewModel<>).Name,
-                    nameof(IViewModel)
-                ];
+        ///// <summary>
+        ///// List of excluded interfaces, interfaces that will be removed from consideration of Dependency Injection
+        ///// </summary>
+        //private static List<String> ExcludedInterfaces
+        //{
+        //    get
+        //    {
+        //        List<String> excludedInterfaces =
+        //        [
+        //            nameof(ICommonBusinessProcess),
+        //            typeof(ICommonBusinessProcess<>).Name,
+        //            nameof(IFoundationModel),
+        //            typeof(IFoundationModelRepository<>).Name,
+        //            nameof(IFoundationObjectId),
+        //            nameof(IFoundationModelTracking),
+        //            typeof(IGenericDataGridViewModel<>).Name,
+        //            nameof(IViewModel)
+        //        ];
 
-                return excludedInterfaces;
-            }
-        }
+        //        return excludedInterfaces;
+        //    }
+        //}
 
         /// <summary>
         /// Resets the dependency injection.
@@ -149,7 +151,7 @@ namespace Foundation.Core
                     typeNamespacePrefix,
                     ServiceCollection,
                     singletonTypes,
-                    (implementationType) => ServiceCollection.AddSingleton(implementationType),
+                    implementationType => ServiceCollection.AddSingleton(implementationType),
                     (interfaceType, implementationType) => ServiceCollection.AddSingleton(interfaceType, implementationType)
                 );
 
@@ -158,7 +160,7 @@ namespace Foundation.Core
                     typeNamespacePrefix,
                     ServiceCollection,
                     scopedTypes,
-                    (implementationType) => ServiceCollection.AddScoped(implementationType),
+                    implementationType => ServiceCollection.AddScoped(implementationType),
                     (interfaceType, implementationType) => ServiceCollection.AddScoped(interfaceType, implementationType)
                 );
 
@@ -167,7 +169,7 @@ namespace Foundation.Core
                     typeNamespacePrefix,
                     ServiceCollection,
                     transientTypes,
-                    (implementationType) => ServiceCollection.AddTransient(implementationType),
+                    implementationType => ServiceCollection.AddTransient(implementationType),
                     (interfaceType, implementationType) => ServiceCollection.AddTransient(interfaceType, implementationType)
                 );
 
@@ -193,24 +195,42 @@ namespace Foundation.Core
                 if (!String.IsNullOrEmpty(implementationTypeName))
                 {
 #if (DEBUG)
-                    //if (implementationTypeName == "Foundation.Tests.Unit.Mocks.MockScheduledTask")
-                    //{
-                    //    Debug.WriteLine("Foundation.Tests.Unit.Mocks.MockScheduledTask");
-                    //}
+                    if (implementationTypeName.Contains("DataProvider"))
+                    {
+                    }
 #endif
 
-                    List<Type> interfaceTypes = implementationType.GetInterfaces().ToList();
+                    //List<Type> interfaceTypes = implementationType.GetInterfaces().ToList();
+                    List<Type> allInterfaceTypes = implementationType.GetInterfaces().ToList();
+                    List<Type> baseInterfaceTypes;
+
+                    if (implementationType.BaseType != null)
+                    {
+                        baseInterfaceTypes = implementationType.BaseType.GetInterfaces().ToList();
+                    }
+                    else
+                    {
+                        baseInterfaceTypes = [];
+                    }
+                    List<Type> interfaceTypes = allInterfaceTypes.Except(baseInterfaceTypes).ToList();
+
                     foreach (Type interfaceType in interfaceTypes)
                     {
                         String? interfaceFullName = interfaceType.FullName;
                         if (!String.IsNullOrEmpty(interfaceFullName))
                         {
                             String interfaceName = interfaceType.Name;
+#if (DEBUG)
+                            if (interfaceName.Contains("IFoundationDataAccess"))
+                            {
+                            }
+#endif
 
-                            Boolean excludedInterfaceCheck = !ExcludedInterfaces.Contains(interfaceName);
+                            Boolean excludedAttributesCheck = !interfaceType.GetCustomAttributes<DependencyInjectionIgnoreAttribute>(inherit: false).Any();
+                            //Boolean excludedInterfaceCheck = !ExcludedInterfaces.Contains(interfaceName);
                             Boolean typeFullNameCheck = interfaceFullName.StartsWith(typeNamespacePrefix);
 
-                            if (excludedInterfaceCheck &&
+                            if (excludedAttributesCheck &&
                                 typeFullNameCheck)
                             {
 #if (DEBUG)

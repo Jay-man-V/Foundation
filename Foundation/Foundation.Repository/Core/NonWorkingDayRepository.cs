@@ -10,7 +10,6 @@ using System.Text;
 using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
-using Foundation.Repository.DataProvider;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
@@ -29,14 +28,14 @@ namespace Foundation.Repository.Core
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
-        /// <param name="foundationDataAccess">The foundation data access.</param>
+        /// <param name="coreDataProvider">The core data provider.</param>
         /// <param name="dateTimeService">The date/time service.</param>
         public NonWorkingDayRepository
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             ISystemConfigurationService systemConfigurationService,
-            IFoundationDataAccess foundationDataAccess,
+            ICoreDataProvider coreDataProvider,
             IDateTimeService dateTimeService
         ) :
             base
@@ -44,12 +43,11 @@ namespace Foundation.Repository.Core
                 core,
                 runTimeEnvironmentSettings,
                 systemConfigurationService,
-                foundationDataAccess,
-                new CoreDataProvider(),
+                coreDataProvider,
                 dateTimeService
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, foundationDataAccess, dateTimeService);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, coreDataProvider, dateTimeService);
 
             LoggingHelpers.TraceCallReturn();
         }

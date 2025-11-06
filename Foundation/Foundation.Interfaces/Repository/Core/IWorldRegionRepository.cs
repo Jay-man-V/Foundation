@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The World Region Data Access interface
     /// </summary>
-    public interface IWorldRegionRepository : IFoundationModelRepository<IWorldRegion>
+    public interface IWorldRegionRepository : IFoundationModelDataAccess<IWorldRegion>
     {
     }
 }

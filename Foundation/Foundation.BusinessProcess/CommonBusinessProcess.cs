@@ -28,7 +28,7 @@ namespace Foundation.BusinessProcess
     /// <typeparam name="TRepository"></typeparam>
     public abstract class CommonBusinessProcess<TEntity, TRepository> : CommonProcess, ICommonBusinessProcess<TEntity>
         where TEntity : IFoundationModel
-        where TRepository : IFoundationModelRepository<TEntity>
+        where TRepository : IFoundationModelDataAccess<TEntity>
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="CommonBusinessProcess{TEntity, TRepository}" /> class.

@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Log Severity Data Access interface
     /// </summary>
-    public interface ILogSeverityRepository : IFoundationModelRepository<ILogSeverity>
+    public interface ILogSeverityRepository : IFoundationModelDataAccess<ILogSeverity>
     {
     }
 }

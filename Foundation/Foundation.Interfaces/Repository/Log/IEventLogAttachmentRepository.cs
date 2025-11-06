@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Event Log Attachment Data Access interface
     /// </summary>
-    public interface IEventLogAttachmentRepository : IFoundationModelRepository<IEventLogAttachment>
+    public interface IEventLogAttachmentRepository : IFoundationModelDataAccess<IEventLogAttachment>
     {
     }
 }

@@ -9,6 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The interface Foundation Object Id definition
     /// </summary>
+    [DependencyInjectionIgnore]
     public interface IFoundationObjectId
     {
         /// <summary>

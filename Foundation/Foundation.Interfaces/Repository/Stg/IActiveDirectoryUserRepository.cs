@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Active Directory User Data Access interface
     /// </summary>
-    public interface IActiveDirectoryUserRepository : IFoundationModelRepository<IActiveDirectoryUser>
+    public interface IActiveDirectoryDataAccess : IFoundationModelDataAccess<IActiveDirectoryUser>
     {
         /// <summary>
         /// Gets all active directory users.

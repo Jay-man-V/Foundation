@@ -25,25 +25,25 @@ namespace Foundation.DataAccess.Database
         /// </summary>
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
-        /// <param name="dataProvider">The data provider.</param>
+        /// <param name="connectionName">Name of the connection.</param>
         public FoundationDataAccess
         (
             ICore core,
             ISystemConfigurationService systemConfigurationService,
-            IDataProvider dataProvider
+            String connectionName
         )
         {
-            LoggingHelpers.TraceCallEnter(core, dataProvider);
+            LoggingHelpers.TraceCallEnter(core, systemConfigurationService, connectionName);
 
             Core = core;
-            DataProvider = dataProvider;
+            SystemConfigurationService = systemConfigurationService;
 
             DatabaseConnection = null;
             DatabaseTransaction = null;
 
-            String connectionStringKey = DataProvider.ConnectionName;
-            ConnectionString = systemConfigurationService.GetConnectionString(connectionStringKey);
-            DatabaseProviderName = systemConfigurationService.GetDataProviderName(connectionStringKey);
+            String connectionStringKey = connectionName;
+            ConnectionString = SystemConfigurationService.GetConnectionString(connectionStringKey);
+            DatabaseProviderName = SystemConfigurationService.GetDataProviderName(connectionStringKey);
 
             if (String.IsNullOrEmpty(ConnectionString))
             {
@@ -100,6 +100,11 @@ namespace Foundation.DataAccess.Database
         protected ICore Core { get; }
 
         /// <summary>
+        /// The System configuration service
+        /// </summary>
+        protected ISystemConfigurationService SystemConfigurationService { get; }
+
+        /// <summary>
         /// Gets the database connection.
         /// </summary>
         /// <value>
@@ -114,9 +119,6 @@ namespace Foundation.DataAccess.Database
         /// The database provider name.
         /// </value>
         protected String DatabaseProviderName { get; }
-
-        /// <inheritdoc cref="IFoundationDataAccess.DataProvider"/>
-        public IDataProvider DataProvider { get; }
 
         /// <inheritdoc cref="IFoundationDataAccess.DatabaseTransaction"/>
         public IDbTransaction? DatabaseTransaction { get; private set; }

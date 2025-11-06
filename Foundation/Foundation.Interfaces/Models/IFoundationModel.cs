@@ -11,6 +11,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Foundation model interface
     /// </summary>
+    [DependencyInjectionIgnore]
     public interface IFoundationModel : IFoundationObjectId, IFoundationModelTracking, INotifyPropertyChanging, INotifyPropertyChanged, ICloneable, IChangeTracking
     {
         /// <summary>

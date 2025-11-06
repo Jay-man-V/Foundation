@@ -41,9 +41,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
 
                 ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
 
-                IFoundationDataAccess dataAccess = Substitute.For<IFoundationDataAccess>();
-
-                _ = new SimpleTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataAccess, dataProvider, DateTimeService);
+                _ = new SimpleTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataProvider, DateTimeService);
             });
 
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
@@ -68,9 +66,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("Microsoft Sql Server Connection String");
             systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("System.Data.SqlClient");
 
-            IFoundationDataAccess dataAccess = Substitute.For<IFoundationDataAccess>();
-
-            SimpleTestEntityRepository obj = new SimpleTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataAccess, dataProvider, DateTimeService);
+            SimpleTestEntityRepository obj = new SimpleTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataProvider, DateTimeService);
             String actualDataProviderName = obj.GetDataProviderName();
             IDataLogicProvider actualDataLogicProvider = obj.GetDataLogicProvider();
 
@@ -97,9 +93,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("MySql Connection String");
             systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("MySql.Data.MySqlClient");
 
-            IFoundationDataAccess dataAccess = Substitute.For<IFoundationDataAccess>();
-
-            SimpleTestEntityRepository obj = new SimpleTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataAccess, dataProvider, DateTimeService);
+            SimpleTestEntityRepository obj = new SimpleTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataProvider, DateTimeService);
             String actualDataProviderName = obj.GetDataProviderName();
             IDataLogicProvider actualDataLogicProvider = obj.GetDataLogicProvider();
 
@@ -126,9 +120,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("Oracle Connection String");
             systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("System.Data.OracleClient");
 
-            IFoundationDataAccess dataAccess = Substitute.For<IFoundationDataAccess>();
-
-            SimpleTestEntityRepository obj = new SimpleTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataAccess, dataProvider, DateTimeService);
+            SimpleTestEntityRepository obj = new SimpleTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataProvider, DateTimeService);
             String actualDataProviderName = obj.GetDataProviderName();
             IDataLogicProvider actualDataLogicProvider = obj.GetDataLogicProvider();
 

@@ -26,16 +26,15 @@ namespace Foundation.Repository
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <see cref="FoundationDataAccess" />
-    public abstract class FoundationModelRepository<TModel> : IFoundationModelRepository<TModel> where TModel : IFoundationModel
+    public abstract class FoundationModelRepository<TModel> : IFoundationModelDataAccess<TModel> where TModel : IFoundationModel
     {
         /// <summary>
-        /// Initialises a new instance of the <see cref="IFoundationModelRepository{TModel}"/> class.
+        /// Initialises a new instance of the <see cref="IFoundationModelDataAccess{TModel}"/> class.
         /// </summary>
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
         /// <param name="foundationDataAccess">The foundation data access.</param>
-        /// <param name="dataProvider">The data provider.</param>
         /// <param name="dateTimeService">The date/time service.</param>
         protected FoundationModelRepository
         (
@@ -43,15 +42,14 @@ namespace Foundation.Repository
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             ISystemConfigurationService systemConfigurationService,
             IFoundationDataAccess foundationDataAccess,
-            IDataProvider dataProvider,
             IDateTimeService dateTimeService
         )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, foundationDataAccess, dataProvider, dateTimeService);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, foundationDataAccess, dateTimeService);
 
             Core = core;
             RunTimeEnvironmentSettings = runTimeEnvironmentSettings;
-            FoundationDataAccess = new FoundationDataAccess(core, systemConfigurationService, dataProvider);
+            FoundationDataAccess = foundationDataAccess;
             DateTimeService = dateTimeService;
 
             _entityProperties = [];

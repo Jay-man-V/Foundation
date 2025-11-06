@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Role Data Access interface
     /// </summary>
-    public interface IRoleRepository : IFoundationModelRepository<IRole>
+    public interface IRoleRepository : IFoundationModelDataAccess<IRole>
     {
     }
 }

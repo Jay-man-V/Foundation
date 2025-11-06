@@ -10,7 +10,7 @@ using Foundation.Tests.Unit.Support;
 
 namespace Foundation.Tests.Unit.Mocks
 {
-    public interface IMockFoundationModelRepository : IFoundationModelRepository<IMockFoundationModel>
+    public interface IMockFoundationModelRepository : IFoundationModelDataAccess<IMockFoundationModel>
     {
         /// <summary>
         /// 
@@ -26,7 +26,6 @@ namespace Foundation.Tests.Unit.Mocks
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             ISystemConfigurationService systemConfigurationService,
-            IFoundationDataAccess foundationDataAccess,
             IUnitTestingDataProvider dataProvider,
             IDateTimeService dateTimeService
         ) :
@@ -35,7 +34,6 @@ namespace Foundation.Tests.Unit.Mocks
                 core,
                 runTimeEnvironmentSettings,
                 systemConfigurationService,
-                foundationDataAccess,
                 dataProvider,
                 dateTimeService
             )

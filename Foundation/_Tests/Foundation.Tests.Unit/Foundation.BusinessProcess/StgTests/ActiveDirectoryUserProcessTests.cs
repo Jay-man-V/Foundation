@@ -20,7 +20,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.StgTests
     /// Summary FullName for ActiveDirectoryUserProcessTests
     /// </summary>
     [TestFixture]
-    public class ActiveDirectoryUserProcessTests : CommonBusinessProcessTests<IActiveDirectoryUser, IActiveDirectoryUserProcess, IActiveDirectoryUserRepository>
+    public class ActiveDirectoryUserProcessTests : CommonBusinessProcessTests<IActiveDirectoryUser, IActiveDirectoryUserProcess, IActiveDirectoryDataAccess>
     {
         protected override Int32 ColumnDefinitionsCount => 3;
         protected override String ExpectedScreenTitle => "Active Directory Users";
@@ -32,9 +32,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.StgTests
         protected override String ExpectedAction2Name => "Sync User Profiles";
         protected override String ExpectedComboBoxDisplayMember => FDC.ActiveDirectoryUser.FullName;
 
-        protected override IActiveDirectoryUserRepository CreateRepository()
+        protected override IActiveDirectoryDataAccess CreateRepository()
         {
-            IActiveDirectoryUserRepository retVal = Substitute.For<IActiveDirectoryUserRepository>();
+            IActiveDirectoryDataAccess retVal = Substitute.For<IActiveDirectoryDataAccess>();
 
             retVal.HasValidityPeriodColumns.Returns(true);
 

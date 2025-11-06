@@ -10,6 +10,7 @@ namespace Foundation.Interfaces
     /// Defines the IDataProvider behaviours.
     /// Defines requirements
     /// </summary>
+    [DependencyInjectionIgnore]
     public interface IDataProvider
     {
         /// <summary>

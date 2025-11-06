@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Import Export Control Repository interface
     /// </summary>
-    public interface IImportExportControlRepository : IFoundationModelRepository<IImportExportControl>
+    public interface IImportExportControlRepository : IFoundationModelDataAccess<IImportExportControl>
     {
     }
 }

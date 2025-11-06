@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Currency Data Access interface
     /// </summary>
-    public interface ICurrencyRepository : IFoundationModelRepository<ICurrency>
+    public interface ICurrencyRepository : IFoundationModelDataAccess<ICurrency>
     {
     }
 }

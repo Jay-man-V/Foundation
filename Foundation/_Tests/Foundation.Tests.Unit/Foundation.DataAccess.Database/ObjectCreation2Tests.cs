@@ -41,9 +41,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
                 systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("InvalidConnectionString");
                 systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("UnitTestingUnknownProvider");
 
-                IFoundationDataAccess dataAccess = Substitute.For<IFoundationDataAccess>();
-
-                _ = new ComplexTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataAccess, dataProvider, DateTimeService);
+                _ = new ComplexTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataProvider, DateTimeService);
             });
 
             Assert.That(actualException, Is.InstanceOf<NotSupportedException>());

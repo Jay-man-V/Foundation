@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Database Schema Column Data Access interface
     /// </summary>
-    public interface IDatabaseSchemaColumnRepository
+    public interface IDatabaseSchemaColumnDataAccess
     {
         /// <summary>
         /// 

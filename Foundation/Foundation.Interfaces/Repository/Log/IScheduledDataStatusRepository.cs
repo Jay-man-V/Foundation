@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Scheduled Data Status Data Access interface
     /// </summary>
-    public interface IScheduledDataStatusRepository : IFoundationModelRepository<IScheduledDataStatus>
+    public interface IScheduledDataStatusRepository : IFoundationModelDataAccess<IScheduledDataStatus>
     {
     }
 }

@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 
 namespace Foundation.Repository.DataProvider
@@ -12,8 +13,24 @@ namespace Foundation.Repository.DataProvider
     /// Defines the Core Data Provider class
     /// </summary>
     /// <see cref="ICoreDataProvider" />
-    public class CoreDataProvider : ICoreDataProvider
+    /// <seealso cref="FoundationDataAccess" />
+    [DependencyInjectionTransient]
+    public class CoreDataProvider : FoundationDataAccess, ICoreDataProvider
     {
+        public CoreDataProvider
+        (
+            ICore core,
+            ISystemConfigurationService systemConfigurationService
+        ) :
+            base
+            (
+                core,
+                systemConfigurationService,
+                "Core"
+            )
+        {
+        }
+
         /// <inheritdoc cref="IDataProvider.ConnectionName"/>
         public String ConnectionName => "Core";
     }

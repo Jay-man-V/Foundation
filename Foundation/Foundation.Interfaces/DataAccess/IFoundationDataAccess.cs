@@ -11,19 +11,14 @@ namespace Foundation.Interfaces
     /// <summary>
     /// Defines the IFoundationDataAccess behaviours
     /// </summary>
+    [DependencyInjectionIgnore]
     public interface IFoundationDataAccess : IDisposable
     {
         /// <summary>
-        /// Gets the data provider.
-        /// Directs data operations to the correct source
-        /// </summary>
-        IDataProvider DataProvider { get; }
-
-        /// <summary>
-        /// Gets the database parameter prefix.
+        /// Gets the data logic provider.
         /// </summary>
         /// <value>
-        /// The database parameter prefix.
+        /// The data logic provider.
         /// </value>
         IDataLogicProvider DataLogicProvider { get; }
 

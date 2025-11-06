@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 
 namespace Foundation.Repository.DataProvider
@@ -12,8 +13,24 @@ namespace Foundation.Repository.DataProvider
     /// Defines the Staging Data Provider class
     /// </summary>
     /// <see cref="IStagingDataProvider" />
-    public class StagingDataProvider : IStagingDataProvider
+    /// <seealso cref="FoundationDataAccess" />
+    [DependencyInjectionTransient]
+    public class StagingDataProvider : FoundationDataAccess, IStagingDataProvider
     {
+        public StagingDataProvider
+        (
+            ICore core,
+            ISystemConfigurationService systemConfigurationService
+        ) :
+            base
+            (
+                core,
+                systemConfigurationService,
+                "Staging"
+            )
+        {
+        }
+
         /// <inheritdoc cref="IDataProvider.ConnectionName"/>
         public String ConnectionName => "Staging";
     }

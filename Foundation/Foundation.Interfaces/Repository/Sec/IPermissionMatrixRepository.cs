@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Permission Matrix Data Access interface
     /// </summary>
-    public interface IPermissionMatrixRepository : IFoundationModelRepository<IPermissionMatrix>
+    public interface IPermissionMatrixRepository : IFoundationModelDataAccess<IPermissionMatrix>
     {
         /// <summary>
         /// Determines if a user is authorised to execute a particular function

@@ -9,7 +9,6 @@ using System.Security.Principal;
 using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
-using Foundation.Repository.DataProvider;
 
 using DS = System.DirectoryServices;
 using FDC = Foundation.Resources.Constants.DataColumns;
@@ -21,7 +20,7 @@ namespace Foundation.Repository.Stg
     /// </summary>
     /// <see cref="IActiveDirectoryUser" />
     [DependencyInjectionTransient]
-    public class ActiveDirectoryUserRepository : FoundationModelRepository<IActiveDirectoryUser>, IActiveDirectoryUserRepository
+    public class ActiveDirectoryUserRepository : FoundationModelRepository<IActiveDirectoryUser>, IActiveDirectoryDataAccess
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ActiveDirectoryUserRepository"/> class.
@@ -29,14 +28,14 @@ namespace Foundation.Repository.Stg
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
-        /// <param name="foundationDataAccess">The foundation data access.</param>
+        /// <param name="stagingDataProvider">The staging data provider.</param>
         /// <param name="dateTimeService">The date/time service.</param>
         public ActiveDirectoryUserRepository
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             ISystemConfigurationService systemConfigurationService,
-            IFoundationDataAccess foundationDataAccess,
+            IStagingDataProvider stagingDataProvider,
             IDateTimeService dateTimeService
         ) :
             base
@@ -44,12 +43,11 @@ namespace Foundation.Repository.Stg
                 core,
                 runTimeEnvironmentSettings,
                 systemConfigurationService,
-                foundationDataAccess,
-                new StagingDataProvider(),
+                stagingDataProvider,
                 dateTimeService
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, foundationDataAccess, dateTimeService);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, stagingDataProvider, dateTimeService);
 
             LoggingHelpers.TraceCallReturn();
         }
@@ -71,7 +69,7 @@ namespace Foundation.Repository.Stg
         /// <inheritdoc cref="FoundationModelRepository{TModel}.EntityKey"/>
         protected override String EntityKey => FDC.ActiveDirectoryUser.ObjectSId;
 
-        /// <inheritdoc cref="IActiveDirectoryUserRepository.GetAllActiveDirectoryUsers()"/>
+        /// <inheritdoc cref="IActiveDirectoryDataAccess.GetAllActiveDirectoryUsers()"/>
         public List<IActiveDirectoryUser> GetAllActiveDirectoryUsers()
         {
             LoggingHelpers.TraceCallEnter();

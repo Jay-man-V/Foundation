@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Application Application Type Data Access interface
     /// </summary>
-    public interface IApplicationApplicationTypeRepository : IFoundationModelRepository<IApplicationApplicationType>
+    public interface IApplicationApplicationTypeDataAccess : IFoundationModelDataAccess<IApplicationApplicationType>
     {
     }
 }

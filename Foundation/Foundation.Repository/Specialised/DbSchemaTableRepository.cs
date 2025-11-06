@@ -10,7 +10,7 @@ using System.Text;
 using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
-using Foundation.Repository.DataProvider;
+
 using FDC = Foundation.Resources.Constants.DataColumns;
 
 namespace Foundation.Repository.Specialised
@@ -20,7 +20,7 @@ namespace Foundation.Repository.Specialised
     /// </summary>
     /// <see cref="IDatabaseSchemaTable" />
     [DependencyInjectionTransient]
-    public class DbSchemaTableRepository : FoundationDataAccess, IDatabaseSchemaTableRepository
+    public class DbSchemaTableRepository : FoundationDataAccess, IDatabaseSchemaTableDataAccess
     {
         /// <summary>
         /// Gets the name of the entity.
@@ -43,21 +43,23 @@ namespace Foundation.Repository.Specialised
         /// </summary>
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
+        /// <param name="schemaDataProvider">The schema data provider.</param>
         public DbSchemaTableRepository
         (
             ICore core,
-            ISystemConfigurationService systemConfigurationService
+            ISystemConfigurationService systemConfigurationService,
+            ISchemaDataProvider schemaDataProvider
         ) :
             base
             (
                 core,
                 systemConfigurationService,
-                new SchemaDataProvider()
+                schemaDataProvider.ConnectionName
             )
         {
-            LoggingHelpers.TraceCallEnter(core, systemConfigurationService);
+            LoggingHelpers.TraceCallEnter(core, systemConfigurationService, schemaDataProvider);
 
-            DbSchemaColumnRepository = new DatabaseSchemaColumnRepository(core, systemConfigurationService);
+            DbSchemaColumnRepository = new DatabaseSchemaColumnRepository(core, systemConfigurationService, schemaDataProvider);
 
             LoggingHelpers.TraceCallReturn();
         }
@@ -68,9 +70,9 @@ namespace Foundation.Repository.Specialised
         /// <value>
         /// The database schema column repository.
         /// </value>
-        private IDatabaseSchemaColumnRepository DbSchemaColumnRepository { get; }
+        private IDatabaseSchemaColumnDataAccess DbSchemaColumnRepository { get; }
 
-        /// <inheritdoc cref="IDatabaseSchemaTableRepository.GetAllTables()"/>
+        /// <inheritdoc cref="IDatabaseSchemaTableDataAccess.GetAllTables()"/>
         public List<IDatabaseSchemaTable> GetAllTables()
         {
             LoggingHelpers.TraceCallEnter();

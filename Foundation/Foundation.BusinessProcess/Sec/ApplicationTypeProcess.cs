@@ -16,7 +16,7 @@ namespace Foundation.BusinessProcess.Sec
     /// The Application Type Business Process
     /// </summary>
     [DependencyInjectionTransient]
-    public class ApplicationTypeProcess : CommonBusinessProcess<IApplicationType, IApplicationTypeRepository>, IApplicationTypeProcess
+    public class ApplicationTypeProcess : CommonBusinessProcess<IApplicationType, IApplicationTypeDataAccess>, IApplicationTypeProcess
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ApplicationTypeProcess" /> class.
@@ -35,7 +35,7 @@ namespace Foundation.BusinessProcess.Sec
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
             ILoggingService loggingService,
-            IApplicationTypeRepository repository,
+            IApplicationTypeDataAccess repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
             IReportGenerator reportGenerator

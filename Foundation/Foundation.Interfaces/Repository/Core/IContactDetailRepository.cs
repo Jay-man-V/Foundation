@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Contact Detail Data Access interface
     /// </summary>
-    public interface IContactDetailRepository : IFoundationModelRepository<IContactDetail>
+    public interface IContactDetailRepository : IFoundationModelDataAccess<IContactDetail>
     {
     }
 }

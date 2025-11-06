@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Office Week Calendar Data Access interface
     /// </summary>
-    public interface IOfficeWeekCalendarRepository : IFoundationModelRepository<IOfficeWeekCalendar>
+    public interface IOfficeWeekCalendarRepository : IFoundationModelDataAccess<IOfficeWeekCalendar>
     {
     }
 }

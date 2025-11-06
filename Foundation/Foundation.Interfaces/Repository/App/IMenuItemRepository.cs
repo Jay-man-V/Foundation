@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Menu Item Data Access interface
     /// </summary>
-    public interface IMenuItemRepository : IFoundationModelRepository<IMenuItem>
+    public interface IMenuItemRepository : IFoundationModelDataAccess<IMenuItem>
     {
     }
 }

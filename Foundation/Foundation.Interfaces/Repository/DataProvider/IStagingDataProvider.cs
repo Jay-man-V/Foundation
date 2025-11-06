@@ -10,7 +10,7 @@ namespace Foundation.Interfaces
     /// Defines the IStagingDataProvider behaviours.
     /// Defines requirements
     /// </summary>
-    public interface IStagingDataProvider : IDataProvider
+    public interface IStagingDataProvider : IDataProvider, IFoundationDataAccess
     {
     }
 }

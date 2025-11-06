@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Office Data Access interface
     /// </summary>
-    public interface IOfficeRepository : IFoundationModelRepository<IOffice>
+    public interface IOfficeRepository : IFoundationModelDataAccess<IOffice>
     {
     }
 }

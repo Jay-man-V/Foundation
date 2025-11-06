@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Language Data Access interface
     /// </summary>
-    public interface ILanguageRepository : IFoundationModelRepository<ILanguage>
+    public interface ILanguageRepository : IFoundationModelDataAccess<ILanguage>
     {
     }
 }

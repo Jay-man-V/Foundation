@@ -16,7 +16,7 @@ namespace Foundation.BusinessProcess.Sec
     /// The Application User Role Process
     /// </summary>
     [DependencyInjectionTransient]
-    public class ApplicationUserRoleProcess : CommonBusinessProcess<IApplicationUserRole, IApplicationUserRoleRepository>, IApplicationUserRoleProcess
+    public class ApplicationUserRoleProcess : CommonBusinessProcess<IApplicationUserRole, IApplicationUserRoleDataAccess>, IApplicationUserRoleProcess
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ApplicationUserRoleProcess" /> class.
@@ -38,7 +38,7 @@ namespace Foundation.BusinessProcess.Sec
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
             ILoggingService loggingService,
-            IApplicationUserRoleRepository repository,
+            IApplicationUserRoleDataAccess repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
             IReportGenerator reportGenerator,

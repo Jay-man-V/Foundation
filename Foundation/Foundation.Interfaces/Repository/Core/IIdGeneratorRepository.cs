@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Id Generator Repository interface
     /// </summary>
-    public interface IIdGeneratorRepository : IFoundationModelRepository<IIdGenerator>
+    public interface IIdGeneratorRepository : IFoundationModelDataAccess<IIdGenerator>
     {
         /// <summary>
         /// Gets the next value for a id

@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Time Zone Data Access interface
     /// </summary>
-    public interface ITimeZoneRepository : IFoundationModelRepository<ITimeZone>
+    public interface ITimeZoneRepository : IFoundationModelDataAccess<ITimeZone>
     {
     }
 }

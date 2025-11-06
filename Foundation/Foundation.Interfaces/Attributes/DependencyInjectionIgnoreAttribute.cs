@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// Defines the Dependency Injection Ignore Attribute for dependency injection
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface)]
     public class DependencyInjectionIgnoreAttribute : Attribute
     {
     }

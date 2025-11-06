@@ -16,7 +16,7 @@ namespace Foundation.BusinessProcess.Stg
     /// Defines the Active Directory User Process
     /// </summary>
     [DependencyInjectionTransient]
-    public class ActiveDirectoryUserProcess : CommonBusinessProcess<IActiveDirectoryUser, IActiveDirectoryUserRepository>, IActiveDirectoryUserProcess
+    public class ActiveDirectoryUserProcess : CommonBusinessProcess<IActiveDirectoryUser, IActiveDirectoryDataAccess>, IActiveDirectoryUserProcess
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ActiveDirectoryUserProcess" /> class.
@@ -35,7 +35,7 @@ namespace Foundation.BusinessProcess.Stg
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
             ILoggingService loggingService,
-            IActiveDirectoryUserRepository repository,
+            IActiveDirectoryDataAccess repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
             IReportGenerator reportGenerator

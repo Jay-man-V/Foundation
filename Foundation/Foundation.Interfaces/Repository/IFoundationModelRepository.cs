@@ -10,7 +10,8 @@ namespace Foundation.Interfaces
     /// Defines the IFoundationModelRepository behaviours
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
-    public interface IFoundationModelRepository<TModel> : IDisposable where TModel : IFoundationModel
+    [DependencyInjectionIgnore]
+    public interface IFoundationModelDataAccess<TModel> : IDisposable where TModel : IFoundationModel
     {
         /// <summary>
         /// Gets a value indicating whether this instance has static data columns.

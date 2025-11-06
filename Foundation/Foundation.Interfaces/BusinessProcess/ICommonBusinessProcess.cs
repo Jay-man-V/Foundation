@@ -15,6 +15,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// 
     /// </summary>
+    [DependencyInjectionIgnore]
     public interface ICommonBusinessProcess : ICommonProcess
     {
         /// <summary>
@@ -355,6 +356,7 @@ namespace Foundation.Interfaces
     /// Defines common business process behaviours and actions
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
+    [DependencyInjectionIgnore]
     public interface ICommonBusinessProcess<TModel> : ICommonBusinessProcess
         where TModel : IFoundationModel
     {

@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Data Status Data Access interface
     /// </summary>
-    public interface IDataStatusRepository : IFoundationModelRepository<IDataStatus>
+    public interface IDataStatusRepository : IFoundationModelDataAccess<IDataStatus>
     {
     }
 }

@@ -11,6 +11,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// Defines the behaviour of the View Model
     /// </summary>
+    [DependencyInjectionIgnore]
     public interface IViewModel : INotifyPropertyChanged
     {
         //String Caption { get; }

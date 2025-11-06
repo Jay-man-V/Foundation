@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Scheduled Job Data Access interface
     /// </summary>
-    public interface IScheduledJobRepository : IFoundationModelRepository<IScheduledJob>
+    public interface IScheduledJobRepository : IFoundationModelDataAccess<IScheduledJob>
     {
     }
 }

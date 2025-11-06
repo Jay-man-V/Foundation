@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Application Role Data Access interface
     /// </summary>
-    public interface IApplicationRoleRepository : IFoundationModelRepository<IApplicationRole>
+    public interface IApplicationRoleDataAccess : IFoundationModelDataAccess<IApplicationRole>
     {
     }
 }

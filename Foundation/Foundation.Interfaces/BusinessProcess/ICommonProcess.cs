@@ -9,6 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// 
     /// </summary>
+    [DependencyInjectionIgnore]
     public interface ICommonProcess
     {
 

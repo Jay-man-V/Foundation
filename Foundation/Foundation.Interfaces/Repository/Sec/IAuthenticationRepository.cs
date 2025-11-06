@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Authentication Data Access interface
     /// </summary>
-    public interface IAuthenticationRepository
+    public interface IAuthenticationDataAccess
     {
         /// <summary>
         /// Checks the database for the existence of the user profile for the application

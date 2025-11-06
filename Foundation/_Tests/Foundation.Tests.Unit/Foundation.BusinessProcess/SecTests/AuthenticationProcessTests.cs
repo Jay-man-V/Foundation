@@ -19,7 +19,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
     [TestFixture]
     public class AuthenticationProcessTests : BusinessProcessUnitTestsBase
     {
-        private IAuthenticationRepository? TheRepository { get; set; }
+        private IAuthenticationDataAccess? TheRepository { get; set; }
         private IIdGeneratorService? IdService { get; set; }
         private IAuthenticationProcess? TheProcess { get; set; }
 
@@ -29,7 +29,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
             IdService = Substitute.For<IIdGeneratorService>();
 
-            TheRepository = Substitute.For<IAuthenticationRepository>();
+            TheRepository = Substitute.For<IAuthenticationDataAccess>();
 
             TheProcess = new AuthenticationProcess(CoreInstance, LoggingService, TheRepository!);
         }

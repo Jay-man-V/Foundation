@@ -34,9 +34,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("Unit Testing Connection String");
             systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("System.Data.SqlClient");
 
-            IFoundationDataAccess dataAccess = Substitute.For<IFoundationDataAccess>();
-
-            SimpleTestEntityRepository retVal = new SimpleTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataAccess, dataProvider, DateTimeService);
+            SimpleTestEntityRepository retVal = new SimpleTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataProvider, DateTimeService);
 
             return retVal;
         }
@@ -56,13 +54,11 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("Unit Testing Connection String");
             systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("System.Data.SqlClient");
 
-            IFoundationDataAccess dataAccess = Substitute.For<IFoundationDataAccess>();
-
-            ComplexTestEntityRepository obj = new ComplexTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataAccess, dataProvider, DateTimeService);
+            ComplexTestEntityRepository obj = new ComplexTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataProvider, DateTimeService);
 
             Assert.That(obj, Is.Not.EqualTo(null));
             Assert.That(obj, Is.InstanceOf<FoundationModelRepository<IMockFoundationModel>>());
-            Assert.That(obj, Is.InstanceOf<IFoundationModelRepository<IMockFoundationModel>>());
+            Assert.That(obj, Is.InstanceOf<IFoundationModelDataAccess<IMockFoundationModel>>());
             Assert.That(obj, Is.InstanceOf<IDisposable>());
         }
 

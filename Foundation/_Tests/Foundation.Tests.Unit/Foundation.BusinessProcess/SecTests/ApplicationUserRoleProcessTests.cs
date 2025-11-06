@@ -20,15 +20,15 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
     /// Summary description for ApplicationUserRoleProcessTests
     /// </summary>
     [TestFixture]
-    public class ApplicationUserRoleProcessTests : CommonBusinessProcessTests<IApplicationUserRole, IApplicationUserRoleProcess, IApplicationUserRoleRepository>
+    public class ApplicationUserRoleProcessTests : CommonBusinessProcessTests<IApplicationUserRole, IApplicationUserRoleProcess, IApplicationUserRoleDataAccess>
     {
         protected override Int32 ColumnDefinitionsCount => 11;
         protected override String ExpectedScreenTitle => "Application/User/Roles";
         protected override String ExpectedStatusBarText => "Number of Application/User/Roles:";
 
-        protected override IApplicationUserRoleRepository CreateRepository()
+        protected override IApplicationUserRoleDataAccess CreateRepository()
         {
-            IApplicationUserRoleRepository retVal = Substitute.For<IApplicationUserRoleRepository>();
+            IApplicationUserRoleDataAccess retVal = Substitute.For<IApplicationUserRoleDataAccess>();
 
             retVal.HasValidityPeriodColumns.Returns(true);
 

@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Approval Status Data Access interface
     /// </summary>
-    public interface IApprovalStatusRepository : IFoundationModelRepository<IApprovalStatus>
+    public interface IApprovalStatusRepository : IFoundationModelDataAccess<IApprovalStatus>
     {
     }
 }

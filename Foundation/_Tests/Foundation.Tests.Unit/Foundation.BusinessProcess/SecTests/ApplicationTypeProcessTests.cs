@@ -20,7 +20,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
     /// Summary description for ApplicationTypeProcessTests
     /// </summary>
     [TestFixture]
-    public class ApplicationTypeProcessTests : CommonBusinessProcessTests<IApplicationType, IApplicationTypeProcess, IApplicationTypeRepository>
+    public class ApplicationTypeProcessTests : CommonBusinessProcessTests<IApplicationType, IApplicationTypeProcess, IApplicationTypeDataAccess>
     {
         protected override Int32 ColumnDefinitionsCount => 9;
         protected override String ExpectedScreenTitle => "Application Types";
@@ -29,9 +29,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
         protected override String ExpectedComboBoxDisplayMember => FDC.ApplicationType.Name;
 
 
-        protected override IApplicationTypeRepository CreateRepository()
+        protected override IApplicationTypeDataAccess CreateRepository()
         {
-            IApplicationTypeRepository retVal = Substitute.For<IApplicationTypeRepository>();
+            IApplicationTypeDataAccess retVal = Substitute.For<IApplicationTypeDataAccess>();
 
             retVal.HasValidityPeriodColumns.Returns(true);
 

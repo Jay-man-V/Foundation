@@ -10,7 +10,7 @@ namespace Foundation.Interfaces
     /// Defines the ISecurityDataProvider behaviours.
     /// Defines requirements
     /// </summary>
-    public interface ISecurityDataProvider : IDataProvider
+    public interface ISecurityDataProvider : IDataProvider, IFoundationDataAccess
     {
     }
 }

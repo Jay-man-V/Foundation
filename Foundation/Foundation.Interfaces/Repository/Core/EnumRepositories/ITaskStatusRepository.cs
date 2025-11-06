@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Task Status Data Access interface
     /// </summary>
-    public interface ITaskStatusRepository : IFoundationModelRepository<ITaskStatus>
+    public interface ITaskStatusRepository : IFoundationModelDataAccess<ITaskStatus>
     {
     }
 }

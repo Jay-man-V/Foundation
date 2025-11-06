@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Application Data Access interface
     /// </summary>
-    public interface IApplicationRepository : IFoundationModelRepository<IApplication>
+    public interface IApplicationDataAccess : IFoundationModelDataAccess<IApplication>
     {
         /// <summary>
         /// Deletes the entity with the <paramref name="applicationId"/>

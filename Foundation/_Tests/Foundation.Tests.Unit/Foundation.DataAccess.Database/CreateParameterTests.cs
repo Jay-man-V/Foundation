@@ -35,15 +35,13 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
 
             ICore core = Substitute.For<ICore>();
 
-            IUnitTestingDataProvider dataProvider = new UnitTestingDataProvider();
-
             ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("Microsoft Sql Server Connection String");
             systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("System.Data.SqlClient");
 
-            IFoundationDataAccess dataAccess = Substitute.For<IFoundationDataAccess>();
+            IUnitTestingDataProvider dataProvider = new UnitTestingDataProvider(core, systemConfigurationService, "UnitTesting");
 
-            TheRepository = new MockFoundationModelRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataAccess, dataProvider, DateTimeService);
+            TheRepository = new MockFoundationModelRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataProvider, DateTimeService);
         }
 
         public override void TestCleanup()

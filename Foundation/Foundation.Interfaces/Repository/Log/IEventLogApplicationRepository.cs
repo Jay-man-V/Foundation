@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Event Log Application Data Access interface
     /// </summary>
-    public interface IEventLogApplicationRepository : IFoundationModelRepository<IEventLogApplication>
+    public interface IEventLogApplicationRepository : IFoundationModelDataAccess<IEventLogApplication>
     {
     }
 }
