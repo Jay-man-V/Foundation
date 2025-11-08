@@ -23,22 +23,6 @@ namespace Foundation.Repository.Specialised
     public class DatabaseSchemaColumnRepository : FoundationDataAccess, IDatabaseSchemaColumnDataAccess
     {
         /// <summary>
-        /// Gets the name of the entity.
-        /// </summary>
-        /// <value>
-        /// The name of the entity.
-        /// </value>
-        protected String EntityName => FDC.Specialised.DatabaseSchemaColumn.EntityName;
-
-        /// <summary>
-        /// Gets the name of the table.
-        /// </summary>
-        /// <value>
-        /// The name of the table.
-        /// </value>
-        protected String TableName => FDC.TableNames.Specialised.DbSchemaColumn;
-
-        /// <summary>
         /// Initialises a new instance of the <see cref="DatabaseSchemaColumnRepository"/> class.
         /// </summary>
         /// <param name="core">The Foundation Core service.</param>
@@ -63,6 +47,22 @@ namespace Foundation.Repository.Specialised
 
             LoggingHelpers.TraceCallReturn();
         }
+
+        /// <summary>
+        /// Gets the name of the entity.
+        /// </summary>
+        /// <value>
+        /// The name of the entity.
+        /// </value>
+        protected String EntityName => FDC.Specialised.DatabaseSchemaColumn.EntityName;
+
+        /// <summary>
+        /// Gets the name of the table.
+        /// </summary>
+        /// <value>
+        /// The name of the table.
+        /// </value>
+        protected String TableName => FDC.TableNames.Specialised.DbSchemaColumn;
 
         /// <inheritdoc cref="IDatabaseSchemaColumnDataAccess.GetAllColumns(IDatabaseSchemaTable)"/>
         public List<IDatabaseSchemaColumn> GetAllColumns(IDatabaseSchemaTable databaseSchemaTable)

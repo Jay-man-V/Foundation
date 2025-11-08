@@ -10,7 +10,7 @@ namespace Foundation.Interfaces
     /// Defines the ISchemaDatabaseProvider behaviours.
     /// Defines requirements
     /// </summary>
-    public interface ISchemaDataProvider : IDataProvider, IFoundationDataAccess
+    public interface ISchemaDataProvider : IDataProvider
     {
     }
 }

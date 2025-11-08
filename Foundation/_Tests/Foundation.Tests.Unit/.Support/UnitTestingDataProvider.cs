@@ -9,7 +9,7 @@ using Foundation.Interfaces;
 
 namespace Foundation.Tests.Unit.Support
 {
-    public interface IUnitTestingDataProvider : IDataProvider, IFoundationDataAccess
+    public interface IUnitTestingDataProvider : IDataProvider
     {
 
     }
@@ -17,6 +17,20 @@ namespace Foundation.Tests.Unit.Support
     [DependencyInjectionTransient]
     public class UnitTestingDataProvider : FoundationDataAccess, IUnitTestingDataProvider
     {
+        public UnitTestingDataProvider
+        (
+            ICore core,
+            ISystemConfigurationService systemConfigurationService
+        ) :
+            this
+            (
+                core,
+                systemConfigurationService,
+                "UnitTesting"
+            )
+        {
+        }
+
         public UnitTestingDataProvider
         (
             ICore core,

@@ -26,7 +26,8 @@ namespace Foundation.Repository
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <see cref="FoundationDataAccess" />
-    public abstract class FoundationModelRepository<TModel> : IFoundationModelDataAccess<TModel> where TModel : IFoundationModel
+    public abstract class FoundationModelRepository<TModel> : IFoundationModelDataAccess<TModel>
+        where TModel : IFoundationModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="IFoundationModelDataAccess{TModel}"/> class.
@@ -34,22 +35,23 @@ namespace Foundation.Repository
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
-        /// <param name="foundationDataAccess">The foundation data access.</param>
+        /// <param name="dataProvider">The data provider.</param>
         /// <param name="dateTimeService">The date/time service.</param>
         protected FoundationModelRepository
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             ISystemConfigurationService systemConfigurationService,
-            IFoundationDataAccess foundationDataAccess,
+            IDataProvider dataProvider,
             IDateTimeService dateTimeService
         )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, foundationDataAccess, dateTimeService);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, dataProvider, dateTimeService);
 
             Core = core;
             RunTimeEnvironmentSettings = runTimeEnvironmentSettings;
-            FoundationDataAccess = foundationDataAccess;
+            //FoundationDataAccess = foundationDataAccess;
+            FoundationDataAccess = new FoundationDataAccess(core, systemConfigurationService, dataProvider.ConnectionName);
             DateTimeService = dateTimeService;
 
             _entityProperties = [];
@@ -361,7 +363,8 @@ namespace Foundation.Repository
             Boolean canEditOwnRecord = Core.CurrentLoggedOnUser.UserProfile.Roles.Any(r => r.ApplicationRole == RequiredMinimumEditRole &&
                                                                                            Core.CurrentLoggedOnUser.Id == entity.CreatedByUserProfileId);
 
-            Boolean canEditAllRecords = Core.CurrentLoggedOnUser.UserProfile.Roles.Any(r => r.ApplicationRole == ApplicationRole.AllEditor);
+            Boolean canEditAllRecords = Core.CurrentLoggedOnUser.UserProfile.Roles.Any(r => r.ApplicationRole >= RequiredMinimumEditRole &&
+                                                                                            r.ApplicationRole == ApplicationRole.AllEditor);
 
             Boolean isSystemAdministrator = Core.CurrentLoggedOnUser.UserProfile.Roles.Any(r => r.ApplicationRole == ApplicationRole.SystemAdministrator ||
                                                                                                 r.ApplicationRole == ApplicationRole.SystemDataAdministrator);
@@ -387,7 +390,8 @@ namespace Foundation.Repository
             Boolean canDeleteOwnRecord = Core.CurrentLoggedOnUser.UserProfile.Roles.Any(r => r.ApplicationRole == RequiredMinimumDeleteRole &&
                                                                                              Core.CurrentLoggedOnUser.Id == entity.CreatedByUserProfileId);
 
-            Boolean canDeleteAllRecords = Core.CurrentLoggedOnUser.UserProfile.Roles.Any(r => r.ApplicationRole == ApplicationRole.AllDelete);
+            Boolean canDeleteAllRecords = Core.CurrentLoggedOnUser.UserProfile.Roles.Any(r => r.ApplicationRole >= RequiredMinimumDeleteRole &&
+                                                                                              r.ApplicationRole == ApplicationRole.AllDelete);
 
             Boolean isSystemAdministrator = Core.CurrentLoggedOnUser.UserProfile.Roles.Any(r => r.ApplicationRole == ApplicationRole.SystemAdministrator ||
                                                                                                 r.ApplicationRole == ApplicationRole.SystemDataAdministrator);

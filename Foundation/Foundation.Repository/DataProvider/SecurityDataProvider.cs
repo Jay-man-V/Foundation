@@ -4,7 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 
 namespace Foundation.Repository.DataProvider
@@ -13,9 +12,9 @@ namespace Foundation.Repository.DataProvider
     /// Defines the Security Data Provider class
     /// </summary>
     /// <see cref="ISecurityDataProvider" />
-    /// <seealso cref="FoundationDataAccess" />
+    /// <seealso cref="DataProvider" />
     [DependencyInjectionTransient]
-    public class SecurityDataProvider : FoundationDataAccess, ISecurityDataProvider
+    public class SecurityDataProvider : DataProvider, ISecurityDataProvider
     {
         public SecurityDataProvider
         (
@@ -30,8 +29,5 @@ namespace Foundation.Repository.DataProvider
             )
         {
         }
-
-        /// <inheritdoc cref="IDataProvider.ConnectionName"/>
-        public String ConnectionName => "Security";
     }
 }

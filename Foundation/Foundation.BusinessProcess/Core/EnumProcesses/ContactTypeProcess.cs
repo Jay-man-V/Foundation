@@ -75,9 +75,10 @@ namespace Foundation.BusinessProcess.Core.EnumProcesses
             IGridColumnDefinition gridColumnDefinition;
 
             gridColumnDefinition = new GridColumnDefinition(150, FDC.ContactType.Name, "Name", typeof(String));
+            gridColumnDefinition.TextAlignment = TextAlignment.Centre;
             retVal.Add(gridColumnDefinition);
 
-            gridColumnDefinition = new GridColumnDefinition(150, FDC.ContactType.Description, "Description", typeof(String));
+            gridColumnDefinition = new GridColumnDefinition(300, FDC.ContactType.Description, "Description", typeof(String));
             retVal.Add(gridColumnDefinition);
 
             LoggingHelpers.TraceCallReturn(retVal);

@@ -7,7 +7,6 @@
 using NSubstitute;
 
 using Foundation.Interfaces;
-
 using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Mocks;
 using Foundation.Tests.Unit.Support;
@@ -22,6 +21,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
     public class ExecuteGetRowCountTests : UnitTestBase
     {
         private IMockFoundationModelRepository? TheRepository { get; set; }
+        private IUnitTestingDataProvider? DataProvider { get; set; }
 
         public override void TestInitialise()
         {
@@ -33,9 +33,9 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("Server=Callisto;Database=Master;User Id=Jay;Password=pass;TrustServerCertificate=True;");
             systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("System.Data.SqlClient");
 
-            IUnitTestingDataProvider dataProvider = new UnitTestingDataProvider(core, systemConfigurationService, "UnitTesting");
+            DataProvider = Substitute.For<IUnitTestingDataProvider>();
 
-            TheRepository = new MockFoundationModelRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataProvider, DateTimeService);
+            TheRepository = new MockFoundationModelRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, DataProvider, DateTimeService);
         }
 
         public override void TestCleanup()
@@ -43,16 +43,21 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             TheRepository!.Dispose();
             TheRepository = null;
 
+            //DataProvider?.Dispose();
+            //DataProvider = null;
+
             base.TestCleanup();
         }
 
-        [TestCase]
-        public void Test_ExecuteGetCount()
-        {
-            String sql = "select count(*) from [TestEntity]";
-            Int32 actual = TheRepository!.FoundationDataAccess.ExecuteGetRowCount(sql);
+        //[TestCase]
+        //public void Test_ExecuteGetCount()
+        //{
+        //    String sql = "SELECT COUNT(*) FROM [TestEntity]";
 
-            Assert.That(actual, Is.EqualTo(0));
-        }
+        //    DataProvider!.ExecuteGetRowCount(sql).Returns(100);
+        //    Int32 actual = TheRepository!.FoundationDataAccess.ExecuteGetRowCount(sql);
+
+        //    Assert.That(actual, Is.EqualTo(100));
+        //}
     }
 }

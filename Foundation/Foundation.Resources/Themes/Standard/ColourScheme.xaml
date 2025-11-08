@@ -3,8 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 >
     <LinearGradientBrush x:Key="DefaultWindowBackgroundBrush" EndPoint="1,0" StartPoint="0,0">
-        <GradientStop Color="Aquamarine" Offset="0" />
-        <GradientStop Color="LightCyan" Offset="1"/>
+        <GradientStop Color="#7FFFD4" Offset="0" />
+        <GradientStop Color="#7FFFD4" Offset="1"/>
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="DefaultWindowBorderBrush" EndPoint="1,0" StartPoint="0,0">

@@ -151,7 +151,7 @@ namespace Foundation.Core
                     typeNamespacePrefix,
                     ServiceCollection,
                     singletonTypes,
-                    implementationType => ServiceCollection.AddSingleton(implementationType),
+                    (implementationType) => ServiceCollection.AddSingleton(implementationType),
                     (interfaceType, implementationType) => ServiceCollection.AddSingleton(interfaceType, implementationType)
                 );
 
@@ -160,7 +160,7 @@ namespace Foundation.Core
                     typeNamespacePrefix,
                     ServiceCollection,
                     scopedTypes,
-                    implementationType => ServiceCollection.AddScoped(implementationType),
+                    (implementationType) => ServiceCollection.AddScoped(implementationType),
                     (interfaceType, implementationType) => ServiceCollection.AddScoped(interfaceType, implementationType)
                 );
 
@@ -169,7 +169,7 @@ namespace Foundation.Core
                     typeNamespacePrefix,
                     ServiceCollection,
                     transientTypes,
-                    implementationType => ServiceCollection.AddTransient(implementationType),
+                    (implementationType) => ServiceCollection.AddTransient(implementationType),
                     (interfaceType, implementationType) => ServiceCollection.AddTransient(interfaceType, implementationType)
                 );
 
@@ -221,7 +221,7 @@ namespace Foundation.Core
                         {
                             String interfaceName = interfaceType.Name;
 #if (DEBUG)
-                            if (interfaceName.Contains("IFoundationDataAccess"))
+                            if (interfaceName.Contains("ILogDataProvider"))
                             {
                             }
 #endif

@@ -10,7 +10,7 @@ namespace Foundation.Interfaces
     /// Defines the ILogDataProvider behaviours.
     /// Defines requirements
     /// </summary>
-    public interface ILogDataProvider : IDataProvider, IFoundationDataAccess
+    public interface ILogDataProvider : IDataProvider
     {
     }
 }

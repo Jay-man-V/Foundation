@@ -155,7 +155,7 @@ namespace Foundation.Services.Application
 
                 if (applicationConfiguration.IsEncrypted)
                 {
-                    loadedValue = EncryptionService.DecryptData(key, loadedValue);
+                    loadedValue = EncryptionService.DecryptData(key, loadedValue!); // Null check is above
                 }
 
                 retVal = SerialisationHelpers.Deserialise<TValue>(loadedValue);

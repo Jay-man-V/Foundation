@@ -4,7 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 
 namespace Foundation.Repository.DataProvider
@@ -12,10 +11,10 @@ namespace Foundation.Repository.DataProvider
     /// <summary>
     /// Defines the Log Data Provider class
     /// </summary>
-    /// <see cref="LogDataProvider" />
-    /// <seealso cref="FoundationDataAccess" />
+    /// <see cref="ILogDataProvider" />
+    /// <seealso cref="DataProvider" />
     [DependencyInjectionTransient]
-    public class LogDataProvider : FoundationDataAccess, ILogDataProvider
+    public class LogDataProvider : DataProvider, ILogDataProvider
     {
         public LogDataProvider
         (
@@ -30,8 +29,5 @@ namespace Foundation.Repository.DataProvider
             )
         {
         }
-
-        /// <inheritdoc cref="IDataProvider.ConnectionName"/>
-        public String ConnectionName => "Log";
     }
 }

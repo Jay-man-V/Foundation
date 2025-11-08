@@ -10,7 +10,7 @@ namespace Foundation.Interfaces
     /// Defines the ICoreDataProvider behaviours.
     /// Defines requirements
     /// </summary>
-    public interface ICoreDataProvider : IDataProvider, IFoundationDataAccess
+    public interface ICoreDataProvider : IDataProvider
     {
     }
 }

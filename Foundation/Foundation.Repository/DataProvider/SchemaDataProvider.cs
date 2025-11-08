@@ -4,7 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 
 namespace Foundation.Repository.DataProvider
@@ -13,9 +12,9 @@ namespace Foundation.Repository.DataProvider
     /// Defines the Schema Data Provider class
     /// </summary>
     /// <see cref="ISchemaDataProvider" />
-    /// <seealso cref="FoundationDataAccess" />
+    /// <seealso cref="DataProvider" />
     [DependencyInjectionTransient]
-    public class SchemaDataProvider : FoundationDataAccess, ISchemaDataProvider
+    public class SchemaDataProvider : DataProvider, ISchemaDataProvider
     {
         public SchemaDataProvider
         (
@@ -30,8 +29,5 @@ namespace Foundation.Repository.DataProvider
             )
         {
         }
-
-        /// <inheritdoc cref="IDataProvider.ConnectionName"/>
-        public String ConnectionName => "Schema";
     }
 }

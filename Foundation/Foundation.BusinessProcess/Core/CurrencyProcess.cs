@@ -75,18 +75,21 @@ namespace Foundation.BusinessProcess.Core
             IGridColumnDefinition gridColumnDefinition;
 
             gridColumnDefinition = new GridColumnDefinition(150, FDC.Currency.IsoCode, "ISO Code", typeof(String));
+            gridColumnDefinition.TextAlignment = TextAlignment.Centre;
             retVal.Add(gridColumnDefinition);
 
             gridColumnDefinition = new GridColumnDefinition(150, FDC.Currency.IsoNumber, "ISO Number", typeof(String));
+            gridColumnDefinition.TextAlignment = TextAlignment.Right;
             retVal.Add(gridColumnDefinition);
 
             gridColumnDefinition = new GridColumnDefinition(150, FDC.Currency.Symbol, "Symbol", typeof(String));
             retVal.Add(gridColumnDefinition);
 
             gridColumnDefinition = new GridColumnDefinition(150, FDC.Currency.PrefixSymbol, "Prefix Symbol", typeof(String));
+            gridColumnDefinition.TextAlignment = TextAlignment.Centre;
             retVal.Add(gridColumnDefinition);
 
-            gridColumnDefinition = new GridColumnDefinition(150, FDC.Currency.Name, "Name", typeof(String));
+            gridColumnDefinition = new GridColumnDefinition(250, FDC.Currency.Name, "Name", typeof(String));
             retVal.Add(gridColumnDefinition);
 
             gridColumnDefinition = new GridColumnDefinition(150, FDC.Currency.NumberToBasic, "Number to Basic", typeof(Int32));

@@ -34,12 +34,11 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
 
             NotSupportedException actualException = Assert.Throws<NotSupportedException>(() =>
             {
-                IUnitTestingDataProvider dataProvider = Substitute.For<IUnitTestingDataProvider>();
-                dataProvider.ConnectionName.Returns(connectionStringConfiguration);
-
                 ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
                 systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("InvalidConnectionString");
                 systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("UnitTestingUnknownProvider");
+
+                IUnitTestingDataProvider dataProvider = new UnitTestingDataProvider(core, systemConfigurationService, connectionStringConfiguration);
 
                 _ = new ComplexTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataProvider, DateTimeService);
             });

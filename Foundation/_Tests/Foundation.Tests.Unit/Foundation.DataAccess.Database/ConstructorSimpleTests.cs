@@ -36,10 +36,9 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
 
             ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
             {
-                IUnitTestingDataProvider dataProvider = Substitute.For<IUnitTestingDataProvider>();
-                dataProvider.ConnectionName.Returns(connectionStringKey);
-
                 ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
+
+                IUnitTestingDataProvider dataProvider = new UnitTestingDataProvider(core, systemConfigurationService, connectionStringKey);
 
                 _ = new SimpleTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataProvider, DateTimeService);
             });
@@ -59,12 +58,11 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             String connectionStringKey = "MsSQLDataLogicProviderTest";
             String dataProviderName = "System.Data.SqlClient";
 
-            IUnitTestingDataProvider dataProvider = Substitute.For<IUnitTestingDataProvider>();
-            dataProvider.ConnectionName.Returns(connectionStringKey);
-
             ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("Microsoft Sql Server Connection String");
             systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("System.Data.SqlClient");
+
+            IUnitTestingDataProvider dataProvider = new UnitTestingDataProvider(core, systemConfigurationService, connectionStringKey);
 
             SimpleTestEntityRepository obj = new SimpleTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataProvider, DateTimeService);
             String actualDataProviderName = obj.GetDataProviderName();
@@ -86,12 +84,11 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             String connectionStringKey = "MySQLDataLogicProviderTest";
             String dataProviderName = "MySql.Data.MySqlClient";
 
-            IUnitTestingDataProvider dataProvider = Substitute.For<IUnitTestingDataProvider>();
-            dataProvider.ConnectionName.Returns(connectionStringKey);
-
             ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("MySql Connection String");
             systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("MySql.Data.MySqlClient");
+
+            IUnitTestingDataProvider dataProvider = new UnitTestingDataProvider(core, systemConfigurationService, connectionStringKey);
 
             SimpleTestEntityRepository obj = new SimpleTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataProvider, DateTimeService);
             String actualDataProviderName = obj.GetDataProviderName();
@@ -113,12 +110,11 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             String connectionStringKey = "OracleDataLogicProviderTest";
             String dataProviderName = "System.Data.OracleClient";
 
-            IUnitTestingDataProvider dataProvider = Substitute.For<IUnitTestingDataProvider>();
-            dataProvider.ConnectionName.Returns(connectionStringKey);
-
             ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("Oracle Connection String");
             systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("System.Data.OracleClient");
+
+            IUnitTestingDataProvider dataProvider = new UnitTestingDataProvider(core, systemConfigurationService, connectionStringKey);
 
             SimpleTestEntityRepository obj = new SimpleTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataProvider, DateTimeService);
             String actualDataProviderName = obj.GetDataProviderName();

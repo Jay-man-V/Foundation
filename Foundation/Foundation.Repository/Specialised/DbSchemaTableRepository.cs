@@ -23,22 +23,6 @@ namespace Foundation.Repository.Specialised
     public class DbSchemaTableRepository : FoundationDataAccess, IDatabaseSchemaTableDataAccess
     {
         /// <summary>
-        /// Gets the name of the entity.
-        /// </summary>
-        /// <value>
-        /// The name of the entity.
-        /// </value>
-        protected String EntityName => FDC.Specialised.DatabaseSchemaTable.EntityName;
-
-        /// <summary>
-        /// Gets the name of the table.
-        /// </summary>
-        /// <value>
-        /// The name of the table.
-        /// </value>
-        protected String TableName => FDC.TableNames.Specialised.DbSchemaTable;
-
-        /// <summary>
         /// Initialises a new instance of the <see cref="DbSchemaTableRepository"/> class.
         /// </summary>
         /// <param name="core">The Foundation Core service.</param>
@@ -63,6 +47,22 @@ namespace Foundation.Repository.Specialised
 
             LoggingHelpers.TraceCallReturn();
         }
+
+        /// <summary>
+        /// Gets the name of the entity.
+        /// </summary>
+        /// <value>
+        /// The name of the entity.
+        /// </value>
+        protected String EntityName => FDC.Specialised.DatabaseSchemaTable.EntityName;
+
+        /// <summary>
+        /// Gets the name of the table.
+        /// </summary>
+        /// <value>
+        /// The name of the table.
+        /// </value>
+        protected String TableName => FDC.TableNames.Specialised.DbSchemaTable;
 
         /// <summary>
         /// Gets the database schema column repository.

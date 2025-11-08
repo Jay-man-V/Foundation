@@ -61,15 +61,15 @@ namespace Foundation.Repository.Core
         protected override String TableName => FDC.TableNames.IdGenerator;
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.RequiredMinimumCreateRole"/>
-        protected override ApplicationRole RequiredMinimumCreateRole => ApplicationRole.None;
+        protected override ApplicationRole RequiredMinimumCreateRole => ApplicationRole.SystemSupervisor;
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.RequiredMinimumEditRole"/>
-        protected override ApplicationRole RequiredMinimumEditRole => ApplicationRole.None;
+        protected override ApplicationRole RequiredMinimumEditRole => ApplicationRole.SystemSupervisor;
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.VerifyCanCreate(TModel)"/>
         protected override void VerifyCanCreate(IIdGenerator entity)
         {
-            // Everyone can Create a Id Generator Entry
+            // Everyone can Create an Id Generator Entry
             // Does nothing
         }
 
@@ -80,47 +80,6 @@ namespace Foundation.Repository.Core
             // Does nothing
         }
 
-        /// <inheritdoc cref="FoundationModelRepository{TModel}.VerifyCanDelete(TModel)"/>
-        protected override void VerifyCanDelete(IIdGenerator entity)
-        {
-            // Id Generator Entries cannot be deleted
-            throw new NotImplementedException("Id Generator Entries cannot be deleted");
-        }
-
-        /// <inheritdoc cref="FoundationModelRepository{TModel}.Delete(EntityId)"/>
-        public override void Delete(EntityId entityId)
-        {
-            // Id Generator Entries cannot be deleted
-            throw new NotImplementedException("Id Generator Entries cannot be deleted");
-        }
-
-        /// <inheritdoc cref="FoundationModelRepository{TModel}.Delete(TModel)"/>
-        public override IIdGenerator Delete(IIdGenerator entity)
-        {
-            // Id Generator Entries cannot be deleted
-            throw new NotImplementedException("Id Generator Entries cannot be deleted");
-        }
-
-        /// <inheritdoc cref="FoundationModelRepository{TModel}.Delete(List{TModel})"/>
-        public override List<IIdGenerator> Delete(List<IIdGenerator> entities)
-        {
-            // Id Generator Entries cannot be deleted
-            throw new NotImplementedException("Id Generator Entries cannot be deleted");
-        }
-
-        /// <inheritdoc cref="FoundationModelRepository{TModel}.DeleteEntity(IDbConnection, EntityId)"/>
-        protected override int DeleteEntity(IDbConnection conn, EntityId entityId)
-        {
-            // Id Generator Entries cannot be deleted
-            throw new NotImplementedException("Id Generator Entries cannot be deleted");
-        }
-
-        /// <inheritdoc cref="FoundationModelRepository{TModel}.DeleteEntity(IDbConnection, TModel)"/>
-        protected override int DeleteEntity(IDbConnection conn, IIdGenerator entity)
-        {
-            // Id Generator Entries cannot be deleted
-            throw new NotImplementedException("Id Generator Entries cannot be deleted");
-        }
         /// <inheritdoc cref="IIdGeneratorRepository.GetNextId(AppId, IUserProfile, String)"/>
         public Int32 GetNextId(AppId applicationId, IUserProfile userProfile, String idName)
         {
