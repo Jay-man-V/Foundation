@@ -164,20 +164,6 @@ namespace Foundation.DataAccess.Database
             return DatabaseTransaction;
         }
 
-        /// <inheritdoc cref="IFoundationDataAccess.ExecuteGetRowCount(String, CommandType, IDatabaseParameters)"/>
-        public Int32 ExecuteGetRowCount(String sql, CommandType commandType = CommandType.Text, IDatabaseParameters? databaseParameters = null)
-        {
-            LoggingHelpers.TraceCallEnter();
-
-            Object result = ExecuteNonQuery(sql, commandType, databaseParameters);
-
-            Int32 retVal = DataHelpers.GetValue(result, -1);
-
-            LoggingHelpers.TraceCallReturn(retVal);
-
-            return retVal;
-        }
-
         /// <summary>
         /// Creates the parameter.
         /// </summary>
@@ -236,7 +222,7 @@ namespace Foundation.DataAccess.Database
             else if (parameterType == typeof(Object)) retVal = DbType.Object;
             else
             {
-                String errorMessage = $"The type of the parameter is unhandled. Type: '{parameterType}'. Name: '{parameterName}'";
+                String errorMessage = $"The type ({parameterType}) of the parameter is unhandled/unknown. Name: '{parameterName}'";
                 throw new NotSupportedException(errorMessage);
             }
 
@@ -652,13 +638,6 @@ namespace Foundation.DataAccess.Database
 
             IsDisposed = true;
         }
-
-        // Override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-        // ~FoundationDataAccess()
-        // {
-        //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-        //     Dispose(disposing: false);
-        // }
 
         /// <inheritdoc cref="IDisposable.Dispose()"/>
         public void Dispose()

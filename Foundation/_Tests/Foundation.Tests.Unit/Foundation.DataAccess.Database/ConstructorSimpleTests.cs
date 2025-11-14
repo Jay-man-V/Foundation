@@ -56,11 +56,11 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             ICore core = Substitute.For<ICore>();
 
             String connectionStringKey = "MsSQLDataLogicProviderTest";
-            String dataProviderName = "System.Data.SqlClient";
+            String dataProviderName = "Microsoft.Data.SqlClient";
 
             ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("Microsoft Sql Server Connection String");
-            systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("System.Data.SqlClient");
+            systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("Microsoft.Data.SqlClient");
 
             IUnitTestingDataProvider dataProvider = new UnitTestingDataProvider(core, systemConfigurationService, connectionStringKey);
 
@@ -108,11 +108,11 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             ICore core = Substitute.For<ICore>();
 
             String connectionStringKey = "OracleDataLogicProviderTest";
-            String dataProviderName = "System.Data.OracleClient";
+            String dataProviderName = "Oracle.DataAccess.Client";
 
             ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("Oracle Connection String");
-            systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("System.Data.OracleClient");
+            systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns(dataProviderName);
 
             IUnitTestingDataProvider dataProvider = new UnitTestingDataProvider(core, systemConfigurationService, connectionStringKey);
 

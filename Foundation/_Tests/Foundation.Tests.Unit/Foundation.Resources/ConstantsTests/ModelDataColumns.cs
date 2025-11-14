@@ -791,6 +791,7 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
             index++; Assert.That(FDC.MenuItem.ShowInTab, Is.EqualTo(nameof(FDC.MenuItem.ShowInTab)));
             index++; Assert.That(FDC.MenuItem.Icon, Is.EqualTo(nameof(FDC.MenuItem.Icon)));
             index++; Assert.That(FDC.MenuItem.Depth, Is.EqualTo(nameof(FDC.MenuItem.Depth)));
+            index++; Assert.That(FDC.MenuItem.DisplayOrder, Is.EqualTo(nameof(FDC.MenuItem.DisplayOrder)));
 
             Assert.That(propertyInfos.Length, Is.EqualTo(index));
         }

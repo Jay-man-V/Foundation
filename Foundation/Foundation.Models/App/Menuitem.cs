@@ -38,6 +38,7 @@ namespace Foundation.Models.App
         private Boolean _showInTa;
         private Byte[]? _icon;
         private Int32 _depth;
+        private Int32 _displayOrder;
 
         /// <inheritdoc cref="IMenuItem.ApplicationId"/>
         [Column(nameof(FDC.MenuItem.ApplicationId))]
@@ -153,6 +154,14 @@ namespace Foundation.Models.App
             set => this.SetPropertyValue(ref _depth, value);
         }
 
+        /// <inheritdoc cref="IMenuItem.DisplayOrder"/>
+        [Column(nameof(FDC.MenuItem.DisplayOrder))]
+        public Int32 DisplayOrder
+        {
+            get => this._displayOrder;
+            set => this.SetPropertyValue(ref _displayOrder, value);
+        }
+
         /// <inheritdoc cref="IFoundationModel.GetPropertyValue(String)"/>
         public override Object? GetPropertyValue(String propertyName)
         {
@@ -173,6 +182,7 @@ namespace Foundation.Models.App
                 case nameof(ShowInTab): retVal = ShowInTab; break;
                 case nameof(Icon): retVal = Icon; break;
                 case nameof(Depth): retVal = Depth; break;
+                case nameof(DisplayOrder): retVal = DisplayOrder; break;
             }
 
             return retVal;
@@ -197,6 +207,7 @@ namespace Foundation.Models.App
             retVal._showInTa = this._showInTa;
             retVal._icon = this._icon;
             retVal._depth = this._depth;
+            retVal._displayOrder = this._displayOrder;
 
             retVal.Initialising = false;
 
@@ -242,6 +253,7 @@ namespace Foundation.Models.App
             hashCode = hashCode * constant + EqualityComparer<Boolean>.Default.GetHashCode(MultiInstance);
             hashCode = hashCode * constant + EqualityComparer<Boolean>.Default.GetHashCode(ShowInTab);
             hashCode = hashCode * constant + EqualityComparer<Int32>.Default.GetHashCode(Depth);
+            hashCode = hashCode * constant + EqualityComparer<Int32>.Default.GetHashCode(DisplayOrder);
 
             if (Icon != null)
             {
@@ -276,6 +288,7 @@ namespace Foundation.Models.App
                 retVal &= EqualityComparer<Boolean>.Default.Equals(this.MultiInstance, right.MultiInstance);
                 retVal &= EqualityComparer<Boolean>.Default.Equals(this.ShowInTab, right.ShowInTab);
                 retVal &= EqualityComparer<Int32>.Default.Equals(this.Depth, right.Depth);
+                retVal &= EqualityComparer<Int32>.Default.Equals(this.DisplayOrder, right.DisplayOrder);
                 retVal &= StructuralComparisons.StructuralEqualityComparer.Equals(this.Icon, right.Icon);
             }
 

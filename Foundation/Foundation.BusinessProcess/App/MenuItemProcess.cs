@@ -157,6 +157,9 @@ namespace Foundation.BusinessProcess.App
             gridColumnDefinition = new GridColumnDefinition(600, FDC.MenuItem.ViewType, "View Type", typeof(String));
             retVal.Add(gridColumnDefinition);
 
+            gridColumnDefinition = new GridColumnDefinition(600, FDC.MenuItem.DisplayOrder, "Display order", typeof(Int32));
+            retVal.Add(gridColumnDefinition);
+
             LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;

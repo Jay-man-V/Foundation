@@ -43,7 +43,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.FileData
             }
 
             Assert.That(allFactories.Rows.Count, Is.GreaterThanOrEqualTo(0));
-            DataRow fileDataClient = allFactories.Select($"[InvariantName] = '{DataProviders.FoundationFileClient}'")[0];
+            DataRow fileDataClient = allFactories.Select($"[InvariantName] = '{DataProviders.FoundationFileClient[0]}'")[0];
 
             Assert.That(fileDataClient["Name"], Is.EqualTo(""));
             Assert.That(fileDataClient["Description"], Is.EqualTo(""));
@@ -82,7 +82,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.FileData
             DbProviderFactory fileClientFactory = DbProviderFactories.GetFactory(FileDataFactoryInvariantName);
             using (DbConnection? connection = fileClientFactory.CreateConnection())
             {
-                connection.ConnectionString = "";
+                connection!.ConnectionString = "";
             }
         }
     }

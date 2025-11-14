@@ -108,8 +108,13 @@ namespace Foundation.Interfaces
         Byte[]? Icon { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets the Depth
         /// </summary>
         Int32 Depth { get; }
+
+        /// <summary>
+        /// Gets or sets the display order
+        /// </summary>
+        Int32 DisplayOrder { get; set; }
     }
 }

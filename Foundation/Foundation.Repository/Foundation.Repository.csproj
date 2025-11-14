@@ -1,22 +1,31 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>net8.0-windows</TargetFramework>
-        <Nullable>enable</Nullable>
-        <UseWPF>true</UseWPF>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <Compile Include="..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
-        <Compile Include=".LocalModels\FirstAndLastWorkingDays.cs" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Foundation.Common\Foundation.Common.csproj" />
-      <ProjectReference Include="..\Foundation.DataAccess.Database\Foundation.DataAccess.Database.csproj" />
-      <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
-    </ItemGroup>
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
+    <Compile Include=".LocalModels\FirstAndLastWorkingDays.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Foundation.Common\Foundation.Common.csproj" />
+    <ProjectReference Include="..\Foundation.DataAccess.Database\Foundation.DataAccess.Database.csproj" />
+    <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Sql\Core\EnumRepositories\" />
+    <Folder Include="Sql\Log\EnumRepositories\" />
+    <Folder Include="Sql\Sec\EnumRepositories\" />
+    <Folder Include="Sql\Specialised\" />
+    <Folder Include="Sql\Stg\" />
+    <Folder Include="Sql\Core\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Sql\App\GetAll.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

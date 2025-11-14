@@ -159,5 +159,13 @@ namespace Foundation.Resources.Constants.DataColumns
         /// The Depth.
         /// </value>
         public static String Depth => "Depth";
+
+        /// <summary>
+        /// Gets the Display order.
+        /// </summary>
+        /// <value>
+        /// The Display order.
+        /// </value>
+        public static String DisplayOrder => "DisplayOrder";
     }
 }
