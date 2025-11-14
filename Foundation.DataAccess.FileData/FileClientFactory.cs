@@ -8,12 +8,12 @@ using System.Data.Common;
 
 namespace Foundation.DataAccess.FileData
 {
-    public sealed class FileFactory : DbProviderFactory
+    public sealed class FileClientFactory : DbProviderFactory
     {
         /// <summary>Gets an instance of the <see cref="T:learning.UnitTestDataFactory" />. This can be used to retrieve strongly typed data objects.</summary>
-        public static readonly FileFactory Instance = new FileFactory();
+        public static readonly FileClientFactory Instance = new FileClientFactory();
 
-        private FileFactory() { }
+        private FileClientFactory() { }
 
         /// <summary>
         /// Returns a strongly typed <see cref="T:System.Data.Common.DbConnection" /> instance.
@@ -23,7 +23,7 @@ namespace Foundation.DataAccess.FileData
         /// </returns>
         public override DbConnection CreateConnection()
         {
-            return (DbConnection)new FileConnection();
+            return new FileConnection();
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Foundation.DataAccess.FileData
         /// </returns>
         public override DbCommand CreateCommand()
         {
-            return (DbCommand)new FileCommand();
+            return new FileCommand();
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Foundation.DataAccess.FileData
         /// </returns>
         public override DbDataAdapter CreateDataAdapter()
         {
-            return (DbDataAdapter)new FileAdapter();
+            return new FileAdapter();
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Foundation.DataAccess.FileData
         /// </returns>
         public override DbParameter CreateParameter()
         {
-            return (DbParameter)new FileParameter();
+            return new FileParameter();
         }
 
     }

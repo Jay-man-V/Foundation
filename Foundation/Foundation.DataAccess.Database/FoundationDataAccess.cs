@@ -51,17 +51,7 @@ namespace Foundation.DataAccess.Database
                 throw new ArgumentNullException(nameof(connectionStringKey), message);
             }
 
-            switch (DatabaseProviderName)
-            {
-                case DataProviders.MsSqlClient: { DataLogicProvider = new MsSqlDataLogicProvider(); break; }
-                case DataProviders.MySqlClient: { DataLogicProvider = new MySqlDataLogicProvider(); break; }
-                case DataProviders.OracleClient: { DataLogicProvider = new OracleDataLogicProvider(); break; }
-                default:
-                {
-                    String message = $"The Data Provider '{DatabaseProviderName}' is unknown and not supported";
-                    throw new NotSupportedException(message);
-                }
-            }
+            DataLogicProvider = DataProviders.GetDataProvider(DatabaseProviderName);
 
             DatabaseProviderFactory = DbProviderFactories.GetFactory(DatabaseProviderName);
 

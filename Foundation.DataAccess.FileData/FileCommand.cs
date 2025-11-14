@@ -11,19 +11,43 @@ namespace Foundation.DataAccess.FileData
 {
     public sealed class FileCommand : DbCommand
     {
+        public FileCommand()
+        {
+            CommandText = String.Empty;
+            DbParameterCollection = new FileParameterCollection();
+        }
+
+        public FileCommand(String commandText) : this()
+        {
+            CommandText = commandText;
+        }
+
+        public FileCommand(String commandText, FileConnection connection) : this()
+        {
+            CommandText = commandText;
+            DbConnection = connection;
+        }
+
+        public FileCommand(String commandText, FileConnection connection, FileTransaction transaction) : this()
+        {
+            CommandText = commandText;
+            DbConnection = connection;
+            Transaction = transaction;
+        }
+
+        public override String CommandText { get; set; }
+        public override Int32 CommandTimeout { get; set; }
+        public override CommandType CommandType { get; set; }
+        public override UpdateRowSource UpdatedRowSource { get; set; }
+        protected override DbConnection? DbConnection { get; set; }
+        protected override DbParameterCollection DbParameterCollection { get; }
+        protected override DbTransaction? DbTransaction { get; set; }
+        public override Boolean DesignTimeVisible { get; set; }
+
         public override void Prepare()
         {
             throw new NotImplementedException();
         }
-
-        public override string CommandText { get; set; }
-        public override int CommandTimeout { get; set; }
-        public override CommandType CommandType { get; set; }
-        public override UpdateRowSource UpdatedRowSource { get; set; }
-        protected override DbConnection DbConnection { get; set; }
-        protected override DbParameterCollection DbParameterCollection { get; }
-        protected override DbTransaction DbTransaction { get; set; }
-        public override bool DesignTimeVisible { get; set; }
 
         public override void Cancel()
         {
@@ -32,7 +56,7 @@ namespace Foundation.DataAccess.FileData
 
         protected override DbParameter CreateDbParameter()
         {
-            return (DbParameter)new FileParameter();
+            return new FileParameter();
         }
 
         protected override DbDataReader ExecuteDbDataReader(CommandBehavior behavior)

@@ -21,18 +21,13 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
     {
         public MsSqlDataLogicProvider()
         {
-            String factoryName1 = "System.Data.SqlClient";
-            Boolean alreadyExists1 = DbProviderFactories.TryGetFactory(factoryName1, out _);
-            if (!alreadyExists1)
+            foreach (String factoryName in DataProviders.MsSqlClient)
             {
-                DbProviderFactories.RegisterFactory(factoryName1, SqlClientFactory.Instance);
-            }
-
-            String factoryName2 = "Microsoft.Data.SqlClient";
-            Boolean alreadyExists2 = DbProviderFactories.TryGetFactory(factoryName2, out _);
-            if (!alreadyExists2)
-            {
-                DbProviderFactories.RegisterFactory(factoryName2, SqlClientFactory.Instance);
+                Boolean alreadyExists = DbProviderFactories.TryGetFactory(factoryName, out _);
+                if (!alreadyExists)
+                {
+                    DbProviderFactories.RegisterFactory(factoryName, SqlClientFactory.Instance);
+                }
             }
         }
 
@@ -40,7 +35,7 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
         public String ValidToDateString => ApplicationDefaultValues.DefaultValidToDateTime.ToString(Formats.DotNet.DateTimeMilliseconds);
 
         /// <inheritdoc cref="IDataLogicProvider.DatabaseProviderName" />
-        public String DatabaseProviderName => DataProviders.MsSqlClient;
+        public String DatabaseProviderName => DataProviders.MsSqlClient[0];
 
         /// <inheritdoc cref="IDataLogicProvider.DatabaseParameterPrefix" />
         public String DatabaseParameterPrefix => "@";

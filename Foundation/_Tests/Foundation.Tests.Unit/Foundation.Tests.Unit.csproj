@@ -298,6 +298,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Applications\Customer Contact\CustomerContact.Client\CustomerContact.Client.csproj" />
+    <ProjectReference Include="..\..\..\Foundation.DataAccess.FileData\Foundation.DataAccess.FileData.csproj" />
     <ProjectReference Include="..\..\Foundation.BusinessProcess\Foundation.BusinessProcess.csproj" />
     <ProjectReference Include="..\..\Foundation.Common\Foundation.Common.csproj" />
     <ProjectReference Include="..\..\Foundation.Core\Foundation.Core.csproj" />

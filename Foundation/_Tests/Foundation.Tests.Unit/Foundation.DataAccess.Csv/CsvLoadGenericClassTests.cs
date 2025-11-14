@@ -15,7 +15,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Csv
     /// The Csv load tests class
     /// </summary>
     [TestFixture]
-    public class CsvLoadGenericClassTests : UnitTestBase
+    public class DbProviderFactoryTests : UnitTestBase
     {
         /// <summary>
         /// 

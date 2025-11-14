@@ -1,12 +1,12 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="OracleDataLogProvider.cs" company="JDV Software Ltd">
+// <copyright file="FoundationFileDataProvider.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
 using System.Data.Common;
 
-using Oracle.ManagedDataAccess.Client;
+using Foundation.DataAccess.FileData;
 
 using Foundation.Interfaces;
 using Foundation.Resources;
@@ -17,16 +17,16 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
     /// The Oracle Database Data Logic Provider
     /// </summary>
     [DependencyInjectionTransient]
-    internal class OracleDataLogicProvider : IDataLogicProvider
+    internal class FoundationFileDataProvider : IDataLogicProvider
     {
-        public OracleDataLogicProvider()
+        public FoundationFileDataProvider()
         {
-            foreach (String factoryName in DataProviders.OracleClient)
+            foreach (String factoryName in DataProviders.FoundationFileClient)
             {
                 Boolean alreadyExists = DbProviderFactories.TryGetFactory(factoryName, out _);
                 if (!alreadyExists)
                 {
-                    DbProviderFactories.RegisterFactory(factoryName, OracleClientFactory.Instance);
+                    DbProviderFactories.RegisterFactory(factoryName, FileClientFactory.Instance);
                 }
             }
         }
@@ -35,25 +35,25 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
         public String ValidToDateString => ApplicationDefaultValues.DefaultValidToDateTime.ToString(Formats.DotNet.DateTimeMilliseconds);
 
         /// <inheritdoc cref="IDataLogicProvider.DatabaseProviderName" />
-        public String DatabaseProviderName => DataProviders.OracleClient[0];
+        public String DatabaseProviderName => DataProviders.FoundationFileClient[0];
 
         /// <inheritdoc cref="IDataLogicProvider.DatabaseParameterPrefix" />
         public String DatabaseParameterPrefix => ":";
 
         /// <inheritdoc cref="IDataLogicProvider.IdentityOfLastInsertFunction"/>
-        public String IdentityOfLastInsertFunction => "(SELECT {0}_SEQ.CURRVAL FROM DUAL)";
+        public String IdentityOfLastInsertFunction => throw new NotImplementedException();
 
         /// <inheritdoc cref="IDataLogicProvider.IdentityOfNewRowSql" />
-        public String IdentityOfNewRowSql => "SELECT Timestamp, (SELECT {0}_SEQ.CURRVAL FROM DUAL) FROM {0} WHERE Id = " + IdentityOfLastInsertFunction;
+        public String IdentityOfNewRowSql => throw new NotImplementedException();
 
         /// <inheritdoc cref="IDataLogicProvider.TimestampOfUpdatedRowSql" />
-        public String TimestampOfUpdatedRowSql => "SELECT Timestamp FROM {0} WHERE Id = @id";
+        public String TimestampOfUpdatedRowSql => throw new NotImplementedException();
 
         /// <inheritdoc cref="IDataLogicProvider.CurrentDateTimeFunction" />
-        public String CurrentDateTimeFunction => "SYSDATE";
+        public String CurrentDateTimeFunction => throw new NotImplementedException();
 
         /// <inheritdoc cref="IDataLogicProvider.UniqueIdFunction"/>
-        public String UniqueIdFunction => "SYS_GUID()";
+        public String UniqueIdFunction => throw new NotImplementedException();
 
         /// <inheritdoc cref="IDataLogicProvider.MapDbTypeToDotNetType" />
         public Type MapDbTypeToDotNetType(String dbType)
@@ -89,17 +89,13 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
         /// <inheritdoc cref="IDataLogicProvider.GetDateComparisonSql(String, String, String)" />
         public String GetDateComparisonSql(String columnOrParameter1, String columnOrParameter2, String comparisonResult)
         {
-            String retVal = $"({columnOrParameter1} - {columnOrParameter2}) {comparisonResult}";
-
-            return retVal;
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc cref="IDataLogicProvider.GetMinuteComparisonSql(String, String, String)" />
         public String GetMinuteComparisonSql(String columnOrParameter1, String columnOrParameter2, String comparisonResult)
         {
-            String retVal = $"({columnOrParameter1} - {columnOrParameter2}) {comparisonResult}";
-
-            return retVal;
+            throw new NotImplementedException();
         }
     }
 }

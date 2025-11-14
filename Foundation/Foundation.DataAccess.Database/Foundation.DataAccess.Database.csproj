@@ -13,6 +13,7 @@
       <Compile Include=".DataLogicProviders\DataProviders.cs" />
       <Compile Include=".DataLogicProviders\MsSqlDataLogicProvider.cs" />
       <Compile Include=".DataLogicProviders\MySqlDataLogicProvider.cs" />
+      <Compile Include=".DataLogicProviders\FoundationFileDataProvider.cs" />
       <Compile Include=".DataLogicProviders\OracleDataLogicProvider.cs" />
       <Compile Include=".Reference for Fast Data Saving.txt" />
     </ItemGroup>
@@ -24,6 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Foundation.DataAccess.FileData\Foundation.DataAccess.FileData.csproj" />
       <ProjectReference Include="..\Foundation.Common\Foundation.Common.csproj" />
       <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
     </ItemGroup>

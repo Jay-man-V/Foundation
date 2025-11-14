@@ -21,11 +21,13 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
     {
         public MySqlDataLogicProvider()
         {
-            String factoryName = "MySql.Data.MySqlClient";
-            Boolean alreadyExists = DbProviderFactories.TryGetFactory(factoryName, out _);
-            if (!alreadyExists)
+            foreach (String factoryName in DataProviders.MySqlClient)
             {
-                DbProviderFactories.RegisterFactory(factoryName, MySqlClientFactory.Instance);
+                Boolean alreadyExists = DbProviderFactories.TryGetFactory(factoryName, out _);
+                if (!alreadyExists)
+                {
+                    DbProviderFactories.RegisterFactory(factoryName, MySqlClientFactory.Instance);
+                }
             }
         }
 
@@ -33,7 +35,7 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
         public String ValidToDateString => ApplicationDefaultValues.DefaultValidToDateTime.ToString(Formats.DotNet.DateTimeMilliseconds);
 
         /// <inheritdoc cref="IDataLogicProvider.DatabaseProviderName" />
-        public String DatabaseProviderName => DataProviders.MySqlClient;
+        public String DatabaseProviderName => DataProviders.MySqlClient[0];
 
         /// <inheritdoc cref="IDataLogicProvider.DatabaseParameterPrefix" />
         public String DatabaseParameterPrefix => "@";

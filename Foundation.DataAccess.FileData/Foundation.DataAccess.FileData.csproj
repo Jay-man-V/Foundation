@@ -1,13 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="..\Foundation\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Include="..\Foundation\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
+    </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Foundation\Foundation.DataAccess.Csv\Foundation.DataAccess.Csv.csproj" />
+    </ItemGroup>
 </Project>

@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Foundation.DataAccess.FileData\Foundation.DataAccess.FileData.csproj" />
     <ProjectReference Include="..\..\..\Foundation\Foundation.BusinessProcess\Foundation.BusinessProcess.csproj" />
     <ProjectReference Include="..\..\..\Foundation\Foundation.Common\Foundation.Common.csproj" />
     <ProjectReference Include="..\..\..\Foundation\Foundation.Core\Foundation.Core.csproj" />
