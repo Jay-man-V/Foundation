@@ -724,7 +724,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
             TEntity savedEntity1 = TheProcess!.Save(entity1);
 
             Assert.That(savedEntity1, Is.Not.Null);
-            Assert.That(savedEntity1.Id.ToInteger(), Is.GreaterThan(0));
+            Assert.That(savedEntity1.Id.TheEntityId, Is.GreaterThan(0));
 
             CompareEntityProperties(entity1, savedEntity1);
         }
@@ -748,7 +748,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
             TEntity savedEntity2 = TheProcess!.Save(savedEntity1);
 
             Assert.That(savedEntity1, Is.Not.Null);
-            Assert.That(savedEntity2.Id.ToInteger() > 0);
+            Assert.That(savedEntity2.Id.TheEntityId > 0);
 
             CompareEntityProperties(savedEntity1, savedEntity2);
         }
@@ -773,9 +773,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
 
             Assert.That(savedEntities, Is.Not.Null);
             Assert.That(savedEntities.Count, Is.EqualTo(entitiesToSave.Count));
-            Assert.That(savedEntities[0].Id.ToInteger() > 0);
-            Assert.That(savedEntities[1].Id.ToInteger() > 0);
-            Assert.That(savedEntities[2].Id.ToInteger() > 0);
+            Assert.That(savedEntities[0].Id.TheEntityId > 0);
+            Assert.That(savedEntities[1].Id.TheEntityId > 0);
+            Assert.That(savedEntities[2].Id.TheEntityId > 0);
 
             CompareEntityProperties(entitiesToSave[0], savedEntities[0]);
             CompareEntityProperties(entitiesToSave[1], savedEntities[1]);

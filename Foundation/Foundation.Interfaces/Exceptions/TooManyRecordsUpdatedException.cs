@@ -30,7 +30,7 @@ namespace Foundation.Interfaces
         ) :
             base
             (
-                String.Format(ErrorMessageTemplate1, entityId.ToInteger(), entityName, tableName)
+                String.Format(ErrorMessageTemplate1, entityId.TheEntityId, entityName, tableName)
             )
         {
             EntityId = entityId;

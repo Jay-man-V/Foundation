@@ -46,7 +46,7 @@ namespace Foundation.Models.Core
 
         /// <inheritdoc cref="IScheduledJob.ScheduleInterval"/>
         [NotMapped]
-        public FEnums.ScheduleInterval ScheduleInterval => (FEnums.ScheduleInterval)this._scheduleIntervalId.ToInteger();
+        public FEnums.ScheduleInterval ScheduleInterval => (FEnums.ScheduleInterval)this._scheduleIntervalId.TheEntityId;
 
         /// <inheritdoc cref="IScheduledJob.IsRunning"/>
         [NotMapped]

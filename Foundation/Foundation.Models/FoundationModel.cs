@@ -105,7 +105,7 @@ namespace Foundation.Models
         [NotMapped]
         public EntityStatus EntityStatus
         {
-            get => (EntityStatus)StatusId.ToInteger();
+            get => (EntityStatus)StatusId.TheEntityId;
             set => StatusId = new EntityId((Int32)value);
         }
 

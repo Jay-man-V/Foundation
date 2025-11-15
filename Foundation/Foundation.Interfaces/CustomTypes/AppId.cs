@@ -52,7 +52,7 @@ namespace Foundation.Interfaces
         /// <param name="appId">The app id.</param>
         public AppId(AppId appId) 
         {
-            TheAppId = appId.ToInteger();
+            TheAppId = appId.TheAppId;
         }
 
         /// <summary>
@@ -328,17 +328,6 @@ namespace Foundation.Interfaces
         public override String ToString()
         {
             return TheAppId.ToString();
-        }
-
-        /// <summary>
-        /// Returns a <see cref="T:System.Int64" /> that represents the current <see cref="T:System.Object" />.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="T:System.Int64" /> that represents the current <see cref="T:System.Object" />.
-        /// </returns>
-        public Int64 ToInteger()
-        {
-            return TheAppId;
         }
 
         /// <summary>

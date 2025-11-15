@@ -27,7 +27,7 @@ namespace Foundation.Models.Log.EnumModels
 
         /// <inheritdoc cref="ILogSeverity.Severity"/>
         [NotMapped]
-        public FEnums.LogSeverity Severity => (FEnums.LogSeverity)Id.ToInteger();
+        public FEnums.LogSeverity Severity => (FEnums.LogSeverity)Id.TheEntityId;
 
         /// <inheritdoc cref="ILogSeverity.Code"/>
         [Column(nameof(FDC.LogSeverity.Code)), MaxLength(FDC.LogSeverity.Lengths.Code)]

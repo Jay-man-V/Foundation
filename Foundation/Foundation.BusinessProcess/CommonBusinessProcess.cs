@@ -464,7 +464,7 @@ namespace Foundation.BusinessProcess
             LoggingHelpers.TraceCallEnter(userProfile);
 
             Boolean isSystemSupport = userProfile.IsSystemSupport;
-            Boolean userCanView = userProfile.Roles.Any(r => r.Id.ToInteger() >= ApplicationRole.Reporter.Id());
+            Boolean userCanView = userProfile.Roles.Any(r => r.Id.TheEntityId >= ApplicationRole.Reporter.Id());
 
             Boolean retVal = isSystemSupport || userCanView;
 
@@ -504,7 +504,7 @@ namespace Foundation.BusinessProcess
             //Boolean retVal = userCanAdd;
 
             Boolean isSystemSupport = userProfile.IsSystemSupport;
-            Boolean userCanCreate = userProfile.Roles.Any(r => r.Id.ToInteger() >= ApplicationRole.Creator.Id());
+            Boolean userCanCreate = userProfile.Roles.Any(r => r.Id.TheEntityId >= ApplicationRole.Creator.Id());
 
             Boolean retVal = isSystemSupport || userCanCreate;
 
@@ -567,7 +567,7 @@ namespace Foundation.BusinessProcess
             LoggingHelpers.TraceCallEnter(userProfile);
 
             Boolean isSystemSupport = userProfile.IsSystemSupport;
-            Boolean userCanEdit = userProfile.Roles.Any(r => r.Id.ToInteger() >= ApplicationRole.AllEditor.Id());
+            Boolean userCanEdit = userProfile.Roles.Any(r => r.Id.TheEntityId >= ApplicationRole.AllEditor.Id());
 
             Boolean retVal = isSystemSupport || userCanEdit;
 
@@ -648,7 +648,7 @@ namespace Foundation.BusinessProcess
             LoggingHelpers.TraceCallEnter(userProfile);
 
             Boolean isSystemSupport = userProfile.IsSystemSupport;
-            Boolean userCanDelete = userProfile.Roles.Any(r => r.Id.ToInteger() >= ApplicationRole.AllDelete.Id());
+            Boolean userCanDelete = userProfile.Roles.Any(r => r.Id.TheEntityId >= ApplicationRole.AllDelete.Id());
 
             Boolean retVal = isSystemSupport || userCanDelete;
 

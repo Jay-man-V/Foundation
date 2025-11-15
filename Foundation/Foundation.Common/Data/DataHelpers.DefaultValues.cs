@@ -20,7 +20,7 @@ namespace Foundation.Common
     public static partial class DataHelpers
     {
         /// <summary>
-        /// Gets a value indicating whether [default boolean].
+        /// Gets a default boolean (false).
         /// </summary>
         /// <value>
         ///   <c>true</c> if [default boolean]; otherwise, <c>false</c>.
@@ -28,7 +28,7 @@ namespace Foundation.Common
         public static Boolean DefaultBoolean => false;
 
         /// <summary>
-        /// Gets the default entity identifier.
+        /// Gets the default entity identifier (-1).
         /// </summary>
         /// <value>
         /// The default entity identifier.
@@ -36,7 +36,7 @@ namespace Foundation.Common
         public static EntityId DefaultEntityId => new EntityId(-1);
 
         /// <summary>
-        /// Gets the default application identifier.
+        /// Gets the default application identifier (-1).
         /// </summary>
         /// <value>
         /// The default application identifier.
@@ -44,7 +44,7 @@ namespace Foundation.Common
         public static AppId DefaultAppId => new AppId(-1);
 
         /// <summary>
-        /// Gets the default log identifier.
+        /// Gets the default log identifier (-1).
         /// </summary>
         /// <value>
         /// The default log identifier.
@@ -52,7 +52,7 @@ namespace Foundation.Common
         public static LogId DefaultLogId => new LogId(-1);
 
         /// <summary>
-        /// Gets the default task status.
+        /// Gets the default task status (NotSet).
         /// </summary>
         /// <value>
         /// The default task status.
@@ -60,7 +60,7 @@ namespace Foundation.Common
         public static FEnums.TaskStatus DefaultTaskStatus => FEnums.TaskStatus.NotSet;
 
         /// <summary>
-        /// Gets the default log severity.
+        /// Gets the default log severity (NotSet).
         /// </summary>
         /// <value>
         /// The default log severity.
@@ -68,7 +68,7 @@ namespace Foundation.Common
         public static LogSeverity DefaultLogSeverity => LogSeverity.NotSet;
 
         /// <summary>
-        /// Gets the default email address.
+        /// Gets the default email address (Empty).
         /// </summary>
         /// <value>
         /// The default email address.
@@ -76,7 +76,7 @@ namespace Foundation.Common
         public static EmailAddress DefaultEmailAddress => new EmailAddress();
 
         /// <summary>
-        /// Gets the default string.
+        /// Gets the default string (String.Empty).
         /// </summary>
         /// <value>
         /// The default string.
@@ -84,7 +84,7 @@ namespace Foundation.Common
         public static String DefaultString => String.Empty;
 
         /// <summary>
-        /// Gets the default date time.
+        /// Gets the default date time (DateTime.MinValue).
         /// </summary>
         /// <value>
         /// The default date time.
@@ -92,7 +92,7 @@ namespace Foundation.Common
         public static DateTime DefaultDateTime => DateTime.MinValue;
 
         /// <summary>
-        /// Gets the default date.
+        /// Gets the default date (DateTime.MinValue.Date).
         /// </summary>
         /// <value>
         /// The default date.
@@ -100,7 +100,7 @@ namespace Foundation.Common
         public static DateTime DefaultDate => DateTime.MinValue.Date;
 
         /// <summary>
-        /// Gets the default time span.
+        /// Gets the default time span (TimeSpan.Zero).
         /// </summary>
         /// <value>
         /// The default time span.
@@ -108,7 +108,7 @@ namespace Foundation.Common
         public static TimeSpan DefaultTimeSpan => TimeSpan.Zero;
 
         /// <summary>
-        /// Gets the default byte array.
+        /// Gets the default byte array ([0]).
         /// </summary>
         /// <value>
         /// The default byte array.
@@ -116,7 +116,7 @@ namespace Foundation.Common
         public static Byte[] DefaultByteArray => [0];
 
         /// <summary>
-        /// Gets the default guid.
+        /// Gets the default guid (Guid.Empty).
         /// </summary>
         /// <value>
         /// The default guid.
@@ -124,7 +124,7 @@ namespace Foundation.Common
         public static Guid DefaultGuid => Guid.Empty;
 
         /// <summary>
-        /// Gets the default image.
+        /// Gets the default image (1x1 - Transparent).
         /// </summary>
         /// <value>
         /// The default image.

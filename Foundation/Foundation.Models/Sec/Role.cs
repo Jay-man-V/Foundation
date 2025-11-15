@@ -30,7 +30,7 @@ namespace Foundation.Models.Sec
 
         /// <inheritdoc cref="IRole.ApplicationRole"/>
         [NotMapped]
-        public FEnums.ApplicationRole ApplicationRole => (FEnums.ApplicationRole)Id.ToInteger();
+        public FEnums.ApplicationRole ApplicationRole => (FEnums.ApplicationRole)Id.TheEntityId;
 
         /// <inheritdoc cref="IRole.Name"/>
         [Column(nameof(FDC.Role.Name)), MaxLength(FDC.Role.Lengths.Name)]

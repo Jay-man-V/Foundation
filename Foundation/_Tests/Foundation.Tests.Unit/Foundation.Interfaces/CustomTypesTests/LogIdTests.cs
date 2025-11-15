@@ -29,16 +29,16 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
             // Default constructor is not listed as accessible even though it is usable
             Int64 expectedLogId1 = 0;
             LogId logId1 = new LogId();
-            Assert.That(logId1.ToInteger(), Is.EqualTo(expectedLogId1));
+            Assert.That(logId1.TheLogId, Is.EqualTo(expectedLogId1));
 
             // Constructor 1 = ctor(Int64)
             Int64 expectedLogId2 = 123456;
             LogId logId2 = new LogId(expectedLogId2);
-            Assert.That(logId2.ToInteger(), Is.EqualTo(expectedLogId2));
+            Assert.That(logId2.TheLogId, Is.EqualTo(expectedLogId2));
 
             // Constructor 2 = ctor(LogId)
             LogId logId3 = new LogId(logId2);
-            Assert.That(logId3.ToInteger(), Is.EqualTo(expectedLogId2));
+            Assert.That(logId3.TheLogId, Is.EqualTo(expectedLogId2));
             Assert.That(logId3.ToString(), Is.EqualTo(expectedLogId2.ToString()));
             Assert.That(logId3.GetHashCode(), Is.EqualTo(expectedLogId2.GetHashCode()));
         }
@@ -62,10 +62,10 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
             LogId logId2 = LogId.FromObject(objLogId);
             LogId logId3 = LogId.FromObject(objString);
 
-            Assert.That(logId1.ToInteger(), Is.EqualTo(expectedId));
-            Assert.That(logId2.ToInteger(), Is.EqualTo(expectedId));
+            Assert.That(logId1.TheLogId, Is.EqualTo(expectedId));
+            Assert.That(logId2.TheLogId, Is.EqualTo(expectedId));
             Assert.That(logId3, Is.Not.EqualTo(null));
-            Assert.That(logId3.ToInteger(), Is.EqualTo(0));
+            Assert.That(logId3.TheLogId, Is.EqualTo(0));
         }
 
         [TestCase]
@@ -77,7 +77,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
             LogId logId2 = new LogId(789456L);
             LogId logId3 = new LogId(-1);
 
-            Assert.That(logId1.ToInteger(), Is.EqualTo(expectedId));
+            Assert.That(logId1.TheLogId, Is.EqualTo(expectedId));
 
             Assert.That(logId1 == expectedLogId);
             Assert.That(logId1 != expectedLogId, Is.EqualTo(false));
@@ -125,7 +125,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
             LogId logId3 = new LogId(-1);
 
             Assert.That(logId1, Is.Not.EqualTo(null));
-            Assert.That(logId1.ToInteger(), Is.EqualTo(expectedId));
+            Assert.That(logId1.TheLogId, Is.EqualTo(expectedId));
             //Assert.That(logId1.Equals(expectedId));
 
             Assert.That(logId1.TheLogId == expectedId);
@@ -192,16 +192,16 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
 
             logIds.Sort();
 
-            Assert.That(logIds[00].ToInteger(), Is.EqualTo(01));
-            Assert.That(logIds[01].ToInteger(), Is.EqualTo(02));
-            Assert.That(logIds[02].ToInteger(), Is.EqualTo(03));
-            Assert.That(logIds[03].ToInteger(), Is.EqualTo(04));
-            Assert.That(logIds[04].ToInteger(), Is.EqualTo(05));
-            Assert.That(logIds[05].ToInteger(), Is.EqualTo(06));
-            Assert.That(logIds[06].ToInteger(), Is.EqualTo(07));
-            Assert.That(logIds[07].ToInteger(), Is.EqualTo(08));
-            Assert.That(logIds[08].ToInteger(), Is.EqualTo(09));
-            Assert.That(logIds[09].ToInteger(), Is.EqualTo(10));
+            Assert.That(logIds[00].TheLogId, Is.EqualTo(01));
+            Assert.That(logIds[01].TheLogId, Is.EqualTo(02));
+            Assert.That(logIds[02].TheLogId, Is.EqualTo(03));
+            Assert.That(logIds[03].TheLogId, Is.EqualTo(04));
+            Assert.That(logIds[04].TheLogId, Is.EqualTo(05));
+            Assert.That(logIds[05].TheLogId, Is.EqualTo(06));
+            Assert.That(logIds[06].TheLogId, Is.EqualTo(07));
+            Assert.That(logIds[07].TheLogId, Is.EqualTo(08));
+            Assert.That(logIds[08].TheLogId, Is.EqualTo(09));
+            Assert.That(logIds[09].TheLogId, Is.EqualTo(10));
         }
         [TestCase]
         public void Test_IComparer_SortAscending_1()
@@ -224,16 +224,16 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
 
             logIds.Sort(comparer);
 
-            Assert.That(logIds[00].ToInteger(), Is.EqualTo(01));
-            Assert.That(logIds[01].ToInteger(), Is.EqualTo(02));
-            Assert.That(logIds[02].ToInteger(), Is.EqualTo(03));
-            Assert.That(logIds[03].ToInteger(), Is.EqualTo(04));
-            Assert.That(logIds[04].ToInteger(), Is.EqualTo(05));
-            Assert.That(logIds[05].ToInteger(), Is.EqualTo(06));
-            Assert.That(logIds[06].ToInteger(), Is.EqualTo(07));
-            Assert.That(logIds[07].ToInteger(), Is.EqualTo(08));
-            Assert.That(logIds[08].ToInteger(), Is.EqualTo(09));
-            Assert.That(logIds[09].ToInteger(), Is.EqualTo(10));
+            Assert.That(logIds[00].TheLogId, Is.EqualTo(01));
+            Assert.That(logIds[01].TheLogId, Is.EqualTo(02));
+            Assert.That(logIds[02].TheLogId, Is.EqualTo(03));
+            Assert.That(logIds[03].TheLogId, Is.EqualTo(04));
+            Assert.That(logIds[04].TheLogId, Is.EqualTo(05));
+            Assert.That(logIds[05].TheLogId, Is.EqualTo(06));
+            Assert.That(logIds[06].TheLogId, Is.EqualTo(07));
+            Assert.That(logIds[07].TheLogId, Is.EqualTo(08));
+            Assert.That(logIds[08].TheLogId, Is.EqualTo(09));
+            Assert.That(logIds[09].TheLogId, Is.EqualTo(10));
         }
 
         [TestCase]
@@ -257,16 +257,16 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
 
             Array.Sort(logIds, comparer);
 
-            Assert.That(logIds[00].ToInteger(), Is.EqualTo(01));
-            Assert.That(logIds[01].ToInteger(), Is.EqualTo(02));
-            Assert.That(logIds[02].ToInteger(), Is.EqualTo(03));
-            Assert.That(logIds[03].ToInteger(), Is.EqualTo(04));
-            Assert.That(logIds[04].ToInteger(), Is.EqualTo(05));
-            Assert.That(logIds[05].ToInteger(), Is.EqualTo(06));
-            Assert.That(logIds[06].ToInteger(), Is.EqualTo(07));
-            Assert.That(logIds[07].ToInteger(), Is.EqualTo(08));
-            Assert.That(logIds[08].ToInteger(), Is.EqualTo(09));
-            Assert.That(logIds[09].ToInteger(), Is.EqualTo(10));
+            Assert.That(logIds[00].TheLogId, Is.EqualTo(01));
+            Assert.That(logIds[01].TheLogId, Is.EqualTo(02));
+            Assert.That(logIds[02].TheLogId, Is.EqualTo(03));
+            Assert.That(logIds[03].TheLogId, Is.EqualTo(04));
+            Assert.That(logIds[04].TheLogId, Is.EqualTo(05));
+            Assert.That(logIds[05].TheLogId, Is.EqualTo(06));
+            Assert.That(logIds[06].TheLogId, Is.EqualTo(07));
+            Assert.That(logIds[07].TheLogId, Is.EqualTo(08));
+            Assert.That(logIds[08].TheLogId, Is.EqualTo(09));
+            Assert.That(logIds[09].TheLogId, Is.EqualTo(10));
         }
 
         [TestCase]
@@ -290,16 +290,16 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
 
             logIds.Sort(comparer);
 
-            Assert.That(logIds[00].ToInteger(), Is.EqualTo(10));
-            Assert.That(logIds[01].ToInteger(), Is.EqualTo(09));
-            Assert.That(logIds[02].ToInteger(), Is.EqualTo(08));
-            Assert.That(logIds[03].ToInteger(), Is.EqualTo(07));
-            Assert.That(logIds[04].ToInteger(), Is.EqualTo(06));
-            Assert.That(logIds[05].ToInteger(), Is.EqualTo(05));
-            Assert.That(logIds[06].ToInteger(), Is.EqualTo(04));
-            Assert.That(logIds[07].ToInteger(), Is.EqualTo(03));
-            Assert.That(logIds[08].ToInteger(), Is.EqualTo(02));
-            Assert.That(logIds[09].ToInteger(), Is.EqualTo(01));
+            Assert.That(logIds[00].TheLogId, Is.EqualTo(10));
+            Assert.That(logIds[01].TheLogId, Is.EqualTo(09));
+            Assert.That(logIds[02].TheLogId, Is.EqualTo(08));
+            Assert.That(logIds[03].TheLogId, Is.EqualTo(07));
+            Assert.That(logIds[04].TheLogId, Is.EqualTo(06));
+            Assert.That(logIds[05].TheLogId, Is.EqualTo(05));
+            Assert.That(logIds[06].TheLogId, Is.EqualTo(04));
+            Assert.That(logIds[07].TheLogId, Is.EqualTo(03));
+            Assert.That(logIds[08].TheLogId, Is.EqualTo(02));
+            Assert.That(logIds[09].TheLogId, Is.EqualTo(01));
         }
 
         [TestCase]
@@ -323,16 +323,16 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
 
             Array.Sort(logIds, comparer);
 
-            Assert.That(logIds[00].ToInteger(), Is.EqualTo(10));
-            Assert.That(logIds[01].ToInteger(), Is.EqualTo(09));
-            Assert.That(logIds[02].ToInteger(), Is.EqualTo(08));
-            Assert.That(logIds[03].ToInteger(), Is.EqualTo(07));
-            Assert.That(logIds[04].ToInteger(), Is.EqualTo(06));
-            Assert.That(logIds[05].ToInteger(), Is.EqualTo(05));
-            Assert.That(logIds[06].ToInteger(), Is.EqualTo(04));
-            Assert.That(logIds[07].ToInteger(), Is.EqualTo(03));
-            Assert.That(logIds[08].ToInteger(), Is.EqualTo(02));
-            Assert.That(logIds[09].ToInteger(), Is.EqualTo(01));
+            Assert.That(logIds[00].TheLogId, Is.EqualTo(10));
+            Assert.That(logIds[01].TheLogId, Is.EqualTo(09));
+            Assert.That(logIds[02].TheLogId, Is.EqualTo(08));
+            Assert.That(logIds[03].TheLogId, Is.EqualTo(07));
+            Assert.That(logIds[04].TheLogId, Is.EqualTo(06));
+            Assert.That(logIds[05].TheLogId, Is.EqualTo(05));
+            Assert.That(logIds[06].TheLogId, Is.EqualTo(04));
+            Assert.That(logIds[07].TheLogId, Is.EqualTo(03));
+            Assert.That(logIds[08].TheLogId, Is.EqualTo(02));
+            Assert.That(logIds[09].TheLogId, Is.EqualTo(01));
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
             EntityId entityId = new EntityId(1);
 
             Assert.That(CoreInstance.CurrentLoggedOnUser.UserProfile, Is.Not.EqualTo(null));
-            Assert.That(CoreInstance.CurrentLoggedOnUser.Id.ToInteger(), Is.EqualTo(entityId.ToInteger()));
+            Assert.That(CoreInstance.CurrentLoggedOnUser.Id.TheEntityId, Is.EqualTo(entityId.TheEntityId));
             Assert.That(CoreInstance.CurrentLoggedOnUser.IsSystemSupport, Is.EqualTo(true));
 
             Assert.That(CoreInstance.CurrentLoggedOnUser.DisplayName, Is.EqualTo(UserSecuritySupport.UnitTestAccountDisplayName));

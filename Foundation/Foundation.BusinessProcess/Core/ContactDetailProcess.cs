@@ -265,7 +265,7 @@ namespace Foundation.BusinessProcess.Core
 
             List<IContactDetail> retVal;
 
-            IEnumerable<IContactDetail> contactsWithParents = contactDetails.Where(c => c.ParentContactId.ToInteger() > -1);
+            IEnumerable<IContactDetail> contactsWithParents = contactDetails.Where(c => c.ParentContactId.TheEntityId > DataHelpers.DefaultEntityId.TheEntityId);
             IEnumerable<IContactDetail> localParentContactsWithDuplicates = contactDetails.Where(c => contactsWithParents.Any(cwp => cwp.ParentContactId == c.Id));
             HashSet<IContactDetail> parentContactsWithoutDuplicates = new HashSet<IContactDetail>(localParentContactsWithDuplicates);
             retVal = parentContactsWithoutDuplicates.OrderBy(c => c.DisplayName).ToList();

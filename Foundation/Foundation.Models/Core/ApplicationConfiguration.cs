@@ -30,7 +30,7 @@ namespace Foundation.Models.Core
 
         /// <inheritdoc cref="IApplicationConfiguration.ConfigurationScope"/>
         [NotMapped]
-        public ConfigurationScope ConfigurationScope => (ConfigurationScope)this._configurationScopeId.ToInteger();
+        public ConfigurationScope ConfigurationScope => (ConfigurationScope)this._configurationScopeId.TheEntityId;
 
         /// <inheritdoc cref="IApplicationConfiguration.ApplicationId"/>
         [Column(nameof(FDC.ApplicationConfiguration.ApplicationId))]

@@ -91,17 +91,17 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
 
         protected override void Test_NullId(IApplicationProcess process)
         {
-            Assert.That(process.NullId, Is.EqualTo(new AppId(ExpectedNullId.ToInteger())));
+            Assert.That(process.NullId, Is.EqualTo(new AppId(ExpectedNullId.TheEntityId)));
         }
 
         protected override void Test_AllId(IApplicationProcess process)
         {
-            Assert.That(process.AllId, Is.EqualTo(new AppId(ExpectedAllId.ToInteger())));
+            Assert.That(process.AllId, Is.EqualTo(new AppId(ExpectedAllId.TheEntityId)));
         }
 
         protected override void Test_NoneId(IApplicationProcess process)
         {
-            Assert.That(process.NoneId, Is.EqualTo(new AppId(ExpectedNoneId.ToInteger())));
+            Assert.That(process.NoneId, Is.EqualTo(new AppId(ExpectedNoneId.TheEntityId)));
         }
 
         protected override void CompareEntityProperties(IApplication entity1, IApplication entity2)

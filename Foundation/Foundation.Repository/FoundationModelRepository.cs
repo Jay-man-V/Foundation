@@ -609,7 +609,7 @@ namespace Foundation.Repository
 
             List<TModel> retVal = [];
 
-            String ids = String.Join(", ", entityIds.Select(e => e.ToInteger()));
+            String ids = String.Join(", ", entityIds.Select(e => e.TheEntityId));
 
             StringBuilder sql = new StringBuilder();
             sql.AppendLine("SELECT");

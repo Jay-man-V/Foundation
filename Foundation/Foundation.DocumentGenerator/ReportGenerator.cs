@@ -343,13 +343,19 @@ namespace Foundation.DocumentGenerator
                 {
                     AppId appIdValue = (AppId)propertyValue;
                     dataType = new EnumValue<CellValues>(CellValues.Number);
-                    cellValue = new CellValue(appIdValue.ToInteger().ToString());
+                    cellValue = new CellValue(appIdValue.ToString());
                 }
                 else if (gridColumnDefinition.DataType == typeof(EntityId))
                 {
                     EntityId entityIdValue = (EntityId)propertyValue;
                     dataType = new EnumValue<CellValues>(CellValues.Number);
-                    cellValue = new CellValue(entityIdValue.ToInteger().ToString());
+                    cellValue = new CellValue(entityIdValue.ToString());
+                }
+                else if (gridColumnDefinition.DataType == typeof(LogId))
+                {
+                    LogId logIdValue = (LogId)propertyValue;
+                    dataType = new EnumValue<CellValues>(CellValues.Number);
+                    cellValue = new CellValue(logIdValue.ToString());
                 }
                 else if (gridColumnDefinition.DataType == typeof(TimeSpan))
                 {

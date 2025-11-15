@@ -513,13 +513,13 @@ namespace Foundation.DataAccess.Database
 
             IDbDataParameter retVal;
 
-            if (parameterValue.TheEntityId is 0L or -1L)
+            if (parameterValue.TheEntityId is 0L || parameterValue.TheEntityId == DataHelpers.DefaultEntityId)
             {
                 retVal = CreateParameter(parameterName, EntityId.DbType, DBNull.Value);
             }
             else
             {
-                retVal = InternalCreateParameter(parameterName, parameterValue.ToInteger());
+                retVal = InternalCreateParameter(parameterName, parameterValue.TheEntityId);
             }
 
             LoggingHelpers.TraceCallReturn(retVal);
@@ -540,7 +540,7 @@ namespace Foundation.DataAccess.Database
             }
             else
             {
-                retVal = InternalCreateParameter(parameterName, parameterValue.ToInteger());
+                retVal = InternalCreateParameter(parameterName, parameterValue.TheAppId);
             }
 
             LoggingHelpers.TraceCallReturn(retVal);
@@ -561,7 +561,7 @@ namespace Foundation.DataAccess.Database
             }
             else
             {
-                retVal = InternalCreateParameter(parameterName, parameterValue.ToInteger());
+                retVal = InternalCreateParameter(parameterName, parameterValue.TheLogId);
             }
 
             LoggingHelpers.TraceCallReturn(retVal);

@@ -27,7 +27,7 @@ namespace Foundation.Models.Sec.EnumModels
 
         /// <inheritdoc cref="IApplicationRole.Role"/>
         [NotMapped]
-        public FEnums.ApplicationRole Role => (FEnums.ApplicationRole)Id.ToInteger();
+        public FEnums.ApplicationRole Role => (FEnums.ApplicationRole)Id.TheEntityId;
 
         /// <inheritdoc cref="IApplicationRole.ApplicationId"/>
         [Column(nameof(FDC.ApplicationRole.ApplicationId))]

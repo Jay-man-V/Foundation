@@ -29,16 +29,16 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
             // Default constructor is not listed as accessible even though it is usable
             Int32 expectedAppId1 = 0;
             AppId appId1 = new AppId();
-            Assert.That(appId1.ToInteger(), Is.EqualTo(expectedAppId1));
+            Assert.That(appId1.TheAppId, Is.EqualTo(expectedAppId1));
 
             // Constructor 1 = ctor(Int32)
             Int32 expectedAppId2 = 123456;
             AppId appId2 = new AppId(expectedAppId2);
-            Assert.That(appId2.ToInteger(), Is.EqualTo(expectedAppId2));
+            Assert.That(appId2.TheAppId, Is.EqualTo(expectedAppId2));
 
             // Constructor 2 = ctor(AppId)
             AppId appId3 = new AppId(appId2);
-            Assert.That(appId3.ToInteger(), Is.EqualTo(expectedAppId2));
+            Assert.That(appId3.TheAppId, Is.EqualTo(expectedAppId2));
             Assert.That(appId3.ToString(), Is.EqualTo(expectedAppId2.ToString()));
             Assert.That(appId3.GetHashCode(), Is.EqualTo(expectedAppId2.GetHashCode()));
         }
@@ -62,10 +62,10 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
             AppId appId2 = AppId.FromObject(objAppId);
             AppId appId3 = AppId.FromObject(objString);
 
-            Assert.That(appId1.ToInteger(), Is.EqualTo(expectedId));
-            Assert.That(appId2.ToInteger(), Is.EqualTo(expectedId));
+            Assert.That(appId1.TheAppId, Is.EqualTo(expectedId));
+            Assert.That(appId2.TheAppId, Is.EqualTo(expectedId));
             Assert.That(appId3, Is.Not.EqualTo(null));
-            Assert.That(appId3.ToInteger(), Is.EqualTo(0));
+            Assert.That(appId3.TheAppId, Is.EqualTo(0));
         }
 
         [TestCase]
@@ -77,7 +77,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
             AppId appId2 = new AppId(789456);
             AppId appId3 = new AppId(-1);
 
-            Assert.That(appId1.ToInteger(), Is.EqualTo(expectedId));
+            Assert.That(appId1.TheAppId, Is.EqualTo(expectedId));
 
             Assert.That(appId1 == expectedAppId);
             Assert.That(appId1 != expectedAppId, Is.EqualTo(false));
@@ -125,7 +125,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
             AppId appId3 = new AppId(-1);
 
             Assert.That(appId1, Is.Not.EqualTo(null));
-            Assert.That(appId1.ToInteger(), Is.EqualTo(expectedId));
+            Assert.That(appId1.TheAppId, Is.EqualTo(expectedId));
             //Assert.That(appId1.Equals(expectedId));
 
             Assert.That(appId1.TheAppId == expectedId);
@@ -192,16 +192,16 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
 
             appIds.Sort();
 
-            Assert.That(appIds[00].ToInteger(), Is.EqualTo(01));
-            Assert.That(appIds[01].ToInteger(), Is.EqualTo(02));
-            Assert.That(appIds[02].ToInteger(), Is.EqualTo(03));
-            Assert.That(appIds[03].ToInteger(), Is.EqualTo(04));
-            Assert.That(appIds[04].ToInteger(), Is.EqualTo(05));
-            Assert.That(appIds[05].ToInteger(), Is.EqualTo(06));
-            Assert.That(appIds[06].ToInteger(), Is.EqualTo(07));
-            Assert.That(appIds[07].ToInteger(), Is.EqualTo(08));
-            Assert.That(appIds[08].ToInteger(), Is.EqualTo(09));
-            Assert.That(appIds[09].ToInteger(), Is.EqualTo(10));
+            Assert.That(appIds[00].TheAppId, Is.EqualTo(01));
+            Assert.That(appIds[01].TheAppId, Is.EqualTo(02));
+            Assert.That(appIds[02].TheAppId, Is.EqualTo(03));
+            Assert.That(appIds[03].TheAppId, Is.EqualTo(04));
+            Assert.That(appIds[04].TheAppId, Is.EqualTo(05));
+            Assert.That(appIds[05].TheAppId, Is.EqualTo(06));
+            Assert.That(appIds[06].TheAppId, Is.EqualTo(07));
+            Assert.That(appIds[07].TheAppId, Is.EqualTo(08));
+            Assert.That(appIds[08].TheAppId, Is.EqualTo(09));
+            Assert.That(appIds[09].TheAppId, Is.EqualTo(10));
         }
         [TestCase]
         public void Test_IComparer_SortAscending_1()
@@ -224,16 +224,16 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
 
             appIds.Sort(comparer);
 
-            Assert.That(appIds[00].ToInteger(), Is.EqualTo(01));
-            Assert.That(appIds[01].ToInteger(), Is.EqualTo(02));
-            Assert.That(appIds[02].ToInteger(), Is.EqualTo(03));
-            Assert.That(appIds[03].ToInteger(), Is.EqualTo(04));
-            Assert.That(appIds[04].ToInteger(), Is.EqualTo(05));
-            Assert.That(appIds[05].ToInteger(), Is.EqualTo(06));
-            Assert.That(appIds[06].ToInteger(), Is.EqualTo(07));
-            Assert.That(appIds[07].ToInteger(), Is.EqualTo(08));
-            Assert.That(appIds[08].ToInteger(), Is.EqualTo(09));
-            Assert.That(appIds[09].ToInteger(), Is.EqualTo(10));
+            Assert.That(appIds[00].TheAppId, Is.EqualTo(01));
+            Assert.That(appIds[01].TheAppId, Is.EqualTo(02));
+            Assert.That(appIds[02].TheAppId, Is.EqualTo(03));
+            Assert.That(appIds[03].TheAppId, Is.EqualTo(04));
+            Assert.That(appIds[04].TheAppId, Is.EqualTo(05));
+            Assert.That(appIds[05].TheAppId, Is.EqualTo(06));
+            Assert.That(appIds[06].TheAppId, Is.EqualTo(07));
+            Assert.That(appIds[07].TheAppId, Is.EqualTo(08));
+            Assert.That(appIds[08].TheAppId, Is.EqualTo(09));
+            Assert.That(appIds[09].TheAppId, Is.EqualTo(10));
         }
 
         [TestCase]
@@ -257,16 +257,16 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
 
             Array.Sort(appIds, comparer);
 
-            Assert.That(appIds[00].ToInteger(), Is.EqualTo(01));
-            Assert.That(appIds[01].ToInteger(), Is.EqualTo(02));
-            Assert.That(appIds[02].ToInteger(), Is.EqualTo(03));
-            Assert.That(appIds[03].ToInteger(), Is.EqualTo(04));
-            Assert.That(appIds[04].ToInteger(), Is.EqualTo(05));
-            Assert.That(appIds[05].ToInteger(), Is.EqualTo(06));
-            Assert.That(appIds[06].ToInteger(), Is.EqualTo(07));
-            Assert.That(appIds[07].ToInteger(), Is.EqualTo(08));
-            Assert.That(appIds[08].ToInteger(), Is.EqualTo(09));
-            Assert.That(appIds[09].ToInteger(), Is.EqualTo(10));
+            Assert.That(appIds[00].TheAppId, Is.EqualTo(01));
+            Assert.That(appIds[01].TheAppId, Is.EqualTo(02));
+            Assert.That(appIds[02].TheAppId, Is.EqualTo(03));
+            Assert.That(appIds[03].TheAppId, Is.EqualTo(04));
+            Assert.That(appIds[04].TheAppId, Is.EqualTo(05));
+            Assert.That(appIds[05].TheAppId, Is.EqualTo(06));
+            Assert.That(appIds[06].TheAppId, Is.EqualTo(07));
+            Assert.That(appIds[07].TheAppId, Is.EqualTo(08));
+            Assert.That(appIds[08].TheAppId, Is.EqualTo(09));
+            Assert.That(appIds[09].TheAppId, Is.EqualTo(10));
         }
 
         [TestCase]
@@ -290,16 +290,16 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
 
             appIds.Sort(comparer);
 
-            Assert.That(appIds[00].ToInteger(), Is.EqualTo(10));
-            Assert.That(appIds[01].ToInteger(), Is.EqualTo(09));
-            Assert.That(appIds[02].ToInteger(), Is.EqualTo(08));
-            Assert.That(appIds[03].ToInteger(), Is.EqualTo(07));
-            Assert.That(appIds[04].ToInteger(), Is.EqualTo(06));
-            Assert.That(appIds[05].ToInteger(), Is.EqualTo(05));
-            Assert.That(appIds[06].ToInteger(), Is.EqualTo(04));
-            Assert.That(appIds[07].ToInteger(), Is.EqualTo(03));
-            Assert.That(appIds[08].ToInteger(), Is.EqualTo(02));
-            Assert.That(appIds[09].ToInteger(), Is.EqualTo(01));
+            Assert.That(appIds[00].TheAppId, Is.EqualTo(10));
+            Assert.That(appIds[01].TheAppId, Is.EqualTo(09));
+            Assert.That(appIds[02].TheAppId, Is.EqualTo(08));
+            Assert.That(appIds[03].TheAppId, Is.EqualTo(07));
+            Assert.That(appIds[04].TheAppId, Is.EqualTo(06));
+            Assert.That(appIds[05].TheAppId, Is.EqualTo(05));
+            Assert.That(appIds[06].TheAppId, Is.EqualTo(04));
+            Assert.That(appIds[07].TheAppId, Is.EqualTo(03));
+            Assert.That(appIds[08].TheAppId, Is.EqualTo(02));
+            Assert.That(appIds[09].TheAppId, Is.EqualTo(01));
         }
 
         [TestCase]
@@ -323,16 +323,16 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
 
             Array.Sort(appIds, comparer);
 
-            Assert.That(appIds[00].ToInteger(), Is.EqualTo(10));
-            Assert.That(appIds[01].ToInteger(), Is.EqualTo(09));
-            Assert.That(appIds[02].ToInteger(), Is.EqualTo(08));
-            Assert.That(appIds[03].ToInteger(), Is.EqualTo(07));
-            Assert.That(appIds[04].ToInteger(), Is.EqualTo(06));
-            Assert.That(appIds[05].ToInteger(), Is.EqualTo(05));
-            Assert.That(appIds[06].ToInteger(), Is.EqualTo(04));
-            Assert.That(appIds[07].ToInteger(), Is.EqualTo(03));
-            Assert.That(appIds[08].ToInteger(), Is.EqualTo(02));
-            Assert.That(appIds[09].ToInteger(), Is.EqualTo(01));
+            Assert.That(appIds[00].TheAppId, Is.EqualTo(10));
+            Assert.That(appIds[01].TheAppId, Is.EqualTo(09));
+            Assert.That(appIds[02].TheAppId, Is.EqualTo(08));
+            Assert.That(appIds[03].TheAppId, Is.EqualTo(07));
+            Assert.That(appIds[04].TheAppId, Is.EqualTo(06));
+            Assert.That(appIds[05].TheAppId, Is.EqualTo(05));
+            Assert.That(appIds[06].TheAppId, Is.EqualTo(04));
+            Assert.That(appIds[07].TheAppId, Is.EqualTo(03));
+            Assert.That(appIds[08].TheAppId, Is.EqualTo(02));
+            Assert.That(appIds[09].TheAppId, Is.EqualTo(01));
         }
     }
 }

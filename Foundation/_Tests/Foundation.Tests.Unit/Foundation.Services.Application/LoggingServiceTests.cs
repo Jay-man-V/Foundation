@@ -179,7 +179,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(savedEventLog!.BatchName, Is.EqualTo(batchName));
             Assert.That(savedEventLog!.ProcessName, Is.EqualTo(processName));
             Assert.That(savedEventLog!.TaskName, Is.EqualTo(taskName));
-            Assert.That(savedEventLog!.LogSeverityId.ToInteger(), Is.EqualTo(logSeverity.Id()));
+            Assert.That(savedEventLog!.LogSeverityId.TheEntityId, Is.EqualTo(logSeverity.Id()));
             Assert.That(savedEventLog!.StartedOn, Is.EqualTo(DateTimeService.SystemUtcDateTimeNow));
         }
 
@@ -212,7 +212,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(savedEventLog!.BatchName, Is.EqualTo(String.Empty));
             Assert.That(savedEventLog!.ProcessName, Is.EqualTo(String.Empty));
             Assert.That(savedEventLog!.TaskName, Is.EqualTo(String.Empty));
-            Assert.That(savedEventLog!.LogSeverityId.ToInteger(), Is.EqualTo(logSeverity.Id()));
+            Assert.That(savedEventLog!.LogSeverityId.TheEntityId, Is.EqualTo(logSeverity.Id()));
             Assert.That(savedEventLog!.StartedOn, Is.EqualTo(DateTimeService.SystemUtcDateTimeNow));
             Assert.That(savedEventLog!.Information.Contains(updateMessage), Is.EqualTo(true));
         }
@@ -257,7 +257,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(savedEventLog!.BatchName, Is.EqualTo(batchName));
             Assert.That(savedEventLog!.ProcessName, Is.EqualTo(processName));
             Assert.That(savedEventLog!.TaskName, Is.EqualTo(taskName));
-            Assert.That(savedEventLog!.LogSeverityId.ToInteger(), Is.EqualTo(logSeverity.Id()));
+            Assert.That(savedEventLog!.LogSeverityId.TheEntityId, Is.EqualTo(logSeverity.Id()));
             Assert.That(savedEventLog!.StartedOn, Is.EqualTo(DateTimeService.SystemUtcDateTimeNow));
             Assert.That(savedEventLog!.Information, Is.EqualTo(expected));
         }

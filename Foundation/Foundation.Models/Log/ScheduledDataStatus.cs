@@ -29,7 +29,7 @@ namespace Foundation.Models.Log
 
         /// <inheritdoc cref="IScheduledDataStatus.DataStatus"/>
         [NotMapped]
-        public FEnums.DataStatus DataStatus => (FEnums.DataStatus)this._dataStatusId.ToInteger();
+        public FEnums.DataStatus DataStatus => (FEnums.DataStatus)this._dataStatusId.TheEntityId;
 
         /// <inheritdoc cref="IScheduledDataStatus.DataDate"/>
         [Column(nameof(FDC.ScheduledDataStatus.DataDate))]

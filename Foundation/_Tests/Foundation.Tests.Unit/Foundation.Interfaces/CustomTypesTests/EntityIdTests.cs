@@ -29,16 +29,16 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
             // Default constructor is not listed as accessible even though it is usable
             Int32 expectedEntityId1 = 0;
             EntityId entityId1 = new EntityId();
-            Assert.That(entityId1.ToInteger(), Is.EqualTo(expectedEntityId1));
+            Assert.That(entityId1.TheEntityId, Is.EqualTo(expectedEntityId1));
 
             // Constructor 1 = ctor(Int32)
             Int32 expectedEntityId2 = 123456;
             EntityId entityId2 = new EntityId(expectedEntityId2);
-            Assert.That(entityId2.ToInteger(), Is.EqualTo(expectedEntityId2));
+            Assert.That(entityId2.TheEntityId, Is.EqualTo(expectedEntityId2));
 
             // Constructor 2 = ctor(EntityId)
             EntityId entityId3 = new EntityId(entityId2);
-            Assert.That(entityId3.ToInteger(), Is.EqualTo(expectedEntityId2));
+            Assert.That(entityId3.TheEntityId, Is.EqualTo(expectedEntityId2));
             Assert.That(entityId3.ToString(), Is.EqualTo(expectedEntityId2.ToString()));
             Assert.That(entityId3.GetHashCode(), Is.EqualTo(expectedEntityId2.GetHashCode()));
         }
@@ -62,10 +62,10 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
             EntityId entityId2 = EntityId.FromObject(objEntityId);
             EntityId entityId3 = EntityId.FromObject(objString);
 
-            Assert.That(entityId1.ToInteger(), Is.EqualTo(expectedId));
-            Assert.That(entityId2.ToInteger(), Is.EqualTo(expectedId));
+            Assert.That(entityId1.TheEntityId, Is.EqualTo(expectedId));
+            Assert.That(entityId2.TheEntityId, Is.EqualTo(expectedId));
             Assert.That(entityId3, Is.Not.EqualTo(null));
-            Assert.That(entityId3.ToInteger(), Is.EqualTo(0));
+            Assert.That(entityId3.TheEntityId, Is.EqualTo(0));
         }
 
         [TestCase]
@@ -77,7 +77,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
             EntityId entityId2 = new EntityId(789456);
             EntityId entityId3 = new EntityId(-1);
 
-            Assert.That(entityId1.ToInteger(), Is.EqualTo(expectedId));
+            Assert.That(entityId1.TheEntityId, Is.EqualTo(expectedId));
 
             Assert.That(entityId1 == expectedEntityId);
             Assert.That(entityId1 != expectedEntityId, Is.EqualTo(false));
@@ -125,7 +125,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
             EntityId entityId3 = new EntityId(-1L);
 
             Assert.That(entityId1, Is.Not.EqualTo(null));
-            Assert.That(entityId1.ToInteger(), Is.EqualTo(expectedId));
+            Assert.That(entityId1.TheEntityId, Is.EqualTo(expectedId));
             //Assert.That(entityId1.Equals(expectedId));
 
             Assert.That(entityId1.TheEntityId == expectedId);
@@ -192,16 +192,16 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
 
             entityIds.Sort();
 
-            Assert.That(entityIds[00].ToInteger(), Is.EqualTo(01));
-            Assert.That(entityIds[01].ToInteger(), Is.EqualTo(02));
-            Assert.That(entityIds[02].ToInteger(), Is.EqualTo(03));
-            Assert.That(entityIds[03].ToInteger(), Is.EqualTo(04));
-            Assert.That(entityIds[04].ToInteger(), Is.EqualTo(05));
-            Assert.That(entityIds[05].ToInteger(), Is.EqualTo(06));
-            Assert.That(entityIds[06].ToInteger(), Is.EqualTo(07));
-            Assert.That(entityIds[07].ToInteger(), Is.EqualTo(08));
-            Assert.That(entityIds[08].ToInteger(), Is.EqualTo(09));
-            Assert.That(entityIds[09].ToInteger(), Is.EqualTo(10));
+            Assert.That(entityIds[00].TheEntityId, Is.EqualTo(01));
+            Assert.That(entityIds[01].TheEntityId, Is.EqualTo(02));
+            Assert.That(entityIds[02].TheEntityId, Is.EqualTo(03));
+            Assert.That(entityIds[03].TheEntityId, Is.EqualTo(04));
+            Assert.That(entityIds[04].TheEntityId, Is.EqualTo(05));
+            Assert.That(entityIds[05].TheEntityId, Is.EqualTo(06));
+            Assert.That(entityIds[06].TheEntityId, Is.EqualTo(07));
+            Assert.That(entityIds[07].TheEntityId, Is.EqualTo(08));
+            Assert.That(entityIds[08].TheEntityId, Is.EqualTo(09));
+            Assert.That(entityIds[09].TheEntityId, Is.EqualTo(10));
         }
         [TestCase]
         public void Test_IComparer_SortAscending_1()
@@ -224,16 +224,16 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
 
             entityIds.Sort(comparer);
 
-            Assert.That(entityIds[00].ToInteger(), Is.EqualTo(01));
-            Assert.That(entityIds[01].ToInteger(), Is.EqualTo(02));
-            Assert.That(entityIds[02].ToInteger(), Is.EqualTo(03));
-            Assert.That(entityIds[03].ToInteger(), Is.EqualTo(04));
-            Assert.That(entityIds[04].ToInteger(), Is.EqualTo(05));
-            Assert.That(entityIds[05].ToInteger(), Is.EqualTo(06));
-            Assert.That(entityIds[06].ToInteger(), Is.EqualTo(07));
-            Assert.That(entityIds[07].ToInteger(), Is.EqualTo(08));
-            Assert.That(entityIds[08].ToInteger(), Is.EqualTo(09));
-            Assert.That(entityIds[09].ToInteger(), Is.EqualTo(10));
+            Assert.That(entityIds[00].TheEntityId, Is.EqualTo(01));
+            Assert.That(entityIds[01].TheEntityId, Is.EqualTo(02));
+            Assert.That(entityIds[02].TheEntityId, Is.EqualTo(03));
+            Assert.That(entityIds[03].TheEntityId, Is.EqualTo(04));
+            Assert.That(entityIds[04].TheEntityId, Is.EqualTo(05));
+            Assert.That(entityIds[05].TheEntityId, Is.EqualTo(06));
+            Assert.That(entityIds[06].TheEntityId, Is.EqualTo(07));
+            Assert.That(entityIds[07].TheEntityId, Is.EqualTo(08));
+            Assert.That(entityIds[08].TheEntityId, Is.EqualTo(09));
+            Assert.That(entityIds[09].TheEntityId, Is.EqualTo(10));
         }
 
         [TestCase]
@@ -257,16 +257,16 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
 
             Array.Sort(entityIds, comparer);
 
-            Assert.That(entityIds[00].ToInteger(), Is.EqualTo(01));
-            Assert.That(entityIds[01].ToInteger(), Is.EqualTo(02));
-            Assert.That(entityIds[02].ToInteger(), Is.EqualTo(03));
-            Assert.That(entityIds[03].ToInteger(), Is.EqualTo(04));
-            Assert.That(entityIds[04].ToInteger(), Is.EqualTo(05));
-            Assert.That(entityIds[05].ToInteger(), Is.EqualTo(06));
-            Assert.That(entityIds[06].ToInteger(), Is.EqualTo(07));
-            Assert.That(entityIds[07].ToInteger(), Is.EqualTo(08));
-            Assert.That(entityIds[08].ToInteger(), Is.EqualTo(09));
-            Assert.That(entityIds[09].ToInteger(), Is.EqualTo(10));
+            Assert.That(entityIds[00].TheEntityId, Is.EqualTo(01));
+            Assert.That(entityIds[01].TheEntityId, Is.EqualTo(02));
+            Assert.That(entityIds[02].TheEntityId, Is.EqualTo(03));
+            Assert.That(entityIds[03].TheEntityId, Is.EqualTo(04));
+            Assert.That(entityIds[04].TheEntityId, Is.EqualTo(05));
+            Assert.That(entityIds[05].TheEntityId, Is.EqualTo(06));
+            Assert.That(entityIds[06].TheEntityId, Is.EqualTo(07));
+            Assert.That(entityIds[07].TheEntityId, Is.EqualTo(08));
+            Assert.That(entityIds[08].TheEntityId, Is.EqualTo(09));
+            Assert.That(entityIds[09].TheEntityId, Is.EqualTo(10));
         }
 
         [TestCase]
@@ -290,16 +290,16 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
 
             entityIds.Sort(comparer);
 
-            Assert.That(entityIds[00].ToInteger(), Is.EqualTo(10));
-            Assert.That(entityIds[01].ToInteger(), Is.EqualTo(09));
-            Assert.That(entityIds[02].ToInteger(), Is.EqualTo(08));
-            Assert.That(entityIds[03].ToInteger(), Is.EqualTo(07));
-            Assert.That(entityIds[04].ToInteger(), Is.EqualTo(06));
-            Assert.That(entityIds[05].ToInteger(), Is.EqualTo(05));
-            Assert.That(entityIds[06].ToInteger(), Is.EqualTo(04));
-            Assert.That(entityIds[07].ToInteger(), Is.EqualTo(03));
-            Assert.That(entityIds[08].ToInteger(), Is.EqualTo(02));
-            Assert.That(entityIds[09].ToInteger(), Is.EqualTo(01));
+            Assert.That(entityIds[00].TheEntityId, Is.EqualTo(10));
+            Assert.That(entityIds[01].TheEntityId, Is.EqualTo(09));
+            Assert.That(entityIds[02].TheEntityId, Is.EqualTo(08));
+            Assert.That(entityIds[03].TheEntityId, Is.EqualTo(07));
+            Assert.That(entityIds[04].TheEntityId, Is.EqualTo(06));
+            Assert.That(entityIds[05].TheEntityId, Is.EqualTo(05));
+            Assert.That(entityIds[06].TheEntityId, Is.EqualTo(04));
+            Assert.That(entityIds[07].TheEntityId, Is.EqualTo(03));
+            Assert.That(entityIds[08].TheEntityId, Is.EqualTo(02));
+            Assert.That(entityIds[09].TheEntityId, Is.EqualTo(01));
         }
 
         [TestCase]
@@ -323,16 +323,16 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
 
             Array.Sort(entityIds, comparer);
 
-            Assert.That(entityIds[00].ToInteger(), Is.EqualTo(10));
-            Assert.That(entityIds[01].ToInteger(), Is.EqualTo(09));
-            Assert.That(entityIds[02].ToInteger(), Is.EqualTo(08));
-            Assert.That(entityIds[03].ToInteger(), Is.EqualTo(07));
-            Assert.That(entityIds[04].ToInteger(), Is.EqualTo(06));
-            Assert.That(entityIds[05].ToInteger(), Is.EqualTo(05));
-            Assert.That(entityIds[06].ToInteger(), Is.EqualTo(04));
-            Assert.That(entityIds[07].ToInteger(), Is.EqualTo(03));
-            Assert.That(entityIds[08].ToInteger(), Is.EqualTo(02));
-            Assert.That(entityIds[09].ToInteger(), Is.EqualTo(01));
+            Assert.That(entityIds[00].TheEntityId, Is.EqualTo(10));
+            Assert.That(entityIds[01].TheEntityId, Is.EqualTo(09));
+            Assert.That(entityIds[02].TheEntityId, Is.EqualTo(08));
+            Assert.That(entityIds[03].TheEntityId, Is.EqualTo(07));
+            Assert.That(entityIds[04].TheEntityId, Is.EqualTo(06));
+            Assert.That(entityIds[05].TheEntityId, Is.EqualTo(05));
+            Assert.That(entityIds[06].TheEntityId, Is.EqualTo(04));
+            Assert.That(entityIds[07].TheEntityId, Is.EqualTo(03));
+            Assert.That(entityIds[08].TheEntityId, Is.EqualTo(02));
+            Assert.That(entityIds[09].TheEntityId, Is.EqualTo(01));
         }
     }
 }

@@ -38,11 +38,11 @@ namespace Foundation.Models.Log
 
         /// <inheritdoc cref="IEventLog.LogSeverity"/>
         [NotMapped]
-        public FEnums.LogSeverity LogSeverity => (FEnums.LogSeverity)LogSeverityId.ToInteger();
+        public FEnums.LogSeverity LogSeverity => (FEnums.LogSeverity)LogSeverityId.TheEntityId;
 
         /// <inheritdoc cref="IEventLog.TaskStatus"/>
         [NotMapped]
-        public FEnums.TaskStatus TaskStatus => (FEnums.TaskStatus)TaskStatusId.ToInteger();
+        public FEnums.TaskStatus TaskStatus => (FEnums.TaskStatus)TaskStatusId.TheEntityId;
 
         /// <inheritdoc cref="IApplication.Id"/>
         [Column(nameof(FDC.Application.Id))]
@@ -52,7 +52,7 @@ namespace Foundation.Models.Log
             set
             {
                 _id = value;
-                base.Id = new EntityId(value.ToInteger());
+                base.Id = new EntityId(value.TheLogId);
             }
         }
 

@@ -591,7 +591,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
 
             Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
-            Assert.That(dataParameter.Value, Is.EqualTo(parameterValue.ToInteger()));
+            Assert.That(dataParameter.Value, Is.EqualTo(parameterValue.TheAppId));
             Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
         }
 

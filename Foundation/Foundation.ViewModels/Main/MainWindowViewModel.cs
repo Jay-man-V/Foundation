@@ -109,7 +109,7 @@ namespace Foundation.ViewModels.Main
         {
             LoggingHelpers.TraceCallEnter();
 
-            IApplication application = ApplicationProcess.Get(new EntityId(Core.ApplicationId.ToInteger()));
+            IApplication application = ApplicationProcess.Get(new EntityId(Core.ApplicationId.TheAppId));
             ApplicationName = application.Name;
 
             MenuItems = MenuItemProcess.GetAll(excludeDeleted: true);

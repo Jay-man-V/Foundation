@@ -58,13 +58,13 @@ namespace Foundation.BusinessProcess.Sec
         }
 
         /// <inheritdoc cref="ICommonBusinessProcess.NullId"/>
-        public new AppId NullId => new AppId(base.NullId.ToInteger());
+        public new AppId NullId => new AppId(base.NullId.TheEntityId);
 
         /// <inheritdoc cref="ICommonBusinessProcess.NoneId"/>
-        public new AppId NoneId => new AppId(base.NoneId.ToInteger());
+        public new AppId NoneId => new AppId(base.NoneId.TheEntityId);
 
         /// <inheritdoc cref="ICommonBusinessProcess.AllId"/>
-        public new AppId AllId => new AppId(base.AllId.ToInteger());
+        public new AppId AllId => new AppId(base.AllId.TheEntityId);
 
         /// <inheritdoc cref="ICommonBusinessProcess.ScreenTitle"/>
         public override String ScreenTitle => "Applications";
@@ -81,7 +81,7 @@ namespace Foundation.BusinessProcess.Sec
             LoggingHelpers.TraceCallEnter(entityId);
 
             IApplication retVal = Core.IoC.Get<IApplication>();
-            retVal.Id = new AppId(entityId.ToInteger());
+            retVal.Id = new AppId(entityId.TheEntityId);
 
             LoggingHelpers.TraceCallReturn(retVal);
 

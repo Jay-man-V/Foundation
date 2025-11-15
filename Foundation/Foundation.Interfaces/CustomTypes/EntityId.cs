@@ -52,7 +52,7 @@ namespace Foundation.Interfaces
         /// <param name="entityId">The entity id.</param>
         public EntityId(EntityId entityId)
         {
-            TheEntityId = entityId.ToInteger();
+            TheEntityId = entityId.TheEntityId;
         }
 
         /// <summary>
@@ -328,17 +328,6 @@ namespace Foundation.Interfaces
         public override String ToString()
         {
             return TheEntityId.ToString();
-        }
-
-        /// <summary>
-        /// Returns a <see cref="T:System.Int64" /> that represents the current <see cref="T:System.Object" />.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="T:System.Int64" /> that represents the current <see cref="T:System.Object" />.
-        /// </returns>
-        public Int64 ToInteger()
-        {
-            return TheEntityId;
         }
 
         /// <summary>
