@@ -49,6 +49,8 @@ namespace Foundation.Server.ScheduledTasks
         /// <inheritdoc cref="IScheduledTask.Process(LogId, String)"/>
         public override void Process(LogId logId, String taskParameters)
         {
+            base.Process(logId, taskParameters);
+
             DateTime currentDateTime = DateTimeService.SystemUtcDateTimeNow;
             String message = $"{GetType()}::ProcessJob running at: {currentDateTime.ToString(Formats.DotNet.DateTimeSeconds)} with Task Parameters: '{taskParameters}'";
             LoggingHelpers.LogInformationMessage(message);

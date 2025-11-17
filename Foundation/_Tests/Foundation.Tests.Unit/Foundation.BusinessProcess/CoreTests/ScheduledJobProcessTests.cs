@@ -4,21 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Globalization;
+using System.ServiceProcess;
+
+using NSubstitute;
+using NSubstitute.ClearExtensions;
+
 using Foundation.BusinessProcess.Components;
 using Foundation.BusinessProcess.Core;
-using Foundation.BusinessProcess.Core.EnumProcesses;
 using Foundation.Common;
 using Foundation.Interfaces;
 
 using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
-using Foundation.Tests.Unit.Mocks;
 using Foundation.Tests.Unit.Support;
 
-using NSubstitute;
-
-using System.Globalization;
-using System.ServiceProcess;
-using NSubstitute.ClearExtensions;
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;
 using FModels = Foundation.Models;
@@ -190,15 +189,46 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
             IScheduledJob scheduledJob = SchedulerSupport.CreateScheduledJob(CoreInstance, false, currentDate, scheduleInterval, interval);
             scheduledJob.ScheduledTask = TheProcess!.CreateScheduledTask(scheduledJob);
-            MockScheduledTask? mockScheduledTask = (MockScheduledTask?)scheduledJob.ScheduledTask;
 
             Boolean processJobCalled = false;
-            mockScheduledTask!.ProcessJobCalled += (_, _) =>
+            scheduledJob.ScheduledTask.ProcessJobCalled += (_, _) =>
             {
                 processJobCalled = true;
             };
 
             LogId logId = TheProcess!.RunJob(new LogId(0), scheduledJob);
+
+            Assert.That(processJobCalled, Is.EqualTo(true));
+            Assert.That(logId, Is.EqualTo(new LogId(1)));
+        }
+
+        [TestCase]
+        public void Test_RunDemoJob()
+        {
+            DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
+            ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
+            Int32 interval = 1;
+
+            LoggingService.StartTask(Arg.Any<AppId>(), Arg.Any<String>(), Arg.Any<String>(), Arg.Any<String>()).Returns(new LogId(1));
+
+            IScheduledJob scheduledJob = SchedulerSupport.CreateScheduledDemoJob(CoreInstance, false, currentDate, scheduleInterval, interval);
+            scheduledJob.ScheduledTask = TheProcess!.CreateScheduledTask(scheduledJob);
+
+            Boolean processJobCalled = false;
+            scheduledJob.ScheduledTask.ProcessJobCalled += (_, _) =>
+            {
+                processJobCalled = true;
+            };
+
+            LogId logId = TheProcess!.RunJob(new LogId(0), scheduledJob);
+
+            DateTime testStartTime = DateTime.Now;
+
+            while (!processJobCalled &&
+                   testStartTime.AddMinutes(1) > DateTime.Now)
+            {
+                Thread.Sleep(new TimeSpan(0, 0, 2));
+            }
 
             Assert.That(processJobCalled, Is.EqualTo(true));
             Assert.That(logId, Is.EqualTo(new LogId(1)));
@@ -222,13 +252,12 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             TheProcess!.StartJobs(new LogId(0));
 
             ServerProcessTimer serverProcessTimer = scheduledJobProcess.ScheduledTimers[scheduledJob.Name];
-            MockScheduledTask? mockScheduledTask = (MockScheduledTask?)serverProcessTimer.ScheduledJob.ScheduledTask;
 
             Assert.That(scheduledJobProcess.ScheduledTimers.Count, Is.EqualTo(1));
             //Assert.That(serverProcessTimer.Enabled, Is.EqualTo(false));
 
             Boolean processJobCalled = false;
-            mockScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
             {
                 processJobCalled = true;
             };
@@ -281,13 +310,12 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             TheProcess!.InitialiseJobs(new LogId(0));
 
             ServerProcessTimer serverProcessTimer = scheduledJobProcess.ScheduledTimers[scheduledJob.Name];
-            MockScheduledTask? mockScheduledTask = (MockScheduledTask?)serverProcessTimer.ScheduledJob.ScheduledTask;
 
             Assert.That(scheduledJobProcess.ScheduledTimers.Count, Is.EqualTo(1));
             Assert.That(serverProcessTimer.Enabled, Is.EqualTo(false));
 
             Boolean processJobCalled = false;
-            mockScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
             {
                 processJobCalled = true;
             };
@@ -323,13 +351,12 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             TheProcess!.InitialiseJobs(new LogId(0));
 
             ServerProcessTimer serverProcessTimer = scheduledJobProcess.ScheduledTimers[scheduledJob.Name];
-            MockScheduledTaskWithError? mockScheduledTask = (MockScheduledTaskWithError?)serverProcessTimer.ScheduledJob.ScheduledTask;
 
             Assert.That(scheduledJobProcess.ScheduledTimers.Count, Is.EqualTo(1));
             Assert.That(serverProcessTimer.Enabled, Is.EqualTo(false));
 
             Boolean processJobCalled = false;
-            mockScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
             {
                 processJobCalled = true;
             };
@@ -365,14 +392,13 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             TheProcess!.InitialiseJobs(new LogId(0));
 
             ServerProcessTimer serverProcessTimer = scheduledJobProcess.ScheduledTimers[scheduledJob.Name];
-            MockScheduledTaskWithError? mockScheduledTask = (MockScheduledTaskWithError?)serverProcessTimer.ScheduledJob.ScheduledTask;
 
             Assert.That(scheduledJobProcess.ScheduledTimers.Count, Is.EqualTo(1));
             Assert.That(serverProcessTimer.Enabled, Is.EqualTo(false));
 
             Boolean exceptionRaisedDuringTest = false;
 
-            mockScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
             {
                 exceptionRaisedDuringTest = true;
                 String errorMessage = "Exception raised during checking CanExecute";
@@ -410,13 +436,12 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             TheProcess!.InitialiseJobs(new LogId(0));
 
             ServerProcessTimer serverProcessTimer = scheduledJobProcess.ScheduledTimers[scheduledJob.Name];
-            MockScheduledTask? mockScheduledTask = (MockScheduledTask?)serverProcessTimer.ScheduledJob.ScheduledTask;
 
             Assert.That(scheduledJobProcess.ScheduledTimers.Count, Is.EqualTo(1));
             Assert.That(serverProcessTimer.Enabled, Is.EqualTo(false));
 
             Boolean processJobCalled = false;
-            mockScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
             {
                 processJobCalled = true;
             };
@@ -444,9 +469,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             Int32 interval = 1;
 
             IScheduledJob scheduledJob = SchedulerSupport.CreateScheduledDemoJob(CoreInstance, false, currentDate, scheduleInterval, interval);
-            List<IScheduledJob> scheduleTasks = [scheduledJob];
+            List<IScheduledJob> scheduleJobs = [scheduledJob];
 
-            TheRepository!.GetAllActive().Returns(scheduleTasks);
+            TheRepository!.GetAllActive().Returns(scheduleJobs);
 
             ScheduledJobProcess scheduledJobProcess = (ScheduledJobProcess)TheProcess!;
             TheProcess!.InitialiseJobs(new LogId(0));
@@ -473,21 +498,20 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
             IScheduledJob scheduledJob = SchedulerSupport.CreateScheduledJob(CoreInstance, false, currentDate, startTime, endTime, scheduleInterval, interval);
             scheduledJob.IsEnabled = false;
-            List<IScheduledJob> scheduleTasks = [scheduledJob];
+            List<IScheduledJob> scheduleJobs = [scheduledJob];
 
-            TheRepository!.GetAllActive().Returns(scheduleTasks);
+            TheRepository!.GetAllActive().Returns(scheduleJobs);
 
             ScheduledJobProcess scheduledJobProcess = (ScheduledJobProcess)TheProcess!;
             TheProcess!.InitialiseJobs(new LogId(0));
 
             ServerProcessTimer serverProcessTimer = scheduledJobProcess.ScheduledTimers[scheduledJob.Name];
-            MockScheduledTask? mockScheduledTask = (MockScheduledTask?)serverProcessTimer.ScheduledJob.ScheduledTask;
 
             Assert.That(scheduledJobProcess.ScheduledTimers.Count, Is.EqualTo(1));
             Assert.That(serverProcessTimer.Enabled, Is.EqualTo(false));
 
             Boolean processJobCalled = false;
-            mockScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
             {
                 processJobCalled = true;
             };
@@ -525,13 +549,12 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             TheProcess!.InitialiseJobs(new LogId(0));
 
             ServerProcessTimer serverProcessTimer = scheduledJobProcess.ScheduledTimers[scheduledJob.Name];
-            MockScheduledTask? mockScheduledTask = (MockScheduledTask?)serverProcessTimer.ScheduledJob.ScheduledTask;
 
             Assert.That(scheduledJobProcess.ScheduledTimers.Count, Is.EqualTo(1));
             Assert.That(serverProcessTimer.Enabled, Is.EqualTo(false));
 
             Boolean processJobCalled1 = false;
-            mockScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
             {
                 processJobCalled1 = true;
             };
@@ -554,7 +577,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             Assert.That(serverProcessTimer.Enabled, Is.EqualTo(false));
 
             Boolean processJobCalled2 = false;
-            mockScheduledTask.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
             {
                 processJobCalled2 = true;
             };
@@ -591,26 +614,25 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             TheProcess!.InitialiseJobs(new LogId(0));
 
             ServerProcessTimer serverProcessTimer = scheduledJobProcess.ScheduledTimers[scheduledJob.Name];
-            MockScheduledTask? mockScheduledTask = (MockScheduledTask?)serverProcessTimer.ScheduledJob.ScheduledTask;
 
             Assert.That(scheduledJobProcess.ScheduledTimers.Count, Is.EqualTo(1));
             Assert.That(serverProcessTimer.Enabled, Is.EqualTo(false));
 
             Boolean processJobCalled = false;
-            mockScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
             {
                 processJobCalled = true;
 
                 Int32 loopCount = 0;
                 while (loopCount < 10)
                 {
-                    Thread.Sleep(new TimeSpan(0, 0, 0, 150));
+                    Thread.Sleep(new TimeSpan(0, 0, 0, 0, 150));
                     //Debug.WriteLine($"{DateTime.Now:dd-MMM-yyyy HH:mm:ss}");
                     loopCount++;
                 }
             };
 
-            Thread.Sleep(new TimeSpan(0, 0, 0, 250));
+            Thread.Sleep(new TimeSpan(0, 0, 0, 0, 250));
 
             TheProcess!.StartJobs(new LogId(0));
             Assert.That(serverProcessTimer.Enabled, Is.EqualTo(true));
@@ -620,7 +642,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             while (!processJobCalled &&
                    testStartTime.AddMinutes(1) > DateTime.Now)
             {
-                Thread.Sleep(new TimeSpan(0, 0, 0, 150));
+                Thread.Sleep(new TimeSpan(0, 0, 0, 0, 150));
             }
 
             TheProcess!.StopJobs(new LogId(0));
@@ -647,10 +669,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             TheProcess!.InitialiseJobs(new LogId(0));
 
             ServerProcessTimer serverProcessTimer = scheduledJobProcess.ScheduledTimers[scheduledJob.Name];
-            MockScheduledTask? mockScheduledTask = (MockScheduledTask?)serverProcessTimer.ScheduledJob.ScheduledTask;
 
             Boolean processJobCalled1 = false;
-            mockScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
             {
                 processJobCalled1 = true;
             };
@@ -674,7 +695,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             Assert.That(serverProcessTimer.Enabled, Is.EqualTo(false));
 
             Boolean processJobCalled2 = false;
-            mockScheduledTask.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
             {
                 processJobCalled2 = true;
             };

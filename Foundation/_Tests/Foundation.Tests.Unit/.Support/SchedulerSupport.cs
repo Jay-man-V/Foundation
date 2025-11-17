@@ -139,6 +139,11 @@ namespace Foundation.Tests.Unit.Support
             {
                 eventArgs.ServiceInstance = new MockScheduledTaskWithError(Core!, RunTimeEnvironmentSettings!, DateTimeService!, LoggingService!);
             }
+            else if (fullyQualifiedTypeName.TypeName == DemoTaskImplementationType)
+            {
+                ICalendarProcess calenderProcess = Substitute.For<ICalendarProcess>();
+                eventArgs.ServiceInstance = new DemoScheduledTask(Core!, RunTimeEnvironmentSettings!, DateTimeService!, LoggingService!, calenderProcess);
+            }
         }
     }
 }

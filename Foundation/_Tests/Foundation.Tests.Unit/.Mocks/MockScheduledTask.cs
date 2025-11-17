@@ -14,8 +14,6 @@ namespace Foundation.Tests.Unit.Mocks
 {
     public class MockScheduledTask : ScheduledTaskBase
     {
-        public EventHandler? ProcessJobCalled;
-
         public MockScheduledTask
         (
             ICore core,
@@ -36,18 +34,14 @@ namespace Foundation.Tests.Unit.Mocks
         /// <inheritdoc cref="IScheduledTask.Process(LogId, String)"/>
         public override void Process(LogId logId, String taskParameters)
         {
+            base.Process(logId, taskParameters);
+
             DateTime currentDateTime = DateTimeService.SystemUtcDateTimeNow;
             String message = $"ProcessJob running at: {currentDateTime.ToString(Formats.DotNet.DateTimeSeconds)}";
 
             LoggingService.CreateLogEntry(logId, Core.ApplicationId, "batchName", "processName", "taskName", LogSeverity.Information, message);
             
             Debug.WriteLine(message);
-
-            EventHandler? handler = ProcessJobCalled;
-            if (handler != null)
-            {
-                handler(this, EventArgs.Empty);
-            }
         }
     }
 }

@@ -40,10 +40,22 @@ namespace Foundation.BusinessProcess.Core.Schedulers
         {
             LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService);
 
+            ProcessJobCalled = null;
+
             LoggingHelpers.TraceCallReturn();
         }
 
+        /// <inheritdoc cref="IScheduledTask.ProcessJobCalled"/>
+        public EventHandler? ProcessJobCalled { get; set; }
+
         /// <inheritdoc cref="IScheduledTask.Process(LogId, String)"/>
-        public abstract void Process(LogId logId, String taskParameters);
+        public virtual void Process(LogId logId, String taskParameters)
+        {
+            EventHandler? handler = ProcessJobCalled;
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
+            }
+        }
     }
 }

@@ -12,6 +12,8 @@ namespace Foundation.Interfaces
     /// </summary>
     public interface IScheduledTask
     {
+        EventHandler? ProcessJobCalled { get; set; }
+
         /// <summary>
         /// Causes the Scheduled Task to run.
         /// </summary>
