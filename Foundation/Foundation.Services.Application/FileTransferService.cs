@@ -125,6 +125,20 @@ namespace Foundation.Services.Application
 
             Stream fileContent = TransferFile(sourceFileTransferSettings);
 
+            SendFile(destinationFileTransferSettings, fileContent);
+
+            if (archiveTransferSettings != null)
+            {
+                ArchiveFile(sourceFileTransferSettings, archiveTransferSettings, fileContent);
+            }
+
+            LoggingHelpers.TraceCallReturn();
+        }
+
+        private void SendFile(IFileTransferSettings destinationFileTransferSettings, Stream fileContent)
+        {
+            LoggingHelpers.TraceCallEnter(destinationFileTransferSettings, fileContent);
+
             switch (destinationFileTransferSettings.FileTransferMethod)
             {
                 case FileTransferMethod.Email:
@@ -164,11 +178,6 @@ namespace Foundation.Services.Application
                 }
             }
 
-            if (archiveTransferSettings != null)
-            {
-                ArchiveFile(sourceFileTransferSettings, archiveTransferSettings, fileContent);
-            }
-
             LoggingHelpers.TraceCallReturn();
         }
 
@@ -182,44 +191,7 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallEnter(archiveTransferSettings);
 
             // Archive the file as required by the supplied settings
-            switch (archiveTransferSettings.FileTransferMethod)
-            {
-                case FileTransferMethod.Email:
-                {
-                    EmailApi.UploadFile(archiveTransferSettings, fileContent);
-                    break;
-                }
-
-                case FileTransferMethod.FileSystem:
-                {
-                    FileApi.UploadFile(archiveTransferSettings, fileContent);
-                    break;
-                }
-
-                case FileTransferMethod.Ftp:
-                {
-                    FtpApi.UploadFile(archiveTransferSettings, fileContent);
-                    break;
-                }
-
-                case FileTransferMethod.Http:
-                {
-                    HttpApi.UploadFile(archiveTransferSettings, fileContent);
-                    break;
-                }
-
-                case FileTransferMethod.Rest:
-                {
-                    RestApi.UploadFile(archiveTransferSettings, fileContent);
-                    break;
-                }
-
-                case FileTransferMethod.Mq:
-                {
-                    MqApi.UploadFile(archiveTransferSettings, fileContent);
-                    break;
-                }
-            }
+            SendFile(archiveTransferSettings, fileContent);
 
             fileContent.Close();
             fileContent.Dispose();

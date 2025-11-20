@@ -51,25 +51,22 @@ namespace Foundation.Common
         /// </value>
         private Func<Boolean>? CanExecuteEvaluator { get; }
 
-        // TODO
-        public event EventHandler? CanExecuteChanged;
-        //https://stackoverflow.com/questions/34996198/the-name-commandmanager-does-not-exist-in-the-current-context-visual-studio-2
-        ///// <summary>
-        ///// Occurs when changes occur that affect whether the command should execute.
-        ///// </summary>
-        //public event EventHandler? CanExecuteChanged
-        //{
-        //    add { if (CanExecuteEvaluator != null) { CommandManager.RequerySuggested += value; } }
-        //    remove { if (CanExecuteEvaluator != null) { CommandManager.RequerySuggested -= value; } }
-        //}
+        /// <summary>
+        /// Occurs when changes occur that affect whether the command should execute.
+        /// </summary>
+        public event EventHandler? CanExecuteChanged
+        {
+            add { if (CanExecuteEvaluator != null) { CommandManager.RequerySuggested += value; } }
+            remove { if (CanExecuteEvaluator != null) { CommandManager.RequerySuggested -= value; } }
+        }
 
-        ///// <summary>
-        ///// Raises the can execute changed.
-        ///// </summary>
-        //public void RaiseCanExecuteChanged()
-        //{
-        //    CommandManager.InvalidateRequerySuggested();
-        //}
+        /// <summary>
+        /// Raises the can execute changed.
+        /// </summary>
+        public void RaiseCanExecuteChanged()
+        {
+            CommandManager.InvalidateRequerySuggested();
+        }
 
         /// <summary>
         /// Defines the method that determines whether the command can execute in its current state.
@@ -154,25 +151,22 @@ namespace Foundation.Common
         /// </value>
         private Func<TCanExecute?, Boolean>? CanExecuteEvaluator { get; }
 
-        // TODO
-        public event EventHandler? CanExecuteChanged;
+        /// <summary>
+        /// Occurs when changes occur that affect whether the command should execute.
+        /// </summary>
+        public event EventHandler? CanExecuteChanged
+        {
+            add { if (CanExecuteEvaluator != null) { CommandManager.RequerySuggested += value; } }
+            remove { if (CanExecuteEvaluator != null) { CommandManager.RequerySuggested -= value; } }
+        }
 
-        ///// <summary>
-        ///// Occurs when changes occur that affect whether the command should execute.
-        ///// </summary>
-        //public event EventHandler? CanExecuteChanged
-        //{
-        //    add { if (CanExecuteEvaluator != null) { CommandManager.RequerySuggested += value; } }
-        //    remove { if (CanExecuteEvaluator != null) { CommandManager.RequerySuggested -= value; } }
-        //}
-
-        ///// <summary>
-        ///// Raises the can execute changed.
-        ///// </summary>
-        //public void RaiseCanExecuteChanged()
-        //{
-        //    CommandManager.InvalidateRequerySuggested();
-        //}
+        /// <summary>
+        /// Raises the can execute changed.
+        /// </summary>
+        public void RaiseCanExecuteChanged()
+        {
+            CommandManager.InvalidateRequerySuggested();
+        }
 
         /// <summary>
         /// Defines the method that determines whether the command can execute in its current state.
@@ -186,10 +180,10 @@ namespace Foundation.Common
         {
             Boolean retVal = true;
 
-            if (CanExecuteEvaluator != null)
+            if (CanExecuteEvaluator is not null)
             {
-                if (parameter != null &&
-                    !(parameter is TCanExecute))
+                if (parameter is not null &&
+                    parameter is not TCanExecute)
                 {
                     String message = $"The supplied parameter is not of the correct type. Expected Type: {typeof(TCanExecute)}. Supplied parameter type: {parameter.GetType()}";
                     throw new ArgumentException(message, nameof(parameter));
@@ -208,10 +202,10 @@ namespace Foundation.Common
         /// <exception cref="ArgumentException">parameter</exception>
         public void Execute(Object? parameter)
         {
-            if (MethodToExecute != null)
+            if (MethodToExecute is not null)
             {
                 if (parameter != null &&
-                    !(parameter is TFunction))
+                    parameter is not TFunction)
                 {
                     String message = $"The supplied parameter is not of the correct type. Expected Type: {typeof(TFunction)}. Supplied parameter type: {parameter.GetType()}";
                     throw new ArgumentException(message, nameof(parameter));
