@@ -21,15 +21,13 @@ namespace Foundation.Common
         /// Initialises a new instance of the <see cref="RelayCommand{TFunction}"/> class.
         /// </summary>
         /// <param name="methodToExecute">The method to execute.</param>
-        public RelayCommand(Action<TFunction?> methodToExecute) : this(methodToExecute, default) { }
-
-        /// <summary>
-        /// Initialises a new instance of the <see cref="RelayCommand{TFunction}"/> class.
-        /// </summary>
-        /// <param name="methodToExecute">The method to execute.</param>
         /// <param name="canExecuteEvaluator">The can execute evaluator.</param>
-        /// <exception cref="System.ArgumentNullException">methodToExecute</exception>
-        public RelayCommand(Action<TFunction?> methodToExecute, Func<Boolean>? canExecuteEvaluator)
+        /// <exception cref="ArgumentNullException">methodToExecute</exception>
+        public RelayCommand
+        (
+            Action<TFunction?> methodToExecute,
+            Func<Boolean> canExecuteEvaluator
+        )
         {
             MethodToExecute = methodToExecute ?? throw new ArgumentNullException(nameof(methodToExecute));
             CanExecuteEvaluator = canExecuteEvaluator;
@@ -56,8 +54,8 @@ namespace Foundation.Common
         /// </summary>
         public event EventHandler? CanExecuteChanged
         {
-            add { if (CanExecuteEvaluator != null) { CommandManager.RequerySuggested += value; } }
-            remove { if (CanExecuteEvaluator != null) { CommandManager.RequerySuggested -= value; } }
+            add { if (CanExecuteEvaluator is not null) { CommandManager.RequerySuggested += value; } }
+            remove { if (CanExecuteEvaluator is not null) { CommandManager.RequerySuggested -= value; } }
         }
 
         /// <summary>
@@ -79,7 +77,7 @@ namespace Foundation.Common
         {
             Boolean retVal = true;
 
-            if (CanExecuteEvaluator != null)
+            if (CanExecuteEvaluator is not null)
             {
                 retVal = CanExecuteEvaluator();
             }
@@ -94,10 +92,10 @@ namespace Foundation.Common
         /// <exception cref="ArgumentException">parameter</exception>
         public void Execute(Object? parameter)
         {
-            if (MethodToExecute != null)
+            if (MethodToExecute is not null)
             {
-                if (parameter != null &&
-                    !(parameter is TFunction))
+                if (parameter is not null &&
+                    parameter is not TFunction)
                 {
                     String message = $"The supplied parameter is not of the correct type. Expected Type: {typeof(TFunction)}. Supplied parameter type: {parameter.GetType()}";
                     throw new ArgumentException(message, nameof(parameter));
@@ -121,15 +119,13 @@ namespace Foundation.Common
         /// Initialises a new instance of the <see cref="RelayCommand{TFunction, TCanExecute}"/> class.
         /// </summary>
         /// <param name="methodToExecute">The method to execute.</param>
-        public RelayCommand(Action<TFunction?> methodToExecute) : this(methodToExecute, default) { }
-
-        /// <summary>
-        /// Initialises a new instance of the <see cref="RelayCommand{TFunction, TCanExecute}"/> class.
-        /// </summary>
-        /// <param name="methodToExecute">The method to execute.</param>
         /// <param name="canExecuteEvaluator">The can execute evaluator.</param>
         /// <exception cref="ArgumentNullException">methodToExecute</exception>
-        public RelayCommand(Action<TFunction?> methodToExecute, Func<TCanExecute?, Boolean>? canExecuteEvaluator)
+        public RelayCommand
+        (
+            Action<TFunction?> methodToExecute,
+            Func<TCanExecute?, Boolean> canExecuteEvaluator
+        )
         {
             MethodToExecute = methodToExecute ?? throw new ArgumentNullException(nameof(methodToExecute));
             CanExecuteEvaluator = canExecuteEvaluator;
@@ -156,8 +152,8 @@ namespace Foundation.Common
         /// </summary>
         public event EventHandler? CanExecuteChanged
         {
-            add { if (CanExecuteEvaluator != null) { CommandManager.RequerySuggested += value; } }
-            remove { if (CanExecuteEvaluator != null) { CommandManager.RequerySuggested -= value; } }
+            add { if (CanExecuteEvaluator is not null) { CommandManager.RequerySuggested += value; } }
+            remove { if (CanExecuteEvaluator is not null) { CommandManager.RequerySuggested -= value; } }
         }
 
         /// <summary>
@@ -204,7 +200,7 @@ namespace Foundation.Common
         {
             if (MethodToExecute is not null)
             {
-                if (parameter != null &&
+                if (parameter is not null &&
                     parameter is not TFunction)
                 {
                     String message = $"The supplied parameter is not of the correct type. Expected Type: {typeof(TFunction)}. Supplied parameter type: {parameter.GetType()}";

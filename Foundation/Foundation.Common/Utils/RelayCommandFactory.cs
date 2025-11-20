@@ -26,7 +26,7 @@ namespace Foundation.Common
         /// </summary>
         /// <param name="_">The .</param>
         /// <returns></returns>
-        public static Boolean AlwaysTrue(Object _) { return true; }
+        public static Boolean AlwaysTrue(Object? _) { return true; }
 
         /// <summary>
         /// Always false.
@@ -39,7 +39,7 @@ namespace Foundation.Common
         /// </summary>
         /// <param name="_">The .</param>
         /// <returns></returns>
-        public static Boolean AlwaysFalse(Object _) { return false; }
+        public static Boolean AlwaysFalse(Object? _) { return false; }
 
         /// <summary>
         /// News the specified method to execute.
