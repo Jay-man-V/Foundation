@@ -4,10 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.Text;
-
 using Foundation.Common;
 using Foundation.Interfaces;
+using Foundation.Repository.DataProvider;
+
+using System;
+using System.Data;
+using System.IO;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
@@ -59,74 +62,20 @@ namespace Foundation.Repository.App
         /// <inheritdoc cref="FoundationModelRepository{IMenuItem}.GetAllSql(Boolean, Boolean)"/>
         protected override String GetAllSql(Boolean excludeDeleted, Boolean useValidityPeriod)
         {
-            StringBuilder retVal = new StringBuilder();
+            String retVal = File.ReadAllText(@"Sql\App\GetAll.sql");
 
-            retVal.AppendLine("WITH MenuItemsCTE AS");
-            retVal.AppendLine("(");
-            retVal.AppendLine("    SELECT");
-            retVal.AppendLine($"        m.{FDC.MenuItem.Id},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.Timestamp},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.StatusId},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.CreatedByUserProfileId},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.LastUpdatedByUserProfileId},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.CreatedOn},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.LastUpdatedOn},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.ValidFrom},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.ValidTo},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.ApplicationId},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.ParentMenuItemId},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.Name},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.Caption},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.ControllerAssembly},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.ControllerType},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.ViewAssembly},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.ViewType},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.HelpText},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.MultiInstance},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.ShowInTab},");
-            retVal.AppendLine($"        m.{FDC.MenuItem.Icon},");
-            retVal.AppendLine("        1 AS Depth");
-            retVal.AppendLine("    FROM");
-            retVal.AppendLine($"        {TableName} m");
-            retVal.AppendLine("    WHERE");
-            retVal.AppendLine($"        m.{FDC.MenuItem.ParentMenuItemId} IS NULL");
-            retVal.AppendLine("    UNION ALL");
-            retVal.AppendLine("    SELECT");
-            retVal.AppendLine($"        s.{FDC.MenuItem.Id},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.Timestamp},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.StatusId},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.CreatedByUserProfileId},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.LastUpdatedByUserProfileId},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.CreatedOn},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.LastUpdatedOn},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.ValidFrom},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.ValidTo},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.ApplicationId},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.ParentMenuItemId},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.Name},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.Caption},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.ControllerAssembly},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.ControllerType},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.ViewAssembly},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.ViewType},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.HelpText},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.MultiInstance},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.ShowInTab},");
-            retVal.AppendLine($"        s.{FDC.MenuItem.Icon},");
-            retVal.AppendLine("        Depth + 1 AS Depth");
-            retVal.AppendLine("    FROM");
-            retVal.AppendLine($"        {TableName} s");
-            retVal.AppendLine("            INNER JOIN MenuItemsCTE r ON");
-            retVal.AppendLine("            (");
-            retVal.AppendLine($"                r.Id = s.{FDC.MenuItem.ParentMenuItemId}");
-            retVal.AppendLine("            )");
-            retVal.AppendLine(")");
-            retVal.AppendLine("SELECT");
-            retVal.AppendLine("    *");
-            retVal.AppendLine("FROM");
-            retVal.AppendLine("    MenuItemsCTE");
+            return retVal;
+        }
 
-            return retVal.ToString();
+        protected override IDatabaseParameters GetAllDatabaseParameters(Boolean excludeDeleted, Boolean useValidityPeriod)
+        {
+            IDatabaseParameters retVal = base.GetAllDatabaseParameters(excludeDeleted, useValidityPeriod);
+
+            retVal.Add(FoundationDataAccess.CreateParameter("applicationId", Core.ApplicationId));
+            retVal.Add(FoundationDataAccess.CreateParameter("useValidityPeriod", useValidityPeriod));
+            retVal.Add(FoundationDataAccess.CreateParameter("excludeDeleted", excludeDeleted));
+
+            return retVal;
         }
     }
 }

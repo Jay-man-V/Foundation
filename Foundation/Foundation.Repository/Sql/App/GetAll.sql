@@ -1,6 +1,8 @@
-﻿DECLARE @applicationId INT = -1;
-DECLARE @excludeDeleted INT = -1;
-DECLARE @useValidityPeriod INT = -1;
+﻿/*
+DECLARE @applicationId INT = 0;
+DECLARE @excludeDeleted INT = 0;
+DECLARE @useValidityPeriod INT = 0;
+*/
 
 WITH MenuItemsCTE AS
 (
@@ -71,21 +73,21 @@ FROM
 WHERE
     StatusId IN (SELECT Id FROM ufn_GetListOfActiveStatuses(DEFAULT)) AND
     (
-        m.ApplicationId = @applicationId OR
+        m.ApplicationId IN ( 0, @applicationId ) OR
         @applicationId = -1
     ) AND
     (
-        @useValidityPeriod = -1 OR
+        @useValidityPeriod = 0 OR
         (
             @useValidityPeriod = 1 AND
             GETDATE() BETWEEN m.ValidFrom and m.ValidTo
         )
     ) AND
     (
-        @excludeDeleted = -1 OR
+        @excludeDeleted = 0 OR
         (
             @excludeDeleted = 1 AND
-            m.StatusId = -1
+            m.StatusId <> -1
         )
     )
 ORDER BY

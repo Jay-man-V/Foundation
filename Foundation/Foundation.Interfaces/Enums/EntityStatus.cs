@@ -32,15 +32,21 @@ namespace Foundation.Interfaces
         Approved = 1,
 
         /// <summary>
-        /// The entity record is pending approval for normal usage
+        /// Record is pending approval for normal usage
         /// </summary>
         [Id(2), Display(Order = 4, Name = "Record is pending approval for normal usage")]
         PendingApproval = 2,
 
         /// <summary>
-        /// The entity record is not yet complete
+        /// Record is not yet complete
         /// </summary>
         [Id(3), Display(Order = 5, Name = "Record is not yet complete")]
         Incomplete = 3,
+
+        /// <summary>
+        /// Record is rejected for usage
+        /// </summary>
+        [Id(4), Display(Order = 6, Name = "Record is rejected for usage")]
+        Rejected = 4,
     }
 }

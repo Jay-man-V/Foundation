@@ -5,8 +5,6 @@
 //-----------------------------------------------------------------------
 
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using Microsoft.Extensions.Configuration;
 
 namespace Foundation.Interfaces
 {
@@ -59,9 +57,19 @@ namespace Foundation.Interfaces
         /// </summary>
         ICurrentUser CurrentLoggedOnUser { get; }
 
-        // TODO - Future development for Cache and Crypto
-        // ICache Cache { get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        ISharedVariables SharedVariables { get; }
 
-        // ICrypto Crypto { get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        ICache Cache { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        ICrypto Crypto { get; }
     }
 }

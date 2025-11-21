@@ -9,7 +9,6 @@ using System.Diagnostics;
 using NSubstitute;
 
 using Foundation.Interfaces;
-
 using Foundation.Tests.Unit.Mocks;
 using Foundation.Tests.Unit.Support;
 
@@ -30,6 +29,9 @@ namespace Foundation.Tests.Unit.Foundation.Core
         private IRunTimeEnvironmentSettings? RunTimeEnvironmentSettings { get; set; }
 
         private ILoggedOnUserProcess? LoggedOnUserProcess { get; set; }
+        private ISharedVariables? SharedVariables { get; set; }
+        private ICache? Cache { get; set; }
+        private ICrypto? Crypto { get; set; }
 
         private IApplication? Application { get; set; }
         private IUserProfile? UserProfile { get; set; }
@@ -58,6 +60,9 @@ namespace Foundation.Tests.Unit.Foundation.Core
             RunTimeEnvironmentSettings.UserFullLogonName.Returns(UserProfile.Username);
 
             LoggedOnUserProcess = Substitute.For<ILoggedOnUserProcess>();
+            SharedVariables = Substitute.For<ISharedVariables>();
+            Cache = Substitute.For<ICache>();
+            Crypto = Substitute.For<ICrypto>();
         }
 
         [TearDown]
@@ -65,6 +70,10 @@ namespace Foundation.Tests.Unit.Foundation.Core
         {
             RunTimeEnvironmentSettings = null;
             LoggedOnUserProcess = null;
+            SharedVariables = null;
+            Cache = null;
+            Crypto = null;
+
             Application = null;
             UserProfile = null;
         }
@@ -91,12 +100,15 @@ namespace Foundation.Tests.Unit.Foundation.Core
             IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
             userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(UserProfile);
 
-            ICore theModel = global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess, "Foundation.UnitTests", "Foundation.UnitTests.dll");
+            ICore theModel = global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess, SharedVariables, Cache, Crypto, "Foundation.UnitTests", "Foundation.UnitTests.dll");
 
             Assert.That(theModel.ApplicationId, Is.EqualTo(ApplicationId));
             Assert.That(theModel.ApplicationName, Is.EqualTo(ApplicationName));
             Assert.That(theModel.Instance, Is.EqualTo(theModel));
             Assert.That(theModel.CurrentLoggedOnUser.UserProfile, Is.EqualTo(UserProfile));
+            Assert.That(theModel.SharedVariables, Is.EqualTo(SharedVariables));
+            Assert.That(theModel.Cache, Is.EqualTo(Cache));
+            Assert.That(theModel.Crypto, Is.EqualTo(Crypto));
             Assert.That(theModel.TraceLevel, Is.EqualTo(TraceLevel));
         }
 
@@ -112,12 +124,15 @@ namespace Foundation.Tests.Unit.Foundation.Core
             IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
             userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(UserProfile);
 
-            ICore theModel = global::Foundation.Core.Core.Initialise(null, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess);
+            ICore theModel = global::Foundation.Core.Core.Initialise(null, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess, SharedVariables, Cache, Crypto);
 
             Assert.That(theModel.ApplicationId, Is.EqualTo(expectedAppId));
             Assert.That(theModel.ApplicationName, Is.EqualTo(expectedApplicationName));
             Assert.That(theModel.Instance, Is.EqualTo(theModel));
             Assert.That(theModel.CurrentLoggedOnUser.UserProfile, Is.EqualTo(UserProfile));
+            Assert.That(theModel.SharedVariables, Is.EqualTo(SharedVariables));
+            Assert.That(theModel.Cache, Is.EqualTo(Cache));
+            Assert.That(theModel.Crypto, Is.EqualTo(Crypto));
             Assert.That(theModel.TraceLevel, Is.EqualTo(TraceLevel));
         }
 
@@ -130,7 +145,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
             IUserProfileProcess userProfileProcess = Substitute.For<IUserProfileProcess>();
             userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(UserProfile);
 
-            _ = global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess);
+            _ = global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess, SharedVariables, Cache, Crypto);
 
             Boolean applicationStartupCalled = false;
             MockApplicationStartup.ApplicationStartingCalled += (_, _) =>
@@ -156,7 +171,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
             String errorMessage = $"An application with Id '{ApplicationId}' cannot be loaded";
             ArgumentException actualException = Assert.Throws<ArgumentException>(() =>
             {
-                global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess);
+                global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess, SharedVariables, Cache, Crypto);
             });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
@@ -170,7 +185,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
 
             String userLogonExceptionErrorMessage = "Cannot locate user credentials";
 
-            UserCredentialsException? userCredentialsException = null;
+            UserCredentialsException userCredentialsException;
             String userCredentialsExceptionErrorMessage = "Cannot locate user credentials";
             String userCredentialsExceptionUserCredentials = @".\UnitTestUserName";
 
@@ -183,7 +198,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
 
             UserLogonException actualException = Assert.Throws<UserLogonException>(() =>
             {
-                global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess);
+                global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess, SharedVariables, Cache, Crypto);
             });
             userCredentialsException = actualException;
 

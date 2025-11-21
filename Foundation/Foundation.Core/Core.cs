@@ -29,6 +29,9 @@ namespace Foundation.Core
         private static TraceLevel TheTraceLevel { get; set; }
 
         private static ICurrentUser? TheCurrentLoggedOnUser { get; set; }
+        private static ISharedVariables? TheSharedVariables { get; set; }
+        private static ICache? TheCache { get; set; }
+        private static ICrypto? TheCrypto { get; set; }
         private static String UserFullLogonName { get; set; } = "<not set>";
 
         internal static ICore? CoreInstance { get; set; }
@@ -65,6 +68,9 @@ namespace Foundation.Core
         /// <param name="applicationProcess">The application process.</param>
         /// <param name="userProfileProcess">The user profile process.</param>
         /// <param name="loggedOnUserProcess">The logged on user process.</param>
+        /// <param name="sharedVariables">The shared variables.</param>
+        /// <param name="cache">The Foundation Core cache.</param>
+        /// <param name="crypto">The Foundation Core Crypto.</param>
         /// <param name="typeNamespacePrefix"></param>
         /// <param name="searchPattern"></param>
         public static ICore Initialise
@@ -74,6 +80,9 @@ namespace Foundation.Core
             IApplicationProcess? applicationProcess = null,
             IUserProfileProcess? userProfileProcess = null,
             ILoggedOnUserProcess? loggedOnUserProcess = null,
+            ISharedVariables? sharedVariables = null,
+            ICache? cache = null,
+            ICrypto? crypto = null,
             String typeNamespacePrefix = "",
             String searchPattern = ""
         )
@@ -123,11 +132,17 @@ namespace Foundation.Core
                 applicationProcess ??= TheInstance.IoC.Get<IApplicationProcess>();
                 userProfileProcess ??= TheInstance.IoC.Get<IUserProfileProcess>();
                 loggedOnUserProcess ??= TheInstance.IoC.Get<ILoggedOnUserProcess>();
+                sharedVariables ??= TheInstance.IoC.Get<ISharedVariables>();
+                cache ??= TheInstance.IoC.Get<ICache>();
+                crypto ??= TheInstance.IoC.Get<ICrypto>();
 
                 UserFullLogonName = runTimeEnvironmentSettings.UserFullLogonName;
 
                 InitialiseApplicationSettings(applicationProcess);
                 InitialiseLoggedOnUser(userProfileProcess, loggedOnUserProcess);
+                TheSharedVariables = sharedVariables;
+                TheCache = cache;
+                TheCrypto = crypto;
             }
 
             return TheInstance;
@@ -182,7 +197,7 @@ namespace Foundation.Core
         public TraceLevel TraceLevel => TheTraceLevel;
 
         /// <inheritdoc cref="ICore.IoC"/>
-        public IIoC IoC => TheIoC!;
+        public IIoC IoC => TheIoC!; // Ignoring compiler warnings for Null Reference, set routines already check/raise for null
 
         /// <inheritdoc cref="ICore.ConfigurationManager"/>
         public IConfigurationWrapper ConfigurationManager => ConfigurationWrapper;
@@ -192,5 +207,14 @@ namespace Foundation.Core
 
         /// <inheritdoc cref="ICore.CurrentLoggedOnUser"/>
         public ICurrentUser CurrentLoggedOnUser => TheCurrentLoggedOnUser!; // Ignoring compiler warnings for Null Reference, set routines already check/raise for null
+
+        /// <inheritdoc cref="ICore.SharedVariables"/>
+        public ISharedVariables SharedVariables => TheSharedVariables!; // Ignoring compiler warnings for Null Reference, set routines already check/raise for null
+
+        /// <inheritdoc cref="ICore.Cache"/>
+        public ICache Cache => TheCache!; // Ignoring compiler warnings for Null Reference, set routines already check/raise for null
+
+        /// <inheritdoc cref="ICore.Crypto"/>
+        public ICrypto Crypto => TheCrypto!; // Ignoring compiler warnings for Null Reference, set routines already check/raise for null
     }
 }

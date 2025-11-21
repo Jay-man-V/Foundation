@@ -457,7 +457,7 @@ namespace Foundation.Repository
             {
                 whereClauseAdded = true;
                 retVal.AppendLine("WHERE");
-                retVal.AppendLine($"    ({FDC.FoundationEntity.StatusId} IN ( {EntityStatus.Active.Id()}, {EntityStatus.Approved.Id()}, {EntityStatus.PendingApproval.Id()}, {EntityStatus.Incomplete.Id()} ) )");
+                retVal.AppendLine($"    ({FDC.FoundationEntity.StatusId} IN ( SELECT {FDC.FoundationEntity.Id} FROM {Functions.GetListOfActiveStatuses}(DEFAULT) ) )");
             }
 
             if (HasValidityPeriodColumns && useValidityPeriod)
@@ -500,7 +500,9 @@ namespace Foundation.Repository
 
             String sql = GetAllSql(excludeDeleted, useValidityPeriod);
 
-            using (IDataReader dataReader = FoundationDataAccess.ExecuteReader(sql))
+            IDatabaseParameters databaseParameters = GetAllDatabaseParameters(excludeDeleted, useValidityPeriod);
+
+            using (IDataReader dataReader = FoundationDataAccess.ExecuteReader(sql, databaseParameters: databaseParameters))
             {
                 while (dataReader.Read())
                 {
@@ -513,6 +515,16 @@ namespace Foundation.Repository
 
             LoggingHelpers.TraceCallReturn(retVal);
 
+            return retVal;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected virtual IDatabaseParameters GetAllDatabaseParameters(Boolean excludeDeleted, Boolean useValidityPeriod)
+        {
+            DatabaseParameters retVal = [];
             return retVal;
         }
 
