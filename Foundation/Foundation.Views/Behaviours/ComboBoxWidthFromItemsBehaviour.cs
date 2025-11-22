@@ -58,7 +58,7 @@ namespace Foundation.Views.Behaviours
             }
         }
 
-        private static void OnComboBoxLoaded(object sender, RoutedEventArgs e)
+        private static void OnComboBoxLoaded(Object sender, RoutedEventArgs e)
         {
             if (sender is ComboBox comboBox)
             {

@@ -172,7 +172,7 @@ namespace Foundation.Views
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(Object sender, RoutedEventArgs e)
         {
             Close();
         }
@@ -181,15 +181,15 @@ namespace Foundation.Views
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT
         {
-            public int Left;
-            public int Top;
-            public int Right;
-            public int Bottom;
+            public Int32 Left;
+            public Int32 Top;
+            public Int32 Right;
+            public Int32 Bottom;
         }
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+        public static extern Boolean GetWindowRect(IntPtr hWnd, out RECT lpRect);
 
         // Make sure RECT is actually OUR defined struct, not the windows rect.
         public static RECT GetWindowRectangle(Window window)

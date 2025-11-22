@@ -30,7 +30,7 @@ namespace Foundation.ViewModels.Main
     [DependencyInjectionTransient]
     public class MainWindowViewModel : ViewModel, IMainWindowViewModel
     {
-        private bool _enabled;
+        private Boolean _enabled;
 
         /// <summary>
         /// Initialises a new instance of the <see cref="MainWindowViewModel"/> class.
@@ -131,7 +131,7 @@ namespace Foundation.ViewModels.Main
         /// <value>
         /// The child window counter.
         /// </value>
-        private int ChildWindowCounter { get; set; }
+        private Int32 ChildWindowCounter { get; set; }
 
         /// <summary>
         /// Gets the logged on users view model.
@@ -758,8 +758,8 @@ namespace Foundation.ViewModels.Main
             {
                 _enabled = !_enabled;
 
-                const bool throwNew = false;
-                const bool throwException = true;
+                const Boolean throwNew = false;
+                const Boolean throwException = true;
                 ExceptionManagementDemo d = new ExceptionManagementDemo();
                 d.Method1(throwException, throwNew);
             }

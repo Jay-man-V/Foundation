@@ -414,7 +414,7 @@ namespace Foundation.Tests.Unit.BaseClasses
         }
 
         /// <summary>
-        /// Replaces a Guid string with known constants.
+        /// Replaces a Guid String with known constants.
         /// e.g. 0c80873c-8894-42bf-a225-88b5d9aace9f with
         /// </summary>
         /// <param name="inputString">The input string.</param>

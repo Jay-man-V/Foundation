@@ -22,11 +22,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
     [TestFixture]
     public class EntityStatusProcessTests : CommonBusinessProcessTests<IEntityStatus, IEntityStatusProcess, IEntityStatusRepository>
     {
-        protected override int ColumnDefinitionsCount => 9;
-        protected override string ExpectedScreenTitle => "Entity Statuses";
-        protected override string ExpectedStatusBarText => "Number of Entity Statuses:";
+        protected override Int32 ColumnDefinitionsCount => 9;
+        protected override String ExpectedScreenTitle => "Entity Statuses";
+        protected override String ExpectedStatusBarText => "Number of Entity Statuses:";
 
-        protected override string ExpectedComboBoxDisplayMember => FDC.EntityStatus.Name;
+        protected override String ExpectedComboBoxDisplayMember => FDC.EntityStatus.Name;
 
         protected override IEntityStatusRepository CreateRepository()
         {

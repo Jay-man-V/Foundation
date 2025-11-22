@@ -642,7 +642,7 @@ namespace Foundation.DataAccess.Database
         /// <inheritdoc cref="IDisposable.Dispose()"/>
         public void Dispose()
         {
-            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            // Do not change this code. Put cleanup code in 'Dispose(Boolean disposing)' method
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }

@@ -83,13 +83,13 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             BusinessProcess.ApplyFilter(Arg.Any<List<INonWorkingDay>>(), Arg.Any<ICountry>(), Arg.Any<String>(), Arg.Any<String>()).Returns(nonWorkingDays);
         }
 
-        protected override object SetupForAction1Command()
+        protected override Object SetupForAction1Command()
         {
             ICountry retVal = Substitute.For<ICountry>();
 
             TheViewModel!.Filter1SelectedItem = retVal;
 
-;           IEnumerable<ICountry> countries = MakeListOfCountries();
+            IEnumerable<ICountry> countries = MakeListOfCountries();
             BusinessProcess.GetListOfNonWorkingDayCountries(Arg.Any<IEnumerable<INonWorkingDay>>()).Returns(countries);
 
             List<String> years = ["2021", "2022", "2023", "2024", "2025"];

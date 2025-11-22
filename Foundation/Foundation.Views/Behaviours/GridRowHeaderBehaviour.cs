@@ -92,7 +92,7 @@ namespace Foundation.Views.Behaviours
             }
         }
 
-        private static List<TElement> GetVisualChildCollection<TElement>(object parent) where TElement : Visual
+        private static List<TElement> GetVisualChildCollection<TElement>(Object parent) where TElement : Visual
         {
             List<TElement> visualCollection = [];
             GetVisualChildCollection((DependencyObject)parent, visualCollection);

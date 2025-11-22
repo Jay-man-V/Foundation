@@ -38,7 +38,7 @@ namespace Foundation.Views.Controls
         /// <value>
         ///   <c>true</c> if [toolbar visible]; otherwise, <c>false</c>.
         /// </value>
-        public bool ToolbarVisible => ToolBar != null;
+        public Boolean ToolbarVisible => ToolBar != null;
 
         /// <summary>
         /// Gets a value indicating whether [filter visible].
@@ -46,7 +46,7 @@ namespace Foundation.Views.Controls
         /// <value>
         ///   <c>true</c> if [filter visible]; otherwise, <c>false</c>.
         /// </value>
-        public bool FilterVisible => Filter != null;
+        public Boolean FilterVisible => Filter != null;
 
         /// <summary>
         /// Gets a value indicating whether [screen title control visible].
@@ -54,7 +54,7 @@ namespace Foundation.Views.Controls
         /// <value>
         ///   <c>true</c> if [screen title control visible]; otherwise, <c>false</c>.
         /// </value>
-        public bool ScreenTitleControlVisible => !string.IsNullOrEmpty(Title) || !string.IsNullOrEmpty(Instructions);
+        public Boolean ScreenTitleControlVisible => !string.IsNullOrEmpty(Title) || !string.IsNullOrEmpty(Instructions);
 
         /// <summary>
         /// Gets a value indicating whether [status bar visible].
@@ -62,7 +62,7 @@ namespace Foundation.Views.Controls
         /// <value>
         ///   <c>true</c> if [status bar visible]; otherwise, <c>false</c>.
         /// </value>
-        public bool StatusBarVisible => StatusBar != null;
+        public Boolean StatusBarVisible => StatusBar != null;
 
         /// <summary>
         /// The message box image property
@@ -120,7 +120,7 @@ namespace Foundation.Views.Controls
         /// <value>
         /// The title.
         /// </value>
-        public string Title
+        public String Title
         {
             get => (string)GetValue(TitleProperty);
             set => SetValue(TitleProperty, value);
@@ -143,14 +143,14 @@ namespace Foundation.Views.Controls
         /// <value>
         /// The instructions.
         /// </value>
-        public string Instructions
+        public String Instructions
         {
             get => (string)GetValue(InstructionsProperty);
             set => SetValue(InstructionsProperty, value);
         }
 
         /// <summary>
-        /// The tool bar property
+        /// The toolbar property
         /// </summary>
         public static readonly DependencyProperty ToolBarProperty = DependencyProperty.Register
         (
@@ -161,12 +161,12 @@ namespace Foundation.Views.Controls
         );
 
         /// <summary>
-        /// Gets or sets the tool bar.
+        /// Gets or sets the toolbar.
         /// </summary>
         /// <value>
-        /// The tool bar.
+        /// The toolbar.
         /// </value>
-        public object ToolBar
+        public Object ToolBar
         {
             get => GetValue(ToolBarProperty);
             set => SetValue(ToolBarProperty, value);
@@ -189,7 +189,7 @@ namespace Foundation.Views.Controls
         /// <value>
         /// The filter.
         /// </value>
-        public object Filter
+        public Object Filter
         {
             get => GetValue(FilterProperty);
             set => SetValue(FilterProperty, value);
@@ -212,7 +212,7 @@ namespace Foundation.Views.Controls
         /// <value>
         /// The workspace.
         /// </value>
-        public object Workspace
+        public Object Workspace
         {
             get => GetValue(WorkspaceProperty);
             set => SetValue(WorkspaceProperty, value);
@@ -235,7 +235,7 @@ namespace Foundation.Views.Controls
         /// <value>
         /// The status bar.
         /// </value>
-        public object StatusBar
+        public Object StatusBar
         {
             get => GetValue(StatusBarProperty);
             set => SetValue(StatusBarProperty, value);

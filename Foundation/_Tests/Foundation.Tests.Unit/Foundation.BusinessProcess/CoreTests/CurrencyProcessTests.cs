@@ -26,7 +26,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         protected override String ExpectedScreenTitle => "Currencies";
         protected override String ExpectedStatusBarText => "Number of Currencies:";
 
-        protected override string ExpectedComboBoxDisplayMember => FDC.Currency.IsoCode;
+        protected override String ExpectedComboBoxDisplayMember => FDC.Currency.IsoCode;
 
         protected override ICurrencyRepository CreateRepository()
         {

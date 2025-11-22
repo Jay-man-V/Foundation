@@ -100,7 +100,7 @@ namespace Foundation.Interfaces
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
+        public override String ToString()
         {
             String retVal = $"Token Id:'{Id}'. " +
                             $"Application Id:'{ApplicationId}'. " +

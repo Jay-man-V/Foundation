@@ -293,7 +293,7 @@ namespace Foundation.Views.Controls.Basic
         /// </exception>
         private static void OnCustomToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            // check if object is an ItemsControl or ToolBarTray (is a must for menu hosts)
+            // Check if object is an ItemsControl or ToolBarTray (is a must for menu hosts)
             if (e.NewValue is not ToolBar customToolbar)
             {
                 throw new ArgumentException("Attached property 'CustomToolbar' must be a ToolBar");
@@ -865,7 +865,7 @@ namespace Foundation.Views.Controls.Basic
             }
         }
 
-        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
+        private void MenuItem_OnClick(Object sender, RoutedEventArgs e)
         {
             DataGrid thisDataGrid = DataGrid;
 
@@ -874,7 +874,7 @@ namespace Foundation.Views.Controls.Basic
             {
                 DataGridCellInfo dataGridCellInfo = thisDataGrid.CurrentCell;
                 DataGridColumn columnInfo = dataGridCellInfo.Column;
-                FrameworkElement frameworkElement = columnInfo.GetCellContent(dataGridCellInfo.Item);
+                FrameworkElement? frameworkElement = columnInfo.GetCellContent(dataGridCellInfo.Item);
                 if (frameworkElement != null)
                 {
                     Object cellValue = frameworkElement.GetValue(TextBlock.TextProperty);

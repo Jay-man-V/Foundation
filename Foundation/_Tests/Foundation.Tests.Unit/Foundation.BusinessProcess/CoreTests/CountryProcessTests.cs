@@ -29,7 +29,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         protected override String ExpectedScreenTitle => "Countries";
         protected override String ExpectedStatusBarText => "Number of Countries:";
 
-        protected override string ExpectedComboBoxDisplayMember => FDC.Country.AbbreviatedName;
+        protected override String ExpectedComboBoxDisplayMember => FDC.Country.AbbreviatedName;
 
         protected override ICountryRepository CreateRepository()
         {

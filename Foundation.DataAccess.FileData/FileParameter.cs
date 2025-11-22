@@ -18,11 +18,11 @@ namespace Foundation.DataAccess.FileData
 
         public override DbType DbType { get; set; }
         public override ParameterDirection Direction { get; set; }
-        public override bool IsNullable { get; set; }
-        public override string ParameterName { get; set; }
-        public override string SourceColumn { get; set; }
-        public override object Value { get; set; }
-        public override bool SourceColumnNullMapping { get; set; }
-        public override int Size { get; set; }
+        public override Boolean IsNullable { get; set; }
+        public override String ParameterName { get; set; }
+        public override String SourceColumn { get; set; }
+        public override Object Value { get; set; }
+        public override Boolean SourceColumnNullMapping { get; set; }
+        public override Int32 Size { get; set; }
     }
 }

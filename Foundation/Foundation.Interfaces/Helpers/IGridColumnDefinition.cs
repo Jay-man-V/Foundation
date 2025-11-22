@@ -14,15 +14,15 @@ namespace Foundation.Interfaces.Helpers
         /// <summary>
         /// Width
         /// </summary>
-        int Width { get; set; }
+        Int32 Width { get; set; }
         /// <summary>
         /// Data member name
         /// </summary>
-        string DataMemberName { get; }
+        String DataMemberName { get; }
         /// <summary>
         /// Column header name
         /// </summary>
-        string ColumnHeaderName { get; }
+        String ColumnHeaderName { get; }
         /// <summary>
         /// Data type
         /// </summary>
@@ -39,56 +39,56 @@ namespace Foundation.Interfaces.Helpers
         /// <value>
         /// The maximum length of the input.
         /// </value>
-        int MaxInputLength { get; set; }
+        Int32 MaxInputLength { get; set; }
 
         /// <summary>
         /// DotNetFormat
         /// </summary>
-        string DotNetFormat { get; set; }
+        String DotNetFormat { get; set; }
         /// <summary>
         /// Excel format
         /// </summary>
-        string ExcelFormat { get; set; }
+        String ExcelFormat { get; set; }
         /// <summary>
         /// Minimum value
         /// </summary>
-        object? MinimumValue { get; set; }
+        Object? MinimumValue { get; set; }
         /// <summary>
         /// Maximum value
         /// </summary>
-        object? MaximumValue { get; set; }
+        Object? MaximumValue { get; set; }
         /// <summary>
         /// True value
         /// </summary>
-        string TrueValue { get; set; }
+        String TrueValue { get; set; }
         /// <summary>
         /// False value
         /// </summary>
-        string FalseValue { get; set; }
+        String FalseValue { get; set; }
         /// <summary>
         /// Data Source
         /// </summary>
-        object? DataSource { get; set; }
+        Object? DataSource { get; set; }
         /// <summary>
         /// Value Member
         /// </summary>
-        string ValueMember { get; set; }
+        String ValueMember { get; set; }
         /// <summary>
         /// Display Member
         /// </summary>
-        string DisplayMember { get; set; }
+        String DisplayMember { get; set; }
         /// <summary>
         /// Visible
         /// </summary>
-        bool Visible { get; set; }
+        Boolean Visible { get; set; }
         /// <summary>
         /// Read Only
         /// </summary>
-        bool ReadOnly { get; set; }
+        Boolean ReadOnly { get; set; }
 
         /// <summary>
         /// Template Name
         /// </summary>
-        string TemplateName { get; }
+        String TemplateName { get; }
     }
 }

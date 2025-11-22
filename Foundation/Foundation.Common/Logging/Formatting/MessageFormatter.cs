@@ -21,7 +21,7 @@ namespace Foundation.Common
     public static class MessageFormatter
     {
         /// <summary>
-        /// Formats the Exception object as a String
+        /// Formats the Exception object as a string
         /// </summary>
         /// <param name="runTimeEnvironmentSettings">The runtime environment settings</param>
         /// <param name="dateTimeService">The date time service</param>

@@ -30,7 +30,7 @@ namespace Foundation.ViewModels.Main
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
             IWpfApplicationObjects wpfApplicationObjects,
-            bool isSplashScreen
+            Boolean isSplashScreen
         ) :
             base
             (
@@ -131,63 +131,63 @@ namespace Foundation.ViewModels.Main
         /// <summary>Gets a value indicating whether [user information expanded].</summary>
         /// <value>
         ///   <c>true</c> if [user information expanded]; otherwise, <c>false</c>.</value>
-        public bool UserInformationExpanded { get; }
+        public Boolean UserInformationExpanded { get; }
 
         /// <summary>Gets a value indicating whether [dialog result].</summary>
         /// <value>
         ///   <c>true</c> if [dialog result]; otherwise, <c>false</c>.</value>
-        public bool DialogResult => false;
+        public Boolean DialogResult => false;
 
         /// <summary>Gets the product.</summary>
         /// <value>The product.</value>
-        public string Product { get; }
+        public String Product { get; }
 
         /// <summary>Gets the name of the company.</summary>
         /// <value>The name of the company.</value>
-        public string CompanyName { get; }
+        public String CompanyName { get; }
 
         /// <summary>Gets the copyright.</summary>
         /// <value>The copyright.</value>
-        public string Copyright { get; }
+        public String Copyright { get; }
 
         /// <summary>Gets the trademark.</summary>
         /// <value>The trademark.</value>
-        public string Trademark { get; }
+        public String Trademark { get; }
 
         /// <summary>Gets the configuration.</summary>
         /// <value>The configuration.</value>
-        public string Configuration { get; }
+        public String Configuration { get; }
 
         /// <summary>Gets the version.</summary>
         /// <value>The version.</value>
-        public string Version { get; }
+        public String Version { get; }
 
         /// <summary>Gets the application server.</summary>
         /// <value>The application server.</value>
-        public string ApplicationServer { get; }
+        public String ApplicationServer { get; }
 
         /// <summary>Gets the database server.</summary>
         /// <value>The database server.</value>
-        public string DatabaseServer { get; }
+        public String DatabaseServer { get; }
 
         /// <summary>Gets the database details.</summary>
         /// <value>The database details.</value>
-        public string DatabaseDetails { get; }
+        public String DatabaseDetails { get; }
 
         /// <summary>Gets the username.</summary>
         /// <value>The username.</value>
-        public string Username { get; }
+        public String Username { get; }
 
         /// <summary>Gets the name.</summary>
         /// <value>The name.</value>
-        public string Name { get; }
+        public String Name { get; }
 
         /// <summary>Gets the email.</summary>
         /// <value>The email.</value>
-        public string Email { get; }
+        public String Email { get; }
 
         /// <summary>Gets the roles.</summary>
         /// <value>The roles.</value>
-        public string Roles { get; }
+        public String Roles { get; }
     }
 }

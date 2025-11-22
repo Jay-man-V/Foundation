@@ -27,7 +27,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AttributesTests
         public void Test_Attributes()
         {
             IEnumerable<MethodInfo> testMethods = GetListOfTestMethods();
-            int testMethodCount = testMethods.Count();
+            Int32 testMethodCount = testMethods.Count();
 
             // This test exists to ensure all the Application Settings are tested/checked in the next test
             List<Type> allTypes = GetListOfValidTypes(t => t.BaseType != null && t.BaseType.Name.EndsWith("Attribute") &&
@@ -36,7 +36,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AttributesTests
 
             Assert.That(allTypes.Count, Is.EqualTo(testMethodCount - 1));
 
-            int index = 0;
+            Int32 index = 0;
 
             Assert.That(allTypes[index++].Name, Is.EqualTo(nameof(RequiredAppIdAttribute)));
             Assert.That(allTypes[index++].Name, Is.EqualTo(nameof(RequiredEntityIdAttribute)));
@@ -62,13 +62,13 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AttributesTests
             RequiredAppIdAttribute attribute = new RequiredAppIdAttribute();
             Assert.That(attribute.ErrorMessage, Is.EqualTo("Application Id must be provided"));
 
-            bool result1 = attribute.IsValid(new AppId(1));
+            Boolean result1 = attribute.IsValid(new AppId(1));
             Assert.That(result1, Is.EqualTo(true));
 
-            bool result2 = attribute.IsValid(new AppId(0));
+            Boolean result2 = attribute.IsValid(new AppId(0));
             Assert.That(result2, Is.EqualTo(false));
 
-            bool result3 = attribute.IsValid(new LogId(1));
+            Boolean result3 = attribute.IsValid(new LogId(1));
             Assert.That(result3, Is.EqualTo(false));
         }
 
@@ -81,18 +81,21 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AttributesTests
             RequiredEntityIdAttribute attribute = new RequiredEntityIdAttribute();
             Assert.That(attribute.ErrorMessage, Is.EqualTo("Entity Id must be provided"));
 
-            string guidValue = Guid.NewGuid().ToString();
+            String guidValue = Guid.NewGuid().ToString();
             attribute.EntityName = guidValue;
             Assert.That(attribute.ErrorMessage, Is.EqualTo($"{guidValue} Id must be provided"));
 
-            bool result1 = attribute.IsValid(new EntityId(1));
-            Assert.That(result1, Is.EqualTo(true));
+            String result1 = attribute.EntityName;
+            Assert.That(result1, Is.EqualTo(guidValue));
 
-            bool result2 = attribute.IsValid(new EntityId(0));
-            Assert.That(result2, Is.EqualTo(false));
+            Boolean result2 = attribute.IsValid(new EntityId(1));
+            Assert.That(result2, Is.EqualTo(true));
 
-            bool result3 = attribute.IsValid(new LogId(1));
+            Boolean result3 = attribute.IsValid(new EntityId(0));
             Assert.That(result3, Is.EqualTo(false));
+
+            Boolean result4 = attribute.IsValid(new LogId(1));
+            Assert.That(result4, Is.EqualTo(false));
         }
 
         /// <summary>
@@ -103,13 +106,13 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AttributesTests
         {
             RequiredLogIdAttribute attribute = new RequiredLogIdAttribute();
 
-            bool result1 = attribute.IsValid(new LogId(1));
+            Boolean result1 = attribute.IsValid(new LogId(1));
             Assert.That(result1, Is.EqualTo(true));
 
-            bool result2 = attribute.IsValid(new LogId(0));
+            Boolean result2 = attribute.IsValid(new LogId(0));
             Assert.That(result2, Is.EqualTo(false));
 
-            bool result3 = attribute.IsValid(new EntityId(1));
+            Boolean result3 = attribute.IsValid(new EntityId(1));
             Assert.That(result3, Is.EqualTo(false));
         }
 
@@ -174,7 +177,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AttributesTests
         [TestCase]
         public void Test_EmailAddressMaxLengthAttribute()
         {
-            int expectedValue = 123;
+            Int32 expectedValue = 123;
             EmailAddressMaxLengthAttribute attribute = new EmailAddressMaxLengthAttribute(expectedValue);
 
             EmailAddress emailAddress = new EmailAddress("somewheremadeup@gmail.com");
@@ -190,7 +193,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AttributesTests
         [TestCase]
         public void Test_IndexAttribute()
         {
-            int expectedValue = 123456;
+            Int32 expectedValue = 123456;
             IndexAttribute attribute = new IndexAttribute(expectedValue);
 
             Assert.That(attribute.Index, Is.EqualTo(expectedValue));
@@ -202,7 +205,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AttributesTests
         [TestCase]
         public void Test_IdAttribute()
         {
-            int expectedValue = 123456;
+            Int32 expectedValue = 123456;
             IdAttribute attribute = new IdAttribute(expectedValue);
 
             Assert.That(attribute.Id, Is.EqualTo(expectedValue));

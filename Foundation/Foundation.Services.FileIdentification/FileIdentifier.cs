@@ -25,7 +25,7 @@ namespace Foundation.Services.FileIdentification
             public static String DefaultMimeType = "application/octet-stream";
 
             [DllImport("urlmon.dll", CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = false)]
-            static extern int FindMimeFromData
+            static extern Int32 FindMimeFromData
             (
                 IntPtr pBc,
                 [MarshalAs(UnmanagedType.LPWStr)] String? pwzUrl,
@@ -44,7 +44,7 @@ namespace Foundation.Services.FileIdentification
             /// <param name="data"></param>
             /// <returns></returns>
             /// <remarks>There's some limitation of the api function, according to http://msdn.microsoft.com/en-us/library/ms775147%28VS.85%29.aspx#Known_MimeTypes
-            /// and this implementation will return "application/octet-stream" if the file is smaller than 256 bytes.
+            /// and this implementation will return "application/octet-stream" if the file is smaller than 256 Bytes.
             /// </remarks>
             private static String GetMimeFromBytes(Byte[] data)
             {

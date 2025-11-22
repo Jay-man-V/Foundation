@@ -28,9 +28,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override Boolean ExpectedHasOptionalDropDownParameter1 => true;
         protected override String ExpectedFilter1Name => "Contract Type:";
-        protected override string ExpectedFilter1DisplayMemberPath => FDC.ContractType.Description;
+        protected override String ExpectedFilter1DisplayMemberPath => FDC.ContractType.Description;
 
-        protected override string ExpectedComboBoxDisplayMember => FDC.Contract.ShortName;
+        protected override String ExpectedComboBoxDisplayMember => FDC.Contract.ShortName;
 
         private readonly DateTime _contractStartDate = new DateTime(2022, 01, 01, 0, 0, 0);
         private readonly DateTime _contractEndDate = new DateTime(2022, 12, 31, 23, 59, 59);

@@ -22,7 +22,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
     [TestFixture]
     public class ApprovalStatusProcessTests : CommonBusinessProcessTests<IApprovalStatus, IApprovalStatusProcess, IApprovalStatusRepository>
     {
-        protected override int ColumnDefinitionsCount => 9;
+        protected override Int32 ColumnDefinitionsCount => 9;
         protected override String ExpectedScreenTitle => "Approval Statuses";
         protected override String ExpectedStatusBarText => "Number of Approval Statuses:";
 

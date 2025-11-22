@@ -106,7 +106,7 @@ namespace Foundation.Models.Core
         }
 
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
-        public bool Equals(IIdGenerator? other)
+        public Boolean Equals(IIdGenerator? other)
         {
             Boolean retVal = InternalEquals(other);
 

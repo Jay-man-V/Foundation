@@ -24,11 +24,11 @@ namespace Foundation.ViewModels.Main
         /// </summary>
         private static class Constants
         {
-            public const string Yes = "YES";
-            public const string No = "NO";
-            public const string Cancel = "CANCEL";
-            public const string Okay = "OKAY";
-            public const string Close = "CLOSE";
+            public const String Yes = "YES";
+            public const String No = "NO";
+            public const String Cancel = "CANCEL";
+            public const String Okay = "OKAY";
+            public const String Close = "CLOSE";
         }
 
         /// <summary>Initialises a new instance of the <see cref="MessageDialogViewModel" /> class.</summary>
@@ -47,7 +47,7 @@ namespace Foundation.ViewModels.Main
             IWpfApplicationObjects wpfApplicationObjects,
             IWindow targetWindow,
             IViewModel parentViewModel,
-            string formTitle = "Information"
+            String formTitle = "Information"
         ) :
             base
             (
@@ -109,7 +109,7 @@ namespace Foundation.ViewModels.Main
             IViewModel parentViewModel,
             FEnums.MessageBoxImage messageBoxImage,
             Exception exception,
-            string formTitle
+            String formTitle
         ) :
         this
             (
@@ -169,7 +169,7 @@ namespace Foundation.ViewModels.Main
         /// <summary>Gets or sets a value indicating whether this <see cref="MessageDialogViewModel" /> is expanded.</summary>
         /// <value>
         ///   <c>true</c> if expanded; otherwise, <c>false</c>.</value>
-        protected bool Expanded { get; set; }
+        protected Boolean Expanded { get; set; }
 
         /// <summary>Gets the message box result.</summary>
         /// <value>The message box result.</value>
@@ -177,15 +177,15 @@ namespace Foundation.ViewModels.Main
 
         /// <summary>Gets the message.</summary>
         /// <value>The message.</value>
-        public string Message { get; }
+        public String Message { get; }
         
         /// <summary>Gets the detail.</summary>
         /// <value>The detail.</value>
-        public string Detail { get; }
+        public String Detail { get; }
         
         /// <summary>Gets the source.</summary>
         /// <value>The source.</value>
-        public string Source { get; }
+        public String Source { get; }
         
         /// <summary>Gets the message date time.</summary>
         /// <value>The message date time.</value>
@@ -193,11 +193,11 @@ namespace Foundation.ViewModels.Main
         
         /// <summary>Gets the name of the computer.</summary>
         /// <value>The name of the computer.</value>
-        public string ComputerName { get; }
+        public String ComputerName { get; }
         
         /// <summary>Gets the user logon.</summary>
         /// <value>The user logon.</value>
-        public string UserLogon { get; }
+        public String UserLogon { get; }
         
         /// <summary>Gets the yes visibility.</summary>
         /// <value>The yes visibility.</value>
@@ -229,7 +229,7 @@ namespace Foundation.ViewModels.Main
         
         /// <summary>Gets the expander caption.</summary>
         /// <value>The expander caption.</value>
-        public string ExpanderCaption { get; private set; }
+        public String ExpanderCaption { get; private set; }
         
         /// <summary>Gets the yes button command.</summary>
         /// <value>The yes button command.</value>
@@ -294,7 +294,7 @@ namespace Foundation.ViewModels.Main
         /// <param name="window">The window.</param>
         /// <param name="buttonText">The button text.</param>
         /// <exception cref="ArgumentException"></exception>
-        private void OnButtonCommand_Execute(IWindow? window, string buttonText)
+        private void OnButtonCommand_Execute(IWindow? window, String buttonText)
         {
             LoggingHelpers.TraceCallEnter(window);
 
@@ -308,7 +308,7 @@ namespace Foundation.ViewModels.Main
                     case Constants.Okay: MessageBoxResult = MessageBoxResult.OK; break;
                     case Constants.Close: MessageBoxResult = MessageBoxResult.OK; break;
                     default:
-                        string message = $"{this}.{window} Command Button '{buttonText}' is unknown. Cannot process Message Box Result";
+                        String message = $"{this}.{window} Command Button '{buttonText}' is unknown. Cannot process Message Box Result";
                         throw new ArgumentException(message);
                 }
             }

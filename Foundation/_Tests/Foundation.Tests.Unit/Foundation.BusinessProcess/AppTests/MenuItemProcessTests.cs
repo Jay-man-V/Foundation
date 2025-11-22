@@ -29,9 +29,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.AppTests
 
         protected override Boolean ExpectedHasOptionalDropDownParameter2 => true;
         protected override String ExpectedFilter2Name => "Parent:";
-        protected override string ExpectedFilter2DisplayMemberPath => FDC.MenuItem.Caption;
+        protected override String ExpectedFilter2DisplayMemberPath => FDC.MenuItem.Caption;
 
-        protected override string ExpectedComboBoxDisplayMember => FDC.MenuItem.Caption;
+        protected override String ExpectedComboBoxDisplayMember => FDC.MenuItem.Caption;
 
         private IApplicationProcess? ApplicationProcess { get; set; }
 

@@ -12,7 +12,7 @@ namespace Foundation.Interfaces
     public interface IWpfApplicationObjects
     {
         /// <summary>
-        /// Gets the <see cref="T:System.Windows.Application" /> object for the current <see cref="T:System.AppDomain" />.
+        /// Gets the <see cref="T:System.Windows.Application" /> Object for the current <see cref="T:System.AppDomain" />.
         /// </summary>
         IApplicationWrapper ApplicationWrapper { get; }
 

@@ -108,14 +108,14 @@ namespace Foundation.Repository.Log
         }
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.DeleteEntity(IDbConnection, EntityId)"/>
-        protected override int DeleteEntity(IDbConnection conn, EntityId entityId)
+        protected override Int32 DeleteEntity(IDbConnection conn, EntityId entityId)
         {
             // Event Log Entries cannot be deleted
             throw new NotImplementedException("Event Log Entries cannot be deleted");
         }
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.DeleteEntity(IDbConnection, TModel)"/>
-        protected override int DeleteEntity(IDbConnection conn, IEventLogAttachment entity)
+        protected override Int32 DeleteEntity(IDbConnection conn, IEventLogAttachment entity)
         {
             // Event Log Entries cannot be deleted
             throw new NotImplementedException("Event Log Entries cannot be deleted");

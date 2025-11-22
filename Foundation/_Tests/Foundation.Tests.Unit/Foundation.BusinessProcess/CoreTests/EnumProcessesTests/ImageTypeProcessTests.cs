@@ -22,11 +22,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
     [TestFixture]
     public class ImageTypeProcessTests : CommonBusinessProcessTests<IImageType, IImageTypeProcess, IImageTypeRepository>
     {
-        protected override int ColumnDefinitionsCount => 9;
-        protected override string ExpectedScreenTitle => "Image Types";
-        protected override string ExpectedStatusBarText => "Number of Image Types:";
+        protected override Int32 ColumnDefinitionsCount => 9;
+        protected override String ExpectedScreenTitle => "Image Types";
+        protected override String ExpectedStatusBarText => "Number of Image Types:";
 
-        protected override string ExpectedComboBoxDisplayMember => FDC.ImageType.Name;
+        protected override String ExpectedComboBoxDisplayMember => FDC.ImageType.Name;
 
         protected override IImageTypeRepository CreateRepository()
         {

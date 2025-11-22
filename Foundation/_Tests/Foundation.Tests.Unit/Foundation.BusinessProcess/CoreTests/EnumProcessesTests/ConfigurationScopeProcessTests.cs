@@ -22,11 +22,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
     [TestFixture]
     public class ConfigurationScopeProcessTests : CommonBusinessProcessTests<IConfigurationScope, IConfigurationScopeProcess, IConfigurationScopeRepository>
     {
-        protected override int ColumnDefinitionsCount => 8;
-        protected override string ExpectedScreenTitle => "Configuration Scopes";
-        protected override string ExpectedStatusBarText => "Number of Configuration Scopes:";
+        protected override Int32 ColumnDefinitionsCount => 8;
+        protected override String ExpectedScreenTitle => "Configuration Scopes";
+        protected override String ExpectedStatusBarText => "Number of Configuration Scopes:";
 
-        protected override string ExpectedComboBoxDisplayMember => FDC.ConfigurationScope.Name;
+        protected override String ExpectedComboBoxDisplayMember => FDC.ConfigurationScope.Name;
 
         protected override IConfigurationScopeRepository CreateRepository()
         {

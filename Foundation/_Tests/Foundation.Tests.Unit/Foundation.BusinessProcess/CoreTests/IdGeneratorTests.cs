@@ -26,7 +26,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         protected override String ExpectedScreenTitle => "Id Generator";
         protected override String ExpectedStatusBarText => "Number of Ids:";
 
-        protected override string ExpectedComboBoxDisplayMember => FDC.IdGenerator.IdName;
+        protected override String ExpectedComboBoxDisplayMember => FDC.IdGenerator.IdName;
 
         protected override IIdGeneratorRepository CreateRepository()
         {
