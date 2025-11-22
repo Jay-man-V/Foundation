@@ -131,7 +131,7 @@ namespace Foundation.ViewModels.Main
         /// <value>
         /// The child window counter.
         /// </value>
-        private Int32 ChildWindowCounter { get; set; }
+        private int ChildWindowCounter { get; set; }
 
         /// <summary>
         /// Gets the logged on users view model.

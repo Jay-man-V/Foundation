@@ -100,7 +100,7 @@ namespace Foundation.BusinessProcess.Sec
         public override String StatusBarText => "Number of Logged On Users:";
 
         /// <inheritdoc cref="ICommonBusinessProcess.ComboBoxDisplayMember"/>
-        public override String ComboBoxDisplayMember => FDC.LoggedOnUser.DisplayName;
+        public override string ComboBoxDisplayMember => FDC.LoggedOnUser.DisplayName;
 
         /// <inheritdoc cref="ICommonBusinessProcess.GetColumnDefinitions()" />
         public override List<IGridColumnDefinition> GetColumnDefinitions()

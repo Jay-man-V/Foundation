@@ -27,7 +27,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
         protected override String ExpectedScreenTitle => "Logged On Users";
         protected override String ExpectedStatusBarText => "Number of Logged On Users:";
 
-        protected override String ExpectedComboBoxDisplayMember => FDC.LoggedOnUser.DisplayName;
+        protected override string ExpectedComboBoxDisplayMember => FDC.LoggedOnUser.DisplayName;
 
         protected override ILoggedOnUserRepository CreateRepository()
         {

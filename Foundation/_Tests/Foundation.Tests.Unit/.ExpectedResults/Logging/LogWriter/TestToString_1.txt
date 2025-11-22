@@ -1,17 +1,20 @@
-﻿User logon: GANYMEDE\jayes
-Error occurred on: 04-Jul-2023 18:42:06
+﻿User logon: .\UnitTestUserName
+Error occurred on (utc): 28-Nov-2022 13:11:54
+Error occurred on (local): 28-Nov-2022 13:11:54
 Culture/UI Culture: en-GB/en-GB
 Current Thread - Culture/UI Culture: en-GB/en-GB
 Calling assembly: Foundation.Tests.Unit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Assembly location: D:\Projects\JDVSoftware\Foundation.Net\TestResults\Deploy_jayes 20230704T194158\Out\Foundation.Tests.Unit.dll
+Assembly location: D:\Projects\JDVSoftware\Foundation\_Tests\Foundation.Tests.Unit\bin\Debug\net8.0-windows\Foundation.Tests.Unit.dll
+Entry assembly: ReSharperTestRunner, Version=2.16.1.109, Culture=neutral, PublicKeyToken=5c492ec4f3eccde3
+Assembly location: C:\Users\jayes\AppData\Local\JetBrains\Installations\ReSharperPlatformVs17_f16bd3e1\TestRunner\netcoreapp3.0\ReSharperTestRunner.dll
 Executing assembly: Foundation.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Assembly location: D:\Projects\JDVSoftware\Foundation.Net\TestResults\Deploy_jayes 20230704T194158\Out\Foundation.Common.dll
-Environment.CurrentDirectory: D:\Projects\JDVSoftware\Foundation.Net\TestResults\Deploy_jayes 20230704T194158\Debug
-Directory.GetCurrentDirectory: D:\Projects\JDVSoftware\Foundation.Net\TestResults\Deploy_jayes 20230704T194158\Debug
+Assembly location: D:\Projects\JDVSoftware\Foundation\_Tests\Foundation.Tests.Unit\bin\Debug\net8.0-windows\Foundation.Common.dll
+Environment.CurrentDirectory: D:\Projects\JDVSoftware\Foundation\_Tests\Foundation.Tests.Unit\bin\Debug\net8.0-windows
+Directory.GetCurrentDirectory: D:\Projects\JDVSoftware\Foundation\_Tests\Foundation.Tests.Unit\bin\Debug\net8.0-windows
 
 Error message: What else could be the error message?
 Error source: Some namespace:class:function
-Server name: GANYMEDE
+Server name: MachineName
 Error Detail:
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 This is the error detail

@@ -72,7 +72,7 @@ namespace Foundation.Resources.Constants.DataColumns
         {
 
             /// <summary>
-            /// The Object sid
+            /// The object sid
             /// </summary>
             public const Int32 ObjectSid = 100;
 
@@ -96,10 +96,10 @@ namespace Foundation.Resources.Constants.DataColumns
         public static String EntityName => "ActiveDirectoryUser";
 
         /// <summary>
-        /// Gets the object security identifier.
+        /// Gets the object s identifier.
         /// </summary>
         /// <value>
-        /// The object security identifier.
+        /// The object s identifier.
         /// </value>
         public static String ObjectSId => "ObjectSId";
 

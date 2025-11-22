@@ -153,7 +153,7 @@ namespace Foundation.Common
         /// <param name="eventType">Type of the event.</param>
         /// <param name="status">The status.</param>
         /// <param name="message">The message.</param>
-        public void UpdateEvent(MessageType eventType, String status, String message)
+        public void UpdateEvent(MessageType eventType, string status, string message)
         {
             ProgressItem newItem = ProgressItem.AddHistory(eventType, status, message);
 

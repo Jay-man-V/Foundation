@@ -23,7 +23,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.Support
         protected override String ExpectedScreenTitle => String.Empty;
         protected override String ExpectedStatusBarText => "Number of rows:";
 
-        protected override String ExpectedComboBoxDisplayMember => "Made up property name";
+        protected override string ExpectedComboBoxDisplayMember => "Made up property name";
 
         protected override IMockFoundationModelProcess CreateBusinessProcess(IDateTimeService dateTimeService)
         {

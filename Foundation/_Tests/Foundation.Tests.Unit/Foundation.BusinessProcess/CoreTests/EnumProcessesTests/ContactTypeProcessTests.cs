@@ -22,11 +22,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
     [TestFixture]
     public class ContactTypeProcessTests : CommonBusinessProcessTests<IContactType, IContactTypeProcess, IContactTypeRepository>
     {
-        protected override Int32 ColumnDefinitionsCount => 9;
-        protected override String ExpectedScreenTitle => "Contact Types";
-        protected override String ExpectedStatusBarText => "Number of Contact Types:";
+        protected override int ColumnDefinitionsCount => 9;
+        protected override string ExpectedScreenTitle => "Contact Types";
+        protected override string ExpectedStatusBarText => "Number of Contact Types:";
 
-        protected override String ExpectedComboBoxDisplayMember => FDC.ContactType.Name;
+        protected override string ExpectedComboBoxDisplayMember => FDC.ContactType.Name;
 
         protected override IContactTypeRepository CreateRepository()
         {

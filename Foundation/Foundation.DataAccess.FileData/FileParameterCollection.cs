@@ -11,7 +11,7 @@ namespace Foundation.DataAccess.FileData
 {
     public sealed class FileParameterCollection : DbParameterCollection
     {
-        public override Int32 Add(Object value)
+        public override int Add(object value)
         {
             throw new NotImplementedException();
         }
@@ -21,60 +21,60 @@ namespace Foundation.DataAccess.FileData
             throw new NotImplementedException();
         }
 
-        public override Boolean Contains(Object value)
+        public override Boolean Contains(object value)
         {
             throw new NotImplementedException();
         }
 
-        public override Int32 IndexOf(Object value)
+        public override int IndexOf(object value)
         {
             throw new NotImplementedException();
         }
 
-        public override void Insert(Int32 index, Object value)
+        public override void Insert(int index, object value)
         {
             throw new NotImplementedException();
         }
 
-        public override void Remove(Object value)
+        public override void Remove(object value)
         {
             throw new NotImplementedException();
         }
 
-        public override void RemoveAt(Int32 index)
+        public override void RemoveAt(int index)
         {
             throw new NotImplementedException();
         }
 
-        public override void RemoveAt(String parameterName)
+        public override void RemoveAt(string parameterName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void SetParameter(Int32 index, DbParameter value)
+        protected override void SetParameter(int index, DbParameter value)
         {
             throw new NotImplementedException();
         }
 
-        protected override void SetParameter(String parameterName, DbParameter value)
+        protected override void SetParameter(string parameterName, DbParameter value)
         {
             throw new NotImplementedException();
         }
 
-        public override Int32 Count { get; }
-        public override Object SyncRoot { get; }
+        public override int Count { get; }
+        public override object SyncRoot { get; }
 
-        public override Int32 IndexOf(String parameterName)
+        public override int IndexOf(string parameterName)
         {
             throw new NotImplementedException();
         }
 
-        public override Boolean Contains(String value)
+        public override Boolean Contains(string value)
         {
             throw new NotImplementedException();
         }
 
-        public override void CopyTo(Array array, Int32 index)
+        public override void CopyTo(Array array, int index)
         {
             throw new NotImplementedException();
         }
@@ -84,12 +84,12 @@ namespace Foundation.DataAccess.FileData
             throw new NotImplementedException();
         }
 
-        protected override DbParameter GetParameter(Int32 index)
+        protected override DbParameter GetParameter(int index)
         {
             throw new NotImplementedException();
         }
 
-        protected override DbParameter GetParameter(String parameterName)
+        protected override DbParameter GetParameter(string parameterName)
         {
             throw new NotImplementedException();
         }

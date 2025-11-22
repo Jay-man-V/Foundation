@@ -42,8 +42,8 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
         //    return retVal;
         //}
 
-        //protected override String NameOfModelPropertyToBeChangedForPropertyChangedEvent => nameof(IMockFoundationModel.IsOpen);
-        //protected override String NameOfViewModelPropertyToBeChangedForPropertyChangedEvent => nameof(IMockModelViewModel.StringProperty);
+        //protected override string NameOfModelPropertyToBeChangedForPropertyChangedEvent => nameof(IMockFoundationModel.IsOpen);
+        //protected override string NameOfViewModelPropertyToBeChangedForPropertyChangedEvent => nameof(IMockModelViewModel.StringProperty);
 
         //protected override void ChangePropertyForPropertyChangedEvent(IMockModelViewModel viewModel, IMockFoundationModel model)
         //{

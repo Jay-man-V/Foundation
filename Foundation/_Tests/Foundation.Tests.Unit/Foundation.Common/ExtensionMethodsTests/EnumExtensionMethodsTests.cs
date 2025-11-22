@@ -112,12 +112,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
         [TestCase]
         public void Test_GetId()
         {
-            Assert.That(EnumForTesting.Enum1.Index(), Is.EqualTo(1));
-            Assert.That(EnumForTesting.Enum2.Index(), Is.EqualTo(2));
-            Assert.That(EnumForTesting.Enum3.Index(), Is.EqualTo(0));
-            Assert.That(EnumForTesting.Enum1.Index(4), Is.EqualTo(1));
-            Assert.That(EnumForTesting.Enum2.Index(5), Is.EqualTo(2));
-            Assert.That(EnumForTesting.Enum3.Index(6), Is.EqualTo(6));
+            Assert.That(EnumForTesting.Enum1.Id(), Is.EqualTo(1));
+            Assert.That(EnumForTesting.Enum2.Id(), Is.EqualTo(2));
+            Assert.That(EnumForTesting.Enum3.Id(), Is.EqualTo(-1));
         }
     }
 }

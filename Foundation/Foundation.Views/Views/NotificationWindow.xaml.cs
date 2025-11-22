@@ -172,7 +172,7 @@ namespace Foundation.Views
             }
         }
 
-        private void Button_Click(Object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
@@ -181,10 +181,10 @@ namespace Foundation.Views
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT
         {
-            public Int32 Left;
-            public Int32 Top;
-            public Int32 Right;
-            public Int32 Bottom;
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
         }
 
         [DllImport("user32.dll")]

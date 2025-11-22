@@ -30,7 +30,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             return process;
         }
 
-        protected override IContract CreateBlankModel(Int32 entityId)
+        protected override IContract CreateBlankModel(int entityId)
         {
             IContract retVal = new Contract();
 

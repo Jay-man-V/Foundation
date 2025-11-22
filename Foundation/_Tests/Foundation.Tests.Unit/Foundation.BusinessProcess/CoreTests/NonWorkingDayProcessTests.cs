@@ -27,7 +27,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         protected override String ExpectedStatusBarText => "Number of Non-Working Days:";
 
         protected override Boolean ExpectedHasOptionalAction1 => true;
-        protected override String ExpectedAction1Name => "Refresh from Government source";
+        protected override string ExpectedAction1Name => "Refresh from Government source";
 
         protected override Boolean ExpectedHasOptionalDropDownParameter1 => true;
         protected override String ExpectedFilter1Name => "Country:";
@@ -36,13 +36,13 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         protected override Boolean ExpectedHasOptionalDropDownParameter2 => true;
         protected override String ExpectedFilter2Name => "Year:";
         protected override String ExpectedFilter2DisplayMemberPath => ".";
-        protected override String ExpectedFilter2ValueMemberPath => ".";
+        protected override string ExpectedFilter2ValueMemberPath => ".";
 
 
         protected override Boolean ExpectedHasOptionalDropDownParameter3 => true;
         protected override String ExpectedFilter3Name => "Description:";
         protected override String ExpectedFilter3DisplayMemberPath => ".";
-        protected override String ExpectedFilter3ValueMemberPath => ".";
+        protected override string ExpectedFilter3ValueMemberPath => ".";
 
 
         protected override String ExpectedComboBoxDisplayMember => FDC.NonWorkingDay.Description;

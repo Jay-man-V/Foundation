@@ -11,7 +11,7 @@ using Foundation.Common;
 using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Mocks;
 
-namespace Foundation.Tests.Unit.Foundation.Common.Utils.RelayCommandTests
+namespace Foundation.Tests.Unit.Foundation.Common.UtilsTests.RelayCommandTests
 {
     [TestFixture]
     public class ExecuteTests : UnitTestBase

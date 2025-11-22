@@ -64,12 +64,12 @@ namespace Foundation.DataAccess.FileData
             throw new NotImplementedException();
         }
 
-        public override Int32 ExecuteNonQuery()
+        public override int ExecuteNonQuery()
         {
             throw new NotImplementedException();
         }
 
-        public override Object ExecuteScalar()
+        public override object ExecuteScalar()
         {
             throw new NotImplementedException();
         }

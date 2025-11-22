@@ -27,7 +27,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AttributesTests
         public void Test_Attributes()
         {
             IEnumerable<MethodInfo> testMethods = GetListOfTestMethods();
-            Int32 testMethodCount = testMethods.Count();
+            int testMethodCount = testMethods.Count();
 
             // This test exists to ensure all the Application Settings are tested/checked in the next test
             List<Type> allTypes = GetListOfValidTypes(t => t.BaseType != null && t.BaseType.Name.EndsWith("Attribute") &&
@@ -36,7 +36,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AttributesTests
 
             Assert.That(allTypes.Count, Is.EqualTo(testMethodCount - 1));
 
-            Int32 index = 0;
+            int index = 0;
 
             Assert.That(allTypes[index++].Name, Is.EqualTo(nameof(RequiredAppIdAttribute)));
             Assert.That(allTypes[index++].Name, Is.EqualTo(nameof(RequiredEntityIdAttribute)));
@@ -177,7 +177,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AttributesTests
         [TestCase]
         public void Test_EmailAddressMaxLengthAttribute()
         {
-            Int32 expectedValue = 123;
+            int expectedValue = 123;
             EmailAddressMaxLengthAttribute attribute = new EmailAddressMaxLengthAttribute(expectedValue);
 
             EmailAddress emailAddress = new EmailAddress("somewheremadeup@gmail.com");
@@ -193,7 +193,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AttributesTests
         [TestCase]
         public void Test_IndexAttribute()
         {
-            Int32 expectedValue = 123456;
+            int expectedValue = 123456;
             IndexAttribute attribute = new IndexAttribute(expectedValue);
 
             Assert.That(attribute.Index, Is.EqualTo(expectedValue));
@@ -205,7 +205,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AttributesTests
         [TestCase]
         public void Test_IdAttribute()
         {
-            Int32 expectedValue = 123456;
+            int expectedValue = 123456;
             IdAttribute attribute = new IdAttribute(expectedValue);
 
             Assert.That(attribute.Id, Is.EqualTo(expectedValue));

@@ -35,7 +35,7 @@
 //        }
 
 //        private String _stringProperty = String.Empty;
-//        public String StringProperty
+//        public string StringProperty
 //        {
 //            get => _stringProperty;
 //            set => SetPropertyValue(ref _stringProperty, value);

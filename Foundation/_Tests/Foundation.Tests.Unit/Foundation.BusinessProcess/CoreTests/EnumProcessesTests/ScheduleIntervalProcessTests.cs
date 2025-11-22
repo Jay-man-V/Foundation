@@ -22,11 +22,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
     [TestFixture]
     public class ScheduleIntervalProcessTests : CommonBusinessProcessTests<IScheduleInterval, IScheduleIntervalProcess, IScheduleIntervalRepository>
     {
-        protected override Int32 ColumnDefinitionsCount => 9;
-        protected override String ExpectedScreenTitle => "Scheduled Intervals";
-        protected override String ExpectedStatusBarText => "Number of Schedule Intervals:";
+        protected override int ColumnDefinitionsCount => 9;
+        protected override string ExpectedScreenTitle => "Scheduled Intervals";
+        protected override string ExpectedStatusBarText => "Number of Schedule Intervals:";
 
-        protected override String ExpectedComboBoxDisplayMember => FDC.ScheduleInterval.Name;
+        protected override string ExpectedComboBoxDisplayMember => FDC.ScheduleInterval.Name;
 
         protected override IScheduleIntervalRepository CreateRepository()
         {

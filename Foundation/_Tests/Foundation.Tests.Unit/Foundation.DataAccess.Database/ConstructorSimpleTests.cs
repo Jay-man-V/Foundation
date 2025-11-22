@@ -30,7 +30,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
         {
             ICore core = Substitute.For<ICore>();
 
-            String connectionStringKey = "Made up connection String key";
+            String connectionStringKey = "Made up connection string key";
             String parameterName = nameof(connectionStringKey);
             String errorMessage = $"Cannot load Connection named '{connectionStringKey}'. Check to make sure the connection is defined in the Configuration File. (Parameter '{parameterName}')";
 

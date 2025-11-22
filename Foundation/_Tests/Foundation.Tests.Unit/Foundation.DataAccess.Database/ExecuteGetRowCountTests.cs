@@ -31,7 +31,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
 
             ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("Server=Callisto;Database=Master;User Id=Jay;Password=pass;TrustServerCertificate=True;");
-            systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("System.Data.SqlClient");
+            systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("Microsoft.Data.SqlClient");
 
             DataProvider = Substitute.For<IUnitTestingDataProvider>();
 

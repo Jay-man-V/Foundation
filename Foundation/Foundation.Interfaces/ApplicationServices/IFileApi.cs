@@ -31,7 +31,7 @@ namespace Foundation.Interfaces
         /// <param name="targetFolder">The target folder</param>
         /// <param name="targetFileName">The target file name</param>
         /// <returns></returns>
-        String MakeDataPath(String baseFolder, String targetFolder, String targetFileName);
+        String MakeDataPath(String baseFolder, String targetFolder, string targetFileName);
 
         /// <summary>
         /// Gets the new temporary file path.

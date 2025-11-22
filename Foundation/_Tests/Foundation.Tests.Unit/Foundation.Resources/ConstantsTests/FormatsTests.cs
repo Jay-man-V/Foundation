@@ -23,15 +23,15 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         private Int32 Integer2 => 12;
         private Int32 Integer3 => 123;
         private Int32 Integer6 => 123456;
-        private Int64 Integer15 => 123456789012345;
+        private long Integer15 => 123456789012345;
 
-        private Decimal Decimal1 => 0.0m;
-        private Decimal Decimal2 => 12.123456m;
-        private Decimal Decimal3 => 123.123456m;
-        private Decimal Decimal6 => 123456.123456m;
-        private Decimal Decimal15 => 123456789012345.123456m;
+        private decimal Decimal1 => 0.0m;
+        private decimal Decimal2 => 12.123456m;
+        private decimal Decimal3 => 123.123456m;
+        private decimal Decimal6 => 123456.123456m;
+        private decimal Decimal15 => 123456789012345.123456m;
 
-        private Decimal Percentage1 => 0.05123456m;
+        private decimal Percentage1 => 0.05123456m;
 
         private DateTime DateTime1 => new DateTime(2021, 1, 10, 20, 27, 57, 798);
 

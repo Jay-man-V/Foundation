@@ -120,7 +120,7 @@ namespace Foundation.Views.Controls
         /// <value>
         /// The title.
         /// </value>
-        public String Title
+        public string Title
         {
             get => (string)GetValue(TitleProperty);
             set => SetValue(TitleProperty, value);
@@ -143,14 +143,14 @@ namespace Foundation.Views.Controls
         /// <value>
         /// The instructions.
         /// </value>
-        public String Instructions
+        public string Instructions
         {
             get => (string)GetValue(InstructionsProperty);
             set => SetValue(InstructionsProperty, value);
         }
 
         /// <summary>
-        /// The toolbar property
+        /// The tool bar property
         /// </summary>
         public static readonly DependencyProperty ToolBarProperty = DependencyProperty.Register
         (
@@ -161,12 +161,12 @@ namespace Foundation.Views.Controls
         );
 
         /// <summary>
-        /// Gets or sets the toolbar.
+        /// Gets or sets the tool bar.
         /// </summary>
         /// <value>
-        /// The toolbar.
+        /// The tool bar.
         /// </value>
-        public Object ToolBar
+        public object ToolBar
         {
             get => GetValue(ToolBarProperty);
             set => SetValue(ToolBarProperty, value);
@@ -189,7 +189,7 @@ namespace Foundation.Views.Controls
         /// <value>
         /// The filter.
         /// </value>
-        public Object Filter
+        public object Filter
         {
             get => GetValue(FilterProperty);
             set => SetValue(FilterProperty, value);
@@ -212,7 +212,7 @@ namespace Foundation.Views.Controls
         /// <value>
         /// The workspace.
         /// </value>
-        public Object Workspace
+        public object Workspace
         {
             get => GetValue(WorkspaceProperty);
             set => SetValue(WorkspaceProperty, value);
@@ -235,7 +235,7 @@ namespace Foundation.Views.Controls
         /// <value>
         /// The status bar.
         /// </value>
-        public Object StatusBar
+        public object StatusBar
         {
             get => GetValue(StatusBarProperty);
             set => SetValue(StatusBarProperty, value);

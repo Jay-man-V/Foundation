@@ -25,9 +25,9 @@ namespace Foundation.ViewModels.Services
         }
 
         /// <summary>
-        /// Gets the <see cref="T:System.Windows.Application" /> Object for the current <see cref="T:System.AppDomain" />.
+        /// Gets the <see cref="T:System.Windows.Application" /> object for the current <see cref="T:System.AppDomain" />.
         /// </summary>
-        /// <returns>The <see cref="T:System.Windows.Application" /> Object for the current <see cref="T:System.AppDomain" />.</returns>
+        /// <returns>The <see cref="T:System.Windows.Application" /> object for the current <see cref="T:System.AppDomain" />.</returns>
         private Application CurrentApplication { get; }
 
         /// <inheritdoc cref="IApplicationWrapper.MainWindow"/>

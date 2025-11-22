@@ -140,54 +140,54 @@ namespace Foundation.ViewModels.Main
 
         /// <summary>Gets the product.</summary>
         /// <value>The product.</value>
-        public String Product { get; }
+        public string Product { get; }
 
         /// <summary>Gets the name of the company.</summary>
         /// <value>The name of the company.</value>
-        public String CompanyName { get; }
+        public string CompanyName { get; }
 
         /// <summary>Gets the copyright.</summary>
         /// <value>The copyright.</value>
-        public String Copyright { get; }
+        public string Copyright { get; }
 
         /// <summary>Gets the trademark.</summary>
         /// <value>The trademark.</value>
-        public String Trademark { get; }
+        public string Trademark { get; }
 
         /// <summary>Gets the configuration.</summary>
         /// <value>The configuration.</value>
-        public String Configuration { get; }
+        public string Configuration { get; }
 
         /// <summary>Gets the version.</summary>
         /// <value>The version.</value>
-        public String Version { get; }
+        public string Version { get; }
 
         /// <summary>Gets the application server.</summary>
         /// <value>The application server.</value>
-        public String ApplicationServer { get; }
+        public string ApplicationServer { get; }
 
         /// <summary>Gets the database server.</summary>
         /// <value>The database server.</value>
-        public String DatabaseServer { get; }
+        public string DatabaseServer { get; }
 
         /// <summary>Gets the database details.</summary>
         /// <value>The database details.</value>
-        public String DatabaseDetails { get; }
+        public string DatabaseDetails { get; }
 
         /// <summary>Gets the username.</summary>
         /// <value>The username.</value>
-        public String Username { get; }
+        public string Username { get; }
 
         /// <summary>Gets the name.</summary>
         /// <value>The name.</value>
-        public String Name { get; }
+        public string Name { get; }
 
         /// <summary>Gets the email.</summary>
         /// <value>The email.</value>
-        public String Email { get; }
+        public string Email { get; }
 
         /// <summary>Gets the roles.</summary>
         /// <value>The roles.</value>
-        public String Roles { get; }
+        public string Roles { get; }
     }
 }

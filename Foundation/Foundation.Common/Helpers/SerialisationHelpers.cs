@@ -98,7 +98,7 @@ namespace Foundation.Common
 
                         if (temp is null)
                         {
-                            throw new ArgumentNullException();
+                            throw new ArgumentNullException(nameof(value));
                         }
 
                         retVal = temp;
@@ -110,7 +110,7 @@ namespace Foundation.Common
 
                     if (temp is null)
                     {
-                        throw new ArgumentNullException();
+                        throw new ArgumentNullException(nameof(value));
                     }
 
                     retVal = temp;

@@ -45,7 +45,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database.Support
         /// <inheritdoc cref="EntityKey"/>
         protected override String EntityKey => "Code";
 
-        protected override String GetAllOrderByClause()
+        protected override string GetAllOrderByClause()
         {
             return "Name ASC";
         }

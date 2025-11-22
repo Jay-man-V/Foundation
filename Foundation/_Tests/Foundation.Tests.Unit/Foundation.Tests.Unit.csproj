@@ -87,6 +87,8 @@
     <Compile Include="Foundation.DataAccess.Csv\.Support\MyCsvRecord.cs" />
     <Compile Include="Foundation.DataAccess.Database\.Support\ComplexTestEntityRepository.cs" />
     <Compile Include="Foundation.DataAccess.Database\.Support\SimpleTestEntityRepository.cs" />
+    <Compile Include="Foundation.Repository\.Support\ComplexTestEntityRepository.cs" />
+    <Compile Include="Foundation.Repository\.Support\SimpleTestEntityRepository.cs" />
     <Compile Include="Foundation.ViewModels\.BaseClasses\EntityViewModelTests.cs" />
     <Compile Include="Foundation.ViewModels\.BaseClasses\EntityViewModelUnitTestsBase.cs" />
     <Compile Include="Foundation.ViewModels\.BaseClasses\GenericDataGridViewModelTests.cs" />
@@ -292,18 +294,18 @@
     <Folder Include=".Support\Configs\" />
     <Folder Include="Foundation.DataAccess.Database\.DataLogicProvidersTests\" />
     <Folder Include="Foundation.Models\" />
-    <Folder Include="Foundation.Repository\" />
+    <Folder Include="Foundation.Repository\BaseTests\FoundationDataAccessTests\.DataLogicProvidersTests\" />
     <Folder Include="Foundation.ViewModels\.Support\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Applications\Customer Contact\CustomerContact.Client\CustomerContact.Client.csproj" />
-    <ProjectReference Include="..\..\..\Foundation.DataAccess.FileData\Foundation.DataAccess.FileData.csproj" />
     <ProjectReference Include="..\..\Foundation.BusinessProcess\Foundation.BusinessProcess.csproj" />
     <ProjectReference Include="..\..\Foundation.Common\Foundation.Common.csproj" />
     <ProjectReference Include="..\..\Foundation.Core\Foundation.Core.csproj" />
     <ProjectReference Include="..\..\Foundation.DataAccess.Csv\Foundation.DataAccess.Csv.csproj" />
     <ProjectReference Include="..\..\Foundation.DataAccess.Database\Foundation.DataAccess.Database.csproj" />
+    <ProjectReference Include="..\..\Foundation.DataAccess.FileData\Foundation.DataAccess.FileData.csproj" />
     <ProjectReference Include="..\..\Foundation.DocumentGenerator\Foundation.DocumentGenerator.csproj" />
     <ProjectReference Include="..\..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
     <ProjectReference Include="..\..\Foundation.Models\Foundation.Models.csproj" />

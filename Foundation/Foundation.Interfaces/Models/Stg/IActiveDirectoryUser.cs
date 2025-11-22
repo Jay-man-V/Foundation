@@ -11,28 +11,16 @@ namespace Foundation.Interfaces
     /// </summary>
     public interface IActiveDirectoryUser : IFoundationModel
     {
-        /// <summary>
-        /// Gets or sets the object security identifier.
-        /// </summary>
-        /// <value>
-        /// The object security identifier.
-        /// </value>
+        /// <summary>Gets or sets the object security identifier.</summary>
+        /// <value>The object security identifier.</value>
         String ObjectSId { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
+        /// <summary>Gets or sets the name.</summary>
+        /// <value>The name.</value>
         String Name { get; set; }
 
-        /// <summary>
-        /// Gets or sets the full name.
-        /// </summary>
-        /// <value>
-        /// The full name.
-        /// </value>
+        /// <summary>Gets or sets the full name.</summary>
+        /// <value>The full name.</value>
         String FullName { get; set; }
     }
 }

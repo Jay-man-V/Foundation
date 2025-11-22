@@ -10,10 +10,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="..\Foundation\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Foundation\Foundation.DataAccess.Csv\Foundation.DataAccess.Csv.csproj" />
+      <Compile Include="..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
     </ItemGroup>
 </Project>

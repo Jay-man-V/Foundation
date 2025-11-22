@@ -15,7 +15,7 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
     internal static class DataProviders
     {
         /// <summary>
-        /// System.Data.SqlClient
+        /// Microsoft.Data.SqlClient, System.Data.SqlClient
         /// </summary>
         public static String[] MsSqlClient => ["Microsoft.Data.SqlClient", "System.Data.SqlClient"];
 

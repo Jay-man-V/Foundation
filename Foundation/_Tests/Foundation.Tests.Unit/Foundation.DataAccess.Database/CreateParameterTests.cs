@@ -37,7 +37,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
 
             ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("Microsoft Sql Server Connection String");
-            systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("System.Data.SqlClient");
+            systemConfigurationService.GetDataProviderName(Arg.Any<String>()).Returns("Microsoft.Data.SqlClient");
 
             IUnitTestingDataProvider dataProvider = new UnitTestingDataProvider(core, systemConfigurationService, "UnitTesting");
 

@@ -169,7 +169,7 @@ namespace Foundation.ViewModels.Core
         /// <param name="year">The year.</param>
         /// <param name="description">The description.</param>
         /// <returns></returns>
-        private List<INonWorkingDay> ApplyFilter(ICountry country, String year, String description)
+        private List<INonWorkingDay> ApplyFilter(ICountry country, String year, string description)
         {
             LoggingHelpers.TraceCallEnter(country, year, description);
 

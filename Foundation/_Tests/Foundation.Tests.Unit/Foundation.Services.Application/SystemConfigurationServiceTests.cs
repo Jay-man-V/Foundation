@@ -34,7 +34,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 
             core.ConfigurationManager.Returns(ConfigurationWrapper);
 
-            ConfigurationWrapper.GetConnectionString(ValidDataConnectionName).Returns("providerName=System.Data.SqlClient;Server=DbServer;Database=DbName;User Id=UserId;Password=ThePassword;TrustServerCertificate=True;");
+            ConfigurationWrapper.GetConnectionString(ValidDataConnectionName).Returns("providerName=Microsoft.Data.SqlClient;Server=DbServer;Database=DbName;User Id=UserId;Password=ThePassword;TrustServerCertificate=True;");
 
             String? nullString = null;
             ConfigurationWrapper.GetConnectionString(InvalidDataConnectionName).Returns(nullString);
@@ -55,7 +55,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetDataProviderName()
         {
-            String expected = "System.Data.SqlClient";
+            String expected = "Microsoft.Data.SqlClient";
 
             String actual = TheService!.GetDataProviderName(ValidDataConnectionName);
 
@@ -123,7 +123,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             String errorMessage = $"Unable to retrieve Data Provider for '{InvalidDataConnectionName}'. Check to make sure the connection is defined in the Configuration File.";
 
             ConfigurationWrapper!.ClearSubstitute();
-            ConfigurationWrapper!.GetConnectionString(ValidDataConnectionName).Returns("InvalidText=System.Data.SqlClient;Server=DbServer;Database=DbName;User Id=UserId;Password=ThePassword;TrustServerCertificate=True;");
+            ConfigurationWrapper!.GetConnectionString(ValidDataConnectionName).Returns("InvalidText=Microsoft.Data.SqlClient;Server=DbServer;Database=DbName;User Id=UserId;Password=ThePassword;TrustServerCertificate=True;");
 
             InvalidOperationException actualException = Assert.Throws<InvalidOperationException>(() =>
             {

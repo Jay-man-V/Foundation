@@ -91,6 +91,7 @@ namespace Foundation.Tests.Unit.BaseClasses
             DateTimeService = Substitute.For<IDateTimeService>();
             DateTimeService.SystemDateTimeNowWithoutMilliseconds.Returns(SystemDateTime);
             DateTimeService.SystemUtcDateTimeNow.Returns(SystemDateTimeMs);
+            DateTimeService.SystemLocalDateTimeNow.Returns(SystemDateTimeMs);
 
             LoggingService = Substitute.For<ILoggingService>();
 
@@ -414,7 +415,7 @@ namespace Foundation.Tests.Unit.BaseClasses
         }
 
         /// <summary>
-        /// Replaces a Guid String with known constants.
+        /// Replaces a Guid string with known constants.
         /// e.g. 0c80873c-8894-42bf-a225-88b5d9aace9f with
         /// </summary>
         /// <param name="inputString">The input string.</param>

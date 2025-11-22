@@ -22,7 +22,8 @@ namespace Foundation.Common
 
             Boolean? retVal = null;
 
-            if (value != null)
+            if (value != null &&
+                value != DBNull.Value)
             {
                 retVal = Convert.ToBoolean(value);
             }
@@ -43,7 +44,8 @@ namespace Foundation.Common
 
             Double? retVal = null;
 
-            if (value != null)
+            if (value != null &&
+                value != DBNull.Value)
             {
                 retVal = Convert.ToDouble(value);
             }
@@ -64,7 +66,8 @@ namespace Foundation.Common
 
             Decimal? retVal = null;
 
-            if (value != null)
+            if (value != null &&
+                value != DBNull.Value)
             {
                 retVal = Convert.ToDecimal(value);
             }
@@ -85,7 +88,8 @@ namespace Foundation.Common
 
             Int32? retVal = null;
 
-            if (value != null)
+            if (value != null &&
+                value != DBNull.Value)
             {
                 retVal = Convert.ToInt32(value);
             }
@@ -107,7 +111,8 @@ namespace Foundation.Common
 
             DateTime? retVal = null;
 
-            if (value != null)
+            if (value != null &&
+                value != DBNull.Value)
             {
                 retVal = DateTime.SpecifyKind(Convert.ToDateTime(value), dateTimeKind);
             }
@@ -128,7 +133,8 @@ namespace Foundation.Common
 
             TimeSpan? retVal = null;
 
-            if (value != null)
+            if (value != null &&
+                value != DBNull.Value)
             {
                 retVal = TimeSpan.Parse(value.ToString() ?? "00:00:00");
             }
@@ -149,7 +155,8 @@ namespace Foundation.Common
 
             Guid? retVal = null;
 
-            if (value != null)
+            if (value != null &&
+                value != DBNull.Value)
             {
                 retVal = Guid.Parse(value.ToString() ?? Guid.Empty.ToString());
             }

@@ -22,11 +22,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests.EnumProcess
     [TestFixture]
     public class ContractTypeProcessTests : CommonBusinessProcessTests<IContractType, IContractTypeProcess, IContractTypeRepository>
     {
-        protected override Int32 ColumnDefinitionsCount => 9;
-        protected override String ExpectedScreenTitle => "Contract Types";
-        protected override String ExpectedStatusBarText => "Number of Contract Types:";
+        protected override int ColumnDefinitionsCount => 9;
+        protected override string ExpectedScreenTitle => "Contract Types";
+        protected override string ExpectedStatusBarText => "Number of Contract Types:";
 
-        protected override String ExpectedComboBoxDisplayMember => FDC.ContractType.Description;
+        protected override string ExpectedComboBoxDisplayMember => FDC.ContractType.Description;
 
         protected override IContractTypeRepository CreateRepository()
         {

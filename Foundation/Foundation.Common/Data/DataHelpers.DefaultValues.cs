@@ -108,10 +108,10 @@ namespace Foundation.Common
         public static TimeSpan DefaultTimeSpan => TimeSpan.Zero;
 
         /// <summary>
-        /// Gets the default Byte array ([0]).
+        /// Gets the default byte array ([0]).
         /// </summary>
         /// <value>
-        /// The default Byte array.
+        /// The default byte array.
         /// </value>
         public static Byte[] DefaultByteArray => [0];
 

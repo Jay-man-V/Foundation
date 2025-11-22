@@ -68,7 +68,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.Server.Scheduled
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.DocumentGenerator", "Foundation\Foundation.DocumentGenerator\Foundation.DocumentGenerator.csproj", "{A428C1BE-6214-4C60-889A-23756AA96BC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.DataAccess.FileData", "Foundation.DataAccess.FileData\Foundation.DataAccess.FileData.csproj", "{DE10AC56-2F42-4A39-952B-6B00AE51CF31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.DataAccess.FileData", "Foundation\Foundation.DataAccess.FileData\Foundation.DataAccess.FileData.csproj", "{CBA89ED7-EC70-8340-2282-E02F4947EFBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -176,10 +176,10 @@ Global
 		{A428C1BE-6214-4C60-889A-23756AA96BC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A428C1BE-6214-4C60-889A-23756AA96BC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A428C1BE-6214-4C60-889A-23756AA96BC8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DE10AC56-2F42-4A39-952B-6B00AE51CF31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DE10AC56-2F42-4A39-952B-6B00AE51CF31}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DE10AC56-2F42-4A39-952B-6B00AE51CF31}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DE10AC56-2F42-4A39-952B-6B00AE51CF31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBA89ED7-EC70-8340-2282-E02F4947EFBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBA89ED7-EC70-8340-2282-E02F4947EFBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBA89ED7-EC70-8340-2282-E02F4947EFBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBA89ED7-EC70-8340-2282-E02F4947EFBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

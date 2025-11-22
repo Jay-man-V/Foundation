@@ -14,7 +14,7 @@ using Foundation.Resources;
 
 using Foundation.Tests.Unit.BaseClasses;
 
-namespace Foundation.Tests.Unit.Foundation.Common.Helpers
+namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
 {
     /// <summary>
     /// The Grid Column Definition Tests class

@@ -13,7 +13,7 @@
   "UInt64Value": 18446744073709551615,
   "DecimalValue": 79228162514264337593543950335.0,
   "DoubleValue": 1.7976931348623157E+308,
-  "SingleValue": 3.40282347E+38,
+  "SingleValue": 3.4028235E+38,
   "ByteValue": 255,
   "SByteValue": 127,
   "StringList": [

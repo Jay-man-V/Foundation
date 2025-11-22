@@ -35,7 +35,7 @@ namespace Foundation.Views
             this.Title = caption;
         }
 
-        private void MainWindowForm_Loaded(Object sender, RoutedEventArgs e)
+        private void MainWindowForm_Loaded(object sender, RoutedEventArgs e)
         {
             RefreshMaximizeRestoreButton();
         }
@@ -148,7 +148,7 @@ namespace Foundation.Views
             ((HwndSource)PresentationSource.FromVisual(this)).AddHook(HookProc);
         }
 
-        public static IntPtr HookProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, ref Boolean handled)
+        public static IntPtr HookProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref Boolean handled)
         {
             if (msg == WM_GETMINMAXINFO)
             {
@@ -180,7 +180,7 @@ namespace Foundation.Views
             return IntPtr.Zero;
         }
 
-        private const Int32 WM_GETMINMAXINFO = 0x0024;
+        private const int WM_GETMINMAXINFO = 0x0024;
 
         private const uint MONITOR_DEFAULTTONEAREST = 0x00000002;
 
@@ -194,12 +194,12 @@ namespace Foundation.Views
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT
         {
-            public Int32 Left;
-            public Int32 Top;
-            public Int32 Right;
-            public Int32 Bottom;
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
 
-            public RECT(Int32 left, Int32 top, Int32 right, Int32 bottom)
+            public RECT(int left, int top, int right, int bottom)
             {
                 this.Left = left;
                 this.Top = top;
@@ -211,7 +211,7 @@ namespace Foundation.Views
         [StructLayout(LayoutKind.Sequential)]
         public struct MONITORINFO
         {
-            public Int32 cbSize;
+            public int cbSize;
             public RECT rcMonitor;
             public RECT rcWork;
             public uint dwFlags;
@@ -221,10 +221,10 @@ namespace Foundation.Views
         [StructLayout(LayoutKind.Sequential)]
         public struct POINT
         {
-            public Int32 X;
-            public Int32 Y;
+            public int X;
+            public int Y;
 
-            public POINT(Int32 x, Int32 y)
+            public POINT(int x, int y)
             {
                 this.X = x;
                 this.Y = y;
@@ -246,12 +246,12 @@ namespace Foundation.Views
             this.RefreshMaximizeRestoreButton();
         }
 
-        private void OnMinimizeButtonClick(Object sender, RoutedEventArgs e)
+        private void OnMinimizeButtonClick(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
         }
 
-        private void OnMaximizeRestoreButtonClick(Object sender, RoutedEventArgs e)
+        private void OnMaximizeRestoreButtonClick(object sender, RoutedEventArgs e)
         {
             if (this.WindowState == WindowState.Maximized)
             {
@@ -263,7 +263,7 @@ namespace Foundation.Views
             }
         }
 
-        private void OnCloseButtonClick(Object sender, RoutedEventArgs e)
+        private void OnCloseButtonClick(object sender, RoutedEventArgs e)
         {
             this.Close();
             Application.Current.Shutdown(0);

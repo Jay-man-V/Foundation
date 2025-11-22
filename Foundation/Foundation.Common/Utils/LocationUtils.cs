@@ -106,7 +106,10 @@ namespace Foundation.Common
         /// <returns></returns>
         public static String GetFullyQualifiedFunctionName(Int32 stackOffset = 1)
         {
-            String retVal = $"{GetNamespace(stackOffset + 2)}.{GetClassName(stackOffset + 2)}.{GetFunctionName(stackOffset + 1)}";
+            String classNamespace = GetNamespace(stackOffset + 1);
+            String className = GetClassName(stackOffset + 1);
+            String functionName = GetFunctionName(stackOffset + 1);
+            String retVal = $"{classNamespace}.{className}.{functionName}";
 
             return retVal;
         }

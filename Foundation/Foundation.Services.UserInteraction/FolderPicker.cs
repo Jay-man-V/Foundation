@@ -222,9 +222,9 @@ namespace Foundation.Services.UserInteraction
             [PreserveSig] Int32 Close(Int32 hr);
             [PreserveSig] Int32 SetClientGuid();  // not fully defined
             [PreserveSig] Int32 ClearClientData();
-            [PreserveSig] Int32 SetFilter([MarshalAs(UnmanagedType.IUnknown)] Object pFilter);
+            [PreserveSig] Int32 SetFilter([MarshalAs(UnmanagedType.IUnknown)] object pFilter);
             [PreserveSig] Int32 GetResults(out IShellItemArray ppenum);
-            [PreserveSig] Int32 GetSelectedItems([MarshalAs(UnmanagedType.IUnknown)] out Object ppsai);
+            [PreserveSig] Int32 GetSelectedItems([MarshalAs(UnmanagedType.IUnknown)] out object ppsai);
         }
 
         [ComImport, Guid("43826D1E-E718-42EE-BC55-A1E261C37BFE"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

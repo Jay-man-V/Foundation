@@ -28,7 +28,7 @@ namespace Foundation.Tests.Unit.Mocks
         public Int32 Id { get; }
         public String Name { get; set; }
 
-        public override String ToString()
+        public override string ToString()
         {
             String retVal = $"'{Id}' - '{Name}'";
             return retVal;
