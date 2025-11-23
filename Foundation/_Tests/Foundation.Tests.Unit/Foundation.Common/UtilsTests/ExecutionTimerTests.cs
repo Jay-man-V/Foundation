@@ -28,6 +28,18 @@ namespace Foundation.Tests.Unit.Foundation.Common.UtilsTests
         }
 
         /// <summary>
+        /// Tests dispose.
+        /// </summary>
+        [TestCase]
+        public void Test_Dispose()
+        {
+            using (ExecutionTimer executionTimer = new ExecutionTimer())
+            {
+                Assert.That(executionTimer.ProcessName, Is.EqualTo("Test_Dispose"));
+            }
+        }
+
+        /// <summary>
         /// Tests the start timer.
         /// </summary>
         [TestCase]

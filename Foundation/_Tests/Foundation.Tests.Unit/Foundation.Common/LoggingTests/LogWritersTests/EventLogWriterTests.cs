@@ -42,37 +42,20 @@ namespace Foundation.Tests.Unit.Foundation.Common.LoggingTests.LogWritersTests
         /// <summary>
         /// Tests the constructor.
         /// </summary>
-        [TestCase]
-        public void Test_Constructor()
+        [TestCase(TraceLevel.Off)]
+        [TestCase(TraceLevel.Error)]
+        [TestCase(TraceLevel.Warning)]
+        [TestCase(TraceLevel.Info)]
+        [TestCase(TraceLevel.Verbose)]
+        public void Test_Constructor(TraceLevel logLevel)
         {
             ClearEventSource();
 
-            EventLogWriter logWriter = new EventLogWriter(RunTimeEnvironmentSettings, DateTimeService,TargetEventLog, RequestedLogLevel, MessagePrefix, EventSource);
+            EventLogWriter logWriter = new EventLogWriter(RunTimeEnvironmentSettings, DateTimeService,TargetEventLog, logLevel, MessagePrefix, EventSource);
 
-            Assert.That(logWriter.RequestedLogLevel, Is.EqualTo(RequestedLogLevel));
+            Assert.That(logWriter.RequestedLogLevel, Is.EqualTo(logLevel));
             Assert.That(logWriter.MessagePrefix, Is.EqualTo(MessagePrefix));
             Assert.That(logWriter.EventSource, Is.EqualTo(EventSource));
-        }
-
-        /// <summary>
-        /// Tests the constructor.
-        /// </summary>
-        [TestCase]
-        public void Test_Constructor_LogLevels()
-        {
-            ClearEventSource();
-
-            EventLogWriter lwOff = new EventLogWriter(RunTimeEnvironmentSettings, DateTimeService, TargetEventLog, TraceLevel.Off, MessagePrefix, EventSource);
-            EventLogWriter lwError = new EventLogWriter(RunTimeEnvironmentSettings, DateTimeService, TargetEventLog, TraceLevel.Error, MessagePrefix, EventSource);
-            EventLogWriter lwWarning = new EventLogWriter(RunTimeEnvironmentSettings, DateTimeService, TargetEventLog, TraceLevel.Warning, MessagePrefix, EventSource);
-            EventLogWriter lwInfo = new EventLogWriter(RunTimeEnvironmentSettings, DateTimeService, TargetEventLog, TraceLevel.Info, MessagePrefix, EventSource);
-            EventLogWriter lwVerbose = new EventLogWriter(RunTimeEnvironmentSettings, DateTimeService, TargetEventLog, TraceLevel.Verbose, MessagePrefix, EventSource);
-
-            Assert.That(lwOff.RequestedLogLevel, Is.EqualTo(TraceLevel.Off));
-            Assert.That(lwError.RequestedLogLevel, Is.EqualTo(TraceLevel.Error));
-            Assert.That(lwWarning.RequestedLogLevel, Is.EqualTo(TraceLevel.Warning));
-            Assert.That(lwInfo.RequestedLogLevel, Is.EqualTo(TraceLevel.Info));
-            Assert.That(lwVerbose.RequestedLogLevel, Is.EqualTo(TraceLevel.Verbose));
         }
 
         /// <summary>

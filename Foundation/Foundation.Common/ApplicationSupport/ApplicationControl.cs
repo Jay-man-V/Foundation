@@ -96,10 +96,6 @@ namespace Foundation.Common
         public static void LogExceptionMessage(Exception exception)
         {
             LoggingHelpers.LogErrorMessage(exception);
-
-            // TODO
-            //Core.Core.Instance.Container.Reset();
-            //Core.Core.Instance.Container.Initialise();
         }
     }
 }

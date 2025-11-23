@@ -11,6 +11,7 @@ using Foundation.Common;
 using Foundation.Interfaces;
 
 using Foundation.Tests.Unit.BaseClasses;
+using Newtonsoft.Json;
 
 namespace Foundation.Tests.Unit.Foundation.Common.SettingsTests
 {
@@ -73,6 +74,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.SettingsTests
                 FileTransferArchiveAction = FileTransferArchiveAction.Move,
                 DeleteSourceFile = true,
             };
+
+            String toString = JsonConvert.SerializeObject(obj);
+            Assert.That(obj.ToString(), Is.EqualTo(toString));
 
             Assert.That(obj.FileTransferMethod, Is.EqualTo(fileTransferType));
             Assert.That(obj.Location, Is.EqualTo(location));
