@@ -436,12 +436,12 @@ namespace Foundation.Interfaces
             throw new NotImplementedException();
         }
 
-        public byte ToByte(IFormatProvider? provider)
+        public Byte ToByte(IFormatProvider? provider)
         {
             throw new NotImplementedException();
         }
 
-        public char ToChar(IFormatProvider? provider)
+        public Char ToChar(IFormatProvider? provider)
         {
             throw new NotImplementedException();
         }
@@ -451,62 +451,62 @@ namespace Foundation.Interfaces
             throw new NotImplementedException();
         }
 
-        public decimal ToDecimal(IFormatProvider? provider)
+        public Decimal ToDecimal(IFormatProvider? provider)
         {
             throw new NotImplementedException();
         }
 
-        public double ToDouble(IFormatProvider? provider)
+        public Double ToDouble(IFormatProvider? provider)
         {
             throw new NotImplementedException();
         }
 
-        public short ToInt16(IFormatProvider? provider)
+        public Int16 ToInt16(IFormatProvider? provider)
         {
             throw new NotImplementedException();
         }
 
-        public int ToInt32(IFormatProvider? provider)
+        public Int32 ToInt32(IFormatProvider? provider)
         {
             throw new NotImplementedException();
         }
 
-        public long ToInt64(IFormatProvider? provider)
+        public Int64 ToInt64(IFormatProvider? provider)
         {
             return TheEntityId;
         }
 
-        public sbyte ToSByte(IFormatProvider? provider)
+        public SByte ToSByte(IFormatProvider? provider)
         {
             throw new NotImplementedException();
         }
 
-        public float ToSingle(IFormatProvider? provider)
+        public Single ToSingle(IFormatProvider? provider)
         {
             throw new NotImplementedException();
         }
 
-        public string ToString(IFormatProvider? provider)
+        public String ToString(IFormatProvider? provider)
         {
             throw new NotImplementedException();
         }
 
-        public object ToType(Type conversionType, IFormatProvider? provider)
+        public Object ToType(Type conversionType, IFormatProvider? provider)
         {
             throw new NotImplementedException();
         }
 
-        public ushort ToUInt16(IFormatProvider? provider)
+        public UInt16 ToUInt16(IFormatProvider? provider)
         {
             throw new NotImplementedException();
         }
 
-        public uint ToUInt32(IFormatProvider? provider)
+        public UInt32 ToUInt32(IFormatProvider? provider)
         {
             throw new NotImplementedException();
         }
 
-        public ulong ToUInt64(IFormatProvider? provider)
+        public UInt64 ToUInt64(IFormatProvider? provider)
         {
             throw new NotImplementedException();
         }

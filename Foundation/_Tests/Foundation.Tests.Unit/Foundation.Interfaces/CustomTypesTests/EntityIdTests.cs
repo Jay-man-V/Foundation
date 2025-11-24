@@ -334,5 +334,31 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
             Assert.That(entityIds[08].TheEntityId, Is.EqualTo(02));
             Assert.That(entityIds[09].TheEntityId, Is.EqualTo(01));
         }
+
+        [TestCase]
+        public void Test_IConvertible()
+        {
+            EntityId entityId = new EntityId(123);
+
+            CustomTypeIConvertibleTests convertibleTests = new CustomTypeIConvertibleTests();
+
+            convertibleTests.Test_TypeCode(entityId, TypeCode.Int64);
+            convertibleTests.Test_ToBoolean(entityId, null, false);
+            convertibleTests.Test_ToByte(entityId, null, false);
+            convertibleTests.Test_ToChar(entityId, null, false);
+            convertibleTests.Test_ToDateTime(entityId, null, false);
+            convertibleTests.Test_ToDecimal(entityId, null, false);
+            convertibleTests.Test_ToDouble(entityId, null, false);
+            convertibleTests.Test_ToInt16(entityId, null, false);
+            convertibleTests.Test_ToInt32(entityId, null, false);
+            convertibleTests.Test_ToInt64(entityId, entityId.TheEntityId, true);
+            convertibleTests.Test_ToSByte(entityId, null, false);
+            convertibleTests.Test_ToSingle(entityId, null, false);
+            convertibleTests.Test_ToString(entityId, null, false);
+            convertibleTests.Test_ToType(entityId, null, false);
+            convertibleTests.Test_ToUInt16(entityId, null, false);
+            convertibleTests.Test_ToUInt32(entityId, null, false);
+            convertibleTests.Test_ToUInt64(entityId, null, false);
+        }
     }
 }
