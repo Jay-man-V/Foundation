@@ -5,8 +5,7 @@
 //-----------------------------------------------------------------------
 
 using System.Data.Common;
-
-using Microsoft.Data.SqlClient;
+using System.Reflection;
 
 using Foundation.Interfaces;
 using Foundation.Resources;
@@ -19,14 +18,23 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
     [DependencyInjectionTransient]
     internal class MsSqlDataLogicProvider : IDataLogicProvider
     {
-        public MsSqlDataLogicProvider()
+        public MsSqlDataLogicProvider(ICore core)
         {
             foreach (String factoryName in DataProviders.MsSqlClient)
             {
                 Boolean alreadyExists = DbProviderFactories.TryGetFactory(factoryName, out _);
                 if (!alreadyExists)
                 {
-                    DbProviderFactories.RegisterFactory(factoryName, SqlClientFactory.Instance);
+                    String assemblyName = "Microsoft.Data.SqlClient, Version=6.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5";
+                    String typeName = "Microsoft.Data.SqlClient.SqlClientFactory";
+
+                    Type factoryClass = (Type)core.IoC.Get(assemblyName, typeName, true);
+
+                    FieldInfo[] fieldInfos = factoryClass.GetFields(BindingFlags.Static | BindingFlags.Public);
+                    FieldInfo? fi = fieldInfos.FirstOrDefault(f => f.Name == "Instance");
+                    DbProviderFactory factoryInstance = (DbProviderFactory)fi.GetValue(factoryClass);
+
+                    DbProviderFactories.RegisterFactory(factoryName, factoryInstance);
                 }
             }
         }

@@ -5,8 +5,7 @@
 //-----------------------------------------------------------------------
 
 using System.Data.Common;
-
-using Oracle.ManagedDataAccess.Client;
+using System.Reflection;
 
 using Foundation.Interfaces;
 using Foundation.Resources;
@@ -19,14 +18,23 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
     [DependencyInjectionTransient]
     internal class OracleDataLogicProvider : IDataLogicProvider
     {
-        public OracleDataLogicProvider()
+        public OracleDataLogicProvider(ICore core)
         {
             foreach (String factoryName in DataProviders.OracleClient)
             {
                 Boolean alreadyExists = DbProviderFactories.TryGetFactory(factoryName, out _);
                 if (!alreadyExists)
                 {
-                    DbProviderFactories.RegisterFactory(factoryName, OracleClientFactory.Instance);
+                    String assemblyName = "Oracle.ManagedDataAccess, Version=23.1.0.0, Culture=neutral, PublicKeyToken=89b483f429c47342";
+                    String typeName = "Oracle.ManagedDataAccess.Client.OracleClientFactory";
+
+                    Type factoryClass = (Type)core.IoC.Get(assemblyName, typeName, true);
+
+                    FieldInfo[] fieldInfos = factoryClass.GetFields(BindingFlags.Static | BindingFlags.Public);
+                    FieldInfo? fi = fieldInfos.FirstOrDefault(f => f.Name == "Instance");
+                    DbProviderFactory factoryInstance = (DbProviderFactory)fi.GetValue(factoryClass);
+
+                    DbProviderFactories.RegisterFactory(factoryName, factoryInstance);
                 }
             }
         }

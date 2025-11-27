@@ -19,7 +19,7 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
     [DependencyInjectionTransient]
     internal class FoundationFileDataProvider : IDataLogicProvider
     {
-        public FoundationFileDataProvider()
+        public FoundationFileDataProvider(ICore core)
         {
             foreach (String factoryName in DataProviders.FoundationFileClient)
             {

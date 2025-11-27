@@ -16,7 +16,7 @@ namespace Foundation.Core
     [DependencyInjectionSingleton]
     public class SharedVariables : ISharedVariables
     {
-        private ConcurrentDictionary<String, Object> Variables { get; } = new ConcurrentDictionary<String, Object>();
+        private ConcurrentDictionary<String, Object?> Variables { get; } = new ConcurrentDictionary<String, Object?>();
 
         /// <inheritdoc cref="ISharedVariables.Get{T}(String)"/>
         public T? Get<T>(String key)

@@ -34,25 +34,25 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
         /// </summary>
         public static String[] FoundationFileClient => ["Foundation.FileData.Client"];
 
-        public static IDataLogicProvider GetDataProvider(String databaseProviderName)
+        public static IDataLogicProvider GetDataProvider(ICore core, String databaseProviderName)
         {
             IDataLogicProvider retVal;
 
             if (DataProviders.MsSqlClient.Contains(databaseProviderName))
             {
-                retVal = new MsSqlDataLogicProvider();
+                retVal = new MsSqlDataLogicProvider(core);
             }
             else if (DataProviders.MySqlClient.Contains(databaseProviderName))
             {
-                retVal = new MySqlDataLogicProvider();
+                retVal = new MySqlDataLogicProvider(core);
             }
             else if (DataProviders.OracleClient.Contains(databaseProviderName))
             {
-                retVal = new OracleDataLogicProvider();
+                retVal = new OracleDataLogicProvider(core);
             }
             else if (DataProviders.FoundationFileClient.Contains(databaseProviderName))
             {
-                retVal = new FoundationFileDataProvider();
+                retVal = new FoundationFileDataProvider(core);
             }
             else
             {

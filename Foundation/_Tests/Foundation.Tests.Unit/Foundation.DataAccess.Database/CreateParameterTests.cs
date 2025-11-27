@@ -13,7 +13,6 @@ using NSubstitute;
 
 using Foundation.Common;
 using Foundation.Interfaces;
-
 using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Mocks;
 using Foundation.Tests.Unit.Support;
@@ -899,6 +898,23 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
             Assert.That(dataParameter.Value, Is.EqualTo(DBNull.Value));
             Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
+        }
+
+        [TestCase]
+        public void Test_RandomObject()
+        {
+            String parameterName = LocationUtils.GetFunctionName();
+            RandomObject parameterValue = new RandomObject();
+            const RandomObject? useThisValueForNull = null;
+
+            String errorMessage = $"The type ({parameterValue.GetType()}) of the parameter is unhandled/unknown. Name: '{parameterName}'";
+
+            NotSupportedException actualException = Assert.Throws<NotSupportedException>(() =>
+            {
+                _ = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue, useThisValueForNull);
+            });
+
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
         private Image LoadImage()

@@ -132,11 +132,13 @@ namespace Foundation.DataAccess.Csv
                     if (RowCounter == 1)
                     {
                         HeaderRow = retVal;
+                        // Don't yield the header row
                     }
                     else
                     {
                         yield return retVal;
                     }
+
 
                     sb = new StringBuilder();
                 }

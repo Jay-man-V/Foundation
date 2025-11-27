@@ -26,6 +26,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Foundation.Common\Foundation.Common.csproj" />
+      <ProjectReference Include="..\Foundation.Core\Foundation.Core.csproj" />
       <ProjectReference Include="..\Foundation.DataAccess.FileData\Foundation.DataAccess.FileData.csproj" />
       <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
     </ItemGroup>

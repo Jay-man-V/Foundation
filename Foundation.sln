@@ -34,7 +34,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.Services.Applica
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.BusinessProcess", "Foundation\Foundation.BusinessProcess\Foundation.BusinessProcess.csproj", "{76CD2396-B847-4EA4-B11D-E99998CA68AE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. System & Unit Tests", "4. System & Unit Tests", "{0F75674C-8A76-43AB-A4C9-A8BCA7985A33}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. System & Unit Tests", "0. System & Unit Tests", "{0F75674C-8A76-43AB-A4C9-A8BCA7985A33}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.Tests.System", "Foundation\_Tests\Foundation.Tests.System\Foundation.Tests.System.csproj", "{387907F0-9D99-0993-B664-FAFAB74B43E5}"
 EndProject

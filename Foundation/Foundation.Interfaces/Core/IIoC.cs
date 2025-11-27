@@ -53,5 +53,14 @@ namespace Foundation.Interfaces
         /// <param name="typeName"></param>
         /// <returns></returns>
         TService Get<TService>(String assemblyName, String typeName) where TService : class;
+
+        /// <summary>
+        /// Get service of type <paramref name="typeName"/> from the assembly <paramref name="assemblyName"/>
+        /// </summary>
+        /// <param name="assemblyName"></param>
+        /// <param name="typeName"></param>
+        /// <param name="isStatic"></param>
+        /// <returns></returns>
+        Object Get(String assemblyName, String typeName, Boolean isStatic);
     }
 }

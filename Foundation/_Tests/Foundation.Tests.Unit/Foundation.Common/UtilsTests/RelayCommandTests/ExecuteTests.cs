@@ -56,7 +56,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.UtilsTests.RelayCommandTests
 
             ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
             {
-                _ = new RelayCommand<Object, Object>(null!, null);
+                _ = new RelayCommand<Object, Object>(null!, null!);
             });
 
             Assert.That(actualException.ParamName, Is.EqualTo(parameterName));
@@ -66,7 +66,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.UtilsTests.RelayCommandTests
 
             ArgumentNullException actualException2 = Assert.Throws<ArgumentNullException>(() =>
             {
-                RelayCommandFactory.New<Object, Object>(null!, null);
+                RelayCommandFactory.New<Object, Object>(null!, null!);
             });
 
             Assert.That(actualException2.ParamName, Is.EqualTo(parameterName));

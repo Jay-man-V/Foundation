@@ -4,13 +4,17 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.DataAccess.Database.DataLogicProviders;
-using Foundation.DataAccess.FileData;
-using Foundation.Tests.Unit.BaseClasses;
-
 using System.Data;
 using System.Data.Common;
 using System.Diagnostics;
+
+using NSubstitute;
+
+using Foundation.DataAccess.Database.DataLogicProviders;
+using Foundation.DataAccess.FileData;
+using Foundation.Interfaces;
+
+using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.DataAccess.FileData
 {
@@ -26,7 +30,10 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.FileData
         public override void TestInitialise()
         {
             base.TestInitialise();
-            _ = new FoundationFileDataProvider();
+
+            ICore core = Substitute.For<ICore>();
+
+            _ = new FoundationFileDataProvider(core);
         }
 
         /// <summary>

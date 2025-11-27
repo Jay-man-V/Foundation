@@ -5,8 +5,7 @@
 //-----------------------------------------------------------------------
 
 using System.Data.Common;
-
-using MySql.Data.MySqlClient;
+using System.Reflection;
 
 using Foundation.Interfaces;
 using Foundation.Resources;
@@ -19,14 +18,23 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
     [DependencyInjectionTransient]
     internal class MySqlDataLogicProvider : IDataLogicProvider
     {
-        public MySqlDataLogicProvider()
+        public MySqlDataLogicProvider(ICore core)
         {
             foreach (String factoryName in DataProviders.MySqlClient)
             {
                 Boolean alreadyExists = DbProviderFactories.TryGetFactory(factoryName, out _);
                 if (!alreadyExists)
                 {
-                    DbProviderFactories.RegisterFactory(factoryName, MySqlClientFactory.Instance);
+                    String assemblyName = "MySql.Data, Version=9.5.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d";
+                    String typeName = "MySql.Data.MySqlClient.MySqlClientFactory";
+
+                    Type factoryClass = (Type)core.IoC.Get(assemblyName, typeName, true);
+
+                    FieldInfo[] fieldInfos = factoryClass.GetFields(BindingFlags.Static | BindingFlags.Public);
+                    FieldInfo? fi = fieldInfos.FirstOrDefault(f => f.Name == "Instance");
+                    DbProviderFactory factoryInstance = (DbProviderFactory)fi.GetValue(factoryClass);
+
+                    DbProviderFactories.RegisterFactory(factoryName, factoryInstance);
                 }
             }
         }

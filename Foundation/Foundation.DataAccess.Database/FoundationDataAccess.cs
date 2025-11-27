@@ -51,7 +51,7 @@ namespace Foundation.DataAccess.Database
                 throw new ArgumentNullException(nameof(connectionStringKey), message);
             }
 
-            DataLogicProvider = DataProviders.GetDataProvider(DatabaseProviderName);
+            DataLogicProvider = DataProviders.GetDataProvider(Core, DatabaseProviderName);
 
             DatabaseProviderFactory = DbProviderFactories.GetFactory(DatabaseProviderName);
 
