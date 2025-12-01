@@ -140,16 +140,10 @@ namespace Foundation.Core
             return retVal;
         }
 
-        /// <inheritdoc cref="IIoC.Get{TService}(String, String, Boolean)"/>
+        /// <inheritdoc cref="IIoC.Get(String, String, Boolean)"/>
         public Object Get(String assemblyName, String typeName, Boolean isStatic)
         {
-            Assembly? assembly = Assembly.Load(assemblyName);
-
-            if (assembly == null)
-            {
-                String message = $"Cannot locate the Assembly: '{assemblyName}'";
-                throw new ArgumentNullException(nameof(assemblyName), message);
-            }
+            Assembly assembly = Assembly.Load(assemblyName);
 
             Type? assemblyType = assembly.GetType(typeName);
 
@@ -159,19 +153,9 @@ namespace Foundation.Core
                 throw new ArgumentNullException(nameof(assemblyType), message);
             }
 
-            if (ServiceProvider == null)
-            {
-                String message = "IoC Service Provider has not been initialised.";
-                throw new ArgumentNullException(nameof(ServiceProvider), message);
-            }
+            Object? retVal = assemblyType;
 
-            Object? retVal;
-
-            if (isStatic)
-            {
-                retVal = assemblyType;
-            }
-            else
+            if (!isStatic)
             {
                 retVal = Activator.CreateInstance(assemblyType, null);
             }
