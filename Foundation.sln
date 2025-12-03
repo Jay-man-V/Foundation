@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36221.1
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11222.15 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerContact.Client", "Applications\Customer Contact\CustomerContact.Client\CustomerContact.Client.csproj", "{827141F8-8ED0-7931-DCF6-D0D1A66E05C8}"
 EndProject
@@ -69,6 +69,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.DocumentGenerator", "Foundation\Foundation.DocumentGenerator\Foundation.DocumentGenerator.csproj", "{A428C1BE-6214-4C60-889A-23756AA96BC8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.DataAccess.FileData", "Foundation\Foundation.DataAccess.FileData\Foundation.DataAccess.FileData.csproj", "{CBA89ED7-EC70-8340-2282-E02F4947EFBC}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Foundation.Database", "Foundation\Foundation.Database\Foundation.Database.sqlproj", "{C0878ED5-120F-4F4C-A3EF-7D24AB72349B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -180,6 +182,12 @@ Global
 		{CBA89ED7-EC70-8340-2282-E02F4947EFBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBA89ED7-EC70-8340-2282-E02F4947EFBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBA89ED7-EC70-8340-2282-E02F4947EFBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0878ED5-120F-4F4C-A3EF-7D24AB72349B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0878ED5-120F-4F4C-A3EF-7D24AB72349B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0878ED5-120F-4F4C-A3EF-7D24AB72349B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C0878ED5-120F-4F4C-A3EF-7D24AB72349B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0878ED5-120F-4F4C-A3EF-7D24AB72349B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0878ED5-120F-4F4C-A3EF-7D24AB72349B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -189,6 +197,7 @@ Global
 		{387907F0-9D99-0993-B664-FAFAB74B43E5} = {0F75674C-8A76-43AB-A4C9-A8BCA7985A33}
 		{7D9EF13B-B9D0-9E42-1818-74D3B15AC153} = {0F75674C-8A76-43AB-A4C9-A8BCA7985A33}
 		{CCE22C47-7225-EAE0-5E3B-D3F7CC014FEE} = {0F75674C-8A76-43AB-A4C9-A8BCA7985A33}
+		{C0878ED5-120F-4F4C-A3EF-7D24AB72349B} = {184E8DB3-D735-4096-96AA-6068DE23C82F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0A3FAD53-E068-46CB-B0A9-2805E076396B}

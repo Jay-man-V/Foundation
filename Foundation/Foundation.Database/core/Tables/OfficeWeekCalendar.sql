@@ -1,0 +1,25 @@
+﻿CREATE TABLE [core].[OfficeWeekCalendar] (
+    [Id]                         INT           IDENTITY (1, 1) NOT NULL,
+    [Timestamp]                  ROWVERSION    NOT NULL,
+    [StatusId]                   INT           NOT NULL,
+    [CreatedByUserProfileId]     INT           NOT NULL,
+    [LastUpdatedByUserProfileId] INT           NOT NULL,
+    [CreatedOn]                  DATETIME      NOT NULL,
+    [LastUpdatedOn]              DATETIME      NOT NULL,
+    [ValidFrom]                  DATETIME      NOT NULL,
+    [ValidTo]                    DATETIME      NOT NULL,
+    [Code]                       NVARCHAR (10) NULL,
+    [ShortName]                  NVARCHAR (50) NULL,
+    [Mon]                        BIT           NULL,
+    [Tue]                        BIT           NULL,
+    [Wed]                        BIT           NULL,
+    [Thu]                        BIT           NULL,
+    [Fri]                        BIT           NULL,
+    [Sat]                        BIT           NULL,
+    [Sun]                        BIT           NULL,
+    CONSTRAINT [PK_CORE_OfficeWeekCalendar] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_OfficeWeekCalendar_CreatedByUserProfile] FOREIGN KEY ([CreatedByUserProfileId]) REFERENCES [sec].[UserProfile] ([Id]),
+    CONSTRAINT [FK_OfficeWeekCalendar_LastUpdatedByUserProfile] FOREIGN KEY ([LastUpdatedByUserProfileId]) REFERENCES [sec].[UserProfile] ([Id]),
+    CONSTRAINT [FK_OfficeWeekCalendar_Status] FOREIGN KEY ([StatusId]) REFERENCES [core].[Status] ([Id])
+);
+

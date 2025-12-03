@@ -1,0 +1,26 @@
+﻿CREATE TABLE [core].[ScheduledJob] (
+    [Id]                         INT             IDENTITY (1, 1) NOT NULL,
+    [Timestamp]                  ROWVERSION      NOT NULL,
+    [StatusId]                   INT             NOT NULL,
+    [CreatedByUserProfileId]     INT             NOT NULL,
+    [LastUpdatedByUserProfileId] INT             NOT NULL,
+    [CreatedOn]                  DATETIME        NOT NULL,
+    [LastUpdatedOn]              DATETIME        NOT NULL,
+    [ValidFrom]                  DATETIME        NOT NULL,
+    [ValidTo]                    DATETIME        NOT NULL,
+    [Name]                       NVARCHAR (150)  NULL,
+    [ScheduleIntervalId]         INT             NULL,
+    [RunImmediately]             BIT             NULL,
+    [StartTime]                  TIME (7)        NULL,
+    [EndTime]                    TIME (7)        NULL,
+    [Interval]                   INT             NULL,
+    [IsEnabled]                  BIT             NULL,
+    [TaskImplementationType]     NVARCHAR (500)  NULL,
+    [TaskParameters]             NVARCHAR (1000) NULL,
+    CONSTRAINT [PK_CORE_ScheduledJob] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_ScheduledJob_CreatedByUserProfile] FOREIGN KEY ([CreatedByUserProfileId]) REFERENCES [sec].[UserProfile] ([Id]),
+    CONSTRAINT [FK_ScheduledJob_LastUpdatedByUserProfile] FOREIGN KEY ([LastUpdatedByUserProfileId]) REFERENCES [sec].[UserProfile] ([Id]),
+    CONSTRAINT [FK_ScheduledJob_ScheduleInterval] FOREIGN KEY ([ScheduleIntervalId]) REFERENCES [core].[ScheduleInterval] ([Id]),
+    CONSTRAINT [FK_ScheduledJob_Status] FOREIGN KEY ([StatusId]) REFERENCES [core].[Status] ([Id])
+);
+

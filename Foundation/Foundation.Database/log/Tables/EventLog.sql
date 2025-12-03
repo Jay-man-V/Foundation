@@ -1,0 +1,27 @@
+﻿CREATE TABLE [log].[EventLog] (
+    [Id]                         INT            IDENTITY (1, 1) NOT NULL,
+    [Timestamp]                  ROWVERSION     NOT NULL,
+    [StatusId]                   INT            NOT NULL,
+    [CreatedByUserProfileId]     INT            NOT NULL,
+    [LastUpdatedByUserProfileId] INT            NOT NULL,
+    [CreatedOn]                  DATETIME       NOT NULL,
+    [LastUpdatedOn]              DATETIME       NOT NULL,
+    [ApplicationId]              INT            NULL,
+    [ParentId]                   INT            NULL,
+    [LogSeverityId]              INT            NULL,
+    [ScheduledTaskId]            INT            NULL,
+    [BatchName]                  NVARCHAR (100) NULL,
+    [ProcessName]                NVARCHAR (100) NULL,
+    [TaskName]                   NVARCHAR (100) NULL,
+    [TaskStatusId]               INT            NULL,
+    [StartedOn]                  DATETIME       NULL,
+    [FinishedOn]                 DATETIME       NULL,
+    [Information]                NVARCHAR (MAX) NULL,
+    CONSTRAINT [PK_LOG_EventLog] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_EventLog_CreatedByUserProfile] FOREIGN KEY ([CreatedByUserProfileId]) REFERENCES [sec].[UserProfile] ([Id]),
+    CONSTRAINT [FK_EventLog_LastUpdatedByUserProfile] FOREIGN KEY ([LastUpdatedByUserProfileId]) REFERENCES [sec].[UserProfile] ([Id]),
+    CONSTRAINT [FK_EventLog_LogSeverity] FOREIGN KEY ([LogSeverityId]) REFERENCES [log].[LogSeverity] ([Id]),
+    CONSTRAINT [FK_EventLog_Status] FOREIGN KEY ([StatusId]) REFERENCES [core].[Status] ([Id]),
+    CONSTRAINT [FK_EventLog_TaskStatus] FOREIGN KEY ([TaskStatusId]) REFERENCES [core].[TaskStatus] ([Id])
+);
+

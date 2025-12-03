@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [jay]
+    WITH PASSWORD = N'czz$!uisrW7|CrxriP;n5|mlmsFT7_&#$!~<qtm{|ot.3sqH', SID = 0xCD27A0941C986649A1F4DAB1E96DFA91, DEFAULT_LANGUAGE = [us_english], CHECK_POLICY = OFF;
+
