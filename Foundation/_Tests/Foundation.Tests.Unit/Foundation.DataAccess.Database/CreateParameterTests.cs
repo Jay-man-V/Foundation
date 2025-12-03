@@ -9,10 +9,12 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
 
+using Microsoft.Data.SqlClient;
 using NSubstitute;
 
 using Foundation.Common;
 using Foundation.Interfaces;
+
 using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Mocks;
 using Foundation.Tests.Unit.Support;
@@ -33,6 +35,9 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             base.TestInitialise();
 
             ICore core = Substitute.For<ICore>();
+            IIoC ioc = Substitute.For<IIoC>();
+            core.IoC.Returns(ioc);
+            ioc.Get(Arg.Any<String>(), Arg.Any<String>(), Arg.Any<Boolean>()).Returns(typeof(SqlClientFactory));
 
             ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("Microsoft Sql Server Connection String");

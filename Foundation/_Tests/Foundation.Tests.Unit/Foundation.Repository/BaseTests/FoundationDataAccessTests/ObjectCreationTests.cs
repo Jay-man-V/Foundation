@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Microsoft.Data.SqlClient;
+
 using NSubstitute;
 
 using Foundation.Interfaces;
@@ -30,6 +32,9 @@ namespace Foundation.Tests.Unit.Foundation.Repository.BaseTests.FoundationDataAc
             base.TestInitialise();
 
             CoreInstance = Substitute.For<ICore>();
+            IIoC ioc = Substitute.For<IIoC>();
+            CoreInstance.IoC.Returns(ioc);
+            ioc.Get(Arg.Any<String>(), Arg.Any<String>(), Arg.Any<Boolean>()).Returns(typeof(SqlClientFactory));
         }
 
         private SimpleTestEntityRepository CreateProcess()

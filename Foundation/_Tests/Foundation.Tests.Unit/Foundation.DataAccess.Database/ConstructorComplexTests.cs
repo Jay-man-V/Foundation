@@ -4,7 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Microsoft.Data.SqlClient;
+
+using MySql.Data.MySqlClient;
+
 using NSubstitute;
+
+using Oracle.ManagedDataAccess.Client;
 
 using Foundation.DataAccess.Database.DataLogicProviders;
 using Foundation.Interfaces;
@@ -57,6 +63,9 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             String dataProviderName = "Microsoft.Data.SqlClient";
 
             ICore core = Substitute.For<ICore>();
+            IIoC ioc = Substitute.For<IIoC>();
+            core.IoC.Returns(ioc);
+            ioc.Get(Arg.Any<String>(), Arg.Any<String>(), Arg.Any<Boolean>()).Returns(typeof(SqlClientFactory));
 
             ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("Microsoft Sql Server Connection String");
@@ -83,6 +92,9 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             String dataProviderName = "MySql.Data.MySqlClient";
 
             ICore core = Substitute.For<ICore>();
+            IIoC ioc = Substitute.For<IIoC>();
+            core.IoC.Returns(ioc);
+            ioc.Get(Arg.Any<String>(), Arg.Any<String>(), Arg.Any<Boolean>()).Returns(typeof(MySqlClientFactory));
 
             ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("MySql Connection String");
@@ -109,6 +121,9 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             String dataProviderName = "Oracle.DataAccess.Client";
 
             ICore core = Substitute.For<ICore>();
+            IIoC ioc = Substitute.For<IIoC>();
+            core.IoC.Returns(ioc);
+            ioc.Get(Arg.Any<String>(), Arg.Any<String>(), Arg.Any<Boolean>()).Returns(typeof(OracleClientFactory));
 
             ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
             systemConfigurationService.GetConnectionString(Arg.Any<String>()).Returns("Oracle Connection String");

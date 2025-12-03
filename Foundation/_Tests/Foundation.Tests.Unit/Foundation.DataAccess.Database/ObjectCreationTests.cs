@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Microsoft.Data.SqlClient;
+
 using NSubstitute;
 
 using Foundation.Interfaces;
@@ -26,6 +28,9 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
         private SimpleTestEntityRepository CreateProcess()
         {
             ICore core = Substitute.For<ICore>();
+            IIoC ioc = Substitute.For<IIoC>();
+            core.IoC.Returns(ioc);
+            ioc.Get(Arg.Any<String>(), Arg.Any<String>(), Arg.Any<Boolean>()).Returns(typeof(SqlClientFactory));
 
             IUnitTestingDataProvider dataProvider = Substitute.For<IUnitTestingDataProvider>();
             dataProvider.ConnectionName.Returns("UnitTesting");
@@ -46,6 +51,9 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
         public void Test_ObjectCreation1()
         {
             ICore core = Substitute.For<ICore>();
+            IIoC ioc = Substitute.For<IIoC>();
+            core.IoC.Returns(ioc);
+            ioc.Get(Arg.Any<String>(), Arg.Any<String>(), Arg.Any<Boolean>()).Returns(typeof(SqlClientFactory));
 
             IUnitTestingDataProvider dataProvider = Substitute.For<IUnitTestingDataProvider>();
             dataProvider.ConnectionName.Returns("UnitTesting");

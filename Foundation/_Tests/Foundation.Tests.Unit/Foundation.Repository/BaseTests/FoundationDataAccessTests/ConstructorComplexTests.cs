@@ -4,10 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Microsoft.Data.SqlClient;
+
 using NSubstitute;
 
-using Foundation.Interfaces;
 using Foundation.DataAccess.Database.DataLogicProviders;
+using Foundation.Interfaces;
 
 using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Foundation.Repository.Support;
@@ -29,6 +31,9 @@ namespace Foundation.Tests.Unit.Foundation.Repository.BaseTests.FoundationDataAc
             base.TestInitialise();
 
             CoreInstance = Substitute.For<ICore>();
+            IIoC ioc = Substitute.For<IIoC>();
+            CoreInstance.IoC.Returns(ioc);
+            ioc.Get(Arg.Any<String>(), Arg.Any<String>(), Arg.Any<Boolean>()).Returns(typeof(SqlClientFactory));
         }
 
         /// <summary>

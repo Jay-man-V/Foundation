@@ -4,11 +4,16 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Microsoft.Data.SqlClient;
+
+using MySql.Data.MySqlClient;
+
 using NSubstitute;
+
+using Oracle.ManagedDataAccess.Client;
 
 using Foundation.DataAccess.Database.DataLogicProviders;
 using Foundation.Interfaces;
-
 using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Foundation.DataAccess.Database.Support;
 using Foundation.Tests.Unit.Support;
@@ -54,6 +59,9 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
         public void Test_Constructor_MsSqlDataLogicProvider()
         {
             ICore core = Substitute.For<ICore>();
+            IIoC ioc = Substitute.For<IIoC>();
+            core.IoC.Returns(ioc);
+            ioc.Get(Arg.Any<String>(), Arg.Any<String>(), Arg.Any<Boolean>()).Returns(typeof(SqlClientFactory));
 
             String connectionStringKey = "MsSQLDataLogicProviderTest";
             String dataProviderName = "Microsoft.Data.SqlClient";
@@ -80,6 +88,9 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
         public void Test_Constructor_MySqlDataLogicProvider()
         {
             ICore core = Substitute.For<ICore>();
+            IIoC ioc = Substitute.For<IIoC>();
+            core.IoC.Returns(ioc);
+            ioc.Get(Arg.Any<String>(), Arg.Any<String>(), Arg.Any<Boolean>()).Returns(typeof(MySqlClientFactory));
 
             String connectionStringKey = "MySQLDataLogicProviderTest";
             String dataProviderName = "MySql.Data.MySqlClient";
@@ -106,6 +117,9 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
         public void Test_Constructor_OracleSqlDataLogicProvider()
         {
             ICore core = Substitute.For<ICore>();
+            IIoC ioc = Substitute.For<IIoC>();
+            core.IoC.Returns(ioc);
+            ioc.Get(Arg.Any<String>(), Arg.Any<String>(), Arg.Any<Boolean>()).Returns(typeof(OracleClientFactory));
 
             String connectionStringKey = "OracleDataLogicProviderTest";
             String dataProviderName = "Oracle.DataAccess.Client";
