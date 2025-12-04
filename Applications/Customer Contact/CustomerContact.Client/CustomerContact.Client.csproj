@@ -11,7 +11,7 @@
     </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\..\Foundation\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
+    <Compile Include="..\CustomerContact.AssemblyInfo.cs" Link="CustomerContact.AssemblyInfo.cs" />
   </ItemGroup>
 
   <ItemGroup>

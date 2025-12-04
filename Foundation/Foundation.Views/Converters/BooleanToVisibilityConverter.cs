@@ -69,7 +69,7 @@ namespace Foundation.Views.Converters
 
             if (value == null) return retVal;
 
-            String stringValue = value.ToString() ?? Visibility.Collapsed.ToString();
+            String stringValue = value.ToString() ?? nameof(Visibility.Collapsed);
 
             if (!Visibility.TryParse(stringValue, out Visibility visibilityValue))
             {

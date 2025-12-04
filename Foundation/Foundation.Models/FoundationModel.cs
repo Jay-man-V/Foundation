@@ -304,7 +304,24 @@ namespace Foundation.Models
         }
 
         /// <summary>
+        /// <para>
         /// Sets the property value.
+        /// </para>
+        /// <para>
+        /// Performs additional checks to see if the <paramref name="newValue"/> is different from the current value, if it isn't
+        /// then no further action is taken.
+        /// </para>
+        /// <para>
+        /// If the entity is <see cref="Initialising"/> no further actions are taken
+        /// </para>
+        /// <para>
+        /// If the entity is NOT <see cref="Initialising"/>, then the events <see cref="FoundationPropertyChanging"/> and <see cref="FoundationPropertyChanged"/> events
+        /// are raised.
+        /// Also, the event <see cref="PropertyChanged"/> is raised.
+        /// </para>
+        /// <para>
+        /// The <see cref="EntityLife"/> and <see cref="IsChanged"/> properties are updated accordingly.
+        /// </para>
         /// </summary>
         /// <param name="storage">The storage.</param>
         /// <param name="newValue">The new value.</param>
