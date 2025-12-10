@@ -48,8 +48,9 @@ namespace Foundation.DataAccess.Database
                 }
 
                 if (databaseParameters != null &&
-                    databaseParameters.Any())
+                    databaseParameters.HasItems())
                 {
+                    //databaseParameters.Cast<ICloneable>().ToList().ForEach(x => command.Parameters.Add(x.Clone()));
                     databaseParameters.ToList().ForEach(p => command.Parameters.Add(p));
                 }
 

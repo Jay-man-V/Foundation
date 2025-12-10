@@ -81,7 +81,7 @@ BEGIN
                         sg.StatusId IN ( 0, 1 ) AND
                         sg.IdName = @idName AND
                         COALESCE ( sg.ApplicationId, 0 ) IN ( 0, /* Core System Application */ @applicationId ) AND
-                        sg.CreatedByUserProfileId IN ( 1, /* System User */ @UserProfileId )
+                        sg.CreatedByUserProfileId IN ( 1, /* System User */ @userProfileId )
                     UNION ALL
                     SELECT
                         NULL Id,
@@ -144,5 +144,5 @@ BEGIN
         sg.StatusId IN ( 0, 1 ) AND
         sg.IdName = @idName AND
         COALESCE ( sg.ApplicationId, 0 ) IN ( 0, /* Core System Application */ @applicationId ) AND
-        sg.CreatedByUserProfileId IN ( 1, /* System User */ @UserProfileId )
+        sg.CreatedByUserProfileId IN ( 1, /* System User */ @userProfileId )
 END

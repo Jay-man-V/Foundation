@@ -11,7 +11,10 @@ namespace Foundation.DataAccess.FileData
 {
     public sealed class FileParameterCollection : DbParameterCollection
     {
-        public override int Add(object value)
+        public override Int32 Count { get; }
+        public override Object SyncRoot { get; }
+
+        public override Int32 Add(Object value)
         {
             throw new NotImplementedException();
         }
@@ -21,55 +24,52 @@ namespace Foundation.DataAccess.FileData
             throw new NotImplementedException();
         }
 
-        public override Boolean Contains(object value)
+        public override Boolean Contains(Object value)
         {
             throw new NotImplementedException();
         }
 
-        public override int IndexOf(object value)
+        public override Int32 IndexOf(Object value)
         {
             throw new NotImplementedException();
         }
 
-        public override void Insert(int index, object value)
+        public override void Insert(Int32 index, Object value)
         {
             throw new NotImplementedException();
         }
 
-        public override void Remove(object value)
+        public override void Remove(Object value)
         {
             throw new NotImplementedException();
         }
 
-        public override void RemoveAt(int index)
+        public override void RemoveAt(Int32 index)
         {
             throw new NotImplementedException();
         }
 
-        public override void RemoveAt(string parameterName)
+        public override void RemoveAt(String parameterName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void SetParameter(int index, DbParameter value)
+        protected override void SetParameter(Int32 index, DbParameter value)
         {
             throw new NotImplementedException();
         }
 
-        protected override void SetParameter(string parameterName, DbParameter value)
+        protected override void SetParameter(String parameterName, DbParameter value)
         {
             throw new NotImplementedException();
         }
 
-        public override int Count { get; }
-        public override object SyncRoot { get; }
-
-        public override int IndexOf(string parameterName)
+        public override Int32 IndexOf(String parameterName)
         {
             throw new NotImplementedException();
         }
 
-        public override Boolean Contains(string value)
+        public override Boolean Contains(String value)
         {
             throw new NotImplementedException();
         }

@@ -44,8 +44,10 @@ namespace Foundation.DataAccess.Database
                     command.Transaction = DatabaseTransaction;
                 }
 
-                if (databaseParameters.HasItems())
+                if (databaseParameters != null &&
+                    databaseParameters.HasItems())
                 {
+                    //databaseParameters.Cast<ICloneable>().ToList().ForEach(x => command.Parameters.Add(x.Clone()));
                     databaseParameters!.ToList().ForEach(p => command.Parameters.Add(p));
                 }
 

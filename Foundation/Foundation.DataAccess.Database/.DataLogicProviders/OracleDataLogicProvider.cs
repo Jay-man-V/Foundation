@@ -6,6 +6,7 @@
 
 using System.Data.Common;
 using System.Reflection;
+using System.Windows.Media;
 
 using Foundation.Interfaces;
 using Foundation.Resources;
@@ -16,55 +17,52 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
     /// The Oracle Database Data Logic Provider
     /// </summary>
     [DependencyInjectionTransient]
-    internal class OracleDataLogicProvider : IDataLogicProvider
+    internal class OracleDataLogicProvider : DataLogicProvider, IDataLogicProvider
     {
-        public OracleDataLogicProvider(ICore core)
+        public OracleDataLogicProvider
+        (
+            ICore core
+        ) :
+            base
+            (
+                core,
+                DataProviders.OracleClient,
+                "Oracle.ManagedDataAccess, Version=23.1.0.0, Culture=neutral, PublicKeyToken=89b483f429c47342",
+                "Oracle.ManagedDataAccess.Client.OracleClientFactory"
+            )
         {
-            foreach (String factoryName in DataProviders.OracleClient)
-            {
-                Boolean alreadyExists = DbProviderFactories.TryGetFactory(factoryName, out _);
-                if (!alreadyExists)
-                {
-                    String assemblyName = "Oracle.ManagedDataAccess, Version=23.1.0.0, Culture=neutral, PublicKeyToken=89b483f429c47342";
-                    String typeName = "Oracle.ManagedDataAccess.Client.OracleClientFactory";
+            //foreach (String factoryName in DataProviders.OracleClient)
+            //{
+            //    Boolean alreadyExists = DbProviderFactories.TryGetFactory(factoryName, out _);
+            //    if (!alreadyExists)
+            //    {
+            //        String assemblyName = "Oracle.ManagedDataAccess, Version=23.1.0.0, Culture=neutral, PublicKeyToken=89b483f429c47342";
+            //        String typeName = "Oracle.ManagedDataAccess.Client.OracleClientFactory";
 
-                    Type factoryClass = (Type)core.IoC.Get(assemblyName, typeName, true);
-
-                    FieldInfo[] fieldInfos = factoryClass.GetFields(BindingFlags.Static | BindingFlags.Public);
-                    FieldInfo? fi = fieldInfos.FirstOrDefault(f => f.Name == "Instance");
-                    DbProviderFactory factoryInstance = (DbProviderFactory)fi.GetValue(factoryClass);
-
-                    DbProviderFactories.RegisterFactory(factoryName, factoryInstance);
-                }
-            }
+            //        SetupFactory(factoryName, assemblyName, typeName);
+            //}
         }
 
-        /// <inheritdoc cref="IDataLogicProvider.ValidToDateString" />
-        public String ValidToDateString => ApplicationDefaultValues.DefaultValidToDateTime.ToString(Formats.DotNet.DateTimeMilliseconds);
-
-        /// <inheritdoc cref="IDataLogicProvider.DatabaseProviderName" />
-        public String DatabaseProviderName => DataProviders.OracleClient[0];
-
         /// <inheritdoc cref="IDataLogicProvider.DatabaseParameterPrefix" />
-        public String DatabaseParameterPrefix => ":";
+        public override String DatabaseParameterPrefix => ":";
 
         /// <inheritdoc cref="IDataLogicProvider.IdentityOfLastInsertFunction"/>
-        public String IdentityOfLastInsertFunction => "(SELECT {0}_SEQ.CURRVAL FROM DUAL)";
+        public override String IdentityOfLastInsertFunction => "(SELECT {0}_SEQ.CURRVAL FROM DUAL)";
 
         /// <inheritdoc cref="IDataLogicProvider.IdentityOfNewRowSql" />
-        public String IdentityOfNewRowSql => "SELECT Timestamp, (SELECT {0}_SEQ.CURRVAL FROM DUAL) FROM {0} WHERE Id = " + IdentityOfLastInsertFunction;
+        public override String IdentityOfNewRowSql => "SELECT Timestamp, (SELECT {0}_SEQ.CURRVAL FROM DUAL) FROM {0} WHERE Id = " + IdentityOfLastInsertFunction;
 
         /// <inheritdoc cref="IDataLogicProvider.TimestampOfUpdatedRowSql" />
-        public String TimestampOfUpdatedRowSql => "SELECT Timestamp FROM {0} WHERE Id = @id";
+        public override String TimestampOfUpdatedRowSql => "SELECT Timestamp FROM {0} WHERE Id = @id";
 
         /// <inheritdoc cref="IDataLogicProvider.CurrentDateTimeFunction" />
-        public String CurrentDateTimeFunction => "SYSDATE";
+        public override String CurrentDateTimeFunction => "SYSDATE";
 
         /// <inheritdoc cref="IDataLogicProvider.UniqueIdFunction"/>
-        public String UniqueIdFunction => "SYS_GUID()";
+        public override String UniqueIdFunction => "SYS_GUID()";
 
         /// <inheritdoc cref="IDataLogicProvider.MapDbTypeToDotNetType" />
-        public Type MapDbTypeToDotNetType(String dbType)
+        public override Type MapDbTypeToDotNetType(String dbType)
         {
             Type retVal;
 
@@ -89,13 +87,13 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
         }
 
         /// <inheritdoc cref="IDataLogicProvider.GetRowVersionValue" />
-        public Object GetRowVersionValue()
+        public override Object GetRowVersionValue()
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc cref="IDataLogicProvider.GetDateComparisonSql(String, String, String)" />
-        public String GetDateComparisonSql(String columnOrParameter1, String columnOrParameter2, String comparisonResult)
+        public override String GetDateComparisonSql(String columnOrParameter1, String columnOrParameter2, String comparisonResult)
         {
             String retVal = $"({columnOrParameter1} - {columnOrParameter2}) {comparisonResult}";
 
@@ -103,7 +101,7 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
         }
 
         /// <inheritdoc cref="IDataLogicProvider.GetMinuteComparisonSql(String, String, String)" />
-        public String GetMinuteComparisonSql(String columnOrParameter1, String columnOrParameter2, String comparisonResult)
+        public override String GetMinuteComparisonSql(String columnOrParameter1, String columnOrParameter2, String comparisonResult)
         {
             String retVal = $"({columnOrParameter1} - {columnOrParameter2}) {comparisonResult}";
 

@@ -12,14 +12,14 @@ namespace Foundation.Interfaces
     public interface IDataLogicProvider
     {
         /// <summary>
-        /// The DefaultValidToDateTime as a String for use in the database
-        /// </summary>
-        String ValidToDateString { get; }
-
-        /// <summary>
         /// The name of the database provider
         /// </summary>
         String DatabaseProviderName { get; }
+
+        /// <summary>
+        /// The DefaultValidToDateTime as a String for use in the database
+        /// </summary>
+        String ValidToDateString { get; }
 
         /// <summary>
         /// The prefix used by the Database for Parameters

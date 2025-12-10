@@ -6,6 +6,7 @@
 
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Foundation.DataAccess.FileData
 {
@@ -35,6 +36,7 @@ namespace Foundation.DataAccess.FileData
             Transaction = transaction;
         }
 
+        [AllowNull]
         public override String CommandText { get; set; }
         public override Int32 CommandTimeout { get; set; }
         public override CommandType CommandType { get; set; }

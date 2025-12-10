@@ -6,6 +6,7 @@
 
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Foundation.DataAccess.FileData
 {
@@ -36,17 +37,21 @@ namespace Foundation.DataAccess.FileData
             _state = ConnectionState.Open;
         }
 
-        public override String ConnectionString { get; set; }
-        public override String Database { get; }
+        [AllowNull]
+        public override String ConnectionString { get; set; } = String.Empty;
+
+        public override String Database { get; } = String.Empty;
 
         private ConnectionState _state;
         public override ConnectionState State => _state;
-        public override String DataSource { get; }
-        public override String ServerVersion { get; }
+
+        public override String DataSource { get; } = String.Empty;
+
+        public override String ServerVersion { get; } = String.Empty;
 
         protected override DbCommand CreateDbCommand()
         {
-            return (DbCommand)new FileCommand();
+            return new FileCommand();
         }
     }
 }

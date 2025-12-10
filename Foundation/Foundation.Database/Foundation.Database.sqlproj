@@ -325,7 +325,6 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="Security\RoleMemberships.sql" />
     <Build Include="dbo\Functions\ufn_GetNextWorkingDay.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>

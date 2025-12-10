@@ -17,11 +17,19 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
     /// The Oracle Database Data Logic Provider
     /// </summary>
     [DependencyInjectionTransient]
-    internal class FoundationFileDataProvider : IDataLogicProvider
+    internal class FoundationFileDataProvider : DataLogicProvider, IDataLogicProvider
     {
-        public FoundationFileDataProvider(ICore core)
+        public FoundationFileDataProvider
+        (
+            ICore core
+        ) :
+            base
+            (
+                core,
+                DataProviders.FoundationFileClient
+            )
         {
-            foreach (String factoryName in DataProviders.FoundationFileClient)
+            foreach (String factoryName in DatabaseProviders)
             {
                 Boolean alreadyExists = DbProviderFactories.TryGetFactory(factoryName, out _);
                 if (!alreadyExists)
@@ -31,32 +39,26 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
             }
         }
 
-        /// <inheritdoc cref="IDataLogicProvider.ValidToDateString" />
-        public String ValidToDateString => ApplicationDefaultValues.DefaultValidToDateTime.ToString(Formats.DotNet.DateTimeMilliseconds);
-
-        /// <inheritdoc cref="IDataLogicProvider.DatabaseProviderName" />
-        public String DatabaseProviderName => DataProviders.FoundationFileClient[0];
-
         /// <inheritdoc cref="IDataLogicProvider.DatabaseParameterPrefix" />
-        public String DatabaseParameterPrefix => ":";
+        public override String DatabaseParameterPrefix => ":";
 
         /// <inheritdoc cref="IDataLogicProvider.IdentityOfLastInsertFunction"/>
-        public String IdentityOfLastInsertFunction => throw new NotImplementedException();
+        public override String IdentityOfLastInsertFunction => throw new NotImplementedException();
 
         /// <inheritdoc cref="IDataLogicProvider.IdentityOfNewRowSql" />
-        public String IdentityOfNewRowSql => throw new NotImplementedException();
+        public override String IdentityOfNewRowSql => throw new NotImplementedException();
 
         /// <inheritdoc cref="IDataLogicProvider.TimestampOfUpdatedRowSql" />
-        public String TimestampOfUpdatedRowSql => throw new NotImplementedException();
+        public override String TimestampOfUpdatedRowSql => throw new NotImplementedException();
 
         /// <inheritdoc cref="IDataLogicProvider.CurrentDateTimeFunction" />
-        public String CurrentDateTimeFunction => throw new NotImplementedException();
+        public override String CurrentDateTimeFunction => throw new NotImplementedException();
 
         /// <inheritdoc cref="IDataLogicProvider.UniqueIdFunction"/>
-        public String UniqueIdFunction => throw new NotImplementedException();
+        public override String UniqueIdFunction => throw new NotImplementedException();
 
         /// <inheritdoc cref="IDataLogicProvider.MapDbTypeToDotNetType" />
-        public Type MapDbTypeToDotNetType(String dbType)
+        public override Type MapDbTypeToDotNetType(String dbType)
         {
             Type retVal;
 
@@ -81,19 +83,19 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
         }
 
         /// <inheritdoc cref="IDataLogicProvider.GetRowVersionValue" />
-        public Object GetRowVersionValue()
+        public override Object GetRowVersionValue()
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc cref="IDataLogicProvider.GetDateComparisonSql(String, String, String)" />
-        public String GetDateComparisonSql(String columnOrParameter1, String columnOrParameter2, String comparisonResult)
+        public override String GetDateComparisonSql(String columnOrParameter1, String columnOrParameter2, String comparisonResult)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc cref="IDataLogicProvider.GetMinuteComparisonSql(String, String, String)" />
-        public String GetMinuteComparisonSql(String columnOrParameter1, String columnOrParameter2, String comparisonResult)
+        public override String GetMinuteComparisonSql(String columnOrParameter1, String columnOrParameter2, String comparisonResult)
         {
             throw new NotImplementedException();
         }

@@ -78,7 +78,7 @@ BEGIN
         GETDATE(),                      -- ValidFrom
         '2100-12-31 23:59:59',          -- ValidTo
         activeDirectoryUserObjectSId,   -- ExternalKeyId
-        activeDirectoryUserName,        -- Username
+        activeDirectoryUsername,        -- Username
         activeDirectoryUserFullName,    -- DisplayName
         0,                              -- IsSystemSupport
         NULL                            -- ContactDetailId

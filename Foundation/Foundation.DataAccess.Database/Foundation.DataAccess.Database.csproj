@@ -14,6 +14,7 @@
       <Compile Include=".DataLogicProviders\MsSqlDataLogicProvider.cs" />
       <Compile Include=".DataLogicProviders\MySqlDataLogicProvider.cs" />
       <Compile Include=".DataLogicProviders\FoundationFileDataProvider.cs" />
+      <Compile Include=".DataLogicProviders\DataLogicProvider.cs" />
       <Compile Include=".DataLogicProviders\OracleDataLogicProvider.cs" />
       <Compile Include=".Reference for Fast Data Saving.txt" />
     </ItemGroup>

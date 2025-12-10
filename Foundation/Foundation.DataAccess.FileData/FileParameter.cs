@@ -6,23 +6,28 @@
 
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Foundation.DataAccess.FileData
 {
     public sealed class FileParameter : DbParameter
     {
-        public override void ResetDbType()
-        {
-            throw new NotImplementedException();
-        }
-
         public override DbType DbType { get; set; }
         public override ParameterDirection Direction { get; set; }
         public override Boolean IsNullable { get; set; }
-        public override string ParameterName { get; set; }
-        public override string SourceColumn { get; set; }
-        public override object Value { get; set; }
+
+        [AllowNull]
+        public override String ParameterName { get; set; }
+
+        [AllowNull]
+        public override String SourceColumn { get; set; }
+        public override Object? Value { get; set; }
         public override Boolean SourceColumnNullMapping { get; set; }
-        public override int Size { get; set; }
+        public override Int32 Size { get; set; }
+
+        public override void ResetDbType()
+        {
+            DbType = DbType.Object;
+        }
     }
 }

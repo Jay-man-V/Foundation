@@ -58,7 +58,8 @@ namespace Foundation.DataAccess.Database
                 if (databaseParameters != null &&
                     databaseParameters.HasItems())
                 {
-                    databaseParameters.ToList().ForEach(p => command.Parameters.Add(p));
+                    databaseParameters.Cast<ICloneable>().ToList().ForEach(x => command.Parameters.Add(x.Clone()));
+                    //databaseParameters.ToList().ForEach(p => command.Parameters.Add(p));
                 }
 
                 command.CommandText = sql;

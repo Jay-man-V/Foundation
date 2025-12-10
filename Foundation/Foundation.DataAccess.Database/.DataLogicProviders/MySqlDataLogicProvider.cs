@@ -16,11 +16,19 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
     /// The My Sql Server Database Data Logic Provider
     /// </summary>
     [DependencyInjectionTransient]
-    internal class MySqlDataLogicProvider : IDataLogicProvider
+    internal class MySqlDataLogicProvider : DataLogicProvider, IDataLogicProvider
     {
-        public MySqlDataLogicProvider(ICore core)
+        public MySqlDataLogicProvider
+        (
+            ICore core
+        ) :
+            base
+            (
+                core,
+                DataProviders.MySqlClient
+            )
         {
-            foreach (String factoryName in DataProviders.MySqlClient)
+            foreach (String factoryName in DatabaseProviders)
             {
                 Boolean alreadyExists = DbProviderFactories.TryGetFactory(factoryName, out _);
                 if (!alreadyExists)
@@ -28,43 +36,31 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
                     String assemblyName = "MySql.Data, Version=9.5.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d";
                     String typeName = "MySql.Data.MySqlClient.MySqlClientFactory";
 
-                    Type factoryClass = (Type)core.IoC.Get(assemblyName, typeName, true);
-
-                    FieldInfo[] fieldInfos = factoryClass.GetFields(BindingFlags.Static | BindingFlags.Public);
-                    FieldInfo? fi = fieldInfos.FirstOrDefault(f => f.Name == "Instance");
-                    DbProviderFactory factoryInstance = (DbProviderFactory)fi.GetValue(factoryClass);
-
-                    DbProviderFactories.RegisterFactory(factoryName, factoryInstance);
+                    SetupFactory(factoryName, assemblyName, typeName);
                 }
             }
         }
 
-        /// <inheritdoc cref="IDataLogicProvider.ValidToDateString" />
-        public String ValidToDateString => ApplicationDefaultValues.DefaultValidToDateTime.ToString(Formats.DotNet.DateTimeMilliseconds);
-
-        /// <inheritdoc cref="IDataLogicProvider.DatabaseProviderName" />
-        public String DatabaseProviderName => DataProviders.MySqlClient[0];
-
         /// <inheritdoc cref="IDataLogicProvider.DatabaseParameterPrefix" />
-        public String DatabaseParameterPrefix => "@";
+        public override String DatabaseParameterPrefix => "@";
 
         /// <inheritdoc cref="IDataLogicProvider.IdentityOfLastInsertFunction"/>
-        public String IdentityOfLastInsertFunction => "LAST_INSERT_ID()";
+        public override String IdentityOfLastInsertFunction => "LAST_INSERT_ID()";
 
         /// <inheritdoc cref="IDataLogicProvider.IdentityOfNewRowSql" />
-        public String IdentityOfNewRowSql => "SELECT Id, RowVersion FROM {0} WHERE Id = " + IdentityOfLastInsertFunction;
+        public override String IdentityOfNewRowSql => "SELECT Id, RowVersion FROM {0} WHERE Id = " + IdentityOfLastInsertFunction;
 
         /// <inheritdoc cref="IDataLogicProvider.TimestampOfUpdatedRowSql" />
-        public String TimestampOfUpdatedRowSql => "SELECT RowVersion FROM {0} WHERE Id = @id";
+        public override String TimestampOfUpdatedRowSql => "SELECT RowVersion FROM {0} WHERE Id = @id";
 
         /// <inheritdoc cref="IDataLogicProvider.CurrentDateTimeFunction" />
-        public String CurrentDateTimeFunction => "NOW(3)";
+        public override String CurrentDateTimeFunction => "NOW(3)";
 
         /// <inheritdoc cref="IDataLogicProvider.UniqueIdFunction"/>
-        public String UniqueIdFunction => "(SELECT uuid())";
+        public override String UniqueIdFunction => "(SELECT uuid())";
 
         /// <inheritdoc cref="IDataLogicProvider.MapDbTypeToDotNetType" />
-        public Type MapDbTypeToDotNetType(String dbType)
+        public override Type MapDbTypeToDotNetType(String dbType)
         {
             Type retVal;
 
@@ -89,13 +85,13 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
         }
 
         /// <inheritdoc cref="IDataLogicProvider.GetRowVersionValue" />
-        public Object GetRowVersionValue()
+        public override Object GetRowVersionValue()
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc cref="IDataLogicProvider.GetDateComparisonSql(String, String, String)" />
-        public String GetDateComparisonSql(String columnOrParameter1, String columnOrParameter2, String comparisonResult)
+        public override String GetDateComparisonSql(String columnOrParameter1, String columnOrParameter2, String comparisonResult)
         {
             String retVal = $"DATEDIFF(D, {columnOrParameter1}, {columnOrParameter2}) {comparisonResult}";
 
@@ -103,7 +99,7 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
         }
 
         /// <inheritdoc cref="IDataLogicProvider.GetMinuteComparisonSql(String, String, String)" />
-        public String GetMinuteComparisonSql(String columnOrParameter1, String columnOrParameter2, String comparisonResult)
+        public override String GetMinuteComparisonSql(String columnOrParameter1, String columnOrParameter2, String comparisonResult)
         {
             String retVal = $"TIMESTAMPDIFF(MINUTE, {columnOrParameter1}, {columnOrParameter2}) {comparisonResult}";
 

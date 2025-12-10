@@ -534,7 +534,7 @@ namespace Foundation.DataAccess.Database
 
             IDbDataParameter retVal;
 
-            if (parameterValue.TheAppId is 0L or -1L)
+            if (parameterValue.TheAppId is -1L)
             {
                 retVal = CreateParameter(parameterName, AppId.DbType, DBNull.Value);
             }
