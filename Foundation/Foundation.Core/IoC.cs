@@ -37,6 +37,8 @@ namespace Foundation.Core
             DependencyInjectionSetup.SetupDependencyInjection(ServiceCollection, typeNamespacePrefix, searchPattern);
         }
 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         /// <inheritdoc cref="IIoC.Get{TService}()"/>
         public TService Get<TService>()
         {
@@ -57,6 +59,8 @@ namespace Foundation.Core
             return retVal;
         }
 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         /// <inheritdoc cref="IIoC.Get{TService}(String)"/>
         public TService Get<TService>(String typeName)
         {
@@ -84,6 +88,7 @@ namespace Foundation.Core
             return retVal;
         }
 
+        /// <exception cref="ArgumentNullException"></exception>
         /// <inheritdoc cref="IIoC.GetAll{TService}()"/>
         public IEnumerable<TService> GetAll<TService>()
         {
@@ -98,6 +103,7 @@ namespace Foundation.Core
             return retVal;
         }
 
+        /// <exception cref="ArgumentNullException"></exception>
         /// <inheritdoc cref="IIoC.Get{TService}(String, String)"/>
         public TService Get<TService>(String assemblyName, String typeName) where TService : class
         {
@@ -140,6 +146,7 @@ namespace Foundation.Core
             return retVal;
         }
 
+        /// <exception cref="ArgumentNullException"></exception>
         /// <inheritdoc cref="IIoC.Get(String, String, Boolean)"/>
         public Object Get(String assemblyName, String typeName, Boolean isStatic)
         {

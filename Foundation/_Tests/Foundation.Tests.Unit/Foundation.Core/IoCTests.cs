@@ -4,12 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Microsoft.Extensions.Hosting;
-
 using Foundation.Core;
-
 using Foundation.Tests.Unit.NetFramework;
 using Foundation.Tests.Unit.Support;
+
+using Microsoft.Extensions.Hosting;
+using Microsoft.VisualStudio.TestPlatform.Common.Utilities;
 
 namespace Foundation.Tests.Unit.Foundation.Core
 {
@@ -61,6 +61,19 @@ namespace Foundation.Tests.Unit.Foundation.Core
             ioc.Initialise();
 
             ioc.Reset();
+        }
+
+        [TestCase]
+        public void Test_TheInstance_Null()
+        {
+            String errorMessage = "Foundation.Core has not been initialised";
+            InvalidOperationException actualException = Assert.Throws<InvalidOperationException>(() =>
+            {
+                _ = global::Foundation.Core.Core.TheInstance;
+            });
+
+            Assert.That(actualException, Is.Not.EqualTo(null));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
         [TestCase]
@@ -279,7 +292,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
         }
 
         [TestCase]
-        public void Test_Get_String_Assembly_Type_Exception()
+        public void Test_Get_String_Assembly_Type_Exception_CannotLoadAssembly()
         {
             String assemblyName = "Foundation.Tests.Unit";
             String assemblyNameInMessage = "Foundation.Tests.Unit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
@@ -307,16 +320,105 @@ namespace Foundation.Tests.Unit.Foundation.Core
         }
 
         [TestCase]
-        public void Test_TheInstance_Null()
+        public void Test_Get_String_Assembly_Type_Exception_CannotCreateType()
         {
-            String errorMessage = "Foundation.Core has not been initialised";
-            InvalidOperationException actualException = Assert.Throws<InvalidOperationException>(() =>
+            String assemblyName = "Foundation.Tests.Unit";
+            String assemblyNameInMessage = "Foundation.Tests.Unit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
+            String assemblyType = "Foundation.Tests.Unit.Support.NonDependencyInjectionStandardClass";
+
+            HostApplicationBuilderSettings settings = new HostApplicationBuilderSettings();
+
+            HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
+
+            IoC ioc = new IoC(hostApplicationBuilder.Services);
+            ioc.Initialise();
+            IHost host = hostApplicationBuilder.Build();
+            ioc.ServiceProvider = host.Services;
+
+            String paramName = nameof(assemblyType);
+            String errorMessage = $"Cannot create type: '{assemblyType}' from the Assembly: '{assemblyNameInMessage}' (Parameter '{paramName}')";
+            ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
             {
-                _ = global::Foundation.Core.Core.TheInstance;
+                _ = ioc.Get<ITransientOperation>(assemblyName, assemblyType);
             });
 
             Assert.That(actualException, Is.Not.EqualTo(null));
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException.ParamName, Is.EqualTo(paramName));
+        }
+
+        [TestCase]
+        public void Test_Get_String_Loaded_Assembly_Type()
+        {
+            String assemblyName = "Microsoft.Data.SqlClient, Version=6.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5";
+            String assemblyType = "Microsoft.Data.SqlClient.SqlClientFactory";
+
+            HostApplicationBuilderSettings settings = new HostApplicationBuilderSettings();
+
+            HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
+
+            IoC ioc = new IoC(hostApplicationBuilder.Services);
+            ioc.Initialise();
+            IHost host = hostApplicationBuilder.Build();
+            ioc.ServiceProvider = host.Services;
+
+            Type instantiatedType = (Type)ioc.Get(assemblyName, assemblyType, true);
+
+            Assert.That(instantiatedType, Is.Not.EqualTo(null));
+        }
+
+        [TestCase]
+        public void Test_Get_String_Loaded_Assembly_Type_FileNotFoundException()
+        {
+            String assemblyName = "Made.up.assembly.name, Culture=neutral, PublicKeyToken=null";
+            String assemblyType = "Microsoft.Data.SqlClient.SqlClientFactory";
+
+            HostApplicationBuilderSettings settings = new HostApplicationBuilderSettings();
+
+            HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
+
+            IoC ioc = new IoC(hostApplicationBuilder.Services);
+            ioc.Initialise();
+            IHost host = hostApplicationBuilder.Build();
+            ioc.ServiceProvider = host.Services;
+
+            String errorMessage = $"Could not load file or assembly '{assemblyName}'. The system cannot find the file specified.";
+            FileNotFoundException actualException = Assert.Throws<FileNotFoundException>(() =>
+            {
+                _ = (Type)ioc.Get(assemblyName, assemblyType, true);
+            });
+
+            Assert.That(actualException, Is.Not.EqualTo(null));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException.FileName, Is.EqualTo(assemblyName));
+            Assert.That(actualException.FusionLog, Is.EqualTo(null));
+        }
+
+        [TestCase]
+        public void Test_Get_String_Loaded_Assembly_Type_Exception_CannotLoadType()
+        {
+            String assemblyName = "Microsoft.Data.SqlClient, Version=6.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5";
+            String assemblyType = "Made.up.type.name";
+
+            HostApplicationBuilderSettings settings = new HostApplicationBuilderSettings();
+
+            HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
+
+            IoC ioc = new IoC(hostApplicationBuilder.Services);
+            ioc.Initialise();
+            IHost host = hostApplicationBuilder.Build();
+            ioc.ServiceProvider = host.Services;
+
+            String paramName = nameof(assemblyType);
+            String errorMessage = $"Cannot load assembly type: '{assemblyType}' from the Assembly: '{assemblyName}' (Parameter '{paramName}')";
+            ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
+            {
+                _ = ioc.Get(assemblyName, assemblyType, true);
+            });
+
+            Assert.That(actualException, Is.Not.EqualTo(null));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException.ParamName, Is.EqualTo(paramName));
         }
     }
 }

@@ -8,6 +8,22 @@ using Foundation.Interfaces;
 
 namespace Foundation.Tests.Unit.Support
 {
+    [DependencyInjectionIgnore]
+    public class NonDependencyInjectionStandardClass : IStandardClass
+    {
+        private Int32 Count { get; set; }
+
+        public String OperationGuid => $"{GetType()}{Guid.NewGuid()}";
+        public String OperationName => $"{GetType()}";
+
+        public Int32 CountAndGet()
+        {
+            Count++;
+
+            return Count;
+        }
+    }
+
     [DependencyInjectionScoped]
     public class StandardClass : IStandardClass
     {
