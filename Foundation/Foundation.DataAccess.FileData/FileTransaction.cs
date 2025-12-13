@@ -15,6 +15,8 @@ namespace Foundation.DataAccess.FileData
         {
             DbConnection = dbConnection;
         }
+        protected override DbConnection DbConnection { get; }
+        public override IsolationLevel IsolationLevel { get; }
 
         public override void Commit()
         {
@@ -25,8 +27,5 @@ namespace Foundation.DataAccess.FileData
         {
             throw new NotImplementedException();
         }
-
-        protected override DbConnection DbConnection { get; }
-        public override IsolationLevel IsolationLevel { get; }
     }
 }

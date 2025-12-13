@@ -12,30 +12,30 @@ namespace Foundation.DataAccess.FileData
 {
     public sealed class FileDataReader : DbDataReader, IDataReader, IDisposable, IDataRecord
     {
-        public override string GetName(int ordinal)
+        public override Int32 FieldCount { get; } = 0;
+        public override Boolean HasRows { get; } = false;
+        public override Boolean IsClosed { get; } = true;
+        public override Int32 RecordsAffected { get; } = 0;
+        public override Int32 Depth { get; } = 0;
+
+        public override String GetName(Int32 ordinal)
         {
             throw new NotImplementedException();
         }
 
-        public override int GetValues(object[] values)
+        public override Int32 GetValues(Object[] values)
         {
             throw new NotImplementedException();
         }
 
-        public override Boolean IsDBNull(int ordinal)
+        public override Boolean IsDBNull(Int32 ordinal)
         {
             throw new NotImplementedException();
         }
 
-        public override int FieldCount { get; }
+        public override Object this[Int32 ordinal] => throw new NotImplementedException();
 
-        public override object this[int ordinal] => throw new NotImplementedException();
-
-        public override object this[string name] => throw new NotImplementedException();
-
-        public override Boolean HasRows { get; }
-        public override Boolean IsClosed { get; }
-        public override int RecordsAffected { get; }
+        public override Object this[string name] => throw new NotImplementedException();
 
         public override Boolean NextResult()
         {
@@ -47,94 +47,92 @@ namespace Foundation.DataAccess.FileData
             throw new NotImplementedException();
         }
 
-        public override int Depth { get; }
-
-        public override int GetOrdinal(string name)
+        public override Int32 GetOrdinal(String name)
         {
             throw new NotImplementedException();
         }
 
-        public override Boolean GetBoolean(int ordinal)
+        public override Boolean GetBoolean(Int32 ordinal)
         {
             throw new NotImplementedException();
         }
 
-        public override byte GetByte(int ordinal)
+        public override Byte GetByte(Int32 ordinal)
         {
             throw new NotImplementedException();
         }
 
-        public override long GetBytes(int ordinal, long dataOffset, byte[] buffer, int bufferOffset, int length)
+        public override Int64 GetBytes(Int32 ordinal, Int64 dataOffset, Byte[] buffer, Int32 bufferOffset, Int32 length)
         {
             throw new NotImplementedException();
         }
 
-        public override char GetChar(int ordinal)
+        public override Char GetChar(Int32 ordinal)
         {
             throw new NotImplementedException();
         }
 
-        public override long GetChars(int ordinal, long dataOffset, char[] buffer, int bufferOffset, int length)
+        public override Int64 GetChars(Int32 ordinal, Int64 dataOffset, Char[] buffer, Int32 bufferOffset, Int32 length)
         {
             throw new NotImplementedException();
         }
 
-        public override Guid GetGuid(int ordinal)
+        public override Guid GetGuid(Int32 ordinal)
         {
             throw new NotImplementedException();
         }
 
-        public override short GetInt16(int ordinal)
+        public override Int16 GetInt16(Int32 ordinal)
         {
             throw new NotImplementedException();
         }
 
-        public override int GetInt32(int ordinal)
+        public override Int32 GetInt32(Int32 ordinal)
         {
             throw new NotImplementedException();
         }
 
-        public override long GetInt64(int ordinal)
+        public override Int64 GetInt64(Int32 ordinal)
         {
             throw new NotImplementedException();
         }
 
-        public override DateTime GetDateTime(int ordinal)
+        public override DateTime GetDateTime(Int32 ordinal)
         {
             throw new NotImplementedException();
         }
 
-        public override string GetString(int ordinal)
+        public override String GetString(Int32 ordinal)
         {
             throw new NotImplementedException();
         }
 
-        public override decimal GetDecimal(int ordinal)
+        public override Decimal GetDecimal(Int32 ordinal)
         {
             throw new NotImplementedException();
         }
 
-        public override double GetDouble(int ordinal)
+        public override Double GetDouble(Int32 ordinal)
         {
             throw new NotImplementedException();
         }
 
-        public override float GetFloat(int ordinal)
+        public override Single GetFloat(Int32 ordinal)
         {
             throw new NotImplementedException();
         }
 
-        public override string GetDataTypeName(int ordinal)
+        public override String GetDataTypeName(Int32 ordinal)
         {
             throw new NotImplementedException();
         }
 
-        public override Type GetFieldType(int ordinal)
+        public override Type GetFieldType(Int32 ordinal)
         {
             throw new NotImplementedException();
         }
 
-        public override object GetValue(int ordinal)
+        public override Object GetValue(Int32 ordinal)
         {
             throw new NotImplementedException();
         }

@@ -10,16 +10,16 @@ namespace Foundation.DataAccess.FileData
 {
     public sealed class FileClientFactory : DbProviderFactory
     {
-        /// <summary>Gets an instance of the <see cref="T:learning.UnitTestDataFactory" />. This can be used to retrieve strongly typed data objects.</summary>
+        /// <summary>Gets an instance of the <see cref="T:FileClientFactory" />. This can be used to retrieve strongly typed data objects.</summary>
         public static readonly FileClientFactory Instance = new FileClientFactory();
 
         private FileClientFactory() { }
 
         /// <summary>
-        /// Returns a strongly typed <see cref="T:System.Data.Common.DbConnection" /> instance.
+        /// Returns a strongly typed <see cref="T:DbConnection" /> instance.
         /// </summary>
         /// <returns>
-        /// A new strongly typed instance of <see cref="T:System.Data.Common.DbConnection" />.
+        /// A new strongly typed instance of <see cref="T:DbConnection" />.
         /// </returns>
         public override DbConnection CreateConnection()
         {
@@ -27,10 +27,10 @@ namespace Foundation.DataAccess.FileData
         }
 
         /// <summary>
-        /// Returns a strongly typed <see cref="T:System.Data.Common.DbCommand" /> instance.
+        /// Returns a strongly typed <see cref="T:DbCommand" /> instance.
         /// </summary>
         /// <returns>
-        /// A new strongly typed instance of <see cref="T:System.Data.Common.DbCommand" />.
+        /// A new strongly typed instance of <see cref="T:DbCommand" />.
         /// </returns>
         public override DbCommand CreateCommand()
         {
@@ -38,10 +38,10 @@ namespace Foundation.DataAccess.FileData
         }
 
         /// <summary>
-        /// Returns a strongly typed <see cref="T:System.Data.Common.DbDataAdapter" /> instance.
+        /// Returns a strongly typed <see cref="T:DbDataAdapter" /> instance.
         /// </summary>
         /// <returns>
-        /// A new strongly typed instance of <see cref="T:System.Data.Common.DbDataAdapter" />.
+        /// A new strongly typed instance of <see cref="T:DbDataAdapter" />.
         /// </returns>
         public override DbDataAdapter CreateDataAdapter()
         {
@@ -49,15 +49,14 @@ namespace Foundation.DataAccess.FileData
         }
 
         /// <summary>
-        /// Returns a strongly typed <see cref="T:System.Data.Common.DbParameter" /> instance.
+        /// Returns a strongly typed <see cref="T:DbParameter" /> instance.
         /// </summary>
         /// <returns>
-        /// A new strongly typed instance of <see cref="T:System.Data.Common.DbParameter" />.
+        /// A new strongly typed instance of <see cref="T:DbParameter" />.
         /// </returns>
         public override DbParameter CreateParameter()
         {
             return new FileParameter();
         }
-
     }
 }

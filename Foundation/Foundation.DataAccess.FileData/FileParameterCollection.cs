@@ -74,7 +74,7 @@ namespace Foundation.DataAccess.FileData
             throw new NotImplementedException();
         }
 
-        public override void CopyTo(Array array, int index)
+        public override void CopyTo(Array array, Int32 index)
         {
             throw new NotImplementedException();
         }
@@ -84,12 +84,12 @@ namespace Foundation.DataAccess.FileData
             throw new NotImplementedException();
         }
 
-        protected override DbParameter GetParameter(int index)
+        protected override DbParameter GetParameter(Int32 index)
         {
             throw new NotImplementedException();
         }
 
-        protected override DbParameter GetParameter(string parameterName)
+        protected override DbParameter GetParameter(String parameterName)
         {
             throw new NotImplementedException();
         }

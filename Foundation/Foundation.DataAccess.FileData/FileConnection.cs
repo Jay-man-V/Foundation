@@ -12,10 +12,23 @@ namespace Foundation.DataAccess.FileData
 {
     public sealed class FileConnection : DbConnection
     {
+        private ConnectionState _state;
+
         internal FileConnection()
         {
             _state = ConnectionState.Closed;
         }
+
+        [AllowNull]
+        public override String ConnectionString { get; set; } = String.Empty;
+
+        public override String Database { get; } = String.Empty;
+
+        public override ConnectionState State => _state;
+
+        public override String DataSource { get; } = String.Empty;
+
+        public override String ServerVersion { get; } = String.Empty;
 
         protected override DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
         {
@@ -36,18 +49,6 @@ namespace Foundation.DataAccess.FileData
         {
             _state = ConnectionState.Open;
         }
-
-        [AllowNull]
-        public override String ConnectionString { get; set; } = String.Empty;
-
-        public override String Database { get; } = String.Empty;
-
-        private ConnectionState _state;
-        public override ConnectionState State => _state;
-
-        public override String DataSource { get; } = String.Empty;
-
-        public override String ServerVersion { get; } = String.Empty;
 
         protected override DbCommand CreateDbCommand()
         {
