@@ -25,12 +25,12 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.EmailAddr
             {
                 EmailAddress emailAddress = new EmailAddress(originalEmailAddressString);
 
-                Assert.That(emailAddress.IsValid, Is.EqualTo(true));
-                Assert.That(emailAddress.HasPotentialTypo, Is.EqualTo(false));
+                Assert.That(emailAddress.IsValid, Is.EqualTo(true), originalEmailAddressString);
+                Assert.That(emailAddress.HasPotentialTypo, Is.EqualTo(false), originalEmailAddressString);
 
                 String[] emailAddressParts = originalEmailAddressString.Split('@');
-                Assert.That(emailAddress.LocalPart, Is.EqualTo(emailAddressParts[0]));
-                Assert.That(emailAddress.DomainName, Is.EqualTo(emailAddressParts[1]));
+                Assert.That(emailAddress.LocalPart, Is.EqualTo(emailAddressParts[0]), originalEmailAddressString);
+                Assert.That(emailAddress.DomainName, Is.EqualTo(emailAddressParts[1]), originalEmailAddressString);
             }
         }
 
@@ -44,12 +44,23 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.EmailAddr
             {
                 EmailAddress emailAddress = new EmailAddress(originalEmailAddressString);
 
-                Assert.That(emailAddress.IsValid, Is.EqualTo(true));
-                Assert.That(emailAddress.HasPotentialTypo, Is.EqualTo(true));
+                Assert.That(emailAddress.IsValid, Is.EqualTo(true), originalEmailAddressString);
+                Assert.That(emailAddress.HasPotentialTypo, Is.EqualTo(true), originalEmailAddressString);
 
-                String[] emailAddressParts = originalEmailAddressString.Split('@');
-                Assert.That(emailAddress.LocalPart, Is.EqualTo(emailAddressParts[0]));
-                Assert.That(emailAddress.DomainName, Is.EqualTo(emailAddressParts[1]));
+                String[] parts = originalEmailAddressString.Split('@');
+                String[] workingParts = ["", ""];
+                if (parts.Length > 2)
+                {
+                    workingParts[0] = String.Join("@", parts.Take(parts.Length - 1));
+                }
+                else
+                {
+                    workingParts[0] = parts[0];
+                }
+                workingParts[1] = parts[1];
+
+                Assert.That(emailAddress.LocalPart, Is.EqualTo(workingParts[0]), originalEmailAddressString);
+                Assert.That(emailAddress.DomainName, Is.EqualTo(workingParts[1]), originalEmailAddressString);
             }
         }
 
@@ -63,11 +74,11 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.EmailAddr
             {
                 EmailAddress emailAddress = new EmailAddress(originalEmailAddressString);
 
-                Assert.That(emailAddress.IsValid, Is.EqualTo(false));
-                Assert.That(emailAddress.HasPotentialTypo, Is.EqualTo(false));
+                Assert.That(emailAddress.IsValid, Is.EqualTo(false), originalEmailAddressString);
+                Assert.That(emailAddress.HasPotentialTypo, Is.EqualTo(false), originalEmailAddressString);
 
-                Assert.That(String.IsNullOrEmpty(emailAddress.LocalPart));
-                Assert.That(String.IsNullOrEmpty(emailAddress.DomainName));
+                Assert.That(String.IsNullOrEmpty(emailAddress.LocalPart), originalEmailAddressString);
+                Assert.That(String.IsNullOrEmpty(emailAddress.DomainName), originalEmailAddressString);
             }
         }
 
@@ -81,11 +92,11 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.EmailAddr
             {
                 EmailAddress emailAddress = new EmailAddress(originalEmailAddressString);
 
-                Assert.That(emailAddress.IsValid, Is.EqualTo(false));
-                Assert.That(emailAddress.HasPotentialTypo, Is.EqualTo(false));
+                Assert.That(emailAddress.IsValid, Is.EqualTo(false), originalEmailAddressString);
+                Assert.That(emailAddress.HasPotentialTypo, Is.EqualTo(false), originalEmailAddressString);
 
-                Assert.That(String.IsNullOrEmpty(emailAddress.LocalPart));
-                Assert.That(String.IsNullOrEmpty(emailAddress.DomainName));
+                Assert.That(String.IsNullOrEmpty(emailAddress.LocalPart), originalEmailAddressString);
+                Assert.That(String.IsNullOrEmpty(emailAddress.DomainName), originalEmailAddressString);
             }
         }
     }

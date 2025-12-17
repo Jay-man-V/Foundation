@@ -16,13 +16,13 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.EmailAddr
             InvalidEmailAddresses =
             [
                 "a@b.c", // Invalid
-                "Firstname.Surname@domainlocal" // Invalid
+                "Firstname.Surname@domainlocal", // Invalid
             ];
 
             InvalidPotentialTypoEmailAddresses =
             [
                 "Firstname#Surname@domainlocal", // Invalid - Potential typo
-                @"Firstname""Surname@domainlocal" // Invalid - Potential typo
+                @"Firstname""Surname@domainlocal", // Invalid - Potential typo
             ];
 
             ValidEmailAddresses =
@@ -40,7 +40,17 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.EmailAddr
             ValidPotentialTypoEmailAddresses =
             [
                 "Firstname#Surname@domain.local", // Valid - Potential typo
-                @"Firstname""Surname@domain.local" // Valid - Potential typo
+                @"Firstname""Surname@domain.local", // Valid - Potential typo
+
+                @"Abc\@def@example.com",
+                @"Fred\ Bloggs@example.com",
+                "Joe.\\Blow@example.com",
+                "\"Abc@def\"@example.com",
+                "\"Fred Bloggs\"@example.com",
+                "customer/department=shipping@example.com",
+                "$A12345@example.com",
+                "!def!xyz%abc@example.com",
+                "_somename@example.com",
             ];
 
             AllEmailAddresses = [];

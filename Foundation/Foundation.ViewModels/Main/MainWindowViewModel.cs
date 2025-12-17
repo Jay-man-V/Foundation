@@ -728,16 +728,16 @@ namespace Foundation.ViewModels.Main
                 //}
 
                 IRandomService randomService = Core.IoC.Get<IRandomService>();
-                int[] iconIds = { 0, 16, 32, 48, 64, 16, 16, 48, 64 };
+                Int32[] iconIds = [0, 16, 32, 48, 64, 16, 16, 48, 64];
                 FEnums.MessageBoxImage messageBoxImage = (FEnums.MessageBoxImage)iconIds[randomService.RandomInt32(1, 9)];
 
                 MessageDialogForm theForm = new MessageDialogForm();
-                MessageDialogViewModel messageDialogViewModel =
-                    new MessageDialogViewModel(Core, RunTimeEnvironmentSettings, DateTimeService, WpfApplicationObjects, theForm, this);
-
-                messageDialogViewModel.MessageBoxImage = messageBoxImage;
-                messageDialogViewModel.FormTitle = $"Form Title - {messageDialogViewModel.MessageBoxImage}";
-                messageDialogViewModel.ScreenInstructions = $"Screen instructions - {messageDialogViewModel.MessageBoxImage}";
+                MessageDialogViewModel messageDialogViewModel = new(Core, RunTimeEnvironmentSettings, DateTimeService, WpfApplicationObjects, theForm, this)
+                {
+                    MessageBoxImage = messageBoxImage,
+                    FormTitle = $"Form Title - {MessageBoxImage}",
+                    ScreenInstructions = $"Screen instructions - {MessageBoxImage}",
+                };
 
                 theForm.DataContext = messageDialogViewModel;
                 theForm.Owner = ThisWindow as Window;

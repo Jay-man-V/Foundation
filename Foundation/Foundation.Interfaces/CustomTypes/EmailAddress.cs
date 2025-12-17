@@ -53,9 +53,16 @@ namespace Foundation.Interfaces
                 public const String NormalAddress = @"^[\w\W\d_\+-]+(\.[\w\W\d_\+-]+)*@[\w\W\d-]+(\.[\w\W\d-]+)*\.([\w\W]{2,5})$";
 
                 /// <summary>
+                /// For the Local Part
                 /// The valid but rare
                 /// </summary>
-                public const String ValidButRare = @"[,!#\$%&'\""\*\+/=\?\^_`\{\|}~-]+";
+                public const String LocalValidButRare = @"[@,!#\\$%&'\""\*\+\/=\?\^_`\{\|}~-]+";
+
+                /// <summary>
+                /// For the Domain Name part
+                /// The valid but rare
+                /// </summary>
+                public const String DomainValidButRare = @"[\w\W\d-]+(\.[\w\W\d-]+)*\.([\w\W]{2,5})$";
             }
         }
 
@@ -414,10 +421,21 @@ namespace Foundation.Interfaces
                 String[] splitChar = ["@"];
                 String[] parts = TheEmailAddress.Split(splitChar, StringSplitOptions.None);
 
-                if (2 == parts.Length)
+                String[] workingParts = ["", ""];
+                if (parts.Length > 2)
                 {
-                    LocalPart = parts[0];
-                    DomainName = parts[1];
+                    workingParts[0] = String.Join("@", parts.Take(parts.Length - 1));
+                }
+                else
+                {
+                    workingParts[0] = parts[0];
+                }
+                workingParts[1] = parts[1];
+
+                if (workingParts.Length == 2)
+                {
+                    LocalPart = workingParts[0];
+                    DomainName = workingParts[1];
 
                     if (LocalPart.Length > Constants.Lengths.MaxLocalPart)
                     {
@@ -464,15 +482,26 @@ namespace Foundation.Interfaces
         {
             Boolean retVal = false;
 
-            if (!String.IsNullOrWhiteSpace(emailAddress))
+            if (!String.IsNullOrWhiteSpace(emailAddress) &&
+                emailAddress.Length > 0)
             {
-                if (emailAddress.Length > 0)
+                String[] parts = emailAddress.Split('@');
+                String[] workingParts = ["", ""];
+                if (parts.Length > 2)
                 {
-                    Regex regex = new Regex(Constants.RegularExpressions.ValidButRare);
-                    Match match = regex.Match(emailAddress);
-
-                    retVal = match.Success;
+                    workingParts[0] = String.Join("@", parts.Take(parts.Length - 1));
                 }
+                else
+                {
+                    workingParts[0] = parts[0];
+                }
+                workingParts[1] = parts[1];
+
+
+                Regex regex = new Regex(Constants.RegularExpressions.LocalValidButRare);
+                Match match = regex.Match(workingParts[0]);
+
+                retVal = match.Success;
             }
 
             return retVal;

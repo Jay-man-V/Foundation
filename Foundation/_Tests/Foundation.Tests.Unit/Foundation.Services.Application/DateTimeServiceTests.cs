@@ -232,10 +232,26 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         }
 
         [TestCase]
+        public void Test_GetStartOfPreviousPeriod()
+        {
+            DateTime startDate = new DateTime(2023, 01, 01);
+            DateTime endDate = new DateTime(2025, 12, 31);
+
+            for (DateTime dateLoop = startDate; dateLoop <= endDate; dateLoop = dateLoop.AddDays(1))
+            {
+                DateTime workingDateTime = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
+                IDateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
+
+                DateTime actualStartOfPeriod = dateTimeService.GetStartOfPreviousPeriod();
+                DateTime actualEndOfPeriod = dateTimeService.GetEndOfPreviousPeriod();
+            }
+        }
+
+        [TestCase]
         public void Test_GetPreviousQuarter()
         {
             DateTime workingDateTime = new DateTime(2024, 05, 10);
-            DateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
+            IDateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
             DateTime startOfQuarter = new DateTime(2024, 01, 01);
             DateTime endOfQuarter = new DateTime(2024, 03, 31);
 
@@ -255,7 +271,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             for (DateTime dateLoop = startDate; dateLoop <= endDate; dateLoop = dateLoop.AddDays(1))
             {
                 DateTime workingDateTime = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
-                DateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
+                IDateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
 
                 DateTime startOfQuarter = DateTime.MinValue;
                 DateTime endOfQuarter = DateTime.MaxValue;
@@ -292,7 +308,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetCurrentQuarter_SingleValue()
         {
-            DateTimeService dateTimeService = new DateTimeService(new DateTime(2024, 05, 10), new DateTime(2024, 05, 10));
+            IDateTimeService dateTimeService = new DateTimeService(new DateTime(2024, 05, 10), new DateTime(2024, 05, 10));
             DateTime startOfQuarter = new DateTime(2024, 04, 01);
             DateTime endOfQuarter = new DateTime(2024, 06, 30);
 
@@ -312,7 +328,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             for (DateTime dateLoop = startDate; dateLoop <= endDate; dateLoop = dateLoop.AddDays(1))
             {
                 DateTime workingDateTime = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
-                DateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
+                IDateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
 
                 DateTime startOfQuarter = DateTime.MinValue;
                 DateTime endOfQuarter = DateTime.MaxValue;
@@ -350,7 +366,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         public void Test_GetNextQuarter()
         {
             DateTime workingDateTime = new DateTime(2024, 05, 10);
-            DateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
+            IDateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
             DateTime startOfQuarter = new DateTime(2024, 07, 01);
             DateTime endOfQuarter = new DateTime(2024, 09, 30);
 
@@ -370,7 +386,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             for (DateTime dateLoop = startDate; dateLoop <= endDate; dateLoop = dateLoop.AddDays(1))
             {
                 DateTime workingDateTime = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
-                DateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
+                IDateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
 
                 DateTime startOfQuarter = DateTime.MinValue;
                 DateTime endOfQuarter = DateTime.MaxValue;

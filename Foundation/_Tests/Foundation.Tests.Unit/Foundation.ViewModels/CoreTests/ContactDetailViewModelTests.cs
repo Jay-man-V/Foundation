@@ -59,7 +59,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests
             retVal.PostCode = Guid.NewGuid().ToString();
             retVal.Telephone1 = Guid.NewGuid().ToString();
             retVal.Telephone2 = Guid.NewGuid().ToString();
-            retVal.EmailAddress = new EmailAddress(Guid.NewGuid().ToString());
+            retVal.EmailAddress = new EmailAddress($"{Guid.NewGuid()}@{Guid.NewGuid()}.com");
 
             return retVal;
         }

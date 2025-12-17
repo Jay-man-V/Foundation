@@ -245,6 +245,26 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
+        /// <inheritdoc cref="IDateTimeService.GetStartOfPreviousPeriod()"/>
+        public DateTime GetStartOfPreviousPeriod()
+        {
+            LoggingHelpers.TraceCallEnter();
+
+            throw new NotImplementedException();
+
+            LoggingHelpers.TraceCallReturn();
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetEndOfPreviousPeriod()"/>
+        public DateTime GetEndOfPreviousPeriod()
+        {
+            LoggingHelpers.TraceCallEnter();
+
+            throw new NotImplementedException();
+
+            LoggingHelpers.TraceCallReturn();
+        }
+
         /// <inheritdoc cref="IDateTimeService.GetStartOfPreviousQuarter()"/>
         public DateTime GetStartOfPreviousQuarter()
         {

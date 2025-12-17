@@ -131,6 +131,42 @@ namespace Foundation.Interfaces
         DateTime MakeUtcDateTime(DateTime date, Int32 hours, Int32 minutes, Int32 seconds);
 
         /// <summary>
+        /// Gets the first date of the previous period
+        /// <para>
+        /// Month = 01...03 => Previous Quarter = 10->12, Oct, Nov, Dec
+        /// </para>
+        /// <para>
+        /// Month = 04...06 => Previous Quarter = 01->03, Jan, Feb, Mar
+        /// </para>
+        /// <para>
+        /// Month = 07...09 => Previous Quarter = 04->06, Apr, May, Jun
+        /// </para>
+        /// <para>
+        /// Month = 10...12 => Previous Quarter = 07->09, Jul, Aug, Sep
+        /// </para>
+        /// </summary>
+        /// <returns></returns>
+        DateTime GetStartOfPreviousPeriod();
+
+        /// <summary>
+        /// Gets the last date of the previous quarter
+        /// <para>
+        /// Month = 01...03 => Previous Quarter = 10->12, Oct, Nov, Dec
+        /// </para>
+        /// <para>
+        /// Month = 04...06 => Previous Quarter = 01->03, Jan, Feb, Mar
+        /// </para>
+        /// <para>
+        /// Month = 07...09 => Previous Quarter = 04->06, Apr, May, Jun
+        /// </para>
+        /// <para>
+        /// Month = 10...12 => Previous Quarter = 07->09, Jul, Aug, Sep
+        /// </para>
+        /// </summary>
+        /// <returns></returns>
+        DateTime GetEndOfPreviousPeriod();
+
+        /// <summary>
         /// Gets the first date of the previous quarter
         /// <para>
         /// Month = 01...03 => Previous Quarter = 10->12, Oct, Nov, Dec

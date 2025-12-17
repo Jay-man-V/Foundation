@@ -73,7 +73,7 @@ FROM
 WHERE
     StatusId IN (SELECT Id FROM ufn_GetListOfActiveStatuses(DEFAULT)) AND
     (
-        m.ApplicationId IN ( 0, @applicationId ) OR
+        m.ApplicationId IN ( 0, 1, @applicationId ) OR /* 0 = Development/Testing. 1 = Core System. */
         @applicationId = -1
     ) AND
     (

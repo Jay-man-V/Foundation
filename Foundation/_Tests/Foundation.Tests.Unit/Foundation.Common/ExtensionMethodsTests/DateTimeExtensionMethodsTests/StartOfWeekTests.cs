@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Globalization;
+
 using Foundation.Common;
 
 using Foundation.Tests.Unit.BaseClasses;
@@ -16,78 +18,17 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.DateTime
     [TestFixture]
     public class StartOfWeekTests : UnitTestBase
     {
-        [TestCase]
-        public void TestStartOfWeek_Sunday()
+        [TestCase(DayOfWeek.Sunday, "2020-12-20", 20)]
+        [TestCase(DayOfWeek.Monday, "2020-12-21", 21)]
+        [TestCase(DayOfWeek.Tuesday, "2020-12-22", 22)]
+        [TestCase(DayOfWeek.Wednesday, "2020-12-23", 23)]
+        [TestCase(DayOfWeek.Thursday, "2020-12-24", 24)]
+        [TestCase(DayOfWeek.Friday, "2020-12-25", 25)]
+        [TestCase(DayOfWeek.Saturday, "2020-12-26", 26)]
+        public void Test_StartOfWeek(DayOfWeek startOfWeek, String expectedDateTimeString, Int32 startDate)
         {
-            DateTime expectedDateTime = new DateTime(2020, 12, 20);
-            Int32 startDate = 20;
-            DayOfWeek startOfWeek = DayOfWeek.Sunday;
+            DateTime expectedDateTime = DateTime.ParseExact(expectedDateTimeString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
-            TestStartOfWeek(expectedDateTime, startDate, startOfWeek);
-        }
-
-        [TestCase]
-        public void TestStartOfWeek_Monday()
-        {
-            DateTime expectedDateTime = new DateTime(2020, 12, 21);
-            Int32 startDate = 21;
-            DayOfWeek startOfWeek = DayOfWeek.Monday;
-
-            TestStartOfWeek(expectedDateTime, startDate, startOfWeek);
-        }
-
-        [TestCase]
-        public void TestStartOfWeek_Tuesday()
-        {
-            DateTime expectedDateTime = new DateTime(2020, 12, 22);
-            Int32 startDate = 22;
-            DayOfWeek startOfWeek = DayOfWeek.Tuesday;
-
-            TestStartOfWeek(expectedDateTime, startDate, startOfWeek);
-        }
-
-        [TestCase]
-        public void TestStartOfWeek_Wednesday()
-        {
-            DateTime expectedDateTime = new DateTime(2020, 12, 23);
-            Int32 startDate = 23;
-            DayOfWeek startOfWeek = DayOfWeek.Wednesday;
-
-            TestStartOfWeek(expectedDateTime, startDate, startOfWeek);
-        }
-
-        [TestCase]
-        public void TestStartOfWeek_Thursday()
-        {
-            DateTime expectedDateTime = new DateTime(2020, 12, 24);
-            Int32 startDate = 24;
-            DayOfWeek startOfWeek = DayOfWeek.Thursday;
-
-            TestStartOfWeek(expectedDateTime, startDate, startOfWeek);
-        }
-
-        [TestCase]
-        public void TestStartOfWeek_Friday()
-        {
-            DateTime expectedDateTime = new DateTime(2020, 12, 25);
-            Int32 startDate = 25;
-            DayOfWeek startOfWeek = DayOfWeek.Friday;
-
-            TestStartOfWeek(expectedDateTime, startDate, startOfWeek);
-        }
-
-        [TestCase]
-        public void TestStartOfWeek_Saturday()
-        {
-            DateTime expectedDateTime = new DateTime(2020, 12, 26);
-            Int32 startDate = 26;
-            DayOfWeek startOfWeek = DayOfWeek.Saturday;
-
-            TestStartOfWeek(expectedDateTime, startDate, startOfWeek);
-        }
-
-        private void TestStartOfWeek(DateTime expectedDateTime, Int32 startDate, DayOfWeek startOfWeek)
-        {
             for (Int32 counter = 0; counter < 7; counter++)
             {
                 DateTime startDateTime = new DateTime(2020, 12, startDate).AddDays(counter);
