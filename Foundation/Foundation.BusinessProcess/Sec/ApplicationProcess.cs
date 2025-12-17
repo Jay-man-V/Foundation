@@ -108,11 +108,11 @@ namespace Foundation.BusinessProcess.Sec
         }
 
         /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.Get(EntityId)"/>
-        public override IApplication Get(EntityId entityId)
+        public override IApplication? Get(EntityId entityId)
         {
             LoggingHelpers.TraceCallEnter(entityId);
 
-            IApplication retVal = Get(new AppId(entityId.TheEntityId));
+            IApplication? retVal = Get(new AppId(entityId.TheEntityId));
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -130,11 +130,11 @@ namespace Foundation.BusinessProcess.Sec
         }
 
         /// <inheritdoc cref="IApplicationProcess.Get(AppId)"/>
-        public IApplication Get(AppId applicationId)
+        public IApplication? Get(AppId applicationId)
         {
             LoggingHelpers.TraceCallEnter(applicationId);
 
-            IApplication retVal = EntityRepository.Get(applicationId);
+            IApplication? retVal = EntityRepository.Get(applicationId);
 
             LoggingHelpers.TraceCallReturn(retVal);
 

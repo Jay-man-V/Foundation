@@ -80,6 +80,9 @@ namespace Foundation.BusinessProcess.Log
             gridColumnDefinition = new GridColumnDefinition(150, FDC.ImportExportControl.Name, "Name", typeof(String));
             retVal.Add(gridColumnDefinition);
 
+            gridColumnDefinition = new GridColumnDefinition(150, FDC.ImportExportControl.InProgress, "In progress", typeof(Boolean));
+            retVal.Add(gridColumnDefinition);
+
             LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;

@@ -16,7 +16,7 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="logId">The event log identifier.</param>
         /// <returns>Loaded event log</returns>
-        IEventLog Get(LogId logId);
+        IEventLog? Get(LogId logId);
 
         /// <summary>
         /// Retrieves the latest <seealso cref="IEventLog"/> entry for the given parameters

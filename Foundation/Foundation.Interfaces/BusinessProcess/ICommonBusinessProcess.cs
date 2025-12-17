@@ -466,7 +466,7 @@ namespace Foundation.Interfaces
         /// Loads the entity from the data store
         /// </summary>
         /// <param name="entityId">The Id of the entity to be loaded</param>
-        TModel Get(EntityId entityId);
+        TModel? Get(EntityId entityId);
 
         /// <summary>
         /// Loads the entities from the data store

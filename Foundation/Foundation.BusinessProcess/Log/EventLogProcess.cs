@@ -141,11 +141,11 @@ namespace Foundation.BusinessProcess.Log
         }
 
         /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.Get(EntityId)"/>
-        public override IEventLog Get(EntityId entityId)
+        public override IEventLog? Get(EntityId entityId)
         {
             LoggingHelpers.TraceCallEnter(entityId);
 
-            IEventLog retVal = Get(new LogId(entityId.TheEntityId));
+            IEventLog? retVal = Get(new LogId(entityId.TheEntityId));
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -153,11 +153,11 @@ namespace Foundation.BusinessProcess.Log
         }
 
         /// <inheritdoc cref="IEventLogProcess.Get(LogId)"/>
-        public IEventLog Get(LogId logId)
+        public IEventLog? Get(LogId logId)
         {
             LoggingHelpers.TraceCallEnter(logId);
 
-            IEventLog retVal = EntityRepository.Get(logId);
+            IEventLog? retVal = EntityRepository.Get(logId);
 
             LoggingHelpers.TraceCallReturn(retVal);
 

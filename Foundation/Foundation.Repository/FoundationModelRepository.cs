@@ -118,12 +118,7 @@ namespace Foundation.Repository
         /// </summary>
         protected virtual ApplicationRole RequiredMinimumDeleteRole => ApplicationRole.OwnDelete;
 
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance has static data columns.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance has static data columns; otherwise, <c>false</c>.
-        /// </value>
+        /// <inheritdoc cref="IFoundationModelDataAccess{TModel}.HasValidityPeriodColumns"/>>
         public virtual Boolean HasValidityPeriodColumns => true;
 
         /// <summary>
@@ -263,7 +258,7 @@ namespace Foundation.Repository
         /// <param name="entity">The entity.</param>
         protected virtual void AddEntityInsertParameters(DatabaseParameters databaseParameters, TModel entity)
         {
-            foreach (PropertyInfo? propertyInfo in EntityProperties)
+            foreach (PropertyInfo propertyInfo in EntityProperties)
             {
                 if (propertyInfo.GetCustomAttribute<ColumnAttribute>() is { } columnAttribute &&
                     !String.IsNullOrEmpty(columnAttribute.Name))
@@ -420,10 +415,7 @@ namespace Foundation.Repository
             return retVal;
         }
 
-        /// <summary>
-        /// Gets all active.
-        /// </summary>
-        /// <returns>List of all active entities</returns>
+        /// <inheritdoc cref="IFoundationModelDataAccess{TModel}.GetAllActive()"/>>
         public virtual List<TModel> GetAllActive()
         {
             LoggingHelpers.TraceCallEnter($"TableName: {TableName}");
@@ -486,12 +478,7 @@ namespace Foundation.Repository
             return retVal.ToString();
         }
 
-        /// <summary>
-        /// Gets all active.
-        /// </summary>
-        /// <param name="excludeDeleted">Whether to include deleted entities</param>
-        /// <param name="useValidityPeriod">Whether to check an entities validity period for inclusion</param>
-        /// <returns>List of all active entities</returns>
+        /// <inheritdoc cref="IFoundationModelDataAccess{TModel}.GetAll(Boolean, Boolean)"/>>
         public virtual List<TModel> GetAll(Boolean excludeDeleted, Boolean useValidityPeriod)
         {
             LoggingHelpers.TraceCallEnter($"TableName: {TableName}");
@@ -545,16 +532,12 @@ namespace Foundation.Repository
             return retVal.ToString();
         }
 
-        /// <summary>
-        /// Gets the specified entity.
-        /// </summary>
-        /// <param name="entityId">The entity identifier.</param>
-        /// <returns>Loaded entity</returns>
-        public virtual TModel Get(EntityId entityId)
+        /// <inheritdoc cref="IFoundationModelDataAccess{TModel}.Get(EntityId)"/>>
+        public virtual TModel? Get(EntityId entityId)
         {
             LoggingHelpers.TraceCallEnter($"TableName: {TableName}", entityId);
 
-            TModel retVal = Get<EntityId>(entityId);
+            TModel? retVal = Get<EntityId>(entityId);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -566,11 +549,11 @@ namespace Foundation.Repository
         /// </summary>
         /// <param name="tEntityId">The entity identifier.</param>
         /// <returns>Loaded entity</returns>
-        protected virtual TModel Get<TIdType>(TIdType tEntityId)
+        protected virtual TModel? Get<TIdType>(TIdType tEntityId)
         {
             LoggingHelpers.TraceCallEnter($"TableName: {TableName}", tEntityId);
 
-            TModel retVal = default!;
+            TModel? retVal = default;
 
             String sql = GetSql();
 
@@ -610,11 +593,7 @@ namespace Foundation.Repository
             return retVal;
         }
 
-        /// <summary>
-        /// Gets the specified entity.
-        /// </summary>
-        /// <param name="entityIds">The entity identifiers.</param>
-        /// <returns>Loaded entity</returns>
+        /// <inheritdoc cref="IFoundationModelDataAccess{TModel}.Get(List{EntityId})"/>>
         public virtual List<TModel> Get(List<EntityId> entityIds)
         {
             LoggingHelpers.TraceCallEnter($"TableName: {TableName}", entityIds);
@@ -644,11 +623,7 @@ namespace Foundation.Repository
             return retVal;
         }
 
-        /// <summary>
-        /// Gets the specified entity.
-        /// </summary>
-        /// <param name="entityKey">The entity identifier.</param>
-        /// <returns>Loaded entity</returns>
+        /// <inheritdoc cref="IFoundationModelDataAccess{TModel}.Get(String)"/>>
         public virtual TModel Get(String entityKey)
         {
             LoggingHelpers.TraceCallEnter($"TableName: {TableName}", entityKey);
@@ -681,11 +656,7 @@ namespace Foundation.Repository
             return retVal;
         }
 
-        /// <summary>
-        /// Deletes the entity with the <paramref name="entityId"/>
-        /// </summary>
-        /// <param name="entityId">The entity id.</param>
-        /// <exception cref="ArgumentNullException"> if <paramref name="entityId"/> is null</exception>
+        /// <inheritdoc cref="IFoundationModelDataAccess{TModel}.Delete(EntityId)"/>>
         public virtual void Delete(EntityId entityId)
         {
             LoggingHelpers.TraceCallEnter($"TableName: {TableName}", entityId);
@@ -728,11 +699,7 @@ namespace Foundation.Repository
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <summary>
-        /// Deletes the <paramref name="entity"/>
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <exception cref="ArgumentNullException"> if <paramref name="entity"/> is null</exception>
+        /// <inheritdoc cref="IFoundationModelDataAccess{TModel}.Delete(TModel)"/>>
         public virtual TModel Delete(TModel entity)
         {
             LoggingHelpers.TraceCallEnter($"TableName: {TableName}", entity);
@@ -755,11 +722,7 @@ namespace Foundation.Repository
             return retVal;
         }
 
-        /// <summary>
-        /// Saves the <paramref name="entity"/>
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <exception cref="ArgumentNullException"> if <paramref name="entity"/> is null</exception>
+        /// <inheritdoc cref="IFoundationModelDataAccess{TModel}.Save(TModel)"/>>
         public virtual TModel Save(TModel entity)
         {
             LoggingHelpers.TraceCallEnter($"TableName: {TableName}", entity);
@@ -781,11 +744,7 @@ namespace Foundation.Repository
             return retVal;
         }
 
-        /// <summary>
-        /// Deletes the provided list of <paramref name="entities"/>
-        /// </summary>
-        /// <param name="entities">The entities.</param>
-        /// <exception cref="ArgumentNullException"> if <paramref name="entities"/> is null</exception>
+        /// <inheritdoc cref="IFoundationModelDataAccess{TModel}.Delete(List{TModel})"/>>
         public virtual List<TModel> Delete(List<TModel> entities)
         {
             LoggingHelpers.TraceCallEnter($"TableName: {TableName}", entities);
@@ -818,11 +777,7 @@ namespace Foundation.Repository
             return retVal;
         }
 
-        /// <summary>
-        /// Saves the provided list of <paramref name="entities"/>
-        /// </summary>
-        /// <param name="entities">The entities.</param>
-        /// <exception cref="ArgumentNullException"> if <paramref name="entities"/> is null</exception>
+        /// <inheritdoc cref="IFoundationModelDataAccess{TModel}.Save(List{TModel})"/>>
         public virtual List<TModel> Save(List<TModel> entities)
         {
             LoggingHelpers.TraceCallEnter($"TableName: {TableName}", entities);
@@ -855,9 +810,7 @@ namespace Foundation.Repository
         }
 
 #if (DEBUG)        
-        /// <summary>
-        /// Deletes all records. Only available in Debug builds
-        /// </summary>
+        /// <inheritdoc cref="IFoundationModelDataAccess{TModel}.DeleteAll()"/>>
         public void DeleteAll()
         {
             LoggingHelpers.TraceCallEnter();
@@ -951,12 +904,12 @@ namespace Foundation.Repository
 
                 FoundationDataAccess.DatabaseTransaction.Rollback();
 
-                TModel lastSavedEntity = Get(entity.Id);
+                TModel? lastSavedEntity = Get(entity.Id);
 
                 if (lastSavedEntity != null)
                 {
                     IUserProfileRepository userProfileRepository = Core.IoC.Get<IUserProfileRepository>();
-                    IUserProfile lastSavedByUserProfile = userProfileRepository.Get(lastSavedEntity.LastUpdatedByUserProfileId);
+                    IUserProfile lastSavedByUserProfile = userProfileRepository.Get(lastSavedEntity.LastUpdatedByUserProfileId)!; // Ignoring null as we know there is a user profile for the last updated by id
                     throw new ApplicationConcurrencyException(entity.Id, EntityName, TableName, lastSavedByUserProfile.Username, lastSavedByUserProfile.LastUpdatedOn, lastSavedEntity);
                 }
 

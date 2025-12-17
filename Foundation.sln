@@ -74,6 +74,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Foundation.Database", "Foun
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDV.Accounts.Client", "Applications\JDV Accounts\JDV.Accounts.Client\JDV.Accounts.Client.csproj", "{513A30CF-B56D-4CDA-A35C-C510DE6E5F73}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.Security", "Foundation\Foundation.Security\Foundation.Security.csproj", "{A54C59D0-D324-483B-BF97-5B6D90DBD248}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -194,6 +196,10 @@ Global
 		{513A30CF-B56D-4CDA-A35C-C510DE6E5F73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{513A30CF-B56D-4CDA-A35C-C510DE6E5F73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{513A30CF-B56D-4CDA-A35C-C510DE6E5F73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A54C59D0-D324-483B-BF97-5B6D90DBD248}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A54C59D0-D324-483B-BF97-5B6D90DBD248}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A54C59D0-D324-483B-BF97-5B6D90DBD248}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A54C59D0-D324-483B-BF97-5B6D90DBD248}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

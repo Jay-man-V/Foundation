@@ -46,5 +46,13 @@ namespace Foundation.Resources.Constants.DataColumns
         /// The name.
         /// </value>
         public static String Name => "Name";
+
+        /// <summary>
+        /// Gets the in progress.
+        /// </summary>
+        /// <value>
+        /// The in progress.
+        /// </value>
+        public static String InProgress => "InProgress";
     }
 }

@@ -734,11 +734,11 @@ namespace Foundation.BusinessProcess
         }
 
         /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.Get(EntityId)"/>
-        public virtual TEntity Get(EntityId entityId)
+        public virtual TEntity? Get(EntityId entityId)
         {
             LoggingHelpers.TraceCallEnter(entityId);
 
-            TEntity retVal = EntityRepository.Get(entityId);
+            TEntity? retVal = EntityRepository.Get(entityId);
 
             LoggingHelpers.TraceCallReturn(retVal);
 

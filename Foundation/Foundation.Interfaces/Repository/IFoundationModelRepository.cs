@@ -40,7 +40,7 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="entityId">The entity identifier.</param>
         /// <returns>Loaded entity</returns>
-        TModel Get(EntityId entityId);
+        TModel? Get(EntityId entityId);
 
         /// <summary>
         /// Gets the specified entity.
@@ -54,7 +54,7 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="entityKey">The entity identifier.</param>
         /// <returns>Loaded entity</returns>
-        TModel Get(String entityKey);
+        TModel? Get(String entityKey);
 
         /// <summary>
         /// Deletes the entity with the <paramref name="entityId"/>

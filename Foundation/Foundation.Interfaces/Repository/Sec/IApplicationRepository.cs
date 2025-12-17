@@ -23,6 +23,6 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="applicationId">The application identifier.</param>
         /// <returns>Loaded application</returns>
-        IApplication Get(AppId applicationId);
+        IApplication? Get(AppId applicationId);
     }
 }

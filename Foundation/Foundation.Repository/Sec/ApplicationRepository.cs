@@ -71,11 +71,11 @@ namespace Foundation.Repository.Sec
         }
 
         /// <inheritdoc cref="IApplicationDataAccess.Get(AppId)"/>
-        public IApplication Get(AppId applicationId)
+        public IApplication? Get(AppId applicationId)
         {
             LoggingHelpers.TraceCallEnter(applicationId);
 
-            IApplication retVal = base.Get(applicationId);
+            IApplication? retVal = base.Get(applicationId);
 
             LoggingHelpers.TraceCallReturn(retVal);
 

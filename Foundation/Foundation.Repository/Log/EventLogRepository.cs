@@ -128,11 +128,11 @@ namespace Foundation.Repository.Log
         }
 
         /// <inheritdoc cref="IEventLogRepository.Get(LogId)"/>
-        public IEventLog Get(LogId logId)
+        public IEventLog? Get(LogId logId)
         {
             LoggingHelpers.TraceCallEnter(logId);
 
-            IEventLog retVal = base.Get(logId);
+            IEventLog? retVal = base.Get(logId);
 
             LoggingHelpers.TraceCallReturn(retVal);
 

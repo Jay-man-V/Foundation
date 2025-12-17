@@ -106,8 +106,11 @@ namespace Foundation.Repository.Sec
                 retVal = base.PopulateEntity<IUserProfile>(dr);
                 IRoleRepository roleRepository = Core.IoC.Get<IRoleRepository>();
                 EntityId roleId = DataHelpers.GetValue(dr[FDC.ApplicationUserRole.RoleId], new EntityId());
-                IRole role = roleRepository.Get(roleId);
-                retVal.Roles.Add(role);
+                IRole? role = roleRepository.Get(roleId);
+                if (role != null)
+                {
+                    retVal.Roles.Add(role);
+                }
             }
 
             LoggingHelpers.TraceCallReturn(retVal);
@@ -120,7 +123,7 @@ namespace Foundation.Repository.Sec
         {
             LoggingHelpers.TraceCallEnter(applicationId, userProfileId);
 
-            IUserProfile? retVal = default;
+            IUserProfile? retVal = null;
 
             StringBuilder sql = new StringBuilder();
             sql.AppendLine("SELECT");
@@ -152,8 +155,11 @@ namespace Foundation.Repository.Sec
                 retVal = base.PopulateEntity<IUserProfile>(dr);
                 IRoleRepository roleRepository = Core.IoC.Get<IRoleRepository>();
                 EntityId roleId = DataHelpers.GetValue(dr[FDC.ApplicationUserRole.RoleId], new EntityId());
-                IRole role = roleRepository.Get(roleId);
-                retVal.Roles.Add(role);
+                IRole? role = roleRepository.Get(roleId);
+                if (role != null)
+                {
+                    retVal.Roles.Add(role);
+                }
             }
 
             LoggingHelpers.TraceCallReturn(retVal);

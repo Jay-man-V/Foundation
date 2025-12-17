@@ -44,8 +44,8 @@ namespace Foundation.Models.Log
         [NotMapped]
         public FEnums.TaskStatus TaskStatus => (FEnums.TaskStatus)TaskStatusId.TheEntityId;
 
-        /// <inheritdoc cref="IApplication.Id"/>
-        [Column(nameof(FDC.Application.Id))]
+        /// <inheritdoc cref="IEventLog.Id"/>
+        [Column(nameof(FDC.EventLog.Id))]
         public new LogId Id
         {
             get => _id;

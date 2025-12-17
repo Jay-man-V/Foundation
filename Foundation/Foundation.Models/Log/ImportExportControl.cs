@@ -23,6 +23,7 @@ namespace Foundation.Models.Log
     {
         private DateTime _processedOn;
         private String _name = String.Empty;
+        private Boolean _inProgress = false;
 
         /// <inheritdoc cref="IImportExportControl.ProcessedOn"/>
         [Column(nameof(FDC.ImportExportControl.ProcessedOn))]
@@ -42,6 +43,14 @@ namespace Foundation.Models.Log
             set => this.SetPropertyValue(ref _name, value, FDC.ImportExportControl.Lengths.Name);
         }
 
+        /// <inheritdoc cref="IImportExportControl.InProgress"/>
+        [Column(nameof(FDC.ImportExportControl.InProgress))]
+        public Boolean InProgress
+        {
+            get => this._inProgress;
+            set => this.SetPropertyValue(ref _inProgress, value);
+        }
+
         /// <inheritdoc cref="IFoundationModel.GetPropertyValue(String)"/>
         public override Object? GetPropertyValue(String propertyName)
         {
@@ -51,6 +60,7 @@ namespace Foundation.Models.Log
             {
                 case nameof(ProcessedOn): retVal = ProcessedOn; break;
                 case nameof(Name): retVal = Name; break;
+                case nameof(InProgress): retVal = InProgress; break;
             }
 
             return retVal;
@@ -64,6 +74,7 @@ namespace Foundation.Models.Log
 
             retVal._processedOn = this._processedOn;
             retVal._name = this._name;
+            retVal._inProgress = this._inProgress;
 
             retVal.Initialising = false;
 
@@ -99,6 +110,7 @@ namespace Foundation.Models.Log
 
             hashCode = hashCode * constant + EqualityComparer<DateTime>.Default.GetHashCode(ProcessedOn);
             hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(Name);
+            hashCode = hashCode * constant + EqualityComparer<Boolean>.Default.GetHashCode(InProgress);
 
             return hashCode;
         }
@@ -116,6 +128,7 @@ namespace Foundation.Models.Log
             {
                 retVal &= EqualityComparer<DateTime>.Default.Equals(this.ProcessedOn, right.ProcessedOn);
                 retVal &= EqualityComparer<String>.Default.Equals(this.Name, right.Name);
+                retVal &= EqualityComparer<Boolean>.Default.Equals(this.InProgress, right.InProgress);
             }
 
             return retVal;
