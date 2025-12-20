@@ -88,7 +88,13 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter(logId, logSeverity, information);
 
-            IEventLog entity = Repository.Get(logId);
+            IEventLog? entity = Repository.Get(logId);
+
+            if (entity is null)
+            {
+                throw new UnknownEntityIdException(logId);
+            }
+
             entity.FinishedOn = DateTimeService.SystemUtcDateTimeNow;
             entity.LogSeverityId = new EntityId(logSeverity.Id());
 
@@ -177,7 +183,12 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter(logId, information);
 
-            IEventLog entity = Repository.Get(logId);
+            IEventLog? entity = Repository.Get(logId);
+
+            if (entity is null)
+            {
+                throw new UnknownEntityIdException(logId);
+            }
 
             if (!String.IsNullOrWhiteSpace(entity.Information))
             {

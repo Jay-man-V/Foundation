@@ -807,12 +807,12 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
                 return retVal;
             });
 
-            TEntity loadedEntity1 = TheProcess!.Get(savedEntity.Id);
-            TheProcess!.Delete(loadedEntity1.Id);
+            TEntity? loadedEntity1 = TheProcess!.Get(savedEntity.Id);
+            TheProcess!.Delete(loadedEntity1!.Id);
 
-            TEntity loadedEntity2 = TheProcess!.Get(entity1.Id);
+            TEntity? loadedEntity2 = TheProcess!.Get(entity1.Id);
 
-            Assert.That(loadedEntity2.EntityLife, Is.EqualTo(EntityLife.Deleted));
+            Assert.That(loadedEntity2!.EntityLife, Is.EqualTo(EntityLife.Deleted));
             Assert.That(loadedEntity2.EntityState, Is.EqualTo(EntityState.Saved));
             Assert.That(loadedEntity2.EntityStatus, Is.EqualTo(EntityStatus.Inactive));
             Assert.That((Object)savedEntity == (Object)loadedEntity2, Is.EqualTo(false));
@@ -843,12 +843,12 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
                 return retVal;
             });
 
-            TEntity loadedEntity1 = TheProcess!.Get(savedEntity.Id);
-            TheProcess!.Delete(loadedEntity1);
+            TEntity? loadedEntity1 = TheProcess!.Get(savedEntity.Id);
+            TheProcess!.Delete(loadedEntity1!);
 
-            TEntity loadedEntity2 = TheProcess!.Get(entity1.Id);
+            TEntity? loadedEntity2 = TheProcess!.Get(entity1.Id);
 
-            Assert.That(loadedEntity2.EntityLife, Is.EqualTo(EntityLife.Deleted));
+            Assert.That(loadedEntity2!.EntityLife, Is.EqualTo(EntityLife.Deleted));
             Assert.That(loadedEntity2.EntityState, Is.EqualTo(EntityState.Saved));
             Assert.That(loadedEntity2.EntityStatus, Is.EqualTo(EntityStatus.Inactive));
             Assert.That((Object)savedEntity == (Object)loadedEntity2, Is.EqualTo(false));
@@ -893,9 +893,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
 
             Thread.Sleep(500);
 
-            TEntity loadedEntity = TheProcess!.Get(savedEntityId);
+            TEntity? loadedEntity = TheProcess!.Get(savedEntityId);
 
-            CompareEntityBaseProperties(savedEntity, loadedEntity);
+            CompareEntityBaseProperties(savedEntity, loadedEntity!);
         }
 
         [TestCase]

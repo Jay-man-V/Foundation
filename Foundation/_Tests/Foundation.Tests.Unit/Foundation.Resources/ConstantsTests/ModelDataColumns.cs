@@ -702,6 +702,7 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
             index++; Assert.That(FDC.ImportExportControl.EntityName, Is.EqualTo(nameof(FDC.ImportExportControl)));
             index++; Assert.That(FDC.ImportExportControl.Name, Is.EqualTo(nameof(FDC.ImportExportControl.Name)));
             index++; Assert.That(FDC.ImportExportControl.ProcessedOn, Is.EqualTo(nameof(FDC.ImportExportControl.ProcessedOn)));
+            index++; Assert.That(FDC.ImportExportControl.InProgress, Is.EqualTo(nameof(FDC.ImportExportControl.InProgress)));
 
             Assert.That(propertyInfos.Length, Is.EqualTo(index));
         }
