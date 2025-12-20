@@ -232,7 +232,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         }
 
         [TestCase]
-        public void Test_GetStartOfPreviousPeriod()
+        public void Test_GetPreviousPeriod()
         {
             DateTime startDate = new DateTime(2023, 01, 01);
             DateTime endDate = new DateTime(2025, 12, 31);

@@ -1,15 +1,18 @@
-﻿
-//-----------------------------------------------------------------------
+﻿//-----------------------------------------------------------------------
 // <copyright file="WindowsMessages.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Foundation.Interfaces
 {
     /// <summary>Windows Messages</summary>
+    [Browsable(true),
+     Category("Process"),
+     Description("Specifies the Windows message")]
     public enum WindowsMessages
     {
         /// <summary>The wm null</summary>

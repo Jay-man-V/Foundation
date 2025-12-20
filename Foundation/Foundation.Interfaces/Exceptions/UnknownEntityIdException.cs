@@ -68,7 +68,7 @@ namespace Foundation.Interfaces
         ) :
             base
             (
-                String.Format(ErrorMessageTemplate1, entityType, entityId)
+                String.Format(ErrorMessageTemplate1, entityId, entityType)
             )
         {
             EntityType = entityType;

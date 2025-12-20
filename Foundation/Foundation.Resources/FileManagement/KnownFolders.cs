@@ -41,6 +41,7 @@ namespace Foundation.Resources
         /// </summary>
         private static readonly String[] KnownFolderGuids =
         [
+            "dummy", // placeholder for index = 0
             "{56784854-C6CB-462B-8169-88E350ACB882}", // Contacts
             "{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}", // Desktop
             "{FDD39AD0-238F-46AF-ADB4-6C85480369C7}", // Documents

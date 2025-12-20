@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Foundation.Interfaces
@@ -11,7 +12,9 @@ namespace Foundation.Interfaces
     /// <summary>
     /// Data Status enum
     /// </summary>
-    [Flags]
+    [Browsable(true),
+     Category("Status"),
+     Description("Specifies the data status")]
     public enum DataStatus
     {
         /// <summary>

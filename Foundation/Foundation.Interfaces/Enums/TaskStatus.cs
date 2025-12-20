@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Foundation.Interfaces
@@ -11,7 +12,9 @@ namespace Foundation.Interfaces
     /// <summary>
     /// Task Status enum
     /// </summary>
-    [Flags]
+    [Browsable(true),
+     Category("Process"),
+     Description("Specifies the task status")]
     public enum TaskStatus
     {
         /// <summary>

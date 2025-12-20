@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 
 using NSubstitute;
+using NSubstitute.ClearExtensions;
 
 using Foundation.Common;
 using Foundation.Interfaces;
@@ -29,6 +30,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             ICore core = Substitute.For<ICore>();
 
             TheRepository = Substitute.For<IEventLogRepository>();
+            TheRepository.ClearReceivedCalls();
+            TheRepository.ClearSubstitute();
 
             TheService = new LoggingService(core, RunTimeEnvironmentSettings, DateTimeService, TheRepository);
         }
@@ -82,7 +85,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 
         [TestCase("")]
         [TestCase("A - B - C")]
-        public void Test_EndTask_1(String initialEntry)
+        public void Test_EndTask(String initialEntry)
         {
             LogId logId = new LogId(123);
             LogSeverity logSeverity = LogSeverity.Error;
@@ -119,7 +122,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         }
 
         [TestCase]
-        public void Test_EndTask_2_Exception()
+        public void Test_EndTask_Log_Exception()
         {
             LogId logId = new LogId(123);
             LogSeverity logSeverity = LogSeverity.Error;
@@ -157,6 +160,26 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             TheService!.EndTask(logId, logSeverity, updateMessage);
 
             Assert.That(savedEventLog!.Information.Contains(updateMessage), Is.EqualTo(true));
+        }
+
+        [TestCase]
+        public void Test_EndTask_Exception()
+        {
+            LogId logId = new LogId(123);
+
+            String errorMessage = String.Format(UnknownEntityIdException.ErrorMessageTemplate1, logId.TheLogId, typeof(IEventLog));
+            UnknownEntityIdException actualException = Assert.Throws<UnknownEntityIdException>(() =>
+            {
+                IEventLog? eventLog = null;
+                TheRepository!.Get(logId).Returns(eventLog);
+
+                LogSeverity logSeverity = LogSeverity.Error;
+                String updateMessage = "End Task Called";
+                TheService!.EndTask(logId, logSeverity, updateMessage);
+            });
+
+            Assert.That(actualException, Is.Not.EqualTo(null));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
         [TestCase]
@@ -252,7 +275,6 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
                 expected = initialEntry + Environment.NewLine + updateMessage;
             }
 
-
             Assert.That(savedEventLog!.ApplicationId.TheAppId, Is.EqualTo(TestingApplicationId.TheAppId));
             Assert.That(savedEventLog!.BatchName, Is.EqualTo(batchName));
             Assert.That(savedEventLog!.ProcessName, Is.EqualTo(processName));
@@ -260,6 +282,26 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(savedEventLog!.LogSeverityId.TheEntityId, Is.EqualTo(logSeverity.Id()));
             Assert.That(savedEventLog!.StartedOn, Is.EqualTo(DateTimeService.SystemUtcDateTimeNow));
             Assert.That(savedEventLog!.Information, Is.EqualTo(expected));
+        }
+
+        [TestCase]
+        public void Test_UpdateLogEntry_Exception()
+        {
+            LogId logId = new LogId(123);
+
+            String errorMessage = String.Format(UnknownEntityIdException.ErrorMessageTemplate1, logId.TheLogId, typeof(IEventLog));
+            UnknownEntityIdException actualException = Assert.Throws<UnknownEntityIdException>(() =>
+            {
+                IEventLog? eventLog = null;
+                TheRepository!.Get(logId).Returns(eventLog);
+
+                String updateMessage = "End Task Called";
+                TheService!.UpdateLogEntry(logId, updateMessage);
+            });
+
+            Assert.That(actualException, Is.Not.EqualTo(null));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+
         }
     }
 }

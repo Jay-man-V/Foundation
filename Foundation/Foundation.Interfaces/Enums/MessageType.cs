@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Foundation.Interfaces
@@ -11,6 +12,9 @@ namespace Foundation.Interfaces
     /// <summary>
     /// Defines Messages Types
     /// </summary>
+    [Browsable(true),
+     Category("Process"),
+     Description("Specifies the message type")]
     public enum MessageType
     {
         /// <summary>

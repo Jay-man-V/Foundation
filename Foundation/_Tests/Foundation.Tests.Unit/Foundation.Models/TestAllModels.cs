@@ -356,7 +356,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
                 {
                     scheduledJob.ParentScheduledJobs.AddRange([new EntityId(1), new EntityId(2), new EntityId(3), new EntityId(4), new EntityId(5), new EntityId(6)]);
                     scheduledJob.ChildScheduledJobs.AddRange([new EntityId(1), new EntityId(2), new EntityId(3), new EntityId(4), new EntityId(5), new EntityId(6)]);
-                    Assert.That(scheduledJob.ScheduleInterval, Is.EqualTo(ScheduleInterval.Seconds));
+                    Assert.That(scheduledJob.ScheduleInterval, Is.EqualTo(ScheduleInterval.Milliseconds));
                 }
             }
         }

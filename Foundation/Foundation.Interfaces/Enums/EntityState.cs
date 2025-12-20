@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Foundation.Interfaces
@@ -11,18 +12,21 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Entity State Enumeration
     /// </summary>
+    [Browsable(true),
+     Category("Status"),
+     Description("Specifies the entity state")]
     public enum EntityState
     {
         /// <summary>
         /// The entity is dirty
         /// </summary>
-        [Id(0), Display(Order = 1, Name = "Dirty")]
+        [Id(0), Display(Order = 0, Name = "Dirty")]
         Dirty = 0,
 
         /// <summary>
         /// The entity has been saved
         /// </summary>
-        [Id(1), Display(Order = 2, Name = "Saved")]
+        [Id(1), Display(Order = 1, Name = "Saved")]
         Saved = 1
     }
 }

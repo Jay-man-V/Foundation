@@ -83,8 +83,6 @@ namespace Foundation.BusinessProcess.Core
         {
             LoggingHelpers.TraceCallEnter(countryCode, date, intervalType, interval);
 
-            //DateTime startDate = date.Add(intervalType, interval, date.TimeOfDay);
-
             DateTime retVal = Repository.GetNextWorkingDay(countryCode, date, intervalType, interval);
 
             LoggingHelpers.TraceCallReturn(retVal);
@@ -104,12 +102,7 @@ namespace Foundation.BusinessProcess.Core
             return retVal;
         }
 
-        /// <summary>
-        /// Determines the first working date of the year/month of the supplied <paramref name="date"/>
-        /// </summary>
-        /// <param name="countryCode">The country code.</param>
-        /// <param name="date">The date.</param>
-        /// <returns></returns>
+        /// <inheritdoc cref="ICalendarProcess.GetFirstWorkingDayOfMonth(String, DateTime)"/>
         public DateTime GetFirstWorkingDayOfMonth(String countryCode, DateTime date)
         {
             LoggingHelpers.TraceCallEnter(countryCode, date);
@@ -121,13 +114,7 @@ namespace Foundation.BusinessProcess.Core
             return retVal;
         }
 
-        /// <summary>
-        /// Determines the first working date of the year/month of the supplied parameters
-        /// </summary>
-        /// <param name="countryCode">The country code.</param>
-        /// <param name="year">The year.</param>
-        /// <param name="month">The month.</param>
-        /// <returns></returns>
+        /// <inheritdoc cref="ICalendarProcess.GetFirstWorkingDayOfMonth(String, Int32, Int32)"/>
         public DateTime GetFirstWorkingDayOfMonth(String countryCode, Int32 year, Int32 month)
         {
             LoggingHelpers.TraceCallEnter(countryCode, year, month);
@@ -139,12 +126,7 @@ namespace Foundation.BusinessProcess.Core
             return retVal;
         }
 
-        /// <summary>
-        /// Determines the last working date of the year/month of the supplied <paramref name="date"/>
-        /// </summary>
-        /// <param name="countryCode">The country code.</param>
-        /// <param name="date">The date.</param>
-        /// <returns></returns>
+        /// <inheritdoc cref="ICalendarProcess.GetLastWorkingDayOfMonth(String, DateTime)"/>
         public DateTime GetLastWorkingDayOfMonth(String countryCode, DateTime date)
         {
             LoggingHelpers.TraceCallEnter(countryCode, date);
@@ -156,13 +138,7 @@ namespace Foundation.BusinessProcess.Core
             return retVal;
         }
 
-        /// <summary>
-        /// Determines the first working date of the year/month of the supplied parameters
-        /// </summary>
-        /// <param name="countryCode">The country code.</param>
-        /// <param name="year">The year.</param>
-        /// <param name="month">The month.</param>
-        /// <returns></returns>
+        /// <inheritdoc cref="ICalendarProcess.GetLastWorkingDayOfMonth(String, Int32, Int32)"/>
         public DateTime GetLastWorkingDayOfMonth(String countryCode, Int32 year, Int32 month)
         {
             LoggingHelpers.TraceCallEnter(countryCode, year, month);

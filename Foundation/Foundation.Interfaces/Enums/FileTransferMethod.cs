@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Foundation.Interfaces
@@ -11,12 +12,15 @@ namespace Foundation.Interfaces
     /// <summary>
     /// File Transfer Method
     /// </summary>
+    [Browsable(true),
+     Category("Process"),
+     Description("Specifies the file transfer archive action")]
     public enum FileTransferMethod
     {
         /// <summary>
         /// Value not set
         /// </summary>
-        [Id(0), Display(Order = 0, Name = "Not Set")]
+        [Id(0), Display(Order = 0, Name = "Not set")]
         NotSet = 0,
 
         /// <summary>

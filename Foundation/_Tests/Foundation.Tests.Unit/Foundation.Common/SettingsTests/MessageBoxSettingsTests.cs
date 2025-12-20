@@ -45,7 +45,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.SettingsTests
         {
             IMessageBoxSettings obj = new MessageBoxSettings();
 
-            Assert.That(obj.Button, Is.EqualTo(MessageBoxButton.Ok));
+            Assert.That(obj.Button, Is.EqualTo(MessageBoxButton.NotSet));
             Assert.That(obj.Caption, Is.EqualTo(String.Empty));
             Assert.That(obj.Icon, Is.EqualTo(MessageBoxImage.None));
             Assert.That(obj.Text, Is.EqualTo(String.Empty));

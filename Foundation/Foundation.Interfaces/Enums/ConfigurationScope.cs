@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Foundation.Interfaces
@@ -11,6 +12,9 @@ namespace Foundation.Interfaces
     /// <summary>
     /// Configuration Scope
     /// </summary>
+    [Browsable(true),
+     Category("Configuration"),
+     Description("Specifies the configuration scope")]
     public enum ConfigurationScope
     {
         /// <summary>

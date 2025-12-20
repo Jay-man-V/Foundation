@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Foundation.Interfaces
@@ -11,12 +12,15 @@ namespace Foundation.Interfaces
     /// <summary>
     /// Text Alignment enum
     /// </summary>
+    [Browsable(true),
+     Category("Process"),
+     Description("Specifies the text alignment")]
     public enum TextAlignment
     {
         /// <summary>
         /// NotSet
         /// </summary>
-        [Id(0), Display(Order = 0, Name = "NotSet")]
+        [Id(0), Display(Order = 0, Name = "Not set")]
         NotSet = 0,
 
         /// <summary>

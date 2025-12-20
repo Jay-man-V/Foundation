@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Foundation.Interfaces
@@ -12,6 +13,9 @@ namespace Foundation.Interfaces
     /// Error Dialog Buttons
     /// </summary>
     [Flags]
+    [Browsable(true),
+     Category("Status"),
+     Description("Specifies the error dialog buttons")]
     public enum ErrorDialogButtons
     {
         /// <summary>

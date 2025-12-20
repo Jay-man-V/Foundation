@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Foundation.Interfaces
@@ -11,6 +12,9 @@ namespace Foundation.Interfaces
     /// <summary>
     /// Available Approval Statuses
     /// </summary>
+    [Browsable(true),
+     Category("Status"),
+     Description("Specifies the approval status")]
     public enum ApprovalStatus
     {
         /// <summary>

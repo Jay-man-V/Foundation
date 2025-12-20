@@ -56,7 +56,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.SettingsTests
             Assert.That(obj.FilterIndex, Is.EqualTo(0));
             Assert.That(obj.OverwritePrompt, Is.EqualTo(false));
             Assert.That(obj.FileName, Is.EqualTo(String.Empty));
-            Assert.That(obj.DialogResult, Is.EqualTo(DialogResult.None));
+            Assert.That(obj.DialogResult, Is.EqualTo(DialogResult.NotSet));
         }
 
         /// <summary>

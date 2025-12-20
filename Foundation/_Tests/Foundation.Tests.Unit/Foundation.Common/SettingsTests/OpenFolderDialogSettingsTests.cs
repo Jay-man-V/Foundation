@@ -48,7 +48,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.SettingsTests
             Assert.That(obj.CheckPathExists, Is.EqualTo(false));
             Assert.That(obj.CreatePrompt, Is.EqualTo(false));
             Assert.That(obj.FolderName, Is.EqualTo(String.Empty));
-            Assert.That(obj.DialogResult, Is.EqualTo(DialogResult.None));
+            Assert.That(obj.DialogResult, Is.EqualTo(DialogResult.NotSet));
         }
 
         /// <summary>

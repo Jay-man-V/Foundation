@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Foundation.Interfaces
@@ -11,6 +12,9 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Entity Status Enumeration
     /// </summary>
+    [Browsable(true),
+     Category("Status"),
+     Description("Specifies the entity status")]
     public enum EntityStatus
     {
         /// <summary>

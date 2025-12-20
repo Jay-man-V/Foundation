@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Foundation.Interfaces
@@ -11,13 +12,16 @@ namespace Foundation.Interfaces
     /// <summary>
     /// Dialog Result
     /// </summary>
+    [Browsable(true),
+     Category("Misc"),
+     Description("Specifies the dialog result")]
     public enum DialogResult
     {
         /// <summary>
         /// The message box returns no result
         /// </summary>
-        [Id(0), Display(Order = 0, Name = "None")]
-        None = 0,
+        [Id(0), Display(Order = 0, Name = "Not set")]
+        NotSet = 0,
 
         /// <summary>
         /// The result value of the message box is OK.

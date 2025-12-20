@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Foundation.Interfaces
@@ -11,6 +12,9 @@ namespace Foundation.Interfaces
     /// <summary>
     /// LogSeverity enum
     /// </summary>
+    [Browsable(true),
+     Category("Process"),
+     Description("Specifies the log severity")]
     public enum LogSeverity
     {
         /// <summary>

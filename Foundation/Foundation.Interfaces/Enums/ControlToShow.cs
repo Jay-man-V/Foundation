@@ -20,13 +20,13 @@ namespace Foundation.Interfaces
         /// <summary>
         /// List Control
         /// </summary>
-        [Id(0), Display(Order = 1, Name = "List control"), Category(""), Description("This is a List Control")]
-        ListControl = 0,
+        [Id(1), Display(Order = 1, Name = "List control"), Category(""), Description("This is a List Control")]
+        ListControl = 1,
 
         /// <summary>
         /// Bar Control
         /// </summary>
-        [Id(1), Display(Order = 2, Name = "Bar control"), Category(""), Description("This is a Bar Control")]
-        BarControl = 1,
+        [Id(2), Display(Order = 2, Name = "Bar control"), Category(""), Description("This is a Bar Control")]
+        BarControl = 2,
     }
 }

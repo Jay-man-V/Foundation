@@ -21,7 +21,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.ExceptionsTests
         {
             Type entityType = typeof(IApplication);
             AppId entityId = new AppId(123);
-            String errorMessage = String.Format(UnknownEntityIdException.ErrorMessageTemplate1, entityType, entityId);
+            String errorMessage = String.Format(UnknownEntityIdException.ErrorMessageTemplate1, entityId, entityType);
 
             UnknownEntityIdException exception = new UnknownEntityIdException(entityId);
 
@@ -37,7 +37,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.ExceptionsTests
         {
             Type entityType = typeof(IEventLog);
             LogId entityId = new LogId(123);
-            String errorMessage = String.Format(UnknownEntityIdException.ErrorMessageTemplate1, entityType, entityId);
+            String errorMessage = String.Format(UnknownEntityIdException.ErrorMessageTemplate1, entityId, entityType);
 
             UnknownEntityIdException exception = new UnknownEntityIdException(entityId);
 
@@ -53,7 +53,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.ExceptionsTests
         {
             Type entityType = typeof(IApplication);
             EntityId entityId = new EntityId(123);
-            String errorMessage = String.Format(UnknownEntityIdException.ErrorMessageTemplate1, entityType, entityId);
+            String errorMessage = String.Format(UnknownEntityIdException.ErrorMessageTemplate1, entityId, entityType);
 
             UnknownEntityIdException exception = new UnknownEntityIdException(entityType, entityId);
 
