@@ -34,13 +34,13 @@ namespace Foundation.BusinessProcess.Core
         /// <param name="core">The Foundation Core service</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings</param>
         /// <param name="dateTimeService">The date time service</param>
+        /// <param name="loggingService">The logging service</param>
+        /// <param name="calendarService">The calendar service</param>
         /// <param name="repository">The data access</param>
         /// <param name="statusRepository">The status data access</param>
         /// <param name="userProfileRepository">The user profile data access</param>
         /// <param name="reportGenerator">The report generator service</param>
-        /// <param name="loggingService">The logging service</param>
         /// <param name="scheduleIntervalProcess">The schedule interval process</param>
-        /// <param name="calendarProcess">The calendar process</param>
         /// <param name="serviceControlWrapper">The service control wrapper</param>
         public ScheduledJobProcess
         (
@@ -48,12 +48,12 @@ namespace Foundation.BusinessProcess.Core
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
             ILoggingService loggingService,
+            ICalendarService calendarService,
             IScheduledJobRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
             IReportGenerator reportGenerator,
             IScheduleIntervalProcess scheduleIntervalProcess,
-            ICalendarProcess calendarProcess,
             IServiceControlWrapper serviceControlWrapper
         ) 
             : base
@@ -68,10 +68,10 @@ namespace Foundation.BusinessProcess.Core
                 reportGenerator
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, repository, statusRepository, userProfileRepository, reportGenerator, scheduleIntervalProcess, calendarProcess, serviceControlWrapper);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, calendarService, repository, statusRepository, userProfileRepository, reportGenerator, scheduleIntervalProcess, serviceControlWrapper);
 
             ScheduleIntervalProcess = scheduleIntervalProcess;
-            CalendarProcess = calendarProcess;
+            CalendarService = calendarService;
             ServiceControlWrapper = serviceControlWrapper;
 
             ScheduledTimers = new Dictionary<String, ServerProcessTimer>();
@@ -88,12 +88,12 @@ namespace Foundation.BusinessProcess.Core
         private IScheduleIntervalProcess ScheduleIntervalProcess { get; }
 
         /// <summary>
-        /// Gets the calendar process.
+        /// Gets the calendar service.
         /// </summary>
         /// <value>
         /// The calendar process.
         /// </value>
-        private ICalendarProcess CalendarProcess { get; }
+        private ICalendarService CalendarService { get; }
 
         /// <summary>
         /// Gets the service control wrapper
@@ -500,7 +500,7 @@ namespace Foundation.BusinessProcess.Core
             }
 
             // Check to make sure it's a working day
-            expectedNextRunDateTime = CalendarProcess.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, expectedNextRunDateTime.Date) + expectedNextRunDateTime.TimeOfDay;
+            expectedNextRunDateTime = CalendarService.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, expectedNextRunDateTime.Date) + expectedNextRunDateTime.TimeOfDay;
 
             // When should the task be next scheduled?
             // Case 1 - Later in the same day

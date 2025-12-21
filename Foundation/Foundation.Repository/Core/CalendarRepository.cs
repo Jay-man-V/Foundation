@@ -30,14 +30,12 @@ namespace Foundation.Repository.Core
         /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
         /// <param name="coreDataProvider">The core data provider.</param>
-        /// <param name="dateTimeService">The date/time service.</param>
         public CalendarRepository
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             ISystemConfigurationService systemConfigurationService,
-            ICoreDataProvider coreDataProvider,
-            IDateTimeService dateTimeService
+            ICoreDataProvider coreDataProvider
         ) :
             base
             (
@@ -46,14 +44,10 @@ namespace Foundation.Repository.Core
                 coreDataProvider.ConnectionName
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, coreDataProvider, dateTimeService);
-
-            DateTimeService = dateTimeService;
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, coreDataProvider);
 
             LoggingHelpers.TraceCallReturn();
         }
-
-        private IDateTimeService DateTimeService { get; }
 
         /// <inheritdoc cref="ICalendarRepository.IsNonWorkingDay(String, DateTime)"/>
         public Boolean IsNonWorkingDay(String countryCode, DateTime date)
@@ -141,6 +135,32 @@ namespace Foundation.Repository.Core
             return retVal;
         }
 
+        /// <inheritdoc cref="ICalendarRepository.GetStartOfMonth(Int32, Int32)"/>
+        public DateTime GetStartOfMonth(Int32 year, Int32 month)
+        {
+            LoggingHelpers.TraceCallEnter(year, month);
+
+            DateTime retVal = new DateTime(year, month, 1);
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="ICalendarRepository.GetEndOfMonth(Int32, Int32)"/>
+        public DateTime GetEndOfMonth(Int32 year, Int32 month)
+        {
+            LoggingHelpers.TraceCallEnter(year, month);
+
+            Int32 lastDay = DateTime.DaysInMonth(year, month);
+
+            DateTime retVal = new DateTime(year, month, lastDay);
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
         /// <inheritdoc cref="ICalendarRepository.GetFirstWorkingDayOfMonth(String, DateTime)"/>
         public DateTime GetFirstWorkingDayOfMonth(String countryCode, DateTime date)
         {
@@ -195,8 +215,8 @@ namespace Foundation.Repository.Core
         {
             LoggingHelpers.TraceCallEnter(countryCode, year, month);
 
-            DateTime startOfMonth = DateTimeService.GetStartOfMonth(year, month);
-            DateTime endOfMonth = DateTimeService.GetEndOfMonth(year, month);
+            DateTime startOfMonth = GetStartOfMonth(year, month);
+            DateTime endOfMonth = GetEndOfMonth(year, month);
 
             // Initialise to default values based on calendar dates
             FirstAndLastWorkingDays retVal = new FirstAndLastWorkingDays

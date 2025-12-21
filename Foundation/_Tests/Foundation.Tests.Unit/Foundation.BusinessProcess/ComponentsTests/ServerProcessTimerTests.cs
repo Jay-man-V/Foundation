@@ -23,14 +23,14 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.ComponentsTests
     public class ServerProcessTimerTests : UnitTestBase
     {
         private ICore? Core { get; set; }
-        private ICalendarProcess? CalendarProcess { get; set; }
+        private ICalendarService? CalendarService { get; set; }
 
         public override void TestInitialise()
         {
             base.TestInitialise();
 
             Core = Substitute.For<ICore>();
-            CalendarProcess = Substitute.For<ICalendarProcess>();
+            CalendarService = Substitute.For<ICalendarService>();
 
             DateTimeService.ClearSubstitute();
             DateTimeService.SystemDateTimeNowWithoutMilliseconds.Returns(new DateTime(2022, 11, 27, 23, 11, 54));
@@ -50,8 +50,8 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.ComponentsTests
             TimeSpan endTime = new TimeSpan(17, 0, 0);
             DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;
 
-            CalendarProcess!.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, currentDate + startTime).Returns(currentDate + startTime);
-            CalendarProcess!.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, currentDate + endTime).Returns(currentDate + endTime);
+            CalendarService!.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, currentDate + startTime).Returns(currentDate + startTime);
+            CalendarService!.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, currentDate + endTime).Returns(currentDate + endTime);
 
             IScheduledJobRepository repository = Substitute.For<IScheduledJobRepository>();
             IStatusRepository statusRepository = Substitute.For<IStatusRepository>();
@@ -61,7 +61,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.ComponentsTests
             IServiceControlWrapper serviceControlWrapper = Substitute.For<IServiceControlWrapper>();
 
             IScheduledJob scheduledJob = SchedulerSupport.CreateScheduledJob(SchedulerSupport.Core!, false, currentDate, ScheduleInterval.Seconds, 30);
-            IScheduledJobProcess process = new ScheduledJobProcess(SchedulerSupport.Core!, RunTimeEnvironmentSettings, DateTimeService, LoggingService, repository, statusRepository, userProfileRepository, reportGenerator, scheduleIntervalProcess, CalendarProcess, serviceControlWrapper);
+            IScheduledJobProcess process = new ScheduledJobProcess(SchedulerSupport.Core!, RunTimeEnvironmentSettings, DateTimeService, LoggingService, CalendarService, repository, statusRepository, userProfileRepository, reportGenerator, scheduleIntervalProcess, serviceControlWrapper);
 
             process.AlternateCreateScheduledTaskCalled -= SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
             process.AlternateCreateScheduledTaskCalled += SchedulerSupport.OnAlternateCreateScheduledTaskCalled;

@@ -30,8 +30,7 @@ namespace Foundation.Server.ScheduledTasks
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
-            ILoggingService loggingService,
-            ICalendarProcess calendarProcess
+            ILoggingService loggingService
         ) :
             base
             (
@@ -41,7 +40,7 @@ namespace Foundation.Server.ScheduledTasks
                 loggingService
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, calendarProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService);
 
             LoggingHelpers.TraceCallReturn();
         }
