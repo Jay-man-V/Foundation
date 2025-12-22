@@ -16,7 +16,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Core
 {
     /// <summary>
-    /// Defines the Non-Working Day Data Access class
+    /// Defines the Non-Working Day Repository class
     /// </summary>
     /// <see cref="INonWorkingDay" />
     [DependencyInjectionTransient]

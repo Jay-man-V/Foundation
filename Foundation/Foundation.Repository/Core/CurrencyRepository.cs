@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Core
 {
     /// <summary>
-    /// Defines the Currency Data Access class
+    /// Defines the Currency Repository class
     /// </summary>
     /// <see cref="ICurrency" />
     [DependencyInjectionTransient]

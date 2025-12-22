@@ -251,8 +251,8 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
-        /// <inheritdoc cref="IDateTimeService.GetStartOfPreviousPeriod()"/>
-        public DateTime GetStartOfPreviousPeriod()
+        /// <inheritdoc cref="IDateTimeService.GetStartOfPreviousPeriod(DatePeriod)"/>
+        public DateTime GetStartOfPreviousPeriod(DatePeriod datePeriod)
         {
             LoggingHelpers.TraceCallEnter();
 
@@ -261,8 +261,8 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="IDateTimeService.GetEndOfPreviousPeriod()"/>
-        public DateTime GetEndOfPreviousPeriod()
+        /// <inheritdoc cref="IDateTimeService.GetEndOfPreviousPeriod(DatePeriod)"/>
+        public DateTime GetEndOfPreviousPeriod(DatePeriod datePeriod)
         {
             LoggingHelpers.TraceCallEnter();
 

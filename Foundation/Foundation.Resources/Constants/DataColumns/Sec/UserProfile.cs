@@ -7,7 +7,7 @@
 namespace Foundation.Resources.Constants.DataColumns
 {
     /// <summary>
-    /// Currency data columns
+    /// User Profile data columns
     /// </summary>
     /// <seealso cref="FoundationEntity" />
     public abstract class UserProfile : FoundationEntity

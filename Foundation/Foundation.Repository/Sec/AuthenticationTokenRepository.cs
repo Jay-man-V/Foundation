@@ -16,7 +16,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Sec
 {
     /// <summary>
-    /// Defines the Role Data Access class
+    /// Defines the Role Repository class
     /// </summary>
     [DependencyInjectionTransient]
     public class AuthenticationTokenRepository : FoundationDataAccess, IAuthenticationDataAccess

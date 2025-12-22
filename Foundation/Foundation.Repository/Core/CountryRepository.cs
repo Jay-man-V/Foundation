@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Core
 {
     /// <summary>
-    /// Defines the Country Data Access class
+    /// Defines the Country Repository class
     /// </summary>
     /// <see cref="ICountry" />
     [DependencyInjectionTransient]

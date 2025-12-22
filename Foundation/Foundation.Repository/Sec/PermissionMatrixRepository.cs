@@ -16,7 +16,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Sec
 {
     /// <summary>
-    /// Defines the Permission Matrix Data Access class
+    /// Defines the Permission Matrix Repository class
     /// </summary>
     /// <see cref="IPermissionMatrix" />
     [DependencyInjectionTransient]

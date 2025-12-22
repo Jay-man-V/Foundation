@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Core
 {
     /// <summary>
-    /// Defines the Office Week Calendar Data Access class
+    /// Defines the Office Week Calendar Repository class
     /// </summary>
     /// <see cref="IOfficeWeekCalendar" />
     [DependencyInjectionTransient]

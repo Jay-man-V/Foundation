@@ -17,7 +17,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.App
 {
     /// <summary>
-    /// Defines the Menu Item Data Access class
+    /// Defines the Menu Item Repository class
     /// </summary>
     /// <see cref="ICountry" />
     [DependencyInjectionTransient]

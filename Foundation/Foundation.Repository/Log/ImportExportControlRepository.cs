@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Log
 {
     /// <summary>
-    /// Defines the ImportExportControl Data Access class
+    /// Defines the ImportExportControl Repository class
     /// </summary>
     /// <see cref="IImportExportControl" />
     [DependencyInjectionTransient]

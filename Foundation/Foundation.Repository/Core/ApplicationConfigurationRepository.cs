@@ -16,7 +16,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Core
 {
     /// <summary>
-    /// Defines the Configuration Scope Data Access class
+    /// Defines the Configuration Scope Repository class
     /// </summary>
     /// <see cref="IApplicationConfiguration" />
     [DependencyInjectionTransient]

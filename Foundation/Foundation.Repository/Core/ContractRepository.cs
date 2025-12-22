@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Core
 {
     /// <summary>
-    /// Defines the Contract Data Access class
+    /// Defines the Contract Repository class
     /// </summary>
     /// <see cref="IContract" />
     [DependencyInjectionTransient]

@@ -16,7 +16,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Stg
 {
     /// <summary>
-    /// Defines the Active Directory User Profile Data Access class
+    /// Defines the Active Directory User Profile Repository class
     /// </summary>
     /// <see cref="IActiveDirectoryUser" />
     [DependencyInjectionTransient]

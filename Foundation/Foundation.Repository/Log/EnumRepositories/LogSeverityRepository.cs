@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Log.EnumRepositories
 {
     /// <summary>
-    /// Defines the Log Severity Data Access class
+    /// Defines the Log Severity Repository class
     /// </summary>
     /// <see cref="ILogSeverity" />
     [DependencyInjectionTransient]

@@ -71,7 +71,7 @@ namespace Foundation.BusinessProcess
         }
 
         /// <summary>
-        /// When implemented in derived classes, refers to the specific Data Access class
+        /// When implemented in derived classes, refers to the specific Repository class
         /// </summary>
         protected TRepository EntityRepository { get; }
 

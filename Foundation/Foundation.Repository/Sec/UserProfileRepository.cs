@@ -16,7 +16,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Sec
 {
     /// <summary>
-    /// Defines the User Profile Data Access class
+    /// Defines the User Profile Repository class
     /// </summary>
     /// <see cref="IUserProfile" />
     [DependencyInjectionTransient]

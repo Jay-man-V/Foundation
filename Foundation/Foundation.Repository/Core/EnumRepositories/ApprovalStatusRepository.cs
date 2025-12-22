@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Core.EnumRepositories
 {
     /// <summary>
-    /// Defines the Approval Status Data Access class
+    /// Defines the Approval Status Repository class
     /// </summary>
     /// <see cref="IApprovalStatus" />
     [DependencyInjectionTransient]

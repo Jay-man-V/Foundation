@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Log
 {
     /// <summary>
-    /// Defines the EventLogApplication Data Access class
+    /// Defines the EventLogApplication Repository class
     /// </summary>
     /// <see cref="IEventLogApplication" />
     [DependencyInjectionTransient]

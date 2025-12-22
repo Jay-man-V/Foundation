@@ -17,7 +17,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Core
 {
     /// <summary>
-    /// Defines the Calendar Data Access class
+    /// Defines the Calendar Repository class
     /// </summary>
     /// <see cref="INonWorkingDay" />
     [DependencyInjectionTransient]

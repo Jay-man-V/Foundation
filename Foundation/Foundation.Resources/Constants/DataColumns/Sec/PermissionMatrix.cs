@@ -7,7 +7,7 @@
 namespace Foundation.Resources.Constants.DataColumns
 {
     /// <summary>
-    /// PermissionMatrix data columns
+    /// Permission Matrix data columns
     /// </summary>
     /// <seealso cref="FoundationEntity" />
     public abstract class PermissionMatrix : FoundationEntity

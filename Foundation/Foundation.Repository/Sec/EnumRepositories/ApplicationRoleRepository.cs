@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Sec.EnumRepositories
 {
     /// <summary>
-    /// Defines the ApplicationRoleRepository Data Access class
+    /// Defines the ApplicationRoleRepository Repository class
     /// </summary>
     /// <see cref="IApplicationRole" />
     [DependencyInjectionTransient]

@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Core
 {
     /// <summary>
-    /// Defines the Language Data Access class
+    /// Defines the Language Repository class
     /// </summary>
     /// <see cref="ILanguage" />
     [DependencyInjectionTransient]

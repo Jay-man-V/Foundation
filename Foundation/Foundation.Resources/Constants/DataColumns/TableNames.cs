@@ -143,6 +143,14 @@ namespace Foundation.Resources.Constants.DataColumns
         public static String DataStatus => "[core].[DataStatus]";
 
         /// <summary>
+        /// Gets the date period.
+        /// </summary>
+        /// <value>
+        /// The date period.
+        /// </value>
+        public static String DatePeriod => "[core].[DatePeriod]";
+
+        /// <summary>
         /// Gets the department.
         /// </summary>
         /// <value>
@@ -191,10 +199,10 @@ namespace Foundation.Resources.Constants.DataColumns
         public static String NationalRegion => "[core].[NationalRegion]";
 
         /// <summary>
-        /// Gets the non working day.
+        /// Gets the non-working day.
         /// </summary>
         /// <value>
-        /// The non working day.
+        /// The non-working day.
         /// </value>
         public static String NonWorkingDay => "[core].[NonWorkingDay]";
 
@@ -323,10 +331,10 @@ namespace Foundation.Resources.Constants.DataColumns
         public static String Application => "[sec].[Application]";
 
         /// <summary>
-        /// Gets the type of the application application.
+        /// Gets the type of the application/application.
         /// </summary>
         /// <value>
-        /// The type of the application application.
+        /// The type of the application/application.
         /// </value>
         public static String ApplicationApplicationType => "[sec].[ApplicationApplicationType]";
 
@@ -347,10 +355,10 @@ namespace Foundation.Resources.Constants.DataColumns
         public static String ApplicationType => "[sec].[ApplicationType]";
 
         /// <summary>
-        /// Gets the application user role.
+        /// Gets the application/user/role.
         /// </summary>
         /// <value>
-        /// The application user role.
+        /// The application/user/role.
         /// </value>
         public static String ApplicationUserRole => "[sec].[ApplicationUserRole]";
 

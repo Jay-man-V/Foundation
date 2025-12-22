@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Core.EnumRepositories
 {
     /// <summary>
-    /// Defines the Image Type Data Access class
+    /// Defines the Image Type Repository class
     /// </summary>
     /// <see cref="IImageType" />
     [DependencyInjectionTransient]

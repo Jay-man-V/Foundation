@@ -74,6 +74,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Specialised.DatabaseSchemaColumn)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Specialised.DatabaseSchemaTable)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.DataStatus)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.DatePeriod)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.Department)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.EntityStatus)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Log.EventLog)));
@@ -342,6 +343,11 @@ namespace Foundation.Tests.Unit.Foundation.Models
                     Assert.That(logSeverity.Severity, Is.EqualTo(LogSeverity.Trace));
                 }
 
+                if (modelInstance is IDatePeriod datePeriod)
+                {
+                    Assert.That(datePeriod.Period, Is.EqualTo(DatePeriod.Days));
+                }
+
                 if (modelInstance is IRole role)
                 {
                     Assert.That(role.ApplicationRole, Is.EqualTo(ApplicationRole.ReadOnly));
@@ -542,6 +548,10 @@ namespace Foundation.Tests.Unit.Foundation.Models
             else if (propertyType == typeof(LogSeverity))
             {
                 retVal = LogSeverity.Audit;
+            }
+            else if (propertyType == typeof(DatePeriod))
+            {
+                retVal = DatePeriod.Days;
             }
             else if (propertyType == typeof(IList<IRole>))
             {

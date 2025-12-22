@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Core
 {
     /// <summary>
-    /// Defines the Contact Detail Data Access class
+    /// Defines the Contact Detail Repository class
     /// </summary>
     /// <see cref="IContactDetail" />
     [DependencyInjectionTransient]

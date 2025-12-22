@@ -108,6 +108,7 @@
     <Compile Include="Foundation.ViewModels\CoreTests\EnumProcessesTests\DataStatusViewModelTests.cs" />
     <Compile Include="Foundation.ViewModels\CoreTests\EnumProcessesTests\EntityStatusViewModelTests.cs" />
     <Compile Include="Foundation.ViewModels\CoreTests\EnumProcessesTests\ImageTypeViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\CoreTests\EnumProcessesTests\DatePeriodViewModelTests.cs" />
     <Compile Include="Foundation.ViewModels\CoreTests\EnumProcessesTests\ScheduleIntervalViewModelTests.cs" />
     <Compile Include="Foundation.ViewModels\CoreTests\EnumProcessesTests\StatusViewModelTests.cs" />
     <Compile Include="Foundation.ViewModels\CoreTests\EnumProcessesTests\TaskStatusViewModelTests.cs" />

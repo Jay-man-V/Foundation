@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Core.EnumRepositories
 {
     /// <summary>
-    /// Defines the Schedule Interval Data Access class
+    /// Defines the Schedule Interval Repository class
     /// </summary>
     /// <see cref="IScheduleInterval" />
     [DependencyInjectionTransient]

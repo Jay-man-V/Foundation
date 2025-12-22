@@ -1,33 +1,32 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="TimeZoneRepository.cs" company="JDV Software Ltd">
+// <copyright file="DatePeriodRepository.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
 using Foundation.Common;
 using Foundation.Interfaces;
-using Foundation.Repository.DataProvider;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
-namespace Foundation.Repository.Core
+namespace Foundation.Repository.Core.EnumRepositories
 {
     /// <summary>
-    /// Defines the Time Zone Repository class
+    /// Defines the Date Period Repository class
     /// </summary>
-    /// <see cref="ITimeZone" />
+    /// <see cref="IDatePeriod" />
     [DependencyInjectionTransient]
-    public class TimeZoneRepository : FoundationModelRepository<ITimeZone>, ITimeZoneRepository
+    public class DatePeriodRepository : FoundationModelRepository<IDatePeriod>, IDatePeriodRepository
     {
         /// <summary>
-        /// Initialises a new instance of the <see cref="TimeZoneRepository"/> class.
+        /// Initialises a new instance of the <see cref="DatePeriodRepository"/> class.
         /// </summary>
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
         /// <param name="coreDataProvider">The core data provider.</param>
         /// <param name="dateTimeService">The date/time service.</param>
-        public TimeZoneRepository
+        public DatePeriodRepository
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
@@ -50,9 +49,9 @@ namespace Foundation.Repository.Core
         }
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.EntityName"/>
-        protected override String EntityName => FDC.TimeZone.EntityName;
+        protected override String EntityName => FDC.DatePeriod.EntityName;
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.TableName"/>
-        protected override String TableName => FDC.TableNames.TimeZone;
+        protected override String TableName => FDC.TableNames.DatePeriod;
     }
 }

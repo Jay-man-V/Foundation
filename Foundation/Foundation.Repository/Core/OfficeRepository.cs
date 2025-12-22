@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Core
 {
     /// <summary>
-    /// Defines the Office Data Access class
+    /// Defines the Office Repository class
     /// </summary>
     /// <see cref="IOffice" />
     [DependencyInjectionTransient]

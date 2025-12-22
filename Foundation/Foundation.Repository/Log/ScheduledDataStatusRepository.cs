@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Log
 {
     /// <summary>
-    /// Defines the Scheduled Task Data Access class
+    /// Defines the Scheduled Task Repository class
     /// </summary>
     /// <see cref="IScheduledDataStatus" />
     [DependencyInjectionTransient]

@@ -263,11 +263,12 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 
             for (DateTime dateLoop = startDate; dateLoop <= endDate; dateLoop = dateLoop.AddDays(1))
             {
+                DatePeriod datePeriod = DatePeriod.Days;
                 DateTime workingDateTime = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
                 IDateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
 
-                DateTime actualStartOfPeriod = dateTimeService.GetStartOfPreviousPeriod();
-                DateTime actualEndOfPeriod = dateTimeService.GetEndOfPreviousPeriod();
+                DateTime actualStartOfPeriod = dateTimeService.GetStartOfPreviousPeriod(datePeriod);
+                DateTime actualEndOfPeriod = dateTimeService.GetEndOfPreviousPeriod(datePeriod);
             }
         }
 

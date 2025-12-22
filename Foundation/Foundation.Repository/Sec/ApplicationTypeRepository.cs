@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Sec
 {
     /// <summary>
-    /// Defines the Application Type Data Access class
+    /// Defines the Application Type Repository class
     /// </summary>
     /// <see cref="IApplicationType" />
     [DependencyInjectionTransient]

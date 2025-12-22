@@ -62,6 +62,7 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.Specialised.DatabaseSchemaColumn)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.Specialised.DatabaseSchemaTable)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.DataStatus)));
+            Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.DatePeriod)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.Department)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Log  */ nameof(FDC.EntityStatus)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Log  */ nameof(FDC.EventLog)));
@@ -469,6 +470,23 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
             index++; Assert.That(FDC.DataStatus.EntityName, Is.EqualTo(nameof(FDC.DataStatus)));
             index++; Assert.That(FDC.DataStatus.Name, Is.EqualTo(nameof(FDC.DataStatus.Name)));
             index++; Assert.That(FDC.DataStatus.Description, Is.EqualTo(nameof(FDC.DataStatus.Description)));
+
+            Assert.That(propertyInfos.Length, Is.EqualTo(index));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [TestCase]
+        public void Test_DatePeriod()
+        {
+            // This test exists to ensure all the DatePeriod are tested/checked in the next test
+            PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(FDC.DataStatus));
+            Int32 index = 0;
+
+            index++; Assert.That(FDC.DatePeriod.EntityName, Is.EqualTo(nameof(FDC.DatePeriod)));
+            index++; Assert.That(FDC.DatePeriod.Name, Is.EqualTo(nameof(FDC.DatePeriod.Name)));
+            index++; Assert.That(FDC.DatePeriod.Description, Is.EqualTo(nameof(FDC.DatePeriod.Description)));
 
             Assert.That(propertyInfos.Length, Is.EqualTo(index));
         }
@@ -1036,6 +1054,7 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
             index++; Assert.That(FDC.TableNames.Country, Is.EqualTo($"[core].[{nameof(FDC.TableNames.Country)}]"));
             index++; Assert.That(FDC.TableNames.Currency, Is.EqualTo($"[core].[{nameof(FDC.TableNames.Currency)}]"));
             index++; Assert.That(FDC.TableNames.DataStatus, Is.EqualTo($"[core].[{nameof(FDC.TableNames.DataStatus)}]"));
+            index++; Assert.That(FDC.TableNames.DatePeriod, Is.EqualTo($"[core].[{nameof(FDC.TableNames.DatePeriod)}]"));
             index++; Assert.That(FDC.TableNames.Department, Is.EqualTo($"[core].[{nameof(FDC.TableNames.Department)}]"));
             index++; Assert.That(FDC.TableNames.EntityStatus, Is.EqualTo($"[core].[{nameof(FDC.TableNames.EntityStatus)}]"));
             index++; Assert.That(FDC.TableNames.IdGenerator, Is.EqualTo($"[core].[{nameof(FDC.TableNames.IdGenerator)}]"));

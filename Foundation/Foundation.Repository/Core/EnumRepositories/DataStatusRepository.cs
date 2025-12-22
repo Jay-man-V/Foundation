@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Core.EnumRepositories
 {
     /// <summary>
-    /// Defines the Data Status Data Access class
+    /// Defines the Data Status Repository class
     /// </summary>
     /// <see cref="IDataStatus" />
     [DependencyInjectionTransient]

@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Core
 {
     /// <summary>
-    /// Defines the Scheduled Job Data Access class
+    /// Defines the Scheduled Job Repository class
     /// </summary>
     /// <see cref="IScheduledJob" />
     [DependencyInjectionTransient]

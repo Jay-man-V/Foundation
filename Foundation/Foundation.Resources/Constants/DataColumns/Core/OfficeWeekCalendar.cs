@@ -7,7 +7,7 @@
 namespace Foundation.Resources.Constants.DataColumns
 {
     /// <summary>
-    /// OFfice Week Calendar data columns
+    /// Office Week Calendar data columns
     /// </summary>
     /// <seealso cref="FoundationEntity" />
     public abstract class OfficeWeekCalendar : FoundationEntity

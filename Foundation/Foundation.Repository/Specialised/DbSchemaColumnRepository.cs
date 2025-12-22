@@ -16,7 +16,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Specialised
 {
     /// <summary>
-    /// Defines the Db Schema Column Data Access class
+    /// Defines the Db Schema Column Repository class
     /// </summary>
     /// <see cref="IDatabaseSchemaColumn" />
     [DependencyInjectionTransient]

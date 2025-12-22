@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Core
 {
     /// <summary>
-    /// Defines the World Region Data Access class
+    /// Defines the World Region Repository class
     /// </summary>
     /// <see cref="IWorldRegion" />
     [DependencyInjectionTransient]

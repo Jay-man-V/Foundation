@@ -162,7 +162,7 @@ namespace Foundation.Interfaces
         /// </para>
         /// </summary>
         /// <returns></returns>
-        DateTime GetStartOfPreviousPeriod();
+        DateTime GetStartOfPreviousPeriod(DatePeriod datePeriod);
 
         /// <summary>
         /// Gets the last date of the previous quarter
@@ -180,7 +180,7 @@ namespace Foundation.Interfaces
         /// </para>
         /// </summary>
         /// <returns></returns>
-        DateTime GetEndOfPreviousPeriod();
+        DateTime GetEndOfPreviousPeriod(DatePeriod datePeriod);
 
         /// <summary>
         /// Gets the first date of the previous quarter

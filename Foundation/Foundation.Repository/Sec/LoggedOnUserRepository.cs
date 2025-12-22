@@ -16,7 +16,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Sec
 {
     /// <summary>
-    /// Defines the LoggedOnUser Data Access class
+    /// Defines the LoggedOnUser Repository class
     /// </summary>
     /// <see cref="ILoggedOnUser" />
     [DependencyInjectionTransient]

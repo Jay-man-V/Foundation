@@ -7,7 +7,7 @@
 namespace Foundation.Resources.Constants.DataColumns
 {
     /// <summary>
-    /// Approval Status data columns
+    /// Contract data columns
     /// </summary>
     /// <seealso cref="FoundationEntity" />
     public abstract class Contract : FoundationEntity

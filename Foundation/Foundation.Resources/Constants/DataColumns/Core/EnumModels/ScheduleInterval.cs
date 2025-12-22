@@ -7,7 +7,7 @@
 namespace Foundation.Resources.Constants.DataColumns
 {
     /// <summary>
-    /// Currency data columns
+    /// Schedule Interval data columns
     /// </summary>
     /// <seealso cref="FoundationEntity" />
     public abstract class ScheduleInterval : FoundationEntity

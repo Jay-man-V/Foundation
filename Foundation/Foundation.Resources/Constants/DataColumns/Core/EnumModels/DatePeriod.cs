@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="DataStatus.cs" company="JDV Software Ltd">
+// <copyright file="DatePeriod.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -7,10 +7,10 @@
 namespace Foundation.Resources.Constants.DataColumns
 {
     /// <summary>
-    /// Data Status data columns
+    /// Date Period data columns
     /// </summary>
     /// <seealso cref="FoundationEntity" />
-    public abstract class DataStatus : FoundationEntity
+    public abstract class DatePeriod : FoundationEntity
     {
         /// <summary>
         /// 
@@ -34,7 +34,7 @@ namespace Foundation.Resources.Constants.DataColumns
         /// <value>
         /// The name of the entity.
         /// </value>
-        public static String EntityName => nameof(DataStatus);
+        public static String EntityName => nameof(DatePeriod);
 
         /// <summary>
         /// Gets the name.

@@ -7,7 +7,7 @@
 namespace Foundation.Resources.Constants.DataColumns
 {
     /// <summary>
-    /// Task Status Entity columns
+    /// Entity Status Entity columns
     /// </summary>
     /// <seealso cref="FoundationEntity" />
     public abstract class EntityStatus : FoundationEntity

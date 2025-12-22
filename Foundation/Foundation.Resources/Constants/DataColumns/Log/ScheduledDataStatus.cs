@@ -7,7 +7,7 @@
 namespace Foundation.Resources.Constants.DataColumns
 {
     /// <summary>
-    /// Scheduled Task data columns
+    /// Scheduled Data Status data columns
     /// </summary>
     /// <seealso cref="FoundationEntity" />
     public abstract class ScheduledDataStatus : FoundationEntity

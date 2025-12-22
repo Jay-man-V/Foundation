@@ -12,7 +12,7 @@ using FDC = Foundation.Resources.Constants.DataColumns;
 namespace Foundation.Repository.Core
 {
     /// <summary>
-    /// Defines the Department Data Access class
+    /// Defines the Department Repository class
     /// </summary>
     /// <see cref="IDepartment" />
     [DependencyInjectionTransient]
