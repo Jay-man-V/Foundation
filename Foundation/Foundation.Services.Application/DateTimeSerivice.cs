@@ -76,8 +76,8 @@ namespace Foundation.Services.Application
             }
         }
 
-        /// <inheritdoc cref="IDateTimeService.SystemLocalDateTimeNow"/>
-        public DateTime SystemLocalDateTimeNow
+        /// <inheritdoc cref="IDateTimeService.LocalDateTimeNow"/>
+        public DateTime LocalDateTimeNow
         {
             get
             {

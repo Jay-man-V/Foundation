@@ -105,7 +105,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         public void Test_LocalDateTimeNow()
         {
             DateTime value = InjectedLocalDateTime;
-            DateTime actualValue = TheService!.SystemLocalDateTimeNow;
+            DateTime actualValue = TheService!.LocalDateTimeNow;
 
             Assert.That(actualValue.Date, Is.EqualTo(value.Date));
             Assert.That(actualValue.TimeOfDay.Hours, Is.EqualTo(value.TimeOfDay.Hours));

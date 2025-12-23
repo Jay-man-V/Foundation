@@ -31,7 +31,7 @@ namespace Foundation.Common
             ErrorSource = String.Empty;
             UserLogon = $@"{runTimeEnvironmentSettings.UserDomainName}\{runTimeEnvironmentSettings.UserName}";
             ErrorUtcDateTime = dateTimeService.SystemUtcDateTimeNow;
-            ErrorLocalDateTime = dateTimeService.SystemLocalDateTimeNow;
+            ErrorLocalDateTime = dateTimeService.LocalDateTimeNow;
             ComputerName = runTimeEnvironmentSettings.MachineName;
             CultureInfo = CultureInfo.CurrentCulture;
             UiCultureInfo = CultureInfo.CurrentUICulture;

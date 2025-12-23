@@ -28,12 +28,12 @@ namespace Foundation.Interfaces
         DateTime SystemUtcDateTimeNow { get; }
 
         /// <summary>
-        /// Gets the system local date time now.
+        /// Gets the local date time now.
         /// </summary>
         /// <value>
-        /// The system local date time now.
+        /// The local date time now.
         /// </value>
-        DateTime SystemLocalDateTimeNow { get; }
+        DateTime LocalDateTimeNow { get; }
 
         /// <summary>
         /// Gets the system date time now.
