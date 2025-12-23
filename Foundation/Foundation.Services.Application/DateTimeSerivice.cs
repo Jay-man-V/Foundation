@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="this.cs" company="JDV Software Ltd">
+// <copyright file="DateTimeService.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -94,8 +94,8 @@ namespace Foundation.Services.Application
             }
         }
 
-        /// <inheritdoc cref="IDateTimeService.SystemDateTimeNowWithoutMilliseconds"/>
-        public DateTime SystemDateTimeNowWithoutMilliseconds
+        /// <inheritdoc cref="IDateTimeService.SystemUtcDateTimeNowWithoutMilliseconds"/>
+        public DateTime SystemUtcDateTimeNowWithoutMilliseconds
         {
             get
             {
@@ -144,7 +144,7 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetStartOfLastMonth"/>
         public DateTime GetStartOfLastMonth()
         {
-            DateTime lastMonth = this.SystemUtcDateTimeNow.AddMonths(-1);
+            DateTime lastMonth = SystemUtcDateTimeNow.AddMonths(-1);
             DateTime retVal = GetStartOfMonth(lastMonth);
 
             return retVal;
@@ -153,7 +153,7 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetEndOfLastMonth"/>
         public DateTime GetEndOfLastMonth()
         {
-            DateTime lastMonth = this.SystemUtcDateTimeNow.AddMonths(-1);
+            DateTime lastMonth = SystemUtcDateTimeNow.AddMonths(-1);
             DateTime retVal = GetEndOfMonth(lastMonth);
 
             return retVal;
@@ -162,7 +162,7 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetStartOfCurrentMonth()"/>
         public DateTime GetStartOfCurrentMonth()
         {
-            DateTime currentDateTime = this.SystemUtcDateTimeNow;
+            DateTime currentDateTime = SystemUtcDateTimeNow;
             DateTime retVal = GetStartOfMonth(currentDateTime);
 
             return retVal;
@@ -171,7 +171,7 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetEndOfCurrentMonth"/>
         public DateTime GetEndOfCurrentMonth()
         {
-            DateTime currentDateTime = this.SystemUtcDateTimeNow;
+            DateTime currentDateTime = SystemUtcDateTimeNow;
             DateTime retVal = GetEndOfMonth(currentDateTime);
 
             return retVal;
@@ -180,7 +180,7 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetStartOfNextMonth"/>
         public DateTime GetStartOfNextMonth()
         {
-            DateTime lastMonth = this.SystemUtcDateTimeNow.AddMonths(1);
+            DateTime lastMonth = SystemUtcDateTimeNow.AddMonths(1);
             DateTime retVal = GetStartOfMonth(lastMonth);
 
             return retVal;
@@ -189,7 +189,7 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetEndOfNextMonth"/>
         public DateTime GetEndOfNextMonth()
         {
-            DateTime lastMonth = this.SystemUtcDateTimeNow.AddMonths(1);
+            DateTime lastMonth = SystemUtcDateTimeNow.AddMonths(1);
             DateTime retVal = GetEndOfMonth(lastMonth);
 
             return retVal;
@@ -251,24 +251,28 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
-        /// <inheritdoc cref="IDateTimeService.GetStartOfPreviousPeriod(DatePeriod)"/>
-        public DateTime GetStartOfPreviousPeriod(DatePeriod datePeriod)
+        /// <inheritdoc cref="IDateTimeService.GetStartOfPreviousPeriod(DatePeriod, Int32)"/>
+        public DateTime GetStartOfPreviousPeriod(DatePeriod datePeriod, Int32 interval)
         {
-            LoggingHelpers.TraceCallEnter();
+            LoggingHelpers.TraceCallEnter(datePeriod, interval);
 
-            throw new NotImplementedException();
+            DateTime retVal = SystemUtcDateTimeNowWithoutMilliseconds;
 
-            LoggingHelpers.TraceCallReturn();
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
         }
 
-        /// <inheritdoc cref="IDateTimeService.GetEndOfPreviousPeriod(DatePeriod)"/>
-        public DateTime GetEndOfPreviousPeriod(DatePeriod datePeriod)
+        /// <inheritdoc cref="IDateTimeService.GetEndOfPreviousPeriod(DatePeriod, Int32)"/>
+        public DateTime GetEndOfPreviousPeriod(DatePeriod datePeriod, Int32 interval)
         {
-            LoggingHelpers.TraceCallEnter();
+            LoggingHelpers.TraceCallEnter(datePeriod, interval);
 
-            throw new NotImplementedException();
+            DateTime retVal = SystemUtcDateTimeNowWithoutMilliseconds;
 
-            LoggingHelpers.TraceCallReturn();
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
         }
 
         /// <inheritdoc cref="IDateTimeService.GetStartOfPreviousQuarter()"/>
@@ -276,7 +280,7 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter();
 
-            DateTime currentDateTime = this.SystemUtcDateTimeNow.Date;
+            DateTime currentDateTime = SystemUtcDateTimeNow.Date;
             Int32 currentYear = currentDateTime.Year;
             Int32 currentMonth = currentDateTime.Month;
 
@@ -317,7 +321,7 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter();
 
-            DateTime currentDateTime = this.SystemUtcDateTimeNow.Date;
+            DateTime currentDateTime = SystemUtcDateTimeNow.Date;
             Int32 currentYear = currentDateTime.Year;
             Int32 currentMonth = currentDateTime.Month;
 
@@ -358,7 +362,7 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter();
 
-            DateTime currentDateTime = this.SystemUtcDateTimeNow.Date;
+            DateTime currentDateTime = SystemUtcDateTimeNow.Date;
             Int32 currentYear = currentDateTime.Year;
             Int32 currentMonth = currentDateTime.Month;
 
@@ -399,7 +403,7 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter();
 
-            DateTime currentDateTime = this.SystemUtcDateTimeNow.Date;
+            DateTime currentDateTime = SystemUtcDateTimeNow.Date;
             Int32 currentYear = currentDateTime.Year;
             Int32 currentMonth = currentDateTime.Month;
 
@@ -440,7 +444,7 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter();
 
-            DateTime currentDateTime = this.SystemUtcDateTimeNow.Date;
+            DateTime currentDateTime = SystemUtcDateTimeNow.Date;
             Int32 currentYear = currentDateTime.Year;
             Int32 currentMonth = currentDateTime.Month;
 
@@ -481,7 +485,7 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter();
 
-            DateTime currentDateTime = this.SystemUtcDateTimeNow.Date;
+            DateTime currentDateTime = SystemUtcDateTimeNow.Date;
             Int32 currentYear = currentDateTime.Year;
             Int32 currentMonth = currentDateTime.Month;
 

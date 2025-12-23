@@ -131,7 +131,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         public void Test_SystemDateTimeNowWithoutMilliseconds()
         {
             DateTime value = InjectedUtcDateTime;
-            DateTime actualValue = TheService!.SystemDateTimeNowWithoutMilliseconds;
+            DateTime actualValue = TheService!.SystemUtcDateTimeNowWithoutMilliseconds;
 
             Assert.That(actualValue.Date, Is.EqualTo(value.Date));
             Assert.That(actualValue.TimeOfDay.Hours, Is.EqualTo(value.TimeOfDay.Hours));
@@ -267,8 +267,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
                 DateTime workingDateTime = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
                 IDateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
 
-                DateTime actualStartOfPeriod = dateTimeService.GetStartOfPreviousPeriod(datePeriod);
-                DateTime actualEndOfPeriod = dateTimeService.GetEndOfPreviousPeriod(datePeriod);
+                DateTime actualStartOfPeriod = dateTimeService.GetStartOfPreviousPeriod(datePeriod, 1);
+                DateTime actualEndOfPeriod = dateTimeService.GetEndOfPreviousPeriod(datePeriod, 1);
             }
         }
 

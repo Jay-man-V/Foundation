@@ -89,7 +89,7 @@ namespace Foundation.Tests.Unit.BaseClasses
 
 
             DateTimeService = Substitute.For<IDateTimeService>();
-            DateTimeService.SystemDateTimeNowWithoutMilliseconds.Returns(SystemDateTime);
+            DateTimeService.SystemUtcDateTimeNowWithoutMilliseconds.Returns(SystemDateTime);
             DateTimeService.SystemUtcDateTimeNow.Returns(SystemDateTimeMs);
             DateTimeService.SystemLocalDateTimeNow.Returns(SystemDateTimeMs);
 

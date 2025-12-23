@@ -41,7 +41,7 @@ namespace Foundation.Interfaces
         /// <value>
         /// The system date time now.
         /// </value>
-        DateTime SystemDateTimeNowWithoutMilliseconds { get; }
+        DateTime SystemUtcDateTimeNowWithoutMilliseconds { get; }
 
         /// <summary>
         /// Makes a Utc version of the supplied <paramref name="date"/>
@@ -161,8 +161,10 @@ namespace Foundation.Interfaces
         /// Month = 10...12 => Previous Quarter = 07->09, Jul, Aug, Sep
         /// </para>
         /// </summary>
+        /// <param name="datePeriod">>The <see cref="Foundation.Interfaces.DatePeriod"/></param>
+        /// <param name="interval">The number of <paramref name="datePeriod"/> to consider</param>
         /// <returns></returns>
-        DateTime GetStartOfPreviousPeriod(DatePeriod datePeriod);
+        DateTime GetStartOfPreviousPeriod(DatePeriod datePeriod, Int32 interval);
 
         /// <summary>
         /// Gets the last date of the previous quarter
@@ -179,8 +181,10 @@ namespace Foundation.Interfaces
         /// Month = 10...12 => Previous Quarter = 07->09, Jul, Aug, Sep
         /// </para>
         /// </summary>
+        /// <param name="datePeriod">>The <see cref="Foundation.Interfaces.DatePeriod"/></param>
+        /// <param name="interval">The number of <paramref name="datePeriod"/> to consider</param>
         /// <returns></returns>
-        DateTime GetEndOfPreviousPeriod(DatePeriod datePeriod);
+        DateTime GetEndOfPreviousPeriod(DatePeriod datePeriod, Int32 interval);
 
         /// <summary>
         /// Gets the first date of the previous quarter

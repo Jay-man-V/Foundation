@@ -105,7 +105,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
             ];
 
             String commandName = CommandNames.Quit;
-            DateTime parameter = DateTimeService.SystemDateTimeNowWithoutMilliseconds.AddMinutes(15);
+            DateTime parameter = DateTimeService.SystemUtcDateTimeNowWithoutMilliseconds.AddMinutes(15);
             entities[0].Command = $"{commandName}={parameter.ToString(Formats.DotNet.Iso8601DateTime)}";
             String expectedCommandMessage = $"Application will shutdown at: {parameter.ToString(Formats.DotNet.DateTimeSeconds)} for system maintenance";
 
@@ -129,7 +129,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
             ];
 
             String commandName = CommandNames.Message;
-            DateTime parameter = DateTimeService.SystemDateTimeNowWithoutMilliseconds.AddDays(1);
+            DateTime parameter = DateTimeService.SystemUtcDateTimeNowWithoutMilliseconds.AddDays(1);
             entities[0].Command = $"{commandName}={parameter.ToString(Formats.DotNet.Iso8601DateTime)}";
 
             BusinessProcess.GetLoggedOnUsers(Arg.Any<AppId>()).Returns(entities);

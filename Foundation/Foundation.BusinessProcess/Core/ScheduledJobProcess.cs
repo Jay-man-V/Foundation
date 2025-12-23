@@ -595,7 +595,7 @@ namespace Foundation.BusinessProcess.Core
                     logId = LoggingService.StartTask(Core.ApplicationId, batchName, processName, taskName);
 
                     scheduledJob.IsRunning = true;
-                    scheduledJob.LastRunDateTime = DateTimeService.SystemDateTimeNowWithoutMilliseconds;
+                    scheduledJob.LastRunDateTime = DateTimeService.SystemUtcDateTimeNowWithoutMilliseconds;
 
                     InternalRunJob(logId, scheduledJob);
                     LoggingService.EndTask(logId, LogSeverity.Success, "Job completed");
@@ -650,7 +650,7 @@ namespace Foundation.BusinessProcess.Core
                 if (scheduledJob.IsEnabled)
                 {
                     scheduledJob.IsRunning = true;
-                    scheduledJob.LastRunDateTime = DateTimeService.SystemDateTimeNowWithoutMilliseconds;
+                    scheduledJob.LastRunDateTime = DateTimeService.SystemUtcDateTimeNowWithoutMilliseconds;
 
                     scheduledTask.Process(logId, scheduledJob.TaskParameters);
                     LoggingService.EndTask(logId, LogSeverity.Success, "Job completed");

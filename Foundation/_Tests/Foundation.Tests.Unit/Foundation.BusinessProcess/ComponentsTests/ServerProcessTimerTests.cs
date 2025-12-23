@@ -33,7 +33,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.ComponentsTests
             CalendarService = Substitute.For<ICalendarService>();
 
             DateTimeService.ClearSubstitute();
-            DateTimeService.SystemDateTimeNowWithoutMilliseconds.Returns(new DateTime(2022, 11, 27, 23, 11, 54));
+            DateTimeService.SystemUtcDateTimeNowWithoutMilliseconds.Returns(new DateTime(2022, 11, 27, 23, 11, 54));
             DateTimeService.SystemUtcDateTimeNow.Returns(new DateTime(2022, 11, 27, 23, 11, 54, 300));
 
             SchedulerSupport.Core = Core;

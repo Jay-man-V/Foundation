@@ -72,7 +72,7 @@ namespace Foundation.ViewModels.Main
             Detail = "<Detail>";
 
             ComputerName = "<Computer Name>";
-            MessageDateTime = DateTimeService.SystemDateTimeNowWithoutMilliseconds;
+            MessageDateTime = DateTimeService.SystemUtcDateTimeNowWithoutMilliseconds;
             UserLogon = "<User logon>";
 
             // All buttons are collapsed by default except Close
