@@ -131,7 +131,6 @@ namespace Foundation.Common
 
             switch (scheduleInterval)
             {
-                case ScheduleInterval.NotSet: retVal = retVal.AddMilliseconds(interval); break;
                 case ScheduleInterval.Milliseconds: retVal = retVal.AddMilliseconds(interval); break;
                 case ScheduleInterval.Seconds: retVal = retVal.AddSeconds(interval); break;
                 case ScheduleInterval.Minutes: retVal = retVal.AddMinutes(interval); break;
@@ -180,6 +179,34 @@ namespace Foundation.Common
 
             // Finally, add the remaining minutes
             retVal = retVal.Add(adjustingTimeSpan);
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Adds an <paramref name="interval"/> to the <paramref name="currentValue"/>.
+        /// The time portion of the <paramref name="currentValue"/> is reset to 00:00:00
+        /// </summary>
+        /// <param name="currentValue">The current value.</param>
+        /// <param name="datePeriod"><see cref="DatePeriod"/> describing the <paramref name="interval"/></param>
+        /// <param name="interval">Value to add to <paramref name="currentValue"/></param>
+        /// <returns></returns>
+        public static DateTime Add(this DateTime currentValue, DatePeriod datePeriod, Int32 interval)
+        {
+            DateTime retVal = currentValue.Date;
+
+            switch (datePeriod)
+            {
+                case DatePeriod.Days: retVal = retVal.Date.AddDays(interval); break;
+                case DatePeriod.Weeks: retVal = retVal.Date.AddWeeks(interval); break;
+                case DatePeriod.Months: retVal = retVal.Date.AddMonths(interval); break;
+                case DatePeriod.Years: retVal = retVal.Date.AddYears(interval); break;
+                default:
+                {
+                    String errorMessage = $"The Date Period of '{datePeriod}' is unknown or invalid for the chosen Add method";
+                    throw new ArgumentException(errorMessage, nameof(datePeriod));
+                }
+            }
 
             return retVal;
         }

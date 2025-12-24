@@ -147,7 +147,8 @@ namespace Foundation.Interfaces
         DateTime GetEndOfMonth(Int32 year, Int32 month);
 
         /// <summary>
-        /// TODO: Gets the first date of the previous period
+        /// Gets the first date of the previous period.
+        /// It uses the current date to determine the previous period based on the supplied <paramref name="datePeriod"/>
         /// <para>
         /// Month = 01...03 => Previous Quarter = 10->12, Oct, Nov, Dec
         /// </para>
@@ -168,6 +169,7 @@ namespace Foundation.Interfaces
 
         /// <summary>
         /// Gets the last date of the previous quarter
+        /// It uses the current date to determine the previous period based on the supplied <paramref name="datePeriod"/>
         /// <para>
         /// Month = 01...03 => Previous Quarter = 10->12, Oct, Nov, Dec
         /// </para>
