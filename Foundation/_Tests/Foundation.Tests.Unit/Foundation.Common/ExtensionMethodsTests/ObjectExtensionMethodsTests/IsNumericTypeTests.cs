@@ -26,7 +26,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.ObjectEx
 
             Assert.That(actualResult, Is.EqualTo(true));
 
-            Object anObject2 = default(Int16);
+            Object anObject2 = (Int16)0;
 
             Boolean actualResult2 = anObject2.IsNumericType();
 
@@ -42,7 +42,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.ObjectEx
 
             Assert.That(actualResult, Is.EqualTo(true));
 
-            Object anObject2 = default(UInt16);
+            Object anObject2 = (UInt16)0;
 
             Boolean actualResult2 = anObject2.IsNumericType();
 
@@ -58,7 +58,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.ObjectEx
 
             Assert.That(actualResult, Is.EqualTo(true));
 
-            Object anObject2 = default(Int32);
+            Object anObject2 = 0;
 
             Boolean actualResult2 = anObject2.IsNumericType();
 
@@ -74,7 +74,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.ObjectEx
 
             Assert.That(actualResult, Is.EqualTo(true));
 
-            Object anObject2 = default(UInt32);
+            Object anObject2 = (UInt32)0;
 
             Boolean actualResult2 = anObject2.IsNumericType();
 
@@ -90,7 +90,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.ObjectEx
 
             Assert.That(actualResult, Is.EqualTo(true));
 
-            Object anObject2 = default(Int64);
+            Object anObject2 = (Int64)0;
 
             Boolean actualResult2 = anObject2.IsNumericType();
 
@@ -106,7 +106,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.ObjectEx
 
             Assert.That(actualResult, Is.EqualTo(true));
 
-            Object anObject2 = default(UInt64);
+            Object anObject2 = (UInt64)0;
 
             Boolean actualResult2 = anObject2.IsNumericType();
 
@@ -122,7 +122,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.ObjectEx
 
             Assert.That(actualResult, Is.EqualTo(true));
 
-            Object anObject2 = default(Decimal);
+            Object anObject2 = (Decimal)0;
 
             Boolean actualResult2 = anObject2.IsNumericType();
 
@@ -138,7 +138,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.ObjectEx
 
             Assert.That(actualResult, Is.EqualTo(true));
 
-            Object anObject2 = default(Double);
+            Object anObject2 = (Double)0;
 
             Boolean actualResult2 = anObject2.IsNumericType();
 
@@ -154,7 +154,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.ObjectEx
 
             Assert.That(actualResult, Is.EqualTo(true));
 
-            Object anObject2 = default(Single);
+            Object anObject2 = (Single)0;
 
             Boolean actualResult2 = anObject2.IsNumericType();
 
@@ -170,7 +170,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.ObjectEx
 
             Assert.That(actualResult, Is.EqualTo(true));
 
-            Object anObject2 = default(SByte);
+            Object anObject2 = (SByte)0;
 
             Boolean actualResult2 = anObject2.IsNumericType();
 
@@ -186,7 +186,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.ObjectEx
 
             Assert.That(actualResult, Is.EqualTo(true));
 
-            Object anObject2 = default(Byte);
+            Object anObject2 = (Byte)0;
 
             Boolean actualResult2 = anObject2.IsNumericType();
 
