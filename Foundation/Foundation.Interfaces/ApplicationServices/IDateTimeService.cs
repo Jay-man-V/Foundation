@@ -28,14 +28,6 @@ namespace Foundation.Interfaces
         DateTime SystemUtcDateTimeNow { get; }
 
         /// <summary>
-        /// Gets the local date time now.
-        /// </summary>
-        /// <value>
-        /// The local date time now.
-        /// </value>
-        DateTime LocalDateTimeNow { get; }
-
-        /// <summary>
         /// Gets the system date time now.
         /// </summary>
         /// <value>
@@ -44,11 +36,19 @@ namespace Foundation.Interfaces
         DateTime SystemUtcDateTimeNowWithoutMilliseconds { get; }
 
         /// <summary>
-        /// Makes a Utc version of the supplied <paramref name="date"/>
+        /// Gets the local date time now.
         /// </summary>
-        /// <param name="date"></param>
+        /// <value>
+        /// The local date time now.
+        /// </value>
+        DateTime LocalDateTimeNow { get; }
+
+        /// <summary>
+        /// Makes a Utc version of the supplied <paramref name="dateTime"/>
+        /// </summary>
+        /// <param name="dateTime"></param>
         /// <returns></returns>
-        DateTime MakeUtcDateTime(DateTime date);
+        DateTime MakeUtcDateTime(DateTime dateTime);
 
         /// <summary>
         /// Makes a Utc version of the supplied <paramref name="date"/> and <paramref name="time"/>
@@ -148,45 +148,29 @@ namespace Foundation.Interfaces
 
         /// <summary>
         /// Gets the first date of the previous period.
-        /// It uses the current date to determine the previous period based on the supplied <paramref name="datePeriod"/>
-        /// <para>
-        /// Month = 01...03 => Previous Quarter = 10->12, Oct, Nov, Dec
-        /// </para>
-        /// <para>
-        /// Month = 04...06 => Previous Quarter = 01->03, Jan, Feb, Mar
-        /// </para>
-        /// <para>
-        /// Month = 07...09 => Previous Quarter = 04->06, Apr, May, Jun
-        /// </para>
-        /// <para>
-        /// Month = 10...12 => Previous Quarter = 07->09, Jul, Aug, Sep
-        /// </para>
+        /// It uses the current date to determine the rolling period based on the supplied <paramref name="datePeriod"/>
+        /// <example>
+        /// If today is 15th June 2024.
+        /// StartOfRollingPeriod(DatePeriod.Months, 3) => 1st March 2024
+        /// </example>
         /// </summary>
-        /// <param name="datePeriod">>The <see cref="Foundation.Interfaces.DatePeriod"/></param>
+        /// <param name="datePeriod">>The <see cref="DatePeriod"/></param>
         /// <param name="interval">The number of <paramref name="datePeriod"/> to consider</param>
         /// <returns></returns>
-        DateTime GetStartOfPreviousPeriod(DatePeriod datePeriod, Int32 interval);
+        DateTime GetStartOfRollingPeriod(DatePeriod datePeriod, Int32 interval);
 
         /// <summary>
-        /// Gets the last date of the previous quarter
-        /// It uses the current date to determine the previous period based on the supplied <paramref name="datePeriod"/>
-        /// <para>
-        /// Month = 01...03 => Previous Quarter = 10->12, Oct, Nov, Dec
-        /// </para>
-        /// <para>
-        /// Month = 04...06 => Previous Quarter = 01->03, Jan, Feb, Mar
-        /// </para>
-        /// <para>
-        /// Month = 07...09 => Previous Quarter = 04->06, Apr, May, Jun
-        /// </para>
-        /// <para>
-        /// Month = 10...12 => Previous Quarter = 07->09, Jul, Aug, Sep
-        /// </para>
+        /// Gets the last date of the Rolling Period
+        /// It uses the current date to determine the rolling period based on the supplied <paramref name="datePeriod"/>
+        /// <example>
+        /// If today is 15th June 2024.
+        /// EndOfRollingPeriod(DatePeriod.Months, 3) => 30th April 2024
+        /// </example>
         /// </summary>
-        /// <param name="datePeriod">>The <see cref="Foundation.Interfaces.DatePeriod"/></param>
+        /// <param name="datePeriod">>The <see cref="DatePeriod"/></param>
         /// <param name="interval">The number of <paramref name="datePeriod"/> to consider</param>
         /// <returns></returns>
-        DateTime GetEndOfPreviousPeriod(DatePeriod datePeriod, Int32 interval);
+        DateTime GetEndOfRollingPeriod(DatePeriod datePeriod, Int32 interval);
 
         /// <summary>
         /// Gets the first date of the previous quarter

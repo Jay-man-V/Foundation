@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Globalization;
+
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Services.Application;
@@ -255,21 +257,35 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(actualValue, Is.EqualTo(value));
         }
 
-        [TestCase]
-        public void Test_GetPreviousPeriod()
+        [TestCase("2022-11-28", "2022-11-22", "2022-11-27", DatePeriod.Days, 5)]
+        [TestCase("2022-11-28", "2022-11-17", "2022-11-27", DatePeriod.Days, 10)]
+        [TestCase("2022-11-28", "2022-11-12", "2022-11-27", DatePeriod.Days, 15)]
+        [TestCase("2022-11-28", "2022-11-07", "2022-11-27", DatePeriod.Days, 20)]
+        [TestCase("2022-11-28", "2022-10-17", "2022-11-21", DatePeriod.Weeks, 5)]
+        [TestCase("2022-11-28", "2022-09-12", "2022-11-21", DatePeriod.Weeks, 10)]
+        [TestCase("2022-11-28", "2022-08-08", "2022-11-21", DatePeriod.Weeks, 15)]
+        [TestCase("2022-11-28", "2022-07-04", "2022-11-21", DatePeriod.Weeks, 20)]
+        [TestCase("2022-11-28", "2022-05-01", "2022-10-31", DatePeriod.Months, 5)]
+        [TestCase("2022-11-28", "2021-12-01", "2022-10-31", DatePeriod.Months, 10)]
+        [TestCase("2022-11-28", "2021-07-01", "2022-10-31", DatePeriod.Months, 15)]
+        [TestCase("2022-11-28", "2021-02-01", "2022-10-31", DatePeriod.Months, 20)]
+        [TestCase("2022-11-28", "2016-11-01", "2021-11-30", DatePeriod.Years, 5)]
+        [TestCase("2022-11-28", "2011-11-01", "2021-11-30", DatePeriod.Years, 10)]
+        [TestCase("2022-11-28", "2006-11-01", "2021-11-30", DatePeriod.Years, 15)]
+        [TestCase("2022-11-28", "2001-11-01", "2021-11-30", DatePeriod.Years, 20)]
+        public void Test_GetRollingPeriod(String workingDateString, String expectedStartDateString, String expectedEndDateString, DatePeriod datePeriod, Int32 interval)
         {
-            DateTime startDate = new DateTime(2023, 01, 01);
-            DateTime endDate = new DateTime(2025, 12, 31);
+            DateTime expectedStartDate = DateTime.ParseExact(expectedStartDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime expectedEndDate = DateTime.ParseExact(expectedEndDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime workingDate = DateTime.ParseExact(workingDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
-            for (DateTime dateLoop = startDate; dateLoop <= endDate; dateLoop = dateLoop.AddDays(1))
-            {
-                DatePeriod datePeriod = DatePeriod.Days;
-                DateTime workingDateTime = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
-                IDateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
+            IDateTimeService dateTimeService = new DateTimeService(workingDate, workingDate);
 
-                DateTime actualStartOfPeriod = dateTimeService.GetStartOfPreviousPeriod(datePeriod, 1);
-                DateTime actualEndOfPeriod = dateTimeService.GetEndOfPreviousPeriod(datePeriod, 1);
-            }
+            DateTime actualStartOfPeriod = dateTimeService.GetStartOfRollingPeriod(datePeriod, interval);
+            DateTime actualEndOfPeriod = dateTimeService.GetEndOfRollingPeriod(datePeriod, interval);
+
+            Assert.That(actualStartOfPeriod, Is.EqualTo(expectedStartDate));
+            Assert.That(actualEndOfPeriod, Is.EqualTo(expectedEndDate));
         }
 
         [TestCase]

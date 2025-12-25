@@ -76,6 +76,17 @@ namespace Foundation.Services.Application
             }
         }
 
+        /// <inheritdoc cref="IDateTimeService.SystemUtcDateTimeNowWithoutMilliseconds"/>
+        public DateTime SystemUtcDateTimeNowWithoutMilliseconds
+        {
+            get
+            {
+                DateTime retVal = SystemUtcDateTimeNow;
+                retVal = retVal.AddTicks(-(retVal.Ticks % TimeSpan.TicksPerSecond));
+                return retVal;
+            }
+        }
+
         /// <inheritdoc cref="IDateTimeService.LocalDateTimeNow"/>
         public DateTime LocalDateTimeNow
         {
@@ -94,23 +105,12 @@ namespace Foundation.Services.Application
             }
         }
 
-        /// <inheritdoc cref="IDateTimeService.SystemUtcDateTimeNowWithoutMilliseconds"/>
-        public DateTime SystemUtcDateTimeNowWithoutMilliseconds
-        {
-            get
-            {
-                DateTime retVal = SystemUtcDateTimeNow;
-                retVal = retVal.AddTicks(-(retVal.Ticks % TimeSpan.TicksPerSecond));
-                return retVal;
-            }
-        }
-
         /// <inheritdoc cref="IDateTimeService.MakeUtcDateTime(DateTime)"/>
-        public DateTime MakeUtcDateTime(DateTime date)
+        public DateTime MakeUtcDateTime(DateTime dateTime)
         {
-            LoggingHelpers.TraceCallEnter(date);
+            LoggingHelpers.TraceCallEnter(dateTime);
 
-            DateTime retVal = MakeUtcDateTime(date, date.TimeOfDay);
+            DateTime retVal = MakeUtcDateTime(dateTime.Date, dateTime.TimeOfDay);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -251,24 +251,40 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
-        /// <inheritdoc cref="IDateTimeService.GetStartOfPreviousPeriod(DatePeriod, Int32)"/>
-        public DateTime GetStartOfPreviousPeriod(DatePeriod datePeriod, Int32 interval)
+        /// <inheritdoc cref="IDateTimeService.GetStartOfRollingPeriod(DatePeriod, Int32)"/>
+        public DateTime GetStartOfRollingPeriod(DatePeriod datePeriod, Int32 interval)
         {
             LoggingHelpers.TraceCallEnter(datePeriod, interval);
 
-            DateTime retVal = SystemUtcDateTimeNowWithoutMilliseconds;
+            DateTime workingDate = SystemUtcDateTimeNow.Date.Add(datePeriod, (interval * -1) -1);
+            DateTime retVal = workingDate;
+            switch (datePeriod)
+            {
+                case DatePeriod.Days: /* No change needed */ break;
+                case DatePeriod.Weeks: /* No change needed */ break;
+                case DatePeriod.Months:
+                case DatePeriod.Years: retVal = GetStartOfMonth(retVal); break;
+            }
 
             LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
 
-        /// <inheritdoc cref="IDateTimeService.GetEndOfPreviousPeriod(DatePeriod, Int32)"/>
-        public DateTime GetEndOfPreviousPeriod(DatePeriod datePeriod, Int32 interval)
+        /// <inheritdoc cref="IDateTimeService.GetEndOfRollingPeriod(DatePeriod, Int32)"/>
+        public DateTime GetEndOfRollingPeriod(DatePeriod datePeriod, Int32 interval)
         {
             LoggingHelpers.TraceCallEnter(datePeriod, interval);
 
-            DateTime retVal = SystemUtcDateTimeNowWithoutMilliseconds;
+            DateTime workingDate = SystemUtcDateTimeNow.Date.Add(datePeriod, -1);
+            DateTime retVal = workingDate;
+            switch (datePeriod)
+            {
+                case DatePeriod.Days: /* No change needed */ break;
+                case DatePeriod.Weeks: /* No change needed */ break;
+                case DatePeriod.Months:
+                case DatePeriod.Years: retVal = GetEndOfMonth(retVal); break;
+            }
 
             LoggingHelpers.TraceCallReturn(retVal);
 
