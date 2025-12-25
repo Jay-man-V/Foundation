@@ -1051,7 +1051,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [TestCase(ScheduleInterval.NotSet, 100, "2022-11-28 09:00:00.000")]
         [TestCase(ScheduleInterval.Milliseconds, 0, "2022-11-28 09:00:00.000")]
         [TestCase(ScheduleInterval.Milliseconds, 100, "2022-11-28 09:00:00.000")]
         [TestCase(ScheduleInterval.Seconds, 30, "2022-11-28 09:00:00.000")]
@@ -1106,7 +1105,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             Assert.That(actualNextRun, Is.EqualTo(expectedNextRunDateTime));
         }
 
-        [TestCase(ScheduleInterval.NotSet, 100, "2022-11-28 09:00:00.000")]
         [TestCase(ScheduleInterval.Milliseconds, 0, "2022-11-28 09:00:00.000")]
         [TestCase(ScheduleInterval.Milliseconds, 100, "2022-11-28 09:00:00.000")]
         [TestCase(ScheduleInterval.Seconds, 30, "2022-11-28 09:00:00.000")]
@@ -1161,7 +1159,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             Assert.That(actualNextRun, Is.EqualTo(expectedNextRunDateTime));
         }
 
-        [TestCase(ScheduleInterval.NotSet, 100, "2022-11-28 09:00:00.000")]
         [TestCase(ScheduleInterval.Milliseconds, 0, "2022-11-28 09:00:00.000")]
         [TestCase(ScheduleInterval.Milliseconds, 100, "2022-11-28 09:00:00.000")]
         [TestCase(ScheduleInterval.Seconds, 30, "2022-11-28 09:00:00.000")]

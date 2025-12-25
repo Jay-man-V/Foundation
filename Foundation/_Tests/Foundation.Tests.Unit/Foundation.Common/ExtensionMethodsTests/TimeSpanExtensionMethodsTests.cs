@@ -20,7 +20,6 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
     public class TimeSpanExtensionMethodsTests : UnitTestBase
     {
         [TestCase("0,0,0,0,0", 0, ScheduleInterval.Other)]
-        [TestCase("0,0,0,0,50000", 50 * 1000, ScheduleInterval.NotSet)]
         [TestCase("0,0,0,0,10000", 10 * 1000, ScheduleInterval.Milliseconds)]
         [TestCase("0,0,0,30,0", 30, ScheduleInterval.Seconds)]
         [TestCase("0,0,3,0,0", 3, ScheduleInterval.Minutes)]
@@ -43,26 +42,19 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
         [TestCase]
         public void Test_Add_Exception()
         {
-            //const ScheduleType scheduleType = ScheduleType.NotSet;
-            //DateTime startDateTime = new DateTime(2020, 12, 24, 15, 48, 55);
-            //TimeSpan startTime = new TimeSpan(1, 2, 3);
-            //Exception actualException = null;
+            ScheduleInterval scheduleInterval = ScheduleInterval.NotSet;
+            String paramName = nameof(scheduleInterval);
+            
+            String errorMessage = $"The Schedule Interval of '{scheduleInterval}' is unknown or invalid for the chosen Add method (Parameter '{paramName}')";
 
-            //String errorMessage = $"The Schedule Type of '{scheduleType}' is unknown or invalid for the chosen Add method (Parameter 'scheduleType')";
+            ArgumentException actualException = Assert.Throws<ArgumentException>(() =>
+            {
+                TimeSpan startTimeSpan = TimeSpan.Zero;
+                _ = startTimeSpan.Add(scheduleInterval, 10_000);
+            });
 
-            //try
-            //{
-            //    DateTime actualRunDateTime = startDateTime.Add(scheduleType, interval, startTime);
-            //}
-            //catch (Exception exception)
-            //{
-            //    actualException = exception;
-            //}
-
-            //Assert.That(actualException, Is.Not.EqualTo(null));
-            //Assert.That(actualException, Is.InstanceOf<ArgumentException>());
-
-            //Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException, Is.InstanceOf<ArgumentException>());
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
         [TestCase(true, "20:10:00", "20:00:00", "21:00:00", "True")]
