@@ -9,6 +9,7 @@ using NSubstitute;
 using Foundation.Interfaces;
 using Foundation.Models.Core;
 using Foundation.Services.Application;
+
 using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application.ApplicationConfigurationServiceTests

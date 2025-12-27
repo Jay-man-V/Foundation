@@ -8,11 +8,8 @@ using System.Reflection;
 using System.Resources;
 using System.Text;
 
-using NSubstitute;
-
 using Foundation.Common;
 using Foundation.Interfaces;
-using Foundation.Resources;
 using Foundation.Services.Application;
 
 using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
