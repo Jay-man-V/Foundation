@@ -17,10 +17,12 @@ namespace Foundation.Services.Application
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="startOfWeek"></param>
         /// <param name="injectedSystemUtcDateTime"></param>
         /// <param name="injectedSystemLocalDateTime"></param>
         internal DateTimeService
         (
+            DayOfWeek startOfWeek,
             DateTime injectedSystemUtcDateTime,
             DateTime injectedSystemLocalDateTime
         ) :
@@ -28,14 +30,18 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter();
 
+            UseInjectedValues = true;
+
+            InjectedStartOfWeek = startOfWeek;
             InjectedSystemUtcDateTime = injectedSystemUtcDateTime;
             InjectedSystemLocalDateTime = injectedSystemLocalDateTime;
-            UseInjectedSystemDateTime = true;
 
             LoggingHelpers.TraceCallReturn();
         }
 
-        private Boolean UseInjectedSystemDateTime { get; }
+        private Boolean UseInjectedValues { get; }
+
+        private DayOfWeek InjectedStartOfWeek { get; }
         private DateTime InjectedSystemUtcDateTime { get; }
         private DateTime InjectedSystemLocalDateTime { get; }
 #endif
@@ -56,7 +62,22 @@ namespace Foundation.Services.Application
         }
 
         /// <inheritdoc cref="IDateTimeService.StartOfWeek"/>
-        public DayOfWeek StartOfWeek => DayOfWeek.Monday;
+        public DayOfWeek StartOfWeek
+        {
+            get
+            {
+                DayOfWeek retVal = DayOfWeek.Monday;
+
+#if (DEBUG)
+                if (UseInjectedValues)
+                {
+                    retVal = InjectedStartOfWeek;
+                }
+#endif
+
+                return retVal;
+            }
+        }
 
         /// <inheritdoc cref="IDateTimeService.SystemUtcDateTimeNow"/>
         public DateTime SystemUtcDateTimeNow
@@ -66,7 +87,7 @@ namespace Foundation.Services.Application
                 DateTime retVal = DateTime.UtcNow;
 
 #if (DEBUG)
-                if (UseInjectedSystemDateTime)
+                if (UseInjectedValues)
                 {
                     retVal = InjectedSystemUtcDateTime;
                 }
@@ -95,7 +116,7 @@ namespace Foundation.Services.Application
                 DateTime retVal = DateTime.Now;
 
 #if (DEBUG)
-                if (UseInjectedSystemDateTime)
+                if (UseInjectedValues)
                 {
                     retVal = InjectedSystemLocalDateTime;
                 }
@@ -135,6 +156,116 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallEnter(date, hours, minutes, seconds);
 
             DateTime retVal = new DateTime(date.Year, date.Month, date.Day, hours, minutes, seconds, DateTimeKind.Utc);
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetStartOfLastWeek()"/>
+        public DateTime GetStartOfLastWeek()
+        {
+            DateTime lastWeek = SystemUtcDateTimeNow.AddWeeks(-1);
+            DateTime retVal = GetStartOfWeek(lastWeek);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetEndOfLastWeek()"/>
+        public DateTime GetEndOfLastWeek()
+        {
+            DateTime lastWeek = SystemUtcDateTimeNow.AddWeeks(-1);
+            DateTime retVal = GetEndOfWeek(lastWeek);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetStartOfCurrentWeek()"/>
+        public DateTime GetStartOfCurrentWeek()
+        {
+            DateTime currentDateTime = SystemUtcDateTimeNow;
+            DateTime retVal = GetStartOfWeek(currentDateTime);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetEndOfCurrentWeek()"/>
+        public DateTime GetEndOfCurrentWeek()
+        {
+            DateTime currentDateTime = SystemUtcDateTimeNow;
+            DateTime retVal = GetEndOfWeek(currentDateTime);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetStartOfNextWeek()"/>
+        public DateTime GetStartOfNextWeek()
+        {
+            DateTime lastWeek = SystemUtcDateTimeNow.AddWeeks(1);
+            DateTime retVal = GetStartOfWeek(lastWeek);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetEndOfNextWeek()"/>
+        public DateTime GetEndOfNextWeek()
+        {
+            DateTime lastWeek = SystemUtcDateTimeNow.AddWeeks(1);
+            DateTime retVal = GetEndOfWeek(lastWeek);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetStartOfWeek(Int32, Int32, Int32)"/>
+        public DateTime GetStartOfWeek(Int32 year, Int32 month, Int32 day)
+        {
+            LoggingHelpers.TraceCallEnter(year, month, day);
+
+            DateTime workingDate = new DateTime(year, month, day);
+            DateTime retVal = GetStartOfWeek(workingDate);
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetStartOfWeek(DateTime)"/>
+        public DateTime GetStartOfWeek(DateTime targetDate)
+        {
+            LoggingHelpers.TraceCallEnter(targetDate);
+
+            Int32 adjustment = ((Int32)targetDate.DayOfWeek - (Int32)StartOfWeek);
+            if (adjustment < 0) adjustment += 7;
+
+            DateTime retVal = targetDate.AddDays(adjustment * -1);
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetEndOfWeek(Int32, Int32, Int32)"/>
+        public DateTime GetEndOfWeek(Int32 year, Int32 month, Int32 day)
+        {
+            LoggingHelpers.TraceCallEnter(year, month, day);
+
+            DateTime workingDate = new DateTime(year, month, day);
+            DateTime retVal = GetEndOfWeek(workingDate);
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetEndOfWeek(DateTime)"/>
+        public DateTime GetEndOfWeek(DateTime targetDate)
+        {
+            LoggingHelpers.TraceCallEnter(targetDate);
+
+            Int32 adjustment = 6 - ((Int32)targetDate.DayOfWeek - (Int32)StartOfWeek);
+            if (adjustment == 7) adjustment = 0;
+
+            DateTime retVal = targetDate.AddDays(adjustment);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -196,12 +327,12 @@ namespace Foundation.Services.Application
         }
 
         /// <inheritdoc cref="IDateTimeService.GetStartOfMonth(DateTime)"/>
-        public DateTime GetStartOfMonth(DateTime targetMonth)
+        public DateTime GetStartOfMonth(DateTime targetDate)
         {
-            LoggingHelpers.TraceCallEnter(targetMonth);
+            LoggingHelpers.TraceCallEnter(targetDate);
 
-            Int32 year = targetMonth.Year;
-            Int32 month = targetMonth.Month;
+            Int32 year = targetDate.Year;
+            Int32 month = targetDate.Month;
 
             DateTime retVal = GetStartOfMonth(year, month);
 
@@ -223,12 +354,12 @@ namespace Foundation.Services.Application
         }
 
         /// <inheritdoc cref="IDateTimeService.GetEndOfMonth(DateTime)"/>
-        public DateTime GetEndOfMonth(DateTime targetMonth)
+        public DateTime GetEndOfMonth(DateTime targetDate)
         {
-            LoggingHelpers.TraceCallEnter(targetMonth);
+            LoggingHelpers.TraceCallEnter(targetDate);
 
-            Int32 year = targetMonth.Year;
-            Int32 month = targetMonth.Month;
+            Int32 year = targetDate.Year;
+            Int32 month = targetDate.Month;
 
             DateTime retVal = GetEndOfMonth(year, month);
 

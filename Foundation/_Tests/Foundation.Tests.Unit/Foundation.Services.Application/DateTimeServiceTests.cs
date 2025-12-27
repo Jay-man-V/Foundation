@@ -20,6 +20,9 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
     [TestFixture]
     public class DateTimeServiceTests : UnitTestBase
     {
+        DateTime StartDate => new DateTime(2023, 01, 01);
+        DateTime EndDate => new DateTime(2025, 12, 31);
+
         private IDateTimeService? TheService { get; set; }
         private DateTime InjectedUtcDateTime { get; set; }
         private DateTime InjectedLocalDateTime { get; set; }
@@ -31,7 +34,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             InjectedUtcDateTime = SystemDateTime;
             InjectedLocalDateTime = SystemDateTime;
 
-            TheService = new DateTimeService(InjectedUtcDateTime, InjectedLocalDateTime);
+            TheService = new DateTimeService(DayOfWeek.Monday, InjectedUtcDateTime, InjectedLocalDateTime);
         }
 
         public override void TestCleanup()
@@ -141,145 +144,211 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(actualValue.TimeOfDay.Seconds, Is.EqualTo(value.TimeOfDay.Seconds));
         }
 
-        [TestCase]
-        public void Test_GetStartOfLastMonth()
+        [TestCase("2025-12-14", "2025-12-20", "2025-12-26", DayOfWeek.Sunday)]
+        [TestCase("2025-12-15", "2025-12-21", "2025-12-26", DayOfWeek.Monday)]
+        [TestCase("2025-12-16", "2025-12-22", "2025-12-26", DayOfWeek.Tuesday)]
+        [TestCase("2025-12-17", "2025-12-23", "2025-12-26", DayOfWeek.Wednesday)]
+        [TestCase("2025-12-18", "2025-12-24", "2025-12-26", DayOfWeek.Thursday)]
+        [TestCase("2025-12-19", "2025-12-25", "2025-12-26", DayOfWeek.Friday)]
+        [TestCase("2025-12-13", "2025-12-19", "2025-12-26", DayOfWeek.Saturday)]
+        public void Test_GetStartOfLastWeek_GetEndOfLastWeek(String expectedStartOfWeekString, String expectedEndOfWeekString, String workingDateString, DayOfWeek newStartOfWeek)
         {
-            DateTime workingDate = DateTimeService.SystemUtcDateTimeNow.AddMonths(-1);
-            Int32 year = workingDate.Year;
-            Int32 month = workingDate.Month;
+            DateTime expectedStartOfWeek = DateTime.ParseExact(expectedStartOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime expectedEndOfWeek = DateTime.ParseExact(expectedEndOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime workingDate = DateTime.ParseExact(workingDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
-            DateTime value = new DateTime(year, month, 1);
-            DateTime actualValue = TheService!.GetStartOfLastMonth();
+            IDateTimeService dateTimeService = new DateTimeService(newStartOfWeek, workingDate, workingDate);
 
-            Assert.That(actualValue, Is.EqualTo(value));
+            DateTime actualStartOfWeek1 = dateTimeService.GetStartOfLastWeek();
+            Assert.That(actualStartOfWeek1, Is.EqualTo(expectedStartOfWeek));
+
+            DateTime actualEndOfWeek1 = dateTimeService.GetEndOfLastWeek();
+            Assert.That(actualEndOfWeek1, Is.EqualTo(expectedEndOfWeek));
+        }
+
+        [TestCase("2025-12-21", "2025-12-27", "2025-12-26", DayOfWeek.Sunday)]
+        [TestCase("2025-12-22", "2025-12-28", "2025-12-26", DayOfWeek.Monday)]
+        [TestCase("2025-12-23", "2025-12-29", "2025-12-26", DayOfWeek.Tuesday)]
+        [TestCase("2025-12-24", "2025-12-30", "2025-12-26", DayOfWeek.Wednesday)]
+        [TestCase("2025-12-25", "2025-12-31", "2025-12-26", DayOfWeek.Thursday)]
+        [TestCase("2025-12-26", "2026-01-01", "2025-12-26", DayOfWeek.Friday)]
+        [TestCase("2025-12-20", "2025-12-26", "2025-12-26", DayOfWeek.Saturday)]
+        public void Test_GetStartOfCurrentWeek_GetEndOfCurrentWeek(String expectedStartOfWeekString, String expectedEndOfWeekString, String workingDateString, DayOfWeek newStartOfWeek)
+        {
+            DateTime expectedStartOfWeek = DateTime.ParseExact(expectedStartOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime expectedEndOfWeek = DateTime.ParseExact(expectedEndOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime workingDate = DateTime.ParseExact(workingDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+            IDateTimeService dateTimeService = new DateTimeService(newStartOfWeek, workingDate, workingDate);
+
+            DateTime actualStartOfWeek1 = dateTimeService.GetStartOfCurrentWeek();
+            Assert.That(actualStartOfWeek1, Is.EqualTo(expectedStartOfWeek));
+
+            DateTime actualEndOfWeek1 = dateTimeService.GetEndOfCurrentWeek();
+            Assert.That(actualEndOfWeek1, Is.EqualTo(expectedEndOfWeek));
+        }
+
+        [TestCase("2025-12-21", "2025-12-27", "2025-12-26", DayOfWeek.Sunday)]
+        [TestCase("2025-12-22", "2025-12-28", "2025-12-26", DayOfWeek.Monday)]
+        [TestCase("2025-12-23", "2025-12-29", "2025-12-26", DayOfWeek.Tuesday)]
+        [TestCase("2025-12-24", "2025-12-30", "2025-12-26", DayOfWeek.Wednesday)]
+        [TestCase("2025-12-25", "2025-12-31", "2025-12-26", DayOfWeek.Thursday)]
+        [TestCase("2025-12-26", "2026-01-01", "2025-12-26", DayOfWeek.Friday)]
+        [TestCase("2025-12-20", "2025-12-26", "2025-12-26", DayOfWeek.Saturday)]
+        public void Test_GetStartOfWeek_GetEndOfWeek(String expectedStartOfWeekString, String expectedEndOfWeekString, String workingDateString, DayOfWeek newStartOfWeek)
+        {
+            DateTime expectedStartOfWeek = DateTime.ParseExact(expectedStartOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime expectedEndOfWeek = DateTime.ParseExact(expectedEndOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime workingDate = DateTime.ParseExact(workingDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+            IDateTimeService dateTimeService = new DateTimeService(newStartOfWeek, workingDate, workingDate);
+
+            DateTime actualStartOfWeek1 = dateTimeService.GetStartOfWeek(workingDate);
+            Assert.That(actualStartOfWeek1, Is.EqualTo(expectedStartOfWeek));
+
+            DateTime actualValue2 = dateTimeService.GetStartOfWeek(workingDate.Year, workingDate.Month, workingDate.Day);
+            Assert.That(actualValue2, Is.EqualTo(expectedStartOfWeek));
+
+            DateTime actualEndOfWeek1 = dateTimeService.GetEndOfWeek(workingDate);
+            Assert.That(actualEndOfWeek1, Is.EqualTo(expectedEndOfWeek));
+
+            DateTime actualEndOfWeek2 = dateTimeService.GetEndOfWeek(workingDate.Year, workingDate.Month, workingDate.Day);
+            Assert.That(actualEndOfWeek2, Is.EqualTo(expectedEndOfWeek));
+        }
+
+        [TestCase("2025-12-28", "2026-01-03", "2025-12-26", DayOfWeek.Sunday)]
+        [TestCase("2025-12-29", "2026-01-04", "2025-12-26", DayOfWeek.Monday)]
+        [TestCase("2025-12-30", "2026-01-05", "2025-12-26", DayOfWeek.Tuesday)]
+        [TestCase("2025-12-31", "2026-01-06", "2025-12-26", DayOfWeek.Wednesday)]
+        [TestCase("2026-01-01", "2026-01-07", "2025-12-26", DayOfWeek.Thursday)]
+        [TestCase("2026-01-02", "2026-01-08", "2025-12-26", DayOfWeek.Friday)]
+        [TestCase("2025-12-27", "2026-01-02", "2025-12-26", DayOfWeek.Saturday)]
+        public void Test_GetStartONextWeek_GetEndOfNextWeek(String expectedStartOfWeekString, String expectedEndOfWeekString, String workingDateString, DayOfWeek newStartOfWeek)
+        {
+            DateTime expectedStartOfWeek = DateTime.ParseExact(expectedStartOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime expectedEndOfWeek = DateTime.ParseExact(expectedEndOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime workingDate = DateTime.ParseExact(workingDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+            IDateTimeService dateTimeService = new DateTimeService(newStartOfWeek, workingDate, workingDate);
+
+            DateTime actualStartOfNextWeek1 = dateTimeService.GetStartOfNextWeek();
+            Assert.That(actualStartOfNextWeek1, Is.EqualTo(expectedStartOfWeek));
+
+            DateTime actualEndOfNextWeek1 = dateTimeService.GetEndOfNextWeek();
+            Assert.That(actualEndOfNextWeek1, Is.EqualTo(expectedEndOfWeek));
         }
 
         [TestCase]
-        public void Test_GetEndOfLastMonth()
+        public void Test_GetStartOfLastMonth_GetEndOfLastMonth()
         {
-            DateTime workingDate = DateTimeService.SystemUtcDateTimeNow.AddMonths(-1);
-            Int32 year = workingDate.Year;
-            Int32 month = workingDate.Month;
+            for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
+            {
+                DateTime workingDate = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
+                IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
 
-            DateTime value = new DateTime(year, month, DateTime.DaysInMonth(year, month));
-            DateTime actualValue = TheService!.GetEndOfLastMonth();
+                Int32 year = workingDate.AddMonths(-1).Year;
+                Int32 month = workingDate.AddMonths(-1).Month;
+                DateTime expectedStartOfMonth1 = new DateTime(year, month, 1);
+                DateTime expectedEndOfMonth1 = new DateTime(year, month, DateTime.DaysInMonth(year, month));
 
-            Assert.That(actualValue, Is.EqualTo(value));
+                DateTime actualStartOfMonth1 = dateTimeService.GetStartOfLastMonth();
+                Assert.That(actualStartOfMonth1, Is.EqualTo(expectedStartOfMonth1));
+
+                DateTime actualEndOfMonth1 = dateTimeService.GetEndOfLastMonth();
+                Assert.That(actualEndOfMonth1, Is.EqualTo(expectedEndOfMonth1));
+            }
         }
 
         [TestCase]
-        public void Test_GetStartOfCurrentMonth()
+        public void Test_GetStartOfCurrentMonth_GetEndOfCurrentMonth()
         {
-            DateTime workingDate = DateTimeService.SystemUtcDateTimeNow.AddMonths(0);
-            Int32 year = workingDate.Year;
-            Int32 month = workingDate.Month;
+            for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
+            {
+                DateTime workingDate = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
+                IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
 
-            DateTime value = new DateTime(year, month, 1);
-            DateTime actualValue = TheService!.GetStartOfCurrentMonth();
+                Int32 year = workingDate.AddMonths(0).Year;
+                Int32 month = workingDate.AddMonths(0).Month;
+                DateTime expectedStartOfMonth1 = new DateTime(year, month, 1);
+                DateTime expectedEndOfMonth1 = new DateTime(year, month, DateTime.DaysInMonth(year, month));
 
-            Assert.That(actualValue, Is.EqualTo(value));
+                DateTime actualStartOfMonth1 = dateTimeService.GetStartOfCurrentMonth();
+                Assert.That(actualStartOfMonth1, Is.EqualTo(expectedStartOfMonth1));
+
+                DateTime actualEndOfMonth1 = dateTimeService.GetEndOfCurrentMonth();
+                Assert.That(actualEndOfMonth1, Is.EqualTo(expectedEndOfMonth1));
+            }
         }
 
         [TestCase]
-        public void Test_GetEndOfCurrentMonth()
+        public void Test_GetStartOfNextMonth_GetEndOfNextMonth()
         {
-            DateTime workingDate = DateTimeService.SystemUtcDateTimeNow.AddMonths(0);
-            Int32 year = workingDate.Year;
-            Int32 month = workingDate.Month;
+            for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
+            {
+                DateTime workingDate = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
+                IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
 
-            DateTime value = new DateTime(year, month, DateTime.DaysInMonth(year, month));
-            DateTime actualValue = TheService!.GetEndOfCurrentMonth();
+                Int32 year = workingDate.AddMonths(1).Year;
+                Int32 month = workingDate.AddMonths(1).Month;
+                DateTime expectedStartOfMonth1 = new DateTime(year, month, 1);
+                DateTime expectedEndOfMonth1 = new DateTime(year, month, DateTime.DaysInMonth(year, month));
 
-            Assert.That(actualValue, Is.EqualTo(value));
+                DateTime actualStartOfMonth1 = dateTimeService.GetStartOfNextMonth();
+                Assert.That(actualStartOfMonth1, Is.EqualTo(expectedStartOfMonth1));
+
+                DateTime actualEndOfMonth1 = dateTimeService.GetEndOfNextMonth();
+                Assert.That(actualEndOfMonth1, Is.EqualTo(expectedEndOfMonth1));
+            }
         }
 
         [TestCase]
-        public void Test_GetStartOfNextMonth()
+        public void Test_GetStartOfMonth_GetEndOfMonth()
         {
-            DateTime workingDate = DateTimeService.SystemUtcDateTimeNow.AddMonths(1);
-            Int32 year = workingDate.Year;
-            Int32 month = workingDate.Month;
+            for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
+            {
+                DateTime workingDate = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
+                IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
 
-            DateTime value = new DateTime(year, month, 1);
-            DateTime actualValue = TheService!.GetStartOfNextMonth();
+                Int32 year = workingDate.AddMonths(0).Year;
+                Int32 month = workingDate.AddMonths(0).Month;
+                DateTime expectedStartOfMonth = new DateTime(year, month, 1);
+                DateTime expectedEndOfMonth = new DateTime(year, month, DateTime.DaysInMonth(year, month));
 
-            Assert.That(actualValue, Is.EqualTo(value));
+                DateTime actualStartOfMonth1 = dateTimeService.GetStartOfMonth(workingDate);
+                DateTime actualStartOfMonth2 = dateTimeService.GetStartOfMonth(workingDate.Year, workingDate.Month);
+                Assert.That(actualStartOfMonth1, Is.EqualTo(expectedStartOfMonth));
+                Assert.That(actualStartOfMonth2, Is.EqualTo(expectedStartOfMonth));
+
+                DateTime actualEndOfMonth1 = dateTimeService.GetEndOfMonth(workingDate);
+                DateTime actualEndOfMonth2 = dateTimeService.GetEndOfMonth(workingDate.Year, workingDate.Month);
+                Assert.That(actualEndOfMonth1, Is.EqualTo(expectedEndOfMonth));
+                Assert.That(actualEndOfMonth2, Is.EqualTo(expectedEndOfMonth));
+            }
         }
 
-        [TestCase]
-        public void Test_GetEndOfNextMonth()
-        {
-            DateTime workingDate = DateTimeService.SystemUtcDateTimeNow.AddMonths(1);
-            Int32 year = workingDate.Year;
-            Int32 month = workingDate.Month;
-
-            DateTime value = new DateTime(year, month, DateTime.DaysInMonth(year, month));
-            DateTime actualValue = TheService!.GetEndOfNextMonth();
-
-            Assert.That(actualValue, Is.EqualTo(value));
-        }
-
-        [TestCase]
-        public void Test_GetStartOfMonth_DateTime()
-        {
-            DateTime targetDate = new DateTime(2020, 6, 27);
-            DateTime actualValue = TheService!.GetStartOfMonth(targetDate);
-
-            DateTime value = new DateTime(2020, 6, 1);
-            Assert.That(actualValue, Is.EqualTo(value));
-        }
-
-        [TestCase]
-        public void Test_GetEndOfMonth_DateTime()
-        {
-            DateTime targetDate = new DateTime(2020, 6, 27);
-            DateTime actualValue = TheService!.GetEndOfMonth(targetDate);
-
-            DateTime value = new DateTime(2020, 6, 30);
-            Assert.That(actualValue, Is.EqualTo(value));
-        }
-
-        [TestCase]
-        public void Test_GetStartOfMonth_YearMonth()
-        {
-            DateTime actualValue = TheService!.GetStartOfMonth(2020, 6);
-
-            DateTime value = new DateTime(2020, 6, 1);
-            Assert.That(actualValue, Is.EqualTo(value));
-        }
-
-        [TestCase]
-        public void Test_GetEndOfMonth_YearMonth()
-        {
-            DateTime actualValue = TheService!.GetEndOfMonth(2020, 6);
-
-            DateTime value = new DateTime(2020, 6, 30);
-            Assert.That(actualValue, Is.EqualTo(value));
-        }
-
-        [TestCase("2022-11-28", "2022-11-22", "2022-11-27", DatePeriod.Days, 5)]
-        [TestCase("2022-11-28", "2022-11-17", "2022-11-27", DatePeriod.Days, 10)]
-        [TestCase("2022-11-28", "2022-11-12", "2022-11-27", DatePeriod.Days, 15)]
-        [TestCase("2022-11-28", "2022-11-07", "2022-11-27", DatePeriod.Days, 20)]
-        [TestCase("2022-11-28", "2022-10-17", "2022-11-21", DatePeriod.Weeks, 5)]
-        [TestCase("2022-11-28", "2022-09-12", "2022-11-21", DatePeriod.Weeks, 10)]
-        [TestCase("2022-11-28", "2022-08-08", "2022-11-21", DatePeriod.Weeks, 15)]
-        [TestCase("2022-11-28", "2022-07-04", "2022-11-21", DatePeriod.Weeks, 20)]
-        [TestCase("2022-11-28", "2022-05-01", "2022-10-31", DatePeriod.Months, 5)]
-        [TestCase("2022-11-28", "2021-12-01", "2022-10-31", DatePeriod.Months, 10)]
-        [TestCase("2022-11-28", "2021-07-01", "2022-10-31", DatePeriod.Months, 15)]
-        [TestCase("2022-11-28", "2021-02-01", "2022-10-31", DatePeriod.Months, 20)]
-        [TestCase("2022-11-28", "2016-11-01", "2021-11-30", DatePeriod.Years, 5)]
-        [TestCase("2022-11-28", "2011-11-01", "2021-11-30", DatePeriod.Years, 10)]
-        [TestCase("2022-11-28", "2006-11-01", "2021-11-30", DatePeriod.Years, 15)]
-        [TestCase("2022-11-28", "2001-11-01", "2021-11-30", DatePeriod.Years, 20)]
-        public void Test_GetRollingPeriod(String workingDateString, String expectedStartDateString, String expectedEndDateString, DatePeriod datePeriod, Int32 interval)
+        [TestCase("2022-11-22", "2022-11-27", "2022-11-28", DatePeriod.Days, 5)]
+        [TestCase("2022-11-17", "2022-11-27", "2022-11-28", DatePeriod.Days, 10)]
+        [TestCase("2022-11-12", "2022-11-27", "2022-11-28", DatePeriod.Days, 15)]
+        [TestCase("2022-11-07", "2022-11-27", "2022-11-28", DatePeriod.Days, 20)]
+        [TestCase("2022-10-19", "2022-11-23", "2022-11-30", DatePeriod.Weeks, 5)]
+        [TestCase("2022-09-14", "2022-11-23", "2022-11-30", DatePeriod.Weeks, 10)]
+        [TestCase("2022-08-10", "2022-11-23", "2022-11-30", DatePeriod.Weeks, 15)]
+        [TestCase("2022-07-06", "2022-11-23", "2022-11-30", DatePeriod.Weeks, 20)]
+        [TestCase("2022-05-01", "2022-10-31", "2022-11-28", DatePeriod.Months, 5)]
+        [TestCase("2021-12-01", "2022-10-31", "2022-11-28", DatePeriod.Months, 10)]
+        [TestCase("2021-07-01", "2022-10-31", "2022-11-28", DatePeriod.Months, 15)]
+        [TestCase("2021-02-01", "2022-10-31", "2022-11-28", DatePeriod.Months, 20)]
+        [TestCase("2016-11-01", "2021-11-30", "2022-11-28", DatePeriod.Years, 5)]
+        [TestCase("2011-11-01", "2021-11-30", "2022-11-28", DatePeriod.Years, 10)]
+        [TestCase("2006-11-01", "2021-11-30", "2022-11-28", DatePeriod.Years, 15)]
+        [TestCase("2001-11-01", "2021-11-30", "2022-11-28", DatePeriod.Years, 20)]
+        public void Test_GetRollingPeriod(String expectedStartDateString, String expectedEndDateString, String workingDateString, DatePeriod datePeriod, Int32 interval)
         {
             DateTime expectedStartDate = DateTime.ParseExact(expectedStartDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
             DateTime expectedEndDate = DateTime.ParseExact(expectedEndDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
             DateTime workingDate = DateTime.ParseExact(workingDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
-            IDateTimeService dateTimeService = new DateTimeService(workingDate, workingDate);
+            IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
 
             DateTime actualStartOfPeriod = dateTimeService.GetStartOfRollingPeriod(datePeriod, interval);
             DateTime actualEndOfPeriod = dateTimeService.GetEndOfRollingPeriod(datePeriod, interval);
@@ -289,31 +358,12 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         }
 
         [TestCase]
-        public void Test_GetPreviousQuarter()
+        public void Test_GetStartOfPreviousQuarter_GetEndOfPreviousQuarter()
         {
-            DateTime workingDateTime = new DateTime(2024, 05, 10);
-            IDateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
-
-            DateTime startOfQuarter = new DateTime(2024, 01, 01);
-            DateTime endOfQuarter = new DateTime(2024, 03, 31);
-
-            DateTime actualStartOfQuarter = dateTimeService.GetStartOfPreviousQuarter();
-            DateTime actualEndOfQuarter = dateTimeService.GetEndOfPreviousQuarter();
-
-            Assert.That(actualStartOfQuarter, Is.EqualTo(startOfQuarter));
-            Assert.That(actualEndOfQuarter, Is.EqualTo(endOfQuarter));
-        }
-
-        [TestCase]
-        public void Test_GetPreviousQuarter_Loop()
-        {
-            DateTime startDate = new DateTime(2023, 01, 01);
-            DateTime endDate = new DateTime(2025, 12, 31);
-
-            for (DateTime dateLoop = startDate; dateLoop <= endDate; dateLoop = dateLoop.AddDays(1))
+            for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
             {
-                DateTime workingDateTime = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
-                IDateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
+                DateTime workingDate = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
+                IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
 
                 DateTime startOfQuarter = DateTime.MinValue;
                 DateTime endOfQuarter = DateTime.MaxValue;
@@ -348,30 +398,12 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         }
 
         [TestCase]
-        public void Test_GetCurrentQuarter_SingleValue()
+        public void Test_GetStartOfCurrentQuarter_GetEndOfCurrentQuarter()
         {
-            IDateTimeService dateTimeService = new DateTimeService(new DateTime(2024, 05, 10), new DateTime(2024, 05, 10));
-
-            DateTime startOfQuarter = new DateTime(2024, 04, 01);
-            DateTime endOfQuarter = new DateTime(2024, 06, 30);
-
-            DateTime actualStartOfQuarter = dateTimeService.GetStartOfCurrentQuarter();
-            DateTime actualEndOfQuarter = dateTimeService.GetEndOfCurrentQuarter();
-
-            Assert.That(actualStartOfQuarter, Is.EqualTo(startOfQuarter));
-            Assert.That(actualEndOfQuarter, Is.EqualTo(endOfQuarter));
-        }
-
-        [TestCase]
-        public void Test_GetCurrentQuarter_Loop()
-        {
-            DateTime startDate = new DateTime(2023, 01, 01);
-            DateTime endDate = new DateTime(2025, 12, 31);
-
-            for (DateTime dateLoop = startDate; dateLoop <= endDate; dateLoop = dateLoop.AddDays(1))
+            for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
             {
-                DateTime workingDateTime = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
-                IDateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
+                DateTime workingDate = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
+                IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
 
                 DateTime startOfQuarter = DateTime.MinValue;
                 DateTime endOfQuarter = DateTime.MaxValue;
@@ -406,31 +438,12 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         }
 
         [TestCase]
-        public void Test_GetNextQuarter()
+        public void Test_GetStartOfNextQuarter_GetEndOfNextQuarter()
         {
-            DateTime workingDateTime = new DateTime(2024, 05, 10);
-            IDateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
-
-            DateTime startOfQuarter = new DateTime(2024, 07, 01);
-            DateTime endOfQuarter = new DateTime(2024, 09, 30);
-
-            DateTime actualStartOfQuarter = dateTimeService.GetStartOfNextQuarter();
-            DateTime actualEndOfQuarter = dateTimeService.GetEndOfNextQuarter();
-
-            Assert.That(actualStartOfQuarter, Is.EqualTo(startOfQuarter));
-            Assert.That(actualEndOfQuarter, Is.EqualTo(endOfQuarter));
-        }
-
-        [TestCase]
-        public void Test_GetNextQuarter_Loop()
-        {
-            DateTime startDate = new DateTime(2023, 01, 01);
-            DateTime endDate = new DateTime(2025, 12, 31);
-
-            for (DateTime dateLoop = startDate; dateLoop <= endDate; dateLoop = dateLoop.AddDays(1))
+            for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
             {
-                DateTime workingDateTime = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
-                IDateTimeService dateTimeService = new DateTimeService(workingDateTime, workingDateTime);
+                DateTime workingDate = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
+                IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
 
                 DateTime startOfQuarter = DateTime.MinValue;
                 DateTime endOfQuarter = DateTime.MaxValue;

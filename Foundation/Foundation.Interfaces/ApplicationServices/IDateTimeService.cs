@@ -44,14 +44,14 @@ namespace Foundation.Interfaces
         DateTime LocalDateTimeNow { get; }
 
         /// <summary>
-        /// Makes a Utc version of the supplied <paramref name="dateTime"/>
+        /// Makes a UTC version of the supplied <paramref name="dateTime"/>
         /// </summary>
         /// <param name="dateTime"></param>
         /// <returns></returns>
         DateTime MakeUtcDateTime(DateTime dateTime);
 
         /// <summary>
-        /// Makes a Utc version of the supplied <paramref name="date"/> and <paramref name="time"/>
+        /// Makes a UTC version of the supplied <paramref name="date"/> and <paramref name="time"/>
         /// </summary>
         /// <param name="date"></param>
         /// <param name="time"></param>
@@ -59,7 +59,7 @@ namespace Foundation.Interfaces
         DateTime MakeUtcDateTime(DateTime date, TimeSpan time);
 
         /// <summary>
-        /// Makes a Utc version of the supplied <paramref name="date"/> and <paramref name="hours"/>, <paramref name="minutes"/>, <paramref name="seconds"/>
+        /// Makes a UTC version of the supplied <paramref name="date"/> and <paramref name="hours"/>, <paramref name="minutes"/>, <paramref name="seconds"/>
         /// </summary>
         /// <param name="date"></param>
         /// <param name="hours"></param>
@@ -67,6 +67,86 @@ namespace Foundation.Interfaces
         /// <param name="seconds"></param>
         /// <returns></returns>
         DateTime MakeUtcDateTime(DateTime date, Int32 hours, Int32 minutes, Int32 seconds);
+
+        /// <summary>
+        /// Gets the start of last week.
+        /// </summary>
+        /// <value>
+        /// The start of last week.
+        /// </value>
+        DateTime GetStartOfLastWeek();
+
+        /// <summary>
+        /// Gets the end of last week.
+        /// </summary>
+        /// <value>
+        /// The end of last week.
+        /// </value>
+        DateTime GetEndOfLastWeek();
+
+        /// <summary>
+        /// Gets the start of current week.
+        /// </summary>
+        /// <value>
+        /// The start of week.
+        /// </value>
+        DateTime GetStartOfCurrentWeek();
+
+        /// <summary>
+        /// Gets the end of current week.
+        /// </summary>
+        /// <value>
+        /// The end of week.
+        /// </value>
+        DateTime GetEndOfCurrentWeek();
+
+        /// <summary>
+        /// Gets the start of next week.
+        /// </summary>
+        /// <value>
+        /// The start of last week.
+        /// </value>
+        DateTime GetStartOfNextWeek();
+
+        /// <summary>
+        /// Gets the end of next week.
+        /// </summary>
+        /// <value>
+        /// The end of last week.
+        /// </value>
+        DateTime GetEndOfNextWeek();
+
+        /// <summary>
+        /// Gets the start of the week
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="day"></param>
+        /// <returns></returns>
+        DateTime GetStartOfWeek(Int32 year, Int32 month, Int32 day);
+
+        /// <summary>
+        /// Gets the start of the <paramref name="targetDate"/>
+        /// </summary>
+        /// <param name="targetDate"></param>
+        /// <returns></returns>
+        DateTime GetStartOfWeek(DateTime targetDate);
+
+        /// <summary>
+        /// Gets the end of the week
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="day"></param>
+        /// <returns></returns>
+        DateTime GetEndOfWeek(Int32 year, Int32 month, Int32 day);
+
+        /// <summary>
+        /// Gets the end of the <paramref name="targetDate"/>
+        /// </summary>
+        /// <param name="targetDate"></param>
+        /// <returns></returns>
+        DateTime GetEndOfWeek(DateTime targetDate);
 
         /// <summary>
         /// Gets the start of last month.
@@ -117,11 +197,11 @@ namespace Foundation.Interfaces
         DateTime GetEndOfNextMonth();
 
         /// <summary>
-        /// Gets the start of the <paramref name="targetMonth"/>
+        /// Gets the start of the <paramref name="targetDate"/>
         /// </summary>
-        /// <param name="targetMonth"></param>
+        /// <param name="targetDate"></param>
         /// <returns></returns>
-        DateTime GetStartOfMonth(DateTime targetMonth);
+        DateTime GetStartOfMonth(DateTime targetDate);
 
         /// <summary>
         /// Gets the start of the month
@@ -132,11 +212,11 @@ namespace Foundation.Interfaces
         DateTime GetStartOfMonth(Int32 year, Int32 month);
 
         /// <summary>
-        /// Gets the end of the <paramref name="targetMonth"/>
+        /// Gets the end of the <paramref name="targetDate"/>
         /// </summary>
-        /// <param name="targetMonth"></param>
+        /// <param name="targetDate"></param>
         /// <returns></returns>
-        DateTime GetEndOfMonth(DateTime targetMonth);
+        DateTime GetEndOfMonth(DateTime targetDate);
 
         /// <summary>
         /// Gets the end of the month
