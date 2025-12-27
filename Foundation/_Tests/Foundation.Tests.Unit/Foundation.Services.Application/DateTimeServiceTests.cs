@@ -188,6 +188,28 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(actualEndOfWeek1, Is.EqualTo(expectedEndOfWeek));
         }
 
+        [TestCase("2025-12-28", "2026-01-03", "2025-12-26", DayOfWeek.Sunday)]
+        [TestCase("2025-12-29", "2026-01-04", "2025-12-26", DayOfWeek.Monday)]
+        [TestCase("2025-12-30", "2026-01-05", "2025-12-26", DayOfWeek.Tuesday)]
+        [TestCase("2025-12-31", "2026-01-06", "2025-12-26", DayOfWeek.Wednesday)]
+        [TestCase("2026-01-01", "2026-01-07", "2025-12-26", DayOfWeek.Thursday)]
+        [TestCase("2026-01-02", "2026-01-08", "2025-12-26", DayOfWeek.Friday)]
+        [TestCase("2025-12-27", "2026-01-02", "2025-12-26", DayOfWeek.Saturday)]
+        public void Test_GetStartONextWeek_GetEndOfNextWeek(String expectedStartOfWeekString, String expectedEndOfWeekString, String workingDateString, DayOfWeek newStartOfWeek)
+        {
+            DateTime expectedStartOfWeek = DateTime.ParseExact(expectedStartOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime expectedEndOfWeek = DateTime.ParseExact(expectedEndOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime workingDate = DateTime.ParseExact(workingDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+            IDateTimeService dateTimeService = new DateTimeService(newStartOfWeek, workingDate, workingDate);
+
+            DateTime actualStartOfNextWeek1 = dateTimeService.GetStartOfNextWeek();
+            Assert.That(actualStartOfNextWeek1, Is.EqualTo(expectedStartOfWeek));
+
+            DateTime actualEndOfNextWeek1 = dateTimeService.GetEndOfNextWeek();
+            Assert.That(actualEndOfNextWeek1, Is.EqualTo(expectedEndOfWeek));
+        }
+
         [TestCase("2025-12-21", "2025-12-27", "2025-12-26", DayOfWeek.Sunday)]
         [TestCase("2025-12-22", "2025-12-28", "2025-12-26", DayOfWeek.Monday)]
         [TestCase("2025-12-23", "2025-12-29", "2025-12-26", DayOfWeek.Tuesday)]
@@ -216,28 +238,6 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(actualEndOfWeek2, Is.EqualTo(expectedEndOfWeek));
         }
 
-        [TestCase("2025-12-28", "2026-01-03", "2025-12-26", DayOfWeek.Sunday)]
-        [TestCase("2025-12-29", "2026-01-04", "2025-12-26", DayOfWeek.Monday)]
-        [TestCase("2025-12-30", "2026-01-05", "2025-12-26", DayOfWeek.Tuesday)]
-        [TestCase("2025-12-31", "2026-01-06", "2025-12-26", DayOfWeek.Wednesday)]
-        [TestCase("2026-01-01", "2026-01-07", "2025-12-26", DayOfWeek.Thursday)]
-        [TestCase("2026-01-02", "2026-01-08", "2025-12-26", DayOfWeek.Friday)]
-        [TestCase("2025-12-27", "2026-01-02", "2025-12-26", DayOfWeek.Saturday)]
-        public void Test_GetStartONextWeek_GetEndOfNextWeek(String expectedStartOfWeekString, String expectedEndOfWeekString, String workingDateString, DayOfWeek newStartOfWeek)
-        {
-            DateTime expectedStartOfWeek = DateTime.ParseExact(expectedStartOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            DateTime expectedEndOfWeek = DateTime.ParseExact(expectedEndOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            DateTime workingDate = DateTime.ParseExact(workingDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-
-            IDateTimeService dateTimeService = new DateTimeService(newStartOfWeek, workingDate, workingDate);
-
-            DateTime actualStartOfNextWeek1 = dateTimeService.GetStartOfNextWeek();
-            Assert.That(actualStartOfNextWeek1, Is.EqualTo(expectedStartOfWeek));
-
-            DateTime actualEndOfNextWeek1 = dateTimeService.GetEndOfNextWeek();
-            Assert.That(actualEndOfNextWeek1, Is.EqualTo(expectedEndOfWeek));
-        }
-
         [TestCase]
         public void Test_GetStartOfLastMonth_GetEndOfLastMonth()
         {
@@ -264,7 +264,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
             {
-                DateTime workingDate = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
+                DateTime workingDate = dateLoop;
                 IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
 
                 Int32 year = workingDate.AddMonths(0).Year;
@@ -285,7 +285,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
             {
-                DateTime workingDate = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
+                DateTime workingDate = dateLoop;
                 IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
 
                 Int32 year = workingDate.AddMonths(1).Year;
@@ -306,7 +306,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
             {
-                DateTime workingDate = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
+                DateTime workingDate = dateLoop;
                 IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
 
                 Int32 year = workingDate.AddMonths(0).Year;
@@ -362,38 +362,38 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
             {
-                DateTime workingDate = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
+                DateTime workingDate = dateLoop;
                 IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
 
                 DateTime startOfQuarter = DateTime.MinValue;
                 DateTime endOfQuarter = DateTime.MaxValue;
 
-                if (dateLoop.Month.IsBetween(1, 3))
+                if (workingDate.Month.IsBetween(1, 3))
                 {
-                    startOfQuarter = new DateTime(dateLoop.Year - 1, 10, 01);
-                    endOfQuarter = new DateTime(dateLoop.Year - 1, 12, 31);
+                    startOfQuarter = new DateTime(workingDate.Year - 1, 10, 01);
+                    endOfQuarter = new DateTime(workingDate.Year - 1, 12, 31);
                 }
-                if (dateLoop.Month.IsBetween(4, 6))
+                if (workingDate.Month.IsBetween(4, 6))
                 {
-                    startOfQuarter = new DateTime(dateLoop.Year, 01, 01);
-                    endOfQuarter = new DateTime(dateLoop.Year, 03, 31);
+                    startOfQuarter = new DateTime(workingDate.Year, 01, 01);
+                    endOfQuarter = new DateTime(workingDate.Year, 03, 31);
                 }
-                if (dateLoop.Month.IsBetween(7, 9))
+                if (workingDate.Month.IsBetween(7, 9))
                 {
-                    startOfQuarter = new DateTime(dateLoop.Year, 04, 01);
-                    endOfQuarter = new DateTime(dateLoop.Year, 06, 30);
+                    startOfQuarter = new DateTime(workingDate.Year, 04, 01);
+                    endOfQuarter = new DateTime(workingDate.Year, 06, 30);
                 }
-                if (dateLoop.Month.IsBetween(10, 12))
+                if (workingDate.Month.IsBetween(10, 12))
                 {
-                    startOfQuarter = new DateTime(dateLoop.Year, 07, 01);
-                    endOfQuarter = new DateTime(dateLoop.Year, 09, 30);
+                    startOfQuarter = new DateTime(workingDate.Year, 07, 01);
+                    endOfQuarter = new DateTime(workingDate.Year, 09, 30);
                 }
 
                 DateTime actualStartOfQuarter = dateTimeService.GetStartOfPreviousQuarter();
                 DateTime actualEndOfQuarter = dateTimeService.GetEndOfPreviousQuarter();
 
-                Assert.That(actualStartOfQuarter, Is.EqualTo(startOfQuarter), dateLoop.ToString("yyyy-MMM-dd"));
-                Assert.That(actualEndOfQuarter, Is.EqualTo(endOfQuarter), dateLoop.ToString("yyyy-MMM-dd"));
+                Assert.That(actualStartOfQuarter, Is.EqualTo(startOfQuarter), workingDate.ToString("yyyy-MMM-dd"));
+                Assert.That(actualEndOfQuarter, Is.EqualTo(endOfQuarter), workingDate.ToString("yyyy-MMM-dd"));
             }
         }
 
@@ -402,38 +402,38 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
             {
-                DateTime workingDate = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
+                DateTime workingDate = dateLoop;
                 IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
 
                 DateTime startOfQuarter = DateTime.MinValue;
                 DateTime endOfQuarter = DateTime.MaxValue;
 
-                if (dateLoop.Month.IsBetween(1, 3))
+                if (workingDate.Month.IsBetween(1, 3))
                 {
-                    startOfQuarter = new DateTime(dateLoop.Year, 01, 01);
-                    endOfQuarter = new DateTime(dateLoop.Year, 03, 31);
+                    startOfQuarter = new DateTime(workingDate.Year, 01, 01);
+                    endOfQuarter = new DateTime(workingDate.Year, 03, 31);
                 }
-                if (dateLoop.Month.IsBetween(4, 6))
+                if (workingDate.Month.IsBetween(4, 6))
                 {
-                    startOfQuarter = new DateTime(dateLoop.Year, 04, 01);
-                    endOfQuarter = new DateTime(dateLoop.Year, 06, 30);
+                    startOfQuarter = new DateTime(workingDate.Year, 04, 01);
+                    endOfQuarter = new DateTime(workingDate.Year, 06, 30);
                 }
-                if (dateLoop.Month.IsBetween(7, 9))
+                if (workingDate.Month.IsBetween(7, 9))
                 {
-                    startOfQuarter = new DateTime(dateLoop.Year, 07, 01);
-                    endOfQuarter = new DateTime(dateLoop.Year, 09, 30);
+                    startOfQuarter = new DateTime(workingDate.Year, 07, 01);
+                    endOfQuarter = new DateTime(workingDate.Year, 09, 30);
                 }
-                if (dateLoop.Month.IsBetween(10, 12))
+                if (workingDate.Month.IsBetween(10, 12))
                 {
-                    startOfQuarter = new DateTime(dateLoop.Year, 10, 01);
-                    endOfQuarter = new DateTime(dateLoop.Year, 12, 31);
+                    startOfQuarter = new DateTime(workingDate.Year, 10, 01);
+                    endOfQuarter = new DateTime(workingDate.Year, 12, 31);
                 }
 
                 DateTime actualStartOfQuarter = dateTimeService.GetStartOfCurrentQuarter();
                 DateTime actualEndOfQuarter = dateTimeService.GetEndOfCurrentQuarter();
 
-                Assert.That(actualStartOfQuarter, Is.EqualTo(startOfQuarter), dateLoop.ToString("yyyy-MMM-dd"));
-                Assert.That(actualEndOfQuarter, Is.EqualTo(endOfQuarter), dateLoop.ToString("yyyy-MMM-dd"));
+                Assert.That(actualStartOfQuarter, Is.EqualTo(startOfQuarter), workingDate.ToString("yyyy-MMM-dd"));
+                Assert.That(actualEndOfQuarter, Is.EqualTo(endOfQuarter), workingDate.ToString("yyyy-MMM-dd"));
             }
         }
 
@@ -442,38 +442,38 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
             {
-                DateTime workingDate = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
+                DateTime workingDate = dateLoop;
                 IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
 
                 DateTime startOfQuarter = DateTime.MinValue;
                 DateTime endOfQuarter = DateTime.MaxValue;
 
-                if (dateLoop.Month.IsBetween(1, 3))
+                if (workingDate.Month.IsBetween(1, 3))
                 {
-                    startOfQuarter = new DateTime(dateLoop.Year, 04, 01);
-                    endOfQuarter = new DateTime(dateLoop.Year, 06, 30);
+                    startOfQuarter = new DateTime(workingDate.Year, 04, 01);
+                    endOfQuarter = new DateTime(workingDate.Year, 06, 30);
                 }
-                if (dateLoop.Month.IsBetween(4, 6))
+                if (workingDate.Month.IsBetween(4, 6))
                 {
-                    startOfQuarter = new DateTime(dateLoop.Year, 07, 01);
-                    endOfQuarter = new DateTime(dateLoop.Year, 09, 30);
+                    startOfQuarter = new DateTime(workingDate.Year, 07, 01);
+                    endOfQuarter = new DateTime(workingDate.Year, 09, 30);
                 }
-                if (dateLoop.Month.IsBetween(7, 9))
+                if (workingDate.Month.IsBetween(7, 9))
                 {
-                    startOfQuarter = new DateTime(dateLoop.Year, 10, 01);
-                    endOfQuarter = new DateTime(dateLoop.Year, 12, 31);
+                    startOfQuarter = new DateTime(workingDate.Year, 10, 01);
+                    endOfQuarter = new DateTime(workingDate.Year, 12, 31);
                 }
-                if (dateLoop.Month.IsBetween(10, 12))
+                if (workingDate.Month.IsBetween(10, 12))
                 {
-                    startOfQuarter = new DateTime(dateLoop.Year + 1, 01, 01);
-                    endOfQuarter = new DateTime(dateLoop.Year + 1, 03, 31);
+                    startOfQuarter = new DateTime(workingDate.Year + 1, 01, 01);
+                    endOfQuarter = new DateTime(workingDate.Year + 1, 03, 31);
                 }
 
                 DateTime actualStartOfQuarter = dateTimeService.GetStartOfNextQuarter();
                 DateTime actualEndOfQuarter = dateTimeService.GetEndOfNextQuarter();
 
-                Assert.That(actualStartOfQuarter, Is.EqualTo(startOfQuarter), dateLoop.ToString("yyyy-MMM-dd"));
-                Assert.That(actualEndOfQuarter, Is.EqualTo(endOfQuarter), dateLoop.ToString("yyyy-MMM-dd"));
+                Assert.That(actualStartOfQuarter, Is.EqualTo(startOfQuarter), workingDate.ToString("yyyy-MMM-dd"));
+                Assert.That(actualEndOfQuarter, Is.EqualTo(endOfQuarter), workingDate.ToString("yyyy-MMM-dd"));
             }
         }
     }

@@ -263,7 +263,7 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallEnter(targetDate);
 
             Int32 adjustment = 6 - ((Int32)targetDate.DayOfWeek - (Int32)StartOfWeek);
-            if (adjustment == 7) adjustment = 0;
+            if (adjustment >= 7) adjustment -= 7;
 
             DateTime retVal = targetDate.AddDays(adjustment);
 
