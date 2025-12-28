@@ -20,21 +20,25 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
     [TestFixture]
     public class DateTimeServiceTests : UnitTestBase
     {
-        DateTime StartDate => new DateTime(2023, 01, 01);
-        DateTime EndDate => new DateTime(2025, 12, 31);
+        /// <summary>
+        /// 01-01-2023
+        /// </summary>
+        DateTime LoopStartDate => new DateTime(2023, 01, 01);
+
+        /// <summary>
+        /// 31-12-2025
+        /// </summary>
+        DateTime LoopEndDate => new DateTime(2025, 12, 31);
 
         private IDateTimeService? TheService { get; set; }
-        private DateTime InjectedUtcDateTime { get; set; }
-        private DateTime InjectedLocalDateTime { get; set; }
+        private DateTime InjectedUtcDateTime => SystemDateTime;
+        private DateTime InjectedLocalDateTime => SystemDateTime;
 
         public override void TestInitialise()
         {
             base.TestInitialise();
 
-            InjectedUtcDateTime = SystemDateTime;
-            InjectedLocalDateTime = SystemDateTime;
-
-            TheService = new DateTimeService(DayOfWeek.Monday, InjectedUtcDateTime, InjectedLocalDateTime);
+            TheService = new DateTimeService(DayOfWeek.Monday, SystemDateTime, SystemDateTime);
         }
 
         public override void TestCleanup()
@@ -144,13 +148,27 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(actualValue.TimeOfDay.Seconds, Is.EqualTo(value.TimeOfDay.Seconds));
         }
 
+        [TestCase("2025-12-13", "2025-12-19", "2025-12-26", DayOfWeek.Saturday)]
         [TestCase("2025-12-14", "2025-12-20", "2025-12-26", DayOfWeek.Sunday)]
         [TestCase("2025-12-15", "2025-12-21", "2025-12-26", DayOfWeek.Monday)]
         [TestCase("2025-12-16", "2025-12-22", "2025-12-26", DayOfWeek.Tuesday)]
         [TestCase("2025-12-17", "2025-12-23", "2025-12-26", DayOfWeek.Wednesday)]
         [TestCase("2025-12-18", "2025-12-24", "2025-12-26", DayOfWeek.Thursday)]
         [TestCase("2025-12-19", "2025-12-25", "2025-12-26", DayOfWeek.Friday)]
-        [TestCase("2025-12-13", "2025-12-19", "2025-12-26", DayOfWeek.Saturday)]
+        [TestCase("2025-12-20", "2025-12-26", "2025-12-27", DayOfWeek.Saturday)]
+        [TestCase("2025-12-14", "2025-12-20", "2025-12-27", DayOfWeek.Sunday)]
+        [TestCase("2025-12-15", "2025-12-21", "2025-12-27", DayOfWeek.Monday)]
+        [TestCase("2025-12-16", "2025-12-22", "2025-12-27", DayOfWeek.Tuesday)]
+        [TestCase("2025-12-17", "2025-12-23", "2025-12-27", DayOfWeek.Wednesday)]
+        [TestCase("2025-12-18", "2025-12-24", "2025-12-27", DayOfWeek.Thursday)]
+        [TestCase("2025-12-19", "2025-12-25", "2025-12-27", DayOfWeek.Friday)]
+        [TestCase("2025-12-20", "2025-12-26", "2025-12-28", DayOfWeek.Saturday)]
+        [TestCase("2025-12-21", "2025-12-27", "2025-12-28", DayOfWeek.Sunday)]
+        [TestCase("2025-12-15", "2025-12-21", "2025-12-28", DayOfWeek.Monday)]
+        [TestCase("2025-12-16", "2025-12-22", "2025-12-28", DayOfWeek.Tuesday)]
+        [TestCase("2025-12-17", "2025-12-23", "2025-12-28", DayOfWeek.Wednesday)]
+        [TestCase("2025-12-18", "2025-12-24", "2025-12-28", DayOfWeek.Thursday)]
+        [TestCase("2025-12-19", "2025-12-25", "2025-12-28", DayOfWeek.Friday)]
         public void Test_GetStartOfLastWeek_GetEndOfLastWeek(String expectedStartOfWeekString, String expectedEndOfWeekString, String workingDateString, DayOfWeek newStartOfWeek)
         {
             DateTime expectedStartOfWeek = DateTime.ParseExact(expectedStartOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
@@ -166,13 +184,27 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(actualEndOfWeek1, Is.EqualTo(expectedEndOfWeek));
         }
 
+        [TestCase("2025-12-20", "2025-12-26", "2025-12-26", DayOfWeek.Saturday)]
         [TestCase("2025-12-21", "2025-12-27", "2025-12-26", DayOfWeek.Sunday)]
         [TestCase("2025-12-22", "2025-12-28", "2025-12-26", DayOfWeek.Monday)]
         [TestCase("2025-12-23", "2025-12-29", "2025-12-26", DayOfWeek.Tuesday)]
         [TestCase("2025-12-24", "2025-12-30", "2025-12-26", DayOfWeek.Wednesday)]
         [TestCase("2025-12-25", "2025-12-31", "2025-12-26", DayOfWeek.Thursday)]
         [TestCase("2025-12-26", "2026-01-01", "2025-12-26", DayOfWeek.Friday)]
-        [TestCase("2025-12-20", "2025-12-26", "2025-12-26", DayOfWeek.Saturday)]
+        [TestCase("2025-12-27", "2026-01-02", "2025-12-27", DayOfWeek.Saturday)]
+        [TestCase("2025-12-21", "2025-12-27", "2025-12-27", DayOfWeek.Sunday)]
+        [TestCase("2025-12-22", "2025-12-28", "2025-12-27", DayOfWeek.Monday)]
+        [TestCase("2025-12-23", "2025-12-29", "2025-12-27", DayOfWeek.Tuesday)]
+        [TestCase("2025-12-24", "2025-12-30", "2025-12-27", DayOfWeek.Wednesday)]
+        [TestCase("2025-12-25", "2025-12-31", "2025-12-27", DayOfWeek.Thursday)]
+        [TestCase("2025-12-26", "2026-01-01", "2025-12-27", DayOfWeek.Friday)]
+        [TestCase("2025-12-27", "2026-01-02", "2025-12-28", DayOfWeek.Saturday)]
+        [TestCase("2025-12-28", "2026-01-03", "2025-12-28", DayOfWeek.Sunday)]
+        [TestCase("2025-12-22", "2025-12-28", "2025-12-28", DayOfWeek.Monday)]
+        [TestCase("2025-12-23", "2025-12-29", "2025-12-28", DayOfWeek.Tuesday)]
+        [TestCase("2025-12-24", "2025-12-30", "2025-12-28", DayOfWeek.Wednesday)]
+        [TestCase("2025-12-25", "2025-12-31", "2025-12-28", DayOfWeek.Thursday)]
+        [TestCase("2025-12-26", "2026-01-01", "2025-12-28", DayOfWeek.Friday)]
         public void Test_GetStartOfCurrentWeek_GetEndOfCurrentWeek(String expectedStartOfWeekString, String expectedEndOfWeekString, String workingDateString, DayOfWeek newStartOfWeek)
         {
             DateTime expectedStartOfWeek = DateTime.ParseExact(expectedStartOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
@@ -188,13 +220,27 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(actualEndOfWeek1, Is.EqualTo(expectedEndOfWeek));
         }
 
+        [TestCase("2025-12-27", "2026-01-02", "2025-12-26", DayOfWeek.Saturday)]
         [TestCase("2025-12-28", "2026-01-03", "2025-12-26", DayOfWeek.Sunday)]
         [TestCase("2025-12-29", "2026-01-04", "2025-12-26", DayOfWeek.Monday)]
         [TestCase("2025-12-30", "2026-01-05", "2025-12-26", DayOfWeek.Tuesday)]
         [TestCase("2025-12-31", "2026-01-06", "2025-12-26", DayOfWeek.Wednesday)]
         [TestCase("2026-01-01", "2026-01-07", "2025-12-26", DayOfWeek.Thursday)]
         [TestCase("2026-01-02", "2026-01-08", "2025-12-26", DayOfWeek.Friday)]
-        [TestCase("2025-12-27", "2026-01-02", "2025-12-26", DayOfWeek.Saturday)]
+        [TestCase("2026-01-03", "2026-01-09", "2025-12-27", DayOfWeek.Saturday)]
+        [TestCase("2025-12-28", "2026-01-03", "2025-12-27", DayOfWeek.Sunday)]
+        [TestCase("2025-12-29", "2026-01-04", "2025-12-27", DayOfWeek.Monday)]
+        [TestCase("2025-12-30", "2026-01-05", "2025-12-27", DayOfWeek.Tuesday)]
+        [TestCase("2025-12-31", "2026-01-06", "2025-12-27", DayOfWeek.Wednesday)]
+        [TestCase("2026-01-01", "2026-01-07", "2025-12-27", DayOfWeek.Thursday)]
+        [TestCase("2026-01-02", "2026-01-08", "2025-12-27", DayOfWeek.Friday)]
+        [TestCase("2026-01-03", "2026-01-09", "2025-12-28", DayOfWeek.Saturday)]
+        [TestCase("2026-01-04", "2026-01-10", "2025-12-28", DayOfWeek.Sunday)]
+        [TestCase("2025-12-29", "2026-01-04", "2025-12-28", DayOfWeek.Monday)]
+        [TestCase("2025-12-30", "2026-01-05", "2025-12-28", DayOfWeek.Tuesday)]
+        [TestCase("2025-12-31", "2026-01-06", "2025-12-28", DayOfWeek.Wednesday)]
+        [TestCase("2026-01-01", "2026-01-07", "2025-12-28", DayOfWeek.Thursday)]
+        [TestCase("2026-01-02", "2026-01-08", "2025-12-28", DayOfWeek.Friday)]
         public void Test_GetStartONextWeek_GetEndOfNextWeek(String expectedStartOfWeekString, String expectedEndOfWeekString, String workingDateString, DayOfWeek newStartOfWeek)
         {
             DateTime expectedStartOfWeek = DateTime.ParseExact(expectedStartOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
@@ -210,13 +256,27 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(actualEndOfNextWeek1, Is.EqualTo(expectedEndOfWeek));
         }
 
+        [TestCase("2025-12-20", "2025-12-26", "2025-12-26", DayOfWeek.Saturday)]
         [TestCase("2025-12-21", "2025-12-27", "2025-12-26", DayOfWeek.Sunday)]
         [TestCase("2025-12-22", "2025-12-28", "2025-12-26", DayOfWeek.Monday)]
         [TestCase("2025-12-23", "2025-12-29", "2025-12-26", DayOfWeek.Tuesday)]
         [TestCase("2025-12-24", "2025-12-30", "2025-12-26", DayOfWeek.Wednesday)]
         [TestCase("2025-12-25", "2025-12-31", "2025-12-26", DayOfWeek.Thursday)]
         [TestCase("2025-12-26", "2026-01-01", "2025-12-26", DayOfWeek.Friday)]
-        [TestCase("2025-12-20", "2025-12-26", "2025-12-26", DayOfWeek.Saturday)]
+        [TestCase("2025-12-27", "2026-01-02", "2025-12-27", DayOfWeek.Saturday)]
+        [TestCase("2025-12-21", "2025-12-27", "2025-12-27", DayOfWeek.Sunday)]
+        [TestCase("2025-12-22", "2025-12-28", "2025-12-27", DayOfWeek.Monday)]
+        [TestCase("2025-12-23", "2025-12-29", "2025-12-27", DayOfWeek.Tuesday)]
+        [TestCase("2025-12-24", "2025-12-30", "2025-12-27", DayOfWeek.Wednesday)]
+        [TestCase("2025-12-25", "2025-12-31", "2025-12-27", DayOfWeek.Thursday)]
+        [TestCase("2025-12-26", "2026-01-01", "2025-12-27", DayOfWeek.Friday)]
+        [TestCase("2025-12-27", "2026-01-02", "2025-12-28", DayOfWeek.Saturday)]
+        [TestCase("2025-12-28", "2026-01-03", "2025-12-28", DayOfWeek.Sunday)]
+        [TestCase("2025-12-22", "2025-12-28", "2025-12-28", DayOfWeek.Monday)]
+        [TestCase("2025-12-23", "2025-12-29", "2025-12-28", DayOfWeek.Tuesday)]
+        [TestCase("2025-12-24", "2025-12-30", "2025-12-28", DayOfWeek.Wednesday)]
+        [TestCase("2025-12-25", "2025-12-31", "2025-12-28", DayOfWeek.Thursday)]
+        [TestCase("2025-12-26", "2026-01-01", "2025-12-28", DayOfWeek.Friday)]
         public void Test_GetStartOfWeek_GetEndOfWeek(String expectedStartOfWeekString, String expectedEndOfWeekString, String workingDateString, DayOfWeek newStartOfWeek)
         {
             DateTime expectedStartOfWeek = DateTime.ParseExact(expectedStartOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
@@ -241,7 +301,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetStartOfLastMonth_GetEndOfLastMonth()
         {
-            for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
+            for (DateTime dateLoop = LoopStartDate; dateLoop <= LoopEndDate; dateLoop = dateLoop.AddDays(1))
             {
                 DateTime workingDate = new DateTime(dateLoop.Year, dateLoop.Month, dateLoop.Day);
                 IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
@@ -262,7 +322,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetStartOfCurrentMonth_GetEndOfCurrentMonth()
         {
-            for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
+            for (DateTime dateLoop = LoopStartDate; dateLoop <= LoopEndDate; dateLoop = dateLoop.AddDays(1))
             {
                 DateTime workingDate = dateLoop;
                 IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
@@ -283,7 +343,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetStartOfNextMonth_GetEndOfNextMonth()
         {
-            for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
+            for (DateTime dateLoop = LoopStartDate; dateLoop <= LoopEndDate; dateLoop = dateLoop.AddDays(1))
             {
                 DateTime workingDate = dateLoop;
                 IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
@@ -304,7 +364,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetStartOfMonth_GetEndOfMonth()
         {
-            for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
+            for (DateTime dateLoop = LoopStartDate; dateLoop <= LoopEndDate; dateLoop = dateLoop.AddDays(1))
             {
                 DateTime workingDate = dateLoop;
                 IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
@@ -360,7 +420,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetStartOfPreviousQuarter_GetEndOfPreviousQuarter()
         {
-            for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
+            for (DateTime dateLoop = LoopStartDate; dateLoop <= LoopEndDate; dateLoop = dateLoop.AddDays(1))
             {
                 DateTime workingDate = dateLoop;
                 IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
@@ -400,7 +460,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetStartOfCurrentQuarter_GetEndOfCurrentQuarter()
         {
-            for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
+            for (DateTime dateLoop = LoopStartDate; dateLoop <= LoopEndDate; dateLoop = dateLoop.AddDays(1))
             {
                 DateTime workingDate = dateLoop;
                 IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
@@ -440,7 +500,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetStartOfNextQuarter_GetEndOfNextQuarter()
         {
-            for (DateTime dateLoop = StartDate; dateLoop <= EndDate; dateLoop = dateLoop.AddDays(1))
+            for (DateTime dateLoop = LoopStartDate; dateLoop <= LoopEndDate; dateLoop = dateLoop.AddDays(1))
             {
                 DateTime workingDate = dateLoop;
                 IDateTimeService dateTimeService = new DateTimeService(DayOfWeek.Monday, workingDate, workingDate);
