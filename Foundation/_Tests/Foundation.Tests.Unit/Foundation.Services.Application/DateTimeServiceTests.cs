@@ -148,154 +148,171 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(actualValue.TimeOfDay.Seconds, Is.EqualTo(value.TimeOfDay.Seconds));
         }
 
-        [TestCase("2025-12-13", "2025-12-19", "2025-12-26", DayOfWeek.Saturday)]
-        [TestCase("2025-12-14", "2025-12-20", "2025-12-26", DayOfWeek.Sunday)]
-        [TestCase("2025-12-15", "2025-12-21", "2025-12-26", DayOfWeek.Monday)]
-        [TestCase("2025-12-16", "2025-12-22", "2025-12-26", DayOfWeek.Tuesday)]
-        [TestCase("2025-12-17", "2025-12-23", "2025-12-26", DayOfWeek.Wednesday)]
-        [TestCase("2025-12-18", "2025-12-24", "2025-12-26", DayOfWeek.Thursday)]
-        [TestCase("2025-12-19", "2025-12-25", "2025-12-26", DayOfWeek.Friday)]
-        [TestCase("2025-12-20", "2025-12-26", "2025-12-27", DayOfWeek.Saturday)]
-        [TestCase("2025-12-14", "2025-12-20", "2025-12-27", DayOfWeek.Sunday)]
-        [TestCase("2025-12-15", "2025-12-21", "2025-12-27", DayOfWeek.Monday)]
-        [TestCase("2025-12-16", "2025-12-22", "2025-12-27", DayOfWeek.Tuesday)]
-        [TestCase("2025-12-17", "2025-12-23", "2025-12-27", DayOfWeek.Wednesday)]
-        [TestCase("2025-12-18", "2025-12-24", "2025-12-27", DayOfWeek.Thursday)]
-        [TestCase("2025-12-19", "2025-12-25", "2025-12-27", DayOfWeek.Friday)]
-        [TestCase("2025-12-20", "2025-12-26", "2025-12-28", DayOfWeek.Saturday)]
-        [TestCase("2025-12-21", "2025-12-27", "2025-12-28", DayOfWeek.Sunday)]
-        [TestCase("2025-12-15", "2025-12-21", "2025-12-28", DayOfWeek.Monday)]
-        [TestCase("2025-12-16", "2025-12-22", "2025-12-28", DayOfWeek.Tuesday)]
-        [TestCase("2025-12-17", "2025-12-23", "2025-12-28", DayOfWeek.Wednesday)]
-        [TestCase("2025-12-18", "2025-12-24", "2025-12-28", DayOfWeek.Thursday)]
-        [TestCase("2025-12-19", "2025-12-25", "2025-12-28", DayOfWeek.Friday)]
-        public void Test_GetStartOfLastWeek_GetEndOfLastWeek(String expectedStartOfWeekString, String expectedEndOfWeekString, String workingDateString, DayOfWeek newStartOfWeek)
+        private DayOfWeek GetDayOfWeek(Int32 weekCounter)
         {
-            DateTime expectedStartOfWeek = DateTime.ParseExact(expectedStartOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            DateTime expectedEndOfWeek = DateTime.ParseExact(expectedEndOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            DateTime workingDate = DateTime.ParseExact(workingDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DayOfWeek retVal = weekCounter switch
+            {
+                0 => DayOfWeek.Monday,
+                1 => DayOfWeek.Tuesday,
+                2 => DayOfWeek.Wednesday,
+                3 => DayOfWeek.Thursday,
+                4 => DayOfWeek.Friday,
+                5 => DayOfWeek.Saturday,
+                6 => DayOfWeek.Sunday,
+                _ => DayOfWeek.Monday,
+            };
 
-            IDateTimeService dateTimeService = new DateTimeService(newStartOfWeek, workingDate, workingDate);
-
-            DateTime actualStartOfWeek1 = dateTimeService.GetStartOfLastWeek();
-            Assert.That(actualStartOfWeek1, Is.EqualTo(expectedStartOfWeek));
-
-            DateTime actualEndOfWeek1 = dateTimeService.GetEndOfLastWeek();
-            Assert.That(actualEndOfWeek1, Is.EqualTo(expectedEndOfWeek));
+            return retVal;
         }
 
-        [TestCase("2025-12-20", "2025-12-26", "2025-12-26", DayOfWeek.Saturday)]
-        [TestCase("2025-12-21", "2025-12-27", "2025-12-26", DayOfWeek.Sunday)]
-        [TestCase("2025-12-22", "2025-12-28", "2025-12-26", DayOfWeek.Monday)]
-        [TestCase("2025-12-23", "2025-12-29", "2025-12-26", DayOfWeek.Tuesday)]
-        [TestCase("2025-12-24", "2025-12-30", "2025-12-26", DayOfWeek.Wednesday)]
-        [TestCase("2025-12-25", "2025-12-31", "2025-12-26", DayOfWeek.Thursday)]
-        [TestCase("2025-12-26", "2026-01-01", "2025-12-26", DayOfWeek.Friday)]
-        [TestCase("2025-12-27", "2026-01-02", "2025-12-27", DayOfWeek.Saturday)]
-        [TestCase("2025-12-21", "2025-12-27", "2025-12-27", DayOfWeek.Sunday)]
-        [TestCase("2025-12-22", "2025-12-28", "2025-12-27", DayOfWeek.Monday)]
-        [TestCase("2025-12-23", "2025-12-29", "2025-12-27", DayOfWeek.Tuesday)]
-        [TestCase("2025-12-24", "2025-12-30", "2025-12-27", DayOfWeek.Wednesday)]
-        [TestCase("2025-12-25", "2025-12-31", "2025-12-27", DayOfWeek.Thursday)]
-        [TestCase("2025-12-26", "2026-01-01", "2025-12-27", DayOfWeek.Friday)]
-        [TestCase("2025-12-27", "2026-01-02", "2025-12-28", DayOfWeek.Saturday)]
-        [TestCase("2025-12-28", "2026-01-03", "2025-12-28", DayOfWeek.Sunday)]
-        [TestCase("2025-12-22", "2025-12-28", "2025-12-28", DayOfWeek.Monday)]
-        [TestCase("2025-12-23", "2025-12-29", "2025-12-28", DayOfWeek.Tuesday)]
-        [TestCase("2025-12-24", "2025-12-30", "2025-12-28", DayOfWeek.Wednesday)]
-        [TestCase("2025-12-25", "2025-12-31", "2025-12-28", DayOfWeek.Thursday)]
-        [TestCase("2025-12-26", "2026-01-01", "2025-12-28", DayOfWeek.Friday)]
-        public void Test_GetStartOfCurrentWeek_GetEndOfCurrentWeek(String expectedStartOfWeekString, String expectedEndOfWeekString, String workingDateString, DayOfWeek newStartOfWeek)
+        [TestCase]
+        public void Test_GetStartOfLastWeek_GetEndOfLastWeek()
         {
-            DateTime expectedStartOfWeek = DateTime.ParseExact(expectedStartOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            DateTime expectedEndOfWeek = DateTime.ParseExact(expectedEndOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            DateTime workingDate = DateTime.ParseExact(workingDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            for (Int32 weekCounter = 0; weekCounter < 7; weekCounter++)
+            {
+                DayOfWeek newStartOfWeek = GetDayOfWeek(weekCounter);
 
-            IDateTimeService dateTimeService = new DateTimeService(newStartOfWeek, workingDate, workingDate);
+                DateTime startingStartOfWeek = LoopStartDate.AddDays(-7 -6 + weekCounter);
+                DateTime startingEndOfWeek = LoopStartDate.AddDays(-7 + weekCounter);
+                DateTime startingWorkingDate = LoopStartDate;
+                Int32 loopCount = (Int32)(LoopEndDate - LoopStartDate).TotalDays;
 
-            DateTime actualStartOfWeek1 = dateTimeService.GetStartOfCurrentWeek();
-            Assert.That(actualStartOfWeek1, Is.EqualTo(expectedStartOfWeek));
+                DateTime expectedStartOfWeek = startingStartOfWeek;
+                DateTime expectedEndOfWeek = startingEndOfWeek;
 
-            DateTime actualEndOfWeek1 = dateTimeService.GetEndOfCurrentWeek();
-            Assert.That(actualEndOfWeek1, Is.EqualTo(expectedEndOfWeek));
+                for (Int32 dayLoop = 0; dayLoop < loopCount; dayLoop++)
+                {
+                    DateTime workingDate = startingWorkingDate.AddDays(dayLoop);
+
+                    if (workingDate.DayOfWeek == newStartOfWeek && dayLoop > 0)
+                    {
+                        expectedStartOfWeek = expectedStartOfWeek.AddDays(7);
+                        expectedEndOfWeek = expectedEndOfWeek.AddDays(7);
+                    }
+
+                    IDateTimeService dateTimeService = new DateTimeService(newStartOfWeek, workingDate, workingDate);
+
+                    DateTime actualStartOfWeek1 = dateTimeService.GetStartOfLastWeek();
+                    Assert.That(actualStartOfWeek1, Is.EqualTo(expectedStartOfWeek), $"{dayLoop} {workingDate:yyyy-MM-dd} {newStartOfWeek}");
+
+                    DateTime actualEndOfWeek1 = dateTimeService.GetEndOfLastWeek();
+                    Assert.That(actualEndOfWeek1, Is.EqualTo(expectedEndOfWeek), $"{dayLoop} {workingDate:yyyy-MM-dd} {newStartOfWeek}");
+                }
+            }
         }
 
-        [TestCase("2025-12-27", "2026-01-02", "2025-12-26", DayOfWeek.Saturday)]
-        [TestCase("2025-12-28", "2026-01-03", "2025-12-26", DayOfWeek.Sunday)]
-        [TestCase("2025-12-29", "2026-01-04", "2025-12-26", DayOfWeek.Monday)]
-        [TestCase("2025-12-30", "2026-01-05", "2025-12-26", DayOfWeek.Tuesday)]
-        [TestCase("2025-12-31", "2026-01-06", "2025-12-26", DayOfWeek.Wednesday)]
-        [TestCase("2026-01-01", "2026-01-07", "2025-12-26", DayOfWeek.Thursday)]
-        [TestCase("2026-01-02", "2026-01-08", "2025-12-26", DayOfWeek.Friday)]
-        [TestCase("2026-01-03", "2026-01-09", "2025-12-27", DayOfWeek.Saturday)]
-        [TestCase("2025-12-28", "2026-01-03", "2025-12-27", DayOfWeek.Sunday)]
-        [TestCase("2025-12-29", "2026-01-04", "2025-12-27", DayOfWeek.Monday)]
-        [TestCase("2025-12-30", "2026-01-05", "2025-12-27", DayOfWeek.Tuesday)]
-        [TestCase("2025-12-31", "2026-01-06", "2025-12-27", DayOfWeek.Wednesday)]
-        [TestCase("2026-01-01", "2026-01-07", "2025-12-27", DayOfWeek.Thursday)]
-        [TestCase("2026-01-02", "2026-01-08", "2025-12-27", DayOfWeek.Friday)]
-        [TestCase("2026-01-03", "2026-01-09", "2025-12-28", DayOfWeek.Saturday)]
-        [TestCase("2026-01-04", "2026-01-10", "2025-12-28", DayOfWeek.Sunday)]
-        [TestCase("2025-12-29", "2026-01-04", "2025-12-28", DayOfWeek.Monday)]
-        [TestCase("2025-12-30", "2026-01-05", "2025-12-28", DayOfWeek.Tuesday)]
-        [TestCase("2025-12-31", "2026-01-06", "2025-12-28", DayOfWeek.Wednesday)]
-        [TestCase("2026-01-01", "2026-01-07", "2025-12-28", DayOfWeek.Thursday)]
-        [TestCase("2026-01-02", "2026-01-08", "2025-12-28", DayOfWeek.Friday)]
-        public void Test_GetStartONextWeek_GetEndOfNextWeek(String expectedStartOfWeekString, String expectedEndOfWeekString, String workingDateString, DayOfWeek newStartOfWeek)
+        [TestCase]
+        public void Test_GetStartOfCurrentWeek_GetEndOfCurrentWeek()
         {
-            DateTime expectedStartOfWeek = DateTime.ParseExact(expectedStartOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            DateTime expectedEndOfWeek = DateTime.ParseExact(expectedEndOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            DateTime workingDate = DateTime.ParseExact(workingDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            for (Int32 weekCounter = 0; weekCounter < 7; weekCounter++)
+            {
+                DayOfWeek newStartOfWeek = GetDayOfWeek(weekCounter);
 
-            IDateTimeService dateTimeService = new DateTimeService(newStartOfWeek, workingDate, workingDate);
+                DateTime startingStartOfWeek = LoopStartDate.AddDays(-6 + weekCounter);
+                DateTime startingEndOfWeek = LoopStartDate.AddDays(weekCounter);
+                DateTime startingWorkingDate = LoopStartDate;
+                Int32 loopCount = (Int32)(LoopEndDate - LoopStartDate).TotalDays;
 
-            DateTime actualStartOfNextWeek1 = dateTimeService.GetStartOfNextWeek();
-            Assert.That(actualStartOfNextWeek1, Is.EqualTo(expectedStartOfWeek));
+                DateTime expectedStartOfWeek = startingStartOfWeek;
+                DateTime expectedEndOfWeek = startingEndOfWeek;
 
-            DateTime actualEndOfNextWeek1 = dateTimeService.GetEndOfNextWeek();
-            Assert.That(actualEndOfNextWeek1, Is.EqualTo(expectedEndOfWeek));
+                for (Int32 dayLoop = 0; dayLoop < loopCount; dayLoop++)
+                {
+                    DateTime workingDate = startingWorkingDate.AddDays(dayLoop);
+
+                    if (workingDate.DayOfWeek == newStartOfWeek && dayLoop > 0)
+                    {
+                        expectedStartOfWeek = expectedStartOfWeek.AddDays(7);
+                        expectedEndOfWeek = expectedEndOfWeek.AddDays(7);
+                    }
+
+                    IDateTimeService dateTimeService = new DateTimeService(newStartOfWeek, workingDate, workingDate);
+
+                    DateTime actualStartOfWeek1 = dateTimeService.GetStartOfCurrentWeek();
+                    Assert.That(actualStartOfWeek1, Is.EqualTo(expectedStartOfWeek), $"{dayLoop} {workingDate:yyyy-MM-dd} {newStartOfWeek}");
+
+                    DateTime actualEndOfWeek1 = dateTimeService.GetEndOfCurrentWeek();
+                    Assert.That(actualEndOfWeek1, Is.EqualTo(expectedEndOfWeek), $"{dayLoop} {workingDate:yyyy-MM-dd} {newStartOfWeek}");
+                }
+            }
         }
 
-        [TestCase("2025-12-20", "2025-12-26", "2025-12-26", DayOfWeek.Saturday)]
-        [TestCase("2025-12-21", "2025-12-27", "2025-12-26", DayOfWeek.Sunday)]
-        [TestCase("2025-12-22", "2025-12-28", "2025-12-26", DayOfWeek.Monday)]
-        [TestCase("2025-12-23", "2025-12-29", "2025-12-26", DayOfWeek.Tuesday)]
-        [TestCase("2025-12-24", "2025-12-30", "2025-12-26", DayOfWeek.Wednesday)]
-        [TestCase("2025-12-25", "2025-12-31", "2025-12-26", DayOfWeek.Thursday)]
-        [TestCase("2025-12-26", "2026-01-01", "2025-12-26", DayOfWeek.Friday)]
-        [TestCase("2025-12-27", "2026-01-02", "2025-12-27", DayOfWeek.Saturday)]
-        [TestCase("2025-12-21", "2025-12-27", "2025-12-27", DayOfWeek.Sunday)]
-        [TestCase("2025-12-22", "2025-12-28", "2025-12-27", DayOfWeek.Monday)]
-        [TestCase("2025-12-23", "2025-12-29", "2025-12-27", DayOfWeek.Tuesday)]
-        [TestCase("2025-12-24", "2025-12-30", "2025-12-27", DayOfWeek.Wednesday)]
-        [TestCase("2025-12-25", "2025-12-31", "2025-12-27", DayOfWeek.Thursday)]
-        [TestCase("2025-12-26", "2026-01-01", "2025-12-27", DayOfWeek.Friday)]
-        [TestCase("2025-12-27", "2026-01-02", "2025-12-28", DayOfWeek.Saturday)]
-        [TestCase("2025-12-28", "2026-01-03", "2025-12-28", DayOfWeek.Sunday)]
-        [TestCase("2025-12-22", "2025-12-28", "2025-12-28", DayOfWeek.Monday)]
-        [TestCase("2025-12-23", "2025-12-29", "2025-12-28", DayOfWeek.Tuesday)]
-        [TestCase("2025-12-24", "2025-12-30", "2025-12-28", DayOfWeek.Wednesday)]
-        [TestCase("2025-12-25", "2025-12-31", "2025-12-28", DayOfWeek.Thursday)]
-        [TestCase("2025-12-26", "2026-01-01", "2025-12-28", DayOfWeek.Friday)]
-        public void Test_GetStartOfWeek_GetEndOfWeek(String expectedStartOfWeekString, String expectedEndOfWeekString, String workingDateString, DayOfWeek newStartOfWeek)
+        [TestCase]
+        public void Test_GetStartOfNextWeek_GetEndOfNextWeek()
         {
-            DateTime expectedStartOfWeek = DateTime.ParseExact(expectedStartOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            DateTime expectedEndOfWeek = DateTime.ParseExact(expectedEndOfWeekString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            DateTime workingDate = DateTime.ParseExact(workingDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            for (Int32 weekCounter = 0; weekCounter < 7; weekCounter++)
+            {
+                DayOfWeek newStartOfWeek = GetDayOfWeek(weekCounter);
 
-            IDateTimeService dateTimeService = new DateTimeService(newStartOfWeek, workingDate, workingDate);
+                DateTime startingStartOfWeek = LoopStartDate.AddDays(1 + weekCounter);
+                DateTime startingEndOfWeek = LoopStartDate.AddDays(7 + weekCounter);
+                DateTime startingWorkingDate = LoopStartDate;
+                Int32 loopCount = (Int32)(LoopEndDate - LoopStartDate).TotalDays;
 
-            DateTime actualStartOfWeek1 = dateTimeService.GetStartOfWeek(workingDate);
-            Assert.That(actualStartOfWeek1, Is.EqualTo(expectedStartOfWeek));
+                DateTime expectedStartOfWeek = startingStartOfWeek;
+                DateTime expectedEndOfWeek = startingEndOfWeek;
 
-            DateTime actualValue2 = dateTimeService.GetStartOfWeek(workingDate.Year, workingDate.Month, workingDate.Day);
-            Assert.That(actualValue2, Is.EqualTo(expectedStartOfWeek));
+                for (Int32 dayLoop = 0; dayLoop < loopCount; dayLoop++)
+                {
+                    DateTime workingDate = startingWorkingDate.AddDays(dayLoop);
 
-            DateTime actualEndOfWeek1 = dateTimeService.GetEndOfWeek(workingDate);
-            Assert.That(actualEndOfWeek1, Is.EqualTo(expectedEndOfWeek));
+                    if (workingDate.DayOfWeek == newStartOfWeek && dayLoop > 0)
+                    {
+                        expectedStartOfWeek = expectedStartOfWeek.AddDays(7);
+                        expectedEndOfWeek = expectedEndOfWeek.AddDays(7);
+                    }
 
-            DateTime actualEndOfWeek2 = dateTimeService.GetEndOfWeek(workingDate.Year, workingDate.Month, workingDate.Day);
-            Assert.That(actualEndOfWeek2, Is.EqualTo(expectedEndOfWeek));
+                    IDateTimeService dateTimeService = new DateTimeService(newStartOfWeek, workingDate, workingDate);
+
+                    DateTime actualStartOfWeek1 = dateTimeService.GetStartOfNextWeek();
+                    Assert.That(actualStartOfWeek1, Is.EqualTo(expectedStartOfWeek), $"{dayLoop} {workingDate:yyyy-MM-dd} {newStartOfWeek}");
+
+                    DateTime actualEndOfWeek1 = dateTimeService.GetEndOfNextWeek();
+                    Assert.That(actualEndOfWeek1, Is.EqualTo(expectedEndOfWeek), $"{dayLoop} {workingDate:yyyy-MM-dd} {newStartOfWeek}");
+                }
+            }
+        }
+
+        [TestCase]
+        public void Test_GetStartOfWeek_GetEndOfWeek()
+        {
+            for (Int32 weekCounter = 0; weekCounter < 7; weekCounter++)
+            {
+                DayOfWeek newStartOfWeek = GetDayOfWeek(weekCounter);
+
+                DateTime startingStartOfWeek = LoopStartDate.AddDays(-6 + weekCounter);
+                DateTime startingEndOfWeek = LoopStartDate.AddDays(weekCounter);
+                DateTime startingWorkingDate = LoopStartDate;
+                Int32 loopCount = (Int32)(LoopEndDate - LoopStartDate).TotalDays;
+
+                DateTime expectedStartOfWeek = startingStartOfWeek;
+                DateTime expectedEndOfWeek = startingEndOfWeek;
+
+                for (Int32 dayLoop = 0; dayLoop < loopCount; dayLoop++)
+                {
+                    DateTime workingDate = startingWorkingDate.AddDays(dayLoop);
+
+                    if (workingDate.DayOfWeek == newStartOfWeek && dayLoop > 0)
+                    {
+                        expectedStartOfWeek = expectedStartOfWeek.AddDays(7);
+                        expectedEndOfWeek = expectedEndOfWeek.AddDays(7);
+                    }
+
+                    IDateTimeService dateTimeService = new DateTimeService(newStartOfWeek, workingDate, workingDate);
+
+                    DateTime actualStartOfWeek1 = dateTimeService.GetStartOfWeek(workingDate);
+                    Assert.That(actualStartOfWeek1, Is.EqualTo(expectedStartOfWeek), $"{dayLoop} {workingDate:yyyy-MM-dd} {newStartOfWeek}");
+
+                    DateTime actualStartOfWeek2 = dateTimeService.GetStartOfWeek(workingDate.Year, workingDate.Month, workingDate.Day);
+                    Assert.That(actualStartOfWeek2, Is.EqualTo(expectedStartOfWeek), $"{dayLoop} {workingDate:yyyy-MM-dd} {newStartOfWeek}");
+
+                    DateTime actualEndOfWeek1 = dateTimeService.GetEndOfWeek(workingDate);
+                    Assert.That(actualEndOfWeek1, Is.EqualTo(expectedEndOfWeek), $"{dayLoop} {workingDate:yyyy-MM-dd} {newStartOfWeek}");
+
+                    DateTime actualEndOfWeek2 = dateTimeService.GetEndOfWeek(workingDate.Year, workingDate.Month, workingDate.Day);
+                    Assert.That(actualEndOfWeek2, Is.EqualTo(expectedEndOfWeek), $"{dayLoop} {workingDate:yyyy-MM-dd} {newStartOfWeek}");
+                }
+            }
         }
 
         [TestCase]
