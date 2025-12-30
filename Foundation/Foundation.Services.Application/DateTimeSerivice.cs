@@ -382,18 +382,135 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
+        /// <inheritdoc cref="IDateTimeService.GetStartOfLastYear"/>
+        public DateTime GetStartOfLastYear()
+        {
+            DateTime lastYear = SystemUtcDateTimeNow.AddYears(-1);
+            DateTime retVal = GetStartOfYear(lastYear);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetEndOfLastYear"/>
+        public DateTime GetEndOfLastYear()
+        {
+            DateTime lastYear = SystemUtcDateTimeNow.AddYears(-1);
+            DateTime retVal = GetEndOfYear(lastYear);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetStartOfCurrentYear()"/>
+        public DateTime GetStartOfCurrentYear()
+        {
+            DateTime currentDateTime = SystemUtcDateTimeNow;
+            DateTime retVal = GetStartOfYear(currentDateTime);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetEndOfCurrentYear"/>
+        public DateTime GetEndOfCurrentYear()
+        {
+            DateTime currentDateTime = SystemUtcDateTimeNow;
+            DateTime retVal = GetEndOfYear(currentDateTime);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetStartOfNextYear"/>
+        public DateTime GetStartOfNextYear()
+        {
+            DateTime lastYear = SystemUtcDateTimeNow.AddYears(1);
+            DateTime retVal = GetStartOfYear(lastYear);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetEndOfNextYear"/>
+        public DateTime GetEndOfNextYear()
+        {
+            DateTime lastYear = SystemUtcDateTimeNow.AddYears(1);
+            DateTime retVal = GetEndOfYear(lastYear);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetStartOfYear(DateTime)"/>
+        public DateTime GetStartOfYear(DateTime targetDate)
+        {
+            LoggingHelpers.TraceCallEnter(targetDate);
+
+            Int32 year = targetDate.Year;
+
+            DateTime retVal = GetStartOfYear(year);
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetStartOfYear(Int32)"/>
+        public DateTime GetStartOfYear(Int32 year)
+        {
+            LoggingHelpers.TraceCallEnter(year);
+
+            DateTime retVal = new DateTime(year, 1, 1);
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetEndOfYear(DateTime)"/>
+        public DateTime GetEndOfYear(DateTime targetDate)
+        {
+            LoggingHelpers.TraceCallEnter(targetDate);
+
+            Int32 year = targetDate.Year;
+
+            DateTime retVal = GetEndOfYear(year);
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IDateTimeService.GetEndOfYear(Int32)"/>
+        public DateTime GetEndOfYear(Int32 year)
+        {
+            LoggingHelpers.TraceCallEnter(year);
+
+            Int32 month = 12;
+            Int32 lastDay = DateTime.DaysInMonth(year, month);
+
+            DateTime retVal = new DateTime(year, month, lastDay);
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
         /// <inheritdoc cref="IDateTimeService.GetStartOfRollingPeriod(DatePeriod, Int32)"/>
         public DateTime GetStartOfRollingPeriod(DatePeriod datePeriod, Int32 interval)
         {
             LoggingHelpers.TraceCallEnter(datePeriod, interval);
 
-            DateTime retVal = SystemUtcDateTimeNow.Date.Add(datePeriod, (interval * -1));
+            DateTime retVal = SystemUtcDateTimeNow.Date;
+            retVal = retVal.Date.Add(datePeriod, (interval * -1));
             switch (datePeriod)
             {
-                case DatePeriod.Days: /* No change needed */ break;
-                case DatePeriod.Weeks: retVal = GetStartOfWeek(retVal); break;
+                case DatePeriod.Days:
+                    /* No further adjustments*/
+                    break;
+                case DatePeriod.Weeks:
+                    retVal = GetStartOfWeek(retVal);
+                    break;
                 case DatePeriod.Months:
-                case DatePeriod.Years: retVal = GetStartOfMonth(retVal); break;
+                    retVal = GetStartOfMonth(retVal);
+                    break;
+                case DatePeriod.Years:
+                    retVal = GetStartOfYear(retVal);
+                    break;
             }
 
             LoggingHelpers.TraceCallReturn(retVal);
@@ -406,14 +523,22 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter(datePeriod, interval);
 
-            DateTime workingDate = SystemUtcDateTimeNow.Date.Add(datePeriod, -1);
-            DateTime retVal = workingDate;
+            DateTime retVal = SystemUtcDateTimeNow.Date;
+            retVal = retVal.Date.Add(datePeriod, -1);
             switch (datePeriod)
             {
-                case DatePeriod.Days: /* No change needed */ break;
-                case DatePeriod.Weeks: retVal = GetStartOfWeek(retVal); break;
+                case DatePeriod.Days:
+                    /* No further adjustments */
+                    break;
+                case DatePeriod.Weeks:
+                    retVal = GetEndOfWeek(retVal);
+                    break;
                 case DatePeriod.Months:
-                case DatePeriod.Years: retVal = GetEndOfMonth(retVal); break;
+                    retVal = GetEndOfMonth(retVal);
+                    break;
+                case DatePeriod.Years: 
+                    retVal = GetEndOfYear(retVal);
+                    break;
             }
 
             LoggingHelpers.TraceCallReturn(retVal);

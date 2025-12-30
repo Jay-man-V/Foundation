@@ -226,6 +226,83 @@ namespace Foundation.Interfaces
         /// <returns></returns>
         DateTime GetEndOfMonth(Int32 year, Int32 month);
 
+
+        /// <summary>
+        /// Gets the start of last year.
+        /// </summary>
+        /// <value>
+        /// The start of last year.
+        /// </value>
+        DateTime GetStartOfLastYear();
+
+        /// <summary>
+        /// Gets the end of last year.
+        /// </summary>
+        /// <value>
+        /// The end of last year.
+        /// </value>
+        DateTime GetEndOfLastYear();
+
+        /// <summary>
+        /// Gets the start of current year.
+        /// </summary>
+        /// <value>
+        /// The start of year.
+        /// </value>
+        DateTime GetStartOfCurrentYear();
+
+        /// <summary>
+        /// Gets the end of current month/year.
+        /// </summary>
+        /// <value>
+        /// The end of the year.
+        /// </value>
+        DateTime GetEndOfCurrentYear();
+
+        /// <summary>
+        /// Gets the start of next year.
+        /// </summary>
+        /// <value>
+        /// The start of next year.
+        /// </value>
+        DateTime GetStartOfNextYear();
+
+        /// <summary>
+        /// Gets the end of next year.
+        /// </summary>
+        /// <value>
+        /// The end of next year.
+        /// </value>
+        DateTime GetEndOfNextYear();
+
+        /// <summary>
+        /// Gets the start of the <paramref name="targetDate"/>
+        /// </summary>
+        /// <param name="targetDate"></param>
+        /// <returns></returns>
+        DateTime GetStartOfYear(DateTime targetDate);
+
+        /// <summary>
+        /// Gets the start of the month
+        /// </summary>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        DateTime GetStartOfYear(Int32 year);
+
+        /// <summary>
+        /// Gets the end of the <paramref name="targetDate"/>
+        /// </summary>
+        /// <param name="targetDate"></param>
+        /// <returns></returns>
+        DateTime GetEndOfYear(DateTime targetDate);
+
+        /// <summary>
+        /// Gets the end of the year
+        /// </summary>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        DateTime GetEndOfYear(Int32 year);
+
         /// <summary>
         /// Gets the first date of the previous period.
         /// It uses the current date to determine the rolling period based on the supplied <paramref name="datePeriod"/>
