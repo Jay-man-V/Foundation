@@ -387,12 +387,11 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter(datePeriod, interval);
 
-            DateTime workingDate = SystemUtcDateTimeNow.Date.Add(datePeriod, (interval * -1) -1);
-            DateTime retVal = workingDate;
+            DateTime retVal = SystemUtcDateTimeNow.Date.Add(datePeriod, (interval * -1));
             switch (datePeriod)
             {
                 case DatePeriod.Days: /* No change needed */ break;
-                case DatePeriod.Weeks: /* No change needed */ break;
+                case DatePeriod.Weeks: retVal = GetStartOfWeek(retVal); break;
                 case DatePeriod.Months:
                 case DatePeriod.Years: retVal = GetStartOfMonth(retVal); break;
             }
@@ -412,7 +411,7 @@ namespace Foundation.Services.Application
             switch (datePeriod)
             {
                 case DatePeriod.Days: /* No change needed */ break;
-                case DatePeriod.Weeks: /* No change needed */ break;
+                case DatePeriod.Weeks: retVal = GetStartOfWeek(retVal); break;
                 case DatePeriod.Months:
                 case DatePeriod.Years: retVal = GetEndOfMonth(retVal); break;
             }
