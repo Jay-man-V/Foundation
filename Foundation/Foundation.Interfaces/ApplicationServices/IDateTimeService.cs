@@ -12,18 +12,18 @@ namespace Foundation.Interfaces
     public interface IDateTimeService
     {
         /// <summary>
-        /// Gets the start of week. This is currently Monday
+        /// Gets the start of the week. This is currently Monday
         /// </summary>
         /// <value>
-        /// The start of week.
+        /// The start of the week.
         /// </value>
         DayOfWeek StartOfWeek { get; }
 
         /// <summary>
-        /// Gets the utc date time now.
+        /// Gets the UTC date time now.
         /// </summary>
         /// <value>
-        /// The Utc date time now.
+        /// The UTC date time now.
         /// </value>
         DateTime SystemUtcDateTimeNow { get; }
 
@@ -85,15 +85,15 @@ namespace Foundation.Interfaces
         DateTime GetEndOfLastWeek();
 
         /// <summary>
-        /// Gets the start of current week.
+        /// Gets the start of the current week.
         /// </summary>
         /// <value>
-        /// The start of week.
+        /// The start of the current week.
         /// </value>
         DateTime GetStartOfCurrentWeek();
 
         /// <summary>
-        /// Gets the end of current week.
+        /// Gets the end of the current week.
         /// </summary>
         /// <value>
         /// The end of week.
@@ -104,7 +104,7 @@ namespace Foundation.Interfaces
         /// Gets the start of next week.
         /// </summary>
         /// <value>
-        /// The start of last week.
+        /// The start of next week.
         /// </value>
         DateTime GetStartOfNextWeek();
 
@@ -112,7 +112,7 @@ namespace Foundation.Interfaces
         /// Gets the end of next week.
         /// </summary>
         /// <value>
-        /// The end of last week.
+        /// The end of next week.
         /// </value>
         DateTime GetEndOfNextWeek();
 
@@ -122,14 +122,18 @@ namespace Foundation.Interfaces
         /// <param name="year"></param>
         /// <param name="month"></param>
         /// <param name="day"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// The start of next week.
+        /// </returns>
         DateTime GetStartOfWeek(Int32 year, Int32 month, Int32 day);
 
         /// <summary>
         /// Gets the start of the <paramref name="targetDate"/>
         /// </summary>
         /// <param name="targetDate"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// The start of next week.
+        /// </returns>
         DateTime GetStartOfWeek(DateTime targetDate);
 
         /// <summary>
@@ -138,14 +142,18 @@ namespace Foundation.Interfaces
         /// <param name="year"></param>
         /// <param name="month"></param>
         /// <param name="day"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// The end of next week.
+        /// </returns>
         DateTime GetEndOfWeek(Int32 year, Int32 month, Int32 day);
 
         /// <summary>
         /// Gets the end of the <paramref name="targetDate"/>
         /// </summary>
         /// <param name="targetDate"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// The start of next week.
+        /// </returns>
         DateTime GetEndOfWeek(DateTime targetDate);
 
         /// <summary>
@@ -168,7 +176,7 @@ namespace Foundation.Interfaces
         /// Gets the start of current month/year.
         /// </summary>
         /// <value>
-        /// The start of month.
+        /// The start of the current month/year.
         /// </value>
         DateTime GetStartOfCurrentMonth();
 
@@ -176,7 +184,7 @@ namespace Foundation.Interfaces
         /// Gets the end of current month/year.
         /// </summary>
         /// <value>
-        /// The end of month.
+        /// The end of the current month/year.
         /// </value>
         DateTime GetEndOfCurrentMonth();
 
@@ -184,7 +192,7 @@ namespace Foundation.Interfaces
         /// Gets the start of next month.
         /// </summary>
         /// <value>
-        /// The start of last month.
+        /// The start of the next month/year.
         /// </value>
         DateTime GetStartOfNextMonth();
 
@@ -192,7 +200,7 @@ namespace Foundation.Interfaces
         /// Gets the end of next month.
         /// </summary>
         /// <value>
-        /// The end of last month.
+        /// The end of the next month/year.
         /// </value>
         DateTime GetEndOfNextMonth();
 
@@ -200,7 +208,9 @@ namespace Foundation.Interfaces
         /// Gets the start of the <paramref name="targetDate"/>
         /// </summary>
         /// <param name="targetDate"></param>
-        /// <returns></returns>
+        /// <value>
+        /// The start of the month/year.
+        /// </value>
         DateTime GetStartOfMonth(DateTime targetDate);
 
         /// <summary>
@@ -208,14 +218,18 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="year"></param>
         /// <param name="month"></param>
-        /// <returns></returns>
+        /// <value>
+        /// The start of the month/year.
+        /// </value>
         DateTime GetStartOfMonth(Int32 year, Int32 month);
 
         /// <summary>
         /// Gets the end of the <paramref name="targetDate"/>
         /// </summary>
         /// <param name="targetDate"></param>
-        /// <returns></returns>
+        /// <value>
+        /// The end of the month/year.
+        /// </value>
         DateTime GetEndOfMonth(DateTime targetDate);
 
         /// <summary>
@@ -223,7 +237,9 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="year"></param>
         /// <param name="month"></param>
-        /// <returns></returns>
+        /// <value>
+        /// The end of the month/year.
+        /// </value>
         DateTime GetEndOfMonth(Int32 year, Int32 month);
 
 
@@ -247,7 +263,7 @@ namespace Foundation.Interfaces
         /// Gets the start of current year.
         /// </summary>
         /// <value>
-        /// The start of year.
+        /// The start of the current year.
         /// </value>
         DateTime GetStartOfCurrentYear();
 
@@ -255,7 +271,7 @@ namespace Foundation.Interfaces
         /// Gets the end of current month/year.
         /// </summary>
         /// <value>
-        /// The end of the year.
+        /// The end of the current year.
         /// </value>
         DateTime GetEndOfCurrentYear();
 
@@ -279,28 +295,36 @@ namespace Foundation.Interfaces
         /// Gets the start of the <paramref name="targetDate"/>
         /// </summary>
         /// <param name="targetDate"></param>
-        /// <returns></returns>
+        /// <value>
+        /// The start of next year.
+        /// </value>
         DateTime GetStartOfYear(DateTime targetDate);
 
         /// <summary>
         /// Gets the start of the month
         /// </summary>
         /// <param name="year"></param>
-        /// <returns></returns>
+        /// <value>
+        /// The start of next year.
+        /// </value>
         DateTime GetStartOfYear(Int32 year);
 
         /// <summary>
         /// Gets the end of the <paramref name="targetDate"/>
         /// </summary>
         /// <param name="targetDate"></param>
-        /// <returns></returns>
+        /// <value>
+        /// The end of next year.
+        /// </value>
         DateTime GetEndOfYear(DateTime targetDate);
 
         /// <summary>
         /// Gets the end of the year
         /// </summary>
         /// <param name="year"></param>
-        /// <returns></returns>
+        /// <value>
+        /// The end of next year.
+        /// </value>
         DateTime GetEndOfYear(Int32 year);
 
         /// <summary>
@@ -313,7 +337,9 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="datePeriod">>The <see cref="DatePeriod"/></param>
         /// <param name="interval">The number of <paramref name="datePeriod"/> to consider</param>
-        /// <returns></returns>
+        /// <value>
+        /// The start of the rolling period.
+        /// </value>
         DateTime GetStartOfRollingPeriod(DatePeriod datePeriod, Int32 interval);
 
         /// <summary>
@@ -326,7 +352,9 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="datePeriod">>The <see cref="DatePeriod"/></param>
         /// <param name="interval">The number of <paramref name="datePeriod"/> to consider</param>
-        /// <returns></returns>
+        /// <value>
+        /// The end of the rolling period.
+        /// </value>
         DateTime GetEndOfRollingPeriod(DatePeriod datePeriod, Int32 interval);
 
         /// <summary>

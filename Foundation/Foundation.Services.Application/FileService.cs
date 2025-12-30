@@ -48,6 +48,27 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
+        /// <inheritdoc cref="IFileApi.GetNewTempFolderPath(String, Boolean)"/>
+        public String GetNewTempFolderPath(String folderName, Boolean createFolder)
+        {
+            LoggingHelpers.TraceCallEnter(folderName, createFolder);
+
+            String tempFolderName = Path.GetRandomFileName();
+            String tempPath = Path.GetTempPath();
+            String targetFolderPath = Path.Combine(tempPath, folderName);
+            String retVal = Path.Combine(targetFolderPath, tempFolderName);
+
+            if (createFolder)
+            {
+                CreateDirectory(tempPath, folderName, throwExceptionIfExists: false);
+                CreateDirectory(targetFolderPath, tempFolderName, throwExceptionIfExists: true);
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
         /// <inheritdoc cref="IFileApi.GetNewTempFilePath(String, String)"/>
         public String GetNewTempFilePath(String baseFolder, String filePrefix)
         {
@@ -295,6 +316,37 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
+        /// <inheritdoc cref="IFileApi.WriteFileContent(String, Stream, Boolean)"/>
+        public String WriteFileContent(String filePath, Stream fileContent, Boolean overwriteIfFileExists = false)
+        {
+            LoggingHelpers.TraceCallEnter(filePath);
+
+            String retVal = filePath;
+
+            Boolean fileExists = DoesFileExist(retVal);
+
+            if (fileExists && overwriteIfFileExists)
+            {
+                DeleteFile(retVal);
+            }
+
+            using (FileStream fileStream = File.Create(retVal))
+            {
+                if (fileContent is { CanSeek: true, Length: > 0 })
+                {
+                    fileContent.Position = 0;
+                }
+
+                fileContent.CopyTo(fileStream);
+                fileStream.Flush();
+                fileStream.Close();
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
         /// <inheritdoc cref="IFileApi.CopyFile(String, String)"/>
         public void CopyFile(String sourceFilePath, String destinationFilePath)
         {
@@ -379,58 +431,6 @@ namespace Foundation.Services.Application
             }
 
             LoggingHelpers.TraceCallReturn();
-        }
-
-        /// <inheritdoc cref="IFileApi.GetNewTempFolderPath(String, Boolean)"/>
-        public String GetNewTempFolderPath(String folderName, Boolean createFolder)
-        {
-            LoggingHelpers.TraceCallEnter(folderName, createFolder);
-
-            String tempFolderName = Path.GetRandomFileName();
-            String tempPath = Path.GetTempPath();
-            String targetFolderPath = Path.Combine(tempPath, folderName);
-            String retVal = Path.Combine(targetFolderPath, tempFolderName);
-
-            if (createFolder)
-            {
-                CreateDirectory(tempPath, folderName, throwExceptionIfExists: false);
-                CreateDirectory(targetFolderPath, tempFolderName, throwExceptionIfExists: true);
-            }
-
-            LoggingHelpers.TraceCallReturn(retVal);
-
-            return retVal;
-        }
-
-        /// <inheritdoc cref="IFileApi.WriteFileContent(String, Stream, Boolean)"/>
-        public String WriteFileContent(String filePath, Stream fileContent, Boolean overwriteIfFileExists = false)
-        {
-            LoggingHelpers.TraceCallEnter(filePath);
-
-            String retVal = filePath;
-
-            Boolean fileExists = DoesFileExist(retVal);
-
-            if (fileExists && overwriteIfFileExists)
-            {
-                DeleteFile(retVal);
-            }
-
-            using (FileStream fileStream = File.Create(retVal))
-            {
-                if (fileContent is { CanSeek: true, Length: > 0 })
-                {
-                    fileContent.Position = 0;
-                }
-
-                fileContent.CopyTo(fileStream);
-                fileStream.Flush();
-                fileStream.Close();
-            }
-
-            LoggingHelpers.TraceCallReturn(retVal);
-
-            return retVal;
         }
 
         /// <inheritdoc cref="IRemoteServiceApi.DeleteFile(IFileTransferSettings)"/>

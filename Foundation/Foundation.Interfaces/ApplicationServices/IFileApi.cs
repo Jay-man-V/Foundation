@@ -34,6 +34,14 @@ namespace Foundation.Interfaces
         String MakeDataPath(String baseFolder, String targetFolder, string targetFileName);
 
         /// <summary>
+        /// Gets the new temporary folder path.
+        /// </summary>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <param name="createFolder">if set to <c>true</c> [create folder].</param>
+        /// <returns></returns>
+        String GetNewTempFolderPath(String folderName, Boolean createFolder);
+
+        /// <summary>
         /// Gets the new temporary file path.
         /// </summary>
         /// <param name="baseFolder">The base folder.</param>
@@ -148,6 +156,15 @@ namespace Foundation.Interfaces
         TextWriter OpenFileForWriting(String filePath, Encoding encoding, Boolean appendToFile = false);
 
         /// <summary>
+        /// Writes the stream content to the file
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <param name="fileContent">The file content</param>
+        /// <param name="overwriteIfFileExists"></param>
+        /// <returns>The file contents</returns>
+        String WriteFileContent(String filePath, Stream fileContent, Boolean overwriteIfFileExists = false);
+
+        /// <summary>
         /// Makes a copy of the file in the <paramref name="destinationFilePath"/>
         /// </summary>
         /// <param name="sourceFilePath">The full path to the source file</param>
@@ -182,22 +199,5 @@ namespace Foundation.Interfaces
         /// <param name="directoryPath">Location of directory to delete</param>
         /// <param name="recursive">true to delete this directory, its subdirectories, and all files; otherwise, false</param>
         void DeleteDirectory(String directoryPath, Boolean recursive);
-
-        /// <summary>
-        /// Gets the new temporary folder path.
-        /// </summary>
-        /// <param name="folderName">Name of the folder.</param>
-        /// <param name="createFolder">if set to <c>true</c> [create folder].</param>
-        /// <returns></returns>
-        String GetNewTempFolderPath(String folderName, Boolean createFolder);
-
-        /// <summary>
-        /// Gets the file contents as a stream.
-        /// </summary>
-        /// <param name="filePath">The file path.</param>
-        /// <param name="fileContent">The file content</param>
-        /// <param name="overwriteIfFileExists"></param>
-        /// <returns>The file contents</returns>
-        String WriteFileContent(String filePath, Stream fileContent, Boolean overwriteIfFileExists = false);
     }
 }
