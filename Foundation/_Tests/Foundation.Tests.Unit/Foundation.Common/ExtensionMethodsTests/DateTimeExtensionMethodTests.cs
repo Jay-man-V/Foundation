@@ -89,7 +89,8 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
 
         [TestCase("2021-08-13 15:13:25", "05:13:25", "2021-08-13 10:00:00", "Within window")]
         [TestCase("2021-08-13 14:13:25", "05:13:25", "2021-08-13 06:00:00", "Before start time")]
-        [TestCase("2021-08-13 15:13:25", "05:13:25", "2021-08-13 10:00:00", "After end time")]
+        [TestCase("2021-08-13 15:13:25", "05:13:25", "2021-08-13 10:00:00", "After end time 1")]
+        [TestCase("2021-08-14 11:13:25", "02:13:25", "2021-08-13 20:00:00", "After end time 2")]
         [TestCase("2021-08-14 11:13:25", "10:13:25", "2021-08-13 08:00:00", "Duration Greater Than One Day 1")]
         [TestCase("2021-08-14 09:13:25", "08:13:25", "2021-08-13 09:00:00", "Duration Greater Than One Day 2")]
         [TestCase("2021-08-15 09:13:25", "16:13:25", "2021-08-13 09:00:00", "Duration Greater Than Two Days 1")]
@@ -148,7 +149,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
         [TestCase(true, "2018-10-01 20:10:00", "2018-09-01 20:10:00", "2018-10-01 20:10:00", "EndSameValue")]
         public void Test_Nullable_IsBetween(Boolean expected, String? workingDateString, String startValueString, String endValueString, String comment)
         {
-            DateTime? workingDate = (String.IsNullOrEmpty(workingDateString)) ? null : DateTime.ParseExact(workingDateString!, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+            DateTime? workingDate = (String.IsNullOrEmpty(workingDateString)) ? null : DateTime.ParseExact(workingDateString, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
             DateTime earlyDateTime = DateTime.ParseExact(startValueString, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
             DateTime laterDateTime = DateTime.ParseExact(endValueString, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
 

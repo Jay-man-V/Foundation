@@ -195,7 +195,7 @@ namespace Foundation.Core
                 if (!String.IsNullOrEmpty(implementationTypeName))
                 {
 #if (DEBUG)
-                    if (implementationTypeName.Contains("DataProvider"))
+                    if (implementationTypeName.Contains("MockApplicationStartup"))
                     {
                     }
 #endif
@@ -221,7 +221,7 @@ namespace Foundation.Core
                         {
                             String interfaceName = interfaceType.Name;
 #if (DEBUG)
-                            if (interfaceName.Contains("ILogDataProvider"))
+                            if (interfaceName.Contains("IMockApplicationStartup"))
                             {
                             }
 #endif

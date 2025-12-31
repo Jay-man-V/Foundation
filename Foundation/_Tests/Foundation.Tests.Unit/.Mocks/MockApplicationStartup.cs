@@ -10,6 +10,7 @@ namespace Foundation.Tests.Unit.Mocks
 {
     public interface IMockApplicationStartup : IApplicationStartup
     {
+        Boolean ApplicationStartupCalled { get; set; }
     }
 
     [DependencyInjectionSingleton]
@@ -17,8 +18,11 @@ namespace Foundation.Tests.Unit.Mocks
     {
         public static EventHandler? ApplicationStartingCalled { get; set; }
 
+        public Boolean ApplicationStartupCalled { get; set; }
+
         public void ApplicationStarting()
         {
+            ApplicationStartupCalled = true;
             ApplicationStartingCalled?.Invoke(this, EventArgs.Empty);
         }
     }

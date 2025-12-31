@@ -43,16 +43,6 @@ namespace Foundation.Common
         /// <summary>
         /// Initialises a new instance of the <see cref="ContextInformation"/> class.
         /// </summary>
-        /// <param name="parameterValue">The parameter values.</param>
-        public ContextInformation(Object? parameterValue)
-            : this([parameterValue ?? "<null>"])
-        {
-
-        }
-
-        /// <summary>
-        /// Initialises a new instance of the <see cref="ContextInformation"/> class.
-        /// </summary>
         /// <param name="parameterValues">The parameter values.</param>
         public ContextInformation(params Object?[] parameterValues)
         {

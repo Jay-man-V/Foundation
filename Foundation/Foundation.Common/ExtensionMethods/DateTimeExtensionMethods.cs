@@ -166,8 +166,15 @@ namespace Foundation.Common
             TimeSpan oneDayTimeSpan = workingTimeWindow.EndTime - workingTimeWindow.StartTime;
 
             // Adjust the TimeOfDay based on the Start and End times of the workingTimeWindow
-            if (retVal.TimeOfDay < workingTimeWindow.StartTime) { retVal = retVal.Date + workingTimeWindow.StartTime; }
-            if (retVal.TimeOfDay > workingTimeWindow.EndTime) { retVal = retVal.Date.AddDays(1) + workingTimeWindow.StartTime; }
+            if (retVal.TimeOfDay < workingTimeWindow.StartTime)
+            {
+                retVal = retVal.Date + workingTimeWindow.StartTime;
+            }
+
+            if (retVal.TimeOfDay > workingTimeWindow.EndTime)
+            {
+                retVal = retVal.Date.AddDays(1) + workingTimeWindow.StartTime;
+            }
 
             // Now adjust the calculated DateTime for the number of Working days spanned by the duration
             while(adjustingTimeSpan.TotalMilliseconds > oneDayTimeSpan.TotalMilliseconds)
