@@ -43,7 +43,6 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
                 _ = new TimeWindow(_endTime, _startTime);
             });
 
-            Assert.That(actualException, Is.Not.EqualTo(null));
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
@@ -56,7 +55,34 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
                 _ = new TimeWindow(_startTime, _startTime);
             });
 
-            Assert.That(actualException, Is.Not.EqualTo(null));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+        }
+
+        [TestCase]
+        public void Test_Constructor_ErrorMessage_3()
+        {
+            TimeSpan startTime = new TimeSpan(123, 0, 0);
+
+            String errorMessage = $"The Start Time ({startTime}) cannot be more than 24 hours";
+            ArgumentException actualException = Assert.Throws<ArgumentException>(() =>
+            {
+                _ = new TimeWindow(startTime, _endTime);
+            });
+
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+        }
+
+        [TestCase]
+        public void Test_Constructor_ErrorMessage_4()
+        {
+            TimeSpan endTime = new TimeSpan(123, 0, 0);
+
+            String errorMessage = $"The End Time ({endTime}) cannot be more than 24 hours";
+            ArgumentException actualException = Assert.Throws<ArgumentException>(() =>
+            {
+                _ = new TimeWindow(_startTime, endTime);
+            });
+
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
     }
