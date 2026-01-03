@@ -32,6 +32,8 @@ namespace Foundation.Common
             IDateTimeService dateTimeService
         )
         {
+            RunTimeEnvironmentSettings = runTimeEnvironmentSettings;
+
             String tracingPrefix = LoggingConstants.TracingPrefix;
             String informationPrefix = LoggingConstants.InformationPrefix;
             String warningPrefix = LoggingConstants.WarningPrefix;
@@ -77,6 +79,8 @@ namespace Foundation.Common
             AuditLogger = new EventLogWriter(runTimeEnvironmentSettings, dateTimeService, core.ApplicationName, TraceLevel.Info, auditPrefix, applicationName);
         }
 
+        private static IRunTimeEnvironmentSettings? RunTimeEnvironmentSettings { get; set; }
+
         /// <summary>
         /// The error logger
         /// </summary>
@@ -111,7 +115,7 @@ namespace Foundation.Common
             // Can't simply call TraceCallEnter override as this would mess up the StackTrace.
             // ContextInformation assumes that there is only one call between it and the calling
             // function.
-            if (LoggingBase.TraceSwitch.TraceVerbose)
+            if (RunTimeEnvironmentSettings!.TraceSwitch.TraceVerbose)
             {
                 ContextInformation contextInfo = new ContextInformation();
                 TraceCallEnter(contextInfo);
@@ -125,7 +129,7 @@ namespace Foundation.Common
         /// <param name="parameterValue">Parameters passed to call to be output in trace</param>
         public static void TraceCallEnter(Object? parameterValue)
         {
-            if (LoggingBase.TraceSwitch.TraceVerbose)
+            if (RunTimeEnvironmentSettings!.TraceSwitch.TraceVerbose)
             {
                 ContextInformation contextInfo = new ContextInformation(parameterValue);
                 TraceCallEnter(contextInfo);
@@ -139,7 +143,7 @@ namespace Foundation.Common
         /// <param name="parameterValues">Parameters passed to call to be output in trace</param>
         public static void TraceCallEnter(params Object?[] parameterValues)
         {
-            if (LoggingBase.TraceSwitch.TraceVerbose)
+            if (RunTimeEnvironmentSettings!.TraceSwitch.TraceVerbose)
             {
                 ContextInformation contextInfo = new ContextInformation(parameterValues);
                 TraceCallEnter(contextInfo);
@@ -155,7 +159,7 @@ namespace Foundation.Common
             // Can't simply call TraceCallEnter override as this would mess up the StackTrace.
             // ContextInformation assumes that there is only one call between it and the calling
             // function.
-            if (LoggingBase.TraceSwitch.TraceVerbose)
+            if (RunTimeEnvironmentSettings!.TraceSwitch.TraceVerbose)
             {
                 ContextInformation contextInfo = new ContextInformation();
                 TraceCallReturn(null, contextInfo);
@@ -168,7 +172,7 @@ namespace Foundation.Common
         /// <param name="returnValue">The return value.</param>
         public static void TraceCallReturn(Object? returnValue)
         {
-            if (LoggingBase.TraceSwitch.TraceVerbose)
+            if (RunTimeEnvironmentSettings!.TraceSwitch.TraceVerbose)
             {
                 ContextInformation contextInfo = new ContextInformation();
                 TraceCallReturn(returnValue, contextInfo);

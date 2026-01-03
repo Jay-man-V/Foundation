@@ -17,7 +17,7 @@ namespace Foundation.Common
         /// <param name="messageToLog">The message to log.</param>
         public static void LogInformationMessage(String messageToLog)
         {
-            if (LoggingBase.TraceSwitch.TraceInfo && InformationLogger != null)
+            if (RunTimeEnvironmentSettings!.TraceSwitch.TraceInfo && InformationLogger != null)
             {
                 ContextInformation contextInfo = new ContextInformation();
                 InformationLogger.LogMessage(contextInfo, messageToLog);
@@ -30,7 +30,7 @@ namespace Foundation.Common
         /// <param name="parameterValues">The parameter values.</param>
         public static void LogInformationMessage(params Object[] parameterValues)
         {
-            if (LoggingBase.TraceSwitch.TraceInfo && InformationLogger != null)
+            if (RunTimeEnvironmentSettings!.TraceSwitch.TraceInfo && InformationLogger != null)
             {
                 ContextInformation contextInfo = new ContextInformation();
                 InformationLogger.LogMessage(contextInfo, parameterValues);
@@ -44,7 +44,7 @@ namespace Foundation.Common
         /// <param name="parameterValues">The parameter values.</param>
         public static void LogInformationMessage(String messageToLog, params Object[] parameterValues)
         {
-            if (LoggingBase.TraceSwitch.TraceInfo && InformationLogger != null)
+            if (RunTimeEnvironmentSettings!.TraceSwitch.TraceInfo && InformationLogger != null)
             {
                 ContextInformation contextInfo = new ContextInformation();
                 InformationLogger.LogMessage(contextInfo, messageToLog, parameterValues);
@@ -57,7 +57,7 @@ namespace Foundation.Common
         /// <param name="exception">The exception.</param>
         public static void LogInformationMessage(Exception exception)
         {
-            if (LoggingBase.TraceSwitch.TraceInfo && InformationLogger != null)
+            if (RunTimeEnvironmentSettings!.TraceSwitch.TraceInfo && InformationLogger != null)
             {
                 ContextInformation contextInfo = new ContextInformation();
                 InformationLogger.LogMessage(contextInfo, exception);
@@ -72,7 +72,7 @@ namespace Foundation.Common
         /// <param name="messageValues">The message values.</param>
         public static void LogInformationMessage(Exception exception, String messageToLog, params Object[] messageValues)
         {
-            if (LoggingBase.TraceSwitch.TraceInfo && InformationLogger != null)
+            if (RunTimeEnvironmentSettings!.TraceSwitch.TraceInfo && InformationLogger != null)
             {
                 ContextInformation contextInfo = new ContextInformation();
                 InformationLogger.LogMessage(contextInfo, exception, messageToLog, messageValues);

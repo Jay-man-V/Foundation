@@ -25,7 +25,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
     [TestFixture]
     public abstract class BusinessProcessUnitTestsBase : UnitTestBase
     {
-        protected ICore CoreInstance { get; set; }
         protected IApplicationConfigurationService ApplicationConfigurationService { get; set; }
         protected IStatusRepository? StatusRepository { get; set; }
         protected IUserProfileRepository? UserProfileRepository { get; set; }
@@ -271,15 +270,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
 
             LoggedOnUserProcess = Substitute.For<ILoggedOnUserProcess>();
 
-            //CoreInstance = global::Foundation.Core.Core.Initialise(null, RunTimeEnvironmentSettings, applicationProcess, UserProfileProcess, LoggedOnUserProcess);
-            CoreInstance = Substitute.For<ICore>();
-            CoreInstance.ApplicationName.Returns(TestingApplicationName);
-            CoreInstance.ApplicationId.Returns(TestingApplicationId);
             CoreInstance.CurrentLoggedOnUser.Returns(currentUser);
 
             CoreInstance.IoC.Returns(Substitute.For<IIoC>());
 
-        _ = new LoggingHelpers(CoreInstance, RunTimeEnvironmentSettings, DateTimeService);
+            _ = new LoggingHelpers(CoreInstance, RunTimeEnvironmentSettings, DateTimeService);
 
             ApplicationConfigurationService = Substitute.For<IApplicationConfigurationService>();
             ApplicationConfigurationService.Get<String>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostUsername).Returns(EmailSmtpHostUsername);

@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Diagnostics;
+
 namespace Foundation.Interfaces
 {
     /// <summary>
@@ -49,5 +51,9 @@ namespace Foundation.Interfaces
         /// </summary>
         String MachineName { get; }
 
+        /// <summary>
+        /// Gets the trace switch for controlling logging output
+        /// </summary>
+        TraceSwitch TraceSwitch { get; }
     }
 }

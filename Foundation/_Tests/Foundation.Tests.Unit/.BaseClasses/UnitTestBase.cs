@@ -4,17 +4,18 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
-
-using NSubstitute;
 
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Resources;
 
 using Foundation.Tests.Unit.Support;
+
+using NSubstitute;
 
 namespace Foundation.Tests.Unit.BaseClasses
 {
@@ -53,6 +54,7 @@ namespace Foundation.Tests.Unit.BaseClasses
         protected String StandardCountryCode = "GB";
         protected String MachineName = "MachineName";
 
+        protected ICore CoreInstance { get; set; }
         protected IDateTimeService DateTimeService { get; set; }
         protected IRunTimeEnvironmentSettings RunTimeEnvironmentSettings { get; set; }
         protected ILoggingService LoggingService { get; set; }
@@ -87,6 +89,9 @@ namespace Foundation.Tests.Unit.BaseClasses
 
             //SecurityProcess.Initialise();
 
+            CoreInstance = Substitute.For<ICore>();
+            CoreInstance.ApplicationName.Returns(TestingApplicationName);
+            CoreInstance.ApplicationId.Returns(TestingApplicationId);
 
             DateTimeService = Substitute.For<IDateTimeService>();
             DateTimeService.SystemUtcDateTimeNowWithoutMilliseconds.Returns(SystemDateTime);
@@ -101,6 +106,7 @@ namespace Foundation.Tests.Unit.BaseClasses
             RunTimeEnvironmentSettings.UserName.Returns(UserSecuritySupport.UnitTestAccountUserName);
             RunTimeEnvironmentSettings.UserFullLogonName.Returns($@"{UserSecuritySupport.UnitTestAccountDomain}\{UserSecuritySupport.UnitTestAccountUserName}");
             RunTimeEnvironmentSettings.MachineName.Returns(MachineName);
+            RunTimeEnvironmentSettings.TraceSwitch.Returns(new TraceSwitch("TraceLevelSwitch", String.Empty, "3"));
         }
 
         /// <summary>

@@ -4,6 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Diagnostics;
+
+using NSubstitute;
+
 using Foundation.Common;
 
 using Foundation.Tests.Unit.BaseClasses;
@@ -31,12 +35,27 @@ namespace Foundation.Tests.Unit.Foundation.Common.LoggingTests.LogWritersTests
         /// </summary>
         private readonly Object[] _parameters = ["0", "1", "2", "3", "4"];
 
+        private LoggingHelpers LoggingHelpers { get; set; }
+
+        public override void TestInitialise()
+        {
+            base.TestInitialise();
+
+            LoggingHelpers = new LoggingHelpers(CoreInstance, RunTimeEnvironmentSettings, DateTimeService);
+        }
+
         /// <summary>
         /// Tests the information logging.
         /// </summary>
-        [TestCase]
-        public void TestInformationLogging()
+        [TestCase("0", "Off")]
+        [TestCase("1", "Error")]
+        [TestCase("2", "Warning")]
+        [TestCase("3", "Info")]
+        [TestCase("4", "Verbose")]
+        public void TestInformationLogging(String logLevel, String comment)
         {
+            RunTimeEnvironmentSettings.TraceSwitch.Returns(new TraceSwitch("TraceLevelSwitch", comment, logLevel));
+
             LoggingHelpers.TraceCallEnter();
             InternalMethodString(String.Format(StringMessage, _parameters));
             InternalMethodFormatString(StringMessage, _parameters);

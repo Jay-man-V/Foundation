@@ -17,7 +17,7 @@ namespace Foundation.Common
         /// <param name="messageToLog">The message to log.</param>
         public static void LogAuditMessage(String messageToLog)
         {
-            if (LoggingBase.TraceSwitch.TraceInfo && AuditLogger != null)
+            if (RunTimeEnvironmentSettings!.TraceSwitch.TraceInfo && AuditLogger != null)
             {
                 ContextInformation contextInfo = new ContextInformation(true);
                 AuditLogger.LogMessage(contextInfo, messageToLog);
@@ -30,7 +30,7 @@ namespace Foundation.Common
         /// <param name="parameterValues">The parameter values.</param>
         public static void LogAuditMessage(params Object[] parameterValues)
         {
-            if (LoggingBase.TraceSwitch.TraceInfo && AuditLogger != null)
+            if (RunTimeEnvironmentSettings!.TraceSwitch.TraceInfo && AuditLogger != null)
             {
                 ContextInformation contextInfo = new ContextInformation(true);
                 AuditLogger.LogMessage(contextInfo, parameterValues);
@@ -44,7 +44,7 @@ namespace Foundation.Common
         /// <param name="parameterValues">The parameter values.</param>
         public static void LogAuditMessage(String messageToLog, params Object[] parameterValues)
         {
-            if (LoggingBase.TraceSwitch.TraceInfo && AuditLogger != null)
+            if (RunTimeEnvironmentSettings!.TraceSwitch.TraceInfo && AuditLogger != null)
             {
                 ContextInformation contextInfo = new ContextInformation(true);
                 AuditLogger.LogMessage(contextInfo, messageToLog, parameterValues);
@@ -57,7 +57,7 @@ namespace Foundation.Common
         /// <param name="exception">The exception.</param>
         public static void LogAuditMessage(Exception exception)
         {
-            if (LoggingBase.TraceSwitch.TraceInfo && AuditLogger != null)
+            if (RunTimeEnvironmentSettings!.TraceSwitch.TraceInfo && AuditLogger != null)
             {
                 ContextInformation contextInfo = new ContextInformation(true);
                 AuditLogger.LogMessage(contextInfo, exception);
@@ -72,7 +72,7 @@ namespace Foundation.Common
         /// <param name="messageValues">The message values.</param>
         public static void LogAuditMessage(Exception exception, String messageToLog, params Object[] messageValues)
         {
-            if (LoggingBase.TraceSwitch.TraceInfo && AuditLogger != null)
+            if (RunTimeEnvironmentSettings!.TraceSwitch.TraceInfo && AuditLogger != null)
             {
                 ContextInformation contextInfo = new ContextInformation(true);
                 AuditLogger.LogMessage(contextInfo, exception, messageToLog, messageValues);

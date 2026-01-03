@@ -39,12 +39,12 @@ namespace Foundation.Common
         }
 
         /// <summary>
-        /// Gets the requested Trace Level.
-        /// Off     0   None
-        /// Error   1   Only error messages
-        /// Warning 2   Warning messages and error messages
-        /// Info    3   Informational messages, warning messages, and error messages
-        /// Verbose 4   Verbose messages, informational messages, warning messages, and error messages
+        /// Gets the requested Trace Level. <br/>
+        /// Off     0   None <br/>
+        /// Error   1   Only error messages <br/>
+        /// Warning 2   Warning messages and error messages <br/>
+        /// Info    3   Informational messages, warning messages, and error messages <br/>
+        /// Verbose 4   Verbose messages, informational messages, warning messages, and error messages <br/>
         /// </summary>
         /// <example>
         /// This is an example of the appSettings required in either the App.Config or Web.Config
@@ -63,7 +63,7 @@ namespace Foundation.Common
         /// </system.diagnostics>
         /// </code>
         /// </example>
-        public static TraceSwitch TraceSwitch { get; } = new TraceSwitch("TraceLevelSwitch", String.Empty);
+        public TraceSwitch TraceSwitch => RunTimeEnvironmentSettings.TraceSwitch;
 
         /// <summary>
         /// Gets the requested log level.
@@ -146,7 +146,7 @@ namespace Foundation.Common
             {
                 StringBuilder traceMessage = new StringBuilder();
                 traceMessage.AppendLine($"{MessagePrefix}: {contextInfo} ");
-                if (args != null && args.Length > 0)
+                if (args is { Length: > 0 })
                 {
                     traceMessage.AppendFormat(messageToLog, args);
                 }

@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Diagnostics;
+
 using Foundation.Interfaces;
 
 namespace Foundation.Services.Application
@@ -29,5 +31,8 @@ namespace Foundation.Services.Application
 
         /// <inheritdoc cref="IRunTimeEnvironmentSettings.MachineName"/>
         public String MachineName => Environment.MachineName;
+
+        /// <inheritdoc cref="IRunTimeEnvironmentSettings.TraceSwitch"/>
+        public TraceSwitch TraceSwitch => new TraceSwitch("TraceLevelSwitch", String.Empty);
     }
 }
