@@ -29,6 +29,17 @@ namespace Foundation.Interfaces
 
         /// <summary>
         /// Retrieves the next working day taking into account Weekends and other non-working days
+        /// Adds the <paramref name="duration"/> to the <paramref name="date"/> adjusting for the <paramref name="workingTimeWindow"/>
+        /// </summary>
+        /// <param name="countryCode"></param>
+        /// <param name="date">current <see cref="DateTime"/></param>
+        /// <param name="workingTimeWindow">The start/end times to take in to consideration</param>
+        /// <param name="duration">value to add to <paramref name="date"/></param>
+        /// <returns><see cref="DateTime"/> - The next working day</returns>
+        DateTime GetNextWorkingDay(String countryCode, DateTime date, TimeWindow workingTimeWindow, TimeSpan duration);
+
+        /// <summary>
+        /// Retrieves the next working day taking into account Weekends and other non-working days
         /// </summary>
         /// <param name="countryCode"></param>
         /// <param name="date">current <see cref="DateTime"/></param>

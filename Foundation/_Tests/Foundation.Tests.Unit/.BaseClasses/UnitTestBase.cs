@@ -107,6 +107,8 @@ namespace Foundation.Tests.Unit.BaseClasses
             RunTimeEnvironmentSettings.UserFullLogonName.Returns($@"{UserSecuritySupport.UnitTestAccountDomain}\{UserSecuritySupport.UnitTestAccountUserName}");
             RunTimeEnvironmentSettings.MachineName.Returns(MachineName);
             RunTimeEnvironmentSettings.TraceSwitch.Returns(new TraceSwitch("TraceLevelSwitch", String.Empty, "3"));
+
+            _ = new LoggingHelpers(CoreInstance, RunTimeEnvironmentSettings, DateTimeService);
         }
 
         /// <summary>

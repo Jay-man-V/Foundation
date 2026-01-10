@@ -16,7 +16,7 @@ using Foundation.Tests.Unit.Support;
 namespace Foundation.Tests.System.Foundation.Services.Application
 {
     /// <summary>
-    /// UnitTests for FileTransferServiceTests
+    /// System Tests for FileTransferServiceTests
     /// </summary>
     [TestFixture]
     public class FileTransferServiceTests : BusinessProcessUnitTestsBase

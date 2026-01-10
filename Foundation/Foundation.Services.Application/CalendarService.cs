@@ -60,6 +60,50 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
+        /// <inheritdoc cref="ICalendarService.GetNextWorkingDay(String, DateTime, TimeWindow, TimeSpan)"/>
+        public DateTime GetNextWorkingDay(String countryCode, DateTime date, TimeWindow workingTimeWindow, TimeSpan duration)
+        {
+            LoggingHelpers.TraceCallEnter(countryCode, date, workingTimeWindow, duration);
+
+            DateTime retVal = date;
+            TimeSpan adjustingTimeSpan = duration;
+
+            // Calculate the length of a day based on the given Start and End times
+            TimeSpan oneDayTimeSpan = workingTimeWindow.EndTime - workingTimeWindow.StartTime;
+
+            // Adjust the TimeOfDay based on the Start and End times of the workingTimeWindow
+            if (retVal.TimeOfDay < workingTimeWindow.StartTime)
+            {
+                retVal = retVal.Date + workingTimeWindow.StartTime;
+            }
+
+            retVal = CalendarRepository.CheckIsWorkingDayOrGetNextWorkingDay(countryCode, retVal);
+
+            if (retVal.TimeOfDay > workingTimeWindow.EndTime)
+            {
+                retVal = retVal.Date.AddDays(1) + workingTimeWindow.StartTime;
+
+                retVal = CalendarRepository.CheckIsWorkingDayOrGetNextWorkingDay(countryCode, retVal);
+            }
+
+            // Now adjust the calculated DateTime for the number of Working days spanned by the duration
+            while (adjustingTimeSpan.TotalMilliseconds > oneDayTimeSpan.TotalMilliseconds)
+            {
+                adjustingTimeSpan = adjustingTimeSpan.Subtract(oneDayTimeSpan);
+
+                retVal = retVal.AddDays(1);
+
+                retVal = CalendarRepository.CheckIsWorkingDayOrGetNextWorkingDay(countryCode, retVal);
+            }
+
+            // Finally, add the remaining minutes
+            retVal = retVal.Add(adjustingTimeSpan);
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
         /// <inheritdoc cref="ICalendarService.GetNextWorkingDay(String, DateTime, ScheduleInterval, Int32)"/>
         public DateTime GetNextWorkingDay(String countryCode, DateTime date, ScheduleInterval intervalType, Int32 interval)
         {

@@ -4,7 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Globalization;
+
 using NSubstitute;
+using NSubstitute.ClearExtensions;
 
 using Foundation.Interfaces;
 using Foundation.Services.Application;
@@ -25,8 +28,6 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         public override void TestInitialise()
         {
             base.TestInitialise();
-
-            ICore core = Substitute.For<ICore>();
 
             CalendarRepository = Substitute.For<ICalendarRepository>();
 
@@ -103,6 +104,35 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             DateTime actual = TheService!.GetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, startDate, scheduleInterval, interval);
 
             Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [TestCase("2020-12-29 10:30:30", "00:01:30:30", "2020-12-29 09:00:00", "2020-12-29 09:00:00", "2020-12-29 09:00:00", "Within window 1")]
+        [TestCase("2019-12-29 10:30:30", "00:01:30:30", "2019-12-25 09:00:00", "2019-12-25 09:00:00", "2019-12-29 09:00:00", "Christmas day")]
+        [TestCase("2021-08-13 15:13:25", "00:05:13:25", "2021-08-13 10:00:00", "2021-08-13 10:00:00", "2021-08-13 10:00:00", "Within window 2")]
+        [TestCase("2021-08-13 14:13:25", "00:05:13:25", "2021-08-13 06:00:00", "2021-08-13 09:00:00", "2021-08-13 09:00:00", "Before start time")]
+        [TestCase("2021-08-13 15:13:25", "00:05:13:25", "2021-08-13 10:00:00", "2021-08-13 10:00:00", "2021-08-13 10:00:00", "After end time 1")]
+        [TestCase("2021-08-14 11:13:25", "00:02:13:25", "2021-08-13 20:00:00", "2021-08-14 09:00:00", "2021-08-14 09:00:00", "After end time 2")]
+        [TestCase("2021-08-14 11:13:25", "00:10:13:25", "2021-08-13 08:00:00", "2021-08-13 09:00:00", "2021-08-13 09:00:00", "Duration Greater Than One Day 1")]
+        [TestCase("2021-08-14 09:13:25", "00:08:13:25", "2021-08-13 09:00:00", "2021-08-13 09:00:00", "2021-08-13 09:00:00", "Duration Greater Than One Day 2")]
+        [TestCase("2021-08-15 09:13:25", "00:16:13:25", "2021-08-13 09:00:00", "2021-08-13 09:00:00", "2021-08-13 09:00:00", "Duration Greater Than Two Days 1")]
+        public void Test_GetNextWorkingDay_TimeWindow_TimeSpan(String expectedString, String durationString, String startDateString, String calendarCheckDateTimeString, String calendarReturnString, String comment)
+        {
+            TimeWindow timeWindow = new TimeWindow(new TimeSpan(09, 00, 00), new TimeSpan(17, 00, 00));
+            DateTime expected = DateTime.ParseExact(expectedString, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+            TimeSpan duration = TimeSpan.ParseExact(durationString, "dd\\:hh\\:mm\\:ss", CultureInfo.InvariantCulture);
+            DateTime startDate = DateTime.ParseExact(startDateString, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+            DateTime calendarCheckDateTime = DateTime.ParseExact(calendarCheckDateTimeString, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+            DateTime calendarReturnDate = DateTime.ParseExact(calendarReturnString, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+
+            CalendarRepository!.ClearSubstitute();
+            CalendarRepository!.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, startDate).Returns(startDate);
+            CalendarRepository!.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, calendarCheckDateTime).Returns(calendarReturnDate);
+            CalendarRepository!.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, calendarCheckDateTime.AddDays(1)).Returns(calendarReturnDate.AddDays(1));
+            CalendarRepository!.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, calendarCheckDateTime.AddDays(2)).Returns(calendarReturnDate.AddDays(2));
+
+            DateTime actual = TheService!.GetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, startDate, timeWindow, duration);
+
+            Assert.That(actual, Is.EqualTo(expected), comment);
         }
 
         [TestCase(true, "2019-01-01")]
