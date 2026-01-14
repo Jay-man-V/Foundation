@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="TimeZoneRepository.cs" company="JDV Software Ltd">
+// <copyright file="ScheduleIntervalMultiplierMatrixRepository.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -14,19 +14,19 @@ namespace Foundation.Repository.Core
     /// <summary>
     /// Defines the Time Zone Repository class
     /// </summary>
-    /// <see cref="ITimeZone" />
+    /// <see cref="IScheduleIntervalMultiplierMatrix" />
     [DependencyInjectionTransient]
-    public class TimeZoneRepository : FoundationModelRepository<ITimeZone>, ITimeZoneRepository
+    public class ScheduleIntervalMultiplierMatrixRepository : FoundationModelRepository<IScheduleIntervalMultiplierMatrix>, IScheduleIntervalMultiplierMatrixRepository
     {
         /// <summary>
-        /// Initialises a new instance of the <see cref="TimeZoneRepository"/> class.
+        /// Initialises a new instance of the <see cref="ScheduleIntervalMultiplierMatrixRepository"/> class.
         /// </summary>
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
         /// <param name="coreDataProvider">The core data provider.</param>
         /// <param name="dateTimeService">The date/time service.</param>
-        public TimeZoneRepository
+        public ScheduleIntervalMultiplierMatrixRepository
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
@@ -49,9 +49,9 @@ namespace Foundation.Repository.Core
         }
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.EntityName"/>
-        protected override String EntityName => FDC.TimeZone.EntityName;
+        protected override String EntityName => FDC.ScheduleIntervalMultiplierMatrix.EntityName;
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.TableName"/>
-        protected override String TableName => FDC.TableNames.TimeZone;
+        protected override String TableName => FDC.TableNames.ScheduleIntervalMultiplierMatrix;
     }
 }

@@ -96,6 +96,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Log.ScheduledDataStatus)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.ScheduledJob)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.ScheduleInterval)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.ScheduleIntervalMultiplierMatrix)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.Status)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.TaskStatus)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.TimeZone)));
@@ -431,6 +432,14 @@ namespace Foundation.Tests.Unit.Foundation.Models
             else if (propertyType == typeof(DateTime?))
             {
                 retVal = new DateTime(2019, 3, 15, 23, 20, 00);
+            }
+            else if (propertyType == typeof(Decimal))
+            {
+                retVal = 123.456789m;
+            }
+            else if (propertyType == typeof(Double))
+            {
+                retVal = 123.456789d;
             }
             else if (propertyType == typeof(Guid))
             {

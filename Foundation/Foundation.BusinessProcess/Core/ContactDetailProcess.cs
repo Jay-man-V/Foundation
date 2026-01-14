@@ -246,8 +246,8 @@ namespace Foundation.BusinessProcess.Core
 
             if (parentContactDetail != null)
             {
-                retVal = retVal.Where(c => c.ParentContactId == parentContactDetail.Id ||                   // Matching Parent Contact
-                                           parentContactDetail.Id == this.AllId ||                          // All records
+                retVal = retVal.Where(c => (c.ParentContactId == parentContactDetail.Id) ||                 // Matching Parent Contact
+                                           (parentContactDetail.Id == this.AllId) ||                        // All records
                                            (parentContactDetail.Id == this.NoneId &&
                                             c.ParentContactId == this.NullId)                               // No Parent Contact
                                       ).ToList();

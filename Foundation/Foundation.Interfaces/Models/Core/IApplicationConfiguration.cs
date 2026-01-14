@@ -11,7 +11,9 @@ namespace Foundation.Interfaces
     /// </summary>
     public interface IApplicationConfiguration : IFoundationModel
     {
-        /// <summary>Gets the configuration scope.</summary>
+        /// <summary>
+        /// Gets the configuration scope.
+        /// </summary>
         /// <value>The configuration scope.</value>
         ConfigurationScope ConfigurationScope { get; }
 

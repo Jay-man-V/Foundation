@@ -17,7 +17,7 @@ using Foundation.Tests.Unit.BaseClasses;
 namespace Foundation.Tests.Unit.Foundation.Services.Application
 {
     /// <summary>
-    /// Summary description for CalendarServiceTests
+    /// Summary description for CalendarService
     /// </summary>
     [TestFixture]
     public class CalendarServiceTests : UnitTestBase
@@ -52,7 +52,6 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             CalendarRepository.GetLastWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, 2025, 05).Returns(new DateTime(2025, 05, 30));
             CalendarRepository.GetLastWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, 2025, 05).Returns(new DateTime(2025, 05, 30));
         }
-
 
         [TestCase("2019-12-16", "2019-12-16", "Start Monday")]
         [TestCase("2019-12-17", "2019-12-17", "Start Tuesday")]
@@ -92,7 +91,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(actual, Is.EqualTo(expected), comment);
         }
 
-        [TestCase("2020-12-29", "2019-12-20", ScheduleInterval.Days, 5)]
+        [TestCase("2020-12-29", "2020-12-20", ScheduleInterval.Days, 5)]
         [TestCase("2020-12-29", "2019-12-25", ScheduleInterval.Years, 1)]
         public void Test_GetNextWorkingDay_LookAhead(String expectedString, String startDateString, ScheduleInterval scheduleInterval, Int32 interval)
         {

@@ -84,10 +84,11 @@ namespace Foundation.Repository.Core
 
             StringBuilder sql = new StringBuilder();
 
-            sql.AppendLine($"SELECT {Functions.GetNextWorkingDay.FunctionName} {DataLogicProvider.DatabaseParameterPrefix}( {Functions.GetNextWorkingDay.Parameters.StartDate}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.IntervalType}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.Interval} ) OPTION ( MaxRecursion 2000 )");
+            sql.AppendLine($"SELECT {Functions.GetNextWorkingDay.FunctionName} ( {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.CountryIsoCode}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.StartDate}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.IntervalType}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.Interval} ) OPTION ( MaxRecursion 2000 )");
 
             DatabaseParameters databaseParameters =
             [
+                CreateParameter(Functions.GetNextWorkingDay.Parameters.CountryIsoCode, countryCode),
                 CreateParameter(Functions.GetNextWorkingDay.Parameters.StartDate, date),
                 CreateParameter(Functions.GetNextWorkingDay.Parameters.IntervalType, intervalType),
                 CreateParameter(Functions.GetNextWorkingDay.Parameters.Interval, interval),
@@ -114,12 +115,11 @@ namespace Foundation.Repository.Core
 
             StringBuilder sql = new StringBuilder();
 
-            sql.AppendLine($"SELECT {Functions.CheckIsWorkingDayOrGetNextWorkingDay.FunctionName} ( {DataLogicProvider.DatabaseParameterPrefix}{Functions.CheckIsWorkingDayOrGetNextWorkingDay.Parameters.StartDate} ) OPTION ( MaxRecursion 2000 )");
-
-            sql = sql.Replace("@", DataLogicProvider.DatabaseParameterPrefix);
+            sql.AppendLine($"SELECT {Functions.CheckIsWorkingDayOrGetNextWorkingDay.FunctionName} ( {DataLogicProvider.DatabaseParameterPrefix}{Functions.CheckIsWorkingDayOrGetNextWorkingDay.Parameters.CountryIsoCode},  {DataLogicProvider.DatabaseParameterPrefix}{Functions.CheckIsWorkingDayOrGetNextWorkingDay.Parameters.StartDate} ) OPTION ( MaxRecursion 2000 )");
 
             DatabaseParameters databaseParameters =
             [
+                CreateParameter(Functions.CheckIsWorkingDayOrGetNextWorkingDay.Parameters.CountryIsoCode, countryCode),
                 CreateParameter(Functions.CheckIsWorkingDayOrGetNextWorkingDay.Parameters.StartDate, date),
             ];
 

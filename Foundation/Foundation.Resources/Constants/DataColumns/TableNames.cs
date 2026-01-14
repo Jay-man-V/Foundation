@@ -239,6 +239,14 @@ namespace Foundation.Resources.Constants.DataColumns
         public static String ScheduleInterval => "[core].[ScheduleInterval]";
 
         /// <summary>
+        /// Gets the schedule interval multiplier matrix.
+        /// </summary>
+        /// <value>
+        /// The schedule interval.
+        /// </value>
+        public static String ScheduleIntervalMultiplierMatrix => "[core].[ScheduleIntervalMultiplierMatrix]";
+
+        /// <summary>
         /// Gets the status.
         /// </summary>
         /// <value>

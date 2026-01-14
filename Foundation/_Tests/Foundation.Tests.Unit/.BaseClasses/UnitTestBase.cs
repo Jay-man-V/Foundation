@@ -9,13 +9,13 @@ using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
+using NSubstitute;
+
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Resources;
 
 using Foundation.Tests.Unit.Support;
-
-using NSubstitute;
 
 namespace Foundation.Tests.Unit.BaseClasses
 {

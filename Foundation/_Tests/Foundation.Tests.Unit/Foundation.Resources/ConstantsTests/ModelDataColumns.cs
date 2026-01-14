@@ -85,6 +85,7 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.ScheduledDataStatus)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.ScheduledJob)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.ScheduleInterval)));
+            Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.ScheduleIntervalMultiplierMatrix)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.Specialised)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.Status)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Base */ nameof(FDC.TableNames)));
@@ -999,6 +1000,25 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         ///
         /// </summary>
         [TestCase]
+        public void Test_ScheduleIntervalMultiplierMatrix()
+        {
+            // This test exists to ensure all the Schedule Interval Multiplier Matrix are tested/checked in the next test
+            PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(FDC.ScheduleIntervalMultiplierMatrix));
+            Int32 index = 0;
+
+            index++; Assert.That(FDC.ScheduleIntervalMultiplierMatrix.EntityName, Is.EqualTo(nameof(FDC.ScheduleIntervalMultiplierMatrix)));
+            index++; Assert.That(FDC.ScheduleIntervalMultiplierMatrix.FromScheduleIntervalId, Is.EqualTo(nameof(FDC.ScheduleIntervalMultiplierMatrix.FromScheduleIntervalId)));
+            index++; Assert.That(FDC.ScheduleIntervalMultiplierMatrix.ToScheduleIntervalId, Is.EqualTo(nameof(FDC.ScheduleIntervalMultiplierMatrix.ToScheduleIntervalId)));
+            index++; Assert.That(FDC.ScheduleIntervalMultiplierMatrix.Multiplier, Is.EqualTo(nameof(FDC.ScheduleIntervalMultiplierMatrix.Multiplier)));
+            index++; Assert.That(FDC.ScheduleIntervalMultiplierMatrix.Description, Is.EqualTo(nameof(FDC.ScheduleIntervalMultiplierMatrix.Description)));
+
+            Assert.That(propertyInfos.Length, Is.EqualTo(index));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [TestCase]
         public void Test_Status()
         {
             // This test exists to ensure all the Status are tested/checked in the next test
@@ -1066,6 +1086,7 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
             index++; Assert.That(FDC.TableNames.OfficeWeekCalendar, Is.EqualTo($"[core].[{nameof(FDC.TableNames.OfficeWeekCalendar)}]"));
             index++; Assert.That(FDC.TableNames.ScheduledJob, Is.EqualTo($"[core].[{nameof(FDC.TableNames.ScheduledJob)}]"));
             index++; Assert.That(FDC.TableNames.ScheduleInterval, Is.EqualTo($"[core].[{nameof(FDC.TableNames.ScheduleInterval)}]"));
+            index++; Assert.That(FDC.TableNames.ScheduleIntervalMultiplierMatrix, Is.EqualTo($"[core].[{nameof(FDC.TableNames.ScheduleIntervalMultiplierMatrix)}]"));
             index++; Assert.That(FDC.TableNames.Status, Is.EqualTo($"[core].[{nameof(FDC.TableNames.Status)}]"));
             index++; Assert.That(FDC.TableNames.TaskStatus, Is.EqualTo($"[core].[{nameof(FDC.TableNames.TaskStatus)}]"));
             index++; Assert.That(FDC.TableNames.TimeZone, Is.EqualTo($"[core].[{nameof(FDC.TableNames.TimeZone)}]"));

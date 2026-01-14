@@ -51,7 +51,7 @@ namespace Foundation.Models.Core
 
         /// <inheritdoc cref="IContactDetail.ContractId"/>
         [Column(nameof(FDC.ContactDetail.ContractId))]
-        [RequiredEntityId (EntityName = "Contract")]
+        [RequiredEntityId(EntityName = "Contract")]
         public EntityId ContractId
         {
             get => this._contractId;

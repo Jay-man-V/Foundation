@@ -118,6 +118,7 @@
     <Compile Include="Foundation.ViewModels\CoreTests\OfficeViewModelTests.cs" />
     <Compile Include="Foundation.ViewModels\CoreTests\OfficeWeekCalendarViewModelTests.cs" />
     <Compile Include="Foundation.ViewModels\CoreTests\ScheduledJobViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\CoreTests\ScheduleIntervalMultiplierMatrixViewModelTests.cs" />
     <Compile Include="Foundation.ViewModels\CoreTests\TimeZoneViewModelTests.cs" />
     <Compile Include="Foundation.ViewModels\CoreTests\WorldRegionViewModelTests.cs" />
     <Compile Include="Foundation.ViewModels\LogTests\EnumProcessesTests\LogSeverityViewModelTests.cs" />

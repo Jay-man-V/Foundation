@@ -20,6 +20,14 @@ namespace Foundation.Repository
 
             public class Parameters
             {
+                /// <summary>
+                /// countryIsoCode
+                /// </summary>
+                public static String CountryIsoCode => "countryIsoCode";
+
+                /// <summary>
+                /// startDate
+                /// </summary>
                 public static String StartDate => "startDate";
             }
         }
@@ -33,12 +41,27 @@ namespace Foundation.Repository
 
             public class Parameters
             {
+                /// <summary>
+                /// countryIsoCode
+                /// </summary>
+                public static String CountryIsoCode => "countryIsoCode";
+
+                /// <summary>
+                /// startDate
+                /// </summary>
                 public static String StartDate => "startDate";
+
+                /// <summary>
+                /// intervalType
+                /// </summary>
                 public static String IntervalType => "intervalType";
+
+                /// <summary>
+                /// interval
+                /// </summary>
                 public static String Interval => "interval";
             }
         }
-
 
         /// <summary>
         /// [dbo].[ufn_IsNonWorkingDay]
