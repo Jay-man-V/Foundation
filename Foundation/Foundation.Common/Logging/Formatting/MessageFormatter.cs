@@ -24,12 +24,11 @@ namespace Foundation.Common
         /// Formats the Exception object as a String
         /// </summary>
         /// <param name="runTimeEnvironmentSettings">The runtime environment settings</param>
-        /// <param name="dateTimeService">The date time service</param>
         /// <param name="exception">The exception data.</param>
         /// <returns>Formatted message based on the <paramref name="exception"/></returns>
-        public static ExceptionOutput FormatMessage(IRunTimeEnvironmentSettings runTimeEnvironmentSettings, IDateTimeService dateTimeService, Exception exception)
+        public static ExceptionOutput FormatMessage(IRunTimeEnvironmentSettings runTimeEnvironmentSettings, Exception exception)
         {
-            ExceptionOutput retVal = InternalFormatMessage(runTimeEnvironmentSettings, dateTimeService, exception);
+            ExceptionOutput retVal = InternalFormatMessage(runTimeEnvironmentSettings, exception);
 
             return retVal;
         }
@@ -43,10 +42,10 @@ namespace Foundation.Common
         /// <param name="message">The message.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>Formatted message based on the <paramref name="exception"/></returns>
-        public static ExceptionOutput FormatMessage(IRunTimeEnvironmentSettings runTimeEnvironmentSettings, IDateTimeService dateTimeService, Exception exception, String message, params Object[] args)
+        public static ExceptionOutput FormatMessage(IRunTimeEnvironmentSettings runTimeEnvironmentSettings, Exception exception, String message, params Object[] args)
         {
             String formattedMessage = String.Format(message, args);
-            ExceptionOutput retVal = InternalFormatMessage(runTimeEnvironmentSettings, dateTimeService, exception);
+            ExceptionOutput retVal = InternalFormatMessage(runTimeEnvironmentSettings, exception);
             retVal.ErrorMessage = formattedMessage + Environment.NewLine + retVal.ErrorMessage;
 
             return retVal;
@@ -60,9 +59,9 @@ namespace Foundation.Common
         /// <param name="exception">The exception.</param>
         /// <param name="message">The message.</param>
         /// <returns>Formatted message based on the <paramref name="exception"/></returns>
-        public static ExceptionOutput FormatMessage(IRunTimeEnvironmentSettings runTimeEnvironmentSettings, IDateTimeService dateTimeService, Exception exception, String message)
+        public static ExceptionOutput FormatMessage(IRunTimeEnvironmentSettings runTimeEnvironmentSettings, Exception exception, String message)
         {
-            ExceptionOutput retVal = InternalFormatMessage(runTimeEnvironmentSettings, dateTimeService, exception);
+            ExceptionOutput retVal = InternalFormatMessage(runTimeEnvironmentSettings, exception);
             retVal.ErrorMessage = message + Environment.NewLine + retVal.ErrorMessage;
 
             return retVal;
@@ -133,9 +132,9 @@ namespace Foundation.Common
         /// <param name="dateTimeService">The date time service</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        private static ExceptionOutput InternalFormatMessage(IRunTimeEnvironmentSettings runTimeEnvironmentSettings, IDateTimeService dateTimeService, Exception exception)
+        private static ExceptionOutput InternalFormatMessage(IRunTimeEnvironmentSettings runTimeEnvironmentSettings, Exception exception)
         {
-            ExceptionOutput retVal = new ExceptionOutput(runTimeEnvironmentSettings, dateTimeService)
+            ExceptionOutput retVal = new ExceptionOutput(runTimeEnvironmentSettings)
             {
                 ErrorSource = exception.Source ?? "unknown",
             };

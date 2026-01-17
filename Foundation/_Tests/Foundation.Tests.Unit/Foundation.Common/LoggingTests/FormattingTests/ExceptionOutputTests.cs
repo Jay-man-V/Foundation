@@ -34,7 +34,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.LoggingTests.FormattingTests
             String expectedValue = File.ReadAllText(BaseFolder + functionName + ".txt", Encoding.UTF8);
             expectedValue = FixUpStringWithReplacements(expectedValue);
 
-            ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, DateTimeService,actualException);
+            ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, actualException);
             String actualValue = exceptionOutput.ToString();
             actualValue = FixUpStringWithReplacements(actualValue);
 
@@ -54,7 +54,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.LoggingTests.FormattingTests
             String expectedValue = File.ReadAllText(BaseFolder + functionName + ".txt", Encoding.UTF8);
             expectedValue = FixUpStringWithReplacements(expectedValue);
 
-            ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, DateTimeService, actualException, "Show this message to the users");
+            ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, actualException, "Show this message to the users");
             String actualValue = exceptionOutput.ToString();
             actualValue = FixUpStringWithReplacements(actualValue);
 
@@ -74,7 +74,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.LoggingTests.FormattingTests
             String expectedValue = File.ReadAllText(BaseFolder + functionName + ".txt", Encoding.UTF8);
             expectedValue = FixUpStringWithReplacements(expectedValue);
 
-            ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, DateTimeService, actualException, "Message: {0}. {1}", "A", 123);
+            ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, actualException, "Message: {0}. {1}", "A", 123);
             String actualValue = exceptionOutput.ToString();
             actualValue = FixUpStringWithReplacements(actualValue);
 
@@ -94,7 +94,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.LoggingTests.FormattingTests
             String expectedValue = File.ReadAllText(BaseFolder + functionName + ".txt", Encoding.UTF8);
             expectedValue = FixUpStringWithReplacements(expectedValue);
 
-            ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, DateTimeService, actualException);
+            ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, actualException);
             String actualValue = exceptionOutput.ToString();
             actualValue = FixUpStringWithReplacements(actualValue);
 
@@ -114,7 +114,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.LoggingTests.FormattingTests
             String expectedValue = File.ReadAllText(BaseFolder + functionName + ".txt", Encoding.UTF8);
             expectedValue = FixUpStringWithReplacements(expectedValue);
 
-            ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, DateTimeService, actualException, "Show this message to the users");
+            ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, actualException, "Show this message to the users");
             String actualValue = exceptionOutput.ToString();
             actualValue = FixUpStringWithReplacements(actualValue);
 
@@ -134,7 +134,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.LoggingTests.FormattingTests
             String expectedValue = File.ReadAllText(BaseFolder + functionName + ".txt", Encoding.UTF8);
             expectedValue = FixUpStringWithReplacements(expectedValue);
 
-            ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, DateTimeService, actualException, "Message: {0}. {1}", "A", 123);
+            ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, actualException, "Message: {0}. {1}", "A", 123);
             String actualValue = exceptionOutput.ToString();
             actualValue = FixUpStringWithReplacements(actualValue);
 

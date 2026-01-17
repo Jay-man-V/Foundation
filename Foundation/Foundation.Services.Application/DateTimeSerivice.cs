@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Diagnostics;
+
 using Foundation.Common;
 using Foundation.Interfaces;
 

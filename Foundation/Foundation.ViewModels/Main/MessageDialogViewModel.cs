@@ -125,7 +125,7 @@ namespace Foundation.ViewModels.Main
             LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, wpfApplicationObjects, targetWindow, parentViewModel, messageBoxImage, exception, formTitle);
 
             Exception = exception;
-            ExceptionOutput = MessageFormatter.FormatMessage(runTimeEnvironmentSettings, dateTimeService, Exception);
+            ExceptionOutput = MessageFormatter.FormatMessage(runTimeEnvironmentSettings, Exception);
 
             MessageBoxImage = messageBoxImage;
 

@@ -20,19 +20,16 @@ namespace Foundation.Common
         /// Initialises a new instance of the <see cref="LoggingBase"/> class.
         /// </summary>
         /// <param name="runTimeEnvironmentSettings">The runtime environment settings</param>
-        /// <param name="dateTimeService">The date/time service.</param>
         /// <param name="requestedLogLevel">The requested log level.</param>
         /// <param name="messagePrefix">The message prefix.</param>
         internal LoggingBase
         (
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
-            IDateTimeService dateTimeService,
             TraceLevel requestedLogLevel,
             String messagePrefix
         )
         {
             RunTimeEnvironmentSettings = runTimeEnvironmentSettings;
-            DateTimeService = dateTimeService;
 
             RequestedLogLevel = requestedLogLevel;
             MessagePrefix = messagePrefix;
@@ -90,11 +87,6 @@ namespace Foundation.Common
         protected IRunTimeEnvironmentSettings RunTimeEnvironmentSettings { get; }
 
         /// <summary>
-        /// The Date/time service
-        /// </summary>
-        protected IDateTimeService DateTimeService { get; }
-
-        /// <summary>
         /// Writes the given message to the log
         /// </summary>
         /// <param name="contextInfo">The context information.</param>
@@ -105,7 +97,7 @@ namespace Foundation.Common
             {
                 StringBuilder traceMessage = new StringBuilder();
                 traceMessage.AppendLine($"{MessagePrefix}: {contextInfo} ");
-                ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, DateTimeService, exception);
+                ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, exception);
                 String exceptionMessage = exceptionOutput.ToString();
                 traceMessage.AppendLine(exceptionMessage);
 
@@ -126,7 +118,7 @@ namespace Foundation.Common
             {
                 StringBuilder traceMessage = new StringBuilder();
                 traceMessage.AppendLine($"{MessagePrefix}: {contextInfo} ");
-                ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, DateTimeService, exception, messageToLog, args);
+                ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, exception, messageToLog, args);
                 String exceptionMessage = exceptionOutput.ToString();
                 traceMessage.AppendLine(exceptionMessage);
 

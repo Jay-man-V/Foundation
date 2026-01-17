@@ -108,7 +108,7 @@ namespace Foundation.Tests.Unit.BaseClasses
             RunTimeEnvironmentSettings.MachineName.Returns(MachineName);
             RunTimeEnvironmentSettings.TraceSwitch.Returns(new TraceSwitch("TraceLevelSwitch", String.Empty, "3"));
 
-            _ = new LoggingHelpers(CoreInstance, RunTimeEnvironmentSettings, DateTimeService);
+            _ = new LoggingHelpers(CoreInstance, RunTimeEnvironmentSettings);
         }
 
         /// <summary>

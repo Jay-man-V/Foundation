@@ -51,7 +51,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.LoggingTests.LogWritersTests
         {
             ClearEventSource();
 
-            EventLogWriter logWriter = new EventLogWriter(RunTimeEnvironmentSettings, DateTimeService,TargetEventLog, logLevel, MessagePrefix, EventSource);
+            EventLogWriter logWriter = new EventLogWriter(RunTimeEnvironmentSettings, TargetEventLog, logLevel, MessagePrefix, EventSource);
 
             Assert.That(logWriter.RequestedLogLevel, Is.EqualTo(logLevel));
             Assert.That(logWriter.MessagePrefix, Is.EqualTo(MessagePrefix));
@@ -76,7 +76,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.LoggingTests.LogWritersTests
 
                 SecurityException actualException = Assert.Throws<SecurityException>(() =>
                 {
-                    _ = new EventLogWriter(RunTimeEnvironmentSettings, DateTimeService, targetEventLog, RequestedLogLevel, MessagePrefix, eventSource);
+                    _ = new EventLogWriter(RunTimeEnvironmentSettings, targetEventLog, RequestedLogLevel, MessagePrefix, eventSource);
                 });
 
                 String actualMessage = actualException.Message;
@@ -91,7 +91,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.LoggingTests.LogWritersTests
         [TestCase]
         public void Test_WriteMessage_1()
         {
-            EventLogWriter logWriter = new EventLogWriter(RunTimeEnvironmentSettings, DateTimeService, TargetEventLog, RequestedLogLevel, MessagePrefix, EventSource);
+            EventLogWriter logWriter = new EventLogWriter(RunTimeEnvironmentSettings, TargetEventLog, RequestedLogLevel, MessagePrefix, EventSource);
 
             String outputMessage = Guid.NewGuid().ToString();
             EventLogEntryType expectedEventLogEntryType = EventLogEntryType.Information;
@@ -112,7 +112,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.LoggingTests.LogWritersTests
         [TestCase]
         public void Test_WriteMessage_2()
         {
-            EventLogWriter logWriter = new EventLogWriter(RunTimeEnvironmentSettings, DateTimeService, TargetEventLog, RequestedLogLevel, MessagePrefix, EventSource);
+            EventLogWriter logWriter = new EventLogWriter(RunTimeEnvironmentSettings, TargetEventLog, RequestedLogLevel, MessagePrefix, EventSource);
 
             String outputMessage = Guid.NewGuid().ToString();
             EventLogEntryType expectedEventLogEntryType = EventLogEntryType.Warning;

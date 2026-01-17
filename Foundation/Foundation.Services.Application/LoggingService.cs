@@ -118,7 +118,7 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter(logId, logSeverity, exception);
 
-            ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, DateTimeService, exception);
+            ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, exception);
 
             EndTask(logId, logSeverity, exceptionOutput.ToString());
 
@@ -159,7 +159,7 @@ namespace Foundation.Services.Application
 
             LogId retVal;
 
-            ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, DateTimeService, exception);
+            ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, exception);
 
             IEventLog entity = Core.IoC.Get<IEventLog>();
             entity.ApplicationId = applicationId;

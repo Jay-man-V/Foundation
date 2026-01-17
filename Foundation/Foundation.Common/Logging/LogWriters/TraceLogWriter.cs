@@ -19,20 +19,17 @@ namespace Foundation.Common
         /// Initialises a new instance of the <see cref="TraceLogWriter"/> class.
         /// </summary>
         /// <param name="runTimeEnvironmentSettings">The runtime environment settings</param>
-        /// <param name="dateTimeService">The date/time service.</param>
         /// <param name="requestedLogLevel">The requested log level.</param>
         /// <param name="messagePrefix">The message prefix.</param>
         internal TraceLogWriter
         (
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
-            IDateTimeService dateTimeService,
             TraceLevel requestedLogLevel,
             String messagePrefix
         )
             : base
             (
                 runTimeEnvironmentSettings,
-                dateTimeService,
                 requestedLogLevel,
                 messagePrefix
             )

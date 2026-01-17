@@ -129,12 +129,15 @@ namespace Foundation.Core
                 TheInstance = new Core();
 
                 runTimeEnvironmentSettings ??= TheInstance.IoC.Get<IRunTimeEnvironmentSettings>();
-                applicationProcess ??= TheInstance.IoC.Get<IApplicationProcess>();
-                userProfileProcess ??= TheInstance.IoC.Get<IUserProfileProcess>();
-                loggedOnUserProcess ??= TheInstance.IoC.Get<ILoggedOnUserProcess>();
                 sharedVariables ??= TheInstance.IoC.Get<ISharedVariables>();
                 cache ??= TheInstance.IoC.Get<ICache>();
                 crypto ??= TheInstance.IoC.Get<ICrypto>();
+
+                ExecuteApplicationStartups();
+
+                applicationProcess ??= TheInstance.IoC.Get<IApplicationProcess>();
+                userProfileProcess ??= TheInstance.IoC.Get<IUserProfileProcess>();
+                loggedOnUserProcess ??= TheInstance.IoC.Get<ILoggedOnUserProcess>();
 
                 UserFullLogonName = runTimeEnvironmentSettings.UserFullLogonName;
 

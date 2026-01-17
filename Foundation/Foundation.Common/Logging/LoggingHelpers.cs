@@ -24,12 +24,10 @@ namespace Foundation.Common
         /// <exception cref="ConfigurationErrorsException">Raised if the Configuration file does not contain the correct setup</exception>
         /// <param name="core">The Foundation Core service</param>
         /// <param name="runTimeEnvironmentSettings">The runtime environment settings</param>
-        /// <param name="dateTimeService">The date/time service.</param>
         public LoggingHelpers
         (
             ICore core,
-            IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
-            IDateTimeService dateTimeService
+            IRunTimeEnvironmentSettings runTimeEnvironmentSettings
         )
         {
             RunTimeEnvironmentSettings = runTimeEnvironmentSettings;
@@ -71,12 +69,17 @@ namespace Foundation.Common
             TODO: This is where code needs to be added to use different Log Writers
             */
 
-            TraceLogger = new TraceLogWriter(runTimeEnvironmentSettings, dateTimeService, TraceLevel.Verbose, tracingPrefix);
+            TraceLogger = new TraceLogWriter(runTimeEnvironmentSettings, TraceLevel.Verbose, tracingPrefix);
 
-            InformationLogger = new EventLogWriter(runTimeEnvironmentSettings, dateTimeService, core.ApplicationName, TraceLevel.Info, informationPrefix, applicationName);
-            ErrorLogger = new EventLogWriter(runTimeEnvironmentSettings, dateTimeService, core.ApplicationName, TraceLevel.Error, errorPrefix, applicationName);
-            WarningLogger = new EventLogWriter(runTimeEnvironmentSettings, dateTimeService, core.ApplicationName, TraceLevel.Warning, warningPrefix, applicationName);
-            AuditLogger = new EventLogWriter(runTimeEnvironmentSettings, dateTimeService, core.ApplicationName, TraceLevel.Info, auditPrefix, applicationName);
+            InformationLogger = new TraceLogWriter(runTimeEnvironmentSettings, TraceLevel.Info, informationPrefix);
+            ErrorLogger = new TraceLogWriter(runTimeEnvironmentSettings, TraceLevel.Error, errorPrefix);
+            WarningLogger = new TraceLogWriter(runTimeEnvironmentSettings, TraceLevel.Warning, warningPrefix);
+            AuditLogger = new TraceLogWriter(runTimeEnvironmentSettings, TraceLevel.Info, auditPrefix);
+
+            //InformationLogger = new EventLogWriter(runTimeEnvironmentSettings, core.ApplicationName, TraceLevel.Info, informationPrefix, applicationName);
+            //ErrorLogger = new EventLogWriter(runTimeEnvironmentSettings, core.ApplicationName, TraceLevel.Error, errorPrefix, applicationName);
+            //WarningLogger = new EventLogWriter(runTimeEnvironmentSettings, core.ApplicationName, TraceLevel.Warning, warningPrefix, applicationName);
+            //AuditLogger = new EventLogWriter(runTimeEnvironmentSettings, core.ApplicationName, TraceLevel.Info, auditPrefix, applicationName);
         }
 
         private static IRunTimeEnvironmentSettings? RunTimeEnvironmentSettings { get; set; }

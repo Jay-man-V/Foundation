@@ -35,7 +35,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.LoggingTests.LogWritersTests
         [TestCase]
         public void Test_Constructor()
         {
-            TraceLogWriter logWriter = new TraceLogWriter(RunTimeEnvironmentSettings, DateTimeService, RequestedLogLevel, MessagePrefix);
+            TraceLogWriter logWriter = new TraceLogWriter(RunTimeEnvironmentSettings, RequestedLogLevel, MessagePrefix);
 
             Assert.That(logWriter.RequestedLogLevel, Is.EqualTo(RequestedLogLevel));
             Assert.That(logWriter.MessagePrefix, Is.EqualTo(MessagePrefix));
@@ -49,7 +49,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.LoggingTests.LogWritersTests
         {
             CustomTraceListener customTraceListener = new CustomTraceListener();
             Trace.Listeners.Add(customTraceListener);
-            TraceLogWriter logWriter = new TraceLogWriter(RunTimeEnvironmentSettings, DateTimeService, RequestedLogLevel, MessagePrefix);
+            TraceLogWriter logWriter = new TraceLogWriter(RunTimeEnvironmentSettings, RequestedLogLevel, MessagePrefix);
 
             String outputMessage = Guid.NewGuid().ToString();
             String expectedMessage = outputMessage + Environment.NewLine;

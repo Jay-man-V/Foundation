@@ -53,5 +53,8 @@ namespace Foundation.Repository.Core
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.TableName"/>
         protected override String TableName => FDC.TableNames.ScheduleIntervalMultiplierMatrix;
+
+        /// <inheritdoc cref="FoundationModelRepository{TModel}.HasValidityPeriodColumns"/>
+        public override Boolean HasValidityPeriodColumns => false;
     }
 }

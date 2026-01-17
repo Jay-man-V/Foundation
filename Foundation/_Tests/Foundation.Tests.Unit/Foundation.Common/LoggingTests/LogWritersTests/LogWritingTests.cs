@@ -41,7 +41,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.LoggingTests.LogWritersTests
         {
             base.TestInitialise();
 
-            LoggingHelpers = new LoggingHelpers(CoreInstance, RunTimeEnvironmentSettings, DateTimeService);
+            LoggingHelpers = new LoggingHelpers(CoreInstance, RunTimeEnvironmentSettings);
         }
 
         /// <summary>

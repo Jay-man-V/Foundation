@@ -37,7 +37,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.LoggingTests.LogWritersTests
 
             expectedValue = FixUpStringWithReplacements(expectedValue);
 
-            ExceptionOutput exceptionOutput = new ExceptionOutput(RunTimeEnvironmentSettings, DateTimeService)
+            ExceptionOutput exceptionOutput = new ExceptionOutput(RunTimeEnvironmentSettings)
             {
                 ErrorDetail = "This is the error detail",
                 ErrorMessage = "What else could be the error message?",

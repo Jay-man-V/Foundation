@@ -21,7 +21,6 @@ namespace Foundation.Common
         /// Initialises a new instance of the <see cref="EventLogWriter"/> class.
         /// </summary>
         /// <param name="runTimeEnvironmentSettings">The runtime environment settings</param>
-        /// <param name="dateTimeService">The date/time service.</param>
         /// <param name="targetEventLog">The target event log.</param>
         /// <param name="requestedLogLevel">The requested log level.</param>
         /// <param name="messagePrefix">The message prefix.</param>
@@ -29,7 +28,6 @@ namespace Foundation.Common
         internal EventLogWriter
         (
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
-            IDateTimeService dateTimeService,
             String targetEventLog,
             TraceLevel requestedLogLevel,
             String messagePrefix,
@@ -38,7 +36,6 @@ namespace Foundation.Common
             : base
             (
                 runTimeEnvironmentSettings,
-                dateTimeService,
                 requestedLogLevel,
                 messagePrefix
             )

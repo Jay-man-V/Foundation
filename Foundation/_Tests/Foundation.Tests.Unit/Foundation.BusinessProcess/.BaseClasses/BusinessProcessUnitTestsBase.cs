@@ -274,7 +274,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
 
             CoreInstance.IoC.Returns(Substitute.For<IIoC>());
 
-            _ = new LoggingHelpers(CoreInstance, RunTimeEnvironmentSettings, DateTimeService);
+            _ = new LoggingHelpers(CoreInstance, RunTimeEnvironmentSettings);
 
             ApplicationConfigurationService = Substitute.For<IApplicationConfigurationService>();
             ApplicationConfigurationService.Get<String>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailSmtpHostUsername).Returns(EmailSmtpHostUsername);

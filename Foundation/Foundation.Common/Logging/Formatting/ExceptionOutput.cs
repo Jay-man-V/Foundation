@@ -23,15 +23,19 @@ namespace Foundation.Common
         /// Initialises a new instance of the <see cref="ExceptionOutput"/> class.
         /// </summary>
         /// <param name="runTimeEnvironmentSettings">The runtime environment settings.</param>
-        /// <param name="dateTimeService">The date time service.</param>
-        public ExceptionOutput(IRunTimeEnvironmentSettings runTimeEnvironmentSettings, IDateTimeService dateTimeService)
+        public ExceptionOutput
+        (
+            IRunTimeEnvironmentSettings runTimeEnvironmentSettings
+        )
         {
             ErrorDetail = String.Empty;
             ErrorMessage = String.Empty;
             ErrorSource = String.Empty;
             UserLogon = $@"{runTimeEnvironmentSettings.UserDomainName}\{runTimeEnvironmentSettings.UserName}";
-            ErrorUtcDateTime = dateTimeService.SystemUtcDateTimeNow;
-            ErrorLocalDateTime = dateTimeService.LocalDateTimeNow;
+            //ErrorUtcDateTime = dateTimeService.SystemUtcDateTimeNow;
+            //ErrorLocalDateTime = dateTimeService.LocalDateTimeNow;
+            ErrorUtcDateTime = DateTime.UtcNow;
+            ErrorLocalDateTime = DateTime.Now;
             ComputerName = runTimeEnvironmentSettings.MachineName;
             CultureInfo = CultureInfo.CurrentCulture;
             UiCultureInfo = CultureInfo.CurrentUICulture;
