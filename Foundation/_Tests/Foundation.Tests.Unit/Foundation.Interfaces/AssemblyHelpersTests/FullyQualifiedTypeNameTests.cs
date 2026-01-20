@@ -1,24 +1,23 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="FullyQualifiedTypeNameConstructorTests.cs" company="JDV Software Ltd">
+// <copyright file="FullyQualifiedTypeNameTests.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
 using Foundation.Interfaces;
-
 using Foundation.Tests.Unit.BaseClasses;
 
-namespace Foundation.Tests.Unit.Foundation.Interfaces.AssemblyHelpersTests.FullyQualifiedTypeNameTests
+namespace Foundation.Tests.Unit.Foundation.Interfaces.AssemblyHelpersTests
 {
     /// <summary>
     /// Email Address tests
     /// </summary>
     [TestFixture]
-    public class FullyQualifiedTypeNameConstructorTests : UnitTestBase
+    public class FullyQualifiedTypeNameTests : UnitTestBase
     {
         private const String AssemblyName = "Foundation.BusinessProcess";
         private const String TypeName = "Foundation.BusinessProcess.ScheduledJobProcess";
-        private readonly String _fullyQualifiedTypeNameString = $@"<TaskImplementation assembly=""{AssemblyName}"" type=""{TypeName}"" />";
+        private readonly String _fullyQualifiedTypeNameString = $"""<TaskImplementation assembly="{AssemblyName}" type="{TypeName}" />""";
 
         /// <summary>
         /// Tests the default constructor.
@@ -90,6 +89,32 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AssemblyHelpersTests.Fully
 
             Assert.That(fullyQualifiedTypeNameObject.AssemblyName, Is.EqualTo(AssemblyName));
             Assert.That(fullyQualifiedTypeNameObject.TypeName, Is.EqualTo(TypeName));
+        }
+
+        /// <summary>
+        /// Tests the implicit cast from string.
+        /// </summary>
+        [TestCase]
+        public void Test_ImplicitCastFromString()
+        {
+            FullyQualifiedTypeName fullyQualifiedTypeName = _fullyQualifiedTypeNameString;
+
+            Assert.That(fullyQualifiedTypeName.ToString(), Is.EqualTo(_fullyQualifiedTypeNameString));
+            Assert.That(fullyQualifiedTypeName.AssemblyName, Is.EqualTo(AssemblyName));
+            Assert.That(fullyQualifiedTypeName.TypeName, Is.EqualTo(TypeName));
+        }
+
+        /// <summary>
+        /// Tests the implicit cast to string.
+        /// </summary>
+        [TestCase]
+        public void Test_ImplicitCastToString()
+        {
+            FullyQualifiedTypeName fullyQualifiedTypeName = new FullyQualifiedTypeName(_fullyQualifiedTypeNameString);
+
+            String fullyQualifiedTypeNameString = fullyQualifiedTypeName;
+
+            Assert.That(fullyQualifiedTypeNameString, Is.EqualTo(_fullyQualifiedTypeNameString));
         }
     }
 }
