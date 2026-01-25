@@ -76,36 +76,13 @@ namespace Foundation.Core
             }
         }
 
-        ///// <summary>
-        ///// List of excluded interfaces, interfaces that will be removed from consideration of Dependency Injection
-        ///// </summary>
-        //private static List<String> ExcludedInterfaces
-        //{
-        //    get
-        //    {
-        //        List<String> excludedInterfaces =
-        //        [
-        //            nameof(ICommonBusinessProcess),
-        //            typeof(ICommonBusinessProcess<>).Name,
-        //            nameof(IFoundationModel),
-        //            typeof(IFoundationModelRepository<>).Name,
-        //            nameof(IFoundationObjectId),
-        //            nameof(IFoundationModelTracking),
-        //            typeof(IGenericDataGridViewModel<>).Name,
-        //            nameof(IViewModel)
-        //        ];
-
-        //        return excludedInterfaces;
-        //    }
-        //}
-
         /// <summary>
         /// Resets the dependency injection.
         /// </summary>
         /// <returns></returns>
         public static void ResetDependencyInjection()
         {
-            if (ServiceCollection != null)
+            if (ServiceCollection is not null)
             {
                 ServiceCollection.Clear();
             }

@@ -8,6 +8,7 @@
     [LastUpdatedOn]              DATETIME       NOT NULL,
     [ProcessedOn]                DATETIME       NULL,
     [Name]                       NVARCHAR (150) NULL,
+    [InProgress]                 BIT            NULL,
     CONSTRAINT [PK_CORE_ImportExportControl] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_ImportExportControl_CreatedByUserProfile] FOREIGN KEY ([CreatedByUserProfileId]) REFERENCES [sec].[UserProfile] ([Id]),
     CONSTRAINT [FK_ImportExportControl_LastUpdatedByUserProfile] FOREIGN KEY ([LastUpdatedByUserProfileId]) REFERENCES [sec].[UserProfile] ([Id]),

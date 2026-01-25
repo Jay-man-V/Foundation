@@ -36,7 +36,31 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Foundation.BusinessProcess\Foundation.BusinessProcess.csproj" />
+    <ProjectReference Include="..\..\Foundation.Common\Foundation.Common.csproj" />
+    <ProjectReference Include="..\..\Foundation.Core\Foundation.Core.csproj" />
+    <ProjectReference Include="..\..\Foundation.DataAccess.Csv\Foundation.DataAccess.Csv.csproj" />
+    <ProjectReference Include="..\..\Foundation.DataAccess.Database\Foundation.DataAccess.Database.csproj" />
+    <ProjectReference Include="..\..\Foundation.DataAccess.FileData\Foundation.DataAccess.FileData.csproj" />
+    <ProjectReference Include="..\..\Foundation.Database\Foundation.Database.sqlproj" />
+    <ProjectReference Include="..\..\Foundation.DocumentGenerator\Foundation.DocumentGenerator.csproj" />
+    <ProjectReference Include="..\..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
+    <ProjectReference Include="..\..\Foundation.Models\Foundation.Models.csproj" />
+    <ProjectReference Include="..\..\Foundation.Repository\Foundation.Repository.csproj" />
+    <ProjectReference Include="..\..\Foundation.Resources\Foundation.Resources.csproj" />
+    <ProjectReference Include="..\..\Foundation.Security\Foundation.Security.csproj" />
+    <ProjectReference Include="..\..\Foundation.Server.ScheduledTasks\Foundation.Server.ScheduledTasks.csproj" />
+    <ProjectReference Include="..\..\Foundation.Services.Application\Foundation.Services.Application.csproj" />
+    <ProjectReference Include="..\..\Foundation.Services.FileIdentification\Foundation.Services.FileIdentification.csproj" />
+    <ProjectReference Include="..\..\Foundation.Services.Mail\Foundation.Services.Mail.csproj" />
+    <ProjectReference Include="..\..\Foundation.Services.MessageQueue\Foundation.Services.MessageQueue.csproj" />
+    <ProjectReference Include="..\..\Foundation.Services.UserInteraction\Foundation.Services.UserInteraction.csproj" />
+    <ProjectReference Include="..\..\Foundation.Services.WebApi\Foundation.Services.WebApi.csproj" />
+    <ProjectReference Include="..\..\Foundation.Service\Foundation.Service.csproj" />
+    <ProjectReference Include="..\..\Foundation.ViewModels\Foundation.ViewModels.csproj" />
+    <ProjectReference Include="..\..\Foundation.WorkflowEngine\Foundation.WorkflowEngine.csproj" />
     <ProjectReference Include="..\Foundation.Tests.Unit\Foundation.Tests.Unit.csproj" />
+    <ProjectReference Include="..\Foundation.Tests.Views\Foundation.Tests.Views.csproj" />
   </ItemGroup>
 
   <ItemGroup>

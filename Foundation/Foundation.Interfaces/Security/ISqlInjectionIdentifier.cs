@@ -9,13 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// Defines the behaviour of the Sql Injection Identifier
     /// </summary>
-    public interface ISqlInjectionIdentifier
+    public interface ISqlInjectionIdentifier : IInjectionIdentifier
     {
-        /// <summary>
-        /// Checks the input for SQL Injection patterns
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        Boolean CheckInput(String input);
     }
 }

@@ -11,6 +11,7 @@ namespace Foundation.Security
     /// <summary>
     /// Implementation of the Sql Injection Identifier
     /// </summary>
+    [DependencyInjectionTransient]
     public class CrossSiteScriptingIdentifier : ICrossSiteScriptingIdentifier
     {
         /// <inheritdoc cref="ICrossSiteScriptingIdentifier.CheckInput(String)"/>

@@ -26,8 +26,8 @@ BEGIN
                 c.[Id] = nwd.[CountryId]
             )
     WHERE
-        nwd.[StatusId] IN ( SELECT fn1.[Id] FROM [dbo].[ufn_GetListOfActiveStatuses] (0) fn1 ) AND
-        c.[StatusId] IN ( SELECT fn2.[Id] FROM [dbo].[ufn_GetListOfActiveStatuses] (0) fn2 ) AND
+        nwd.[StatusId] IN ( SELECT fn1.[Id] FROM [dbo].[ufn_GetListOfActiveStatuses] ( DEFAULT ) fn1 ) AND
+        c.[StatusId] IN ( SELECT fn2.[Id] FROM [dbo].[ufn_GetListOfActiveStatuses] ( DEFAULT ) fn2 ) AND
         c.[IsoCode] = @countryIsoCode AND
         DATEDIFF ( DAY, nwd.[Date], @date ) = 0
 

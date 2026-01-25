@@ -30,12 +30,14 @@ namespace Foundation.Repository.Core
         /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
         /// <param name="coreDataProvider">The core data provider.</param>
+        /// <param name="dateTimeService">The date time service.</param>
         public CalendarRepository
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             ISystemConfigurationService systemConfigurationService,
-            ICoreDataProvider coreDataProvider
+            ICoreDataProvider coreDataProvider,
+            IDateTimeService dateTimeService
         ) :
             base
             (
@@ -44,10 +46,14 @@ namespace Foundation.Repository.Core
                 coreDataProvider.ConnectionName
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, coreDataProvider);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, coreDataProvider, dateTimeService);
+
+            DateTimeService = dateTimeService;
 
             LoggingHelpers.TraceCallReturn();
         }
+
+        private IDateTimeService DateTimeService { get; }
 
         /// <inheritdoc cref="ICalendarRepository.IsNonWorkingDay(String, DateTime)"/>
         public Boolean IsNonWorkingDay(String countryCode, DateTime date)
@@ -56,9 +62,7 @@ namespace Foundation.Repository.Core
 
             Boolean retVal;
 
-            StringBuilder sql = new StringBuilder();
-
-            sql.AppendLine($"SELECT {Functions.IsNonWorkingDay} ( {DataLogicProvider.DatabaseParameterPrefix}{FDC.Country.EntityName}{FDC.Country.IsoCode}, {DataLogicProvider.DatabaseParameterPrefix}{FDC.NonWorkingDay.EntityName}{FDC.NonWorkingDay.Date} )");
+            String sql = $"SELECT {Functions.IsNonWorkingDay} ( {DataLogicProvider.DatabaseParameterPrefix}{FDC.Country.EntityName}{FDC.Country.IsoCode}, {DataLogicProvider.DatabaseParameterPrefix}{FDC.NonWorkingDay.EntityName}{FDC.NonWorkingDay.Date} )";
 
             IDatabaseParameters databaseParameters = new DatabaseParameters
             {
@@ -66,7 +70,7 @@ namespace Foundation.Repository.Core
                 CreateParameter($"{FDC.NonWorkingDay.EntityName}{FDC.NonWorkingDay.Date}", date.Date),
             };
 
-            Object? result = ExecuteScalar(sql.ToString(), CommandType.Text, databaseParameters);
+            Object? result = ExecuteScalar(sql, CommandType.Text, databaseParameters);
 
             retVal = Convert.ToBoolean(result);
 
@@ -82,9 +86,7 @@ namespace Foundation.Repository.Core
 
             DateTime retVal = date.Date;
 
-            StringBuilder sql = new StringBuilder();
-
-            sql.AppendLine($"SELECT {Functions.GetNextWorkingDay.FunctionName} ( {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.CountryIsoCode}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.StartDate}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.IntervalType}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.Interval} ) OPTION ( MaxRecursion 2000 )");
+            String sql = $"SELECT {Functions.GetNextWorkingDay.FunctionName} ( {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.CountryIsoCode}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.StartDate}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.IntervalType}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.Interval} ) OPTION ( MaxRecursion 2000 )";
 
             DatabaseParameters databaseParameters =
             [
@@ -94,7 +96,7 @@ namespace Foundation.Repository.Core
                 CreateParameter(Functions.GetNextWorkingDay.Parameters.Interval, interval),
             ];
 
-            Object? objectValue = ExecuteScalar(sql.ToString(), CommandType.Text, databaseParameters);
+            Object? objectValue = ExecuteScalar(sql, CommandType.Text, databaseParameters);
 
             if (objectValue != null)
             {
@@ -113,9 +115,7 @@ namespace Foundation.Repository.Core
 
             DateTime retVal = date.Date;
 
-            StringBuilder sql = new StringBuilder();
-
-            sql.AppendLine($"SELECT {Functions.CheckIsWorkingDayOrGetNextWorkingDay.FunctionName} ( {DataLogicProvider.DatabaseParameterPrefix}{Functions.CheckIsWorkingDayOrGetNextWorkingDay.Parameters.CountryIsoCode},  {DataLogicProvider.DatabaseParameterPrefix}{Functions.CheckIsWorkingDayOrGetNextWorkingDay.Parameters.StartDate} ) OPTION ( MaxRecursion 2000 )");
+            String sql = $"SELECT {Functions.CheckIsWorkingDayOrGetNextWorkingDay.FunctionName} ( {DataLogicProvider.DatabaseParameterPrefix}{Functions.CheckIsWorkingDayOrGetNextWorkingDay.Parameters.CountryIsoCode},  {DataLogicProvider.DatabaseParameterPrefix}{Functions.CheckIsWorkingDayOrGetNextWorkingDay.Parameters.StartDate} ) OPTION ( MaxRecursion 2000 )";
 
             DatabaseParameters databaseParameters =
             [
@@ -123,38 +123,12 @@ namespace Foundation.Repository.Core
                 CreateParameter(Functions.CheckIsWorkingDayOrGetNextWorkingDay.Parameters.StartDate, date),
             ];
 
-            Object? objectValue = ExecuteScalar(sql.ToString(), CommandType.Text, databaseParameters);
+            Object? objectValue = ExecuteScalar(sql, CommandType.Text, databaseParameters);
 
             if (objectValue != null)
             {
                 retVal = Convert.ToDateTime(objectValue);
             }
-
-            LoggingHelpers.TraceCallReturn(retVal);
-
-            return retVal;
-        }
-
-        /// <inheritdoc cref="ICalendarRepository.GetStartOfMonth(Int32, Int32)"/>
-        public DateTime GetStartOfMonth(Int32 year, Int32 month)
-        {
-            LoggingHelpers.TraceCallEnter(year, month);
-
-            DateTime retVal = new DateTime(year, month, 1);
-
-            LoggingHelpers.TraceCallReturn(retVal);
-
-            return retVal;
-        }
-
-        /// <inheritdoc cref="ICalendarRepository.GetEndOfMonth(Int32, Int32)"/>
-        public DateTime GetEndOfMonth(Int32 year, Int32 month)
-        {
-            LoggingHelpers.TraceCallEnter(year, month);
-
-            Int32 lastDay = DateTime.DaysInMonth(year, month);
-
-            DateTime retVal = new DateTime(year, month, lastDay);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -215,8 +189,8 @@ namespace Foundation.Repository.Core
         {
             LoggingHelpers.TraceCallEnter(countryCode, year, month);
 
-            DateTime startOfMonth = GetStartOfMonth(year, month);
-            DateTime endOfMonth = GetEndOfMonth(year, month);
+            DateTime startOfMonth = DateTimeService.GetStartOfMonth(year, month);
+            DateTime endOfMonth = DateTimeService.GetEndOfMonth(year, month);
 
             // Initialise to default values based on calendar dates
             FirstAndLastWorkingDays retVal = new FirstAndLastWorkingDays

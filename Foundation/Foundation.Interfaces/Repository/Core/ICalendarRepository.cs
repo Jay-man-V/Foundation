@@ -38,22 +38,6 @@ namespace Foundation.Interfaces
         DateTime CheckIsWorkingDayOrGetNextWorkingDay(String countryCode, DateTime date);
 
         /// <summary>
-        /// Gets the start of the month
-        /// </summary>
-        /// <param name="year"></param>
-        /// <param name="month"></param>
-        /// <returns></returns>
-        DateTime GetStartOfMonth(Int32 year, Int32 month);
-
-        /// <summary>
-        /// Gets the end of the month
-        /// </summary>
-        /// <param name="year"></param>
-        /// <param name="month"></param>
-        /// <returns></returns>
-        DateTime GetEndOfMonth(Int32 year, Int32 month);
-
-        /// <summary>
         /// Determines the first working date of the year/month of the supplied <paramref name="date"/>
         /// </summary>
         /// <param name="countryCode">The country code.</param>

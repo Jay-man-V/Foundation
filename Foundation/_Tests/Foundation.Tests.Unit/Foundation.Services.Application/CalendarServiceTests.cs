@@ -31,7 +31,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 
             CalendarRepository = Substitute.For<ICalendarRepository>();
 
-            TheService = new CalendarService(DateTimeService, CalendarRepository);
+            TheService = new CalendarService(CalendarRepository);
 
             List<DateTime> holidayDates =
             [

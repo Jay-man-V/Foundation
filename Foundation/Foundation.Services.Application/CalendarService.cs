@@ -18,7 +18,6 @@ namespace Foundation.Services.Application
         /// </summary>
         public CalendarService
         (
-            IDateTimeService dateTimeService,
             ICalendarRepository calendarRepository
         ) :
             base
@@ -27,13 +26,11 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter();
 
-            DateTimeService = dateTimeService;
             CalendarRepository = calendarRepository;
 
             LoggingHelpers.TraceCallReturn();
         }
 
-        private IDateTimeService DateTimeService { get; }
         private ICalendarRepository CalendarRepository { get; }
 
         /// <inheritdoc cref="ICalendarService.IsHoliday(String, DateTime)"/>

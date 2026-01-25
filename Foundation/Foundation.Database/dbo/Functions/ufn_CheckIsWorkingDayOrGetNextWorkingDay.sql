@@ -30,13 +30,14 @@ BEGIN
     (
         SELECT
             @workingDate x,
-            [Date] StartDate,
-            GREATEST ( LEAD ([Date], 1, [Date] ) OVER ( ORDER BY [Date] ),
-            LEAD ( [Date], 2, [Date] ) OVER ( ORDER BY [Date] ) ) AS NextEndDate
+            nwd.[Date] StartDate,
+            GREATEST ( LEAD (nwd.[Date], 1, nwd.[Date] ) OVER ( ORDER BY nwd.[Date] ),
+            LEAD ( nwd.[Date], 2, nwd.[Date] ) OVER ( ORDER BY nwd.[Date] ) ) AS NextEndDate
         FROM
-            core.NonWorkingDay
+            core.NonWorkingDay nwd
         WHERE
-            DATEPART ( YEAR, [Date]) >= DATEPART ( YEAR, @startDate )
+            nwd.StatusId IN ( SELECT Id FROM ufn_GetListOfActiveStatuses ( DEFAULT ) ) AND
+            DATEPART ( YEAR, nwd.[Date]) >= DATEPART ( YEAR, @startDate )
     ) TargetRange
     WHERE
         @workingDate BETWEEN [StartDate] AND [NextEndDate];
@@ -57,6 +58,8 @@ BEGIN
 					    cnwd.[CountryId] = c.[Id]
                     )
 		    WHERE
+                c.StatusId IN ( SELECT Id FROM ufn_GetListOfActiveStatuses ( DEFAULT ) ) AND
+                cnwd.StatusId IN ( SELECT Id FROM ufn_GetListOfActiveStatuses ( DEFAULT ) ) AND
 			    c.[IsoCode] = @countryIsoCode
         )
 
@@ -66,6 +69,7 @@ BEGIN
         dbo.ufn_GetListOfCalendarDates ( @windowStartDate, @windowEndDate ) dates
             LEFT OUTER JOIN core.NonWorkingDay nwd on
             (
+                nwd.StatusId IN ( SELECT Id FROM ufn_GetListOfActiveStatuses ( DEFAULT ) ) AND
                 nwd.[Date] = dates.[Date]
             )
             LEFT OUTER JOIN vw_WeekendDaysForCountry wdfc ON

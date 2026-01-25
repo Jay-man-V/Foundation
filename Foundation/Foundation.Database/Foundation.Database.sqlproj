@@ -370,5 +370,17 @@
     <Build Include="Security\log.sql" />
     <Build Include="Security\sec.sql" />
     <Build Include="Security\stg.sql" />
+    <Build Include="core\Tables\ScheduleIntervalMultiplierMatrix.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="core\Tables\DatePeriod.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Security\jay.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SqlSchemaCompare.scmp" />
   </ItemGroup>
 </Project>

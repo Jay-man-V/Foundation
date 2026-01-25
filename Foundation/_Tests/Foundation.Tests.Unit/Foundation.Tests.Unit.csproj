@@ -315,6 +315,7 @@
     <ProjectReference Include="..\..\Foundation.Models\Foundation.Models.csproj" />
     <ProjectReference Include="..\..\Foundation.Repository\Foundation.Repository.csproj" />
     <ProjectReference Include="..\..\Foundation.Resources\Foundation.Resources.csproj" />
+    <ProjectReference Include="..\..\Foundation.Security\Foundation.Security.csproj" />
     <ProjectReference Include="..\..\Foundation.Server.ScheduledTasks\Foundation.Server.ScheduledTasks.csproj" />
     <ProjectReference Include="..\..\Foundation.Services.Application\Foundation.Services.Application.csproj" />
     <ProjectReference Include="..\..\Foundation.Services.FileIdentification\Foundation.Services.FileIdentification.csproj" />

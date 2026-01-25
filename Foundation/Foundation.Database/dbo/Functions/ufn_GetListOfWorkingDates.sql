@@ -21,6 +21,8 @@ RETURN
 					    c.Id = nwd.[CountryId]
 				    )
 		    WHERE
+                nwd.StatusId IN ( SELECT Id FROM ufn_GetListOfActiveStatuses ( DEFAULT ) ) AND
+                c.StatusId IN ( SELECT Id FROM ufn_GetListOfActiveStatuses ( DEFAULT ) ) AND
 			    c.[IsoCode] = @countryIsoCode
 	    ),
 
@@ -36,6 +38,8 @@ RETURN
 					    cnwd.[CountryId] = c.[Id]
                     )
 		    WHERE
+                c.StatusId IN ( SELECT Id FROM ufn_GetListOfActiveStatuses ( DEFAULT ) ) AND
+                cnwd.StatusId IN ( SELECT Id FROM ufn_GetListOfActiveStatuses ( DEFAULT ) ) AND
 			    c.[IsoCode] = @countryIsoCode
         )
 
