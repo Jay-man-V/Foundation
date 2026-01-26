@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Compile Include="..\..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
+    <Compile Include=".BaseClasses\BusinessProcessSystemTestsBase.cs" />
     <Compile Include=".BaseClasses\SystemTestBase.cs" />
   </ItemGroup>
 

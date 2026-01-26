@@ -4,13 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using NSubstitute;
-
 using Foundation.Common;
 using Foundation.Interfaces;
-using Foundation.Services.Application;
 
-using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
+using Foundation.Tests.System.BaseClasses;
 using Foundation.Tests.Unit.Support;
 
 namespace Foundation.Tests.System.Foundation.Services.Application
@@ -19,7 +16,7 @@ namespace Foundation.Tests.System.Foundation.Services.Application
     /// System Tests for FileTransferServiceTests
     /// </summary>
     [TestFixture]
-    public class FileTransferServiceTests : BusinessProcessUnitTestsBase
+    public class FileTransferServiceTests : BusinessProcessSystemTestsBase
     {
         private IFileTransferService? TheService { get; set; }
 
@@ -27,14 +24,7 @@ namespace Foundation.Tests.System.Foundation.Services.Application
         {
             base.TestInitialise();
 
-            IEmailApi emailApi = Substitute.For<IEmailApi>();
-            IFileApi fileApi = Substitute.For<IFileApi>();
-            IHttpApi httpApi = Substitute.For<IHttpApi>();
-            IFtpApi ftpApi = Substitute.For<IFtpApi>();
-            IRestApi restApi = Substitute.For<IRestApi>();
-            IMqApi mqApi = Substitute.For<IMqApi>();
-
-            TheService = new FileTransferService(emailApi, fileApi, httpApi, ftpApi, restApi, mqApi);
+            TheService = CoreInstance.IoC.Get<IFileTransferService>();
         }
 
         [TestCase(@".Support\SampleDocuments\Sample Text Document.txt")]

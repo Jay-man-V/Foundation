@@ -83,12 +83,12 @@ BEGIN
                 [core].[NonWorkingDay] [nwd]
                     INNER JOIN [core].[Country] [c] ON
                     (
+                        [c].[StatusId] IN ( SELECT [las].[Id] FROM [dbo].[ufn_GetListOfActiveStatuses] ( DEFAULT ) [las] ) AND
                         [c].[IsoCode] = @countryIsoCode AND
                         [c].[Id] = nwd.CountryId
                     )
             WHERE
                 [nwd].[StatusId] IN ( SELECT [las].[Id] FROM [dbo].[ufn_GetListOfActiveStatuses] ( DEFAULT ) [las] ) AND
-                [c].StatusId IN ( SELECT [las].[Id] FROM [dbo].[ufn_GetListOfActiveStatuses] ( DEFAULT ) [las] ) AND
                 [nwd].[Date] BETWEEN @windowStartDate AND @windowEndDate
         )
 
@@ -96,19 +96,6 @@ BEGIN
         @returnValue = MIN([dates].[Date])
     FROM
         [dbo].[ufn_GetListOfCalendarDates] ( @windowStartDate, @windowEndDate ) [dates]
-            LEFT OUTER JOIN
-            (
-                SELECT
-                    [nwd].[Id],
-                    [nwd].[Date]
-                FROM
-                    [core].[NonWorkingDay] [nwd]
-                WHERE
-                    [nwd].[StatusId] IN ( SELECT [las].[Id] FROM [dbo].[ufn_GetListOfActiveStatuses] ( DEFAULT ) [las] )
-            ) nwd ON
-            (
-                [nwd].[Date] = [dates].[Date]
-            )
             LEFT OUTER JOIN vw_WeekendDaysForCountry [wdfc] ON
             (
                 [wdfc].[DayOfWeekIndex] = DATEPART ( WEEKDAY, [dates].[Date] )
@@ -119,7 +106,6 @@ BEGIN
             )
     WHERE
         [dates].[Date] >= DATEADD ( DAY, @standardInterval, @startDate ) AND
-        [nwd].[Id] IS NULL AND
         [wdfc].[Id] IS NULL AND
         [nwdfc].[Id] IS NULL
     OPTION (MAXRECURSION 2000)
