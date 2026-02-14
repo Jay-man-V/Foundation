@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
 VisualStudioVersion = 18.0.11222.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerContact.Client", "Applications\Customer Contact\CustomerContact.Client\CustomerContact.Client.csproj", "{827141F8-8ED0-7931-DCF6-D0D1A66E05C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDV.CustomerContact.Client", "Applications\Customer Contact\JDV.CustomerContact.Client\JDV.CustomerContact.Client.csproj", "{827141F8-8ED0-7931-DCF6-D0D1A66E05C8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. Solution Items", "0. Solution Items", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Customer Contact", "1. C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. National Lottery", "3. National Lottery", "{0686627B-460B-46E4-9461-B8E07390738E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. JDV Software", "2. JDV Software", "{C47F1678-B972-4DF7-BFDC-D46D42BB2CA3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Accounts", "2. Accounts", "{C47F1678-B972-4DF7-BFDC-D46D42BB2CA3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.Views", "Foundation\Foundation.Views\Foundation.Views.csproj", "{E7ECEEF5-BF8D-418C-B070-C5DF43B1E7AB}"
 EndProject
@@ -121,6 +121,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDV.NationalLottery.Tests.View", "Applications\National Lottery\_Tests\JDV.NationalLottery.Tests.View\JDV.NationalLottery.Tests.View.csproj", "{3A4B378E-E9F9-429B-A601-99FB3CD6BB54}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDV.Accounts.Tests.Views", "Applications\JDV Accounts\_Tests\JDV.Accounts.Tests.Views\JDV.Accounts.Tests.Views.csproj", "{7E2FCE74-D043-41F5-8A1F-49BC896D93C2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. System & Unit Tests", "0. System & Unit Tests", "{81AEB073-6B47-4601-8F31-FE1AC3D806B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDV.CustomerContact.Tests.System", "Applications\Customer Contact\_Tests\JDV.CustomerContact.Tests.System\JDV.CustomerContact.Tests.System.csproj", "{BBF0909B-16BF-41AF-9B76-5130BD630E94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDV.CustomerContact.Tests.Unit", "Applications\Customer Contact\_Tests\JDV.CustomerContact.Tests.Unit\JDV.CustomerContact.Tests.Unit.csproj", "{14AA28B7-0203-4F1F-AC17-536AE5859B58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDV.CustomerContact.Views", "Applications\Customer Contact\_Tests\JDV.CustomerContact.Views\JDV.CustomerContact.Views.csproj", "{5178BCF3-829A-429B-92A4-BE3FAEA2C6D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -330,6 +338,18 @@ Global
 		{7E2FCE74-D043-41F5-8A1F-49BC896D93C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E2FCE74-D043-41F5-8A1F-49BC896D93C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E2FCE74-D043-41F5-8A1F-49BC896D93C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBF0909B-16BF-41AF-9B76-5130BD630E94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBF0909B-16BF-41AF-9B76-5130BD630E94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBF0909B-16BF-41AF-9B76-5130BD630E94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBF0909B-16BF-41AF-9B76-5130BD630E94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14AA28B7-0203-4F1F-AC17-536AE5859B58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14AA28B7-0203-4F1F-AC17-536AE5859B58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14AA28B7-0203-4F1F-AC17-536AE5859B58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14AA28B7-0203-4F1F-AC17-536AE5859B58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5178BCF3-829A-429B-92A4-BE3FAEA2C6D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5178BCF3-829A-429B-92A4-BE3FAEA2C6D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5178BCF3-829A-429B-92A4-BE3FAEA2C6D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5178BCF3-829A-429B-92A4-BE3FAEA2C6D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -364,6 +384,10 @@ Global
 		{FDF602C4-142E-46E4-AD2D-C02458D47FC1} = {0686627B-460B-46E4-9461-B8E07390738E}
 		{3A4B378E-E9F9-429B-A601-99FB3CD6BB54} = {1DE0B71C-08E4-42E2-B5A9-31FA5DA3691E}
 		{7E2FCE74-D043-41F5-8A1F-49BC896D93C2} = {02C12636-B5B4-4D64-9DB5-87580ECD7209}
+		{81AEB073-6B47-4601-8F31-FE1AC3D806B9} = {9AE03974-FC94-423B-95C5-404A685E383D}
+		{BBF0909B-16BF-41AF-9B76-5130BD630E94} = {81AEB073-6B47-4601-8F31-FE1AC3D806B9}
+		{14AA28B7-0203-4F1F-AC17-536AE5859B58} = {81AEB073-6B47-4601-8F31-FE1AC3D806B9}
+		{5178BCF3-829A-429B-92A4-BE3FAEA2C6D6} = {81AEB073-6B47-4601-8F31-FE1AC3D806B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0A3FAD53-E068-46CB-B0A9-2805E076396B}

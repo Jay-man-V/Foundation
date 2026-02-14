@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net10.0-windows</TargetFramework>
+        <TargetFramework>net10.0-Windows</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
@@ -38,7 +38,6 @@
       <ProjectReference Include="..\..\..\Foundation\Foundation.ViewModels\Foundation.ViewModels.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.Views\Foundation.Views.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.WorkflowEngine\Foundation.WorkflowEngine.csproj" />
-      <ProjectReference Include="..\..\..\JDV.Accounts.Interfaces\JDV.Accounts.Interfaces.csproj" />
       <ProjectReference Include="..\..\..\JDV.Accounts.Repository\JDV.Accounts.Repository.csproj" />
       <ProjectReference Include="..\JDV.Accounts.BusinessProcess\JDV.Accounts.BusinessProcess.csproj" />
       <ProjectReference Include="..\JDV.Accounts.Common\JDV.Accounts.Common.csproj" />

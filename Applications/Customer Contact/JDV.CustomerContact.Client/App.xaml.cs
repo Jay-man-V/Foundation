@@ -14,7 +14,7 @@ using Foundation.Interfaces;
 using Foundation.ViewModels.Main;
 using Foundation.Views;
 
-namespace CustomerContact.Client
+namespace JDV.CustomerContact.Client
 {
     /// <summary>
     /// Interaction logic for App.xaml
