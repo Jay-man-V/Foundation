@@ -20,11 +20,14 @@
       <ProjectReference Include="..\..\..\Foundation\Foundation.Core\Foundation.Core.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.DataAccess.Csv\Foundation.DataAccess.Csv.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.DataAccess.Database\Foundation.DataAccess.Database.csproj" />
+      <ProjectReference Include="..\..\..\Foundation\Foundation.DataAccess.FileData\Foundation.DataAccess.FileData.csproj" />
+      <ProjectReference Include="..\..\..\Foundation\Foundation.Database\Foundation.Database.sqlproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.DocumentGenerator\Foundation.DocumentGenerator.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.Interfaces\Foundation.Interfaces.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.Models\Foundation.Models.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.Repository\Foundation.Repository.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.Resources\Foundation.Resources.csproj" />
+      <ProjectReference Include="..\..\..\Foundation\Foundation.Security\Foundation.Security.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.Server.ScheduledTasks\Foundation.Server.ScheduledTasks.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.Services.Application\Foundation.Services.Application.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.Services.FileIdentification\Foundation.Services.FileIdentification.csproj" />
@@ -32,7 +35,6 @@
       <ProjectReference Include="..\..\..\Foundation\Foundation.Services.MessageQueue\Foundation.Services.MessageQueue.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.Services.UserInteraction\Foundation.Services.UserInteraction.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.Services.WebApi\Foundation.Services.WebApi.csproj" />
-      <ProjectReference Include="..\..\..\Foundation\Foundation.Service\Foundation.Service.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.ViewModels\Foundation.ViewModels.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.Views\Foundation.Views.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.WorkflowEngine\Foundation.WorkflowEngine.csproj" />
@@ -40,7 +42,9 @@
       <ProjectReference Include="..\..\..\JDV.Accounts.Repository\JDV.Accounts.Repository.csproj" />
       <ProjectReference Include="..\JDV.Accounts.BusinessProcess\JDV.Accounts.BusinessProcess.csproj" />
       <ProjectReference Include="..\JDV.Accounts.Common\JDV.Accounts.Common.csproj" />
+      <ProjectReference Include="..\JDV.Accounts.Interfaces\JDV.Accounts.Interfaces.csproj" />
       <ProjectReference Include="..\JDV.Accounts.Models\JDV.Accounts.Models.csproj" />
+      <ProjectReference Include="..\JDV.Accounts.Repository\JDV.Accounts.Repository.csproj" />
       <ProjectReference Include="..\JDV.Accounts.ViewModels\JDV.Accounts.ViewModels.csproj" />
       <ProjectReference Include="..\JDV.Accounts.Views\JDV.Accounts.Views.csproj" />
   </ItemGroup>
