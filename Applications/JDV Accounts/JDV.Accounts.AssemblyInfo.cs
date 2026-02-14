@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="CustomerContactAssemblyInfo.cs" company="JDV Software Ltd">
+// <copyright file="JDV.Accounts.AssemblyInfo.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -10,8 +10,8 @@ using System.Runtime.Versioning;
 [assembly: SupportedOSPlatform("windows")]
 
 [assembly: AssemblyCompany("JDV Software Ltd")]
-[assembly: AssemblyCopyright("Copyright © JDV Software Ltd 2023")]
-[assembly: AssemblyProduct("Customer Contact")]
+[assembly: AssemblyCopyright("Copyright © JDV Software Ltd 2026")]
+[assembly: AssemblyProduct("Accounts")]
 [assembly: AssemblyTrademark("JDV Software Ltd")]
 [assembly: AssemblyCulture("")]
 

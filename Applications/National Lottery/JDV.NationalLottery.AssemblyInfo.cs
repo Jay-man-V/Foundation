@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="CustomerContactAssemblyInfo.cs" company="JDV Software Ltd">
+// <copyright file="JDV.NationalLottery.AssemblyInfo.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -11,7 +11,7 @@ using System.Runtime.Versioning;
 
 [assembly: AssemblyCompany("JDV Software Ltd")]
 [assembly: AssemblyCopyright("Copyright © JDV Software Ltd 2026")]
-[assembly: AssemblyProduct("Customer Contact")]
+[assembly: AssemblyProduct("National Lottery")]
 [assembly: AssemblyTrademark("JDV Software Ltd")]
 [assembly: AssemblyCulture("")]
 
