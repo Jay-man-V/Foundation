@@ -424,7 +424,7 @@ namespace Foundation.Tests.Unit.BaseClasses
 
         /// <summary>
         /// Replaces a Guid string with known constants.
-        /// e.g. 0c80873c-8894-42bf-a225-88b5d9aace9f with
+        /// e.g. 0c80873c-8894-42bf-a225-88b5d9aace9f with anananan-anan-anan-anan-anananananan
         /// </summary>
         /// <param name="inputString">The input string.</param>
         /// <returns>Original String value with output file path values replaced</returns>
@@ -449,6 +449,34 @@ namespace Foundation.Tests.Unit.BaseClasses
             return retVal;
         }
 
+        /// <summary>
+        /// Replaces a Dot Net version with known constants.
+        /// e.g. net8.0-windows with
+        /// </summary>
+        /// <param name="inputString">The input string.</param>
+        /// <returns>Original String value with output file path values replaced</returns>
+        protected String ReplaceDotVersionWithConstant(String inputString)
+        {
+            String retVal = inputString;
+            String[] patterns1 =
+            [
+                @"(net\d*\.\d*-windows)",
+                @"(net\d*\.\d*)"
+            ];
+
+            foreach (String pattern in patterns1)
+            {
+                Regex regex = new Regex(pattern);
+                Match match = regex.Match(retVal);
+                if (match.Success)
+                {
+                    retVal = regex.Replace(retVal, "Dot Net Version");
+                }
+            }
+
+            return retVal;
+        }
+
         protected String FixUpStringWithReplacements(String inputString)
         {
             String retVal = inputString;
@@ -462,6 +490,7 @@ namespace Foundation.Tests.Unit.BaseClasses
             retVal = ReplaceAssemblyTargetFrameworkWithConstant(retVal);
             retVal = ReplaceServerNameWithConstant(retVal);
             retVal = ReplaceGuidWithConstant(retVal);
+            retVal = ReplaceDotVersionWithConstant(retVal);
 
             return retVal;
         }

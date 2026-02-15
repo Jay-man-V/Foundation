@@ -820,7 +820,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             checkDirectoryExists = TheService!.DoesDirectoryExist(Path.Combine(basePath2, newDirectoryName2));
             Assert.That(checkDirectoryExists, Is.EqualTo(true));
 
-            String errorMessage = $"The directory is not empty. : '{createdFolder.FullName}'";
+            String errorMessage = $"The directory is not empty. : '{createdFolder.FullName}'.";
             IOException actualException = Assert.Throws<IOException>(() =>
             {
                 TheService!.DeleteDirectory(basePath2, recursive);
