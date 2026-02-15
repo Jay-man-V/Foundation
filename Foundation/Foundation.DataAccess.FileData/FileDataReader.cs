@@ -62,7 +62,7 @@ namespace Foundation.FileData.Client
             throw new NotImplementedException();
         }
 
-        public override Int64 GetBytes(Int32 ordinal, Int64 dataOffset, Byte[] buffer, Int32 bufferOffset, Int32 length)
+        public override Int64 GetBytes(Int32 ordinal, Int64 dataOffset, Byte[]? buffer, Int32 bufferOffset, Int32 length)
         {
             throw new NotImplementedException();
         }
@@ -72,7 +72,7 @@ namespace Foundation.FileData.Client
             throw new NotImplementedException();
         }
 
-        public override Int64 GetChars(Int32 ordinal, Int64 dataOffset, Char[] buffer, Int32 bufferOffset, Int32 length)
+        public override Int64 GetChars(Int32 ordinal, Int64 dataOffset, Char[]? buffer, Int32 bufferOffset, Int32 length)
         {
             throw new NotImplementedException();
         }

@@ -10,7 +10,7 @@
 
     <ItemGroup>
       <Compile Include="..\..\JDV.Software.AssemblyInfo.cs" Link="JDV.Software.AssemblyInfo.cs" />
-      <Compile Include="..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
+      <Compile Include="..\Foundation.AssemblyInfo.cs" Link="Foundation.AssemblyInfo.cs" />
     </ItemGroup>
 
     <ItemGroup>
