@@ -18,6 +18,8 @@ namespace Foundation.Services.Application
     [DependencyInjectionTransient]
     public class EncryptionService : IEncryptionService
     {
+        private static Int16 Iterations => 10_000;
+
         /// <summary>
         /// 
         /// </summary>
@@ -66,13 +68,12 @@ namespace Foundation.Services.Application
                 throw new ArgumentNullException(nameof(salt));
             }
 
-            // TODO: Move HashAlgorithmName.SHA3_512 to constants or loaded configuration
-            Rfc2898DeriveBytes keyGenerator = new Rfc2898DeriveBytes(keyPassword, salt, 10000, HashAlgorithmName.SHA3_512);
 
             using (SymmetricAlgorithm crypto = Create())
             {
-                key = keyGenerator.GetBytes(crypto.KeySize / 8);
-                iv = keyGenerator.GetBytes(crypto.BlockSize / 8);
+                // TODO: Move HashAlgorithmName.SHA3_512 to constants or loaded configuration
+                key = Rfc2898DeriveBytes.Pbkdf2(keyPassword, salt, Iterations, HashAlgorithmName.SHA3_512, crypto.KeySize / 8);
+                iv = Rfc2898DeriveBytes.Pbkdf2(keyPassword, salt, Iterations, HashAlgorithmName.SHA3_512, crypto.BlockSize / 8);
 
                 crypto.Clear();
             }

@@ -16,7 +16,7 @@ namespace Foundation.Services.Application
     [DependencyInjectionTransient]
     public class HashingService : ServiceBase, IHashingService
     {
-        private static Int16 Iterations => 1000;
+        private static Int16 Iterations => 1_000;
 
         /// <summary>
         /// 
@@ -86,10 +86,7 @@ namespace Foundation.Services.Application
             Byte[] retVal;
 
             // TODO: Move HashAlgorithmName.SHA3_512 to constants or loaded configuration
-            using (Rfc2898DeriveBytes hashAlgorithm = new Rfc2898DeriveBytes(input, salt, Iterations, HashAlgorithmName.SHA3_512))
-            {
-                retVal = hashAlgorithm.GetBytes(input.Length);
-            }
+            retVal = Rfc2898DeriveBytes.Pbkdf2(input, salt, Iterations, HashAlgorithmName.SHA3_512, input.Length);
 
             LoggingHelpers.TraceCallReturn($"{nameof(retVal)} not logged");
 

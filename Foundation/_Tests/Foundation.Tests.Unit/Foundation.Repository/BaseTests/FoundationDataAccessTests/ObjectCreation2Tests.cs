@@ -21,15 +21,6 @@ namespace Foundation.Tests.Unit.Foundation.Repository.BaseTests.FoundationDataAc
     [TestFixture]
     public class ObjectCreation2Tests : UnitTestBase
     {
-        private ICore? CoreInstance { get; set; }
-
-        public override void TestInitialise()
-        {
-            base.TestInitialise();
-
-            CoreInstance = Substitute.For<ICore>();
-        }
-
         /// <summary>
         /// Tests the object creation1.
         /// </summary>
