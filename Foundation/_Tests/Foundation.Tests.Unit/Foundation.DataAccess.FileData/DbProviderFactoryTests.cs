@@ -11,12 +11,12 @@ using System.Diagnostics;
 using NSubstitute;
 
 using Foundation.DataAccess.Database.DataLogicProviders;
-using Foundation.DataAccess.FileData;
+using Foundation.FileData.Client;
 using Foundation.Interfaces;
 
 using Foundation.Tests.Unit.BaseClasses;
 
-namespace Foundation.Tests.Unit.Foundation.DataAccess.FileData
+namespace Foundation.Tests.Unit.Foundation.FileData.Client
 {
     /// <summary>
     /// DbProviderFactoryTests
@@ -25,7 +25,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.FileData
     public class DbProviderFactoryTests : UnitTestBase
     {
         private const String FileDataFactoryInvariantName = "Foundation.FileData.Client";
-        private const String FileDataFactoryAssemblyQualifiedName = "Foundation.DataAccess.FileData.FileClientFactory, Foundation.DataAccess.FileData, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
+        private const String FileDataFactoryAssemblyQualifiedName = "Foundation.FileData.Client.FileClientFactory, Foundation.FileData.Client, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
 
         public override void TestInitialise()
         {

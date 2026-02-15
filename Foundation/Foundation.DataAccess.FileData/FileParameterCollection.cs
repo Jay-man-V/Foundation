@@ -7,7 +7,7 @@
 using System.Collections;
 using System.Data.Common;
 
-namespace Foundation.DataAccess.FileData
+namespace Foundation.FileData.Client
 {
     public sealed class FileParameterCollection : DbParameterCollection
     {

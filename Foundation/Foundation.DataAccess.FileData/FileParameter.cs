@@ -8,7 +8,7 @@ using System.Data;
 using System.Data.Common;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Foundation.DataAccess.FileData
+namespace Foundation.FileData.Client
 {
     public sealed class FileParameter : DbParameter
     {

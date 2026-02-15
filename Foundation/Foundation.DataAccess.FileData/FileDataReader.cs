@@ -8,7 +8,7 @@ using System.Collections;
 using System.Data;
 using System.Data.Common;
 
-namespace Foundation.DataAccess.FileData
+namespace Foundation.FileData.Client
 {
     public sealed class FileDataReader : DbDataReader, IDataReader, IDisposable, IDataRecord
     {

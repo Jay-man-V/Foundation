@@ -68,7 +68,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.Server.Scheduled
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.DocumentGenerator", "Foundation\Foundation.DocumentGenerator\Foundation.DocumentGenerator.csproj", "{A428C1BE-6214-4C60-889A-23756AA96BC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.DataAccess.FileData", "Foundation\Foundation.DataAccess.FileData\Foundation.DataAccess.FileData.csproj", "{CBA89ED7-EC70-8340-2282-E02F4947EFBC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.FileData.Client", "Foundation\Foundation.DataAccess.FileData\Foundation.FileData.Client.csproj", "{CBA89ED7-EC70-8340-2282-E02F4947EFBC}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Foundation.Database", "Foundation\Foundation.Database\Foundation.Database.sqlproj", "{C0878ED5-120F-4F4C-A3EF-7D24AB72349B}"
 EndProject

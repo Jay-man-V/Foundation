@@ -6,10 +6,9 @@
 
 using System.Data.Common;
 
-using Foundation.DataAccess.FileData;
+using Foundation.FileData.Client;
 
 using Foundation.Interfaces;
-using Foundation.Resources;
 
 namespace Foundation.DataAccess.Database.DataLogicProviders
 {

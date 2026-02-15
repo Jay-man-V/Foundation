@@ -20,7 +20,7 @@
       <ProjectReference Include="..\..\..\Foundation\Foundation.Core\Foundation.Core.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.DataAccess.Csv\Foundation.DataAccess.Csv.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.DataAccess.Database\Foundation.DataAccess.Database.csproj" />
-      <ProjectReference Include="..\..\..\Foundation\Foundation.DataAccess.FileData\Foundation.DataAccess.FileData.csproj" />
+      <ProjectReference Include="..\..\..\Foundation\Foundation.DataAccess.FileData\Foundation.FileData.Client.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.Database\Foundation.Database.sqlproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.DocumentGenerator\Foundation.DocumentGenerator.csproj" />
       <ProjectReference Include="..\..\..\Foundation\Foundation.Interfaces\Foundation.Interfaces.csproj" />
