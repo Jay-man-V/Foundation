@@ -10,6 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Include="..\..\..\..\JDV.Software.AssemblyInfo.cs" Link="JDV.Software.AssemblyInfo.cs" />
       <Compile Include="..\..\JDV.CustomerContact.AssemblyInfo.cs" Link="JDV.CustomerContact.AssemblyInfo.cs" />
     </ItemGroup>
 

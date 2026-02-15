@@ -9,10 +9,7 @@ using System.Runtime.Versioning;
 
 [assembly: SupportedOSPlatform("windows")]
 
-[assembly: AssemblyCompany("JDV Software Ltd")]
-[assembly: AssemblyCopyright("Copyright © JDV Software Ltd 2026")]
 [assembly: AssemblyProduct("Accounts")]
-[assembly: AssemblyTrademark("JDV Software Ltd")]
 [assembly: AssemblyCulture("")]
 
 // Version information for an assembly consists of the following four values:

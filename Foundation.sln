@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. Solution Items", "0. Solution Items", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
 		FoundationAssemblyInfo.cs = FoundationAssemblyInfo.cs
+		JDV.Software.AssemblyInfo.cs = JDV.Software.AssemblyInfo.cs
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. Database", "0. Database", "{184E8DB3-D735-4096-96AA-6068DE23C82F}"

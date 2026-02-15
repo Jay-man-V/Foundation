@@ -10,10 +10,7 @@ using System.Runtime.Versioning;
 
 [assembly: SupportedOSPlatform("windows")]
 
-[assembly: AssemblyCompany("JDV Software Ltd")]
-[assembly: AssemblyCopyright("Copyright © JDV Software Ltd 2025")]
 [assembly: AssemblyProduct("Customer Contact")]
-[assembly: AssemblyTrademark("JDV Software Ltd")]
 [assembly: AssemblyCulture("")]
 
 [assembly: InternalsVisibleTo("Foundation.ApplicationServices")]

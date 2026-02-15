@@ -10,13 +10,8 @@ using System.Runtime.Versioning;
 
 [assembly: SupportedOSPlatform("windows")]
 
-[assembly: AssemblyCompany("JDV Software Ltd")]
-[assembly: AssemblyCopyright("Copyright © JDV Software Ltd 2025")]
 [assembly: AssemblyProduct("Foundation")]
-[assembly: AssemblyTrademark("JDV Software Ltd")]
 [assembly: AssemblyCulture("")]
-
-//[assembly: AssemblyKeyFile(@"..\..\..\Foundation.snk")] /* PublicKey=623f5633252e817b */
 
 [assembly: InternalsVisibleTo("Foundation.ApplicationServices")]
 [assembly: InternalsVisibleTo("Foundation.BusinessProcess")]

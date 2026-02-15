@@ -12,7 +12,7 @@ using System.Runtime.Versioning;
 [assembly: AssemblyCompany("JDV Software Ltd")]
 [assembly: AssemblyCopyright("Copyright © JDV Software Ltd 2026")]
 [assembly: AssemblyProduct("National Lottery")]
-[assembly: AssemblyTrademark("JDV Software Ltd")]
+[assembly: AssemblyTrademark("JDV Software Ltd™")]
 [assembly: AssemblyCulture("")]
 
 // Version information for an assembly consists of the following four values:

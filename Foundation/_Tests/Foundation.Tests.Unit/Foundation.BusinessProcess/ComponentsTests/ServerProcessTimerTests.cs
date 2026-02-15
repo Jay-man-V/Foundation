@@ -45,7 +45,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.ComponentsTests
         [TestCase]
         public void Test_CreateObject()
         {
-
             TimeSpan startTime = new TimeSpan(9, 0, 0);
             TimeSpan endTime = new TimeSpan(17, 0, 0);
             DateTime currentDate = DateTimeService.SystemUtcDateTimeNow.Date;

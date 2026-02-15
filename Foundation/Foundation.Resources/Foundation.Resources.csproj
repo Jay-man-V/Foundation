@@ -45,6 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="..\..\JDV.Software.AssemblyInfo.cs" Link="JDV.Software.AssemblyInfo.cs" />
     <Compile Include="..\FoundationAssemblyInfo.cs" Link="FoundationAssemblyInfo.cs" />
   </ItemGroup>
 
