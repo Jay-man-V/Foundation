@@ -47,7 +47,6 @@ namespace JDV.Accounts.Client
             base.OnStartup(e);
 
             CoreInstance = Core.Initialise();
-            Foundation.ViewModels.ViewModel.InitialiseStaticMembers();
 
             LoggingHelpers.TraceCallEnter(e);
 

@@ -7,7 +7,6 @@
 using NSubstitute;
 
 using Foundation.Interfaces;
-using Foundation.ViewModels;
 using Foundation.ViewModels.Services;
 
 using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
@@ -44,11 +43,6 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
             WpfApplicationObjects = new WpfApplicationObjects(ApplicationWrapper, ClipBoardWrapper, DialogService, DispatcherTimerWrapper, DispatcherWrapper, MouseWrapper);
 
             FileApi = Substitute.For<IFileApi>();
-
-            ViewModel.ApplicationId = new AppId(1);
-            ViewModel.StatusProcess = StatusProcess;
-            ViewModel.UserProfileProcess = UserProfileProcess;
-            ViewModel.LoggedOnUserProcess = LoggedOnUserProcess;
         }
 
         public override void TestCleanup()

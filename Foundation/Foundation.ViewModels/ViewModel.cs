@@ -4,13 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.Common;
-using Foundation.Interfaces;
-
-using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+
+using Foundation.Common;
+using Foundation.Interfaces;
 
 namespace Foundation.ViewModels
 {
@@ -30,38 +29,23 @@ namespace Foundation.ViewModels
         /// </summary>
         static ViewModel()
         {
-            //LoggingHelpers.TraceCallEnter();
+            LoggingHelpers.TraceCallEnter();
 
-            ///* These steps must be performed as soon as possible before other actions run */
+            //* These steps must be performed as soon as possible before other actions run */
 
-            //StatusProcess = Foundation.Core.Core.TheInstance.IoC.Get<IStatusProcess>();
-            //UserProfileProcess = Foundation.Core.Core.TheInstance.IoC.Get<IUserProfileProcess>();
-            //LoggedOnUserProcess = Foundation.Core.Core.TheInstance.IoC.Get<ILoggedOnUserProcess>();
+            StatusProcess = Foundation.Core.Core.TheInstance.IoC.Get<IStatusProcess>();
+            UserProfileProcess = Foundation.Core.Core.TheInstance.IoC.Get<IUserProfileProcess>();
+            LoggedOnUserProcess = Foundation.Core.Core.TheInstance.IoC.Get<ILoggedOnUserProcess>();
 
-            ///******************************************************************************/
+            //******************************************************************************/
 
-            //LoggingHelpers.TraceCallReturn();
+            LoggingHelpers.TraceCallReturn();
         }
 
         private static AppId? _applicationId;
         private static List<IStatus>? _statusesList;
         private static List<IUserProfile>? _userProfilesList;
         private static List<ILoggedOnUser>? _loggedOnUsersList;
-
-        public static void InitialiseStaticMembers()
-        {
-            LoggingHelpers.TraceCallEnter();
-
-            /* These steps must be performed as soon as possible before other actions run */
-
-            StatusProcess = Foundation.Core.Core.TheInstance.IoC.Get<IStatusProcess>();
-            UserProfileProcess = Foundation.Core.Core.TheInstance.IoC.Get<IUserProfileProcess>();
-            LoggedOnUserProcess = Foundation.Core.Core.TheInstance.IoC.Get<ILoggedOnUserProcess>();
-
-            /******************************************************************************/
-
-            LoggingHelpers.TraceCallReturn();
-        }
 
         /// <summary>
         /// Gets the Status process

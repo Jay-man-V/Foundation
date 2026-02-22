@@ -135,6 +135,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDV.CustomerContact.Tests.U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDV.CustomerContact.Views", "Applications\Customer Contact\_Tests\JDV.CustomerContact.Views\JDV.CustomerContact.Views.csproj", "{5178BCF3-829A-429B-92A4-BE3FAEA2C6D6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.1. Foundation Client", "0.1. Foundation Client", "{AD195E99-91CC-4774-949D-90F56C3F707C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.3. Foundation Web Tier", "0.3. Foundation Web Tier", "{9C6BE73B-E707-4FC0-B478-5573F2891819}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.2. Foundation Server", "0.2. Foundation Server", "{DD1A8C21-5FCE-45ED-91DD-ED47CB5056A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

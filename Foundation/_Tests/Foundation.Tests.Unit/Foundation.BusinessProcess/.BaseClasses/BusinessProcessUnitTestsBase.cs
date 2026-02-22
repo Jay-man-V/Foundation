@@ -4,16 +4,18 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using NSubstitute;
-
+using Foundation.BusinessProcess.Sec;
 using Foundation.Common;
 using Foundation.Core;
 using Foundation.Interfaces;
 using Foundation.Models.Sec;
 using Foundation.Resources;
-
 using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Support;
+using Foundation.ViewModels;
+
+using NSubstitute;
+using NSubstitute.ClearExtensions;
 
 using FModels = Foundation.Models;
 
@@ -218,6 +220,12 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
         {
             base.TestInitialise();
 
+            global::Foundation.Core.Core.TheInstance = CoreInstance;
+            CoreInstance.IoC.ClearSubstitute();
+            CoreInstance.IoC.Returns(Substitute.For<IIoC>());
+
+            CoreInstance.ApplicationId.Returns(TestingApplicationId);
+
             IUserProfile userProfile = new UserProfile
             {
                 Id = new EntityId(1),
@@ -260,19 +268,31 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
 
             ReportGenerator = Substitute.For<IReportGenerator>();
 
+            StatusRepository = Substitute.For<IStatusRepository>();
+            StatusRepository.GetAllActive().Returns(StatusesList);
+
+            StatusProcess = Substitute.For<IStatusProcess>();
+            CoreInstance.IoC.Get<IStatusProcess>().ClearSubstitute();
+            CoreInstance.IoC.Get<IStatusProcess>().Returns(StatusProcess);
+            StatusProcess.GetAll(Arg.Any<Boolean>()).Returns(StatusesList);
+
             UserProfileRepository = Substitute.For<IUserProfileRepository>();
             UserProfileRepository.GetAllActive().Returns(UserProfileList);
 
             UserProfileProcess = Substitute.For<IUserProfileProcess>();
+            CoreInstance.IoC.Get<IUserProfileProcess>().ClearSubstitute();
+            CoreInstance.IoC.Get<IUserProfileProcess>().Returns(UserProfileProcess);
+            UserProfileProcess.Id = nameof(BusinessProcessUnitTestsBase);
             UserProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(userProfile);
             UserProfileProcess.GetAll(Arg.Any<Boolean>()).Returns(UserProfileList);
             UserProfileProcess.GetAll().Returns(UserProfileList);
 
             LoggedOnUserProcess = Substitute.For<ILoggedOnUserProcess>();
+            CoreInstance.IoC.Get<ILoggedOnUserProcess>().ClearSubstitute();
+            CoreInstance.IoC.Get<ILoggedOnUserProcess>().Returns(LoggedOnUserProcess);
+            LoggedOnUserProcess.GetLoggedOnUsers(Arg.Any<AppId>()).Returns(LoggedOnUsersList);
 
             CoreInstance.CurrentLoggedOnUser.Returns(currentUser);
-
-            CoreInstance.IoC.Returns(Substitute.For<IIoC>());
 
             _ = new LoggingHelpers(CoreInstance, RunTimeEnvironmentSettings);
 
@@ -285,14 +305,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
 
             ApplicationConfigurationService.Get<String>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailFromAddress).Returns(EmailFromAddress);
             ApplicationConfigurationService.Get<String>(CoreInstance.ApplicationId, CoreInstance.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailFromDisplayName).Returns(EmailFromDisplayName);
-
-            LoggedOnUserProcess.GetLoggedOnUsers(Arg.Any<AppId>()).Returns(LoggedOnUsersList);
-
-            StatusRepository = Substitute.For<IStatusRepository>();
-            StatusRepository.GetAllActive().Returns(StatusesList);
-
-            StatusProcess = Substitute.For<IStatusProcess>();
-            StatusProcess.GetAll(Arg.Any<Boolean>()).Returns(StatusesList);
         }
 
         /// <summary>

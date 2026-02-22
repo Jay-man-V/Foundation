@@ -11,6 +11,8 @@ namespace Foundation.Interfaces
     /// </summary>
     public interface IUserProfileProcess : ICommonBusinessProcess<IUserProfile>
     {
+        String Id { get; set; }
+
         /// <summary>
         /// Retrieves the logged on users profile for the application denoted by <paramref name="applicationId"/>
         /// </summary>
