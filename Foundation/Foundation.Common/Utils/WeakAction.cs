@@ -1,212 +1,212 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="WeakAction.cs" company="JDV Software Ltd">
-//     Copyright (c) JDV Software Ltd. All rights reserved.
-// </copyright>
-//-----------------------------------------------------------------------
+﻿////-----------------------------------------------------------------------
+//// <copyright file="WeakAction.cs" company="JDV Software Ltd">
+////     Copyright (c) JDV Software Ltd. All rights reserved.
+//// </copyright>
+////-----------------------------------------------------------------------
 
-using System.Reflection;
+//using System.Reflection;
 
-namespace Foundation.Common
-{
-    /// <summary>
-    /// Defines the WeakAction class.
-    /// Stores a <see cref="Action"/> without causing a hard reference to be
-    /// created to the Actions owner. The owner can then be cleaned up at any time.
-    /// </summary>
-    public class WeakAction
-    {
-        /// <summary>
-        /// Initialises an empty instance of the <see cref="WeakAction"/> class
-        /// </summary>
-        protected WeakAction() { }
+//namespace Foundation.Common
+//{
+//    /// <summary>
+//    /// Defines the WeakAction class.
+//    /// Stores a <see cref="Action"/> without causing a hard reference to be
+//    /// created to the Actions owner. The owner can then be cleaned up at any time.
+//    /// </summary>
+//    public class WeakAction
+//    {
+//        /// <summary>
+//        /// Initialises an empty instance of the <see cref="WeakAction"/> class
+//        /// </summary>
+//        protected WeakAction() { }
 
-        /// <summary>
-        /// Initialises an empty instance of the <see cref="WeakAction"/> class
-        /// </summary>
-        /// <param name="action">The action will be associated to this instance.</param>
-        public WeakAction(Action? action)
-        : this(action == null ? null : action.Target, action)
-        {
-        }
+//        /// <summary>
+//        /// Initialises an empty instance of the <see cref="WeakAction"/> class
+//        /// </summary>
+//        /// <param name="action">The action will be associated to this instance.</param>
+//        public WeakAction(Action? action)
+//        : this(action == null ? null : action.Target, action)
+//        {
+//        }
 
-        /// <summary>
-        /// Initialises an empty instance of the <see cref="WeakAction"/> class
-        /// </summary>
-        /// <param name="target">The action's owner.</param>
-        /// <param name="action">The action will be associated to this instance.</param>
-        public WeakAction(Object? target, Action action)
-        {
-#if NETFX_CORE
-            if (action.GetMethodInfo().IsStatic)
-#else
-            if (action.Method.IsStatic)
-#endif
-            {
-                StaticAction = action;
-                if (target == null)
-                {
-                    // Keep a reference to the target to control the WeakAction's lifetime
-                    Reference = new WeakReference(target);
-                }
-            }
-            else
-            {
-#if NETFX_CORE
-                Method = action.GetMethodInfo();
-#else
-                Method = action.Method;
-#endif
-                ActionReference = new WeakReference(action.Target);
-                Reference = new WeakReference(target);
-            }
-        }
+//        /// <summary>
+//        /// Initialises an empty instance of the <see cref="WeakAction"/> class
+//        /// </summary>
+//        /// <param name="target">The action's owner.</param>
+//        /// <param name="action">The action will be associated to this instance.</param>
+//        public WeakAction(Object? target, Action action)
+//        {
+//#if NETFX_CORE
+//            if (action.GetMethodInfo().IsStatic)
+//#else
+//            if (action.Method.IsStatic)
+//#endif
+//            {
+//                StaticAction = action;
+//                if (target == null)
+//                {
+//                    // Keep a reference to the target to control the WeakAction's lifetime
+//                    Reference = new WeakReference(target);
+//                }
+//            }
+//            else
+//            {
+//#if NETFX_CORE
+//                Method = action.GetMethodInfo();
+//#else
+//                Method = action.Method;
+//#endif
+//                ActionReference = new WeakReference(action.Target);
+//                Reference = new WeakReference(target);
+//            }
+//        }
 
-        private Action? StaticAction { get; set; }
+//        private Action? StaticAction { get; set; }
 
-        /// <summary>
-        /// Gets or sets the <see cref="MethodInfo"/> corresponding to this <see cref="WeakAction"/>'s method passed in the constructor
-        /// </summary>
-        protected MethodInfo? Method { get; set; }
+//        /// <summary>
+//        /// Gets or sets the <see cref="MethodInfo"/> corresponding to this <see cref="WeakAction"/>'s method passed in the constructor
+//        /// </summary>
+//        protected MethodInfo? Method { get; set; }
 
-        /// <summary>
-        /// Gets the name of the method that this WeakAction represents
-        /// </summary>
-        public String MethodName
-        {
-            get
-            {
-                String retVal = Method.Name;
-                if (StaticAction != null)
-                {
-#if NETFX_CORE
-                    return StaticAction.GetMethodInfo().Name;
-#else
-                    return StaticAction.Method.Name;
-#endif
-                }
+//        /// <summary>
+//        /// Gets the name of the method that this WeakAction represents
+//        /// </summary>
+//        public String MethodName
+//        {
+//            get
+//            {
+//                String retVal = Method.Name;
+//                if (StaticAction != null)
+//                {
+//#if NETFX_CORE
+//                    return StaticAction.GetMethodInfo().Name;
+//#else
+//                    return StaticAction.Method.Name;
+//#endif
+//                }
 
-                return retVal;
-            }
-        }
+//                return retVal;
+//            }
+//        }
 
-        /// <summary>
-        /// Gets or sets the <see cref="WeakReference"/> to this <see cref="WeakAction"/>'s Actions target 
-        /// This is not necessarily the same as <see cref="Reference"/>. For example if the method is anonymous
-        /// </summary>
-        protected WeakReference? ActionReference { get; set; }
+//        /// <summary>
+//        /// Gets or sets the <see cref="WeakReference"/> to this <see cref="WeakAction"/>'s Actions target 
+//        /// This is not necessarily the same as <see cref="Reference"/>. For example if the method is anonymous
+//        /// </summary>
+//        protected WeakReference? ActionReference { get; set; }
 
-        /// <summary>
-        /// Gets or sets the <see cref="WeakReference"/> to the target passed when constructing the <see cref="WeakAction"/>.
-        /// This is not necessarily the same as <see cref="ActionReference"/>. For example if the method is anonymous
-        /// </summary>
-        protected WeakReference? Reference { get; set; }
+//        /// <summary>
+//        /// Gets or sets the <see cref="WeakReference"/> to the target passed when constructing the <see cref="WeakAction"/>.
+//        /// This is not necessarily the same as <see cref="ActionReference"/>. For example if the method is anonymous
+//        /// </summary>
+//        protected WeakReference? Reference { get; set; }
 
-        /// <summary>
-        /// Gets a value indicating whether the <see cref="WeakAction"/> is static or not
-        /// </summary>
-        public Boolean IsStatic => StaticAction != null;
+//        /// <summary>
+//        /// Gets a value indicating whether the <see cref="WeakAction"/> is static or not
+//        /// </summary>
+//        public Boolean IsStatic => StaticAction != null;
 
-        /// <summary>
-        /// Gets a value indicating whether the Action's owner is still alive, or it was cleaned up
-        /// by the GC already
-        /// </summary>
-        public Boolean IsAlive
-        {
-            get
-            {
-                Boolean retVal = false;
-                //if (StaticAction == null &&
-                //    Reference == null)
-                //{
-                //    retVal = false;
-                //}
+//        /// <summary>
+//        /// Gets a value indicating whether the Action's owner is still alive, or it was cleaned up
+//        /// by the GC already
+//        /// </summary>
+//        public Boolean IsAlive
+//        {
+//            get
+//            {
+//                Boolean retVal = false;
+//                //if (StaticAction == null &&
+//                //    Reference == null)
+//                //{
+//                //    retVal = false;
+//                //}
 
-                if (StaticAction != null)
-                {
-                    if (Reference != null)
-                    {
-                        retVal = Reference.IsAlive;
-                    }
-                    else
-                    {
-                        retVal = true;
-                    }
-                }
+//                if (StaticAction != null)
+//                {
+//                    if (Reference != null)
+//                    {
+//                        retVal = Reference.IsAlive;
+//                    }
+//                    else
+//                    {
+//                        retVal = true;
+//                    }
+//                }
 
-                return retVal;
-            }
-        }
+//                return retVal;
+//            }
+//        }
 
-        /// <summary>
-        /// Gets the Actions owner.
-        /// This will be stored as a <see cref="WeakReference"/>
-        /// </summary>
-        public Object? Target
-        {
-            get
-            {
-                Object? retVal = null;
-                if (Reference != null)
-                {
-                    retVal = Reference.Target;
-                }
+//        /// <summary>
+//        /// Gets the Actions owner.
+//        /// This will be stored as a <see cref="WeakReference"/>
+//        /// </summary>
+//        public Object? Target
+//        {
+//            get
+//            {
+//                Object? retVal = null;
+//                if (Reference != null)
+//                {
+//                    retVal = Reference.Target;
+//                }
 
-                return retVal;
-            }
-        }
+//                return retVal;
+//            }
+//        }
 
-        /// <summary>
-        /// The target of the Weak Reference
-        /// </summary>
-        protected Object? ActionTarget
-        {
-            get
-            {
-                Object? retVal = null;
-                if (ActionReference != null)
-                {
-                    retVal = ActionReference.Target;
-                }
+//        /// <summary>
+//        /// The target of the Weak Reference
+//        /// </summary>
+//        protected Object? ActionTarget
+//        {
+//            get
+//            {
+//                Object? retVal = null;
+//                if (ActionReference != null)
+//                {
+//                    retVal = ActionReference.Target;
+//                }
 
-                return retVal;
-            }
-        }
+//                return retVal;
+//            }
+//        }
 
-        /// <summary>
-        /// Executes the Action.
-        /// This only happens if the actions owner is still alive
-        /// </summary>
-        public void Execute()
-        {
-            if (StaticAction != null)
-            {
-                StaticAction?.Invoke();
-                return;
-            }
+//        /// <summary>
+//        /// Executes the Action.
+//        /// This only happens if the actions owner is still alive
+//        /// </summary>
+//        public void Execute()
+//        {
+//            if (StaticAction != null)
+//            {
+//                StaticAction?.Invoke();
+//                return;
+//            }
 
-            Object? actionTarget = ActionTarget;
+//            Object? actionTarget = ActionTarget;
 
-            if (IsAlive)
-            {
-                if (Method != null &&
-                    ActionReference != null &&
-                    ActionTarget != null)
-                {
-                    const Object[]? parameters = null;
-                    Method?.Invoke(actionTarget, parameters);
-                }
-            }
-        }
+//            if (IsAlive)
+//            {
+//                if (Method != null &&
+//                    ActionReference != null &&
+//                    ActionTarget != null)
+//                {
+//                    const Object[]? parameters = null;
+//                    Method?.Invoke(actionTarget, parameters);
+//                }
+//            }
+//        }
 
-        /// <summary>
-        /// Sets the reference that this instance stores to null
-        /// </summary>
-        public void MarkForDeletion()
-        {
-            Reference = null;
-            ActionReference = null;
-            Method = null;
-            StaticAction = null;
-        }
-    }
-}
+//        /// <summary>
+//        /// Sets the reference that this instance stores to null
+//        /// </summary>
+//        public void MarkForDeletion()
+//        {
+//            Reference = null;
+//            ActionReference = null;
+//            Method = null;
+//            StaticAction = null;
+//        }
+//    }
+//}

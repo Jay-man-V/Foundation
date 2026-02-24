@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------
-// <copyright file="CrossSiteScriptingIdentifier.cs" company="JDV Software Ltd">
+// <copyright file="SqlInjectionIdentifier.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -12,9 +12,9 @@ namespace Foundation.Security
     /// Implementation of the Sql Injection Identifier
     /// </summary>
     [DependencyInjectionTransient]
-    public class CrossSiteScriptingIdentifier : ICrossSiteScriptingIdentifier
+    public class SqlInjectionIdentifier : ISqlInjectionIdentifier
     {
-        /// <inheritdoc cref="ICrossSiteScriptingIdentifier.CheckInput(String)"/>
+        /// <inheritdoc cref="ISqlInjectionIdentifier.CheckInput(String)"/>
         public Boolean CheckInput(String input)
         {
             Boolean retVal = true;

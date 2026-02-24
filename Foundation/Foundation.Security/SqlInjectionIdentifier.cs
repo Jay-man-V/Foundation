@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------
-// <copyright file="SqlInjectionIdentifier.cs" company="JDV Software Ltd">
+// <copyright file="LdapInjectionIdentifier.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -9,15 +9,17 @@ using Foundation.Interfaces;
 namespace Foundation.Security
 {
     /// <summary>
-    /// Implementation of the Sql Injection Identifier
+    /// Implementation of the Ldap Injection Identifier
     /// </summary>
     [DependencyInjectionTransient]
-    public class SqlInjectionIdentifier : ISqlInjectionIdentifier
+    public class LdapInjectionIdentifier : ILdapInjectionIdentifier
     {
-        /// <inheritdoc cref="ISqlInjectionIdentifier.CheckInput(String)"/>
+        /// <inheritdoc cref="ILdapInjectionIdentifier.CheckInput(String)"/>
         public Boolean CheckInput(String input)
         {
-            throw new NotImplementedException();
+            Boolean retVal = true;
+
+            return retVal;
         }
     }
 }

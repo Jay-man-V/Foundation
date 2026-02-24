@@ -4,13 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.Common;
-using Foundation.Interfaces;
-using Foundation.ViewModels.Dialogs;
-using Foundation.ViewModels.Sec;
-using Foundation.Views;
-using Foundation.Views.Controls;
-
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -18,6 +11,13 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+
+using Foundation.Common;
+using Foundation.Interfaces;
+using Foundation.ViewModels.Dialogs;
+using Foundation.ViewModels.Sec;
+using Foundation.Views;
+using Foundation.Views.Controls;
 
 using FEnums = Foundation.Interfaces;
 
@@ -109,8 +109,8 @@ namespace Foundation.ViewModels.Main
         {
             LoggingHelpers.TraceCallEnter();
 
-            IApplication application = ApplicationProcess.Get(new EntityId(Core.ApplicationId.TheAppId));
-            ApplicationName = application.Name;
+            IApplication? application = ApplicationProcess.Get(new EntityId(Core.ApplicationId.TheAppId));
+            ApplicationName = application == null ? "<Not set>" : application.Name;
 
             MenuItems = MenuItemProcess.GetAll(excludeDeleted: true);
 
@@ -507,86 +507,89 @@ namespace Foundation.ViewModels.Main
                     !String.IsNullOrEmpty(menuItem.ControllerAssembly) &&
                     !String.IsNullOrEmpty(menuItem.ViewAssembly))
                 {
-                    ChildWindowCounter++;
+                    // See if the view has been created already
+                    TabItem? tabItem = TabItems.FirstOrDefault(ti => menuItem.Name.Equals(ti.Tag));
 
-                    String controllerAssembly = menuItem.ControllerAssembly;
-                    String controllerType = menuItem.ControllerType;
-                    String viewAssembly = menuItem.ViewAssembly;
-                    String viewType = menuItem.ViewType;
-                    IViewModel viewModel;
-                    try
-                    {
-                        viewModel = Core.IoC.Get<IViewModel>(controllerAssembly, controllerType);
-                        viewModel.Initialise(null, this, menuItem.Caption);
-                    }
-                    catch (Exception exception)
-                    {
-                        throw new Exception($"Unable to create View Model: '{controllerType}' from '{controllerAssembly}'", exception);
-                    }
-
-                    ContentControl contentControl;
-                    try
-                    {
-                        contentControl = Core.IoC.Get<ContentControl>(viewAssembly, viewType);
-                        if (contentControl is IWindow targetWindow)
-                        {
-                            viewModel.Initialise(targetWindow, this, menuItem.Caption);
-                        }
-
-                        contentControl.DataContext = viewModel;
-                    }
-                    catch (Exception exception)
-                    {
-                        throw new Exception($"Unable to open View - {menuItem.Caption}: '{viewType}' from '{viewAssembly}'", exception);
-                    }
-
-                    TabItem? tabItem = null;
                     Window? window = null;
 
-                    if (menuItem.ShowInTab)
+                    if (tabItem == null ||
+                        menuItem.MultiInstance)
                     {
-                        // See if the view has been created already
-                        tabItem = TabItems.FirstOrDefault(ti => menuItem.Name.Equals(ti.Tag));
+                        ChildWindowCounter++;
 
-                        if (tabItem == null ||
-                            menuItem.MultiInstance)
+                        String controllerAssembly = menuItem.ControllerAssembly;
+                        String controllerType = menuItem.ControllerType;
+                        String viewAssembly = menuItem.ViewAssembly;
+                        String viewType = menuItem.ViewType;
+                        IViewModel viewModel;
+                        try
                         {
-                            tabItem = new TabItem
-                            {
-                                Tag = menuItem.Name,
-                                Header = menuItem.Caption,
-                                Content = contentControl,
-                            };
+                            viewModel = Core.IoC.Get<IViewModel>(controllerAssembly, controllerType);
+                            viewModel.Initialise(null, this, menuItem.Caption);
                         }
-                    }
-                    else
-                    {
-                        foreach (Window openWindow in Application.Current.Windows)
+                        catch (Exception exception)
                         {
-                            if (menuItem.Name.Equals(openWindow.Tag))
-                            {
-                                window = openWindow;
-                            }
+                            throw new Exception($"Unable to create View Model: '{controllerType}' from '{controllerAssembly}'", exception);
                         }
 
-                        if (window == null ||
-                            menuItem.MultiInstance)
+                        ContentControl contentControl;
+                        try
                         {
-                            if (contentControl is Window control)
+                            contentControl = Core.IoC.Get<ContentControl>(viewAssembly, viewType);
+                            if (contentControl is IWindow targetWindow)
                             {
-                                window = control;
+                                viewModel.Initialise(targetWindow, this, menuItem.Caption);
                             }
-                            else
+
+                            contentControl.DataContext = viewModel;
+                        }
+                        catch (Exception exception)
+                        {
+                            throw new Exception($"Unable to open View - {menuItem.Caption}: '{viewType}' from '{viewAssembly}'", exception);
+                        }
+
+                        if (menuItem.ShowInTab)
+                        {
+                            if (tabItem == null ||
+                                menuItem.MultiInstance)
                             {
-                                window = new StdContainerWindow
+                                tabItem = new TabItem
                                 {
                                     Tag = menuItem.Name,
-                                    Title = menuItem.Caption,
+                                    Header = menuItem.Caption,
                                     Content = contentControl,
                                 };
                             }
+                        }
+                        else
+                        {
+                            foreach (Window openWindow in Application.Current.Windows)
+                            {
+                                if (menuItem.Name.Equals(openWindow.Tag))
+                                {
+                                    window = openWindow;
+                                }
+                            }
 
-                            window.Owner = Application.Current.MainWindow;
+                            if (window == null ||
+                                menuItem.MultiInstance)
+                            {
+                                if (contentControl is Window control)
+                                {
+                                    window = control;
+                                }
+                                else
+                                {
+                                    window = new StdContainerWindow
+                                    {
+                                        Tag = menuItem.Name,
+                                        Title = menuItem.Caption,
+                                        Content = contentControl,
+                                    };
+                                }
+
+                                window.Owner = Application.Current.MainWindow;
+                            }
                         }
                     }
 
