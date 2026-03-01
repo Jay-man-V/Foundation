@@ -16,7 +16,7 @@ namespace Foundation.BusinessProcess.Core.EnumProcesses
     /// The Image Type Business Process 
     /// </summary>
     [DependencyInjectionTransient]
-    public class ImageTypeProcess : CommonBusinessProcess<IImageType, IImageTypeRepository>, IImageTypeProcess
+    public class ImageTypeProcess : EnumModelProcess<IImageType, IImageTypeRepository>, IImageTypeProcess
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ImageTypeProcess" /> class.
@@ -63,19 +63,13 @@ namespace Foundation.BusinessProcess.Core.EnumProcesses
         /// <inheritdoc cref="ICommonBusinessProcess.StatusBarText"/>
         public override String StatusBarText => "Number of Image Types:";
 
-        /// <inheritdoc cref="ICommonBusinessProcess.ComboBoxDisplayMember" />
-        public override String ComboBoxDisplayMember => FDC.ImageType.Name;
-
         /// <inheritdoc cref="ICommonBusinessProcess.GetColumnDefinitions()" />
         public override List<IGridColumnDefinition> GetColumnDefinitions()
         {
             LoggingHelpers.TraceCallEnter();
 
-            List<IGridColumnDefinition> retVal = GetStandardEntityColumnDefinitions();
+            List<IGridColumnDefinition> retVal = base.GetColumnDefinitions();
             IGridColumnDefinition gridColumnDefinition;
-
-            gridColumnDefinition = new GridColumnDefinition(150, FDC.ImageType.Name, "Name", typeof(String));
-            retVal.Add(gridColumnDefinition);
 
             gridColumnDefinition = new GridColumnDefinition(150, FDC.ImageType.FileExtension, "File Extensions", typeof(String));
             retVal.Add(gridColumnDefinition);

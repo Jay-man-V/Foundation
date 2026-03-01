@@ -9,23 +9,23 @@ namespace Foundation.Resources.Constants.DataColumns
     /// <summary>
     /// Task Status data columns
     /// </summary>
-    /// <seealso cref="FoundationEntity" />
-    public abstract class TaskStatus : FoundationEntity
+    /// <seealso cref="EnumModel" />
+    public abstract class TaskStatus : EnumModel
     {
         /// <summary>
         /// 
         /// </summary>
         public abstract class Lengths
         {
-            /// <summary>
-            /// The name
-            /// </summary>
-            public const Int32 Name = 25;
+            ///// <summary>
+            ///// The name
+            ///// </summary>
+            //public const Int32 Name = 25;
 
-            /// <summary>
-            /// The description
-            /// </summary>
-            public const Int32 Description = 150;
+            ///// <summary>
+            ///// The description
+            ///// </summary>
+            //public const Int32 Description = 150;
         }
 
         /// <summary>
@@ -35,21 +35,5 @@ namespace Foundation.Resources.Constants.DataColumns
         /// The name of the entity.
         /// </value>
         public static String EntityName => nameof(TaskStatus);
-
-        /// <summary>
-        /// Gets the name.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        public static String Name => "Name";
-
-        /// <summary>
-        /// Gets the description.
-        /// </summary>
-        /// <value>
-        /// The description.
-        /// </value>
-        public static String Description => "Description";
     }
 }

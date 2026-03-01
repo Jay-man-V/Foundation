@@ -16,7 +16,7 @@ namespace Foundation.Repository.Core.EnumRepositories
     /// </summary>
     /// <see cref="IConfigurationScope" />
     [DependencyInjectionTransient]
-    public class ConfigurationScopeRepository : FoundationModelRepository<IConfigurationScope>, IConfigurationScopeRepository
+    public class ConfigurationScopeRepository : FoundationEnumModelRepository<IConfigurationScope>, IConfigurationScopeRepository
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ConfigurationScopeRepository"/> class.

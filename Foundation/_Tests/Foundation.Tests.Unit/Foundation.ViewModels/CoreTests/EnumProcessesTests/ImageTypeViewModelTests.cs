@@ -40,7 +40,9 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests.EnumProcessesTes
         {
             IImageType retVal = base.CreateModel(enityId);
 
-            retVal.Name = Guid.NewGuid().ToString();
+            retVal.Code = Guid.NewGuid().ToString();
+            retVal.ShortDescription = Guid.NewGuid().ToString();
+            retVal.LongDescription = Guid.NewGuid().ToString();
             retVal.FileExtension = Guid.NewGuid().ToString();
 
             return retVal;

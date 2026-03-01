@@ -9,18 +9,10 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Log Severity model interface
     /// </summary>
-    public interface ILogSeverity : IFoundationModel
+    public interface ILogSeverity : IEnumModel
     {
         /// <summary>Gets the severity.</summary>
         /// <value>The severity.</value>
         LogSeverity Severity { get; }
-
-        /// <summary>Gets or sets the code.</summary>
-        /// <value>The code.</value>
-        String Code { get; set; }
-
-        /// <summary>Gets or sets the description.</summary>
-        /// <value>The description.</value>
-        String Description { get; set; }
     }
 }

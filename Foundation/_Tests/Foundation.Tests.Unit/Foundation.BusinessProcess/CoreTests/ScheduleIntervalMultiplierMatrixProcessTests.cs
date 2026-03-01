@@ -32,11 +32,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override Boolean ExpectedHasOptionalDropDownParameter1 => true;
         protected override String ExpectedFilter1Name => "From Schedule Interval:";
-        protected override string ExpectedFilter1DisplayMemberPath => FDC.ScheduleInterval.Name;
+        protected override string ExpectedFilter1DisplayMemberPath => FDC.ScheduleInterval.Code;
 
         protected override Boolean ExpectedHasOptionalDropDownParameter2 => true;
         protected override String ExpectedFilter2Name => "To Schedule Interval:";
-        protected override string ExpectedFilter2DisplayMemberPath => FDC.ScheduleInterval.Name;
+        protected override string ExpectedFilter2DisplayMemberPath => FDC.ScheduleInterval.Code;
 
         protected override IScheduleIntervalMultiplierMatrixRepository CreateRepository()
         {

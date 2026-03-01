@@ -24,14 +24,14 @@ namespace Foundation.BusinessProcess
     /// <summary>
     /// Defines common business process behaviours and actions
     /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TRepository"></typeparam>
-    public abstract class CommonBusinessProcess<TEntity, TRepository> : CommonProcess, ICommonBusinessProcess<TEntity>
-        where TEntity : IFoundationModel
-        where TRepository : IFoundationModelDataAccess<TEntity>
+    public abstract class CommonBusinessProcess<TModel, TRepository> : CommonProcess, ICommonBusinessProcess<TModel>
+        where TModel : IFoundationModel
+        where TRepository : IFoundationModelDataAccess<TModel>
     {
         /// <summary>
-        /// Initialises a new instance of the <see cref="CommonBusinessProcess{TEntity, TRepository}" /> class.
+        /// Initialises a new instance of the <see cref="CommonBusinessProcess{TModel, TRepository}" /> class.
         /// </summary>
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings</param>
@@ -216,30 +216,30 @@ namespace Foundation.BusinessProcess
         /// <inheritdoc cref="ICommonBusinessProcess.GetColumnDefinitions()"/>
         public abstract List<IGridColumnDefinition> GetColumnDefinitions();
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.AddFilterOptionAll(List{TEntity})"/>
-        public virtual void AddFilterOptionAll(List<TEntity> listItems)
+        /// <inheritdoc cref="ICommonBusinessProcess{TModel}.AddFilterOptionAll(List{TModel})"/>
+        public virtual void AddFilterOptionAll(List<TModel> listItems)
         {
             LoggingHelpers.TraceCallEnter(listItems);
 
-            TEntity allItem = GetAllEntry();
+            TModel allItem = GetAllEntry();
             listItems.Insert(0, allItem);
 
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.AddFilterOptionNone(List{TEntity})"/>
-        public virtual void AddFilterOptionNone(List<TEntity> listItems)
+        /// <inheritdoc cref="ICommonBusinessProcess{TModel}.AddFilterOptionNone(List{TModel})"/>
+        public virtual void AddFilterOptionNone(List<TModel> listItems)
         {
             LoggingHelpers.TraceCallEnter(listItems);
 
-            TEntity noneItem = GetNoneEntry();
+            TModel noneItem = GetNoneEntry();
             listItems.Insert(0, noneItem);
 
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.AddFilterOptionsAdditional(List{TEntity})"/>
-        public virtual void AddFilterOptionsAdditional(List<TEntity> listItems)
+        /// <inheritdoc cref="ICommonBusinessProcess{TModel}.AddFilterOptionsAdditional(List{TModel})"/>
+        public virtual void AddFilterOptionsAdditional(List<TModel> listItems)
         {
             LoggingHelpers.TraceCallEnter(listItems);
 
@@ -285,11 +285,11 @@ namespace Foundation.BusinessProcess
         /// </summary>
         /// <param name="entityId"></param>
         /// <returns></returns>
-        protected virtual TEntity GetBlankEntry(EntityId entityId)
+        protected virtual TModel GetBlankEntry(EntityId entityId)
         {
             LoggingHelpers.TraceCallEnter(entityId);
 
-            TEntity retVal = Core.IoC.Get<TEntity>();
+            TModel retVal = Core.IoC.Get<TModel>();
             retVal.Id = entityId;
 
             LoggingHelpers.TraceCallReturn(retVal);
@@ -297,24 +297,24 @@ namespace Foundation.BusinessProcess
             return retVal;
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.GetBlankEntry()"/>
-        public TEntity GetBlankEntry()
+        /// <inheritdoc cref="ICommonBusinessProcess{TModel}.GetBlankEntry()"/>
+        public TModel GetBlankEntry()
         {
             LoggingHelpers.TraceCallEnter();
 
-            TEntity retVal = GetBlankEntry(NullId);
+            TModel retVal = GetBlankEntry(NullId);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.GetAllEntry()"/>
-        public TEntity GetAllEntry()
+        /// <inheritdoc cref="ICommonBusinessProcess{TModel}.GetAllEntry()"/>
+        public TModel GetAllEntry()
         {
             LoggingHelpers.TraceCallEnter();
 
-            TEntity retVal = GetBlankEntry(AllId);
+            TModel retVal = GetBlankEntry(AllId);
             SetFilterItemProperties(retVal, AllText);
 
             LoggingHelpers.TraceCallReturn(retVal);
@@ -322,12 +322,12 @@ namespace Foundation.BusinessProcess
             return retVal;
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.GetNoneEntry()"/>
-        public TEntity GetNoneEntry()
+        /// <inheritdoc cref="ICommonBusinessProcess{TModel}.GetNoneEntry()"/>
+        public TModel GetNoneEntry()
         {
             LoggingHelpers.TraceCallEnter();
 
-            TEntity retVal = GetBlankEntry(NoneId);
+            TModel retVal = GetBlankEntry(NoneId);
             SetFilterItemProperties(retVal, NoneText);
 
             LoggingHelpers.TraceCallReturn(retVal);
@@ -340,9 +340,9 @@ namespace Foundation.BusinessProcess
         /// </summary>
         /// <param name="entity">The entity to set the values on</param>
         /// <param name="displayText">The value to be set</param>
-        /// <exception cref="ArgumentNullException">Raised when the <see cref="CommonBusinessProcess{TEntity, TRepository}.ComboBoxDisplayMember"/> has not been set</exception>
-        /// <exception cref="MissingMemberException">Raised when the <paramref name="entity"/> does not have the member designated by <see cref="CommonBusinessProcess{TEntity, TRepository}.ComboBoxDisplayMember"/></exception>
-        protected virtual void SetFilterItemProperties(TEntity entity, String displayText)
+        /// <exception cref="ArgumentNullException">Raised when the <see cref="CommonBusinessProcess{TModel, TRepository}.ComboBoxDisplayMember"/> has not been set</exception>
+        /// <exception cref="MissingMemberException">Raised when the <paramref name="entity"/> does not have the member designated by <see cref="CommonBusinessProcess{TModel, TRepository}.ComboBoxDisplayMember"/></exception>
+        protected virtual void SetFilterItemProperties(TModel entity, String displayText)
         {
             LoggingHelpers.TraceCallEnter(entity, displayText);
 
@@ -366,8 +366,8 @@ namespace Foundation.BusinessProcess
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.ValidateEntity(TEntity, Boolean)"/>
-        public void ValidateEntity(TEntity entity, Boolean validateAllProperties = true)
+        /// <inheritdoc cref="ICommonBusinessProcess{TModel}.ValidateEntity(TModel, Boolean)"/>
+        public void ValidateEntity(TModel entity, Boolean validateAllProperties = true)
         {
             List<ValidationException> validationExceptions = IsValidEntity(entity, validateAllProperties);
 
@@ -377,8 +377,8 @@ namespace Foundation.BusinessProcess
             }
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.IsValidEntity(TEntity, Boolean)"/>
-        public List<ValidationException> IsValidEntity(TEntity entity, Boolean validateAllProperties = false)
+        /// <inheritdoc cref="ICommonBusinessProcess{TModel}.IsValidEntity(TModel, Boolean)"/>
+        public List<ValidationException> IsValidEntity(TModel entity, Boolean validateAllProperties = false)
         {
             List<ValidationException> retVal = new List<ValidationException>();
 
@@ -413,8 +413,8 @@ namespace Foundation.BusinessProcess
         /// <inheritdoc cref="ICommonBusinessProcess.CanViewRecord()"/>
         public virtual Boolean CanViewRecord() => false;
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.CanViewRecord(IUserProfile, TEntity?)"/>
-        public virtual Boolean CanViewRecord(IUserProfile userProfile, TEntity? entity)
+        /// <inheritdoc cref="ICommonBusinessProcess{TModel}.CanViewRecord(IUserProfile, TModel?)"/>
+        public virtual Boolean CanViewRecord(IUserProfile userProfile, TModel? entity)
         {
             LoggingHelpers.TraceCallEnter(userProfile, entity);
 
@@ -435,7 +435,7 @@ namespace Foundation.BusinessProcess
         /// <param name="userProfile">The User Profile</param>
         /// <param name="entity">The entity to be viewed</param>
         /// <returns></returns>
-        protected virtual Boolean CanViewOwnRecord(IUserProfile userProfile, TEntity? entity)
+        protected virtual Boolean CanViewOwnRecord(IUserProfile userProfile, TModel? entity)
         {
             LoggingHelpers.TraceCallEnter(userProfile, entity);
 
@@ -478,7 +478,7 @@ namespace Foundation.BusinessProcess
         /// </summary>
         /// <param name="entity">The entity to be viewed</param>
         /// <returns></returns>
-        protected virtual Boolean CanViewRecord(TEntity? entity)
+        protected virtual Boolean CanViewRecord(TModel? entity)
         {
             LoggingHelpers.TraceCallEnter(entity);
 
@@ -516,8 +516,8 @@ namespace Foundation.BusinessProcess
         /// <inheritdoc cref="ICommonBusinessProcess.CanEditRecord()"/>
         public virtual Boolean CanEditRecord() => false;
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.CanEditRecord(IUserProfile, TEntity?)"/>
-        public virtual Boolean CanEditRecord(IUserProfile userProfile, TEntity? entity)
+        /// <inheritdoc cref="ICommonBusinessProcess{TModel}.CanEditRecord(IUserProfile, TModel?)"/>
+        public virtual Boolean CanEditRecord(IUserProfile userProfile, TModel? entity)
         {
             LoggingHelpers.TraceCallEnter(userProfile, entity);
 
@@ -538,7 +538,7 @@ namespace Foundation.BusinessProcess
         /// <param name="userProfile">The User Profile</param>
         /// <param name="entity">The entity to be edited</param>
         /// <returns></returns>
-        protected virtual Boolean CanEditOwnRecord(IUserProfile userProfile, TEntity? entity)
+        protected virtual Boolean CanEditOwnRecord(IUserProfile userProfile, TModel? entity)
         {
             LoggingHelpers.TraceCallEnter(userProfile, entity);
 
@@ -581,7 +581,7 @@ namespace Foundation.BusinessProcess
         /// </summary>
         /// <param name="entity">The entity to be edited</param>
         /// <returns></returns>
-        protected virtual Boolean CanEditRecord(TEntity? entity)
+        protected virtual Boolean CanEditRecord(TModel? entity)
         {
             LoggingHelpers.TraceCallEnter(entity);
 
@@ -597,8 +597,8 @@ namespace Foundation.BusinessProcess
         /// <inheritdoc cref="ICommonBusinessProcess.CanDeleteRecord()"/>
         public virtual Boolean CanDeleteRecord() => false;
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.CanDeleteRecord(IUserProfile, TEntity?)"/>
-        public virtual Boolean CanDeleteRecord(IUserProfile userProfile, TEntity? entity)
+        /// <inheritdoc cref="ICommonBusinessProcess{TModel}.CanDeleteRecord(IUserProfile, TModel?)"/>
+        public virtual Boolean CanDeleteRecord(IUserProfile userProfile, TModel? entity)
         {
             LoggingHelpers.TraceCallEnter(userProfile, entity);
 
@@ -619,7 +619,7 @@ namespace Foundation.BusinessProcess
         /// <param name="userProfile">The User Profile</param>
         /// <param name="entity">The entity to be Deleted</param>
         /// <returns></returns>
-        protected virtual Boolean CanDeleteOwnRecord(IUserProfile userProfile, TEntity? entity)
+        protected virtual Boolean CanDeleteOwnRecord(IUserProfile userProfile, TModel? entity)
         {
             LoggingHelpers.TraceCallEnter(userProfile, entity);
 
@@ -662,7 +662,7 @@ namespace Foundation.BusinessProcess
         /// </summary>
         /// <param name="entity">The entity to be edited</param>
         /// <returns></returns>
-        protected virtual Boolean CanDeleteRecord(TEntity? entity)
+        protected virtual Boolean CanDeleteRecord(TModel? entity)
         {
             LoggingHelpers.TraceCallEnter(entity);
 
@@ -675,24 +675,24 @@ namespace Foundation.BusinessProcess
             return retVal;
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.Save(TEntity)"/>
-        public virtual TEntity Save(TEntity entity)
+        /// <inheritdoc cref="ICommonBusinessProcess{TModel}.Save(TModel)"/>
+        public virtual TModel Save(TModel entity)
         {
             LoggingHelpers.TraceCallEnter(entity);
 
-            TEntity retVal = EntityRepository.Save(entity);
+            TModel retVal = EntityRepository.Save(entity);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.Save(List{TEntity})"/>
-        public virtual List<TEntity> Save(List<TEntity> entities)
+        /// <inheritdoc cref="ICommonBusinessProcess{TModel}.Save(List{TModel})"/>
+        public virtual List<TModel> Save(List<TModel> entities)
         {
             LoggingHelpers.TraceCallEnter(entities);
 
-            List<TEntity> retVal = EntityRepository.Save(entities);
+            List<TModel> retVal = EntityRepository.Save(entities);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -709,69 +709,69 @@ namespace Foundation.BusinessProcess
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.Delete(TEntity)"/>
-        public virtual TEntity Delete(TEntity entity)
+        /// <inheritdoc cref="ICommonBusinessProcess{TModel}.Delete(TModel)"/>
+        public virtual TModel Delete(TModel entity)
         {
             LoggingHelpers.TraceCallEnter(entity);
 
-            TEntity retVal = EntityRepository.Delete(entity);
+            TModel retVal = EntityRepository.Delete(entity);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.Delete(List{TEntity})"/>
-        public virtual List<TEntity> Delete(List<TEntity> entities)
+        /// <inheritdoc cref="ICommonBusinessProcess{TModel}.Delete(List{TModel})"/>
+        public virtual List<TModel> Delete(List<TModel> entities)
         {
             LoggingHelpers.TraceCallEnter(entities);
 
-            List<TEntity> retVal = EntityRepository.Delete(entities);
+            List<TModel> retVal = EntityRepository.Delete(entities);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.Get(EntityId)"/>
-        public virtual TEntity? Get(EntityId entityId)
+        /// <inheritdoc cref="ICommonBusinessProcess{TModel}.Get(EntityId)"/>
+        public virtual TModel? Get(EntityId entityId)
         {
             LoggingHelpers.TraceCallEnter(entityId);
 
-            TEntity? retVal = EntityRepository.Get(entityId);
+            TModel? retVal = EntityRepository.Get(entityId);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.Get(List{EntityId})"/>
-        public List<TEntity> Get(List<EntityId> entityIds)
+        /// <inheritdoc cref="ICommonBusinessProcess{TModel}.Get(List{EntityId})"/>
+        public List<TModel> Get(List<EntityId> entityIds)
         {
-            List<TEntity> retVal = EntityRepository.Get(entityIds);
+            List<TModel> retVal = EntityRepository.Get(entityIds);
 
             return retVal;
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.GetAll()"/>
-        public virtual List<TEntity> GetAll()
+        /// <inheritdoc cref="ICommonBusinessProcess{TModel}.GetAll()"/>
+        public virtual List<TModel> GetAll()
         {
             LoggingHelpers.TraceCallEnter();
 
-            List<TEntity> retVal = EntityRepository.GetAllActive();
+            List<TModel> retVal = EntityRepository.GetAllActive();
 
             LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess{TEntity}.GetAll(Boolean)"/>
-        public virtual List<TEntity> GetAll(Boolean excludeDeleted)
+        /// <inheritdoc cref="ICommonBusinessProcess{TModel}.GetAll(Boolean)"/>
+        public virtual List<TModel> GetAll(Boolean excludeDeleted)
         {
             LoggingHelpers.TraceCallEnter(excludeDeleted);
 
             const Boolean activeOnly = false;
-            List<TEntity> retVal = EntityRepository.GetAll(excludeDeleted, activeOnly);
+            List<TModel> retVal = EntityRepository.GetAll(excludeDeleted, activeOnly);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -981,7 +981,7 @@ namespace Foundation.BusinessProcess
                 {
                     DataSource = StatusRepository.GetAll(excludeDeleted: false, useValidityPeriod: false),
                     ValueMember = FDC.Status.Id,
-                    DisplayMember = FDC.Status.Name,
+                    DisplayMember = FDC.Status.Code,
                 };
                 retVal.Add(gridColumnDefinition);
             }

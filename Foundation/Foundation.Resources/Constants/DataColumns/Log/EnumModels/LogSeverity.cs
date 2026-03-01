@@ -10,46 +10,11 @@ namespace Foundation.Resources.Constants.DataColumns
     /// Log Severity data columns
     /// </summary>
     /// <seealso cref="FoundationEntity" />
-    public class LogSeverity : FoundationEntity
+    public class LogSeverity : EnumModel
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public class Lengths
-        {
-            /// <summary>
-            /// The code
-            /// </summary>
-            public const Int32 Code = 10;
-
-            /// <summary>
-            /// The description
-            /// </summary>
-            public const Int32 Description = 250;
-        }
-
         /// <summary>
         /// Gets the name of the entity.
         /// </summary>
-        /// <value>
-        /// The name of the entity.
-        /// </value>
         public static String EntityName => "LogSeverity";
-
-        /// <summary>
-        /// Gets the code.
-        /// </summary>
-        /// <value>
-        /// The code.
-        /// </value>
-        public static String Code => "Code";
-
-        /// <summary>
-        /// Gets the description.
-        /// </summary>
-        /// <value>
-        /// The description.
-        /// </value>
-        public static String Description => "Description";
     }
 }

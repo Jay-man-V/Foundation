@@ -431,10 +431,8 @@ namespace Foundation.Tests.Unit.BaseClasses
         protected String ReplaceGuidWithConstant(String inputString)
         {
             String retVal = inputString;
-            String[] patterns1 =
-            [
-                @"[\w]*-[\w]*-[\w]*-[\w]*-[\w]*"
-            ];
+            String[] patterns1 = [@"[\w]*-[\w]*-[\w]*-[\w]*-[\w]*"]; // A guid pattern
+            String[] patterns2 = [@"[\w]*-."]; // 10 char string followed by a dash is unlikely to be anything other than the start of a guid
 
             foreach (String pattern in patterns1)
             {
@@ -443,6 +441,16 @@ namespace Foundation.Tests.Unit.BaseClasses
                 if (match.Success)
                 {
                     retVal = regex.Replace(retVal, "anananan-anan-anan-anan-anananananan");
+                }
+            }
+
+            foreach (String pattern in patterns2)
+            {
+                Regex regex = new Regex(pattern);
+                Match match = regex.Match(retVal);
+                if (match.Success)
+                {
+                    retVal = regex.Replace(retVal, "anananan-a");
                 }
             }
 

@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Application Role model interface
     /// </summary>
-    public interface IApplicationRole : IFoundationModel
+    public interface IApplicationRole : IEnumModel
     {
         /// <summary>Gets the role.</summary>
         /// <value>The role.</value>

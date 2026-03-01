@@ -10,23 +10,11 @@ namespace Foundation.Resources.Constants.DataColumns
     /// Application Role data columns
     /// </summary>
     /// <seealso cref="FoundationEntity" />
-    public abstract class ApplicationRole : FoundationEntity
+    public abstract class ApplicationRole : EnumModel
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public abstract class Lengths
-        {
-            //public const Int32 Name = 25;
-            //public const Int32 Description = 150;
-        }
-
         /// <summary>
         /// Gets the name of the entity.
         /// </summary>
-        /// <value>
-        /// The name of the entity.
-        /// </value>
         public static String EntityName => "ApplicationRole";
 
         /// <summary>

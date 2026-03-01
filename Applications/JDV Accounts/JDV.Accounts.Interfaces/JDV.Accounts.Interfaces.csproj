@@ -13,4 +13,9 @@
         <Compile Include="..\JDV.Accounts.AssemblyInfo.cs" Link="JDV.Accounts.AssemblyInfo.cs" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Foundation\Foundation.Interfaces\Foundation.Interfaces.csproj" />
+      <ProjectReference Include="..\..\..\Foundation\Foundation.Models\Foundation.Models.csproj" />
+    </ItemGroup>
+
 </Project>

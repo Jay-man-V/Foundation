@@ -4,45 +4,41 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 using Foundation.Interfaces;
-
-using FDC = Foundation.Resources.Constants.DataColumns;
 
 namespace Foundation.Models.Core.EnumModels
 {
     /// <summary>
     /// Contact Type class
     /// </summary>
-    /// <seealso cref="FoundationModel" />
+    /// <seealso cref="EnumModel" />
     /// <seealso cref="IContactType" />
+    /// <seealso cref="IEquatable{IContactType}" />
     [DependencyInjectionTransient]
-    public class ContactType : FoundationModel, IContactType, IEquatable<IContactType>
+    public class ContactType : EnumModel, IContactType, IEquatable<IContactType>
     {
-        private String _name = String.Empty;
-        private String _description = String.Empty;
+        //private String _name = String.Empty;
+        //private String _description = String.Empty;
 
-        /// <inheritdoc cref="IContactType.Name"/>
-        [Column(nameof(FDC.ContactType.Name))]
-        [MaxLength(FDC.ContactType.Lengths.Name)]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Name must be provided")]
-        public String Name
-        {
-            get => this._name;
-            set => this.SetPropertyValue(ref _name, value, FDC.ContactType.Lengths.Name);
-        }
+        ///// <inheritdoc cref="IContactType.Name"/>
+        //[Column(nameof(FDC.ContactType.Name))]
+        //[MaxLength(FDC.ContactType.Lengths.Name)]
+        //[Required(AllowEmptyStrings = false, ErrorMessage = "Name must be provided")]
+        //public String Name
+        //{
+        //    get => this._name;
+        //    set => this.SetPropertyValue(ref _name, value, FDC.ContactType.Lengths.Name);
+        //}
 
-        /// <inheritdoc cref="IContactType.Description"/>
-        [Column(nameof(FDC.ContactType.Description))]
-        [MaxLength(FDC.ContactType.Lengths.Description)]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Description must be provided")]
-        public String Description
-        {
-            get => this._description;
-            set => this.SetPropertyValue(ref _description, value, FDC.ContactType.Lengths.Description);
-        }
+        ///// <inheritdoc cref="IContactType.Description"/>
+        //[Column(nameof(FDC.ContactType.Description))]
+        //[MaxLength(FDC.ContactType.Lengths.Description)]
+        //[Required(AllowEmptyStrings = false, ErrorMessage = "Description must be provided")]
+        //public String Description
+        //{
+        //    get => this._description;
+        //    set => this.SetPropertyValue(ref _description, value, FDC.ContactType.Lengths.Description);
+        //}
 
         /// <inheritdoc cref="IFoundationModel.GetPropertyValue(String)"/>
         public override Object? GetPropertyValue(String propertyName)
@@ -51,8 +47,8 @@ namespace Foundation.Models.Core.EnumModels
 
             switch (propertyName)
             {
-                case nameof(Name): retVal = Name; break;
-                case nameof(Description): retVal = Description; break;
+                //case nameof(Name): retVal = Name; break;
+                //case nameof(Description): retVal = Description; break;
             }
 
             return retVal;
@@ -64,8 +60,8 @@ namespace Foundation.Models.Core.EnumModels
             ContactType retVal = (ContactType)base.Clone();
             retVal.Initialising = true;
 
-            retVal._name = this._name;
-            retVal._description = this._description;
+            //retVal._name = this._name;
+            //retVal._description = this._description;
 
             retVal.Initialising = false;
 
@@ -99,8 +95,8 @@ namespace Foundation.Models.Core.EnumModels
             Int32 constant = -1521134295;
             Int32 hashCode = base.GetHashCode();
 
-            hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(Name);
-            hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(Description);
+            //hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(Name);
+            //hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(Description);
 
             return hashCode;
         }
@@ -116,8 +112,8 @@ namespace Foundation.Models.Core.EnumModels
 
             if (right != null)
             {
-                retVal &= EqualityComparer<String>.Default.Equals(this.Name, right.Name);
-                retVal &= EqualityComparer<String>.Default.Equals(this.Description, right.Description);
+                //retVal &= EqualityComparer<String>.Default.Equals(this.Name, right.Name);
+                //retVal &= EqualityComparer<String>.Default.Equals(this.Description, right.Description);
             }
 
             return retVal;

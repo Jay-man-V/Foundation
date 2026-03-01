@@ -16,7 +16,7 @@ namespace Foundation.Repository.Core.EnumRepositories
     /// </summary>
     /// <see cref="IImageType" />
     [DependencyInjectionTransient]
-    public class ImageTypeRepository : FoundationModelRepository<IImageType>, IImageTypeRepository
+    public class ImageTypeRepository : FoundationEnumModelRepository<IImageType>, IImageTypeRepository
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ImageTypeRepository"/> class.

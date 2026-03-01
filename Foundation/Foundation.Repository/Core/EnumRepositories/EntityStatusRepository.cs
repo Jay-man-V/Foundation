@@ -16,7 +16,7 @@ namespace Foundation.Repository.Core.EnumRepositories
     /// </summary>
     /// <see cref="IEntityStatus" />
     [DependencyInjectionTransient]
-    public class EntityStatusRepository : FoundationModelRepository<IEntityStatus>, IEntityStatusRepository
+    public class EntityStatusRepository : FoundationEnumModelRepository<IEntityStatus>, IEntityStatusRepository
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="EntityStatusRepository"/> class.

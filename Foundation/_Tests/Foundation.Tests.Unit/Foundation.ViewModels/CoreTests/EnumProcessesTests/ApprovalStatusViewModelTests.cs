@@ -41,8 +41,9 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests.EnumProcessesTes
         {
             IApprovalStatus retVal = base.CreateModel(entityId);
 
-            retVal.Name = Guid.NewGuid().ToString();
-            retVal.Description = Guid.NewGuid().ToString();
+            retVal.Code = Guid.NewGuid().ToString();
+            retVal.ShortDescription = Guid.NewGuid().ToString();
+            retVal.LongDescription = Guid.NewGuid().ToString();
 
             return retVal;
         }

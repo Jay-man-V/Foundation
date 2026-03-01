@@ -28,7 +28,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override Boolean ExpectedHasOptionalDropDownParameter1 => true;
         protected override String ExpectedFilter1Name => "Contract Type:";
-        protected override string ExpectedFilter1DisplayMemberPath => FDC.ContractType.Description;
+        protected override string ExpectedFilter1DisplayMemberPath => FDC.ContractType.ShortDescription;
 
         protected override string ExpectedComboBoxDisplayMember => FDC.Contract.ShortName;
 

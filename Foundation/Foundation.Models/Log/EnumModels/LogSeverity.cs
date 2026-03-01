@@ -4,12 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 using Foundation.Interfaces;
 
-using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;
 
 namespace Foundation.Models.Log.EnumModels
@@ -17,35 +15,36 @@ namespace Foundation.Models.Log.EnumModels
     /// <summary>
     /// Log Severity class
     /// </summary>
-    /// <seealso cref="FoundationModel" />
+    /// <seealso cref="EnumModel" />
     /// <seealso cref="ILogSeverity" />
+    /// <seealso cref="IEquatable{ILogSeverity}" />
     [DependencyInjectionTransient]
-    public class LogSeverity : FoundationModel, ILogSeverity, IEquatable<ILogSeverity>
+    public class LogSeverity : EnumModel, ILogSeverity, IEquatable<ILogSeverity>
     {
-        private String _code = String.Empty;
-        private String _description = String.Empty;
+        //private String _code = String.Empty;
+        //private String _description = String.Empty;
 
         /// <inheritdoc cref="ILogSeverity.Severity"/>
         [NotMapped]
         public FEnums.LogSeverity Severity => (FEnums.LogSeverity)Id.TheEntityId;
 
-        /// <inheritdoc cref="ILogSeverity.Code"/>
-        [Column(nameof(FDC.LogSeverity.Code)), MaxLength(FDC.LogSeverity.Lengths.Code)]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Code must be provided")]
-        public String Code
-        {
-            get => this._code;
-            set => this.SetPropertyValue(ref _code, value, FDC.LogSeverity.Lengths.Code);
-        }
+        ///// <inheritdoc cref="ILogSeverity.Code"/>
+        //[Column(nameof(FDC.LogSeverity.Code)), MaxLength(FDC.LogSeverity.Lengths.Code)]
+        //[Required(AllowEmptyStrings = false, ErrorMessage = "Code must be provided")]
+        //public String Code
+        //{
+        //    get => this._code;
+        //    set => this.SetPropertyValue(ref _code, value, FDC.LogSeverity.Lengths.Code);
+        //}
 
-        /// <inheritdoc cref="ILogSeverity.Description"/>
-        [Column(nameof(FDC.LogSeverity.Description)), MaxLength(FDC.LogSeverity.Lengths.Description)]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Description must be provided")]
-        public String Description
-        {
-            get => this._description;
-            set => this.SetPropertyValue(ref _description, value, FDC.LogSeverity.Lengths.Description);
-        }
+        ///// <inheritdoc cref="ILogSeverity.Description"/>
+        //[Column(nameof(FDC.LogSeverity.Description)), MaxLength(FDC.LogSeverity.Lengths.Description)]
+        //[Required(AllowEmptyStrings = false, ErrorMessage = "Description must be provided")]
+        //public String Description
+        //{
+        //    get => this._description;
+        //    set => this.SetPropertyValue(ref _description, value, FDC.LogSeverity.Lengths.Description);
+        //}
 
         /// <inheritdoc cref="IFoundationModel.GetPropertyValue(String)"/>
         public override Object? GetPropertyValue(String propertyName)
@@ -54,8 +53,8 @@ namespace Foundation.Models.Log.EnumModels
 
             switch (propertyName)
             {
-                case nameof(Code): retVal = Code; break;
-                case nameof(Description): retVal = Description; break;
+                //case nameof(Code): retVal = Code; break;
+                //case nameof(Description): retVal = Description; break;
             }
 
             return retVal;
@@ -67,8 +66,8 @@ namespace Foundation.Models.Log.EnumModels
             LogSeverity retVal = (LogSeverity)base.Clone();
             retVal.Initialising = true;
 
-            retVal._code = this._code;
-            retVal._description = this._description;
+            //retVal._code = this._code;
+            //retVal._description = this._description;
 
             retVal.Initialising = false;
 
@@ -102,8 +101,8 @@ namespace Foundation.Models.Log.EnumModels
             Int32 constant = -1521134295;
             Int32 hashCode = base.GetHashCode();
 
-            hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(Code);
-            hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(Description);
+            //hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(Code);
+            //hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(Description);
 
             return hashCode;
         }
@@ -119,8 +118,8 @@ namespace Foundation.Models.Log.EnumModels
 
             if (right != null)
             {
-                retVal &= EqualityComparer<String>.Default.Equals(this.Code, right.Code);
-                retVal &= EqualityComparer<String>.Default.Equals(this.Description, right.Description);
+                //retVal &= EqualityComparer<String>.Default.Equals(this.Code, right.Code);
+                //retVal &= EqualityComparer<String>.Default.Equals(this.Description, right.Description);
             }
 
             return retVal;

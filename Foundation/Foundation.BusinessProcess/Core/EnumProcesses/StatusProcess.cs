@@ -6,9 +6,6 @@
 
 using Foundation.Common;
 using Foundation.Interfaces;
-using Foundation.Interfaces.Helpers;
-
-using FDC = Foundation.Resources.Constants.DataColumns;
 
 namespace Foundation.BusinessProcess.Core.EnumProcesses
 {
@@ -16,7 +13,7 @@ namespace Foundation.BusinessProcess.Core.EnumProcesses
     /// The Status Business Process 
     /// </summary>
     [DependencyInjectionTransient]
-    public class StatusProcess : CommonBusinessProcess<IStatus, IStatusRepository>, IStatusProcess
+    public class StatusProcess : EnumModelProcess<IStatus, IStatusRepository>, IStatusProcess
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="StatusProcess" /> class.
@@ -62,27 +59,5 @@ namespace Foundation.BusinessProcess.Core.EnumProcesses
 
         /// <inheritdoc cref="ICommonBusinessProcess.StatusBarText"/>
         public override String StatusBarText => "Number of Statuses:";
-
-        /// <inheritdoc cref="ICommonBusinessProcess.ComboBoxDisplayMember" />
-        public override String ComboBoxDisplayMember => FDC.Status.Name;
-
-        /// <inheritdoc cref="ICommonBusinessProcess.GetColumnDefinitions()" />
-        public override List<IGridColumnDefinition> GetColumnDefinitions()
-        {
-            LoggingHelpers.TraceCallEnter();
-
-            List<IGridColumnDefinition> retVal = GetStandardEntityColumnDefinitions();
-            IGridColumnDefinition gridColumnDefinition;
-
-            gridColumnDefinition = new GridColumnDefinition(150, FDC.Status.Name, "Name", typeof(String));
-            retVal.Add(gridColumnDefinition);
-
-            gridColumnDefinition = new GridColumnDefinition(150, FDC.Status.Description, "Description", typeof(String));
-            retVal.Add(gridColumnDefinition);
-
-            LoggingHelpers.TraceCallReturn(retVal);
-
-            return retVal;
-        }
     }
 }

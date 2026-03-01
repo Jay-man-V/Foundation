@@ -9,14 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Approval Status model interface
     /// </summary>
-    public interface IApprovalStatus : IFoundationModel
+    public interface IApprovalStatus : IEnumModel
     {
-        /// <summary>Gets or sets the name.</summary>
-        /// <value>The name.</value>
-        String Name { get; set; }
-
-        /// <summary>Gets or sets the description.</summary>
-        /// <value>The description.</value>
-        String Description { get; set; }
     }
 }

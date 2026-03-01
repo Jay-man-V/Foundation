@@ -6,9 +6,6 @@
 
 using Foundation.Common;
 using Foundation.Interfaces;
-using Foundation.Interfaces.Helpers;
-
-using FDC = Foundation.Resources.Constants.DataColumns;
 
 namespace Foundation.BusinessProcess.Log.EnumProcesses
 {
@@ -16,7 +13,7 @@ namespace Foundation.BusinessProcess.Log.EnumProcesses
     /// The Log Severity Business Process
     /// </summary>
     [DependencyInjectionTransient]
-    public class LogSeverityProcess : CommonBusinessProcess<ILogSeverity, ILogSeverityRepository>, ILogSeverityProcess
+    public class LogSeverityProcess : EnumModelProcess<ILogSeverity, ILogSeverityRepository>, ILogSeverityProcess
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="LogSeverityProcess" /> class.
@@ -62,30 +59,5 @@ namespace Foundation.BusinessProcess.Log.EnumProcesses
 
         /// <inheritdoc cref="ICommonBusinessProcess.StatusBarText"/>
         public override String StatusBarText => "Number of Log Severities:";
-
-        /// <inheritdoc cref="ICommonBusinessProcess.ComboBoxDisplayMember" />
-        public override String ComboBoxDisplayMember => FDC.LogSeverity.Code;
-
-        /// <inheritdoc cref="ICommonBusinessProcess.GetColumnDefinitions()" />
-        public override List<IGridColumnDefinition> GetColumnDefinitions()
-        {
-            LoggingHelpers.TraceCallEnter();
-
-            List<IGridColumnDefinition> retVal = GetStandardEntityColumnDefinitions();
-            IGridColumnDefinition gridColumnDefinition;
-
-            gridColumnDefinition = new GridColumnDefinition(75, FDC.LogSeverity.Code, "Code", typeof(String))
-            {
-                TextAlignment = TextAlignment.Centre,
-            };
-            retVal.Add(gridColumnDefinition);
-
-            gridColumnDefinition = new GridColumnDefinition(150, FDC.LogSeverity.Description, "Description", typeof(String));
-            retVal.Add(gridColumnDefinition);
-
-            LoggingHelpers.TraceCallReturn(retVal);
-
-            return retVal;
-        }
     }
 }

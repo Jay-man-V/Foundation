@@ -16,23 +16,13 @@ namespace Foundation.Models.Core.EnumModels
     /// <summary>
     /// Image Type class
     /// </summary>
-    /// <seealso cref="FoundationModel" />
+    /// <seealso cref="EnumModel" />
     /// <seealso cref="IImageType" />
+    /// <seealso cref="IEquatable{IImageType}" />
     [DependencyInjectionTransient]
-    public class ImageType : FoundationModel, IImageType, IEquatable<IImageType>
+    public class ImageType : EnumModel, IImageType, IEquatable<IImageType>
     {
-        private String _name = String.Empty;
         private String _fileExtension = String.Empty;
-
-        /// <inheritdoc cref="IImageType.Name"/>
-        [Column(nameof(FDC.ImageType.Name))]
-        [MaxLength(FDC.ImageType.Lengths.Name)]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Name must be provided")]
-        public String Name
-        {
-            get => this._name;
-            set => this.SetPropertyValue(ref _name, value, FDC.ImageType.Lengths.Name);
-        }
 
         /// <inheritdoc cref="IImageType.FileExtension"/>
         [Column(nameof(FDC.ImageType.FileExtension))]
@@ -51,7 +41,6 @@ namespace Foundation.Models.Core.EnumModels
 
             switch (propertyName)
             {
-                case nameof(Name): retVal = Name; break;
                 case nameof(FileExtension): retVal = FileExtension; break;
             }
 
@@ -64,7 +53,6 @@ namespace Foundation.Models.Core.EnumModels
             ImageType retVal = (ImageType)base.Clone();
             retVal.Initialising = true;
 
-            retVal._name = this._name;
             retVal._fileExtension = this._fileExtension;
 
             retVal.Initialising = false;
@@ -99,7 +87,6 @@ namespace Foundation.Models.Core.EnumModels
             Int32 constant = -1521134295;
             Int32 hashCode = base.GetHashCode();
 
-            hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(Name);
             hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(FileExtension);
 
             return hashCode;
@@ -116,7 +103,6 @@ namespace Foundation.Models.Core.EnumModels
 
             if (right != null)
             {
-                retVal &= EqualityComparer<String>.Default.Equals(this.Name, right.Name);
                 retVal &= EqualityComparer<String>.Default.Equals(this.FileExtension, right.FileExtension);
             }
 

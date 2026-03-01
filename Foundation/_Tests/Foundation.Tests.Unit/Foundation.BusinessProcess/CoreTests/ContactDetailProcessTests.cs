@@ -30,7 +30,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override Boolean ExpectedHasOptionalDropDownParameter1 => true;
         protected override String ExpectedFilter1Name => "Contact Type:";
-        protected override string ExpectedFilter1DisplayMemberPath => FDC.ContactType.Name;
+        protected override string ExpectedFilter1DisplayMemberPath => FDC.ContactType.Code;
 
         protected override Boolean ExpectedHasOptionalDropDownParameter2 => true;
         protected override String ExpectedFilter2Name => "Parent Contact:";

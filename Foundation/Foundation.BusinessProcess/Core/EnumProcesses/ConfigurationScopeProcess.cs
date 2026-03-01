@@ -16,7 +16,7 @@ namespace Foundation.BusinessProcess.Core.EnumProcesses
     /// The Application Configuration Business Process
     /// </summary>
     [DependencyInjectionTransient]
-    public class ConfigurationScopeProcess : CommonBusinessProcess<IConfigurationScope, IConfigurationScopeRepository>, IConfigurationScopeProcess
+    public class ConfigurationScopeProcess : EnumModelProcess<IConfigurationScope, IConfigurationScopeRepository>, IConfigurationScopeProcess
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ConfigurationScopeProcess" /> class.
@@ -63,22 +63,13 @@ namespace Foundation.BusinessProcess.Core.EnumProcesses
         /// <inheritdoc cref="ICommonBusinessProcess.StatusBarText"/>
         public override String StatusBarText => "Number of Configuration Scopes:";
 
-        /// <inheritdoc cref="ICommonBusinessProcess.ComboBoxDisplayMember" />
-        public override String ComboBoxDisplayMember => FDC.ConfigurationScope.Name;
-
         /// <inheritdoc cref="ICommonBusinessProcess.GetColumnDefinitions()" />
         public override List<IGridColumnDefinition> GetColumnDefinitions()
         {
             LoggingHelpers.TraceCallEnter();
 
-            List<IGridColumnDefinition> retVal = GetStandardEntityColumnDefinitions();
+            List<IGridColumnDefinition> retVal = base.GetColumnDefinitions();
             IGridColumnDefinition gridColumnDefinition;
-
-            gridColumnDefinition = new GridColumnDefinition(150, FDC.ConfigurationScope.Name, "Name", typeof(String));
-            retVal.Add(gridColumnDefinition);
-
-            gridColumnDefinition = new GridColumnDefinition(500, FDC.ConfigurationScope.Description, "Description", typeof(String));
-            retVal.Add(gridColumnDefinition);
 
             gridColumnDefinition = new GridColumnDefinition(50, FDC.ConfigurationScope.UsageSequence, "Usage Sequence", typeof(Int32));
             retVal.Add(gridColumnDefinition);

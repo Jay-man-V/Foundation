@@ -16,7 +16,7 @@ namespace Foundation.Repository.Core.EnumRepositories
     /// </summary>
     /// <see cref="IDatePeriod" />
     [DependencyInjectionTransient]
-    public class DatePeriodRepository : FoundationModelRepository<IDatePeriod>, IDatePeriodRepository
+    public class DatePeriodRepository : FoundationEnumModelRepository<IDatePeriod>, IDatePeriodRepository
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="DatePeriodRepository"/> class.

@@ -16,7 +16,7 @@ namespace Foundation.Repository.Sec.EnumRepositories
     /// </summary>
     /// <see cref="IApplicationRole" />
     [DependencyInjectionTransient]
-    public class ApplicationRoleRepository : FoundationModelRepository<IApplicationRole>, IApplicationRoleDataAccess
+    public class ApplicationRoleRepository : FoundationEnumModelRepository<IApplicationRole>, IApplicationRoleDataAccess
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ApplicationRoleRepository"/> class.

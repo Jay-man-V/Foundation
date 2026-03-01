@@ -16,7 +16,7 @@ namespace Foundation.Repository.Log.EnumRepositories
     /// </summary>
     /// <see cref="ILogSeverity" />
     [DependencyInjectionTransient]
-    public class LogSeverityRepository : FoundationModelRepository<ILogSeverity>, ILogSeverityRepository
+    public class LogSeverityRepository : FoundationEnumModelRepository<ILogSeverity>, ILogSeverityRepository
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="LogSeverityRepository"/> class.

@@ -16,7 +16,7 @@ namespace Foundation.Repository.Core.EnumRepositories
     /// </summary>
     /// <see cref="ITaskStatus" />
     [DependencyInjectionTransient]
-    public class TaskStatusRepository : FoundationModelRepository<ITaskStatus>, ITaskStatusRepository
+    public class TaskStatusRepository : FoundationEnumModelRepository<ITaskStatus>, ITaskStatusRepository
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="TaskStatusRepository"/> class.

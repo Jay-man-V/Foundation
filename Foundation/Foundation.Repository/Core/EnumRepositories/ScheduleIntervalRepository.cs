@@ -16,7 +16,7 @@ namespace Foundation.Repository.Core.EnumRepositories
     /// </summary>
     /// <see cref="IScheduleInterval" />
     [DependencyInjectionTransient]
-    public class ScheduleIntervalRepository : FoundationModelRepository<IScheduleInterval>, IScheduleIntervalRepository
+    public class ScheduleIntervalRepository : FoundationEnumModelRepository<IScheduleInterval>, IScheduleIntervalRepository
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ScheduleIntervalRepository"/> class.

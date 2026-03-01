@@ -29,14 +29,14 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
         protected override Boolean ExpectedHasOptionalDropDownParameter1 => true;
         protected override String ExpectedFilter1Name => "Configuration Scope:";
-        protected override string ExpectedFilter1DisplayMemberPath => FDC.ConfigurationScope.Name;
+        protected override string ExpectedFilter1DisplayMemberPath => FDC.ConfigurationScope.Code;
 
         protected override Boolean ExpectedHasOptionalAction1 => true;
         protected override String ExpectedAction1Name => "Load group...";
 
         protected override Boolean ExpectedHasOptionalDropDownParameter2 => true;
         protected override String ExpectedFilter2Name => "Application Name:";
-        protected override string ExpectedFilter2DisplayMemberPath => FDC.ConfigurationScope.Name;
+        protected override string ExpectedFilter2DisplayMemberPath => FDC.ConfigurationScope.Code;
 
         protected override Boolean ExpectedHasOptionalDropDownParameter3 => true;
         protected override String ExpectedFilter3Name => "User:";

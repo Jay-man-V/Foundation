@@ -65,6 +65,7 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.DatePeriod)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.Department)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Log  */ nameof(FDC.EntityStatus)));
+            Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.EnumModel)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Log  */ nameof(FDC.EventLog)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Log  */ nameof(FDC.EventLogApplication)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Log  */ nameof(FDC.EventLogAttachment)));
@@ -238,11 +239,14 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         {
             // This test exists to ensure all the Approval Status are tested/checked in the next test
             PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(FDC.ApprovalStatus));
+            propertyInfos = propertyInfos.Concat(GetStaticPropertyInfosForType(typeof(FDC.EnumModel))).ToArray();
             Int32 index = 0;
 
             index++; Assert.That(FDC.ApprovalStatus.EntityName, Is.EqualTo(nameof(FDC.ApprovalStatus)));
-            index++; Assert.That(FDC.ApprovalStatus.Name, Is.EqualTo(nameof(FDC.ApprovalStatus.Name)));
-            index++; Assert.That(FDC.ApprovalStatus.Description, Is.EqualTo(nameof(FDC.ApprovalStatus.Description)));
+            index++; Assert.That(FDC.ApprovalStatus.DisplaySequence, Is.EqualTo(nameof(FDC.ApprovalStatus.DisplaySequence)));
+            index++; Assert.That(FDC.ApprovalStatus.Code, Is.EqualTo(nameof(FDC.ApprovalStatus.Code)));
+            index++; Assert.That(FDC.ApprovalStatus.ShortDescription, Is.EqualTo(nameof(FDC.ApprovalStatus.ShortDescription)));
+            index++; Assert.That(FDC.ApprovalStatus.LongDescription, Is.EqualTo(nameof(FDC.ApprovalStatus.LongDescription)));
 
             Assert.That(propertyInfos.Length, Is.EqualTo(index));
         }
@@ -314,11 +318,14 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         {
             // This test exists to ensure all the Application Configuration are tested/checked in the next test
             PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(FDC.ConfigurationScope));
+            propertyInfos = propertyInfos.Concat(GetStaticPropertyInfosForType(typeof(FDC.EnumModel))).ToArray();
             Int32 index = 0;
 
             index++; Assert.That(FDC.ConfigurationScope.EntityName, Is.EqualTo(nameof(FDC.ConfigurationScope)));
-            index++; Assert.That(FDC.ConfigurationScope.Name, Is.EqualTo(nameof(FDC.ConfigurationScope.Name)));
-            index++; Assert.That(FDC.ConfigurationScope.Description, Is.EqualTo(nameof(FDC.ConfigurationScope.Description)));
+            index++; Assert.That(FDC.ConfigurationScope.DisplaySequence, Is.EqualTo(nameof(FDC.ConfigurationScope.DisplaySequence)));
+            index++; Assert.That(FDC.ConfigurationScope.Code, Is.EqualTo(nameof(FDC.ConfigurationScope.Code)));
+            index++; Assert.That(FDC.ConfigurationScope.ShortDescription, Is.EqualTo(nameof(FDC.ConfigurationScope.ShortDescription)));
+            index++; Assert.That(FDC.ConfigurationScope.LongDescription, Is.EqualTo(nameof(FDC.ConfigurationScope.LongDescription)));
             index++; Assert.That(FDC.ConfigurationScope.UsageSequence, Is.EqualTo(nameof(FDC.ConfigurationScope.UsageSequence)));
 
             Assert.That(propertyInfos.Length, Is.EqualTo(index));
@@ -364,11 +371,14 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         {
             // This test exists to ensure all the Contact Type are tested/checked in the next test
             PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(FDC.ContactType));
+            propertyInfos = propertyInfos.Concat(GetStaticPropertyInfosForType(typeof(FDC.EnumModel))).ToArray();
             Int32 index = 0;
 
             index++; Assert.That(FDC.ContactType.EntityName, Is.EqualTo(nameof(FDC.ContactType)));
-            index++; Assert.That(FDC.ContactType.Name, Is.EqualTo(nameof(FDC.ContactType.Name)));
-            index++; Assert.That(FDC.ContactType.Description, Is.EqualTo(nameof(FDC.ContactType.Description)));
+            index++; Assert.That(FDC.ContactType.DisplaySequence, Is.EqualTo(nameof(FDC.ContactType.DisplaySequence)));
+            index++; Assert.That(FDC.ContactType.Code, Is.EqualTo(nameof(FDC.ContactType.Code)));
+            index++; Assert.That(FDC.ContactType.ShortDescription, Is.EqualTo(nameof(FDC.ContactType.ShortDescription)));
+            index++; Assert.That(FDC.ContactType.LongDescription, Is.EqualTo(nameof(FDC.ContactType.LongDescription)));
 
             Assert.That(propertyInfos.Length, Is.EqualTo(index));
         }
@@ -402,11 +412,14 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         {
             // This test exists to ensure all the Contract Type are tested/checked in the next test
             PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(FDC.ContractType));
+            propertyInfos = propertyInfos.Concat(GetStaticPropertyInfosForType(typeof(FDC.EnumModel))).ToArray();
             Int32 index = 0;
 
             index++; Assert.That(FDC.ContractType.EntityName, Is.EqualTo(nameof(FDC.ContractType)));
-            index++; Assert.That(FDC.ContractType.Name, Is.EqualTo(nameof(FDC.ContractType.Name)));
-            index++; Assert.That(FDC.ContractType.Description, Is.EqualTo(nameof(FDC.ContractType.Description)));
+            index++; Assert.That(FDC.ContractType.DisplaySequence, Is.EqualTo(nameof(FDC.ContractType.DisplaySequence)));
+            index++; Assert.That(FDC.ContractType.Code, Is.EqualTo(nameof(FDC.ContractType.Code)));
+            index++; Assert.That(FDC.ContractType.ShortDescription, Is.EqualTo(nameof(FDC.ContractType.ShortDescription)));
+            index++; Assert.That(FDC.ContractType.LongDescription, Is.EqualTo(nameof(FDC.ContractType.LongDescription)));
 
             Assert.That(propertyInfos.Length, Is.EqualTo(index));
         }
@@ -466,11 +479,14 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         {
             // This test exists to ensure all the DataStatus are tested/checked in the next test
             PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(FDC.DataStatus));
+            propertyInfos = propertyInfos.Concat(GetStaticPropertyInfosForType(typeof(FDC.EnumModel))).ToArray();
             Int32 index = 0;
 
             index++; Assert.That(FDC.DataStatus.EntityName, Is.EqualTo(nameof(FDC.DataStatus)));
-            index++; Assert.That(FDC.DataStatus.Name, Is.EqualTo(nameof(FDC.DataStatus.Name)));
-            index++; Assert.That(FDC.DataStatus.Description, Is.EqualTo(nameof(FDC.DataStatus.Description)));
+            index++; Assert.That(FDC.DataStatus.DisplaySequence, Is.EqualTo(nameof(FDC.DataStatus.DisplaySequence)));
+            index++; Assert.That(FDC.DataStatus.Code, Is.EqualTo(nameof(FDC.DataStatus.Code)));
+            index++; Assert.That(FDC.DataStatus.ShortDescription, Is.EqualTo(nameof(FDC.DataStatus.ShortDescription)));
+            index++; Assert.That(FDC.DataStatus.LongDescription, Is.EqualTo(nameof(FDC.DataStatus.LongDescription)));
 
             Assert.That(propertyInfos.Length, Is.EqualTo(index));
         }
@@ -482,12 +498,15 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         public void Test_DatePeriod()
         {
             // This test exists to ensure all the DatePeriod are tested/checked in the next test
-            PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(FDC.DataStatus));
+            PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(FDC.DatePeriod));
+            propertyInfos = propertyInfos.Concat(GetStaticPropertyInfosForType(typeof(FDC.EnumModel))).ToArray();
             Int32 index = 0;
 
             index++; Assert.That(FDC.DatePeriod.EntityName, Is.EqualTo(nameof(FDC.DatePeriod)));
-            index++; Assert.That(FDC.DatePeriod.Name, Is.EqualTo(nameof(FDC.DatePeriod.Name)));
-            index++; Assert.That(FDC.DatePeriod.Description, Is.EqualTo(nameof(FDC.DatePeriod.Description)));
+            index++; Assert.That(FDC.DatePeriod.DisplaySequence, Is.EqualTo(nameof(FDC.DatePeriod.DisplaySequence)));
+            index++; Assert.That(FDC.DatePeriod.Code, Is.EqualTo(nameof(FDC.DatePeriod.Code)));
+            index++; Assert.That(FDC.DatePeriod.ShortDescription, Is.EqualTo(nameof(FDC.DatePeriod.ShortDescription)));
+            index++; Assert.That(FDC.DatePeriod.LongDescription, Is.EqualTo(nameof(FDC.DatePeriod.LongDescription)));
 
             Assert.That(propertyInfos.Length, Is.EqualTo(index));
         }
@@ -580,11 +599,32 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         {
             // This test exists to ensure all the Entity Status are tested/checked in the next test
             PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(FDC.EntityStatus));
+            propertyInfos = propertyInfos.Concat(GetStaticPropertyInfosForType(typeof(FDC.EnumModel))).ToArray();
             Int32 index = 0;
 
             index++; Assert.That(FDC.EntityStatus.EntityName, Is.EqualTo(nameof(FDC.EntityStatus)));
-            index++; Assert.That(FDC.EntityStatus.Name, Is.EqualTo(nameof(FDC.EntityStatus.Name)));
-            index++; Assert.That(FDC.EntityStatus.Description, Is.EqualTo(nameof(FDC.EntityStatus.Description)));
+            index++; Assert.That(FDC.EntityStatus.DisplaySequence, Is.EqualTo(nameof(FDC.EntityStatus.DisplaySequence)));
+            index++; Assert.That(FDC.EntityStatus.Code, Is.EqualTo(nameof(FDC.EntityStatus.Code)));
+            index++; Assert.That(FDC.EntityStatus.ShortDescription, Is.EqualTo(nameof(FDC.EntityStatus.ShortDescription)));
+            index++; Assert.That(FDC.EntityStatus.LongDescription, Is.EqualTo(nameof(FDC.EntityStatus.LongDescription)));
+
+            Assert.That(propertyInfos.Length, Is.EqualTo(index));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [TestCase]
+        public void Test_EnumModel()
+        {
+            // This test exists to ensure all the Event Log are tested/checked in the next test
+            PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(FDC.EnumModel));
+            Int32 index = 0;
+
+            index++; Assert.That(FDC.EnumModel.DisplaySequence, Is.EqualTo(nameof(FDC.EnumModel.DisplaySequence)));
+            index++; Assert.That(FDC.EnumModel.Code, Is.EqualTo(nameof(FDC.EnumModel.Code)));
+            index++; Assert.That(FDC.EnumModel.ShortDescription, Is.EqualTo(nameof(FDC.EnumModel.ShortDescription)));
+            index++; Assert.That(FDC.EnumModel.LongDescription, Is.EqualTo(nameof(FDC.EnumModel.LongDescription)));
 
             Assert.That(propertyInfos.Length, Is.EqualTo(index));
         }
@@ -699,10 +739,14 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         {
             // This test exists to ensure all the Image Type are tested/checked in the next test
             PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(FDC.ImageType));
+            propertyInfos = propertyInfos.Concat(GetStaticPropertyInfosForType(typeof(FDC.EnumModel))).ToArray();
             Int32 index = 0;
 
             index++; Assert.That(FDC.ImageType.EntityName, Is.EqualTo(nameof(FDC.ImageType)));
-            index++; Assert.That(FDC.ImageType.Name, Is.EqualTo(nameof(FDC.ImageType.Name)));
+            index++; Assert.That(FDC.ImageType.DisplaySequence, Is.EqualTo(nameof(FDC.ImageType.DisplaySequence)));
+            index++; Assert.That(FDC.ImageType.Code, Is.EqualTo(nameof(FDC.ImageType.Code)));
+            index++; Assert.That(FDC.ImageType.ShortDescription, Is.EqualTo(nameof(FDC.ImageType.ShortDescription)));
+            index++; Assert.That(FDC.ImageType.LongDescription, Is.EqualTo(nameof(FDC.ImageType.LongDescription)));
             index++; Assert.That(FDC.ImageType.FileExtension, Is.EqualTo(nameof(FDC.ImageType.FileExtension)));
 
             Assert.That(propertyInfos.Length, Is.EqualTo(index));
@@ -778,11 +822,14 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         {
             // This test exists to ensure all the Log Severity are tested/checked in the next test
             PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(FDC.LogSeverity));
+            propertyInfos = propertyInfos.Concat(GetStaticPropertyInfosForType(typeof(FDC.EnumModel))).ToArray();
             Int32 index = 0;
 
             index++; Assert.That(FDC.LogSeverity.EntityName, Is.EqualTo(nameof(FDC.LogSeverity)));
+            index++; Assert.That(FDC.LogSeverity.DisplaySequence, Is.EqualTo(nameof(FDC.LogSeverity.DisplaySequence)));
             index++; Assert.That(FDC.LogSeverity.Code, Is.EqualTo(nameof(FDC.LogSeverity.Code)));
-            index++; Assert.That(FDC.LogSeverity.Description, Is.EqualTo(nameof(FDC.LogSeverity.Description)));
+            index++; Assert.That(FDC.LogSeverity.ShortDescription, Is.EqualTo(nameof(FDC.LogSeverity.ShortDescription)));
+            index++; Assert.That(FDC.LogSeverity.LongDescription, Is.EqualTo(nameof(FDC.LogSeverity.LongDescription)));
 
             Assert.That(propertyInfos.Length, Is.EqualTo(index));
         }
@@ -987,11 +1034,14 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         {
             // This test exists to ensure all the Schedule Interval are tested/checked in the next test
             PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(FDC.ScheduleInterval));
+            propertyInfos = propertyInfos.Concat(GetStaticPropertyInfosForType(typeof(FDC.EnumModel))).ToArray();
             Int32 index = 0;
 
             index++; Assert.That(FDC.ScheduleInterval.EntityName, Is.EqualTo(nameof(FDC.ScheduleInterval)));
-            index++; Assert.That(FDC.ScheduleInterval.Name, Is.EqualTo(nameof(FDC.ScheduleInterval.Name)));
-            index++; Assert.That(FDC.ScheduleInterval.Description, Is.EqualTo(nameof(FDC.ScheduleInterval.Description)));
+            index++; Assert.That(FDC.ScheduleInterval.DisplaySequence, Is.EqualTo(nameof(FDC.ScheduleInterval.DisplaySequence)));
+            index++; Assert.That(FDC.ScheduleInterval.Code, Is.EqualTo(nameof(FDC.ScheduleInterval.Code)));
+            index++; Assert.That(FDC.ScheduleInterval.ShortDescription, Is.EqualTo(nameof(FDC.ScheduleInterval.ShortDescription)));
+            index++; Assert.That(FDC.ScheduleInterval.LongDescription, Is.EqualTo(nameof(FDC.ScheduleInterval.LongDescription)));
 
             Assert.That(propertyInfos.Length, Is.EqualTo(index));
         }
@@ -1023,11 +1073,14 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         {
             // This test exists to ensure all the Status are tested/checked in the next test
             PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(FDC.Status));
+            propertyInfos = propertyInfos.Concat(GetStaticPropertyInfosForType(typeof(FDC.EnumModel))).ToArray();
             Int32 index = 0;
 
             index++; Assert.That(FDC.Status.EntityName, Is.EqualTo(nameof(FDC.Status)));
-            index++; Assert.That(FDC.Status.Name, Is.EqualTo(nameof(FDC.Status.Name)));
-            index++; Assert.That(FDC.Status.Description, Is.EqualTo(nameof(FDC.Status.Description)));
+            index++; Assert.That(FDC.Status.DisplaySequence, Is.EqualTo(nameof(FDC.Status.DisplaySequence)));
+            index++; Assert.That(FDC.Status.Code, Is.EqualTo(nameof(FDC.Status.Code)));
+            index++; Assert.That(FDC.Status.ShortDescription, Is.EqualTo(nameof(FDC.Status.ShortDescription)));
+            index++; Assert.That(FDC.Status.LongDescription, Is.EqualTo(nameof(FDC.Status.LongDescription)));
 
             Assert.That(propertyInfos.Length, Is.EqualTo(index));
         }
@@ -1139,11 +1192,14 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         {
             // This test exists to ensure all the Status are tested/checked in the next test
             PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(FDC.TaskStatus));
+            propertyInfos = propertyInfos.Concat(GetStaticPropertyInfosForType(typeof(FDC.EnumModel))).ToArray();
             Int32 index = 0;
 
             index++; Assert.That(FDC.TaskStatus.EntityName, Is.EqualTo(nameof(FDC.TaskStatus)));
-            index++; Assert.That(FDC.TaskStatus.Name, Is.EqualTo(nameof(FDC.TaskStatus.Name)));
-            index++; Assert.That(FDC.TaskStatus.Description, Is.EqualTo(nameof(FDC.TaskStatus.Description)));
+            index++; Assert.That(FDC.TaskStatus.DisplaySequence, Is.EqualTo(nameof(FDC.TaskStatus.DisplaySequence)));
+            index++; Assert.That(FDC.TaskStatus.Code, Is.EqualTo(nameof(FDC.TaskStatus.Code)));
+            index++; Assert.That(FDC.TaskStatus.ShortDescription, Is.EqualTo(nameof(FDC.TaskStatus.ShortDescription)));
+            index++; Assert.That(FDC.TaskStatus.LongDescription, Is.EqualTo(nameof(FDC.TaskStatus.LongDescription)));
 
             Assert.That(propertyInfos.Length, Is.EqualTo(index));
         }

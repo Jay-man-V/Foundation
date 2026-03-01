@@ -16,7 +16,7 @@ namespace Foundation.Repository.Core.EnumRepositories
     /// </summary>
     /// <see cref="IContactType" />
     [DependencyInjectionTransient]
-    public class ContactTypeRepository : FoundationModelRepository<IContactType>, IContactTypeRepository
+    public class ContactTypeRepository : FoundationEnumModelRepository<IContactType>, IContactTypeRepository
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ContactTypeRepository"/> class.

@@ -16,7 +16,7 @@ namespace Foundation.BusinessProcess.Sec.EnumProcesses
     /// The Application Role Business Process
     /// </summary>
     [DependencyInjectionTransient]
-    public class ApplicationRoleProcess : CommonBusinessProcess<IApplicationRole, IApplicationRoleDataAccess>, IApplicationRoleProcess
+    public class ApplicationRoleProcess : EnumModelProcess<IApplicationRole, IApplicationRoleDataAccess>, IApplicationRoleProcess
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ApplicationRoleProcess" /> class.
@@ -91,7 +91,7 @@ namespace Foundation.BusinessProcess.Sec.EnumProcesses
         {
             LoggingHelpers.TraceCallEnter();
 
-            List<IGridColumnDefinition> retVal = GetStandardEntityColumnDefinitions();
+            List<IGridColumnDefinition> retVal = base.GetColumnDefinitions();
             IGridColumnDefinition gridColumnDefinition;
 
             gridColumnDefinition = new GridColumnDefinition(150, FDC.ApplicationRole.ApplicationId, "Application", typeof(String))

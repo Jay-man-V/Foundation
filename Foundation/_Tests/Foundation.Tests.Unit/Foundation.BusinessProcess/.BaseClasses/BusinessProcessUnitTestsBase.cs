@@ -4,7 +4,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.BusinessProcess.Sec;
+using NSubstitute;
+using NSubstitute.ClearExtensions;
+
 using Foundation.Common;
 using Foundation.Core;
 using Foundation.Interfaces;
@@ -12,10 +14,6 @@ using Foundation.Models.Sec;
 using Foundation.Resources;
 using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Support;
-using Foundation.ViewModels;
-
-using NSubstitute;
-using NSubstitute.ClearExtensions;
 
 using FModels = Foundation.Models;
 
@@ -53,8 +51,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
                 LastUpdatedOn = LastUpdatedOnDateTime,
                 ValidFrom = ValidFromDateTime,
                 ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
-                Name = "Inactive",
-                Description = "Inactive Description"
+                Code = "Inactive",
+                ShortDescription = "Inactive Description",
+                LongDescription = "Inactive Description"
             };
             retVal.Add(obj1);
 
@@ -68,8 +67,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
                 LastUpdatedOn = LastUpdatedOnDateTime,
                 ValidFrom = ValidFromDateTime,
                 ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
-                Name = "Active",
-                Description = "Active Description"
+                Code = "Active",
+                ShortDescription = "Active Description",
+                LongDescription = "Active Description"
             };
             retVal.Add(obj2);
 
@@ -83,8 +83,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
                 LastUpdatedOn = LastUpdatedOnDateTime,
                 ValidFrom = ValidFromDateTime,
                 ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
-                Name = "Approved",
-                Description = "Approved Description"
+                Code = "Approved",
+                ShortDescription = "Approved Description",
+                LongDescription = "Approved Description"
             };
             retVal.Add(obj3);
 
@@ -98,8 +99,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
                 LastUpdatedOn = LastUpdatedOnDateTime,
                 ValidFrom = ValidFromDateTime,
                 ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
-                Name = "PendingApproval",
-                Description = "Pending Approval"
+                Code = "PendingApproval",
+                ShortDescription = "Pending Approval",
+                LongDescription = "Pending Approval"
             };
             retVal.Add(obj4);
 
@@ -113,8 +115,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
                 LastUpdatedOn = LastUpdatedOnDateTime,
                 ValidFrom = ValidFromDateTime,
                 ValidTo = ApplicationDefaultValues.DefaultValidToDateTime,
-                Name = "InComplete",
-                Description = "In Complete"
+                Code = "InComplete",
+                ShortDescription = "In Complete",
+                LongDescription = "In Complete"
             };
             retVal.Add(obj5);
 

@@ -16,7 +16,7 @@ namespace Foundation.Repository.Core.EnumRepositories
     /// </summary>
     /// <see cref="IContractType" />
     [DependencyInjectionTransient]
-    public class ContractTypeRepository : FoundationModelRepository<IContractType>, IContractTypeRepository
+    public class ContractTypeRepository : FoundationEnumModelRepository<IContractType>, IContractTypeRepository
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ContractTypeRepository"/> class.

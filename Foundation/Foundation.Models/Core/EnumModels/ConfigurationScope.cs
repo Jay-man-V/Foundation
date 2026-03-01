@@ -4,7 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 using Foundation.Interfaces;
@@ -16,34 +15,35 @@ namespace Foundation.Models.Core.EnumModels
     /// <summary>
     /// Approval Status class
     /// </summary>
-    /// <seealso cref="FoundationModel" />
+    /// <seealso cref="EnumModel" />
     /// <seealso cref="IConfigurationScope" />
+    /// <seealso cref="IEquatable{IConfigurationScope}" />
     [DependencyInjectionTransient]
-    public class ConfigurationScope : FoundationModel, IConfigurationScope, IEquatable<IConfigurationScope>
+    public class ConfigurationScope : EnumModel, IConfigurationScope, IEquatable<IConfigurationScope>
     {
-        private String _name = String.Empty;
-        private String _description = String.Empty;
+        //private String _name = String.Empty;
+        //private String _description = String.Empty;
         private Int32 _usageSequence;
 
-        /// <inheritdoc cref="IConfigurationScope.Name"/>
-        [Column(nameof(FDC.ConfigurationScope.Name))]
-        [MaxLength(FDC.ConfigurationScope.Lengths.Name)]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Name must be provided")]
-        public String Name
-        {
-            get => this._name;
-            set => this.SetPropertyValue(ref _name, value, FDC.ConfigurationScope.Lengths.Name);
-        }
+        ///// <inheritdoc cref="IConfigurationScope.Name"/>
+        //[Column(nameof(FDC.ConfigurationScope.Name))]
+        //[MaxLength(FDC.ConfigurationScope.Lengths.Name)]
+        //[Required(AllowEmptyStrings = false, ErrorMessage = "Name must be provided")]
+        //public String Name
+        //{
+        //    get => this._name;
+        //    set => this.SetPropertyValue(ref _name, value, FDC.ConfigurationScope.Lengths.Name);
+        //}
 
-        /// <inheritdoc cref="IConfigurationScope.Description"/>
-        [Column(nameof(FDC.ConfigurationScope.Description))]
-        [MaxLength(FDC.ConfigurationScope.Lengths.Description)]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Description must be provided")]
-        public String Description
-        {
-            get => this._description;
-            set => this.SetPropertyValue(ref _description, value, FDC.ConfigurationScope.Lengths.Description);
-        }
+        ///// <inheritdoc cref="IConfigurationScope.Description"/>
+        //[Column(nameof(FDC.ConfigurationScope.Description))]
+        //[MaxLength(FDC.ConfigurationScope.Lengths.Description)]
+        //[Required(AllowEmptyStrings = false, ErrorMessage = "Description must be provided")]
+        //public String Description
+        //{
+        //    get => this._description;
+        //    set => this.SetPropertyValue(ref _description, value, FDC.ConfigurationScope.Lengths.Description);
+        //}
 
         /// <inheritdoc cref="IConfigurationScope.UsageSequence"/>
         [Column(nameof(FDC.ConfigurationScope.UsageSequence))]
@@ -60,8 +60,6 @@ namespace Foundation.Models.Core.EnumModels
 
             switch (propertyName)
             {
-                case nameof(Name): retVal = Name; break;
-                case nameof(Description): retVal = Description; break;
                 case nameof(UsageSequence): retVal = UsageSequence; break;
             }
 
@@ -74,8 +72,6 @@ namespace Foundation.Models.Core.EnumModels
             ConfigurationScope retVal = (ConfigurationScope)base.Clone();
             retVal.Initialising = true;
 
-            retVal._name = this._name;
-            retVal._description = this._description;
             retVal._usageSequence = this._usageSequence;
 
             retVal.Initialising = false;
@@ -110,8 +106,6 @@ namespace Foundation.Models.Core.EnumModels
             Int32 constant = -1521134295;
             Int32 hashCode = base.GetHashCode();
 
-            hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(Name);
-            hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(Description);
             hashCode = hashCode * constant + EqualityComparer<Int32>.Default.GetHashCode(UsageSequence);
 
             return hashCode;
@@ -128,8 +122,6 @@ namespace Foundation.Models.Core.EnumModels
 
             if (right != null)
             {
-                retVal &= EqualityComparer<String>.Default.Equals(this.Name, right.Name);
-                retVal &= EqualityComparer<String>.Default.Equals(this.Description, right.Description);
                 retVal &= EqualityComparer<Int32>.Default.Equals(this.UsageSequence, right.UsageSequence);
             }
 

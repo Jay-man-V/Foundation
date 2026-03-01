@@ -17,10 +17,11 @@ namespace Foundation.Models.Sec.EnumModels
     /// <summary>
     /// Application Role class
     /// </summary>
-    /// <seealso cref="FoundationModel" />
+    /// <seealso cref="EnumModel" />
     /// <seealso cref="IApplicationRole" />
+    /// <seealso cref="IEquatable{IApplicationRole}" />
     [DependencyInjectionTransient]
-    public class ApplicationRole : FoundationModel, IApplicationRole, IEquatable<IApplicationRole>
+    public class ApplicationRole : EnumModel, IApplicationRole, IEquatable<IApplicationRole>
     {
         private AppId _applicationId;
         private EntityId _roleId;

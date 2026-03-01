@@ -9,14 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The Schedule Interval model interface
     /// </summary>
-    public interface IScheduleInterval : IFoundationModel
+    public interface IScheduleInterval : IEnumModel
     {
-        /// <summary>Gets or sets the name.</summary>
-        /// <value>The name.</value>
-        String Name { get; set; }
-
-        /// <summary>Gets or sets the description.</summary>
-        /// <value>The description.</value>
-        String Description { get; set; }
     }
 }

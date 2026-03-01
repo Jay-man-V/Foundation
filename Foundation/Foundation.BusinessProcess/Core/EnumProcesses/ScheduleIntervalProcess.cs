@@ -6,9 +6,6 @@
 
 using Foundation.Common;
 using Foundation.Interfaces;
-using Foundation.Interfaces.Helpers;
-
-using FDC = Foundation.Resources.Constants.DataColumns;
 
 namespace Foundation.BusinessProcess.Core.EnumProcesses
 {
@@ -16,7 +13,7 @@ namespace Foundation.BusinessProcess.Core.EnumProcesses
     /// The Schedule Interval Business Process 
     /// </summary>
     [DependencyInjectionTransient]
-    public class ScheduleIntervalProcess : CommonBusinessProcess<IScheduleInterval, IScheduleIntervalRepository>, IScheduleIntervalProcess
+    public class ScheduleIntervalProcess : EnumModelProcess<IScheduleInterval, IScheduleIntervalRepository>, IScheduleIntervalProcess
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ScheduleIntervalProcess" /> class.
@@ -62,27 +59,5 @@ namespace Foundation.BusinessProcess.Core.EnumProcesses
 
         /// <inheritdoc cref="ICommonBusinessProcess.StatusBarText"/>
         public override String StatusBarText => "Number of Schedule Intervals:";
-
-        /// <inheritdoc cref="ICommonBusinessProcess.ComboBoxDisplayMember" />
-        public override String ComboBoxDisplayMember => FDC.ScheduleInterval.Name;
-
-        /// <inheritdoc cref="ICommonBusinessProcess.GetColumnDefinitions()" />
-        public override List<IGridColumnDefinition> GetColumnDefinitions()
-        {
-            LoggingHelpers.TraceCallEnter();
-
-            List<IGridColumnDefinition> retVal = GetStandardEntityColumnDefinitions();
-            IGridColumnDefinition gridColumnDefinition;
-
-            gridColumnDefinition = new GridColumnDefinition(150, FDC.ScheduleInterval.Name, "Name", typeof(String));
-            retVal.Add(gridColumnDefinition);
-
-            gridColumnDefinition = new GridColumnDefinition(150, FDC.ScheduleInterval.Description, "Description", typeof(String));
-            retVal.Add(gridColumnDefinition);
-
-            LoggingHelpers.TraceCallReturn(retVal);
-
-            return retVal;
-        }
     }
 }

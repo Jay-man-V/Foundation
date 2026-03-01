@@ -149,7 +149,7 @@ namespace Foundation.ViewModels
                     throw new ValueNotInLookupListException(sourceField, lookupListName, requestedId, sourceModel);
                 }
 
-                EntityStatusName = entityStatus.Name;
+                EntityStatusName = entityStatus.Code;
                 CreatedByUserProfileDisplayName = createdByUserProfile.DisplayName;
                 LastUpdatedByUserProfileDisplayName = lastUpdatedByUserProfile.DisplayName;
             }

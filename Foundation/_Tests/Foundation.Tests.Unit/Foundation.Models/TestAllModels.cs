@@ -35,16 +35,16 @@ namespace Foundation.Tests.Unit.Foundation.Models
         {
             List<Type> modelTypes = GetListOfValidTypes();
 
-            String expectedTypeName = typeof(FModels.FoundationModel).FullName!;
+            String[] expectedTypeNames = [typeof(FModels.FoundationModel).FullName!, typeof(FModels.EnumModel).FullName!];
 
             foreach (Type modelType in modelTypes)
             {
                 String currentTypeName = modelType.FullName!;
-                String modelTypeCheckErrorMessage = $"The Model: '{currentTypeName}' does not have the expected base class of '{expectedTypeName}'";
+                String modelTypeCheckErrorMessage = $"The Model: '{currentTypeName}' does not have the expected base class of '{String.Join(",", expectedTypeNames)}'";
 
                 String baseTypeName = modelType.BaseType!.FullName!;
 
-                Assert.That(expectedTypeName, Is.EqualTo(baseTypeName), modelTypeCheckErrorMessage);
+                Assert.That(expectedTypeNames.Contains(baseTypeName), modelTypeCheckErrorMessage);
             }
         }
         /// <summary>
@@ -77,6 +77,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.DatePeriod)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.Department)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.EntityStatus)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.EnumModel)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Log.EventLog)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Log.EventLogApplication)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Log.EventLogAttachment)));
@@ -520,7 +521,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
             }
             else if (propertyType == typeof(IContractType))
             {
-                retVal = new FModels.Core.EnumModels.ContractType { Name = Guid.NewGuid().ToString(), Description = Guid.NewGuid().ToString() };
+                retVal = new FModels.Core.EnumModels.ContractType { Code = Guid.NewGuid().ToString(), ShortDescription = Guid.NewGuid().ToString(), LongDescription = Guid.NewGuid().ToString() };
             }
             else if (propertyType == typeof(IList<IDatabaseSchemaColumn>))
             {
