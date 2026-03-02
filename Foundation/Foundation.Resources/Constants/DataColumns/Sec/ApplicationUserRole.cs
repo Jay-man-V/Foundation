@@ -9,8 +9,8 @@ namespace Foundation.Resources.Constants.DataColumns
     /// <summary>
     /// Application/User/Role data columns
     /// </summary>
-    /// <seealso cref="FoundationEntity" />
-    public abstract class ApplicationUserRole : FoundationEntity
+    /// <seealso cref="EnumModel" />
+    public abstract class ApplicationUserRole : EnumModel
     {
         /// <summary>
         /// 
