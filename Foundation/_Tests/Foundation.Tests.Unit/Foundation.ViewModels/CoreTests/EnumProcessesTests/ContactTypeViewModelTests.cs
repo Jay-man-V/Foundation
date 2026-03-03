@@ -18,7 +18,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests.EnumProcessesTes
     /// Summary description for ContactTypeViewModelTests
     /// </summary>
     [TestFixture]
-    public class ContactTypeViewModelTests : GenericDataGridViewModelTests<IContactType, IContactTypeViewModel, IContactTypeProcess>
+    public class ContactTypeViewModelTests : EnumViewModelTests<IContactType, IContactTypeViewModel, IContactTypeProcess>
     {
         protected override IContactTypeProcess CreateBusinessProcess()
         {

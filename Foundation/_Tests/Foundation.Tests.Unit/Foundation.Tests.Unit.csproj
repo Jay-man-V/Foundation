@@ -92,7 +92,9 @@
     <Compile Include="Foundation.Repository\.Support\SimpleTestEntityRepository.cs" />
     <Compile Include="Foundation.ViewModels\.BaseClasses\EntityViewModelTests.cs" />
     <Compile Include="Foundation.ViewModels\.BaseClasses\EntityViewModelUnitTestsBase.cs" />
+    <Compile Include="Foundation.ViewModels\.BaseClasses\EnumViewModelTests.cs" />
     <Compile Include="Foundation.ViewModels\.BaseClasses\GenericDataGridViewModelTests.cs" />
+    <Compile Include="Foundation.ViewModels\.BaseClasses\EnumViewModelUnitTestsBase.cs" />
     <Compile Include="Foundation.ViewModels\.BaseClasses\GenericDataGridViewModelUnitTestsBase.cs" />
     <Compile Include="Foundation.ViewModels\.BaseClasses\ViewModelTests.cs" />
     <Compile Include="Foundation.ViewModels\.BaseClasses\ViewModelUnitTestsBase.cs" />

@@ -19,7 +19,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests.EnumProcessesTes
     /// Summary description for DataStatusViewModelTests
     /// </summary>
     [TestFixture]
-    public class DataStatusViewModelTests : GenericDataGridViewModelTests<IDataStatus, IDataStatusViewModel, IDataStatusProcess>
+    public class DataStatusViewModelTests : EnumViewModelTests<IDataStatus, IDataStatusViewModel, IDataStatusProcess>
     {
         protected override IDataStatusProcess CreateBusinessProcess()
         {

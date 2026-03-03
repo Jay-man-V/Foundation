@@ -19,7 +19,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests.EnumProcessesTes
     /// Summary description for ConfigurationScopeViewModelTests
     /// </summary>
     [TestFixture]
-    public class ConfigurationScopeViewModelTests : GenericDataGridViewModelTests<IConfigurationScope, IConfigurationScopeViewModel, IConfigurationScopeProcess>
+    public class ConfigurationScopeViewModelTests : EnumViewModelTests<IConfigurationScope, IConfigurationScopeViewModel, IConfigurationScopeProcess>
     {
         protected override IConfigurationScopeProcess CreateBusinessProcess()
         {

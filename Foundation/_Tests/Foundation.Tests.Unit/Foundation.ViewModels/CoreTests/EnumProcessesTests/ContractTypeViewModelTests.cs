@@ -18,7 +18,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests.EnumProcessesTes
     /// Summary description for ContractTypeViewModelTests
     /// </summary>
     [TestFixture]
-    public class ContractTypeViewModelTests : GenericDataGridViewModelTests<IContractType, IContractTypeViewModel, IContractTypeProcess>
+    public class ContractTypeViewModelTests : EnumViewModelTests<IContractType, IContractTypeViewModel, IContractTypeProcess>
     {
         protected override IContractTypeProcess CreateBusinessProcess()
         {

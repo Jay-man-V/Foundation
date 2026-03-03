@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core.EnumViewModels
     /// <summary>
     /// The User Interface interaction logic for Image Type maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModel{IImageType}" />
+    /// <seealso cref="EnumViewModel{IImageType}" />
     [DependencyInjectionTransient]
-    public class ImageTypeViewModel : GenericDataGridViewModel<IImageType>, IImageTypeViewModel
+    public class ImageTypeViewModel : EnumViewModel<IImageType>, IImageTypeViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ImageTypeViewModel"/> class.

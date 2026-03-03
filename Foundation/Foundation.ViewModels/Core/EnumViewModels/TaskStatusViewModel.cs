@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core.EnumViewModels
     /// <summary>
     /// The User Interface interaction logic for Task Status maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModel{ITaskStatus}" />
+    /// <seealso cref="EnumViewModel{ITaskStatus}" />
     [DependencyInjectionTransient]
-    public class TaskStatusViewModel : GenericDataGridViewModel<ITaskStatus>, ITaskStatusViewModel
+    public class TaskStatusViewModel : EnumViewModel<ITaskStatus>, ITaskStatusViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="TaskStatusViewModel"/> class.

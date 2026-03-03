@@ -19,7 +19,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests.EnumProcessesTes
     /// Summary description for DatePeriodViewModelTests
     /// </summary>
     [TestFixture]
-    public class DatePeriodViewModelTests : GenericDataGridViewModelTests<IDatePeriod, IDatePeriodViewModel, IDatePeriodProcess>
+    public class DatePeriodViewModelTests : EnumViewModelTests<IDatePeriod, IDatePeriodViewModel, IDatePeriodProcess>
     {
         protected override IDatePeriodProcess CreateBusinessProcess()
         {

@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core.EnumViewModels
     /// <summary>
     /// The User Interface interaction logic for DatePeriod maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModel{IDatePeriod}" />
+    /// <seealso cref="EnumViewModel{IDatePeriod}" />
     [DependencyInjectionTransient]
-    public class DatePeriodViewModel : GenericDataGridViewModel<IDatePeriod>, IDatePeriodViewModel
+    public class DatePeriodViewModel : EnumViewModel<IDatePeriod>, IDatePeriodViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="DatePeriodViewModel"/> class.

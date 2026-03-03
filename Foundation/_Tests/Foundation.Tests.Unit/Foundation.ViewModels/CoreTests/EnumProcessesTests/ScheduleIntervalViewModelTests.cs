@@ -19,7 +19,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests.EnumProcessesTes
     /// Summary description for ScheduleIntervalViewModelTests
     /// </summary>
     [TestFixture]
-    public class ScheduleIntervalViewModelTests : GenericDataGridViewModelTests<IScheduleInterval, IScheduleIntervalViewModel, IScheduleIntervalProcess>
+    public class ScheduleIntervalViewModelTests : EnumViewModelTests<IScheduleInterval, IScheduleIntervalViewModel, IScheduleIntervalProcess>
     {
         protected override IScheduleIntervalProcess CreateBusinessProcess()
         {

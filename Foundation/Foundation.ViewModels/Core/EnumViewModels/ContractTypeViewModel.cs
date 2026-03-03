@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core.EnumViewModels
     /// <summary>
     /// The User Interface interaction logic for Contract Type maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModel{IContractType}" />
+    /// <seealso cref="EnumViewModel{IContractType}" />
     [DependencyInjectionTransient]
-    public class ContractTypeViewModel : GenericDataGridViewModel<IContractType>, IContractTypeViewModel
+    public class ContractTypeViewModel : EnumViewModel<IContractType>, IContractTypeViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ContractTypeViewModel"/> class.

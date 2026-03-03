@@ -18,7 +18,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests.EnumProcessesTes
     /// Summary description for ImageTypeViewModelTests
     /// </summary>
     [TestFixture]
-    public class ImageTypeViewModelTests : GenericDataGridViewModelTests<IImageType, IImageTypeViewModel, IImageTypeProcess>
+    public class ImageTypeViewModelTests : EnumViewModelTests<IImageType, IImageTypeViewModel, IImageTypeProcess>
     {
         protected override IImageTypeProcess CreateBusinessProcess()
         {

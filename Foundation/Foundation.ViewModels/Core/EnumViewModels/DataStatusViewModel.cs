@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core.EnumViewModels
     /// <summary>
     /// The User Interface interaction logic for Data Status maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModel{IDataStatus}" />
+    /// <seealso cref="EnumViewModel{IDataStatus}" />
     [DependencyInjectionTransient]
-    public class DataStatusViewModel : GenericDataGridViewModel<IDataStatus>, IDataStatusViewModel
+    public class DataStatusViewModel : EnumViewModel<IDataStatus>, IDataStatusViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="DataStatusViewModel"/> class.

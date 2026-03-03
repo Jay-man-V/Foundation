@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ApplicationRoleViewModel.cs" company="JDV Software Ltd">
+// <copyright file="EnumViewModel.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -7,32 +7,30 @@
 using Foundation.Common;
 using Foundation.Interfaces;
 
-namespace Foundation.ViewModels.Sec.EnumViewModels
+namespace Foundation.ViewModels
 {
     /// <summary>
-    /// The User Interface interaction logic for Application Role maintenance
+    /// Implements generic routines for a Data Grid based view model
     /// </summary>
-    /// <seealso cref="EnumViewModel{IApplicationRole}" />
-    [DependencyInjectionTransient]
-    public class ApplicationRoleViewModel : EnumViewModel<IApplicationRole>, IApplicationRoleViewModel
+    /// <typeparam name="TModel"></typeparam>
+    public abstract class EnumViewModel<TModel> : GenericDataGridViewModel<TModel>, IEnumViewModel<TModel>
+        where TModel : IFoundationModel
     {
-        /// <summary>
-        /// Initialises a new instance of the <see cref="ApplicationRoleViewModel"/> class.
-        /// </summary>
+        /// <summary>Initialises a new instance of the <see cref="GenericDataGridViewModel{TModel}" /> class.</summary>
         /// <param name="core">The Foundation Core service.</param>
-        /// <param name="runTimeEnvironmentSettings">The runtime environment settings.</param>
+        /// <param name="runTimeEnvironmentSettings">The runtime environment settings</param>
         /// <param name="dateTimeService">The date time service.</param>
         /// <param name="wpfApplicationObjects">The wpf application objects collection.</param>
         /// <param name="fileApi">The file service.</param>
-        /// <param name="applicationRoleProcess">The application role process.</param>
-        public ApplicationRoleViewModel
+        /// <param name="commonBusinessProcess">The common business process.</param>
+        protected EnumViewModel
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
             IWpfApplicationObjects wpfApplicationObjects,
             IFileApi fileApi,
-            IApplicationRoleProcess applicationRoleProcess
+            ICommonBusinessProcess<TModel> commonBusinessProcess
         ) :
             base
             (
@@ -41,10 +39,10 @@ namespace Foundation.ViewModels.Sec.EnumViewModels
                 dateTimeService,
                 wpfApplicationObjects,
                 fileApi,
-                applicationRoleProcess
+                commonBusinessProcess
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, wpfApplicationObjects, fileApi, applicationRoleProcess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, wpfApplicationObjects, commonBusinessProcess);
 
             LoggingHelpers.TraceCallReturn();
         }

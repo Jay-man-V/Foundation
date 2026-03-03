@@ -19,7 +19,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.LogTests.EnumProcessesTest
     /// Summary description for LogSeverityViewModelTests
     /// </summary>
     [TestFixture]
-    public class LogSeverityViewModelTests : GenericDataGridViewModelTests<ILogSeverity, ILogSeverityViewModel, ILogSeverityProcess>
+    public class LogSeverityViewModelTests : EnumViewModelTests<ILogSeverity, ILogSeverityViewModel, ILogSeverityProcess>
     {
         protected override ILogSeverityProcess CreateBusinessProcess()
         {

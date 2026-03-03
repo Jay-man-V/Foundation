@@ -12,9 +12,9 @@ namespace Foundation.ViewModels.Core.EnumViewModels
     /// <summary>
     /// The User Interface interaction logic for Approval Status maintenance
     /// </summary>
-    /// <seealso cref="GenericDataGridViewModel{IApprovalStatus}" />
+    /// <seealso cref="EnumViewModel{IApprovalStatus}" />
     [DependencyInjectionTransient]
-    public class ApprovalStatusViewModel : GenericDataGridViewModel<IApprovalStatus>, IApprovalStatusViewModel
+    public class ApprovalStatusViewModel : EnumViewModel<IApprovalStatus>, IApprovalStatusViewModel
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="ApprovalStatusViewModel"/> class.

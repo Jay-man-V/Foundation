@@ -19,7 +19,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.CoreTests.EnumProcessesTes
     /// Summary description for ApprovalStatusViewModelTests
     /// </summary>
     [TestFixture]
-    public class ApprovalStatusViewModelTests : GenericDataGridViewModelTests<IApprovalStatus, IApprovalStatusViewModel, IApprovalStatusProcess>
+    public class ApprovalStatusViewModelTests : EnumViewModelTests<IApprovalStatus, IApprovalStatusViewModel, IApprovalStatusProcess>
     {
         protected override IApprovalStatusProcess CreateBusinessProcess()
         {

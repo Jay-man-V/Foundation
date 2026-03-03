@@ -19,7 +19,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests.EnumProcessesTest
     /// Summary description for ApplicationRoleViewModelTests
     /// </summary>
     [TestFixture]
-    public class ApplicationRoleViewModelTests : GenericDataGridViewModelTests<IApplicationRole, IApplicationRoleViewModel, IApplicationRoleProcess>
+    public class ApplicationRoleViewModelTests : EnumViewModelTests<IApplicationRole, IApplicationRoleViewModel, IApplicationRoleProcess>
     {
         protected override IApplicationRoleProcess CreateBusinessProcess()
         {
