@@ -13,30 +13,21 @@
     d:DesignHeight="300"
     d:DesignWidth="600"
 >
-    <!--<UserControl.Resources>
-        <Style TargetType="{x:Type DataGridRowHeader}">
-            <Setter Property="FontSize" Value="{DynamicResource SmallContentFontSize}"/>
-        </Style>
-        <Style TargetType="{x:Type DataGridCell}">
-            <Setter Property="FontSize" Value="{DynamicResource SmallContentFontSize}"/>
-        </Style>
-    </UserControl.Resources>-->
-
         <basic:GridViewControl
-        x:Name="GridViewControl"
-        RefreshCommand="{Binding RefreshCommand}" RefreshButtonVisibility="{Binding RefreshButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" RefreshButtonEnabled="{Binding RefreshCommandEnabled}"
-        ViewCommand="{Binding ViewRecordCommand}" ViewButtonVisibility="{Binding ViewButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" ViewButtonEnabled="{Binding ViewRecordCommandEnabled}"
-        AddCommand="{Binding AddRecordCommand}" AddButtonVisibility="{Binding AddButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" AddButtonEnabled="{Binding AddRecordCommandEnabled}"
-        EditCommand="{Binding EditRecordCommand}" EditButtonVisibility="{Binding EditButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" EditButtonEnabled="{Binding EditRecordCommandEnabled}"
-        DeleteCommand="{Binding DeleteRecordCommand}" DeleteButtonVisibility="{Binding DeleteButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" DeleteButtonEnabled="{Binding DeleteRecordCommandEnabled}"
-        SelectedItem="{Binding SelectedItem}"
-        SelectedItemChangedCommand="{Binding SelectedGridItemChangedCommand}"
-        StatusBarText="{Binding StatusBarText}"
-        GridColumns="{Binding DataGridColumns}"
-        DataSource="{Binding GridDataSource}"
-        ExportGridToCsvCommand="{Binding ExportGridToCsvCommand}"
-        ExportGridToExcelCommand="{Binding ExportGridToExcelCommand}"
-    >
+            x:Name="GridViewControl"
+            RefreshCommand="{Binding RefreshCommand}" RefreshButtonVisibility="{Binding RefreshButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" RefreshButtonEnabled="{Binding RefreshCommandEnabled}"
+            ViewCommand="{Binding ViewRecordCommand}" ViewButtonVisibility="{Binding ViewButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" ViewButtonEnabled="{Binding ViewRecordCommandEnabled}"
+            AddCommand="{Binding AddRecordCommand}" AddButtonVisibility="{Binding AddButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" AddButtonEnabled="{Binding AddRecordCommandEnabled}"
+            EditCommand="{Binding EditRecordCommand}" EditButtonVisibility="{Binding EditButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" EditButtonEnabled="{Binding EditRecordCommandEnabled}"
+            DeleteCommand="{Binding DeleteRecordCommand}" DeleteButtonVisibility="{Binding DeleteButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" DeleteButtonEnabled="{Binding DeleteRecordCommandEnabled}"
+            SelectedItem="{Binding SelectedItem}"
+            SelectedItemChangedCommand="{Binding SelectedGridItemChangedCommand}"
+            StatusBarText="{Binding StatusBarText}"
+            GridColumns="{Binding DataGridColumns}"
+            DataSource="{Binding GridDataSource}"
+            ExportGridToCsvCommand="{Binding ExportGridToCsvCommand}"
+            ExportGridToExcelCommand="{Binding ExportGridToExcelCommand}"
+        >
         <basic:GridViewControl.CustomToolbar>
             <ToolBar Visibility="{Binding ActionsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <basic:ButtonControl Content="{Binding Action1Name}" Visibility="{Binding HasOptionalAction1, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding Action1Command}" />

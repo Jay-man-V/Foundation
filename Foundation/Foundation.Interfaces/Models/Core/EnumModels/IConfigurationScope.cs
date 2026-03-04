@@ -13,6 +13,6 @@ namespace Foundation.Interfaces
     {
         /// <summary>Gets or sets the usage sequence.</summary>
         /// <value>The usage sequence.</value>
-        Int32 UsageSequence { get; set; }
+        Int16 UsageSequence { get; set; }
     }
 }

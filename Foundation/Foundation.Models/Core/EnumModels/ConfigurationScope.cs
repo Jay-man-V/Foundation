@@ -23,7 +23,7 @@ namespace Foundation.Models.Core.EnumModels
     {
         //private String _name = String.Empty;
         //private String _description = String.Empty;
-        private Int32 _usageSequence;
+        private Int16 _usageSequence;
 
         ///// <inheritdoc cref="IConfigurationScope.Name"/>
         //[Column(nameof(FDC.ConfigurationScope.Name))]
@@ -47,7 +47,7 @@ namespace Foundation.Models.Core.EnumModels
 
         /// <inheritdoc cref="IConfigurationScope.UsageSequence"/>
         [Column(nameof(FDC.ConfigurationScope.UsageSequence))]
-        public Int32 UsageSequence
+        public Int16 UsageSequence
         {
             get => this._usageSequence;
             set => this.SetPropertyValue(ref _usageSequence, value);
@@ -106,7 +106,7 @@ namespace Foundation.Models.Core.EnumModels
             Int32 constant = -1521134295;
             Int32 hashCode = base.GetHashCode();
 
-            hashCode = hashCode * constant + EqualityComparer<Int32>.Default.GetHashCode(UsageSequence);
+            hashCode = hashCode * constant + EqualityComparer<Int16>.Default.GetHashCode(UsageSequence);
 
             return hashCode;
         }
@@ -122,7 +122,7 @@ namespace Foundation.Models.Core.EnumModels
 
             if (right != null)
             {
-                retVal &= EqualityComparer<Int32>.Default.Equals(this.UsageSequence, right.UsageSequence);
+                retVal &= EqualityComparer<Int16>.Default.Equals(this.UsageSequence, right.UsageSequence);
             }
 
             return retVal;
