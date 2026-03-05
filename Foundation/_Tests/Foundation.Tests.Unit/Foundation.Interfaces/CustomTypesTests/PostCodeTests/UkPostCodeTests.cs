@@ -49,11 +49,11 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.PostCodeT
             TestAndAssertRegEx(p2, pattern);
 
             // Pass 3 - upper case, no space
-            String p3 = input.ToUpper().Replace(" ", String.Empty);
+            String p3 = input.ToUpper().Replace(" ", String.Empty, StringComparison.InvariantCulture);
             TestAndAssertRegEx(p3, pattern);
 
             // Pass 4 - lower case, no space
-            String p4 = input.ToLower().Replace(" ", String.Empty);
+            String p4 = input.ToLower().Replace(" ", String.Empty, StringComparison.InvariantCulture);
             TestAndAssertRegEx(p4, pattern);
         }
 

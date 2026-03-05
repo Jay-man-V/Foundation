@@ -398,8 +398,8 @@ namespace Foundation.Tests.Unit.Foundation.Models
             // Get a list of all types
             List<Type> retVal = allModelTypes.Where(t => !String.IsNullOrEmpty(t.FullName) &&
                                                          !String.IsNullOrEmpty(t.Namespace) &&
-                                                         t.Namespace.StartsWith(targetNamespace) &&
-                                                         !t.FullName.Contains("DisplayClass") &&
+                                                         t.Namespace.StartsWith(targetNamespace, StringComparison.InvariantCulture) &&
+                                                         !t.FullName.Contains("DisplayClass", StringComparison.InvariantCulture) &&
                                                          !t.Attributes.HasFlag(TypeAttributes.Abstract)
                                                     ).OrderBy(t2 => t2.Name).ToList();
 

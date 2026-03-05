@@ -879,11 +879,11 @@ namespace Foundation.BusinessProcess
                         outputStream.Write(",");
                     }
 
-                    value = value.Replace(Environment.NewLine, String.Empty);
-                    value = value.Replace("\r", String.Empty);
-                    value = value.Replace("\n", String.Empty);
+                    value = value.Replace(Environment.NewLine, String.Empty, StringComparison.InvariantCulture);
+                    value = value.Replace("\r", String.Empty, StringComparison.InvariantCulture);
+                    value = value.Replace("\n", String.Empty, StringComparison.InvariantCulture);
 
-                    if (value.Contains(","))
+                    if (value.Contains(',', StringComparison.InvariantCulture))
                     {
                         value = $"\"{value}\"";
                     }

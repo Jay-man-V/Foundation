@@ -176,7 +176,7 @@ namespace Foundation.Common
             String assemblyConfiguration = "<unknown>";
 
             String exceptionSource = exception.Source ?? "unknown";
-            Assembly? targetAssembly = loadAssemblies.FirstOrDefault(a => a.FullName != null && a.FullName.Contains(exceptionSource));
+            Assembly? targetAssembly = loadAssemblies.FirstOrDefault(a => a.FullName != null && a.FullName.Contains(exceptionSource, StringComparison.InvariantCulture));
             if (targetAssembly != null)
             {
                 Boolean isDebugBuild = IsDebugBuild(targetAssembly);

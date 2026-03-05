@@ -103,7 +103,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.LoggingTests.LogWritersTests
 
             Assert.That(eventLogEntry, Is.Not.EqualTo(null));
             Assert.That(eventLogEntry.EntryType, Is.EqualTo(expectedEventLogEntryType));
-            Assert.That(eventLogEntry.Message.Contains(expectedMessage));
+            Assert.That(eventLogEntry.Message.Contains(expectedMessage, StringComparison.InvariantCulture));
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.LoggingTests.LogWritersTests
 
             Assert.That(eventLogEntry, Is.Not.EqualTo(null));
             Assert.That(eventLogEntry.EntryType, Is.EqualTo(expectedEventLogEntryType));
-            Assert.That(eventLogEntry.Message.Contains(expectedMessage));
+            Assert.That(eventLogEntry.Message.Contains(expectedMessage, StringComparison.InvariantCulture));
         }
 
         public EventLogEntry? FindEventLogEntry(string outputMessage)
@@ -132,7 +132,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.LoggingTests.LogWritersTests
             EventLog log = new EventLog(TargetEventLog);
 
             IEnumerable<EventLogEntry> entries = log.Entries.Cast<EventLogEntry>();
-            EventLogEntry? retVal = entries.LastOrDefault(x => x.Message.Contains(outputMessage));
+            EventLogEntry? retVal = entries.LastOrDefault(x => x.Message.Contains(outputMessage, StringComparison.InvariantCulture));
 
             return retVal;
         }

@@ -30,8 +30,8 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.AttributesTests
             int testMethodCount = testMethods.Count();
 
             // This test exists to ensure all the Application Settings are tested/checked in the next test
-            List<Type> allTypes = GetListOfValidTypes(t => t.BaseType != null && t.BaseType.Name.EndsWith("Attribute") &&
-                                                           t.Namespace != null && t.Namespace.StartsWith("Foundation")
+            List<Type> allTypes = GetListOfValidTypes(t => t.BaseType != null && t.BaseType.Name.EndsWith("Attribute", StringComparison.InvariantCulture) &&
+                                                           t.Namespace != null && t.Namespace.StartsWith("Foundation", StringComparison.InvariantCulture)
                                                            );
 
             Assert.That(allTypes.Count, Is.EqualTo(testMethodCount - 1));

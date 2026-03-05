@@ -60,11 +60,11 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.PostCodeT
             TestAndAssertPostCodeObject(v2);
 
             // Pass 3 - lower case, no space
-            String v3 = input.ToLower().Replace(" ", String.Empty);
+            String v3 = input.ToLower().Replace(" ", String.Empty, StringComparison.InvariantCulture);
             TestAndAssertPostCodeObject(v3);
 
             // Pass 4 - lower case, no space
-            String v4 = input.ToLower().Replace(" ", String.Empty);
+            String v4 = input.ToLower().Replace(" ", String.Empty, StringComparison.InvariantCulture);
             TestAndAssertPostCodeObject(v4);
         }
 

@@ -99,7 +99,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             String tempFileName = fi.Name;
 
             Assert.That(Path.Combine(systemTempFolderPath, baseFolder), Is.EqualTo(tempFolderPath));
-            Assert.That(tempFileName.StartsWith(filePrefix));
+            Assert.That(tempFileName.StartsWith(filePrefix, StringComparison.InvariantCulture));
         }
 
         [TestCase]

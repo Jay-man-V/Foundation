@@ -270,7 +270,7 @@ namespace Foundation.DocumentGenerator
                                 fillColor.A,
                                 fillColor.R,
                                 fillColor.G,
-                                fillColor.B)).Replace("#", "")
+                                fillColor.B)).Replace("#", "", StringComparison.InvariantCulture)
                 }
             };
         }

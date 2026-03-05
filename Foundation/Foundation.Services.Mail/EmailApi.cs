@@ -110,8 +110,8 @@ namespace Foundation.Services.Mail
 
             String mailTemplateHtml = ResourceLoader.GetResourceFileAsText(ResourceNames.EMailTemplates.FormalEmailTemplate);
             String newBody = mailTemplateHtml;
-            newBody = newBody.Replace("$$SUBJECT$$", subject);
-            newBody = newBody.Replace("$$BODY$$", body);
+            newBody = newBody.Replace("$$SUBJECT$$", subject, StringComparison.InvariantCulture);
+            newBody = newBody.Replace("$$BODY$$", body, StringComparison.InvariantCulture);
 
             MailMessage mailMessage = new MailMessage
             {

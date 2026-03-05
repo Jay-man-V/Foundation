@@ -32,8 +32,8 @@ namespace Foundation.Tests.Unit.Foundation.Common.AttributesTests
             // This test exists to ensure all the Application Settings are tested/checked in the next test
             List<Type> allTypes = GetListOfValidTypes(t => t.BaseType is not null &&
                                                            t.Namespace is not null &&
-                                                           t.BaseType.Name.EndsWith("Attribute") &&
-                                                           t.Namespace.StartsWith("Foundation"));
+                                                           t.BaseType.Name.EndsWith("Attribute", StringComparison.InvariantCulture) &&
+                                                           t.Namespace.StartsWith("Foundation", StringComparison.InvariantCulture));
 
             Assert.That(allTypes.Count, Is.EqualTo(testMethodCount - 1));
 

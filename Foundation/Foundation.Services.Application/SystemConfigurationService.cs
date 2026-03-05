@@ -74,7 +74,7 @@ namespace Foundation.Services.Application
             String retVal = parts[0];
 
             // We don't expect the Provider Name portion to have any white space
-            retVal = retVal.Replace(" ", String.Empty);
+            retVal = retVal.Replace(" ", String.Empty, StringComparison.InvariantCultureIgnoreCase);
 
             // String the tag 'ProviderName=' from the string and return
             retVal = retVal.Replace("ProviderName=", String.Empty, StringComparison.InvariantCultureIgnoreCase);

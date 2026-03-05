@@ -35,8 +35,8 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
             // Get a list of all types
             List<Type> allTypes = allModelTypes.Where(t => !String.IsNullOrEmpty(t.FullName) && 
                                                            !String.IsNullOrEmpty(t.Namespace) &&
-                                                           t.Namespace.StartsWith(targetNamespace) &&
-                                                           !t.Name.EndsWith("Lengths")
+                                                           t.Namespace.StartsWith(targetNamespace, StringComparison.InvariantCulture) &&
+                                                           !t.Name.EndsWith("Lengths", StringComparison.InvariantCulture)
                                                            ).OrderBy(t2 => t2.Name).ToList();
 
             Int32 index = 0;

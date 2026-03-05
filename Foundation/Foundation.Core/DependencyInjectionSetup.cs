@@ -105,9 +105,9 @@ namespace Foundation.Core
                 // and those that are marked for ignoring
                 // and those that don't implement an Interface
                 List<Type> filteredTypes = allTypes.Where(at => !String.IsNullOrEmpty(at.Namespace) &&
-                                                                at.Namespace.StartsWith(typeNamespacePrefix) &&
+                                                                at.Namespace.StartsWith(typeNamespacePrefix, StringComparison.InvariantCulture) &&
                                                                 at.GetInterfaces().Length > 0 &&
-                                                                !ExcludedTypes.Any(el => at.Namespace.StartsWith(el))
+                                                                !ExcludedTypes.Any(el => at.Namespace.StartsWith(el, StringComparison.InvariantCulture))
                                                          ).ToList();
 
                 const Boolean searchInherited = false;
@@ -172,7 +172,7 @@ namespace Foundation.Core
                 if (!String.IsNullOrEmpty(implementationTypeName))
                 {
 #if (DEBUG)
-                    if (implementationTypeName.Contains("MockApplicationStartup"))
+                    if (implementationTypeName.Contains("MockApplicationStartup", StringComparison.InvariantCulture))
                     {
                     }
 #endif
@@ -198,14 +198,14 @@ namespace Foundation.Core
                         {
                             String interfaceName = interfaceType.Name;
 #if (DEBUG)
-                            if (interfaceName.Contains("IMockApplicationStartup"))
+                            if (interfaceName.Contains("IMockApplicationStartup", StringComparison.InvariantCulture))
                             {
                             }
 #endif
 
                             Boolean excludedAttributesCheck = !interfaceType.GetCustomAttributes<DependencyInjectionIgnoreAttribute>(inherit: false).Any();
-                            //Boolean excludedInterfaceCheck = !ExcludedInterfaces.Contains(interfaceName);
-                            Boolean typeFullNameCheck = interfaceFullName.StartsWith(typeNamespacePrefix);
+                            //Boolean excludedInterfaceCheck = !ExcludedInterfaces.Contains(interfaceName, StringComparison.InvariantCulture);
+                            Boolean typeFullNameCheck = interfaceFullName.StartsWith(typeNamespacePrefix, StringComparison.InvariantCulture);
 
                             if (excludedAttributesCheck &&
                                 typeFullNameCheck)
