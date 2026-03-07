@@ -11,7 +11,7 @@ namespace Foundation.Views
     /// <summary>
     /// Interaction logic for ApplicationOptionsForm.xaml
     /// </summary>
-    public partial class ApplicationOptionsForm : IWindow
+    public partial class ApplicationOptionsForm : IViewForm
     {
         /// <summary>
         /// Constructor

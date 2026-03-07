@@ -11,7 +11,7 @@ namespace Foundation.Views
     /// <summary>
     /// Interaction logic for AboutSplashScreenForm.xaml
     /// </summary>
-    public partial class AboutSplashScreenForm : IWindow
+    public partial class AboutSplashScreenForm : IViewForm
     {
         /// <summary>
         /// Constructor

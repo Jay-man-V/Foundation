@@ -45,7 +45,7 @@ namespace Foundation.ViewModels.Main
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
             IWpfApplicationObjects wpfApplicationObjects,
-            IWindow targetWindow,
+            IViewForm targetWindow,
             IViewModel parentViewModel,
             string formTitle = "Information"
         ) :
@@ -105,7 +105,7 @@ namespace Foundation.ViewModels.Main
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
             IWpfApplicationObjects wpfApplicationObjects,
-            IWindow targetWindow,
+            IViewForm targetWindow,
             IViewModel parentViewModel,
             FEnums.MessageBoxImage messageBoxImage,
             Exception exception,
@@ -233,23 +233,23 @@ namespace Foundation.ViewModels.Main
         
         /// <summary>Gets the yes button command.</summary>
         /// <value>The yes button command.</value>
-        public ICommand YesButtonCommand => RelayCommandFactory.New<IWindow>(OnYesButtonCommand_Execute);
+        public ICommand YesButtonCommand => RelayCommandFactory.New<IViewForm>(OnYesButtonCommand_Execute);
 
         /// <summary>Gets the no button command.</summary>
         /// <value>The no button command.</value>
-        public ICommand NoButtonCommand => RelayCommandFactory.New<IWindow>(OnNoButtonCommand_Execute);
+        public ICommand NoButtonCommand => RelayCommandFactory.New<IViewForm>(OnNoButtonCommand_Execute);
 
         /// <summary>Gets the okay button command.</summary>
         /// <value>The okay button command.</value>
-        public ICommand OkayButtonCommand => RelayCommandFactory.New<IWindow>(OnOkayButtonCommand_Execute);
+        public ICommand OkayButtonCommand => RelayCommandFactory.New<IViewForm>(OnOkayButtonCommand_Execute);
 
         /// <summary>Gets the cancel button command.</summary>
         /// <value>The cancel button command.</value>
-        public ICommand CancelButtonCommand => RelayCommandFactory.New<IWindow>(OnCancelButtonCommand_Execute);
+        public ICommand CancelButtonCommand => RelayCommandFactory.New<IViewForm>(OnCancelButtonCommand_Execute);
 
         /// <summary>Gets the close button command.</summary>
         /// <value>The close button command.</value>
-        public ICommand CloseButtonCommand => RelayCommandFactory.New<IWindow>(OnCloseButtonCommand_Execute);
+        public ICommand CloseButtonCommand => RelayCommandFactory.New<IViewForm>(OnCloseButtonCommand_Execute);
 
         /// <summary>Gets the copy to clipboard command.</summary>
         /// <value>The copy to clipboard command.</value>
@@ -294,7 +294,7 @@ namespace Foundation.ViewModels.Main
         /// <param name="window">The window.</param>
         /// <param name="buttonText">The button text.</param>
         /// <exception cref="ArgumentException"></exception>
-        private void OnButtonCommand_Execute(IWindow? window, string buttonText)
+        private void OnButtonCommand_Execute(IViewForm? window, string buttonText)
         {
             LoggingHelpers.TraceCallEnter(window);
 
@@ -320,7 +320,7 @@ namespace Foundation.ViewModels.Main
 
         /// <summary>Called when [yes button command execute].</summary>
         /// <param name="o">The o.</param>
-        private void OnYesButtonCommand_Execute(IWindow? o)
+        private void OnYesButtonCommand_Execute(IViewForm? o)
         {
             LoggingHelpers.TraceCallEnter(o);
 
@@ -331,7 +331,7 @@ namespace Foundation.ViewModels.Main
 
         /// <summary>Called when [no button command execute].</summary>
         /// <param name="o">The o.</param>
-        private void OnNoButtonCommand_Execute(IWindow? o)
+        private void OnNoButtonCommand_Execute(IViewForm? o)
         {
             LoggingHelpers.TraceCallEnter(o);
 
@@ -342,7 +342,7 @@ namespace Foundation.ViewModels.Main
 
         /// <summary>Called when [okay button command execute].</summary>
         /// <param name="o">The o.</param>
-        private void OnOkayButtonCommand_Execute(IWindow? o)
+        private void OnOkayButtonCommand_Execute(IViewForm? o)
         {
             LoggingHelpers.TraceCallEnter(o);
 
@@ -353,7 +353,7 @@ namespace Foundation.ViewModels.Main
 
         /// <summary>Called when [cancel button command execute].</summary>
         /// <param name="o">The o.</param>
-        private void OnCancelButtonCommand_Execute(IWindow? o)
+        private void OnCancelButtonCommand_Execute(IViewForm? o)
         {
             LoggingHelpers.TraceCallEnter(o);
 
@@ -364,7 +364,7 @@ namespace Foundation.ViewModels.Main
 
         /// <summary>Called when [close button command execute].</summary>
         /// <param name="o">The o.</param>
-        private void OnCloseButtonCommand_Execute(IWindow? o)
+        private void OnCloseButtonCommand_Execute(IViewForm? o)
         {
             LoggingHelpers.TraceCallEnter(o);
 

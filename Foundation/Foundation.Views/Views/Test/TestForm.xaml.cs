@@ -11,7 +11,7 @@ namespace Foundation.Views.Test
     /// <summary>
     /// Interaction logic for TestForm.xaml
     /// </summary>
-    public partial class TestForm : IWindow
+    public partial class TestForm : IViewForm
     {
         /// <summary>
         /// Constructor

@@ -11,7 +11,7 @@ namespace Foundation.Views
     /// <summary>
     /// Interaction logic for ProgressBarForm.xaml
     /// </summary>
-    public partial class ProgressBarForm : IWindow
+    public partial class ProgressBarForm : IViewForm
     {
         /// <summary>
         /// Constructor

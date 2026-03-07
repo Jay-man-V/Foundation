@@ -1304,7 +1304,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
         {
             SetupForRefreshData();
 
-            const IWindow? targetWindow = null;
+            const IViewForm? targetWindow = null;
             const IViewModel? parentViewModel = null;
             String formTitle = String.Empty;
 

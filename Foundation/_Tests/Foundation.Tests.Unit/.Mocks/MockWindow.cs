@@ -8,7 +8,7 @@ using Foundation.Interfaces;
 
 namespace Foundation.Tests.Unit.Mocks
 {
-    public interface IMockWindow : IWindow
+    public interface IMockWindow : IViewForm
     {
         
     }

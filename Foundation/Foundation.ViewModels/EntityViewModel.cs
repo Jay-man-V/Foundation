@@ -52,8 +52,8 @@ namespace Foundation.ViewModels
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="Initialise(IWindow, IViewModel, IFoundationModel, String)"/>
-        public void Initialise(IWindow targetWindow, IViewModel parentViewModel, IFoundationModel entity, String formTitle)
+        /// <inheritdoc cref="Initialise(IViewForm, IViewModel, IFoundationModel, String)"/>
+        public void Initialise(IViewForm targetWindow, IViewModel parentViewModel, IFoundationModel entity, String formTitle)
         {
             LoggingHelpers.TraceCallEnter(targetWindow, parentViewModel, entity, formTitle);
 
@@ -167,8 +167,8 @@ namespace Foundation.ViewModels
         /// <value>The last name of the updated by user profile display.</value>
         public String LastUpdatedByUserProfileDisplayName { get; private set; }
 
-        /// <inheritdoc cref="OnCloseWindowCommand_Execute(IWindow)"/>
-        protected override void OnCloseWindowCommand_Execute(IWindow? window)
+        /// <inheritdoc cref="OnCloseWindowCommand_Execute(IViewForm)"/>
+        protected override void OnCloseWindowCommand_Execute(IViewForm? window)
         {
             LoggingHelpers.TraceCallEnter(window);
 

@@ -334,10 +334,6 @@ namespace Foundation.Interfaces
         /// <value>The data grid columns.</value>
         ObservableCollection<IGridColumnDefinition> DataGridColumns { get; }
 
-        /// <summary>Gets the grid export columns.</summary>
-        /// <value>The grid export columns.</value>
-        List<IGridColumnDefinition> GridExportColumns { get; }
-
         /// <summary>Gets or sets the selected item.</summary>
         /// <value>The selected item.</value>
         TModel? SelectedItem { get; set; }
@@ -379,5 +375,9 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <value>The copy cell value command.</value>
         ICommand CopyCellValueCommand { get; }
+
+        /// <summary>Gets the grid export columns.</summary>
+        /// <value>The grid export columns.</value>
+        List<IGridColumnDefinition> GridExportColumns { get; }
     }
 }

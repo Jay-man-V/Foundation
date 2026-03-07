@@ -11,7 +11,7 @@ namespace Foundation.Views
     /// <summary>
     /// Interaction logic for SearchEntityForm.xaml
     /// </summary>
-    public partial class SearchEntityForm : IWindow
+    public partial class SearchEntityForm : IViewForm
     {
         /// <summary>
         /// Constructor

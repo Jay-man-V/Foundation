@@ -34,7 +34,7 @@ namespace Foundation.ViewModels.Dialogs
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
             IWpfApplicationObjects wpfApplicationObjects,
-            IWindow targetWindow,
+            IViewForm targetWindow,
             IViewModel parentViewModel,
             Exception exception,
             Visibility continueVisibility

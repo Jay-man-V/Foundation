@@ -76,6 +76,62 @@ namespace Foundation.Common
         public static EmailAddress DefaultEmailAddress => new EmailAddress();
 
         /// <summary>
+        /// Gets the default Unsigned Int 64 (0M).
+        /// </summary>
+        /// <value>
+        /// The default Decimal.
+        /// </value>
+        public static Decimal DefaultDecimal => 0M;
+
+        /// <summary>
+        /// Gets the default Unsigned Int 64 (0UL).
+        /// </summary>
+        /// <value>
+        /// The default UInt64.
+        /// </value>
+        public static UInt64 DefaultUInt64 => 0UL;
+
+        /// <summary>
+        /// Gets the default Int 64 (0L).
+        /// </summary>
+        /// <value>
+        /// The default Int64.
+        /// </value>
+        public static Int64 DefaultInt64 => 0L;
+
+        /// <summary>
+        /// Gets the default Unsigned Int 32 (0U).
+        /// </summary>
+        /// <value>
+        /// The default UInt32.
+        /// </value>
+        public static UInt32 DefaultUInt32 => 0U;
+
+        /// <summary>
+        /// Gets the default Int 32 (0).
+        /// </summary>
+        /// <value>
+        /// The default Int32.
+        /// </value>
+        public static Int32 DefaultInt32 => 0;
+
+        /// <summary>
+        /// Gets the default Unsigned Int 16 (0).
+        /// </summary>
+        /// <value>
+        /// The default UInt16.
+        /// </value>
+        public static UInt16 DefaultUInt16 => 0;
+
+        /// <summary>
+        /// Gets the default Int 16 (0).
+        /// </summary>
+        /// <value>
+        /// The default Int16.
+        /// </value>
+        public static Int16 DefaultInt16 => 0;
+
+        /// <summary>
         /// Gets the default string (String.Empty).
         /// </summary>
         /// <value>

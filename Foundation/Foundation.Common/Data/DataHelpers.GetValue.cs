@@ -99,6 +99,81 @@ namespace Foundation.Common
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
+        public static UInt64 GetValue(Object? value, UInt64 defaultValue)
+        {
+            LoggingHelpers.TraceCallEnter(value, defaultValue);
+
+            UInt64 retVal = defaultValue;
+
+            if (value != null && value != DBNull.Value)
+            {
+                if (UInt64.TryParse(value.ToString(), out var tempValue))
+                {
+                    retVal = tempValue;
+                }
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns></returns>
+        public static Int64 GetValue(Object? value, Int64 defaultValue)
+        {
+            LoggingHelpers.TraceCallEnter(value, defaultValue);
+
+            Int64 retVal = defaultValue;
+
+            if (value != null && value != DBNull.Value)
+            {
+                if (Int64.TryParse(value.ToString(), out var tempValue))
+                {
+                    retVal = tempValue;
+                }
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns></returns>
+        public static UInt32 GetValue(Object? value, UInt32 defaultValue)
+        {
+            LoggingHelpers.TraceCallEnter(value, defaultValue);
+
+            UInt32 retVal = defaultValue;
+
+            if (value != null && value != DBNull.Value)
+            {
+                if (UInt32.TryParse(value.ToString(), out var tempValue))
+                {
+                    retVal = tempValue;
+                }
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns></returns>
         public static Int32 GetValue(Object? value, Int32 defaultValue)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
@@ -108,6 +183,56 @@ namespace Foundation.Common
             if (value != null && value != DBNull.Value)
             {
                 if (Int32.TryParse(value.ToString(), out var tempValue))
+                {
+                    retVal = tempValue;
+                }
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns></returns>
+        public static UInt16 GetValue(Object? value, UInt16 defaultValue)
+        {
+            LoggingHelpers.TraceCallEnter(value, defaultValue);
+
+            UInt16 retVal = defaultValue;
+
+            if (value != null && value != DBNull.Value)
+            {
+                if (UInt16.TryParse(value.ToString(), out var tempValue))
+                {
+                    retVal = tempValue;
+                }
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns></returns>
+        public static Int16 GetValue(Object? value, Int16 defaultValue)
+        {
+            LoggingHelpers.TraceCallEnter(value, defaultValue);
+
+            Int16 retVal = defaultValue;
+
+            if (value != null && value != DBNull.Value)
+            {
+                if (Int16.TryParse(value.ToString(), out var tempValue))
                 {
                     retVal = tempValue;
                 }

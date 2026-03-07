@@ -18,7 +18,7 @@ namespace Foundation.Views
     /// <summary>
     /// Interaction logic for NotificationWindow.xaml
     /// </summary>
-    public partial class NotificationWindow : IWindow
+    public partial class NotificationWindow : IViewForm
     {
         private static Int32 _notificationCounter = 0;
 

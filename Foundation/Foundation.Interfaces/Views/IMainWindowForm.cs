@@ -9,7 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// Defines the behaviour of the Main Window class
     /// </summary>
-    public interface IMainWindowForm : IWindow
+    public interface IMainWindowForm : IViewForm
     {
     }
 }

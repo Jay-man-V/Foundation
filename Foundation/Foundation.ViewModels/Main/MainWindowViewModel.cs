@@ -51,7 +51,7 @@ namespace Foundation.ViewModels.Main
             IDateTimeService dateTimeService,
             IWpfApplicationObjects wpfApplicationObjects,
             IFileApi fileApi,
-            IWindow targetWindow,
+            IViewForm targetWindow,
             IApplicationProcess applicationProcess,
             IMenuItemProcess menuItemProcess,
             ICommandParser commandParser
@@ -536,7 +536,7 @@ namespace Foundation.ViewModels.Main
                         try
                         {
                             contentControl = Core.IoC.Get<ContentControl>(viewAssembly, viewType);
-                            if (contentControl is IWindow targetWindow)
+                            if (contentControl is IViewForm targetWindow)
                             {
                                 viewModel.Initialise(targetWindow, this, menuItem.Caption);
                             }

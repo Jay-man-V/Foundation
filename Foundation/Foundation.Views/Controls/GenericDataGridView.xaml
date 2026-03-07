@@ -13,8 +13,9 @@
     d:DesignHeight="300"
     d:DesignWidth="600"
 >
-        <basic:GridViewControl
+    <basic:GridViewControl
             x:Name="GridViewControl"
+            DataContext="{Binding DataContext, ElementName=ThisWindow}"
             RefreshCommand="{Binding RefreshCommand}" RefreshButtonVisibility="{Binding RefreshButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" RefreshButtonEnabled="{Binding RefreshCommandEnabled}"
             ViewCommand="{Binding ViewRecordCommand}" ViewButtonVisibility="{Binding ViewButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" ViewButtonEnabled="{Binding ViewRecordCommandEnabled}"
             AddCommand="{Binding AddRecordCommand}" AddButtonVisibility="{Binding AddButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}" AddButtonEnabled="{Binding AddRecordCommandEnabled}"

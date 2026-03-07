@@ -11,7 +11,7 @@ namespace Foundation.Views
     /// <summary>
     /// Interaction logic for SaveDialogFilenameForm.xaml
     /// </summary>
-    public partial class SaveDialogFilenameForm : IWindow
+    public partial class SaveDialogFilenameForm : IViewForm
     {
         /// <summary>
         /// Constructor

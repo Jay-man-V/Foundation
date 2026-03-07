@@ -34,6 +34,6 @@ namespace Foundation.Interfaces
         /// <param name="parentViewModel">The parent view model.</param>
         /// <param name="entity">The entity.</param>
         /// <param name="formTitle">The form title.</param>
-        void Initialise(IWindow targetWindow, IViewModel parentViewModel, IFoundationModel entity, String formTitle);
+        void Initialise(IViewForm targetWindow, IViewModel parentViewModel, IFoundationModel entity, String formTitle);
     }
 }

@@ -13,7 +13,7 @@ namespace Foundation.Views
     /// <summary>
     /// Interaction logic for StdContainerWindow.xaml
     /// </summary>
-    public partial class StdContainerWindow : IWindow
+    public partial class StdContainerWindow : IViewForm
     {
         /// <summary>
         /// Constructor

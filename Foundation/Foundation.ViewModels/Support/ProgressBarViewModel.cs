@@ -28,7 +28,7 @@ namespace Foundation.ViewModels.Support
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
             IWpfApplicationObjects wpfApplicationObjects,
-            IWindow targetWindow,
+            IViewForm targetWindow,
             IViewModel parentViewModel
         ) :
             base
@@ -53,7 +53,7 @@ namespace Foundation.ViewModels.Support
         /// <value>
         /// The displayed window.
         /// </value>
-        public IWindow? DisplayedWindow { get; set; }
+        public IViewForm? DisplayedWindow { get; set; }
 
         /// <inheritdoc cref="Initialise()"/>
         public override void Initialise()

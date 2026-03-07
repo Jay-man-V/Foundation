@@ -11,7 +11,7 @@ namespace Foundation.Views
     /// <summary>
     /// Interaction logic for MessageDialogForm.xaml
     /// </summary>
-    public partial class MessageDialogForm : IWindow
+    public partial class MessageDialogForm : IViewForm
     {
         /// <summary>
         /// Constructor

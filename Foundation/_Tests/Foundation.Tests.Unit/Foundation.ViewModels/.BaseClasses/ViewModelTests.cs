@@ -114,7 +114,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
         [TestCase]
         public void Test_ViewModel_Initialise()
         {
-            IWindow targetWindow = Substitute.For<IWindow>();
+            IViewForm targetWindow = Substitute.For<IViewForm>();
             targetWindow.DataContext = Guid.NewGuid();
 
             IViewModel parentViewModel = Substitute.For<IViewModel>();
@@ -204,7 +204,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
         [TestCase]
         public void Test_OnCloseWindowCommand_Execute()
         {
-            IWindow window = Substitute.For<IWindow>();
+            IViewForm window = Substitute.For<IViewForm>();
 
             String formTitle = LocationUtils.GetFunctionName();
 
@@ -221,7 +221,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.BaseClasses
         [TestCase]
         public void Test_OnExitApplicationCommand_Execute()
         {
-            IWindow window = Substitute.For<IWindow>();
+            IViewForm window = Substitute.For<IViewForm>();
 
             String formTitle = LocationUtils.GetFunctionName();
 

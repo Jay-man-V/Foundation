@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="IWindow.cs" company="JDV Software Ltd">
+// <copyright file="IViewForm.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -7,9 +7,9 @@
 namespace Foundation.Interfaces
 {
     /// <summary>
-    /// Defines the behaviour of the Window class
+    /// Defines the behaviour of the View Form class
     /// </summary>
-    public interface IWindow
+    public interface IViewForm
     {
         /// <summary>
         /// The Data Context

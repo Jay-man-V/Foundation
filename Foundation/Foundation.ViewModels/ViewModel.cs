@@ -141,8 +141,8 @@ namespace Foundation.ViewModels
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="IViewModel.Initialise(IWindow, IViewModel?, String)"/>
-        public virtual void Initialise(IWindow targetWindow, IViewModel? parentViewModel, String formTitle)
+        /// <inheritdoc cref="IViewModel.Initialise(IViewForm, IViewModel?, String)"/>
+        public virtual void Initialise(IViewForm targetWindow, IViewModel? parentViewModel, String formTitle)
         {
             LoggingHelpers.TraceCallEnter(targetWindow, parentViewModel, formTitle);
 
@@ -168,7 +168,7 @@ namespace Foundation.ViewModels
         /// Gets This window.
         /// </summary>
         /// <value>This window.</value>
-        public IWindow? ThisWindow { get; private set; }
+        public IViewForm? ThisWindow { get; private set; }
 
         /// <summary>
         /// The Parent View Model
@@ -272,7 +272,7 @@ namespace Foundation.ViewModels
         /// >Gets the close window command.
         /// </summary>
         /// <value>The close window command.</value>
-        public ICommand CloseWindowCommand => RelayCommandFactory.New<IWindow>(OnCloseWindowCommand_Execute);
+        public ICommand CloseWindowCommand => RelayCommandFactory.New<IViewForm>(OnCloseWindowCommand_Execute);
 
         /// <summary>
         /// Gets the exit command.
@@ -328,7 +328,7 @@ namespace Foundation.ViewModels
         /// Called when [close window command].
         /// </summary>
         /// <param name="window">The window.</param>
-        protected virtual void OnCloseWindowCommand_Execute(IWindow? window)
+        protected virtual void OnCloseWindowCommand_Execute(IViewForm? window)
         {
             LoggingHelpers.TraceCallEnter(window);
 
