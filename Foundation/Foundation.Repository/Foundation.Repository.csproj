@@ -15,6 +15,7 @@
     <ProjectReference Include="..\Foundation.Common\Foundation.Common.csproj" />
     <ProjectReference Include="..\Foundation.DataAccess.Database\Foundation.DataAccess.Database.csproj" />
     <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
+    <ProjectReference Include="..\Foundation.Models\Foundation.Models.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Sql\Core\EnumRepositories\" />

@@ -14,7 +14,7 @@ using System.Text;
 using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
-
+using Foundation.Models;
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;
 
@@ -181,6 +181,27 @@ namespace Foundation.Repository
             }
         }
 
+        protected virtual void AddBaseModelProperties(Type entityType, ref PropertyInfo[] entityProperties)
+        {
+            Type? baseType = entityType.BaseType;
+            if (baseType is not null &&
+                baseType != typeof(FoundationModel))
+            {
+
+                BindingFlags bindingFlags = BindingFlags.DeclaredOnly |
+                                            BindingFlags.Public |
+                                            BindingFlags.Instance;
+
+                PropertyInfo[] baseProperties = baseType.GetProperties(bindingFlags);
+
+                baseProperties = baseProperties.Where(ep => ep.GetCustomAttributes<ColumnAttribute>().Any() &&
+                                                            (ep.GetCustomAttributes<NotMappedAttribute>().None() ||
+                                                             ep.GetCustomAttributes<ReadOnlyAttribute>().None())).ToArray();
+
+                entityProperties = entityProperties.Union(baseProperties).ToArray();
+            }
+        }
+
         /// <summary>
         /// The entity properties
         /// </summary>
@@ -208,6 +229,8 @@ namespace Foundation.Repository
                     _entityProperties = _entityProperties.Where(ep => ep.GetCustomAttributes<ColumnAttribute>().Any() &&
                                                                       (ep.GetCustomAttributes<NotMappedAttribute>().None() ||
                                                                        ep.GetCustomAttributes<ReadOnlyAttribute>().None())).ToArray();
+
+                    AddBaseModelProperties(entityType, ref _entityProperties);
                 }
 
                 return _entityProperties;
