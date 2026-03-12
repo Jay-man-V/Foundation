@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="IdGenerator.cs" company="JDV Software Ltd">
+// <copyright file="SequenceGenerator.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -10,7 +10,7 @@ namespace Foundation.Resources.Constants.DataColumns
     /// Id Generator data columns
     /// </summary>
     /// <seealso cref="FoundationEntity" />
-    public abstract class IdGenerator : FoundationEntity
+    public abstract class SequenceGenerator : FoundationEntity
     {
         /// <summary>
         /// 
@@ -18,9 +18,9 @@ namespace Foundation.Resources.Constants.DataColumns
         public abstract class Lengths
         {
             /// <summary>
-            /// The id name
+            /// The sequence name
             /// </summary>
-            public const Int32 IdName = 200;
+            public const Int32 SequenceName = 200;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Foundation.Resources.Constants.DataColumns
         /// <value>
         /// The name of the entity.
         /// </value>
-        public static String EntityName => nameof(IdGenerator);
+        public static String EntityName => nameof(SequenceGenerator);
 
         /// <summary>
         /// Gets the Application Id.
@@ -48,12 +48,12 @@ namespace Foundation.Resources.Constants.DataColumns
         public static String ConfigurationScopeId => "ConfigurationScopeId";
 
         /// <summary>
-        /// Gets the id name.
+        /// Gets the sequence name.
         /// </summary>
         /// <value>
-        /// The id name.
+        /// The sequence name.
         /// </value>
-        public static String IdName => "IdName";
+        public static String SequenceName => "SequenceName";
 
         /// <summary>
         /// Gets the Last Id.

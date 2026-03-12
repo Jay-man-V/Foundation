@@ -12,15 +12,15 @@ namespace Foundation.Repository
     public abstract class StoredProcedures
     {
         /// <summary>
-        /// [core].[usp_IdGenerator_GetNextId]
+        /// [core].[usp_SequenceGenerator_GetNextId]
         /// </summary>
         public static class GetNextId
         {
-            public static String ProcedureName => "[core].[usp_IdGenerator_GetNextId]";
+            public static String ProcedureName => "[core].[usp_SequenceGenerator_GetNextId]";
 
             public static String ApplicationId => "ApplicationId";
             public static String UserProfileId => "UserProfileId";
-            public static String IdName => "IdName";
+            public static String SequenceName => "SequenceName";
         }
 
         /// <summary>

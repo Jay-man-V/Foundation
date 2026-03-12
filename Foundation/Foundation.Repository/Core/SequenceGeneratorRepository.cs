@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="IdGeneratorRepository.cs" company="JDV Software Ltd">
+// <copyright file="SequenceGeneratorRepository.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -17,19 +17,19 @@ namespace Foundation.Repository.Core
     /// <summary>
     /// Defines the Id Generator Repository class
     /// </summary>
-    /// <see cref="IIdGeneratorRepository" />
+    /// <see cref="ISequenceGeneratorRepository" />
     [DependencyInjectionTransient]
-    public class IdGeneratorRepository : FoundationModelRepository<IIdGenerator>, IIdGeneratorRepository
+    public class SequenceGeneratorRepository : FoundationModelRepository<ISequenceGenerator>, ISequenceGeneratorRepository
     {
         /// <summary>
-        /// Initialises a new instance of the <see cref="IdGeneratorRepository"/> class.
+        /// Initialises a new instance of the <see cref="SequenceGeneratorRepository"/> class.
         /// </summary>
         /// <param name="core">The Foundation Core service.</param>
         /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
         /// <param name="systemConfigurationService">The system configuration service.</param>
         /// <param name="coreDataProvider">The core data provider.</param>
         /// <param name="dateTimeService">The date/time service.</param>
-        public IdGeneratorRepository
+        public SequenceGeneratorRepository
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
@@ -55,10 +55,10 @@ namespace Foundation.Repository.Core
         public override Boolean HasValidityPeriodColumns => false;
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.EntityName"/>
-        protected override String EntityName => FDC.IdGenerator.EntityName;
+        protected override String EntityName => FDC.SequenceGenerator.EntityName;
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.TableName"/>
-        protected override String TableName => FDC.TableNames.IdGenerator;
+        protected override String TableName => FDC.TableNames.SequenceGenerator;
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.RequiredMinimumCreateRole"/>
         protected override ApplicationRole RequiredMinimumCreateRole => ApplicationRole.SystemSupervisor;
@@ -67,23 +67,23 @@ namespace Foundation.Repository.Core
         protected override ApplicationRole RequiredMinimumEditRole => ApplicationRole.SystemSupervisor;
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.VerifyCanCreate(TModel)"/>
-        protected override void VerifyCanCreate(IIdGenerator entity)
+        protected override void VerifyCanCreate(ISequenceGenerator entity)
         {
             // Everyone can Create an Id Generator Entry
             // Does nothing
         }
 
         /// <inheritdoc cref="FoundationModelRepository{TModel}.VerifyCanEdit(TModel)"/>
-        protected override void VerifyCanEdit(IIdGenerator entity)
+        protected override void VerifyCanEdit(ISequenceGenerator entity)
         {
             // Everyone can Edit an Id Generator Entry
             // Does nothing
         }
 
-        /// <inheritdoc cref="IIdGeneratorRepository.GetNextId(AppId, IUserProfile, String)"/>
-        public Int32 GetNextId(AppId applicationId, IUserProfile userProfile, String idName)
+        /// <inheritdoc cref="ISequenceGeneratorRepository.GetNextId(AppId, IUserProfile, String)"/>
+        public Int32 GetNextId(AppId applicationId, IUserProfile userProfile, String sequenceName)
         {
-            LoggingHelpers.TraceCallEnter(applicationId, userProfile, idName);
+            LoggingHelpers.TraceCallEnter(applicationId, userProfile, sequenceName);
 
             String sql = StoredProcedures.GetNextId.ProcedureName;
 
@@ -91,7 +91,7 @@ namespace Foundation.Repository.Core
             [
                 FoundationDataAccess.CreateParameter(StoredProcedures.GetNextId.ApplicationId, applicationId),
                 FoundationDataAccess.CreateParameter(StoredProcedures.GetNextId.UserProfileId, userProfile.Id),
-                FoundationDataAccess.CreateParameter(StoredProcedures.GetNextId.IdName, idName)
+                FoundationDataAccess.CreateParameter(StoredProcedures.GetNextId.SequenceName, sequenceName)
             ];
 
             Object? result = FoundationDataAccess.ExecuteScalar(sql, CommandType.StoredProcedure, databaseParameters);

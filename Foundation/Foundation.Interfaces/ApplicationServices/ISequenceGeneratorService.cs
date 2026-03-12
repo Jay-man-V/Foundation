@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="IIdGeneratorRepository.cs" company="JDV Software Ltd">
+// <copyright file="ISequenceGeneratorService.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -7,17 +7,23 @@
 namespace Foundation.Interfaces
 {
     /// <summary>
-    /// The Id Generator Repository interface
+    /// Defines the behaviour of the Id Generator Service
     /// </summary>
-    public interface IIdGeneratorRepository : IFoundationModelDataAccess<IIdGenerator>
+    public interface ISequenceGeneratorService
     {
         /// <summary>
         /// Gets the next value for a id
         /// </summary>
         /// <param name="applicationId">The application id.</param>
         /// <param name="userProfile">The user profile.</param>
-        /// <param name="idName">Name of the id.</param>
+        /// <param name="sequenceName">Name of the sequence.</param>
         /// <returns></returns>
-        Int32 GetNextId(AppId applicationId, IUserProfile userProfile, String idName);
+        Int32 GetNextId(AppId applicationId, IUserProfile userProfile, String sequenceName);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        String NewUniqueIdentifier();
     }
 }

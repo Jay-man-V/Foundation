@@ -172,7 +172,7 @@ namespace Foundation.Resources.Constants.DataColumns
         /// <value>
         /// The id generator.
         /// </value>
-        public static String IdGenerator => "[core].[IdGenerator]";
+        public static String SequenceGenerator => "[core].[SequenceGenerator]";
 
         /// <summary>
         /// Gets the type of the image.

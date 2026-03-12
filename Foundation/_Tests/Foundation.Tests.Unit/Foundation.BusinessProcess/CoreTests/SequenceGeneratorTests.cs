@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="IdGeneratorTests.cs" company="JDV Software Ltd">
+// <copyright file="SequenceGeneratorTests.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -20,42 +20,42 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
     /// Summary description for DepartmentProcessTests
     /// </summary>
     [TestFixture]
-    public class IdGeneratorTests : CommonBusinessProcessTests<IIdGenerator, IIdGeneratorProcess, IIdGeneratorRepository>
+    public class SequenceGeneratorTests : CommonBusinessProcessTests<ISequenceGenerator, ISequenceGeneratorProcess, ISequenceGeneratorRepository>
     {
         protected override Int32 ColumnDefinitionsCount => 10;
         protected override String ExpectedScreenTitle => "Id Generator";
         protected override String ExpectedStatusBarText => "Number of Ids:";
 
-        protected override string ExpectedComboBoxDisplayMember => FDC.IdGenerator.IdName;
+        protected override string ExpectedComboBoxDisplayMember => FDC.SequenceGenerator.SequenceName;
 
-        protected override IIdGeneratorRepository CreateRepository()
+        protected override ISequenceGeneratorRepository CreateRepository()
         {
-            IIdGeneratorRepository retVal = Substitute.For<IIdGeneratorRepository>();
+            ISequenceGeneratorRepository retVal = Substitute.For<ISequenceGeneratorRepository>();
 
             retVal.HasValidityPeriodColumns.Returns(false);
 
             return retVal;
         }
 
-        protected override IIdGeneratorProcess CreateBusinessProcess(IDateTimeService dateTimeService)
+        protected override ISequenceGeneratorProcess CreateBusinessProcess(IDateTimeService dateTimeService)
         {
-            IIdGeneratorProcess process = new IdGeneratorProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!);
+            ISequenceGeneratorProcess process = new SequenceGeneratorProcess(CoreInstance, RunTimeEnvironmentSettings, dateTimeService, LoggingService, TheRepository!, StatusRepository!, UserProfileRepository!,  ReportGenerator!);
 
             return process;
         }
 
-        protected override IIdGenerator CreateBlankEntity(Int32 entityId)
+        protected override ISequenceGenerator CreateBlankEntity(Int32 entityId)
         {
-            IIdGenerator retVal = new FModels.IdGenerator();
+            ISequenceGenerator retVal = new FModels.SequenceGenerator();
 
             retVal.Id = new EntityId(entityId);
 
             return retVal;
         }
 
-        protected override IIdGenerator CreateEntity(IIdGeneratorProcess process, Int32 entityId)
+        protected override ISequenceGenerator CreateEntity(ISequenceGeneratorProcess process, Int32 entityId)
         {
-            IIdGenerator retVal = CreateBlankEntity(entityId);
+            ISequenceGenerator retVal = CreateBlankEntity(entityId);
 
             retVal.CreatedOn = process.DefaultValidFromDateTime;
             retVal.LastUpdatedOn = process.DefaultValidFromDateTime;
@@ -65,36 +65,36 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
             retVal.ApplicationId = new AppId(1);
             retVal.ConfigurationScopeId = new EntityId(1);
-            retVal.IdName = Guid.NewGuid().ToString();
+            retVal.SequenceName = Guid.NewGuid().ToString();
             retVal.LastId = entityId * entityId;
             retVal.ResetOnNewDate = true;
 
             return retVal;
         }
 
-        protected override void CheckBlankEntry(IIdGenerator entity)
+        protected override void CheckBlankEntry(ISequenceGenerator entity)
         {
-            Assert.That(entity.IdName, Is.EqualTo(String.Empty));
+            Assert.That(entity.SequenceName, Is.EqualTo(String.Empty));
         }
 
-        protected override void CheckAllEntry(IIdGenerator entity)
+        protected override void CheckAllEntry(ISequenceGenerator entity)
         {
-            Assert.That(entity.IdName, Is.EqualTo(ExpectedAllText));
+            Assert.That(entity.SequenceName, Is.EqualTo(ExpectedAllText));
         }
 
-        protected override void CheckNoneEntry(IIdGenerator entity)
+        protected override void CheckNoneEntry(ISequenceGenerator entity)
         {
-            Assert.That(entity.IdName, Is.EqualTo(ExpectedNoneText));
+            Assert.That(entity.SequenceName, Is.EqualTo(ExpectedNoneText));
         }
 
-        protected override void CompareEntityProperties(IIdGenerator entity1, IIdGenerator entity2)
+        protected override void CompareEntityProperties(ISequenceGenerator entity1, ISequenceGenerator entity2)
         {
             Assert.That(entity2.ValidFrom, Is.EqualTo(entity1.ValidFrom));
             Assert.That(entity2.ValidTo, Is.EqualTo(entity1.ValidTo));
 
             Assert.That(entity2.ApplicationId, Is.EqualTo(entity1.ApplicationId));
             Assert.That(entity2.ConfigurationScopeId, Is.EqualTo(entity1.ConfigurationScopeId));
-            Assert.That(entity2.IdName, Is.EqualTo(entity1.IdName));
+            Assert.That(entity2.SequenceName, Is.EqualTo(entity1.SequenceName));
             Assert.That(entity2.LastId, Is.EqualTo(entity1.LastId));
             Assert.That(entity2.ResetOnNewDate, Is.EqualTo(entity1.ResetOnNewDate));
         }
@@ -102,7 +102,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
         protected override String GetCsvSampleData()
         {
             String retVal = String.Empty;
-            retVal += "Id,Created By,Created On,Updated By,Updated On,Application Id,Configuration Scope,Id Name,Last Id,Reset On New Date" + Environment.NewLine;
+            retVal += "Id,Created By,Created On,Updated By,Updated On,Application Id,Configuration Scope,Sequence Name,Last Id,Reset On New Date" + Environment.NewLine;
             retVal += "1,0,2022-11-28T13:11:54.300,0,2022-11-28T13:11:54.300,1,1,d664612a-057c-4c29-8604-d64b9e027927,1,True" + Environment.NewLine;
             retVal += "2,0,2022-11-28T13:11:54.300,0,2022-11-28T13:11:54.300,1,1,be76624c-83f3-4470-9ce4-76bdcbf64106,4,True" + Environment.NewLine;
             retVal += "3,0,2022-11-28T13:11:54.300,0,2022-11-28T13:11:54.300,1,1,e1ba7ccb-a62d-4c37-a515-cf60c311b5e7,9,True" + Environment.NewLine;
@@ -117,9 +117,9 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             return retVal;
         }
 
-        protected override void UpdateEntityProperties(IIdGenerator entity)
+        protected override void UpdateEntityProperties(ISequenceGenerator entity)
         {
-            entity.IdName += "Updated";
+            entity.SequenceName += "Updated";
             entity.LastId += entity.LastId;
         }
     }

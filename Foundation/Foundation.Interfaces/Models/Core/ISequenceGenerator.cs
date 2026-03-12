@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="IIdGenerator.cs" company="JDV Software Ltd">
+// <copyright file="ISequenceGenerator.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -7,9 +7,9 @@
 namespace Foundation.Interfaces
 {
     /// <summary>
-    /// The Id Generator model interface
+    /// The Sequence Generator model interface
     /// </summary>
-    public interface IIdGenerator : IFoundationModel
+    public interface ISequenceGenerator : IFoundationModel
     {
         /// <summary>
         /// Gets or sets the Application Id.
@@ -33,7 +33,7 @@ namespace Foundation.Interfaces
         /// <value>
         /// 
         /// </value>
-        String IdName { get; set; }
+        String SequenceName { get; set; }
 
         /// <summary>
         /// 

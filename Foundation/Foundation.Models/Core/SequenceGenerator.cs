@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="IdGenerator.cs" company="JDV Software Ltd">
+// <copyright file="SequenceGenerator.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -18,18 +18,18 @@ namespace Foundation.Models.Core
     /// Id Generator class
     /// </summary>
     /// <seealso cref="FoundationModel" />
-    /// <seealso cref="IIdGenerator" />
+    /// <seealso cref="ISequenceGenerator" />
     [DependencyInjectionTransient]
-    public class IdGenerator : FoundationModel, IIdGenerator, IEquatable<IIdGenerator>
+    public class SequenceGenerator : FoundationModel, ISequenceGenerator, IEquatable<ISequenceGenerator>
     {
         private AppId _applicationId;
         private EntityId _configurationScopeId;
-        private String _idName = String.Empty;
+        private String _sequenceName = String.Empty;
         private Int32 _lastId;
         private Boolean _resetOnNewDate;
 
-        /// <inheritdoc cref="IIdGenerator.ApplicationId"/>
-        [Column(nameof(FDC.IdGenerator.ApplicationId))]
+        /// <inheritdoc cref="ISequenceGenerator.ApplicationId"/>
+        [Column(nameof(FDC.SequenceGenerator.ApplicationId))]
         [RequiredAppId(AllowEmptyStrings = false)]
         public AppId ApplicationId
         {
@@ -37,34 +37,34 @@ namespace Foundation.Models.Core
             set => this.SetPropertyValue(ref _applicationId, value, FDC.WorldRegion.Lengths.Name);
         }
 
-        /// <inheritdoc cref="IIdGenerator.ConfigurationScopeId"/>
-        [Column(nameof(FDC.IdGenerator.ConfigurationScopeId))]
+        /// <inheritdoc cref="ISequenceGenerator.ConfigurationScopeId"/>
+        [Column(nameof(FDC.SequenceGenerator.ConfigurationScopeId))]
         public EntityId ConfigurationScopeId
         {
             get => this._configurationScopeId;
             set => this.SetPropertyValue(ref _configurationScopeId, value, FDC.WorldRegion.Lengths.Name);
         }
 
-        /// <inheritdoc cref="IIdGenerator.IdName"/>
-        [Column(nameof(FDC.IdGenerator.IdName))]
-        [MaxLength(FDC.IdGenerator.Lengths.IdName)]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Id Name must be provided")]
-        public String IdName
+        /// <inheritdoc cref="ISequenceGenerator.SequenceName"/>
+        [Column(nameof(FDC.SequenceGenerator.SequenceName))]
+        [MaxLength(FDC.SequenceGenerator.Lengths.SequenceName)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Sequence Name must be provided")]
+        public String SequenceName
         {
-            get => this._idName;
-            set => this.SetPropertyValue(ref _idName, value, FDC.IdGenerator.Lengths.IdName);
+            get => this._sequenceName;
+            set => this.SetPropertyValue(ref _sequenceName, value, FDC.SequenceGenerator.Lengths.SequenceName);
         }
 
-        /// <inheritdoc cref="IIdGenerator.LastId"/>
-        [Column(nameof(FDC.IdGenerator.LastId))]
+        /// <inheritdoc cref="ISequenceGenerator.LastId"/>
+        [Column(nameof(FDC.SequenceGenerator.LastId))]
         public Int32 LastId
         {
             get => this._lastId;
             set => this.SetPropertyValue(ref _lastId, value);
         }
 
-        /// <inheritdoc cref="IIdGenerator.ResetOnNewDate"/>
-        [Column(nameof(FDC.IdGenerator.ResetOnNewDate))]
+        /// <inheritdoc cref="ISequenceGenerator.ResetOnNewDate"/>
+        [Column(nameof(FDC.SequenceGenerator.ResetOnNewDate))]
         public Boolean ResetOnNewDate
         {
             get => this._resetOnNewDate;
@@ -80,7 +80,7 @@ namespace Foundation.Models.Core
             {
                 case nameof(ApplicationId): retVal = ApplicationId; break;
                 case nameof(ConfigurationScopeId): retVal = ConfigurationScopeId; break;
-                case nameof(IdName): retVal = IdName; break;
+                case nameof(SequenceName): retVal = SequenceName; break;
                 case nameof(LastId): retVal = LastId; break;
                 case nameof(ResetOnNewDate): retVal = ResetOnNewDate; break;
             }
@@ -91,12 +91,12 @@ namespace Foundation.Models.Core
         /// <inheritdoc cref="ICloneable.Clone()"/>
         public override Object Clone()
         {
-            IdGenerator retVal = (IdGenerator)base.Clone();
+            SequenceGenerator retVal = (SequenceGenerator)base.Clone();
             retVal.Initialising = true;
 
             retVal._applicationId = this._applicationId;
             retVal._configurationScopeId = this._configurationScopeId;
-            retVal._idName = this._idName;
+            retVal._sequenceName = this._sequenceName;
             retVal._lastId = this._lastId;
             retVal._resetOnNewDate = this._resetOnNewDate;
 
@@ -106,7 +106,7 @@ namespace Foundation.Models.Core
         }
 
         /// <inheritdoc cref="IEquatable{TModel}.Equals(TModel)"/>
-        public Boolean Equals(IIdGenerator? other)
+        public Boolean Equals(ISequenceGenerator? other)
         {
             Boolean retVal = InternalEquals(other);
 
@@ -118,9 +118,9 @@ namespace Foundation.Models.Core
         {
             Boolean retVal = false;
 
-            if (obj is IdGenerator idGenerator)
+            if (obj is SequenceGenerator sequenceGenerator)
             {
-                retVal = InternalEquals(idGenerator);
+                retVal = InternalEquals(sequenceGenerator);
             }
 
             return retVal;
@@ -134,7 +134,7 @@ namespace Foundation.Models.Core
 
             hashCode = hashCode * constant + EqualityComparer<AppId>.Default.GetHashCode(ApplicationId);
             hashCode = hashCode * constant + EqualityComparer<EntityId>.Default.GetHashCode(ConfigurationScopeId);
-            hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(IdName);
+            hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(SequenceName);
             hashCode = hashCode * constant + EqualityComparer<Int32>.Default.GetHashCode(LastId);
             hashCode = hashCode * constant + EqualityComparer<Boolean>.Default.GetHashCode(ResetOnNewDate);
 
@@ -146,7 +146,7 @@ namespace Foundation.Models.Core
         /// </summary>
         /// <param name="right">The right object.</param>
         /// <returns></returns>
-        private Boolean InternalEquals(IIdGenerator? right)
+        private Boolean InternalEquals(ISequenceGenerator? right)
         {
             Boolean retVal = base.InternalEquals(right);
 
@@ -154,7 +154,7 @@ namespace Foundation.Models.Core
             {
                 retVal &= EqualityComparer<AppId>.Default.Equals(this.ApplicationId, right.ApplicationId);
                 retVal &= EqualityComparer<EntityId>.Default.Equals(this.ConfigurationScopeId, right.ConfigurationScopeId);
-                retVal &= EqualityComparer<String>.Default.Equals(this.IdName, right.IdName);
+                retVal &= EqualityComparer<String>.Default.Equals(this.SequenceName, right.SequenceName);
                 retVal &= EqualityComparer<Int32>.Default.Equals(this.LastId, right.LastId);
                 retVal &= EqualityComparer<Boolean>.Default.Equals(this.ResetOnNewDate, right.ResetOnNewDate);
             }

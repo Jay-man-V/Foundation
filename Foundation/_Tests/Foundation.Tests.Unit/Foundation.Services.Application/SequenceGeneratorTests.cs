@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------
-// <copyright file="IdGeneratorTests.cs" company="JDV Software Ltd">
+// <copyright file="SequenceGeneratorTests.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -14,20 +14,20 @@ using Foundation.Tests.Unit.BaseClasses;
 
 namespace Foundation.Tests.Unit.Foundation.Services.Application
 {
-    public class IdGeneratorTests : UnitTestBase
+    public class SequenceGeneratorTests : UnitTestBase
     {
         private AppId ApplicationId => new AppId(1);
-        private IIdGeneratorService? TheService { get; set; }
-        private IIdGeneratorRepository? TheRepository { get; set; }
+        private ISequenceGeneratorService? TheService { get; set; }
+        private ISequenceGeneratorRepository? TheRepository { get; set; }
         private IUserProfile UserProfile { get; set; }
 
         public override void TestInitialise()
         {
             base.TestInitialise();
 
-            TheRepository = Substitute.For<IIdGeneratorRepository>();
+            TheRepository = Substitute.For<ISequenceGeneratorRepository>();
 
-            TheService = new IdGeneratorService(TheRepository);
+            TheService = new SequenceGeneratorService(TheRepository);
 
             UserProfile = Substitute.For<IUserProfile>();
         }
@@ -48,7 +48,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             const Int32 expected = 123;
             TheRepository!.GetNextId(Arg.Any<AppId>(), Arg.Any<IUserProfile>(), Arg.Any<String>()).Returns(expected);
 
-            Int32 actual = TheService!.GetNextId(ApplicationId, UserProfile, IdNames.GenericId);
+            Int32 actual = TheService!.GetNextId(ApplicationId, UserProfile, SequenceNames.GenericId);
 
             Assert.That(actual, Is.EqualTo(expected));
         }

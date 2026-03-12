@@ -70,7 +70,7 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Log  */ nameof(FDC.EventLogApplication)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Log  */ nameof(FDC.EventLogAttachment)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Base */ nameof(FDC.FoundationEntity)));
-            Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.IdGenerator)));
+            Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.SequenceGenerator)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.ImageType)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.ImportExportControl)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.Language)));
@@ -715,18 +715,18 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
         ///
         /// </summary>
         [TestCase]
-        public void Test_IdGenerator()
+        public void Test_SequenceGenerator()
         {
             // This test exists to ensure all the Image Type are tested/checked in the next test
-            PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(FDC.IdGenerator));
+            PropertyInfo[] propertyInfos = GetStaticPropertyInfosForType(typeof(FDC.SequenceGenerator));
             Int32 index = 0;
 
-            index++; Assert.That(FDC.IdGenerator.EntityName, Is.EqualTo(nameof(FDC.IdGenerator)));
-            index++; Assert.That(FDC.IdGenerator.ApplicationId, Is.EqualTo(nameof(FDC.IdGenerator.ApplicationId)));
-            index++; Assert.That(FDC.IdGenerator.ConfigurationScopeId, Is.EqualTo(nameof(FDC.IdGenerator.ConfigurationScopeId)));
-            index++; Assert.That(FDC.IdGenerator.IdName, Is.EqualTo(nameof(FDC.IdGenerator.IdName)));
-            index++; Assert.That(FDC.IdGenerator.LastId, Is.EqualTo(nameof(FDC.IdGenerator.LastId)));
-            index++; Assert.That(FDC.IdGenerator.ResetOnNewDate, Is.EqualTo(nameof(FDC.IdGenerator.ResetOnNewDate)));
+            index++; Assert.That(FDC.SequenceGenerator.EntityName, Is.EqualTo(nameof(FDC.SequenceGenerator)));
+            index++; Assert.That(FDC.SequenceGenerator.ApplicationId, Is.EqualTo(nameof(FDC.SequenceGenerator.ApplicationId)));
+            index++; Assert.That(FDC.SequenceGenerator.ConfigurationScopeId, Is.EqualTo(nameof(FDC.SequenceGenerator.ConfigurationScopeId)));
+            index++; Assert.That(FDC.SequenceGenerator.SequenceName, Is.EqualTo(nameof(FDC.SequenceGenerator.SequenceName)));
+            index++; Assert.That(FDC.SequenceGenerator.LastId, Is.EqualTo(nameof(FDC.SequenceGenerator.LastId)));
+            index++; Assert.That(FDC.SequenceGenerator.ResetOnNewDate, Is.EqualTo(nameof(FDC.SequenceGenerator.ResetOnNewDate)));
 
             Assert.That(propertyInfos.Length, Is.EqualTo(index));
         }
@@ -1130,7 +1130,7 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
             index++; Assert.That(FDC.TableNames.DatePeriod, Is.EqualTo($"[core].[{nameof(FDC.TableNames.DatePeriod)}]"));
             index++; Assert.That(FDC.TableNames.Department, Is.EqualTo($"[core].[{nameof(FDC.TableNames.Department)}]"));
             index++; Assert.That(FDC.TableNames.EntityStatus, Is.EqualTo($"[core].[{nameof(FDC.TableNames.EntityStatus)}]"));
-            index++; Assert.That(FDC.TableNames.IdGenerator, Is.EqualTo($"[core].[{nameof(FDC.TableNames.IdGenerator)}]"));
+            index++; Assert.That(FDC.TableNames.SequenceGenerator, Is.EqualTo($"[core].[{nameof(FDC.TableNames.SequenceGenerator)}]"));
             index++; Assert.That(FDC.TableNames.ImageType, Is.EqualTo($"[core].[{nameof(FDC.TableNames.ImageType)}]"));
             index++; Assert.That(FDC.TableNames.Language, Is.EqualTo($"[core].[{nameof(FDC.TableNames.Language)}]"));
             index++; Assert.That(FDC.TableNames.NationalRegion, Is.EqualTo($"[core].[{nameof(FDC.TableNames.NationalRegion)}]"));

@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="IdGeneratorProcess.cs" company="JDV Software Ltd">
+// <copyright file="SequenceGeneratorProcess.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -16,10 +16,10 @@ namespace Foundation.BusinessProcess.Core
     /// The Id Generator Business Process 
     /// </summary>
     [DependencyInjectionTransient]
-    public class IdGeneratorProcess : CommonBusinessProcess<IIdGenerator, IIdGeneratorRepository>, IIdGeneratorProcess
+    public class SequenceGeneratorProcess : CommonBusinessProcess<ISequenceGenerator, ISequenceGeneratorRepository>, ISequenceGeneratorProcess
     {
         /// <summary>
-        /// Initialises a new instance of the <see cref="IdGeneratorProcess" /> class.
+        /// Initialises a new instance of the <see cref="SequenceGeneratorProcess" /> class.
         /// </summary>
         /// <param name="core">The Foundation Core service</param>
         /// <param name="runTimeEnvironmentSettings">The runtime environment settings</param>
@@ -29,13 +29,13 @@ namespace Foundation.BusinessProcess.Core
         /// <param name="statusRepository">The status data access</param>
         /// <param name="userProfileRepository">The user profile data access</param>
         /// <param name="reportGenerator">The report generator service</param>
-        public IdGeneratorProcess
+        public SequenceGeneratorProcess
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
             ILoggingService loggingService,
-            IIdGeneratorRepository repository,
+            ISequenceGeneratorRepository repository,
             IStatusRepository statusRepository,
             IUserProfileRepository userProfileRepository,
             IReportGenerator reportGenerator
@@ -64,7 +64,7 @@ namespace Foundation.BusinessProcess.Core
         public override String StatusBarText => "Number of Ids:";
 
         /// <inheritdoc cref="ICommonBusinessProcess.ComboBoxDisplayMember" />
-        public override String ComboBoxDisplayMember => FDC.IdGenerator.IdName;
+        public override String ComboBoxDisplayMember => FDC.SequenceGenerator.SequenceName;
 
         /// <inheritdoc cref="ICommonBusinessProcess.GetColumnDefinitions()" />
         public override List<IGridColumnDefinition> GetColumnDefinitions()
@@ -74,19 +74,19 @@ namespace Foundation.BusinessProcess.Core
             List<IGridColumnDefinition> retVal = GetStandardEntityColumnDefinitions();
             IGridColumnDefinition gridColumnDefinition;
 
-            gridColumnDefinition = new GridColumnDefinition(150, FDC.IdGenerator.ApplicationId, "Application Id", typeof(AppId));
+            gridColumnDefinition = new GridColumnDefinition(150, FDC.SequenceGenerator.ApplicationId, "Application Id", typeof(AppId));
             retVal.Add(gridColumnDefinition);
 
-            gridColumnDefinition = new GridColumnDefinition(150, FDC.IdGenerator.ConfigurationScopeId, "Configuration Scope", typeof(EntityId));
+            gridColumnDefinition = new GridColumnDefinition(150, FDC.SequenceGenerator.ConfigurationScopeId, "Configuration Scope", typeof(EntityId));
             retVal.Add(gridColumnDefinition);
 
-            gridColumnDefinition = new GridColumnDefinition(150, FDC.IdGenerator.IdName, "Id Name", typeof(String));
+            gridColumnDefinition = new GridColumnDefinition(150, FDC.SequenceGenerator.SequenceName, "Sequence Name", typeof(String));
             retVal.Add(gridColumnDefinition);
 
-            gridColumnDefinition = new GridColumnDefinition(150, FDC.IdGenerator.LastId, "Last Id", typeof(Int32));
+            gridColumnDefinition = new GridColumnDefinition(150, FDC.SequenceGenerator.LastId, "Last Id", typeof(Int32));
             retVal.Add(gridColumnDefinition);
 
-            gridColumnDefinition = new GridColumnDefinition(150, FDC.IdGenerator.ResetOnNewDate, "Reset On New Date", typeof(Boolean));
+            gridColumnDefinition = new GridColumnDefinition(150, FDC.SequenceGenerator.ResetOnNewDate, "Reset On New Date", typeof(Boolean));
             retVal.Add(gridColumnDefinition);
 
             LoggingHelpers.TraceCallReturn(retVal);

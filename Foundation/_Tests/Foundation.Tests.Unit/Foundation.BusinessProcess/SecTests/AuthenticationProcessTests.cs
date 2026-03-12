@@ -20,14 +20,14 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
     public class AuthenticationProcessTests : BusinessProcessUnitTestsBase
     {
         private IAuthenticationDataAccess? TheRepository { get; set; }
-        private IIdGeneratorService? IdService { get; set; }
+        private ISequenceGeneratorService? IdService { get; set; }
         private IAuthenticationProcess? TheProcess { get; set; }
 
         public override void TestInitialise()
         {
             base.TestInitialise();
 
-            IdService = Substitute.For<IIdGeneratorService>();
+            IdService = Substitute.For<ISequenceGeneratorService>();
 
             TheRepository = Substitute.For<IAuthenticationDataAccess>();
 
