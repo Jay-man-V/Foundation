@@ -285,7 +285,6 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
             UserProfileProcess = Substitute.For<IUserProfileProcess>();
             CoreInstance.IoC.Get<IUserProfileProcess>().ClearSubstitute();
             CoreInstance.IoC.Get<IUserProfileProcess>().Returns(UserProfileProcess);
-            UserProfileProcess.Id = nameof(BusinessProcessUnitTestsBase);
             UserProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(userProfile);
             UserProfileProcess.GetAll(Arg.Any<Boolean>()).Returns(UserProfileList);
             UserProfileProcess.GetAll().Returns(UserProfileList);

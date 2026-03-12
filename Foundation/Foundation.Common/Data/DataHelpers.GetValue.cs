@@ -250,7 +250,25 @@ namespace Foundation.Common
         /// <param name="defaultValue">The default value.</param>
         /// <param name="dateTimeKind">Kind of the date time.</param>
         /// <returns></returns>
-        public static DateTime GetValue(Object? value, DateTime defaultValue, DateTimeKind dateTimeKind = DateTimeKind.Utc)
+        public static DateTime GetValue(Object? value, DateTime defaultValue)
+        {
+            LoggingHelpers.TraceCallEnter(value, defaultValue);
+
+            DateTime retVal = GetValue(value, defaultValue, DateTimeKind.Unspecified);
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <param name="dateTimeKind">Kind of the date time.</param>
+        /// <returns></returns>
+        public static DateTime GetValue(Object? value, DateTime defaultValue, DateTimeKind dateTimeKind)
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 

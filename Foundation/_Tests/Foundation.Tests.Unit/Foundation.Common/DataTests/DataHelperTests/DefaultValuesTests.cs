@@ -110,6 +110,90 @@ namespace Foundation.Tests.Unit.Foundation.Common.DataTests.DataHelperTests
         ///
         /// </summary>
         [TestCase]
+        public void Test_DefaultDecimal()
+        {
+            Decimal expected = 0M;
+            Decimal actual = DataHelpers.DefaultDecimal;
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [TestCase]
+        public void Test_DefaultUInt64()
+        {
+            UInt64 expected = 0L;
+            UInt64 actual = DataHelpers.DefaultUInt64;
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [TestCase]
+        public void Test_DefaultInt64()
+        {
+            Int64 expected = 0L;
+            Int64 actual = DataHelpers.DefaultInt64;
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [TestCase]
+        public void Test_DefaultUInt32()
+        {
+            UInt32 expected = 0;
+            UInt32 actual = DataHelpers.DefaultUInt32;
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [TestCase]
+        public void Test_DefaultInt32()
+        {
+            Int32 expected = 0;
+            Int32 actual = DataHelpers.DefaultInt32;
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [TestCase]
+        public void Test_DefaultUInt16()
+        {
+            UInt16 expected = 0;
+            UInt16 actual = DataHelpers.DefaultUInt16;
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [TestCase]
+        public void Test_DefaultInt16()
+        {
+            Int16 expected = 0;
+            Int16 actual = DataHelpers.DefaultInt16;
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [TestCase]
         public void Test_DefaultString()
         {
             String expected = String.Empty;

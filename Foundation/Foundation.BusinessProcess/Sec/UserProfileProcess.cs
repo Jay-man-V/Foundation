@@ -55,8 +55,6 @@ namespace Foundation.BusinessProcess.Sec
             LoggingHelpers.TraceCallReturn();
         }
 
-        public String Id { get; set; }
-
         /// <inheritdoc cref="ICommonBusinessProcess.ScreenTitle"/>
         public override String ScreenTitle => "User Profiles";
 

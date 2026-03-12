@@ -78,6 +78,71 @@ namespace Foundation.Common
         }
 
         /// <summary>
+        /// Gets the nullable unsigned int64 value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public static UInt64? GetNullableUInt64Value(Object? value)
+        {
+            LoggingHelpers.TraceCallEnter(value);
+
+            UInt64? retVal = null;
+
+            if (value != null &&
+                value != DBNull.Value)
+            {
+                retVal = Convert.ToUInt64(value);
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Gets the nullable int64 value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public static Int64? GetNullableInt64Value(Object? value)
+        {
+            LoggingHelpers.TraceCallEnter(value);
+
+            Int64? retVal = null;
+
+            if (value != null &&
+                value != DBNull.Value)
+            {
+                retVal = Convert.ToInt64(value);
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+        /// <summary>
+        /// Gets the nullable unsigned int32 value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public static UInt32? GetNullableUInt32Value(Object? value)
+        {
+            LoggingHelpers.TraceCallEnter(value);
+
+            UInt32? retVal = null;
+
+            if (value != null &&
+                value != DBNull.Value)
+            {
+                retVal = Convert.ToUInt32(value);
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <summary>
         /// Gets the nullable int32 value.
         /// </summary>
         /// <param name="value">The value.</param>
@@ -100,12 +165,72 @@ namespace Foundation.Common
         }
 
         /// <summary>
+        /// Gets the nullable unsigned int16 value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public static UInt16? GetNullableUInt16Value(Object? value)
+        {
+            LoggingHelpers.TraceCallEnter(value);
+
+            UInt16? retVal = null;
+
+            if (value != null &&
+                value != DBNull.Value)
+            {
+                retVal = Convert.ToUInt16(value);
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Gets the nullable int16 value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public static Int16? GetNullableInt16Value(Object? value)
+        {
+            LoggingHelpers.TraceCallEnter(value);
+
+            Int16? retVal = null;
+
+            if (value != null &&
+                value != DBNull.Value)
+            {
+                retVal = Convert.ToInt16(value);
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Gets the nullable date time value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public static DateTime? GetNullableDateTimeValue(Object? value)
+        {
+            LoggingHelpers.TraceCallEnter(value);
+
+            DateTime? retVal = GetNullableDateTimeValue(value, DateTimeKind.Utc);
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <summary>
         /// Gets the nullable date time value.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="dateTimeKind">Kind of the date time.</param>
         /// <returns></returns>
-        public static DateTime? GetNullableDateTimeValue(Object? value, DateTimeKind dateTimeKind = DateTimeKind.Utc)
+        public static DateTime? GetNullableDateTimeValue(Object? value, DateTimeKind dateTimeKind)
         {
             LoggingHelpers.TraceCallEnter(value);
 
