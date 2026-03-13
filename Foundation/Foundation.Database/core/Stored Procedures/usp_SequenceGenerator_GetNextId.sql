@@ -3,10 +3,10 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [core].[usp_IdGenerator_GetNextId]
+CREATE PROCEDURE [core].[usp_SequenceGenerator_GetNextId]
     @applicationId INT,
     @userProfileId INT,
-	@idName NVARCHAR(200)
+	@sequenceName NVARCHAR(200)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -20,17 +20,17 @@ BEGIN
     DECLARE @runDate DATETIME = GETDATE()
 
     UPDATE
-        core.IdGenerator
+        core.SequenceGenerator
     SET
         LastId = 0
     WHERE
-        IdName = @idName AND
+        SequenceName = @sequenceName AND
         ResetOnNewDate = 1 AND
         DATEDIFF(DAY, LastUpdatedOn, GETDATE()) >= 1
 
     -- 
     MERGE INTO
-        core.IdGenerator AS target
+        core.SequenceGenerator AS target
     USING
         (
             SELECT
@@ -42,7 +42,7 @@ BEGIN
                 ApplicationId,
                 ConfigurationScopeId,
 
-                IdName,
+                SequenceName,
                 NextId
             FROM
             (
@@ -55,7 +55,7 @@ BEGIN
                     ApplicationId,
                     ConfigurationScopeId,
 
-                    IdName,
+                    SequenceName,
                     NextId,
                     RANK() OVER (ORDER BY Id DESC) AS Rnk
                 FROM
@@ -69,19 +69,19 @@ BEGIN
                         ApplicationId,
                         ConfigurationScopeId,
 
-                        sg.IdName,
+                        sg.SequenceName,
                         sg.LastId + 1 AS NextId
                     FROM
-                        core.IdGenerator sg
+                        core.SequenceGenerator sg
                             INNER JOIN core.ConfigurationScope cs ON
                             (
                                 cs.Id = sg.ConfigurationScopeId
                             )
                     WHERE
                         sg.StatusId IN ( 0, 1 ) AND
-                        sg.IdName = @idName AND
+                        sg.SequenceName = @sequenceName AND
                         COALESCE ( sg.ApplicationId, 0 ) IN ( 0, /* Core System Application */ @applicationId ) AND
-                        sg.CreatedByUserProfileId IN ( 1, /* System User */ @userProfileId )
+                        sg.CreatedByUserProfileId IN ( 1, /* System User */ @UserProfileId )
                     UNION ALL
                     SELECT
                         NULL Id,
@@ -92,7 +92,7 @@ BEGIN
                         0 AS ApplicationId, /* Core System Application */
                         1 AS ConfigurationScopeId, /* System */
 
-                        @idName AS IdName,
+                        @sequenceName AS SequenceName,
                         1 AS NextSequence
                 ) s
             ) s
@@ -118,7 +118,7 @@ BEGIN
 
             ApplicationId,
             ConfigurationScopeId,
-            IdName,
+            SequenceName,
             LastId
         )
         VALUES
@@ -131,7 +131,7 @@ BEGIN
 
             source.ApplicationId,
             source.ConfigurationScopeId,
-            source.IdName,
+            source.SequenceName,
             source.NextId
         );
 
@@ -139,10 +139,10 @@ BEGIN
     SELECT
         sg.LastId
     FROM
-        core.IdGenerator sg
+        core.SequenceGenerator sg
     WHERE
         sg.StatusId IN ( 0, 1 ) AND
-        sg.IdName = @idName AND
+        sg.SequenceName = @sequenceName AND
         COALESCE ( sg.ApplicationId, 0 ) IN ( 0, /* Core System Application */ @applicationId ) AND
-        sg.CreatedByUserProfileId IN ( 1, /* System User */ @userProfileId )
+        sg.CreatedByUserProfileId IN ( 1, /* System User */ @UserProfileId )
 END

@@ -1,4 +1,4 @@
-﻿CREATE TABLE [core].[IdGenerator] (
+﻿CREATE TABLE [core].[SequenceGenerator] (
     [Id]                         INT            IDENTITY (1, 1) NOT NULL,
     [Timestamp]                  ROWVERSION     NOT NULL,
     [StatusId]                   INT            NOT NULL,
@@ -8,7 +8,7 @@
     [LastUpdatedOn]              DATETIME       NOT NULL,
     [ApplicationId]              INT            NULL,
     [ConfigurationScopeId]       INT            NULL,
-    [IdName]                     NVARCHAR (200) NULL,
+    [SequenceName]               NVARCHAR (200) NULL,
     [LastId]                     INT            NULL,
     [ResetOnNewDate]             BIT            NULL,
     CONSTRAINT [PK_CORE_IdGenerator] PRIMARY KEY CLUSTERED ([Id] ASC),

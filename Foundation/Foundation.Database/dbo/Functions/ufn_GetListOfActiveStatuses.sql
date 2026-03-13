@@ -8,7 +8,7 @@ RETURN
 (
 	SELECT
         [Id],
-        [Name]
+        [Code]
     FROM
         [core].[Status]
     WHERE

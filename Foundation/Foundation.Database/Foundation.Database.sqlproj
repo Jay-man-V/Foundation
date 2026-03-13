@@ -305,10 +305,6 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="core\Tables\IdGenerator.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
     <Build Include="core\Tables\ApplicationConfiguration.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
@@ -361,10 +357,6 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="core\Stored Procedures\usp_IdGenerator_GetNextId.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
     <Build Include="Security\app.sql" />
     <Build Include="Security\core.sql" />
     <Build Include="Security\log.sql" />
@@ -375,6 +367,15 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="core\Tables\DatePeriod.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="core\Tables\SequenceGenerator.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="core\Stored Procedures\usp_SequenceGenerator_GetNextId.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
