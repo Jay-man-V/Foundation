@@ -26,9 +26,9 @@ namespace Foundation.Tests.Unit.BaseClasses
     public abstract class UnitTestBase
     {
         protected static Object SyncLock = new Object();
-        protected String TestingApplicationName = "UnitTesting";
-        protected AppId TestingApplicationId = new AppId(1);
-        protected String DatabaseServer = "Callisto";
+        protected virtual String TestingApplicationName => "UnitTesting";
+        protected AppId TestingApplicationId => new AppId(1);
+        protected String DatabaseServer => "Callisto";
         protected String BaseTemporaryOutputsPath => @"D:\Projects\JDVSoftware\TempOutputs\";
 
         protected DateTime CreatedOnDateTime => new DateTime(2000, 01, 01, 00, 00, 00, DateTimeKind.Utc);
@@ -463,7 +463,7 @@ namespace Foundation.Tests.Unit.BaseClasses
         /// </summary>
         /// <param name="inputString">The input string.</param>
         /// <returns>Original String value with output file path values replaced</returns>
-        protected String ReplaceDotVersionWithConstant(String inputString)
+        protected String ReplaceDotNetVersionWithConstant(String inputString)
         {
             String retVal = inputString;
             String[] patterns1 =
@@ -498,7 +498,7 @@ namespace Foundation.Tests.Unit.BaseClasses
             retVal = ReplaceAssemblyTargetFrameworkWithConstant(retVal);
             retVal = ReplaceServerNameWithConstant(retVal);
             retVal = ReplaceGuidWithConstant(retVal);
-            retVal = ReplaceDotVersionWithConstant(retVal);
+            retVal = ReplaceDotNetVersionWithConstant(retVal);
 
             return retVal;
         }

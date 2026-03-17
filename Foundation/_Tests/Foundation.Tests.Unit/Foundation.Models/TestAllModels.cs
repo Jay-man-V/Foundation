@@ -81,7 +81,6 @@ namespace Foundation.Tests.Unit.Foundation.Models
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Log.EventLog)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Log.EventLogApplication)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Log.EventLogAttachment)));
-            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.SequenceGenerator)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.ImageType)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Log.ImportExportControl)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.Language)));
@@ -98,6 +97,7 @@ namespace Foundation.Tests.Unit.Foundation.Models
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.ScheduledJob)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.ScheduleInterval)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.ScheduleIntervalMultiplierMatrix)));
+            Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.SequenceGenerator)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.Status)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.EnumModels.TaskStatus)));
             Assert.That(modelTypes[index++].Name, Is.EqualTo(nameof(FModels.Core.TimeZone)));

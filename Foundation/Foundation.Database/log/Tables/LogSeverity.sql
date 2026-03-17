@@ -9,7 +9,7 @@
     [ValidFrom]                  DATETIME       NULL,
     [ValidTo]                    DATETIME       NULL,
     [DisplaySequence]            SMALLINT       NULL,
-    [Code]                       NCHAR (10)     NULL,
+    [Code]                       NVARCHAR (50)  NULL,
     [ShortDescription]           NVARCHAR (150) NULL,
     [LongDescription]            NVARCHAR (300) NULL,
     CONSTRAINT [PK_LOG_LogSeverity] PRIMARY KEY CLUSTERED ([Id] ASC),
@@ -17,6 +17,8 @@
     CONSTRAINT [FK_LogSeverity_LastUpdatedByUserProfile] FOREIGN KEY ([LastUpdatedByUserProfileId]) REFERENCES [sec].[UserProfile] ([Id]),
     CONSTRAINT [FK_LogSeverity_Status] FOREIGN KEY ([StatusId]) REFERENCES [core].[Status] ([Id])
 );
+
+
 
 
 

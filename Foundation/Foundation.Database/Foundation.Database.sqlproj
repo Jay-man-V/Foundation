@@ -374,7 +374,6 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="Security\RoleMemberships.sql" />
     <Build Include="core\Stored Procedures\usp_SequenceGenerator_GetNextId.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>

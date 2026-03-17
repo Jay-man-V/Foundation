@@ -11,7 +11,9 @@ namespace Foundation.Interfaces
     /// </summary>
     public interface ICalendarRepository
     {
-        /// <summary>Determines whether [is non-working day] [the specified country code].</summary>
+        /// <summary>
+        /// Determines whether [is non-working day] [the specified country code].
+        /// </summary>
         /// <param name="countryCode">The country code.</param>
         /// <param name="date">The date.</param>
         /// <returns>

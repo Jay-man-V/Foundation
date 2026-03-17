@@ -35,7 +35,7 @@ BEGIN
         [core].[ScheduleIntervalMultiplierMatrix] [simm]
     WHERE
         [simm].[FromScheduleIntervalId] = @intervalType AND
-        [simm].[ToScheduleIntervalId] = ( SELECT [si].[Id] FROM [core].[ScheduleInterval] [si] WHERE [si].[Name] = 'DAYS' AND [si].[StatusId] IN ( SELECT [las].[Id] FROM [dbo].[ufn_GetListOfActiveStatuses] ( DEFAULT ) [las] ) ) AND
+        [simm].[ToScheduleIntervalId] = ( SELECT [si].[Id] FROM [core].[ScheduleInterval] [si] WHERE [si].[Code] = 'DAYS' AND [si].[StatusId] IN ( SELECT [las].[Id] FROM [dbo].[ufn_GetListOfActiveStatuses] ( DEFAULT ) [las] ) ) AND
         [simm].[StatusId] = 0
 
     -- Need to account for the weekends, each of the numbers below just need to be estimates to extend the End Date to allow for the Weekends and Bank Holidays

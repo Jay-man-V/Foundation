@@ -69,4 +69,17 @@
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include=".Support\Sql\0 - Create System Test Database.sql" />
+    <None Include=".Support\Sql\0 - Drop System Test Database.sql" />
+    <None Include=".Support\Sql\1 - Reset all tables.sql" />
+    <None Include=".Support\Sql\1.1 - Create - Stored Procedures and Functions.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appSettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

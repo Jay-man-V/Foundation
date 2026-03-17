@@ -70,7 +70,6 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Log  */ nameof(FDC.EventLogApplication)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Log  */ nameof(FDC.EventLogAttachment)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Base */ nameof(FDC.FoundationEntity)));
-            Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.SequenceGenerator)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.ImageType)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.ImportExportControl)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.Language)));
@@ -87,6 +86,7 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.ScheduledJob)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.ScheduleInterval)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.ScheduleIntervalMultiplierMatrix)));
+            Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.SequenceGenerator)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.Specialised)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Core */ nameof(FDC.Status)));
             Assert.That(allTypes[index++].Name, Is.EqualTo( /* Base */ nameof(FDC.TableNames)));

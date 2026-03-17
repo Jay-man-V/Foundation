@@ -62,8 +62,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase("2019-12-23", "2019-12-22", "Start Sunday")]
         public void Test_CheckIsWorkingDayOrGetNextWorkingDay(String expectedString, String startDateString, String comment)
         {
-            DateTime expected = DateTime.Parse(expectedString);
-            DateTime startDate = DateTime.Parse(startDateString);
+            DateTime expected = DateTime.ParseExact(expectedString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime startDate = DateTime.ParseExact(startDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
             CalendarRepository!.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, Arg.Any<DateTime>()).Returns(expected);
 
@@ -81,8 +81,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase("2019-12-23", "2019-12-22", "Start Sunday")]
         public void Test_GetNextWorkingDay(String expectedString, String startDateString, String comment)
         {
-            DateTime expected = DateTime.Parse(expectedString);
-            DateTime startDate = DateTime.Parse(startDateString);
+            DateTime expected = DateTime.ParseExact(expectedString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime startDate = DateTime.ParseExact(startDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
             CalendarRepository!.GetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, Arg.Any<DateTime>(), Arg.Any<ScheduleInterval>(), Arg.Any<Int32>()).Returns(expected);
 
@@ -95,8 +95,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase("2020-12-29", "2019-12-25", ScheduleInterval.Years, 1)]
         public void Test_GetNextWorkingDay_LookAhead(String expectedString, String startDateString, ScheduleInterval scheduleInterval, Int32 interval)
         {
-            DateTime expected = DateTime.Parse(expectedString);
-            DateTime startDate = DateTime.Parse(startDateString);
+            DateTime expected = DateTime.ParseExact(expectedString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime startDate = DateTime.ParseExact(startDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
             CalendarRepository!.GetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, Arg.Any<DateTime>(), Arg.Any<ScheduleInterval>(), Arg.Any<Int32>()).Returns(expected);
 
@@ -105,31 +105,32 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [TestCase("2020-12-29 10:30:30", "00:01:30:30", "2020-12-29 09:00:00", "2020-12-29 09:00:00", "2020-12-29 09:00:00", "Within window 1")]
-        [TestCase("2019-12-29 10:30:30", "00:01:30:30", "2019-12-25 09:00:00", "2019-12-25 09:00:00", "2019-12-29 09:00:00", "Christmas day")]
-        [TestCase("2021-08-13 15:13:25", "00:05:13:25", "2021-08-13 10:00:00", "2021-08-13 10:00:00", "2021-08-13 10:00:00", "Within window 2")]
-        [TestCase("2021-08-13 14:13:25", "00:05:13:25", "2021-08-13 06:00:00", "2021-08-13 09:00:00", "2021-08-13 09:00:00", "Before start time")]
-        [TestCase("2021-08-13 15:13:25", "00:05:13:25", "2021-08-13 10:00:00", "2021-08-13 10:00:00", "2021-08-13 10:00:00", "After end time 1")]
-        [TestCase("2021-08-14 11:13:25", "00:02:13:25", "2021-08-13 20:00:00", "2021-08-14 09:00:00", "2021-08-14 09:00:00", "After end time 2")]
-        [TestCase("2021-08-14 11:13:25", "00:10:13:25", "2021-08-13 08:00:00", "2021-08-13 09:00:00", "2021-08-13 09:00:00", "Duration Greater Than One Day 1")]
-        [TestCase("2021-08-14 09:13:25", "00:08:13:25", "2021-08-13 09:00:00", "2021-08-13 09:00:00", "2021-08-13 09:00:00", "Duration Greater Than One Day 2")]
-        [TestCase("2021-08-15 09:13:25", "00:16:13:25", "2021-08-13 09:00:00", "2021-08-13 09:00:00", "2021-08-13 09:00:00", "Duration Greater Than Two Days 1")]
-        public void Test_GetNextWorkingDay_TimeWindow_TimeSpan(String expectedString, String durationString, String startDateString, String calendarCheckDateTimeString, String calendarReturnString, String comment)
+        [TestCase("2020-12-29 10:30:30", "00:01:30:30", "2020-12-29 09:00:00", "2020-12-29 00:00:00", "2020-12-29 00:00:00", "Within window 1")]
+        [TestCase("2019-12-29 10:30:30", "00:01:30:30", "2019-12-25 09:00:00", "2019-12-25 00:00:00", "2019-12-29 00:00:00", "Christmas day")]
+        [TestCase("2021-08-13 15:13:25", "00:05:13:25", "2021-08-13 10:00:00", "2021-08-13 00:00:00", "2021-08-13 00:00:00", "Within window 2")]
+        [TestCase("2021-08-13 14:13:25", "00:05:13:25", "2021-08-13 06:00:00", "2021-08-13 00:00:00", "2021-08-13 00:00:00", "Before start time")]
+        [TestCase("2021-08-13 15:13:25", "00:05:13:25", "2021-08-13 10:00:00", "2021-08-13 00:00:00", "2021-08-13 00:00:00", "After end time 1")]
+        [TestCase("2021-08-14 11:13:25", "00:02:13:25", "2021-08-13 20:00:00", "2021-08-14 00:00:00", "2021-08-14 00:00:00", "After end time 2")]
+        [TestCase("2021-08-14 11:13:25", "00:10:13:25", "2021-08-13 08:00:00", "2021-08-13 00:00:00", "2021-08-13 00:00:00", "Duration Greater Than One Day 1")]
+        [TestCase("2021-08-14 09:13:25", "00:08:13:25", "2021-08-13 09:00:00", "2021-08-13 00:00:00", "2021-08-13 00:00:00", "Duration Greater Than One Day 2")]
+        [TestCase("2021-08-15 09:13:25", "00:16:13:25", "2021-08-13 09:00:00", "2021-08-13 00:00:00", "2021-08-13 00:00:00", "Duration Greater Than Two Days 1")]
+        public void Test_GetNextWorkingDay_TimeWindow_TimeSpan(String expectedString, String durationString, String startDateTimeString, String calendarCheckDateTimeString, String calendarReturnString, String comment)
         {
             TimeWindow timeWindow = new TimeWindow(new TimeSpan(09, 00, 00), new TimeSpan(17, 00, 00));
+
             DateTime expected = DateTime.ParseExact(expectedString, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
             TimeSpan duration = TimeSpan.ParseExact(durationString, "dd\\:hh\\:mm\\:ss", CultureInfo.InvariantCulture);
-            DateTime startDate = DateTime.ParseExact(startDateString, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+            DateTime startDateTime = DateTime.ParseExact(startDateTimeString, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
             DateTime calendarCheckDateTime = DateTime.ParseExact(calendarCheckDateTimeString, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
             DateTime calendarReturnDate = DateTime.ParseExact(calendarReturnString, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
 
             CalendarRepository!.ClearSubstitute();
-            CalendarRepository!.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, startDate).Returns(startDate);
+            CalendarRepository!.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, startDateTime).Returns(startDateTime);
             CalendarRepository!.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, calendarCheckDateTime).Returns(calendarReturnDate);
             CalendarRepository!.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, calendarCheckDateTime.AddDays(1)).Returns(calendarReturnDate.AddDays(1));
             CalendarRepository!.CheckIsWorkingDayOrGetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, calendarCheckDateTime.AddDays(2)).Returns(calendarReturnDate.AddDays(2));
 
-            DateTime actual = TheService!.GetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, startDate, timeWindow, duration);
+            DateTime actual = TheService!.GetNextWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, startDateTime, timeWindow, duration);
 
             Assert.That(actual, Is.EqualTo(expected), comment);
         }
@@ -138,9 +139,9 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase(true, "2019-12-25")]
         public void Test_IsHoliday(Boolean expected, String startDateString)
         {
-            DateTime startDate = DateTime.Parse(startDateString);
+            DateTime startDate = DateTime.ParseExact(startDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
-            Boolean actual = TheService!.IsHoliday(RunTimeEnvironmentSettings.StandardCountryCode, startDate);
+            Boolean actual = TheService!.IsNonWorkingDay(RunTimeEnvironmentSettings.StandardCountryCode, startDate);
 
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -148,8 +149,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase("2025-03-03", "2025-03-26")]
         public void Test_GetFirstWorkingDayOfMonth_Date(String expectedString, String startDateString)
         {
-            DateTime expected = DateTime.Parse(expectedString);
-            DateTime startDate = DateTime.Parse(startDateString);
+            DateTime expected = DateTime.ParseExact(expectedString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime startDate = DateTime.ParseExact(startDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
             DateTime actual = TheService!.GetFirstWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, startDate);
 
@@ -159,7 +160,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase("2025-03-03", 2025, 03)]
         public void Test_GetFirstWorkingDayOfMonth_Year_Month(String expectedString, Int32 year, Int32 month)
         {
-            DateTime expected = DateTime.Parse(expectedString);
+            DateTime expected = DateTime.ParseExact(expectedString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
             DateTime actual = TheService!.GetFirstWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, year, month);
 
@@ -169,8 +170,8 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase("2025-05-30", "2025-05-26")]
         public void Test_GetLastWorkingDayOfMonth_Date(String expectedString, String startDateString)
         {
-            DateTime expected = DateTime.Parse(expectedString);
-            DateTime startDate = DateTime.Parse(startDateString);
+            DateTime expected = DateTime.ParseExact(expectedString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime startDate = DateTime.ParseExact(startDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
             DateTime actual = TheService!.GetLastWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, startDate);
 
@@ -180,7 +181,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase("2025-05-30", 2025, 05)]
         public void Test_GetLastWorkingDayOfMonth_Year_Month(String expectedString, Int32 year, Int32 month)
         {
-            DateTime expected = DateTime.Parse(expectedString);
+            DateTime expected = DateTime.ParseExact(expectedString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
             DateTime actual = TheService!.GetLastWorkingDayOfMonth(RunTimeEnvironmentSettings.StandardCountryCode, year, month);
 

@@ -204,12 +204,13 @@ namespace Foundation.Repository.Core
             sql.AppendLine($"    MIN({Functions.GetListOfWorkingDates.Columns.Date}) AS FirstWorkingDayOfMonth,");
             sql.AppendLine($"    MAX({Functions.GetListOfWorkingDates.Columns.Date}) AS LastWorkingDayOfMonth");
             sql.AppendLine("FROM");
-            sql.AppendLine($"    {Functions.GetListOfWorkingDates.FunctionName} ( {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetListOfWorkingDates.Parameters.StartDate}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetListOfWorkingDates.Parameters.EndDate} )");
+            sql.AppendLine($"    {Functions.GetListOfWorkingDates.FunctionName} ( {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetListOfWorkingDates.Parameters.CountryCode}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetListOfWorkingDates.Parameters.StartDate}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetListOfWorkingDates.Parameters.EndDate} )");
             sql.AppendLine("WHERE");
             sql.AppendLine($"    {Functions.GetListOfWorkingDates.Columns.DayOfWeekIndex} NOT IN ( 1 /* Sunday */ , 7 /* Saturday */ )"); // TODO: Need to move this to a lookup based on the country code
 
             DatabaseParameters databaseParameters =
             [
+                CreateParameter(Functions.GetListOfWorkingDates.Parameters.CountryCode, countryCode),
                 CreateParameter(Functions.GetListOfWorkingDates.Parameters.StartDate, startOfMonth.Date),
                 CreateParameter(Functions.GetListOfWorkingDates.Parameters.EndDate, endOfMonth.Date),
             ];

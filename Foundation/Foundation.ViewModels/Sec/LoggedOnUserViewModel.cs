@@ -167,7 +167,7 @@ namespace Foundation.ViewModels.Sec
 
             base.Initialise();
 
-            SelectedItem = GridDataSource?.FirstOrDefault(lou => lou.CreatedByUserProfileId == Core.CurrentLoggedOnUser.Id);
+            SelectedItem = GridDataSource.FirstOrDefault(lou => lou.CreatedByUserProfileId == Core.CurrentLoggedOnUser.Id);
 
             SetupLoggedOnUserTimer();
 

@@ -12,12 +12,12 @@ namespace Foundation.Interfaces
     public interface ICalendarService
     {
         /// <summary>
-        /// Checks if the supplied <see cref="DateTime"/> is a holiday
+        /// Checks if the supplied <see cref="DateTime"/> is a working day, taking into account Weekends and other non-working days
         /// </summary>
         /// <param name="countryCode"></param>
         /// <param name="date"></param>
-        /// <returns><see cref="Boolean"/> [True] if it is a holiday, otherwise [False] </returns>
-        Boolean IsHoliday(String countryCode, DateTime date);
+        /// <returns><see cref="Boolean"/> [True] if it is a non-working day, otherwise [False] </returns>
+        Boolean IsNonWorkingDay(String countryCode, DateTime date);
 
         /// <summary>
         /// Retrieves the next working day taking into account Weekends and other non-working days

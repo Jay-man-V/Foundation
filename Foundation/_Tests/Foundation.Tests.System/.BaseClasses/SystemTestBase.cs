@@ -16,6 +16,8 @@ namespace Foundation.Tests.System.BaseClasses
     [TestFixture]
     public abstract class SystemTestBase : UnitTestBase
     {
+        protected override String TestingApplicationName => "SystemTesting";
+
         public override void TestInitialise()
         {
             base.TestInitialise();
