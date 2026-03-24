@@ -87,7 +87,7 @@ namespace Foundation.Repository
 
             public static class Parameters
             {
-                public static String CountryCode => "countryCode";
+                public static String CountryIsoCode => "countryIsoCode";
                 public static String StartDate => "startDate";
                 public static String EndDate => "endDate";
             }

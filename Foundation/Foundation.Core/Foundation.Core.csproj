@@ -19,6 +19,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
+        <ProjectReference Include="..\Foundation.Resources\Foundation.Resources.csproj" />
     </ItemGroup>
 
 </Project>

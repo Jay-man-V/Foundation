@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 using Foundation.Interfaces;
+using Foundation.Resources;
 
 namespace Foundation.Core
 {
@@ -28,6 +29,7 @@ namespace Foundation.Core
         private static AppId TheApplicationId { get; set; }
         private static TraceLevel TheTraceLevel { get; set; }
 
+        private static IUserProfile? TheSystemUserProfile { get; set; }
         private static ICurrentUser? TheCurrentLoggedOnUser { get; set; }
         private static ISharedVariables? TheSharedVariables { get; set; }
         private static ICache? TheCache { get; set; }
@@ -146,6 +148,8 @@ namespace Foundation.Core
                 TheSharedVariables = sharedVariables;
                 TheCache = cache;
                 TheCrypto = crypto;
+
+                InitialiseSystemUserProfile(userProfileProcess);
             }
 
             return TheInstance;
@@ -160,6 +164,15 @@ namespace Foundation.Core
             foreach (IApplicationStartup applicationStartup in applicationStartups)
             {
                 applicationStartup.ApplicationStarting();
+            }
+        }
+
+        private static void InitialiseSystemUserProfile(IUserProfileProcess userProfileProcess)
+        {
+            TheSystemUserProfile = userProfileProcess.Get(ApplicationDefaultValues.SystemUserProfileEntityId);
+            if (TheSystemUserProfile == null)
+            {
+                throw new UserLogonException(TheApplicationId, "System");
             }
         }
 
@@ -207,6 +220,9 @@ namespace Foundation.Core
 
         /// <inheritdoc cref="ICore.Instance"/>
         public ICore Instance => TheInstance;
+
+        /// <inheritdoc cref="ICore.SystemUserProfile"/>
+        public IUserProfile SystemUserProfile => TheSystemUserProfile; // Ignoring compiler warnings for Null Reference, set routines already check/raise for null
 
         /// <inheritdoc cref="ICore.CurrentLoggedOnUser"/>
         public ICurrentUser CurrentLoggedOnUser => TheCurrentLoggedOnUser!; // Ignoring compiler warnings for Null Reference, set routines already check/raise for null

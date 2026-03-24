@@ -55,6 +55,11 @@ namespace Foundation.Interfaces
         /// <summary>
         /// 
         /// </summary>
+        IUserProfile SystemUserProfile { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         ICurrentUser CurrentLoggedOnUser { get; }
 
         /// <summary>

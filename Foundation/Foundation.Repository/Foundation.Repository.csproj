@@ -23,10 +23,30 @@
     <Folder Include="Sql\Sec\EnumRepositories\" />
     <Folder Include="Sql\Specialised\" />
     <Folder Include="Sql\Stg\" />
-    <Folder Include="Sql\Core\" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Sql\App\GetAll.sql">
+    <None Update="Sql\App\MenuItem\GetAll.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sql\Core\ApplicationConfiguration\SetValue.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sql\Core\ApplicationConfiguration\GetGroupValues.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sql\Core\ApplicationConfiguration\Get.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sql\Core\Calendar\GetNextWorkingDay.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sql\Core\Calendar\CheckIsWorkingDayOrGetNextWorkingDay.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sql\Core\Calendar\IsNonWorkingDay.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sql\Core\Calendar\GetFirstAndLastWorkingDaysOfMonth.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

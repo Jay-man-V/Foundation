@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Reflection;
 using System.Text;
 
@@ -15,6 +16,7 @@ using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 using Foundation.Models;
+
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;
 
@@ -140,6 +142,26 @@ namespace Foundation.Repository
         /// </summary>
         /// <value>The name of the table.</value>
         protected abstract String TableName { get; }
+
+        /// <summary>
+        /// Retrieves the contents of a SQL file as a string.
+        /// </summary>
+        /// <returns>
+        /// A string containing the contents of the SQL file. The string is empty if the file does not exist or is empty.
+        /// </returns>
+        protected String GetSqlFromFile(String? sqlFileName = null)
+        {
+            String[] className = TableName.Split(".");
+            String functionName = sqlFileName ?? LocationUtils.GetFunctionName(2) + ".sql";
+
+            String fileName = Path.Combine("Sql", String.Join(Path.DirectorySeparatorChar, className), functionName);
+            fileName = fileName.Replace("[", String.Empty);
+            fileName = fileName.Replace("]", String.Empty);
+
+            String retVal = File.ReadAllText(fileName);
+
+            return retVal;
+        }
 
         /// <summary>
         /// Adds the parameter.

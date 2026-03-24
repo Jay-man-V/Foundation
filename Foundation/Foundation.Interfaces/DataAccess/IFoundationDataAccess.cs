@@ -43,6 +43,14 @@ namespace Foundation.Interfaces
         IDbTransaction BeginTransaction();
 
         /// <summary>
+        /// Retrieves the contents of a SQL file as a string.
+        /// </summary>
+        /// <returns>
+        /// A string containing the contents of the SQL file. The string is empty if the file does not exist or is empty.
+        /// </returns>
+        String GetSqlFromFile(String tableName, String? sqlFileName);
+
+        /// <summary>
         /// Executes the get row count.
         /// </summary>
         /// <param name="sql">The SQL.</param>

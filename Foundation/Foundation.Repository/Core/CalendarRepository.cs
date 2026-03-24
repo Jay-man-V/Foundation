@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------
 
 using System.Data;
-using System.Text;
 
 using Foundation.Common;
 using Foundation.DataAccess.Database;
@@ -56,17 +55,17 @@ namespace Foundation.Repository.Core
         private IDateTimeService DateTimeService { get; }
 
         /// <inheritdoc cref="ICalendarRepository.IsNonWorkingDay(String, DateTime)"/>
-        public Boolean IsNonWorkingDay(String countryCode, DateTime date)
+        public Boolean IsNonWorkingDay(String countryIsoCode, DateTime date)
         {
-            LoggingHelpers.TraceCallEnter(countryCode, date);
+            LoggingHelpers.TraceCallEnter(countryIsoCode, date);
 
             Boolean retVal;
 
-            String sql = $"SELECT {Functions.IsNonWorkingDay} ( {DataLogicProvider.DatabaseParameterPrefix}{FDC.Country.EntityName}{FDC.Country.IsoCode}, {DataLogicProvider.DatabaseParameterPrefix}{FDC.NonWorkingDay.EntityName}{FDC.NonWorkingDay.Date} )";
+            String sql = GetSqlFromFile("[core].[Calendar]");
 
             IDatabaseParameters databaseParameters = new DatabaseParameters
             {
-                CreateParameter($"{FDC.Country.EntityName}{FDC.Country.IsoCode}", countryCode),
+                CreateParameter($"{FDC.Country.EntityName}{FDC.Country.IsoCode}", countryIsoCode),
                 CreateParameter($"{FDC.NonWorkingDay.EntityName}{FDC.NonWorkingDay.Date}", date.Date),
             };
 
@@ -80,17 +79,17 @@ namespace Foundation.Repository.Core
         }
 
         /// <inheritdoc cref="ICalendarRepository.GetNextWorkingDay(String, DateTime, ScheduleInterval, Int32)"/>
-        public DateTime GetNextWorkingDay(String countryCode, DateTime date, ScheduleInterval intervalType, Int32 interval)
+        public DateTime GetNextWorkingDay(String countryIsoCode, DateTime date, ScheduleInterval intervalType, Int32 interval)
         {
-            LoggingHelpers.TraceCallEnter(countryCode, date, interval);
+            LoggingHelpers.TraceCallEnter(countryIsoCode, date, interval);
 
             DateTime retVal = date.Date;
 
-            String sql = $"SELECT {Functions.GetNextWorkingDay.FunctionName} ( {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.CountryIsoCode}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.StartDate}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.IntervalType}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetNextWorkingDay.Parameters.Interval} ) OPTION ( MaxRecursion 2000 )";
+            String sql = GetSqlFromFile("[core].[Calendar]");
 
             DatabaseParameters databaseParameters =
             [
-                CreateParameter(Functions.GetNextWorkingDay.Parameters.CountryIsoCode, countryCode),
+                CreateParameter(Functions.GetNextWorkingDay.Parameters.CountryIsoCode, countryIsoCode),
                 CreateParameter(Functions.GetNextWorkingDay.Parameters.StartDate, date),
                 CreateParameter(Functions.GetNextWorkingDay.Parameters.IntervalType, intervalType),
                 CreateParameter(Functions.GetNextWorkingDay.Parameters.Interval, interval),
@@ -109,17 +108,17 @@ namespace Foundation.Repository.Core
         }
 
         /// <inheritdoc cref="ICalendarRepository.CheckIsWorkingDayOrGetNextWorkingDay(String, DateTime)"/>
-        public DateTime CheckIsWorkingDayOrGetNextWorkingDay(String countryCode, DateTime date)
+        public DateTime CheckIsWorkingDayOrGetNextWorkingDay(String countryIsoCode, DateTime date)
         {
-            LoggingHelpers.TraceCallEnter(countryCode, date);
+            LoggingHelpers.TraceCallEnter(countryIsoCode, date);
 
             DateTime retVal = date.Date;
 
-            String sql = $"SELECT {Functions.CheckIsWorkingDayOrGetNextWorkingDay.FunctionName} ( {DataLogicProvider.DatabaseParameterPrefix}{Functions.CheckIsWorkingDayOrGetNextWorkingDay.Parameters.CountryIsoCode},  {DataLogicProvider.DatabaseParameterPrefix}{Functions.CheckIsWorkingDayOrGetNextWorkingDay.Parameters.StartDate} ) OPTION ( MaxRecursion 2000 )";
+            String sql = GetSqlFromFile("[core].[Calendar]");
 
             DatabaseParameters databaseParameters =
             [
-                CreateParameter(Functions.CheckIsWorkingDayOrGetNextWorkingDay.Parameters.CountryIsoCode, countryCode),
+                CreateParameter(Functions.CheckIsWorkingDayOrGetNextWorkingDay.Parameters.CountryIsoCode, countryIsoCode),
                 CreateParameter(Functions.CheckIsWorkingDayOrGetNextWorkingDay.Parameters.StartDate, date),
             ];
 
@@ -136,11 +135,11 @@ namespace Foundation.Repository.Core
         }
 
         /// <inheritdoc cref="ICalendarRepository.GetFirstWorkingDayOfMonth(String, DateTime)"/>
-        public DateTime GetFirstWorkingDayOfMonth(String countryCode, DateTime date)
+        public DateTime GetFirstWorkingDayOfMonth(String countryIsoCode, DateTime date)
         {
-            LoggingHelpers.TraceCallEnter(countryCode, date);
+            LoggingHelpers.TraceCallEnter(countryIsoCode, date);
 
-            DateTime retVal = GetFirstWorkingDayOfMonth(countryCode, date.Year, date.Month);
+            DateTime retVal = GetFirstWorkingDayOfMonth(countryIsoCode, date.Year, date.Month);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -148,11 +147,11 @@ namespace Foundation.Repository.Core
         }
 
         /// <inheritdoc cref="ICalendarRepository.GetFirstWorkingDayOfMonth(String, Int32, Int32)"/>
-        public DateTime GetFirstWorkingDayOfMonth(String countryCode, Int32 year, Int32 month)
+        public DateTime GetFirstWorkingDayOfMonth(String countryIsoCode, Int32 year, Int32 month)
         {
-            LoggingHelpers.TraceCallEnter(countryCode, year, month);
+            LoggingHelpers.TraceCallEnter(countryIsoCode, year, month);
 
-            FirstAndLastWorkingDays firstAndLastWorkingDays = GetFirstAndLastWorkingDaysOfMonth(countryCode, year, month);
+            FirstAndLastWorkingDays firstAndLastWorkingDays = GetFirstAndLastWorkingDaysOfMonth(countryIsoCode, year, month);
             DateTime retVal = firstAndLastWorkingDays.FirstWorkingDay;
 
             LoggingHelpers.TraceCallReturn(retVal);
@@ -161,11 +160,11 @@ namespace Foundation.Repository.Core
         }
 
         /// <inheritdoc cref="ICalendarRepository.GetLastWorkingDayOfMonth(String, DateTime)"/>
-        public DateTime GetLastWorkingDayOfMonth(String countryCode, DateTime date)
+        public DateTime GetLastWorkingDayOfMonth(String countryIsoCode, DateTime date)
         {
-            LoggingHelpers.TraceCallEnter(countryCode, date);
+            LoggingHelpers.TraceCallEnter(countryIsoCode, date);
 
-            DateTime retVal = GetLastWorkingDayOfMonth(countryCode, date.Year, date.Month);
+            DateTime retVal = GetLastWorkingDayOfMonth(countryIsoCode, date.Year, date.Month);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -173,11 +172,11 @@ namespace Foundation.Repository.Core
         }
 
         /// <inheritdoc cref="ICalendarRepository.GetLastWorkingDayOfMonth(String, Int32, Int32)"/>
-        public DateTime GetLastWorkingDayOfMonth(String countryCode, Int32 year, Int32 month)
+        public DateTime GetLastWorkingDayOfMonth(String countryIsoCode, Int32 year, Int32 month)
         {
-            LoggingHelpers.TraceCallEnter(countryCode, year, month);
+            LoggingHelpers.TraceCallEnter(countryIsoCode, year, month);
 
-            FirstAndLastWorkingDays firstAndLastWorkingDays = GetFirstAndLastWorkingDaysOfMonth(countryCode, year, month);
+            FirstAndLastWorkingDays firstAndLastWorkingDays = GetFirstAndLastWorkingDaysOfMonth(countryIsoCode, year, month);
             DateTime retVal = firstAndLastWorkingDays.LastWorkingDay;
 
             LoggingHelpers.TraceCallReturn(retVal);
@@ -185,9 +184,9 @@ namespace Foundation.Repository.Core
             return retVal;
         }
 
-        private FirstAndLastWorkingDays GetFirstAndLastWorkingDaysOfMonth(String countryCode, Int32 year, Int32 month)
+        private FirstAndLastWorkingDays GetFirstAndLastWorkingDaysOfMonth(String countryIsoCode, Int32 year, Int32 month)
         {
-            LoggingHelpers.TraceCallEnter(countryCode, year, month);
+            LoggingHelpers.TraceCallEnter(countryIsoCode, year, month);
 
             DateTime startOfMonth = DateTimeService.GetStartOfMonth(year, month);
             DateTime endOfMonth = DateTimeService.GetEndOfMonth(year, month);
@@ -199,23 +198,16 @@ namespace Foundation.Repository.Core
                 LastWorkingDay = endOfMonth,
             };
 
-            StringBuilder sql = new StringBuilder();
-            sql.AppendLine("SELECT");
-            sql.AppendLine($"    MIN({Functions.GetListOfWorkingDates.Columns.Date}) AS FirstWorkingDayOfMonth,");
-            sql.AppendLine($"    MAX({Functions.GetListOfWorkingDates.Columns.Date}) AS LastWorkingDayOfMonth");
-            sql.AppendLine("FROM");
-            sql.AppendLine($"    {Functions.GetListOfWorkingDates.FunctionName} ( {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetListOfWorkingDates.Parameters.CountryCode}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetListOfWorkingDates.Parameters.StartDate}, {DataLogicProvider.DatabaseParameterPrefix}{Functions.GetListOfWorkingDates.Parameters.EndDate} )");
-            sql.AppendLine("WHERE");
-            sql.AppendLine($"    {Functions.GetListOfWorkingDates.Columns.DayOfWeekIndex} NOT IN ( 1 /* Sunday */ , 7 /* Saturday */ )"); // TODO: Need to move this to a lookup based on the country code
+            String sql = GetSqlFromFile("[core].[Calendar]");
 
             DatabaseParameters databaseParameters =
             [
-                CreateParameter(Functions.GetListOfWorkingDates.Parameters.CountryCode, countryCode),
+                CreateParameter(Functions.GetListOfWorkingDates.Parameters.CountryIsoCode, countryIsoCode),
                 CreateParameter(Functions.GetListOfWorkingDates.Parameters.StartDate, startOfMonth.Date),
                 CreateParameter(Functions.GetListOfWorkingDates.Parameters.EndDate, endOfMonth.Date),
             ];
 
-            DataTable dt = ExecuteDataTable(sql.ToString(), CommandType.Text, databaseParameters);
+            DataTable dt = ExecuteDataTable(sql, CommandType.Text, databaseParameters);
 
             if (dt.Rows.Count > 0)
             {

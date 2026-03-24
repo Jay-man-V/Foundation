@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Interfaces;
+
 namespace Foundation.Resources
 {
     /// <summary>
@@ -11,6 +13,8 @@ namespace Foundation.Resources
     /// </summary>
     public static class ApplicationDefaultValues
     {
+        public static EntityId SystemUserProfileEntityId => new EntityId(1);
+
         /// <summary>
         /// The default Valid To date/time that is used throughout the application
         /// <para>

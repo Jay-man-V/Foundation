@@ -62,7 +62,7 @@ namespace Foundation.Repository.App
         /// <inheritdoc cref="FoundationModelRepository{IMenuItem}.GetAllSql(Boolean, Boolean)"/>
         protected override String GetAllSql(Boolean excludeDeleted, Boolean useValidityPeriod)
         {
-            String retVal = File.ReadAllText(@"Sql\App\GetAll.sql");
+            String retVal = File.ReadAllText(@"Sql\App\MenuItem\GetAll.sql");
 
             return retVal;
         }

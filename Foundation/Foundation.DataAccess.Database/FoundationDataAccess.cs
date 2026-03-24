@@ -164,6 +164,21 @@ namespace Foundation.DataAccess.Database
             return DatabaseTransaction;
         }
 
+        /// <inheritdoc cref="IFoundationDataAccess.GetSqlFromFile(String, String)"/>
+        public String GetSqlFromFile(String tableName, String? sqlFileName = null)
+        {
+            String[] className = tableName.Split(".");
+            String functionName = sqlFileName ?? LocationUtils.GetFunctionName(2) + ".sql";
+
+            String fileName = Path.Combine("Sql", String.Join(Path.DirectorySeparatorChar, className), functionName);
+            fileName = fileName.Replace("[", String.Empty);
+            fileName = fileName.Replace("]", String.Empty);
+
+            String retVal = File.ReadAllText(fileName);
+
+            return retVal;
+        }
+
         /// <summary>
         /// Creates the parameter.
         /// </summary>
