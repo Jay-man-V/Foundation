@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 
 using System.Data;
+using System.Runtime.CompilerServices;
 
 namespace Foundation.Interfaces
 {
@@ -45,10 +46,12 @@ namespace Foundation.Interfaces
         /// <summary>
         /// Retrieves the contents of a SQL file as a string.
         /// </summary>
+        /// <param name="folderPath">The path to the folder containing the SQL file.</param>
+        /// <param name="sqlFileName">The name of the SQL file (not including extension). If null or empty, the function name is used</param>
         /// <returns>
         /// A string containing the contents of the SQL file. The string is empty if the file does not exist or is empty.
         /// </returns>
-        String GetSqlFromFile(String tableName, String? sqlFileName);
+        String GetSqlFromFile(String folderPath, [CallerMemberName] String? sqlFileName = null);
 
         /// <summary>
         /// Executes the get row count.

@@ -8,7 +8,7 @@ using System.Data;
 using System.Data.Common;
 using System.Drawing;
 using System.IO;
-
+using System.Runtime.CompilerServices;
 using Foundation.Common;
 using Foundation.DataAccess.Database.DataLogicProviders;
 using Foundation.Interfaces;
@@ -165,10 +165,10 @@ namespace Foundation.DataAccess.Database
         }
 
         /// <inheritdoc cref="IFoundationDataAccess.GetSqlFromFile(String, String)"/>
-        public String GetSqlFromFile(String tableName, String? sqlFileName = null)
+        public String GetSqlFromFile(String folderPath, [CallerMemberName] String? sqlFileName = null)
         {
-            String[] className = tableName.Split(".");
-            String functionName = sqlFileName ?? LocationUtils.GetFunctionName(2) + ".sql";
+            String[] className = folderPath.Split(".");
+            String functionName = sqlFileName + ".sql";
 
             String fileName = Path.Combine("Sql", String.Join(Path.DirectorySeparatorChar, className), functionName);
             fileName = fileName.Replace("[", String.Empty);

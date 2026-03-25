@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------
 
 using System.Data;
-using System.Text;
 
 using Foundation.Common;
 using Foundation.DataAccess.Database;
@@ -65,16 +64,7 @@ namespace Foundation.Repository.Core
 
             INonWorkingDay? retVal = null;
 
-            StringBuilder sql = new StringBuilder();
-
-            sql.AppendLine("SELECT");
-            sql.AppendLine("    *");
-            sql.AppendLine("FROM");
-            sql.AppendLine($"    {FDC.TableNames.NonWorkingDay} nwd");
-            sql.AppendLine("WHERE");
-            sql.AppendLine($"    nwd.{FDC.NonWorkingDay.StatusId} IN ( SELECT {FDC.Status.Id} FROM {Functions.GetListOfActiveStatuses} (1) ) AND");
-            sql.AppendLine(DataLogicProvider.GetDateComparisonSql($"nwd.{FDC.NonWorkingDay.Date}", DataLogicProvider.DatabaseParameterPrefix + FDC.NonWorkingDay.EntityName + FDC.NonWorkingDay.Date, " = 0 AND"));
-            sql.AppendLine($"    nwd.{FDC.NonWorkingDay.CountryId} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.NonWorkingDay.EntityName}{FDC.NonWorkingDay.CountryId}");
+            String sql = GetSqlFromFile();
 
             DatabaseParameters databaseParameters =
             [
@@ -82,7 +72,7 @@ namespace Foundation.Repository.Core
                 FoundationDataAccess.CreateParameter($"{FDC.NonWorkingDay.EntityName}{FDC.NonWorkingDay.Date}", date)
             ];
 
-            DataTable dataTable = FoundationDataAccess.ExecuteDataTable(sql.ToString(), CommandType.Text, databaseParameters);
+            DataTable dataTable = FoundationDataAccess.ExecuteDataTable(sql, CommandType.Text, databaseParameters);
 
             if (dataTable.Rows.Count > 0)
             {

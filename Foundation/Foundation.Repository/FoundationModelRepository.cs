@@ -10,6 +10,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 using Foundation.Common;
@@ -149,16 +150,9 @@ namespace Foundation.Repository
         /// <returns>
         /// A string containing the contents of the SQL file. The string is empty if the file does not exist or is empty.
         /// </returns>
-        protected String GetSqlFromFile(String? sqlFileName = null)
+        protected String GetSqlFromFile([CallerMemberName] String? sqlFileName = null)
         {
-            String[] className = TableName.Split(".");
-            String functionName = sqlFileName ?? LocationUtils.GetFunctionName(2) + ".sql";
-
-            String fileName = Path.Combine("Sql", String.Join(Path.DirectorySeparatorChar, className), functionName);
-            fileName = fileName.Replace("[", String.Empty);
-            fileName = fileName.Replace("]", String.Empty);
-
-            String retVal = File.ReadAllText(fileName);
+            String retVal = FoundationDataAccess.GetSqlFromFile(TableName, sqlFileName);
 
             return retVal;
         }

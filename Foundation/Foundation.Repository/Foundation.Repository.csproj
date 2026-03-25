@@ -49,5 +49,8 @@
     <None Update="Sql\Core\Calendar\GetFirstAndLastWorkingDaysOfMonth.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Sql\Core\NonWorkingDay\Get.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
