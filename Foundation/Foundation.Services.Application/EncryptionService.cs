@@ -36,7 +36,16 @@ namespace Foundation.Services.Application
         /// 
         /// </summary>
         /// <returns>An implementation of the currently used <see cref="SymmetricAlgorithm"/></returns>
-        private SymmetricAlgorithm Create() { return Aes.Create(); }
+        private SymmetricAlgorithm Create(Byte[]? key = null, Byte[]? iv = null)
+        {
+            SymmetricAlgorithm crypto = Aes.Create();
+
+            if (key != null) crypto.Key = key;
+            if (iv != null) crypto.IV = iv;
+            crypto.Padding = PaddingMode.PKCS7;
+
+            return crypto;
+        }
 
         private IFileApi FileApi { get; }
 
@@ -68,8 +77,7 @@ namespace Foundation.Services.Application
                 throw new ArgumentNullException(nameof(salt));
             }
 
-
-            using (SymmetricAlgorithm crypto = Create())
+            using (SymmetricAlgorithm crypto = Create(null, null))
             {
                 // TODO: Move HashAlgorithmName.SHA3_512 to constants or loaded configuration
                 key = Rfc2898DeriveBytes.Pbkdf2(keyPassword, salt, Iterations, HashAlgorithmName.SHA3_512, crypto.KeySize / 8);
@@ -135,12 +143,8 @@ namespace Foundation.Services.Application
 
             String retVal;
 
-            using (SymmetricAlgorithm crypto = Create())
+            using (SymmetricAlgorithm crypto = Create(key, iv))
             {
-                crypto.Key = key;
-                crypto.IV = iv;
-                crypto.Padding = PaddingMode.Zeros;
-
                 // Create an encryptor to perform the stream transform.
                 ICryptoTransform transformer = crypto.CreateEncryptor(crypto.Key, crypto.IV);
 
@@ -206,12 +210,8 @@ namespace Foundation.Services.Application
 
             String retVal;
 
-            using (SymmetricAlgorithm crypto = Create())
+            using (SymmetricAlgorithm crypto = Create(key, iv))
             {
-                crypto.Key = key;
-                crypto.IV = iv;
-                crypto.Padding = PaddingMode.Zeros;
-
                 // Create a decryptor to perform the stream transform.
                 ICryptoTransform transformer = crypto.CreateDecryptor(crypto.Key, crypto.IV);
 
@@ -323,12 +323,8 @@ namespace Foundation.Services.Application
 
             Byte[] retVal;
 
-            using (SymmetricAlgorithm crypto = Create())
+            using (SymmetricAlgorithm crypto = Create(key, iv))
             {
-                crypto.Key = key;
-                crypto.IV = iv;
-                crypto.Padding = PaddingMode.Zeros;
-
                 // Create an Encryptor or Decryptor to perform the stream transform.
                 ICryptoTransform transformer;
 

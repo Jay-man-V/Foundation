@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 
 using Foundation.Common;
+using Foundation.Interfaces;
 
 using Foundation.Tests.Unit.BaseClasses;
 
@@ -20,220 +21,396 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
         public void Test_Serialise_Object_Null()
         {
             String expected = String.Empty;
-            const Object? value = null;
+            Object? value = null;
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            Object deserialised = SerialisationHelpers.Deserialise<Object>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
 
         [TestCase]
         public void Test_Serialise_Boolean_True()
         {
-            const String expected = "True";
-            const Boolean value = true;
+            String expected = "True";
+            Boolean value = true;
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            Boolean deserialised = SerialisationHelpers.Deserialise<Boolean>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
 
         [TestCase]
         public void Test_Serialise_Boolean_False()
         {
-            const String expected = "False";
-            const Boolean value = false;
+            String expected = "False";
+            Boolean value = false;
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            Boolean deserialised = SerialisationHelpers.Deserialise<Boolean>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
 
         [TestCase]
         public void Test_Serialise_TimeSpan()
         {
-            const String expected = "10:05:00";
+            String expected = "10:05:00";
             TimeSpan value = new TimeSpan(10, 5, 0);
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            TimeSpan deserialised = SerialisationHelpers.Deserialise<TimeSpan>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
 
         [TestCase]
         public void Test_Serialise_Date()
         {
-            const String expected = "2023-09-08T00:00:00.000";
+            String expected = "2023-09-08T00:00:00.000";
             DateTime value = new DateTime(2023, 09, 08);
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            DateTime deserialised = SerialisationHelpers.Deserialise<DateTime>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
 
         [TestCase]
         public void Test_Serialise_DateTime()
         {
-            const String expected = "2023-09-08T21:38:45.000";
+            String expected = "2023-09-08T21:38:45.000";
             DateTime value = new DateTime(2023, 09, 08, 21, 38, 45);
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            DateTime deserialised = SerialisationHelpers.Deserialise<DateTime>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
 
         [TestCase]
         public void Test_Serialise_DateTimeMilliseconds()
         {
-            const String expected = "2023-09-08T21:38:45.123";
+            String expected = "2023-09-08T21:38:45.123";
             DateTime value = new DateTime(2023, 09, 08, 21, 38, 45, 123);
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            DateTime deserialised = SerialisationHelpers.Deserialise<DateTime>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
 
         [TestCase]
         public void Test_Serialise_Guid()
         {
-            const String expected = "0b368339-e43e-4aff-9fbc-c9f0074fd068";
+            String expected = "0b368339-e43e-4aff-9fbc-c9f0074fd068";
             Guid value = Guid.Parse($"{{{expected}}}");
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            Guid deserialised = SerialisationHelpers.Deserialise<Guid>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
 
         [TestCase]
         public void Test_Serialise_Char()
         {
-            const String expected = "Z";
+            String expected = "Z";
             Char value = 'Z';
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            Char deserialised = SerialisationHelpers.Deserialise<Char>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
 
         [TestCase]
         public void Test_Serialise_String()
         {
-            const String expected = "{0B368339-E43E-4AFF-9FBC-C9F0074FD068}";
+            String expected = "{0B368339-E43E-4AFF-9FBC-C9F0074FD068}";
             String value = expected;
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            String deserialised = SerialisationHelpers.Deserialise<String>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_Serialise_String_Empty()
+        {
+            String expected = String.Empty;
+            Object? value = null;
+
+            String serialised = SerialisationHelpers.Serialise(value);
+            Object deserialised = SerialisationHelpers.Deserialise<Object>(serialised);
+
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
 
         [TestCase]
         public void Test_Serialise_Int16()
         {
-            const String expected = "32767";
-            const Int16 value = Int16.MaxValue;
+            String expected = "32767";
+            Int16 value = Int16.MaxValue;
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            Int16 deserialised = SerialisationHelpers.Deserialise<Int16>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
 
         [TestCase]
         public void Test_Serialise_UInt16()
         {
-            const String expected = "65535";
-            const UInt16 value = UInt16.MaxValue;
+            String expected = "65535";
+            UInt16 value = UInt16.MaxValue;
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            UInt16 deserialised = SerialisationHelpers.Deserialise<UInt16>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
 
         [TestCase]
         public void Test_Serialise_Int32()
         {
-            const String expected = "2147483647";
-            const Int32 value = Int32.MaxValue;
+            String expected = "2147483647";
+            Int32 value = Int32.MaxValue;
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            Int32 deserialised = SerialisationHelpers.Deserialise<Int32>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
 
         [TestCase]
         public void Test_Serialise_UInt32()
         {
-            const String expected = "4294967295";
-            const UInt32 value = UInt32.MaxValue;
+            String expected = "4294967295";
+            UInt32 value = UInt32.MaxValue;
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            UInt32 deserialised = SerialisationHelpers.Deserialise<UInt32>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
 
         [TestCase]
         public void Test_Serialise_Int64()
         {
-            const String expected = "9223372036854775807";
-            const Int64 value = Int64.MaxValue;
+            String expected = "9223372036854775807";
+            Int64 value = Int64.MaxValue;
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            Int64 deserialised = SerialisationHelpers.Deserialise<Int64>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
 
         [TestCase]
         public void Test_Serialise_UInt64()
         {
-            const String expected = "18446744073709551615";
-            const UInt64 value = UInt64.MaxValue;
+            String expected = "18446744073709551615";
+            UInt64 value = UInt64.MaxValue;
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            UInt64 deserialised = SerialisationHelpers.Deserialise<UInt64>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
 
         [TestCase]
         public void Test_Serialise_Decimal()
         {
-            const String expected = "79228162514264337593543950335";
-            const Decimal value = Decimal.MaxValue;
+            String expected = "79228162514264337593543950335";
+            Decimal value = Decimal.MaxValue;
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            Decimal deserialised = SerialisationHelpers.Deserialise<Decimal>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
 
         [TestCase]
         public void Test_Serialise_Double()
         {
-            const String expected = "1.79769313486232";
-            const Double value = 1.79769313486232d;
+            String expected = "1.79769313486232";
+            Double value = 1.79769313486232d;
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            Double deserialised = SerialisationHelpers.Deserialise<Double>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
 
         [TestCase]
         public void Test_Serialise_Byte()
         {
-            const String expected = "255";
-            const Byte value = Byte.MaxValue;
+            String expected = "255";
+            Byte value = Byte.MaxValue;
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            Byte deserialised = SerialisationHelpers.Deserialise<Byte>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
 
         [TestCase]
         public void Test_Serialise_SByte()
         {
-            const String expected = "127";
-            const SByte value = SByte.MaxValue;
+            String expected = "127";
+            SByte value = SByte.MaxValue;
 
-            String actual = SerialisationHelpers.Serialise(value);
+            String serialised = SerialisationHelpers.Serialise(value);
+            SByte deserialised = SerialisationHelpers.Deserialise<SByte>(serialised);
 
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_Serialise_Appid()
+        {
+            String expected = """
+                              {
+                                "TheAppId": 127
+                              }
+                              """;
+            AppId value = new AppId(127);
+
+            String serialised = SerialisationHelpers.Serialise(value);
+            AppId deserialised = SerialisationHelpers.Deserialise<AppId>(serialised);
+
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_Serialise_EmailAddress()
+        {
+            String expected = """
+                              {
+                                "TheEmailAddress": "info@JDVSoftware.com"
+                              }
+                              """;
+            EmailAddress value = new EmailAddress("info@JDVSoftware.com");
+
+            String serialised = SerialisationHelpers.Serialise(value);
+            EmailAddress deserialised = SerialisationHelpers.Deserialise<EmailAddress>(serialised);
+
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
+            Assert.That(deserialised.TheEmailAddress, Is.EqualTo(value.TheEmailAddress));
+            Assert.That(deserialised.DomainName(), Is.EqualTo(value.DomainName()));
+            Assert.That(deserialised.LocalPart(), Is.EqualTo(value.LocalPart()));
+        }
+
+        [TestCase]
+        public void Test_Serialise_EntityId()
+        {
+            String expected = """
+                              {
+                                "TheEntityId": 127
+                              }
+                              """;
+            EntityId value = new EntityId(127);
+
+            String serialised = SerialisationHelpers.Serialise(value);
+            EntityId deserialised = SerialisationHelpers.Deserialise<EntityId>(serialised);
+
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_Serialise_LogId()
+        {
+            String expected = """
+                              {
+                                "TheLogId": 127
+                              }
+                              """;
+            LogId value = new LogId(127);
+
+            String serialised = SerialisationHelpers.Serialise(value);
+            LogId deserialised = SerialisationHelpers.Deserialise<LogId>(serialised);
+
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_Serialise_PostCode()
+        {
+            String expected = """
+                              {
+                                "Value": "hp11aa"
+                              }
+                              """;
+            PostCode value = new PostCode("hp11aa");
+
+            String serialised = SerialisationHelpers.Serialise(value);
+            PostCode deserialised = SerialisationHelpers.Deserialise<PostCode>(serialised);
+
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_Serialise_TelephoneNumber()
+        {
+            String expected = """
+                               {
+                                 "TheTelephoneNumber": "0123 1234 5678"
+                               }
+                               """;
+            TelephoneNumber value = new TelephoneNumber("0123 1234 5678");
+
+            String serialised = SerialisationHelpers.Serialise(value);
+            TelephoneNumber deserialised = SerialisationHelpers.Deserialise<TelephoneNumber>(serialised);
+
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_Serialise_TimeWindow()
+        {
+            String expected = """
+                               {
+                                 "StartTime": "09:00:00",
+                                 "EndTime": "17:30:00"
+                               }
+                               """;
+            TimeWindow value = new TimeWindow(new TimeSpan(09, 00, 00), new TimeSpan(17, 30, 00));
+
+            String serialised = SerialisationHelpers.Serialise(value);
+            TimeWindow deserialised = SerialisationHelpers.Deserialise<TimeWindow>(serialised);
+
+            Assert.That(serialised, Is.EqualTo(expected));
+            Assert.That(deserialised, Is.EqualTo(value));
         }
     }
 }

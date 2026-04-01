@@ -13,8 +13,10 @@ namespace Foundation.Interfaces
     /// A struct to hold a Postcode alongside validation routines
     /// </summary>
     [DebuggerDisplay("{Value}")]
-    public readonly struct PostCode
+    public struct PostCode
     {
+        private Boolean Parsed { get; init; }
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -40,12 +42,12 @@ namespace Foundation.Interfaces
         /// <summary>
         /// The encapsulated value
         /// </summary>
-        public String Value { get; }
+        public String Value { get; init; }
 
         /// <summary>
         /// Indicates whether the <see cref="Value"/> has been parsed
         /// </summary>
-        public Boolean Parsed { get; }
+        public Boolean IsParsed() { return Parsed; }
 
         /// <summary>
         /// String representation of the struct
@@ -54,14 +56,7 @@ namespace Foundation.Interfaces
 
         public override String ToString()
         {
-            if (String.IsNullOrWhiteSpace(Value))
-            {
-                return GetType().ToString();
-            }
-            else
-            {
-                return Value;
-            }
+            return Value;
         }
     }
 }

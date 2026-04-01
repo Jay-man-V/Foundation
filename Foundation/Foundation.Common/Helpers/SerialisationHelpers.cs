@@ -108,10 +108,10 @@ namespace Foundation.Common
                 {
                     TObject? temp = JsonConvert.DeserializeObject<TObject>(value);
 
-                    if (temp is null)
-                    {
-                        throw new ArgumentNullException(nameof(value));
-                    }
+                    //if (temp is null)
+                    //{
+                    //    throw new ArgumentNullException(nameof(value));
+                    //}
 
                     retVal = temp;
                 }

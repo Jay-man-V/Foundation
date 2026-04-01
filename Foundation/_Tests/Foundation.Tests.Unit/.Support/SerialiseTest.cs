@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Interfaces;
+
 namespace Foundation.Tests.Unit.Support
 {
     /// <summary>
@@ -11,6 +13,10 @@ namespace Foundation.Tests.Unit.Support
     /// </summary>
     public class SerialiseTest
     {
+        public AppId AppId { get; set; } = new AppId(123);
+        public LogId LogId { get; set; } = new LogId(456);
+        public EntityId EntityId { get; set; } = new EntityId(789);
+        public EmailAddress EmailAddress { get; set; } = new EmailAddress("info@jdvsoftware.com");
         public Boolean BooleanValue { get; set; } = true;
         public TimeSpan TimeSpanValue { get; set; } = new TimeSpan(01, 02, 03, 04);
         public DateTime DateTimeValue { get; set; } = new DateTime(2025, 04, 05, 18, 12, 14, 123);
@@ -36,6 +42,11 @@ namespace Foundation.Tests.Unit.Support
         {
             Int32 hashCode = 746720419;
             Int32 constant = -1521134295;
+
+            hashCode = hashCode * constant + EqualityComparer<AppId>.Default.GetHashCode(AppId);
+            hashCode = hashCode * constant + EqualityComparer<LogId>.Default.GetHashCode(LogId);
+            hashCode = hashCode * constant + EqualityComparer<EntityId>.Default.GetHashCode(EntityId);
+            hashCode = hashCode * constant + EqualityComparer<EmailAddress>.Default.GetHashCode(EmailAddress);
 
             hashCode = hashCode * constant + EqualityComparer<Boolean>.Default.GetHashCode(BooleanValue);
             hashCode = hashCode * constant + EqualityComparer<TimeSpan>.Default.GetHashCode(TimeSpanValue);

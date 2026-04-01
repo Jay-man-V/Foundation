@@ -17,10 +17,11 @@ namespace Foundation.Interfaces
         /// <param name="applicationId">The application id.</param>
         /// <param name="userProfile">The user profile.</param>
         /// <param name="configurationScope">The configuration scope.</param>
+        /// <param name="isEncrypted">Indicator for encryption</param>
         /// <param name="key">The key.</param>
         /// <param name="newValue"></param>
         /// <returns></returns>
-        void SetValue(AppId applicationId, IUserProfile userProfile, ConfigurationScope configurationScope, String key, String newValue);
+        void SetValue(AppId applicationId, IUserProfile userProfile, ConfigurationScope configurationScope, Boolean isEncrypted, String key, String newValue);
 
         /// <summary>
         /// Gets the value.

@@ -79,8 +79,8 @@ namespace Foundation.Services.Application
             }
         }
 
-        /// <inheritdoc cref="IApplicationConfigurationService.SetValue{TValue}(AppId, IUserProfile, ConfigurationScope, String, Boolean, TValue)"/>
-        public void SetValue<TValue>(AppId applicationId, IUserProfile userProfile, ConfigurationScope configurationScope, String key, Boolean isEncrypted, TValue newValue)
+        /// <inheritdoc cref="IApplicationConfigurationService.SetValue{TValue}(AppId, IUserProfile, ConfigurationScope, Boolean, String, TValue)"/>
+        public void SetValue<TValue>(AppId applicationId, IUserProfile userProfile, ConfigurationScope configurationScope, Boolean isEncrypted, String key, TValue newValue)
         {
             LoggingHelpers.TraceCallEnter(applicationId, userProfile, configurationScope, key, newValue);
 
@@ -91,7 +91,7 @@ namespace Foundation.Services.Application
                 valueToSave = EncryptionService.EncryptData(key, valueToSave);
             }
 
-            Repository.SetValue(applicationId, userProfile, configurationScope, key, valueToSave);
+            Repository.SetValue(applicationId, userProfile, configurationScope, isEncrypted, key, valueToSave);
 
             LoggingHelpers.TraceCallReturn();
         }

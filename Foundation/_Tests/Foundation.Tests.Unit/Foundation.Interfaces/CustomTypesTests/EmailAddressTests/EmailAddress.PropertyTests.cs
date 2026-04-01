@@ -77,8 +77,8 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.EmailAddr
                 Assert.That(emailAddress.IsValid, Is.EqualTo(false), originalEmailAddressString);
                 Assert.That(emailAddress.HasPotentialTypo, Is.EqualTo(false), originalEmailAddressString);
 
-                Assert.That(String.IsNullOrEmpty(emailAddress.LocalPart), originalEmailAddressString);
-                Assert.That(String.IsNullOrEmpty(emailAddress.DomainName), originalEmailAddressString);
+                Assert.That(String.IsNullOrEmpty(emailAddress.LocalPart()), originalEmailAddressString);
+                Assert.That(String.IsNullOrEmpty(emailAddress.DomainName()), originalEmailAddressString);
             }
         }
 
@@ -95,8 +95,8 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.EmailAddr
                 Assert.That(emailAddress.IsValid, Is.EqualTo(false), originalEmailAddressString);
                 Assert.That(emailAddress.HasPotentialTypo, Is.EqualTo(false), originalEmailAddressString);
 
-                Assert.That(String.IsNullOrEmpty(emailAddress.LocalPart), originalEmailAddressString);
-                Assert.That(String.IsNullOrEmpty(emailAddress.DomainName), originalEmailAddressString);
+                Assert.That(String.IsNullOrEmpty(emailAddress.LocalPart()), originalEmailAddressString);
+                Assert.That(String.IsNullOrEmpty(emailAddress.DomainName()), originalEmailAddressString);
             }
         }
     }

@@ -66,6 +66,12 @@ namespace Foundation.Interfaces
             }
         }
 
+        private Boolean _isValid { get; set; }
+        private Boolean _hasPotentialTypo { get; set; }
+        private String _localPart { get; set; }
+        private String _domainName { get; set; }
+        private String? _emailAddress { get; set; }
+
         ///// <summary>
         ///// Initialises a new instance of the <see cref="EmailAddress"/> class.
         ///// </summary>
@@ -81,12 +87,12 @@ namespace Foundation.Interfaces
         /// <param name="emailAddress">The email address.</param>
         public EmailAddress(String? emailAddress)
         {
-            IsValid = false;
-            HasPotentialTypo = false;
-            LocalPart = String.Empty;
-            DomainName = String.Empty;
+            _isValid = false;
+            _hasPotentialTypo = false;
+            _localPart = String.Empty;
+            _domainName = String.Empty;
 
-            TheEmailAddress = emailAddress;
+            _emailAddress = emailAddress;
             SplitInToParts();
         }
 
@@ -96,17 +102,17 @@ namespace Foundation.Interfaces
         /// <param name="emailAddress">The email address.</param>
         public EmailAddress(EmailAddress? emailAddress)
         {
-            IsValid = false;
-            HasPotentialTypo = false;
-            LocalPart = String.Empty;
-            DomainName = String.Empty;
+            _isValid = false;
+            _hasPotentialTypo = false;
+            _localPart = String.Empty;
+            _domainName = String.Empty;
 
-            TheEmailAddress = String.Empty;
+            _emailAddress = String.Empty;
 
             if (emailAddress.HasValue &&
                 !String.IsNullOrWhiteSpace(emailAddress.Value.TheEmailAddress))
             {
-                TheEmailAddress = emailAddress.ToString();
+                _emailAddress = emailAddress.ToString();
                 SplitInToParts();
             }
         }
@@ -117,7 +123,7 @@ namespace Foundation.Interfaces
         /// <value>
         ///   <c>true</c> if this instance is valid; otherwise, <c>false</c>.
         /// </value>
-        public Boolean IsValid { get; private set; }
+        public Boolean IsValid() { return _isValid; }
 
         /// <summary>
         /// Gets a value indicating whether this instance has potential typo.
@@ -125,7 +131,7 @@ namespace Foundation.Interfaces
         /// <value>
         /// <c>true</c> if this instance has potential typo; otherwise, <c>false</c>.
         /// </value>
-        public Boolean HasPotentialTypo { get; private set; }
+        public Boolean HasPotentialTypo() { return _hasPotentialTypo; }
 
         /// <summary>
         /// Gets the local part.
@@ -133,7 +139,7 @@ namespace Foundation.Interfaces
         /// <value>
         /// The local part.
         /// </value>
-        public String LocalPart { get; private set; }
+        public String LocalPart() { return _localPart; }
 
         /// <summary>
         /// Gets the name of the domain.
@@ -141,7 +147,7 @@ namespace Foundation.Interfaces
         /// <value>
         /// The name of the domain.
         /// </value>
-        public String DomainName { get; private set; }
+        public String DomainName() { return _domainName; }
 
         /// <summary>
         /// Gets or sets the address.
@@ -149,7 +155,15 @@ namespace Foundation.Interfaces
         /// <value>
         /// The address.
         /// </value>
-        internal String? TheEmailAddress { get; }
+        public String? TheEmailAddress
+        {
+            get => _emailAddress;
+            init
+            {
+                _emailAddress = value;
+                SplitInToParts();
+            }
+        }
 
         ///// <summary>
         ///// == (equals) operator for EmailAddress Objects
@@ -412,11 +426,11 @@ namespace Foundation.Interfaces
         /// </summary>
         private void SplitInToParts()
         {
-            IsValid = CheckIsValid(TheEmailAddress);
-            HasPotentialTypo = CheckForTypos(TheEmailAddress);
+            _isValid = CheckIsValid(TheEmailAddress);
+            _hasPotentialTypo = CheckForTypos(TheEmailAddress);
 
             if (!String.IsNullOrEmpty(TheEmailAddress) &&
-                IsValid)
+                _isValid)
             {
                 String[] splitChar = ["@"];
                 String[] parts = TheEmailAddress.Split(splitChar, StringSplitOptions.None);
@@ -434,17 +448,17 @@ namespace Foundation.Interfaces
 
                 if (workingParts.Length == 2)
                 {
-                    LocalPart = workingParts[0];
-                    DomainName = workingParts[1];
+                    _localPart = workingParts[0];
+                    _domainName = workingParts[1];
 
-                    if (LocalPart.Length > Constants.Lengths.MaxLocalPart)
+                    if (_localPart.Length > Constants.Lengths.MaxLocalPart)
                     {
-                        IsValid = false;
+                        _isValid = false;
                     }
 
-                    if (DomainName.Length > Constants.Lengths.MaxDomainName)
+                    if (_domainName.Length > Constants.Lengths.MaxDomainName)
                     {
-                        IsValid = false;
+                        _isValid = false;
                     }
                 }
             }

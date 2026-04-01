@@ -37,7 +37,7 @@ namespace Foundation.Interfaces
             if (value is EmailAddress emailAddress &&
                 !String.IsNullOrEmpty(emailAddress.ToString()))
             {
-                retVal = emailAddress.IsValid;
+                retVal = emailAddress.IsValid();
             }
 
             return retVal;

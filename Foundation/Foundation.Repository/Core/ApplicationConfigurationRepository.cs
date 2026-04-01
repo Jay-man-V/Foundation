@@ -60,8 +60,8 @@ namespace Foundation.Repository.Core
         /// <inheritdoc cref="FoundationModelRepository{TModel}.TableName"/>
         protected override String TableName => FDC.TableNames.ApplicationConfiguration;
 
-        /// <inheritdoc cref="IApplicationConfigurationRepository.SetValue(AppId, IUserProfile, ConfigurationScope, String, String)"/>
-        public void SetValue(AppId applicationId, IUserProfile userProfile, ConfigurationScope configurationScope, String key, String newValue)
+        /// <inheritdoc cref="IApplicationConfigurationRepository.SetValue(AppId, IUserProfile, ConfigurationScope, Boolean, String, String)"/>
+        public void SetValue(AppId applicationId, IUserProfile userProfile, ConfigurationScope configurationScope, Boolean isEncrypted, String key, String newValue)
         {
             LoggingHelpers.TraceCallEnter(applicationId, userProfile, configurationScope, key, newValue);
 
@@ -74,6 +74,7 @@ namespace Foundation.Repository.Core
 
                 FoundationDataAccess.CreateParameter($"{FDC.ApplicationConfiguration.EntityName}{FDC.ApplicationConfiguration.ApplicationId}", applicationId),
                 FoundationDataAccess.CreateParameter($"{FDC.ApplicationConfiguration.EntityName}{FDC.ApplicationConfiguration.ConfigurationScopeId}", configurationScope.Id()),
+                FoundationDataAccess.CreateParameter($"{FDC.ApplicationConfiguration.EntityName}{FDC.ApplicationConfiguration.IsEncrypted}", isEncrypted),
                 FoundationDataAccess.CreateParameter($"{FDC.ApplicationConfiguration.EntityName}{FDC.ApplicationConfiguration.Key}", key),
                 FoundationDataAccess.CreateParameter($"{FDC.ApplicationConfiguration.EntityName}{FDC.ApplicationConfiguration.Value}", newValue),
             ];

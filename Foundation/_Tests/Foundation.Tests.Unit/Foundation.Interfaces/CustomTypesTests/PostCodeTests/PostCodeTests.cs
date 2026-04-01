@@ -19,11 +19,11 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.PostCodeT
         [TestCase]
         public void TestConstructor_Default()
         {
-            String expectedToString = typeof(PostCode).ToString();
+            String? expectedToString = null;
 
             PostCode o = new PostCode();
 
-            Assert.That(o.Parsed, Is.EqualTo(false));
+            Assert.That(o.IsParsed, Is.EqualTo(false));
             Assert.That(String.IsNullOrEmpty(o.Value));
             Assert.That(o.ToString(), Is.EqualTo(expectedToString));
         }
@@ -33,7 +33,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.PostCodeT
         {
             PostCode o = new PostCode(PostCodeValues.PostCode1);
 
-            Assert.That(o.Parsed, Is.EqualTo(false));
+            Assert.That(o.IsParsed, Is.EqualTo(false));
             Assert.That(String.IsNullOrEmpty(o.Value), Is.EqualTo(false));
             Assert.That(o.ToString(), Is.EqualTo(PostCodeValues.PostCode1));
         }
@@ -72,7 +72,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.PostCodeT
         {
             PostCode postCode = new PostCode(input, PostCodeValues.AllPatterns);
 
-            Assert.That(postCode.Parsed, Is.EqualTo(true));
+            Assert.That(postCode.IsParsed, Is.EqualTo(true));
             Assert.That(String.IsNullOrEmpty(postCode.Value), Is.EqualTo(false));
             Assert.That(postCode.ToString(), Is.EqualTo(input));
         }

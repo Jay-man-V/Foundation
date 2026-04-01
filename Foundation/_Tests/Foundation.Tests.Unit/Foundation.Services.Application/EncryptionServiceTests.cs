@@ -126,22 +126,6 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         }
 
         [TestCase]
-        public void Test_EncryptData_String()
-        {
-            Byte[] salt1 = TheService!.GenerateSalt();
-            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
-
-             String encryptedData = TheService!.EncryptData(key1, iv1, SourceValueString);
-
-             Assert.That(encryptedData, Is.Not.Empty);
-             Assert.That(encryptedData, Is.Not.EqualTo(SourceValueString));
-
-             String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
-
-             Assert.That(decryptedData, Is.EqualTo(SourceValueString));
-        }
-
-        [TestCase]
         public void Test_EncryptData_PassPhrase_String()
         {
             String encryptedData = TheService!.EncryptData(PassPhrase, SourceValueString);
@@ -150,6 +134,321 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 
             String decryptedData = TheService!.DecryptData(PassPhrase, encryptedData);
             Assert.That(decryptedData, Is.EqualTo(SourceValueString));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_True()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = true.ToString();
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_False()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = false.ToString();
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_Char()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = 'A'.ToString();
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_String()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = Guid.NewGuid().ToString();
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_SByte()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = SByte.MaxValue.ToString();
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_Byte()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = Byte.MaxValue.ToString();
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_Int16()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = Int16.MaxValue.ToString();
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_UInt16()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = UInt16.MaxValue.ToString();
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_Int32()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = Int32.MaxValue.ToString();
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_UInt32()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = UInt32.MaxValue.ToString();
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_Int64()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = Int64.MaxValue.ToString();
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_UInt64()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = UInt64.MaxValue.ToString();
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_Int128()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = Int128.MaxValue.ToString();
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_UInt128()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = UInt128.MaxValue.ToString();
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_TimeSpan()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = new TimeSpan(5, 5, 5, 5).ToString();
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_Date()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = new DateTime(2026, 03, 30).ToString();
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_DateTime()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = new DateTime(2026, 03, 30, 20, 27, 15).ToString("yyyy-MM-ddTHH:mm:ss.fff");
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_DateTime_Milliseconds()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = new DateTime(2026, 03, 30, 20, 27, 15, 123).ToString("yyyy-MM-ddTHH:mm:ss.fff");
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_Guid()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = Guid.NewGuid().ToString();
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_Decimal()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = Decimal.MaxValue.ToString();
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_EncryptData_Double()
+        {
+            Byte[] salt1 = TheService!.GenerateSalt();
+            TheService!.GenerateKeys(Password, salt1, out Byte[] key1, out Byte[] iv1);
+
+            String value = Double.MaxValue.ToString();
+
+            String encryptedData = TheService!.EncryptData(key1, iv1, value);
+            Assert.That(encryptedData, Is.Not.Empty);
+
+            String decryptedData = TheService!.DecryptData(key1, iv1, encryptedData);
+            Assert.That(decryptedData, Is.EqualTo(value));
         }
 
         [TestCase]

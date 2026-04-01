@@ -58,11 +58,11 @@ namespace Foundation.Interfaces
         /// <summary>
         /// Start time of the Tine Window
         /// </summary>
-        public TimeSpan StartTime { get; }
+        public TimeSpan StartTime { get; init; }
 
         /// <summary>
         /// End time of the Tine Window
         /// </summary>
-        public TimeSpan EndTime { get; }
+        public TimeSpan EndTime { get; init; }
     }
 }

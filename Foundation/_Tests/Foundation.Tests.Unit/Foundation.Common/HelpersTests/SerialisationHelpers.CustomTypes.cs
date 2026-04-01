@@ -61,16 +61,11 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
         [TestCase]
         public void Test_Deserialise_Null()
         {
-            String parameterName = "value";
-            String errorMessage = String.Format(StandardErrorMessages.ArgumentNullExpectedErrorMessage, parameterName);
+            SerialiseTest? expected = null;
 
-            ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
-            {
-                _ = SerialisationHelpers.Deserialise<SerialiseTest>("");
-            });
+            SerialiseTest actual = SerialisationHelpers.Deserialise<SerialiseTest>("");
 
-            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
-            Assert.That(actualException.ParamName, Is.EqualTo(parameterName));
+            Assert.That(actual, Is.EqualTo(expected));
         }
     }
 }

@@ -609,9 +609,11 @@ namespace Foundation.Common
         {
             LoggingHelpers.TraceCallEnter(value, defaultValue);
 
-            EmailAddress retVal = new EmailAddress(defaultValue);
+            EmailAddress retVal = defaultValue;
 
-            if (value != null && value != DBNull.Value)
+            if (value != null &&
+                value != DBNull.Value &&
+                value.ToString() != String.Empty)
             {
                 retVal = new EmailAddress(value.ToString());
             }

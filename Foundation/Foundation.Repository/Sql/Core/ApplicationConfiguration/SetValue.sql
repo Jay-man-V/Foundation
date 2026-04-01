@@ -13,6 +13,7 @@ USING
 
             @ApplicationConfigurationApplicationId AS [ApplicationId],
             @ApplicationConfigurationConfigurationScopeId AS [ConfigurationScopeId],
+            @ApplicationConfigurationIsEncrypted AS [IsEncrypted],
             @ApplicationConfigurationKey AS [Key],
             @ApplicationConfigurationValue AS [Value]
     ) AS source
@@ -26,6 +27,7 @@ ON
 WHEN MATCHED THEN UPDATE SET
         target.[LastUpdatedByUserProfileId] = source.[LastUpdatedByUserProfileId],
         target.[LastUpdatedOn] = source.[LastUpdatedOn],
+        target.[IsEncrypted] = source.[IsEncrypted],
         target.[Value] = source.[Value]
 WHEN NOT MATCHED THEN INSERT
     (
@@ -39,6 +41,7 @@ WHEN NOT MATCHED THEN INSERT
 
         ApplicationId,
         ConfigurationScopeId,
+        IsEncrypted,
         [Key],
         Value
     )
@@ -54,6 +57,7 @@ VALUES
 
         source.ApplicationId,
         source.ConfigurationScopeId,
+        source.IsEncrypted,
         source.[Key],
         source.Value
     );

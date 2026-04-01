@@ -4,42 +4,28 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using NSubstitute;
-using NSubstitute.ClearExtensions;
-
 using Foundation.Interfaces;
-using Foundation.Services.Application;
-using Foundation.Tests.Unit.BaseClasses;
+using Foundation.Tests.System.BaseClasses;
 
-namespace Foundation.Tests.Unit.Foundation.Services.Application
+namespace Foundation.Tests.System.Foundation.Services.Application
 {
     /// <summary>
     /// The System Configuration Tests
     /// </summary>
     [TestFixture]
-    public class SystemConfigurationServiceTests : UnitTestBase
+    public class SystemConfigurationServiceTests : SystemTestBase
     {
-        private String ValidDataConnectionName => "UnitTesting";
+        private String ValidDataConnectionName => "SystemTesting";
         private String InvalidDataConnectionName => "MadeUpNonExisting";
+        private String BadlyFormattedDataConnectionName => "BadlyFormatted";
 
-        private IConfigurationWrapper? ConfigurationWrapper { get; set; }
         private ISystemConfigurationService? TheService { get; set; }
 
         public override void TestInitialise()
         {
             base.TestInitialise();
 
-            ICore core = Substitute.For<ICore>();
-            ConfigurationWrapper = Substitute.For<IConfigurationWrapper>();
-
-            core.ConfigurationManager.Returns(ConfigurationWrapper);
-
-            ConfigurationWrapper.GetConnectionString(ValidDataConnectionName).Returns("providerName=Microsoft.Data.SqlClient;Server=DbServer;Database=DbName;User Id=UserId;Password=ThePassword;TrustServerCertificate=True;");
-
-            String? nullString = null;
-            ConfigurationWrapper.GetConnectionString(InvalidDataConnectionName).Returns(nullString);
-
-            TheService = new SystemConfigurationService(core);
+            TheService = CoreInstance.IoC.Get<ISystemConfigurationService>();
         }
 
         public override void TestCleanup()
@@ -68,7 +54,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetConnectionString()
         {
-            String expected = "Server=DbServer;Database=DbName;User Id=UserId;Password=ThePassword;TrustServerCertificate=True;";
+            String expected = "Server=Callisto;Database=SystemTesting;User Id=Jay;Password=pass;TrustServerCertificate=True;";
 
             String actual = TheService!.GetConnectionString(ValidDataConnectionName);
 
@@ -120,14 +106,11 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         [TestCase]
         public void Test_GetDataProviderName_Exception_BadlyFormatted()
         {
-            String errorMessage = $"Unable to retrieve Data Provider for '{InvalidDataConnectionName}'. Check to make sure the connection is defined in the Configuration File.";
-
-            ConfigurationWrapper!.ClearSubstitute();
-            ConfigurationWrapper!.GetConnectionString(ValidDataConnectionName).Returns("InvalidText=Microsoft.Data.SqlClient;Server=DbServer;Database=DbName;User Id=UserId;Password=ThePassword;TrustServerCertificate=True;");
+            String errorMessage = $"Unable to retrieve Data Provider for '{BadlyFormattedDataConnectionName}'. Check to make sure the connection is defined in the Configuration File.";
 
             InvalidOperationException actualException = Assert.Throws<InvalidOperationException>(() =>
             {
-                _ = TheService!.GetDataProviderName(InvalidDataConnectionName);
+                _ = TheService!.GetDataProviderName(BadlyFormattedDataConnectionName);
             });
 
             Assert.That(actualException, Is.Not.EqualTo(null));

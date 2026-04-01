@@ -61,7 +61,7 @@ namespace Foundation.Interfaces
         /// <value>
         /// The App Id.
         /// </value>
-        public Int64 TheAppId { get; }
+        public Int64 TheAppId { get; init; }
 
         /// <summary>
         /// Attempts to cast from generic base <see cref="Object"/> to an <see cref="AppId"/>

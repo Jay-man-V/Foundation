@@ -1,4 +1,16 @@
 {
+  "AppId": {
+    "TheAppId": 123
+  },
+  "LogId": {
+    "TheLogId": 456
+  },
+  "EntityId": {
+    "TheEntityId": 789
+  },
+  "EmailAddress": {
+    "TheEmailAddress": "info@jdvsoftware.com"
+  },
   "BooleanValue": true,
   "TimeSpanValue": "1.02:03:04",
   "DateTimeValue": "2025-04-05T18:12:14.123",

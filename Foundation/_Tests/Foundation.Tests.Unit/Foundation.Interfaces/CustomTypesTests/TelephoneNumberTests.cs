@@ -27,8 +27,8 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
 
             TelephoneNumber telephoneNumber = new TelephoneNumber();
 
-            Assert.That(telephoneNumber.Parsed, Is.EqualTo(false));
-            Assert.That(telephoneNumber.Value, Is.EqualTo(null));
+            Assert.That(telephoneNumber.IsParsed(), Is.EqualTo(false));
+            Assert.That(telephoneNumber.TheTelephoneNumber, Is.EqualTo(null));
             Assert.That(telephoneNumber.LocalNumber, Is.EqualTo(null));
             Assert.That(telephoneNumber.AreaCode, Is.EqualTo(null));
             Assert.That(telephoneNumber.InternationalCode, Is.EqualTo(null));
@@ -41,8 +41,8 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
 
             TelephoneNumber telephoneNumber = new TelephoneNumber(number);
 
-            Assert.That(telephoneNumber.Parsed, Is.EqualTo(false));
-            Assert.That(telephoneNumber.Value, Is.EqualTo(number));
+            Assert.That(telephoneNumber.IsParsed(), Is.EqualTo(false));
+            Assert.That(telephoneNumber.TheTelephoneNumber, Is.EqualTo(number));
             Assert.That(telephoneNumber.LocalNumber, Is.EqualTo(String.Empty));
             Assert.That(telephoneNumber.AreaCode, Is.EqualTo(String.Empty));
             Assert.That(telephoneNumber.InternationalCode, Is.EqualTo(String.Empty));

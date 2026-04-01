@@ -61,7 +61,7 @@ namespace Foundation.Interfaces
         /// <value>
         /// The Log Id.
         /// </value>
-        public Int64 TheLogId { get; }
+        public Int64 TheLogId { get; init; }
 
         /// <summary>
         /// Attempts to cast from generic base <see cref="Object"/> to an <see cref="LogId"/>

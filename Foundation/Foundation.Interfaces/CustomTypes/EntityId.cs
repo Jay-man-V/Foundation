@@ -15,7 +15,7 @@ namespace Foundation.Interfaces
     /// A struct to hold an Entity Id alongside validation routines
     /// </summary>
     [DebuggerDisplay("{TheEntityId}")]
-    public readonly struct EntityId : IEquatable<EntityId>, IComparable<EntityId>, IConvertible
+    public readonly struct EntityId : IEquatable<EntityId>, IComparable<EntityId>//, IConvertible
     {
         /// <summary>
         /// The underlying type of the Entity Id
@@ -61,7 +61,7 @@ namespace Foundation.Interfaces
         /// <value>
         /// The Entity Id.
         /// </value>
-        public Int64 TheEntityId { get; }
+        public Int64 TheEntityId { get; init; }
 
         /// <summary>
         /// Attempts to cast from generic base <see cref="Object"/> to an <see cref="EntityId"/>
@@ -493,7 +493,9 @@ namespace Foundation.Interfaces
 
         public Object ToType(Type conversionType, IFormatProvider? provider)
         {
-            throw new NotImplementedException();
+            Object retVal = TheEntityId.ToString();
+
+            return retVal;
         }
 
         public UInt16 ToUInt16(IFormatProvider? provider)
