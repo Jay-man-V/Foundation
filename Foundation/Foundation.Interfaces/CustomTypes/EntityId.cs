@@ -354,6 +354,95 @@ namespace Foundation.Interfaces
             return retVal;
         }
 
+        public TypeCode GetTypeCode()
+        {
+            return TypeCode.Int64;
+        }
+
+        public Boolean ToBoolean(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Byte ToByte(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Char ToChar(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DateTime ToDateTime(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Decimal ToDecimal(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Double ToDouble(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Int16 ToInt16(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Int32 ToInt32(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Int64 ToInt64(IFormatProvider? provider)
+        {
+            return TheEntityId;
+        }
+
+        public SByte ToSByte(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Single ToSingle(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public String ToString(IFormatProvider? provider)
+        {
+            String retVal = TheEntityId.ToString();
+
+            return retVal;
+        }
+
+        public Object ToType(Type conversionType, IFormatProvider? provider)
+        {
+            Object retVal = TheEntityId;
+
+            return retVal;
+        }
+
+        public UInt16 ToUInt16(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UInt32 ToUInt32(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UInt64 ToUInt64(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Implements an Ascending Sort functionality for EntityIds
         /// </summary>
@@ -424,93 +513,6 @@ namespace Foundation.Interfaces
 
                 return retVal;
             }
-        }
-
-        public TypeCode GetTypeCode()
-        {
-            return TypeCode.Int64;
-        }
-
-        public Boolean ToBoolean(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Byte ToByte(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Char ToChar(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DateTime ToDateTime(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Decimal ToDecimal(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Double ToDouble(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Int16 ToInt16(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Int32 ToInt32(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Int64 ToInt64(IFormatProvider? provider)
-        {
-            return TheEntityId;
-        }
-
-        public SByte ToSByte(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Single ToSingle(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public String ToString(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Object ToType(Type conversionType, IFormatProvider? provider)
-        {
-            Object retVal = TheEntityId.ToString();
-
-            return retVal;
-        }
-
-        public UInt16 ToUInt16(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public UInt32 ToUInt32(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public UInt64 ToUInt64(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -85,7 +85,7 @@ namespace Foundation.Common
                 TextAlignment = TextAlignment.Centre;
                 DotNetFormat = "0";
                 ExcelFormat = "###0";
-                MinimumValue = 0;
+                MinimumValue = 0; // Setting to 0 instead of EntityId.MinValue
                 MaximumValue = EntityId.MaxValue;
             }
             else if (dataType == typeof(LogId))
@@ -93,8 +93,24 @@ namespace Foundation.Common
                 TextAlignment = TextAlignment.Centre;
                 DotNetFormat = "0";
                 ExcelFormat = "###0";
-                MinimumValue = 0;
+                MinimumValue = 0; // Setting to 0 instead of LogId.MinValue
                 MaximumValue = LogId.MaxValue;
+            }
+            else if (dataType == typeof(EmailAddress))
+            {
+                TextAlignment = TextAlignment.Left;
+            }
+            else if (dataType == typeof(PostCode))
+            {
+                TextAlignment = TextAlignment.Left;
+            }
+            else if (dataType == typeof(TelephoneNumber))
+            {
+                TextAlignment = TextAlignment.Left;
+            }
+            else if (dataType == typeof(TimeWindow))
+            {
+                TextAlignment = TextAlignment.Centre;
             }
             else if (dataType == typeof(Int16))
             {

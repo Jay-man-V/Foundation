@@ -193,6 +193,97 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             Assert.That(gridColumnDefinition.TemplateName, Is.EqualTo(GridColumnTemplateNames.DropDownBoxColumnTemplate));
         }
 
+        [TestCase]
+        public void Test_Constructor_AppId()
+        {
+            Type dataType = typeof(AppId);
+            Int64 minimumValue = 0;
+            Int64 maximumValue = AppId.MaxValue;
+            String templateName = GridColumnTemplateNames.DefaultColumnTemplate;
+
+            IGridColumnDefinition gridColumnDefinition = Test_Constructor(dataType, minimumValue, maximumValue, templateName, "0", "###0");
+
+            Assert.That(gridColumnDefinition.TemplateName, Is.EqualTo(GridColumnTemplateNames.DefaultColumnTemplate));
+        }
+
+        [TestCase]
+        public void Test_Constructor_EntityId()
+        {
+            Type dataType = typeof(AppId);
+            Int64 minimumValue = 0;
+            Int64 maximumValue = EntityId.MaxValue;
+            String templateName = GridColumnTemplateNames.DefaultColumnTemplate;
+
+            IGridColumnDefinition gridColumnDefinition = Test_Constructor(dataType, minimumValue, maximumValue, templateName, "0", "###0");
+
+            Assert.That(gridColumnDefinition.TemplateName, Is.EqualTo(GridColumnTemplateNames.DefaultColumnTemplate));
+        }
+
+        [TestCase]
+        public void Test_Constructor_LogId()
+        {
+            Type dataType = typeof(LogId);
+            Int64 minimumValue = 0;
+            Int64 maximumValue = LogId.MaxValue;
+            String templateName = GridColumnTemplateNames.DefaultColumnTemplate;
+
+            IGridColumnDefinition gridColumnDefinition = Test_Constructor(dataType, minimumValue, maximumValue, templateName, "0", "###0");
+
+            Assert.That(gridColumnDefinition.TemplateName, Is.EqualTo(GridColumnTemplateNames.DefaultColumnTemplate));
+        }
+
+        [TestCase]
+        public void Test_Constructor_EmailAddress()
+        {
+            Type dataType = typeof(EmailAddress);
+            String? minimumValue = null;
+            String? maximumValue = null;
+            String templateName = GridColumnTemplateNames.DefaultColumnTemplate;
+
+            IGridColumnDefinition gridColumnDefinition = Test_Constructor(dataType, minimumValue, maximumValue, templateName, String.Empty, String.Empty);
+
+            Assert.That(gridColumnDefinition.TemplateName, Is.EqualTo(GridColumnTemplateNames.DefaultColumnTemplate));
+        }
+
+        [TestCase]
+        public void Test_Constructor_PostCode()
+        {
+            Type dataType = typeof(PostCode);
+            String? minimumValue = null;
+            String? maximumValue = null;
+            String templateName = GridColumnTemplateNames.DefaultColumnTemplate;
+
+            IGridColumnDefinition gridColumnDefinition = Test_Constructor(dataType, minimumValue, maximumValue, templateName, String.Empty, String.Empty);
+
+            Assert.That(gridColumnDefinition.TemplateName, Is.EqualTo(GridColumnTemplateNames.DefaultColumnTemplate));
+        }
+
+        [TestCase]
+        public void Test_Constructor_TelephoneNumber()
+        {
+            Type dataType = typeof(TelephoneNumber);
+            String? minimumValue = null;
+            String? maximumValue = null;
+            String templateName = GridColumnTemplateNames.DefaultColumnTemplate;
+
+            IGridColumnDefinition gridColumnDefinition = Test_Constructor(dataType, minimumValue, maximumValue, templateName, String.Empty, String.Empty);
+
+            Assert.That(gridColumnDefinition.TemplateName, Is.EqualTo(GridColumnTemplateNames.DefaultColumnTemplate));
+        }
+
+        [TestCase]
+        public void Test_Constructor_TimeWindow()
+        {
+            Type dataType = typeof(TimeWindow);
+            String? minimumValue = null;
+            String? maximumValue = null;
+            String templateName = GridColumnTemplateNames.DefaultColumnTemplate;
+
+            IGridColumnDefinition gridColumnDefinition = Test_Constructor(dataType, minimumValue, maximumValue, templateName, String.Empty, String.Empty);
+
+            Assert.That(gridColumnDefinition.TemplateName, Is.EqualTo(GridColumnTemplateNames.DefaultColumnTemplate));
+        }
+
         private GridColumnDefinition Test_Constructor(Type dataType, Object? minimumValue, Object? maximumValue, String templateName, String dotNetFormat, String excelFormat)
         {
             Int32 width = 100;

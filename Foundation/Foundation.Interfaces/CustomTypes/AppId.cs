@@ -15,7 +15,7 @@ namespace Foundation.Interfaces
     /// A struct to hold an Application Id alongside validation routines
     /// </summary>
     [DebuggerDisplay("{TheAppId}")]
-    public readonly struct AppId : IEquatable<AppId>, IComparable<AppId>//, IConvertible
+    public readonly struct AppId : IEquatable<AppId>, IComparable<AppId>
     {
         /// <summary>
         /// The underlying type of the App Id
@@ -352,6 +352,95 @@ namespace Foundation.Interfaces
             Int32 retVal = TheAppId.CompareTo(other.TheAppId);
 
             return retVal;
+        }
+
+        public TypeCode GetTypeCode()
+        {
+            return TypeCode.Int64;
+        }
+
+        public Boolean ToBoolean(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Byte ToByte(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Char ToChar(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DateTime ToDateTime(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Decimal ToDecimal(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Double ToDouble(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Int16 ToInt16(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Int32 ToInt32(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Int64 ToInt64(IFormatProvider? provider)
+        {
+            return TheAppId;
+        }
+
+        public SByte ToSByte(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Single ToSingle(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public String ToString(IFormatProvider? provider)
+        {
+            String retVal = TheAppId.ToString();
+
+            return retVal;
+        }
+
+        public Object ToType(Type conversionType, IFormatProvider? provider)
+        {
+            Object retVal = TheAppId;
+
+            return retVal;
+        }
+
+        public UInt16 ToUInt16(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UInt32 ToUInt32(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UInt64 ToUInt64(IFormatProvider? provider)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

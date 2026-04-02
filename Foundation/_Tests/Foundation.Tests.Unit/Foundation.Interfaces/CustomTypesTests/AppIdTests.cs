@@ -334,5 +334,32 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
             Assert.That(appIds[08].TheAppId, Is.EqualTo(02));
             Assert.That(appIds[09].TheAppId, Is.EqualTo(01));
         }
+
+        //[TestCase]
+        //public void Test_IConvertible()
+        //{
+        //    Int64 value = 123;
+        //    AppId appId = new AppId(value);
+
+        //    CustomTypeIConvertibleTests convertibleTests = new CustomTypeIConvertibleTests();
+
+        //    convertibleTests.Test_TypeCode(appId, TypeCode.Int64);
+        //    convertibleTests.Test_ToBoolean(appId, null, false);
+        //    convertibleTests.Test_ToByte(appId, null, false);
+        //    convertibleTests.Test_ToChar(appId, null, false);
+        //    convertibleTests.Test_ToDateTime(appId, null, false);
+        //    convertibleTests.Test_ToDecimal(appId, null, false);
+        //    convertibleTests.Test_ToDouble(appId, null, false);
+        //    convertibleTests.Test_ToInt16(appId, null, false);
+        //    convertibleTests.Test_ToInt32(appId, null, false);
+        //    convertibleTests.Test_ToInt64(appId, value, true);
+        //    convertibleTests.Test_ToSByte(appId, null, false);
+        //    convertibleTests.Test_ToSingle(appId, null, false);
+        //    convertibleTests.Test_ToString(appId, value.ToString(), true);
+        //    convertibleTests.Test_ToType(appId, value, true);
+        //    convertibleTests.Test_ToUInt16(appId, null, false);
+        //    convertibleTests.Test_ToUInt32(appId, null, false);
+        //    convertibleTests.Test_ToUInt64(appId, null, false);
+        //}
     }
 }

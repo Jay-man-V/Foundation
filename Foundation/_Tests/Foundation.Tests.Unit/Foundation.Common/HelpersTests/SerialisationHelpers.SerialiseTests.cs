@@ -4,10 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Text;
+
 using Foundation.Common;
 using Foundation.Interfaces;
 
 using Foundation.Tests.Unit.BaseClasses;
+using Foundation.Tests.Unit.Support;
 
 namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
 {
@@ -17,6 +20,42 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
     [TestFixture]
     public class SerialisationHelpersSerialiseTests : UnitTestBase
     {
+        private SerialiseTest CreateObjectForTesting()
+        {
+            SerialiseTest retVal = new SerialiseTest
+            {
+                StringList = ["One", "Two", "Three", "Four"],
+                Int32List = [1, 2, 3, 4]
+            };
+
+            return retVal;
+        }
+
+        [TestCase]
+        [DeploymentItem(@"\.ExpectedResults\Foundation.Common\HelpersTests\Test_Serialise_CustomType.txt")]
+        public void Test_Serialise_CustomType()
+        {
+            SerialiseTest value = CreateObjectForTesting();
+            String sourceFile = @".ExpectedResults\Foundation.Common\HelpersTests\Test_Serialise_CustomType.txt";
+            String expected = File.ReadAllText(sourceFile, Encoding.Default);
+
+            String serialised = SerialisationHelpers.Serialise(value);
+            Assert.That(serialised, Is.EqualTo(expected));
+
+            SerialiseTest deserialised = SerialisationHelpers.Deserialise<SerialiseTest>(serialised);
+            Assert.That(deserialised, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_Deserialise_Null()
+        {
+            SerialiseTest? expected = null;
+
+            SerialiseTest actual = SerialisationHelpers.Deserialise<SerialiseTest>("");
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
         [TestCase]
         public void Test_Serialise_Object_Null()
         {
@@ -24,9 +63,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             Object? value = null;
 
             String serialised = SerialisationHelpers.Serialise(value);
-            Object deserialised = SerialisationHelpers.Deserialise<Object>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+            
+            Object deserialised = SerialisationHelpers.Deserialise<Object>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -37,9 +76,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             Boolean value = true;
 
             String serialised = SerialisationHelpers.Serialise(value);
-            Boolean deserialised = SerialisationHelpers.Deserialise<Boolean>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+
+            Boolean deserialised = SerialisationHelpers.Deserialise<Boolean>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -50,9 +89,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             Boolean value = false;
 
             String serialised = SerialisationHelpers.Serialise(value);
-            Boolean deserialised = SerialisationHelpers.Deserialise<Boolean>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+            
+            Boolean deserialised = SerialisationHelpers.Deserialise<Boolean>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -63,9 +102,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             TimeSpan value = new TimeSpan(10, 5, 0);
 
             String serialised = SerialisationHelpers.Serialise(value);
-            TimeSpan deserialised = SerialisationHelpers.Deserialise<TimeSpan>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+            
+            TimeSpan deserialised = SerialisationHelpers.Deserialise<TimeSpan>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -76,9 +115,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             DateTime value = new DateTime(2023, 09, 08);
 
             String serialised = SerialisationHelpers.Serialise(value);
-            DateTime deserialised = SerialisationHelpers.Deserialise<DateTime>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+
+            DateTime deserialised = SerialisationHelpers.Deserialise<DateTime>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -89,9 +128,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             DateTime value = new DateTime(2023, 09, 08, 21, 38, 45);
 
             String serialised = SerialisationHelpers.Serialise(value);
-            DateTime deserialised = SerialisationHelpers.Deserialise<DateTime>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+
+            DateTime deserialised = SerialisationHelpers.Deserialise<DateTime>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -102,9 +141,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             DateTime value = new DateTime(2023, 09, 08, 21, 38, 45, 123);
 
             String serialised = SerialisationHelpers.Serialise(value);
-            DateTime deserialised = SerialisationHelpers.Deserialise<DateTime>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+
+            DateTime deserialised = SerialisationHelpers.Deserialise<DateTime>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -115,9 +154,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             Guid value = Guid.Parse($"{{{expected}}}");
 
             String serialised = SerialisationHelpers.Serialise(value);
-            Guid deserialised = SerialisationHelpers.Deserialise<Guid>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+            
+            Guid deserialised = SerialisationHelpers.Deserialise<Guid>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -128,9 +167,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             Char value = 'Z';
 
             String serialised = SerialisationHelpers.Serialise(value);
-            Char deserialised = SerialisationHelpers.Deserialise<Char>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+
+            Char deserialised = SerialisationHelpers.Deserialise<Char>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -141,9 +180,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             String value = expected;
 
             String serialised = SerialisationHelpers.Serialise(value);
-            String deserialised = SerialisationHelpers.Deserialise<String>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+            
+            String deserialised = SerialisationHelpers.Deserialise<String>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -154,9 +193,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             Object? value = null;
 
             String serialised = SerialisationHelpers.Serialise(value);
-            Object deserialised = SerialisationHelpers.Deserialise<Object>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+
+            Object deserialised = SerialisationHelpers.Deserialise<Object>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -167,9 +206,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             Int16 value = Int16.MaxValue;
 
             String serialised = SerialisationHelpers.Serialise(value);
-            Int16 deserialised = SerialisationHelpers.Deserialise<Int16>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+            
+            Int16 deserialised = SerialisationHelpers.Deserialise<Int16>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -180,9 +219,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             UInt16 value = UInt16.MaxValue;
 
             String serialised = SerialisationHelpers.Serialise(value);
-            UInt16 deserialised = SerialisationHelpers.Deserialise<UInt16>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+
+            UInt16 deserialised = SerialisationHelpers.Deserialise<UInt16>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -193,9 +232,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             Int32 value = Int32.MaxValue;
 
             String serialised = SerialisationHelpers.Serialise(value);
-            Int32 deserialised = SerialisationHelpers.Deserialise<Int32>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+            
+            Int32 deserialised = SerialisationHelpers.Deserialise<Int32>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -206,9 +245,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             UInt32 value = UInt32.MaxValue;
 
             String serialised = SerialisationHelpers.Serialise(value);
-            UInt32 deserialised = SerialisationHelpers.Deserialise<UInt32>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+            
+            UInt32 deserialised = SerialisationHelpers.Deserialise<UInt32>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -219,9 +258,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             Int64 value = Int64.MaxValue;
 
             String serialised = SerialisationHelpers.Serialise(value);
-            Int64 deserialised = SerialisationHelpers.Deserialise<Int64>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+
+            Int64 deserialised = SerialisationHelpers.Deserialise<Int64>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -232,9 +271,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             UInt64 value = UInt64.MaxValue;
 
             String serialised = SerialisationHelpers.Serialise(value);
-            UInt64 deserialised = SerialisationHelpers.Deserialise<UInt64>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+
+            UInt64 deserialised = SerialisationHelpers.Deserialise<UInt64>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -245,9 +284,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             Decimal value = Decimal.MaxValue;
 
             String serialised = SerialisationHelpers.Serialise(value);
-            Decimal deserialised = SerialisationHelpers.Deserialise<Decimal>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+            
+            Decimal deserialised = SerialisationHelpers.Deserialise<Decimal>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -258,9 +297,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             Double value = 1.79769313486232d;
 
             String serialised = SerialisationHelpers.Serialise(value);
-            Double deserialised = SerialisationHelpers.Deserialise<Double>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+            
+            Double deserialised = SerialisationHelpers.Deserialise<Double>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -271,9 +310,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             Byte value = Byte.MaxValue;
 
             String serialised = SerialisationHelpers.Serialise(value);
-            Byte deserialised = SerialisationHelpers.Deserialise<Byte>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+
+            Byte deserialised = SerialisationHelpers.Deserialise<Byte>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -284,9 +323,9 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             SByte value = SByte.MaxValue;
 
             String serialised = SerialisationHelpers.Serialise(value);
-            SByte deserialised = SerialisationHelpers.Deserialise<SByte>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
+            
+            SByte deserialised = SerialisationHelpers.Deserialise<SByte>(serialised);
             Assert.That(deserialised, Is.EqualTo(value));
         }
 
@@ -301,10 +340,13 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             AppId value = new AppId(127);
 
             String serialised = SerialisationHelpers.Serialise(value);
-            AppId deserialised = SerialisationHelpers.Deserialise<AppId>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
-            Assert.That(deserialised, Is.EqualTo(value));
+
+            AppId deserialised1 = SerialisationHelpers.Deserialise<AppId>(serialised);
+            Assert.That(deserialised1, Is.EqualTo(value));
+
+            AppId deserialised2 = SerialisationHelpers.Deserialise<AppId>(serialised.Replace(Environment.NewLine, String.Empty));
+            Assert.That(deserialised2, Is.EqualTo(value));
         }
 
         [TestCase]
@@ -318,13 +360,19 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             EmailAddress value = new EmailAddress("info@JDVSoftware.com");
 
             String serialised = SerialisationHelpers.Serialise(value);
-            EmailAddress deserialised = SerialisationHelpers.Deserialise<EmailAddress>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
-            Assert.That(deserialised, Is.EqualTo(value));
-            Assert.That(deserialised.TheEmailAddress, Is.EqualTo(value.TheEmailAddress));
-            Assert.That(deserialised.DomainName(), Is.EqualTo(value.DomainName()));
-            Assert.That(deserialised.LocalPart(), Is.EqualTo(value.LocalPart()));
+
+            EmailAddress deserialised1 = SerialisationHelpers.Deserialise<EmailAddress>(serialised);
+            Assert.That(deserialised1, Is.EqualTo(value));
+            Assert.That(deserialised1.TheEmailAddress, Is.EqualTo(value.TheEmailAddress));
+            Assert.That(deserialised1.DomainName(), Is.EqualTo(value.DomainName()));
+            Assert.That(deserialised1.LocalPart(), Is.EqualTo(value.LocalPart()));
+
+            EmailAddress deserialised2 = SerialisationHelpers.Deserialise<EmailAddress>(serialised.Replace(Environment.NewLine, String.Empty));
+            Assert.That(deserialised2, Is.EqualTo(value));
+            Assert.That(deserialised2.TheEmailAddress, Is.EqualTo(value.TheEmailAddress));
+            Assert.That(deserialised2.DomainName(), Is.EqualTo(value.DomainName()));
+            Assert.That(deserialised2.LocalPart(), Is.EqualTo(value.LocalPart()));
         }
 
         [TestCase]
@@ -338,10 +386,13 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             EntityId value = new EntityId(127);
 
             String serialised = SerialisationHelpers.Serialise(value);
-            EntityId deserialised = SerialisationHelpers.Deserialise<EntityId>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
-            Assert.That(deserialised, Is.EqualTo(value));
+
+            EntityId deserialised1 = SerialisationHelpers.Deserialise<EntityId>(serialised);
+            Assert.That(deserialised1, Is.EqualTo(value));
+
+            EntityId deserialised2 = SerialisationHelpers.Deserialise<EntityId>(serialised.Replace(Environment.NewLine, String.Empty));
+            Assert.That(deserialised2, Is.EqualTo(value));
         }
 
         [TestCase]
@@ -355,10 +406,13 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             LogId value = new LogId(127);
 
             String serialised = SerialisationHelpers.Serialise(value);
-            LogId deserialised = SerialisationHelpers.Deserialise<LogId>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
-            Assert.That(deserialised, Is.EqualTo(value));
+
+            LogId deserialised1 = SerialisationHelpers.Deserialise<LogId>(serialised);
+            Assert.That(deserialised1, Is.EqualTo(value));
+
+            LogId deserialised2 = SerialisationHelpers.Deserialise<LogId>(serialised.Replace(Environment.NewLine, String.Empty));
+            Assert.That(deserialised2, Is.EqualTo(value));
         }
 
         [TestCase]
@@ -372,10 +426,13 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             PostCode value = new PostCode("hp11aa");
 
             String serialised = SerialisationHelpers.Serialise(value);
-            PostCode deserialised = SerialisationHelpers.Deserialise<PostCode>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
-            Assert.That(deserialised, Is.EqualTo(value));
+            
+            PostCode deserialised1 = SerialisationHelpers.Deserialise<PostCode>(serialised);
+            Assert.That(deserialised1, Is.EqualTo(value));
+
+            PostCode deserialised2 = SerialisationHelpers.Deserialise<PostCode>(serialised.Replace(Environment.NewLine, String.Empty));
+            Assert.That(deserialised2, Is.EqualTo(value));
         }
 
         [TestCase]
@@ -389,10 +446,13 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             TelephoneNumber value = new TelephoneNumber("0123 1234 5678");
 
             String serialised = SerialisationHelpers.Serialise(value);
-            TelephoneNumber deserialised = SerialisationHelpers.Deserialise<TelephoneNumber>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
-            Assert.That(deserialised, Is.EqualTo(value));
+            
+            TelephoneNumber deserialised1 = SerialisationHelpers.Deserialise<TelephoneNumber>(serialised);
+            Assert.That(deserialised1, Is.EqualTo(value));
+
+            TelephoneNumber deserialised2 = SerialisationHelpers.Deserialise<TelephoneNumber>(serialised.Replace(Environment.NewLine, String.Empty));
+            Assert.That(deserialised2, Is.EqualTo(value));
         }
 
         [TestCase]
@@ -407,10 +467,13 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             TimeWindow value = new TimeWindow(new TimeSpan(09, 00, 00), new TimeSpan(17, 30, 00));
 
             String serialised = SerialisationHelpers.Serialise(value);
-            TimeWindow deserialised = SerialisationHelpers.Deserialise<TimeWindow>(serialised);
-
             Assert.That(serialised, Is.EqualTo(expected));
-            Assert.That(deserialised, Is.EqualTo(value));
+            
+            TimeWindow deserialised1 = SerialisationHelpers.Deserialise<TimeWindow>(serialised);
+            Assert.That(deserialised1, Is.EqualTo(value));
+
+            TimeWindow deserialised2 = SerialisationHelpers.Deserialise<TimeWindow>(serialised.Replace(Environment.NewLine, String.Empty));
+            Assert.That(deserialised2, Is.EqualTo(value));
         }
     }
 }

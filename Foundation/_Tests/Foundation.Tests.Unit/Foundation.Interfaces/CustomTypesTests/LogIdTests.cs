@@ -334,5 +334,32 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests
             Assert.That(logIds[08].TheLogId, Is.EqualTo(02));
             Assert.That(logIds[09].TheLogId, Is.EqualTo(01));
         }
+
+        //[TestCase]
+        //public void Test_IConvertible()
+        //{
+        //    Int64 value = 123;
+        //    LogId logId = new LogId(value);
+
+        //    CustomTypeIConvertibleTests convertibleTests = new CustomTypeIConvertibleTests();
+
+        //    convertibleTests.Test_TypeCode(logId, TypeCode.Int64);
+        //    convertibleTests.Test_ToBoolean(logId, null, false);
+        //    convertibleTests.Test_ToByte(logId, null, false);
+        //    convertibleTests.Test_ToChar(logId, null, false);
+        //    convertibleTests.Test_ToDateTime(logId, null, false);
+        //    convertibleTests.Test_ToDecimal(logId, null, false);
+        //    convertibleTests.Test_ToDouble(logId, null, false);
+        //    convertibleTests.Test_ToInt16(logId, null, false);
+        //    convertibleTests.Test_ToInt32(logId, null, false);
+        //    convertibleTests.Test_ToInt64(logId, value, true);
+        //    convertibleTests.Test_ToSByte(logId, null, false);
+        //    convertibleTests.Test_ToSingle(logId, null, false);
+        //    convertibleTests.Test_ToString(logId, value.ToString(), true);
+        //    convertibleTests.Test_ToType(logId, value, true);
+        //    convertibleTests.Test_ToUInt16(logId, null, false);
+        //    convertibleTests.Test_ToUInt32(logId, null, false);
+        //    convertibleTests.Test_ToUInt64(logId, null, false);
+        //}
     }
 }
