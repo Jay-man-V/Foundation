@@ -110,6 +110,30 @@ namespace Foundation.Tests.Unit.Foundation.Common.DataTests.DataHelperTests
         ///
         /// </summary>
         [TestCase]
+        public void Test_DefaultPostCode()
+        {
+            PostCode expected = new PostCode();
+            PostCode actual = DataHelpers.DefaultPostCode;
+
+            Assert.That(actual.ToString(), Is.EqualTo(expected.ToString()));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [TestCase]
+        public void Test_DefaultTelephoneNumber()
+        {
+            TelephoneNumber expected = new TelephoneNumber();
+            TelephoneNumber actual = DataHelpers.DefaultTelephoneNumber;
+
+            Assert.That(actual.ToString(), Is.EqualTo(expected.ToString()));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [TestCase]
         public void Test_DefaultDecimal()
         {
             Decimal expected = 0M;

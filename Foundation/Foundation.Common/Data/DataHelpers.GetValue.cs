@@ -622,5 +622,53 @@ namespace Foundation.Common
 
             return retVal;
         }
+
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns></returns>
+        public static PostCode GetValue(Object? value, PostCode defaultValue)
+        {
+            LoggingHelpers.TraceCallEnter(value, defaultValue);
+
+            PostCode retVal = defaultValue;
+
+            if (value != null &&
+                value != DBNull.Value &&
+                value.ToString() != String.Empty)
+            {
+                retVal = new PostCode(value.ToString());
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns></returns>
+        public static TelephoneNumber GetValue(Object? value, TelephoneNumber defaultValue)
+        {
+            LoggingHelpers.TraceCallEnter(value, defaultValue);
+
+            TelephoneNumber retVal = defaultValue;
+
+            if (value != null &&
+                value != DBNull.Value &&
+                value.ToString() != String.Empty)
+            {
+                retVal = new TelephoneNumber(value.ToString());
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
     }
 }

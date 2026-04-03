@@ -348,33 +348,6 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             AppId deserialised2 = SerialisationHelpers.Deserialise<AppId>(serialised.Replace(Environment.NewLine, String.Empty));
             Assert.That(deserialised2, Is.EqualTo(value));
         }
-
-        [TestCase]
-        public void Test_Serialise_EmailAddress()
-        {
-            String expected = """
-                              {
-                                "TheEmailAddress": "info@JDVSoftware.com"
-                              }
-                              """;
-            EmailAddress value = new EmailAddress("info@JDVSoftware.com");
-
-            String serialised = SerialisationHelpers.Serialise(value);
-            Assert.That(serialised, Is.EqualTo(expected));
-
-            EmailAddress deserialised1 = SerialisationHelpers.Deserialise<EmailAddress>(serialised);
-            Assert.That(deserialised1, Is.EqualTo(value));
-            Assert.That(deserialised1.TheEmailAddress, Is.EqualTo(value.TheEmailAddress));
-            Assert.That(deserialised1.DomainName(), Is.EqualTo(value.DomainName()));
-            Assert.That(deserialised1.LocalPart(), Is.EqualTo(value.LocalPart()));
-
-            EmailAddress deserialised2 = SerialisationHelpers.Deserialise<EmailAddress>(serialised.Replace(Environment.NewLine, String.Empty));
-            Assert.That(deserialised2, Is.EqualTo(value));
-            Assert.That(deserialised2.TheEmailAddress, Is.EqualTo(value.TheEmailAddress));
-            Assert.That(deserialised2.DomainName(), Is.EqualTo(value.DomainName()));
-            Assert.That(deserialised2.LocalPart(), Is.EqualTo(value.LocalPart()));
-        }
-
         [TestCase]
         public void Test_Serialise_EntityId()
         {
@@ -414,6 +387,33 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             LogId deserialised2 = SerialisationHelpers.Deserialise<LogId>(serialised.Replace(Environment.NewLine, String.Empty));
             Assert.That(deserialised2, Is.EqualTo(value));
         }
+
+        [TestCase]
+        public void Test_Serialise_EmailAddress()
+        {
+            String expected = """
+                              {
+                                "TheEmailAddress": "info@JDVSoftware.com"
+                              }
+                              """;
+            EmailAddress value = new EmailAddress("info@JDVSoftware.com");
+
+            String serialised = SerialisationHelpers.Serialise(value);
+            Assert.That(serialised, Is.EqualTo(expected));
+
+            EmailAddress deserialised1 = SerialisationHelpers.Deserialise<EmailAddress>(serialised);
+            Assert.That(deserialised1, Is.EqualTo(value));
+            Assert.That(deserialised1.TheEmailAddress, Is.EqualTo(value.TheEmailAddress));
+            Assert.That(deserialised1.DomainName(), Is.EqualTo(value.DomainName()));
+            Assert.That(deserialised1.LocalPart(), Is.EqualTo(value.LocalPart()));
+
+            EmailAddress deserialised2 = SerialisationHelpers.Deserialise<EmailAddress>(serialised.Replace(Environment.NewLine, String.Empty));
+            Assert.That(deserialised2, Is.EqualTo(value));
+            Assert.That(deserialised2.TheEmailAddress, Is.EqualTo(value.TheEmailAddress));
+            Assert.That(deserialised2.DomainName(), Is.EqualTo(value.DomainName()));
+            Assert.That(deserialised2.LocalPart(), Is.EqualTo(value.LocalPart()));
+        }
+
 
         [TestCase]
         public void Test_Serialise_PostCode()

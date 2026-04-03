@@ -17,6 +17,8 @@ namespace Foundation.Tests.Unit.Support
         public LogId LogId { get; set; } = new LogId(456);
         public EntityId EntityId { get; set; } = new EntityId(789);
         public EmailAddress EmailAddress { get; set; } = new EmailAddress("info@jdvsoftware.com");
+        public PostCode PostCode { get; set; } = new PostCode("HP1 1aa");
+        public TelephoneNumber TelephoneNumber { get; set; } = new TelephoneNumber("0123 4567 9876");
         public Boolean BooleanValue { get; set; } = true;
         public TimeSpan TimeSpanValue { get; set; } = new TimeSpan(01, 02, 03, 04);
         public DateTime DateTimeValue { get; set; } = new DateTime(2025, 04, 05, 18, 12, 14, 123);

@@ -32,7 +32,7 @@ namespace Foundation.Interfaces
         //    }
         //}
 
-        private String _telephoneNumber { get; set; }
+        private String? _telephoneNumber { get; set; }
         private String _localNumber { get; set; }
         private String _areaCode { get; set; }
         private String _internationalCode { get; set; }
@@ -44,7 +44,7 @@ namespace Foundation.Interfaces
         /// Constructor
         /// </summary>
         /// <param name="telephoneNumber"></param>
-        public TelephoneNumber(String telephoneNumber)
+        public TelephoneNumber(String? telephoneNumber)
         {
             Parsed = false;
             TheTelephoneNumber = telephoneNumber;
@@ -80,13 +80,10 @@ namespace Foundation.Interfaces
         /// <summary>
         /// The encapsulated value
         /// </summary>
-        public String TheTelephoneNumber
+        public String? TheTelephoneNumber
         {
             get => _telephoneNumber;
-            init
-            {
-                _telephoneNumber = value;
-            }
+            init => _telephoneNumber = value;
         }
 
         /// <summary>
@@ -150,7 +147,7 @@ namespace Foundation.Interfaces
             //Int32 constant = -1521134295;
             //Int32 hashCode = 746720419;
 
-            Int32 hashCode = EqualityComparer<String>.Default.GetHashCode(TheTelephoneNumber ?? String.Empty);
+            Int32 hashCode = EqualityComparer<String>.Default.GetHashCode(TheTelephoneNumber);
 
             return hashCode;
         }

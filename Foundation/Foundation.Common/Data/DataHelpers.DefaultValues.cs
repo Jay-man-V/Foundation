@@ -76,6 +76,22 @@ namespace Foundation.Common
         public static EmailAddress DefaultEmailAddress => new EmailAddress();
 
         /// <summary>
+        /// Gets the default post code (Empty).
+        /// </summary>
+        /// <value>
+        /// The default post code.
+        /// </value>
+        public static PostCode DefaultPostCode => new PostCode();
+
+        /// <summary>
+        /// Gets the default telephone number (Empty).
+        /// </summary>
+        /// <value>
+        /// The default telephone number.
+        /// </value>
+        public static TelephoneNumber DefaultTelephoneNumber => new TelephoneNumber();
+
+        /// <summary>
         /// Gets the default Unsigned Int 64 (0M).
         /// </summary>
         /// <value>

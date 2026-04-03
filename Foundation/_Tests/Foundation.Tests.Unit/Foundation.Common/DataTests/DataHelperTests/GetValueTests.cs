@@ -54,6 +54,8 @@ namespace Foundation.Tests.Unit.Foundation.Common.DataTests.DataHelperTests
             retVal.Columns.Add("AppIdColumn", typeof(AppId));
             retVal.Columns.Add("LogIdColumn", typeof(LogId));
             retVal.Columns.Add("EmailAddressColumn", typeof(EmailAddress));
+            retVal.Columns.Add("PostCodeColumn", typeof(PostCode));
+            retVal.Columns.Add("TelephoneNumberColumn", typeof(TelephoneNumber));
             retVal.Columns.Add("DateTimeMillisecondColumn", typeof(DateTime));
 
             retVal.Rows.Add
@@ -83,6 +85,8 @@ namespace Foundation.Tests.Unit.Foundation.Common.DataTests.DataHelperTests
                 new AppId(67890),
                 new LogId(172839),
                 new EmailAddress("Somewhere@mail.com"),
+                new PostCode("HP1 1aa"),
+                new TelephoneNumber("0123 4567 9876"),
                 new DateTime(2022, 5, 7, 20, 28, 0, 123)
             );
 
@@ -125,6 +129,16 @@ namespace Foundation.Tests.Unit.Foundation.Common.DataTests.DataHelperTests
                      actual is EmailAddress actualEmailAddress)
             {
                 Assert.That(actualEmailAddress.ToString(), Is.EqualTo(expectedEmailAddress.ToString()));
+            }
+            else if (expected is PostCode expectedPostCode &&
+                     actual is PostCode actualPostCode)
+            {
+                Assert.That(actualPostCode.ToString(), Is.EqualTo(expectedPostCode.ToString()));
+            }
+            else if (expected is TelephoneNumber expectedTelephoneNumber &&
+                     actual is TelephoneNumber actualTelephoneNumber)
+            {
+                Assert.That(actualTelephoneNumber.ToString(), Is.EqualTo(expectedTelephoneNumber.ToString()));
             }
             else
             {
@@ -416,6 +430,28 @@ namespace Foundation.Tests.Unit.Foundation.Common.DataTests.DataHelperTests
             EmailAddress expected = new EmailAddress("Somewhere@mail.com");
             EmailAddress valueIfNull = new EmailAddress();
             Test_GetValue(DataHelpers.GetValue, "EmailAddressColumn", expected, valueIfNull);
+        }
+
+        /// <summary>
+        /// Tests the PostCode value.
+        /// </summary>
+        [TestCase]
+        public void Test_PostCodeValue()
+        {
+            PostCode expected = new PostCode("HP1 1aa");
+            PostCode valueIfNull = new PostCode();
+            Test_GetValue(DataHelpers.GetValue, "PostCodeColumn", expected, valueIfNull);
+        }
+
+        /// <summary>
+        /// Tests the TelephoneNumber value.
+        /// </summary>
+        [TestCase]
+        public void Test_TelephoneNumberValue()
+        {
+            TelephoneNumber expected = new TelephoneNumber("0123 4567 9876");
+            TelephoneNumber valueIfNull = new TelephoneNumber();
+            Test_GetValue(DataHelpers.GetValue, "TelephoneNumberColumn", expected, valueIfNull);
         }
     }
 }

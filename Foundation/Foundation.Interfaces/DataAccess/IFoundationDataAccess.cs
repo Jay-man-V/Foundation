@@ -276,5 +276,37 @@ namespace Foundation.Interfaces
         /// <param name="parameterValue">The parameter value.</param>
         /// <returns>Instance of DbParameter</returns>
         IDbDataParameter CreateParameter(String parameterName, EmailAddress? parameterValue);
+
+        /// <summary>
+        /// Creates the parameter.
+        /// </summary>
+        /// <param name="parameterName">Name of the parameter.</param>
+        /// <param name="parameterValue">The parameter value.</param>
+        /// <returns>Instance of DbParameter</returns>
+        IDbDataParameter CreateParameter(String parameterName, PostCode parameterValue);
+
+        /// <summary>
+        /// Creates the parameter.
+        /// </summary>
+        /// <param name="parameterName">Name of the parameter.</param>
+        /// <param name="parameterValue">The parameter value.</param>
+        /// <returns>Instance of DbParameter</returns>
+        IDbDataParameter CreateParameter(String parameterName, PostCode? parameterValue);
+
+        /// <summary>
+        /// Creates the parameter.
+        /// </summary>
+        /// <param name="parameterName">Name of the parameter.</param>
+        /// <param name="parameterValue">The parameter value.</param>
+        /// <returns>Instance of DbParameter</returns>
+        IDbDataParameter CreateParameter(String parameterName, TelephoneNumber parameterValue);
+
+        /// <summary>
+        /// Creates the parameter.
+        /// </summary>
+        /// <param name="parameterName">Name of the parameter.</param>
+        /// <param name="parameterValue">The parameter value.</param>
+        /// <returns>Instance of DbParameter</returns>
+        IDbDataParameter CreateParameter(String parameterName, TelephoneNumber? parameterValue);
     }
 }

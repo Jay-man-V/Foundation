@@ -626,6 +626,90 @@ namespace Foundation.DataAccess.Database
             return retVal;
         }
 
+        /// <inheritdoc cref="IFoundationDataAccess.CreateParameter(String, PostCode)"/>
+        public IDbDataParameter CreateParameter(String parameterName, PostCode parameterValue)
+        {
+            LoggingHelpers.TraceCallEnter(parameterName, parameterValue);
+
+            IDbDataParameter retVal;
+
+            if (String.IsNullOrEmpty(parameterValue.ToString()))
+            {
+                retVal = CreateParameter(parameterName, DbType.String, DBNull.Value);
+            }
+            else
+            {
+                retVal = InternalCreateParameter(parameterName, parameterValue.ToString());
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IFoundationDataAccess.CreateParameter(String, PostCode?)"/>
+        public IDbDataParameter CreateParameter(String parameterName, PostCode? parameterValue)
+        {
+            LoggingHelpers.TraceCallEnter(parameterName, parameterValue);
+
+            IDbDataParameter retVal;
+
+            if (!parameterValue.HasValue || String.IsNullOrEmpty(parameterValue.Value.ToString()))
+            {
+                retVal = CreateParameter(parameterName, DbType.String, DBNull.Value);
+            }
+            else
+            {
+                retVal = InternalCreateParameter(parameterName, parameterValue.ToString());
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IFoundationDataAccess.CreateParameter(String, TelephoneNumber)"/>
+        public IDbDataParameter CreateParameter(String parameterName, TelephoneNumber parameterValue)
+        {
+            LoggingHelpers.TraceCallEnter(parameterName, parameterValue);
+
+            IDbDataParameter retVal;
+
+            if (String.IsNullOrEmpty(parameterValue.ToString()))
+            {
+                retVal = CreateParameter(parameterName, DbType.String, DBNull.Value);
+            }
+            else
+            {
+                retVal = InternalCreateParameter(parameterName, parameterValue.ToString());
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IFoundationDataAccess.CreateParameter(String, TelephoneNumber?)"/>
+        public IDbDataParameter CreateParameter(String parameterName, TelephoneNumber? parameterValue)
+        {
+            LoggingHelpers.TraceCallEnter(parameterName, parameterValue);
+
+            IDbDataParameter retVal;
+
+            if (!parameterValue.HasValue || String.IsNullOrEmpty(parameterValue.Value.ToString()))
+            {
+                retVal = CreateParameter(parameterName, DbType.String, DBNull.Value);
+            }
+            else
+            {
+                retVal = InternalCreateParameter(parameterName, parameterValue.ToString());
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
         /// <summary>
         /// Disposes the specified disposing.
         /// </summary>

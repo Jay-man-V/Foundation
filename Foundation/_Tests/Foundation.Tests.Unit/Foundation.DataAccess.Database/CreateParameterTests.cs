@@ -836,6 +836,110 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
         }
 
         [TestCase]
+        public void Test_PostCode_Valid_1()
+        {
+            String parameterName = LocationUtils.GetFunctionName();
+            PostCode parameterValue = new PostCode("HP1 1aa");
+            DbType dbType = DbType.String;
+            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
+
+            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
+            Assert.That(dataParameter.Value, Is.EqualTo(parameterValue));
+            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
+        }
+
+        [TestCase]
+        public void Test_PostCode_Valid_2()
+        {
+            String parameterName = LocationUtils.GetFunctionName();
+            PostCode? parameterValue = new PostCode("HP1 1aa");
+            DbType dbType = DbType.String;
+            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
+
+            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
+            Assert.That(dataParameter.Value, Is.EqualTo(parameterValue));
+            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
+        }
+
+        [TestCase]
+        public void Test_PostCode_Null()
+        {
+            String parameterName = LocationUtils.GetFunctionName();
+            PostCode? parameterValue = null;
+            DbType dbType = DbType.String;
+            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
+
+            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
+            Assert.That(dataParameter.Value, Is.EqualTo(DBNull.Value));
+            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
+        }
+
+        [TestCase]
+        public void Test_PostCode_Empty()
+        {
+            String parameterName = LocationUtils.GetFunctionName();
+            PostCode parameterValue = new PostCode();
+            DbType dbType = DbType.String;
+            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
+
+            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
+            Assert.That(dataParameter.Value, Is.EqualTo(DBNull.Value));
+            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
+        }
+
+        [TestCase]
+        public void Test_TelephoneNumber_Valid_1()
+        {
+            String parameterName = LocationUtils.GetFunctionName();
+            TelephoneNumber parameterValue = new TelephoneNumber("01234 1234 5678");
+            DbType dbType = DbType.String;
+            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
+
+            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
+            Assert.That(dataParameter.Value, Is.EqualTo(parameterValue));
+            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
+        }
+
+        [TestCase]
+        public void Test_TelephoneNumber_Valid_2()
+        {
+            String parameterName = LocationUtils.GetFunctionName();
+            TelephoneNumber? parameterValue = new TelephoneNumber("01234 1234 5678");
+            DbType dbType = DbType.String;
+            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
+
+            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
+            Assert.That(dataParameter.Value, Is.EqualTo(parameterValue));
+            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
+        }
+
+        [TestCase]
+        public void Test_TelephoneNumber_Null()
+        {
+            String parameterName = LocationUtils.GetFunctionName();
+            TelephoneNumber? parameterValue = null;
+            DbType dbType = DbType.String;
+            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
+
+            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
+            Assert.That(dataParameter.Value, Is.EqualTo(DBNull.Value));
+            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
+        }
+
+        [TestCase]
+        public void Test_TelephoneNumber_Empty()
+        {
+            String parameterName = LocationUtils.GetFunctionName();
+            TelephoneNumber parameterValue = new TelephoneNumber();
+            DbType dbType = DbType.String;
+            IDataParameter dataParameter = TheRepository!.FoundationDataAccess.CreateParameter(parameterName, parameterValue);
+
+            Assert.That(dataParameter.ParameterName, Is.EqualTo(parameterName));
+            Assert.That(dataParameter.Value, Is.EqualTo(DBNull.Value));
+            Assert.That(dataParameter.DbType, Is.EqualTo(dbType));
+        }
+
+        [TestCase]
         public void Test_Entity_Valid()
         {
             String parameterName = LocationUtils.GetFunctionName();

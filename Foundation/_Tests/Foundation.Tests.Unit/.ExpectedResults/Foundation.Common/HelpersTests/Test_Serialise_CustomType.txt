@@ -11,6 +11,12 @@
   "EmailAddress": {
     "TheEmailAddress": "info@jdvsoftware.com"
   },
+  "PostCode": {
+    "Value": "HP1 1aa"
+  },
+  "TelephoneNumber": {
+    "TheTelephoneNumber": "0123 4567 9876"
+  },
   "BooleanValue": true,
   "TimeSpanValue": "1.02:03:04",
   "DateTimeValue": "2025-04-05T18:12:14.123",
