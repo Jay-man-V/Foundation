@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="PostCodeValues.cs" company="JDV Software Ltd">
+// <copyright file="UkPostCodeValues.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -7,9 +7,9 @@
 namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.PostCodeTests
 {
     /// <summary>
-    /// Post Code values for testing
+    /// Uk Post Code values for testing
     /// </summary>
-    internal static class PostCodeValues
+    internal static class UkPostCodeValues
     {
         public const String PostCode1 = "A1 1AA";
         public const String PostCode2 = "A11 1AA";
@@ -17,6 +17,8 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.CustomTypesTests.PostCodeT
         public const String PostCode4 = "AA11 1AA";
         public const String PostCode5 = "A1A 1AA";
         public const String PostCode6 = "AA1A 1AA";
+
+        public static readonly String[] AllPostCodes = [ PostCode1, PostCode2, PostCode3, PostCode4, PostCode5, PostCode6 ];
 
         public const String Pattern1 = @"^\w\d\s?\d\w{2}$";
         public const String Pattern2 = @"^\w\d{2}\s?\d\w{2}";
