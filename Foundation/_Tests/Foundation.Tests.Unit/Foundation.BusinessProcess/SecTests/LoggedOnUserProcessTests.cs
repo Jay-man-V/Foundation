@@ -8,7 +8,6 @@ using NSubstitute;
 
 using Foundation.BusinessProcess.Sec;
 using Foundation.Interfaces;
-using Foundation.Interfaces.Helpers;
 
 using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
 

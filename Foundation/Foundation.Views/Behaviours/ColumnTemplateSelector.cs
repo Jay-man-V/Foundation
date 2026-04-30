@@ -7,7 +7,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-using Foundation.Interfaces.Helpers;
+using Foundation.Interfaces;
 
 namespace Foundation.Views.Behaviours
 {

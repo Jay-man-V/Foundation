@@ -18,91 +18,105 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
     public class IListExtensionMethodsTests : UnitTestBase
     {
         [TestCase]
-        public void Test_HasItems_List_Null()
+        public void Test_SerializeToString_IList_Null()
+        {
+            IList<Int32>? aList1 = null;
+            Assert.That(aList1.Serialise(), Is.EqualTo(String.Empty));
+        }
+
+        [TestCase]
+        public void Test_SerializeToString_IList_Items()
+        {
+            IList<Int32>? aList1 = [1, 2, 3, 4, 5, 6];
+            Assert.That(aList1.Serialise(), Is.EqualTo("'1', '2', '3', '4', '5', '6'"));
+        }
+
+        [TestCase]
+        public void Test_HasItems_IList_Null()
         {
             IList<Int32>? aList1 = null;
             Assert.That(aList1.HasItems(), Is.EqualTo(false));
         }
 
         [TestCase]
-        public void Test_HasItems_List_Null_Predicate()
+        public void Test_HasItems_IList_Null_Predicate()
         {
             IList<Int32>? aList1 = null;
             Assert.That(aList1.HasItems(a => a == 3), Is.EqualTo(false));
         }
 
         [TestCase]
-        public void Test_HasItems_List_Empty()
+        public void Test_HasItems_IList_Empty()
         {
             IList<String> aList1 = [];
             Assert.That(aList1.HasItems(), Is.EqualTo(false));
         }
 
         [TestCase]
-        public void Test_HasItems_List_Empty_Predicate()
+        public void Test_HasItems_IList_Empty_Predicate()
         {
             IList<String> aList1 = [];
             Assert.That(aList1.HasItems(a => a == "3"), Is.EqualTo(false));
         }
 
         [TestCase]
-        public void Test_HasItems_List_WithItems()
+        public void Test_HasItems_IList_WithItems()
         {
             IList<String> aList1 = ["String1"];
             Assert.That(aList1.HasItems());
         }
 
         [TestCase]
-        public void Test_HasItems_List_WithItems_Predicate()
+        public void Test_HasItems_IList_WithItems_Predicate()
         {
             IList<String> aList1 = ["String1"];
             Assert.That(aList1.HasItems(a => a == "String1"));
         }
 
         [TestCase]
-        public void Test_None_List_Null()
+        public void Test_None_IList_Null()
         {
             IList<Int32>? aList1 = null;
             Assert.That(aList1.None());
         }
 
         [TestCase]
-        public void Test_None_List_Null_Predicate()
+        public void Test_None_IList_Null_Predicate()
         {
             IList<Int32>? aList1 = null;
             Assert.That(aList1.None(a => a == 3));
         }
 
         [TestCase]
-        public void Test_None_List_Empty()
+        public void Test_None_IList_Empty()
         {
             IList<String> aList1 = [];
             Assert.That(aList1.None());
         }
 
         [TestCase]
-        public void Test_None_List_Empty_Predicate()
+        public void Test_None_IList_Empty_Predicate()
         {
             IList<String> aList1 = [];
             Assert.That(aList1.None(a => a == "3"));
         }
 
         [TestCase]
-        public void Test_None_List_WithItems()
+        public void Test_None_IList_WithItems()
         {
             IList<String> aList1 = ["String1"];
             Assert.That(aList1.None(), Is.EqualTo(false));
         }
 
         [TestCase]
-        public void Test_None_List_WithItems_Predicate()
+        public void Test_None_IList_WithItems_Predicate()
         {
             IList<String> aList1 = ["String1"];
             Assert.That(aList1.None(a => a == "String1"), Is.EqualTo(false));
         }
 
         [TestCase]
-        public void Test_Clone_List_Empty_1()
+        public void Test_Clone_IList_Empty_1()
         {
             IList<String> aList1 = [];
             IList<String> aList2 = aList1.Clone();
@@ -112,7 +126,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
         }
 
         [TestCase]
-        public void Test_Clone_List_Empty_2()
+        public void Test_Clone_IList_Empty_2()
         {
             IList<RandomObject> aList1 = [];
             IList<RandomObject>? aList2 = aList1.Clone() as IList<RandomObject>;
@@ -122,7 +136,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
         }
 
         [TestCase]
-        public void Test_Clone_List_WithItems_1()
+        public void Test_Clone_IList_WithItems_1()
         {
             IList<String> aList1 = ["String1", "String2"];
             IList<String> aList2 = aList1.Clone();
@@ -132,7 +146,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
         }
 
         [TestCase]
-        public void Test_Clone_List_WithItems_2()
+        public void Test_Clone_IList_WithItems_2()
         {
             IList<RandomObject> aList1 = [new RandomObject("String1"), new RandomObject("String2")];
             IList<RandomObject>? aList2 = aList1.Clone() as IList<RandomObject>;
@@ -143,7 +157,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
         }
 
         [TestCase]
-        public void Test_Clone_List_WithItems_4()
+        public void Test_Clone_IList_WithItems_4()
         {
             IList<RandomObject> aList1 = [new RandomObject(), new RandomObject()];
             IList<RandomObject>? aList2 = aList1.Clone() as IList<RandomObject>;
@@ -154,7 +168,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
         }
 
         [TestCase]
-        public void Test_Clone_List_WithItems_5()
+        public void Test_Clone_IList_WithItems_5()
         {
             IList<RandomCloneableObject> aList1 = [new RandomCloneableObject("String1"), new RandomCloneableObject("String2")];
             IList<RandomCloneableObject> aList2 = aList1.Clone();

@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Net.Http;
+
 namespace Foundation.Tests.Unit.Mocks
 {
     public class MockHttpMessageHandler : HttpMessageHandler

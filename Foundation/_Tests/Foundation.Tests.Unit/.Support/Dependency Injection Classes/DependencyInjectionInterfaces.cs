@@ -29,6 +29,16 @@ namespace Foundation.Tests.Unit.Support
         TValue Value { get; set; }
     }
 
+    public interface IInstance1
+    {
+        String GetOperationType();
+    }
+
+    public interface IInstance2
+    {
+        String GetOperationType();
+    }
+
     public interface IMultipleInstances
     {
         String GetOperationType();

@@ -8,7 +8,6 @@ using System.Diagnostics;
 using System.Drawing;
 
 using Foundation.Interfaces;
-using Foundation.Interfaces.Helpers;
 using Foundation.Resources;
 
 namespace Foundation.Common

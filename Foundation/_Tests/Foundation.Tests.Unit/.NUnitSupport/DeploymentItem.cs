@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.IO;
 using System.Reflection;
 
 namespace Foundation.Tests.Unit.Support

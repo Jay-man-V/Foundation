@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Foundation.Tests.CommandLine": {
+      "commandName": "Project",
+      "commandLineArgs": "Test1 Test2"
+    }
+  }
+}

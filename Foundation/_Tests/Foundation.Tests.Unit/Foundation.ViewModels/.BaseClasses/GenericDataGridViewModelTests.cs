@@ -5,13 +5,13 @@
 //-----------------------------------------------------------------------
 
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Text;
 
 using NSubstitute;
 
 using Foundation.Common;
 using Foundation.Interfaces;
-using Foundation.Interfaces.Helpers;
 using Foundation.ViewModels;
 
 using FDC = Foundation.Resources.Constants.DataColumns;

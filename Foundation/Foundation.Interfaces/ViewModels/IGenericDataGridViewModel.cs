@@ -8,8 +8,6 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-using Foundation.Interfaces.Helpers;
-
 namespace Foundation.Interfaces
 {
     /// <summary>

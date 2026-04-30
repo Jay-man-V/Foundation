@@ -8,8 +8,10 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
+using System.IO;
 
 using Microsoft.Data.SqlClient;
+
 using NSubstitute;
 
 using Foundation.Common;

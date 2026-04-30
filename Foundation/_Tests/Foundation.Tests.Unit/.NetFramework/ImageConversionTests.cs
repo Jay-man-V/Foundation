@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 
 using System.Drawing;
+using System.IO;
 
 using Foundation.Tests.Unit.Support;
 

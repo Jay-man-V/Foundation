@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Foundation.Interfaces.Helpers
+namespace Foundation.Interfaces
 {
     /// <summary>
     /// The Grid Column Definition definition

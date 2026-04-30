@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.IO;
+
 using NSubstitute;
 
 using Foundation.Common;

@@ -11,8 +11,12 @@ namespace Foundation.Interfaces
     /// </summary>
     public interface IScheduledJob : IFoundationModel
     {
-        /// <summary>Gets the schedule interval.</summary>
-        /// <value>The schedule interval.</value>
+        /// <summary>
+        /// Gets the schedule interval.
+        /// </summary>
+        /// <value>
+        /// The schedule interval.
+        /// </value>
         ScheduleInterval ScheduleInterval { get; }
 
         /// <summary>
@@ -45,12 +49,20 @@ namespace Foundation.Interfaces
         /// </summary>
         DateTime NextRunDateTime { get; set; }
 
-        /// <summary>Gets the parent scheduled jobs.</summary>
-        /// <value>The parent scheduled tasks.</value>
+        /// <summary>
+        /// Gets the parent scheduled jobs.
+        /// </summary>
+        /// <value>
+        /// The parent scheduled tasks.
+        /// </value>
         List<EntityId> ParentScheduledJobs { get; }
 
-        /// <summary>Gets the child scheduled jobs.</summary>
-        /// <value>The child scheduled tasks.</value>
+        /// <summary>
+        /// Gets the child scheduled jobs.
+        /// </summary>
+        /// <value>
+        /// The child scheduled tasks.
+        /// </value>
         List<EntityId> ChildScheduledJobs { get; }
 
         /// <summary>
@@ -83,7 +95,9 @@ namespace Foundation.Interfaces
 
         /// <summary>
         /// Interval between execution runs in Milliseconds|Seconds|Minutes|Hours|Days|Weeks|Months.
+        /// <para>
         /// Measurement type of the interval is based on the <see cref="ScheduleInterval"/> property.
+        /// </para>
         /// </summary>
         Int32 Interval { get; set; }
 
@@ -97,9 +111,9 @@ namespace Foundation.Interfaces
         /// <para>
         /// The format of the value should be Xml example:
         /// </para>
-        /// <para>
-        /// &lt;TaskImplementation assembly="Foundation.BusinessProcess" type="Foundation.BusinessProcess.ScheduledJobProcess" /&gt;
-        /// </para>
+        /// <code>
+        /// &lt;TaskImplementation assembly="Foundation.BusinessProcess" type="Foundation.BusinessProcess.ScheduledJobProcess"/&gt;
+        /// </code>
         /// </summary>
         String TaskImplementationType { get; set; }
 

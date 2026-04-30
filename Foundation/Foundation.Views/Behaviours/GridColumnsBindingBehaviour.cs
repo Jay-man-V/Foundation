@@ -12,10 +12,12 @@ using System.Windows.Controls;
 using System.Windows.Data;
 
 using Microsoft.Xaml.Behaviors;
+
+using Foundation.Interfaces;
 using Foundation.Resources;
 using Foundation.Views.Converters;
+
 using FEnums = Foundation.Interfaces;
-using Foundation.Interfaces.Helpers;
 
 namespace Foundation.Views.Behaviours
 {
