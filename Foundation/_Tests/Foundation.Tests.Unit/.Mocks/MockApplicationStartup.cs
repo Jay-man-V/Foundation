@@ -23,7 +23,8 @@ namespace Foundation.Tests.Unit.Mocks
             InstanceCounter++;
         }
 
-        public Int32 InstanceCounter { get; } = 0;
+        public Int32 InstanceCounter { get; }
+
         public Boolean ApplicationStartupCalled { get; set; }
 
         public void ApplicationStarting()

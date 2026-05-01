@@ -62,7 +62,7 @@ namespace Foundation.Core
                                                                    t.GetCustomAttributes<DependencyInjectionTransientAttribute>().Any() ||  // Include Transient classes
                                                                    t.GetCustomAttributes<DependencyInjectionScopedAttribute>().Any()        // Include scoped classes
                                                                )
-                                                         ).OrderBy(t => t.Name).ToList();
+                                                        ).OrderBy(t => t.Name).ToList();
 
                 retVal.AddRange(requiredTypes);
             }
@@ -139,8 +139,8 @@ namespace Foundation.Core
                                                                  (at.Namespace.StartsWith(typeNamespacePrefix, StringComparison.InvariantCultureIgnoreCase) ||
                                                                   typeNamespacePrefix.Equals("*", StringComparison.InvariantCultureIgnoreCase)) &&
                                                                 at.GetInterfaces().Length > 0 &&
-                                                                !ExcludedTypes.Any(el => at.Namespace.StartsWith(el, StringComparison.InvariantCultureIgnoreCase))
-                                                         ).OrderBy(ft => ft.Name).ToList();
+                                                                !ExcludedTypes.Any(el => at.Namespace.StartsWith(el, StringComparison.InvariantCulture))
+                                                        ).OrderBy(ft => ft.Name).ToList();
 
                 const Boolean searchInherited = false;
 
