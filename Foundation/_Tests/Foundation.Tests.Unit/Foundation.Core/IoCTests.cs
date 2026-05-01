@@ -464,7 +464,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
         [TestCase]
         public void Test_Get_String_Loaded_Assembly_Type_Exception_CannotLoadType()
         {
-            String assemblyName = "Microsoft.Data.SqlClient, Version=6.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5";
+            String assemblyName = "Microsoft.Data.SqlClient, Version=7.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5";
             String assemblyType = "Made.up.type.name";
 
             HostApplicationBuilderSettings settings = new HostApplicationBuilderSettings();

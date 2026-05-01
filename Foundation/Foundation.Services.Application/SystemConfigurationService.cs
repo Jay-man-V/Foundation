@@ -7,10 +7,6 @@
 using Foundation.Common;
 using Foundation.Interfaces;
 
-using Microsoft.Extensions.Configuration;
-
-using System;
-
 namespace Foundation.Services.Application
 {
     /// <inheritdoc cref="ISystemConfigurationService"/>

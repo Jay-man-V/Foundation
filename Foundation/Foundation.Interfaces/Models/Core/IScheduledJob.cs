@@ -95,7 +95,9 @@ namespace Foundation.Interfaces
 
         /// <summary>
         /// Interval between execution runs in Milliseconds|Seconds|Minutes|Hours|Days|Weeks|Months.
+        /// <para>
         /// Measurement type of the interval is based on the <see cref="ScheduleInterval"/> property.
+        /// </para>
         /// </summary>
         Int32 Interval { get; set; }
 
@@ -109,9 +111,9 @@ namespace Foundation.Interfaces
         /// <para>
         /// The format of the value should be Xml example:
         /// </para>
-        /// <para>
-        /// &lt;TaskImplementation assembly="Foundation.BusinessProcess" type="Foundation.BusinessProcess.ScheduledJobProcess" /&gt;
-        /// </para>
+        /// <code>
+        /// &lt;TaskImplementation assembly="Foundation.BusinessProcess" type="Foundation.BusinessProcess.ScheduledJobProcess"/&gt;
+        /// </code>
         /// </summary>
         String TaskImplementationType { get; set; }
 

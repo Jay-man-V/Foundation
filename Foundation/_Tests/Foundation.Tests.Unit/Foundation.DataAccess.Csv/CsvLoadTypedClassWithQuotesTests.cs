@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.IO;
+
 using Foundation.DataAccess.Csv;
 
 using Foundation.Tests.Unit.BaseClasses;
