@@ -18,6 +18,13 @@ namespace Foundation.Tests.Unit.Mocks
     {
         public static EventHandler? ApplicationStartingCalled { get; set; }
 
+        public MockApplicationStartup()
+        {
+            InstanceCounter++;
+        }
+
+        public Int32 InstanceCounter { get; }
+
         public Boolean ApplicationStartupCalled { get; set; }
 
         public void ApplicationStarting()

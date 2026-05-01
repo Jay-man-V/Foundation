@@ -4,8 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.Interfaces.Helpers;
-
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.IO;

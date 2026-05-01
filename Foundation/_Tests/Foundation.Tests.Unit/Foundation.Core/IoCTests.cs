@@ -4,12 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Microsoft.Extensions.Hosting;
+
 using Foundation.Core;
+using Foundation.Interfaces;
+using Foundation.Models.App;
+
 using Foundation.Tests.Unit.NetFramework;
 using Foundation.Tests.Unit.Support;
-
-using Microsoft.Extensions.Hosting;
-using Microsoft.VisualStudio.TestPlatform.Common.Utilities;
 
 namespace Foundation.Tests.Unit.Foundation.Core
 {
@@ -47,7 +49,9 @@ namespace Foundation.Tests.Unit.Foundation.Core
             HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
 
             IoC ioc = new IoC(hostApplicationBuilder.Services);
-            ioc.Initialise("Foundation.Tests.Unit.Support", "Foundation.Tests.Unit.dll");
+            String typeNamespace = typeof(ITransientOperation).Namespace!;
+            String typeAssemblyName = typeof(ITransientOperation).Assembly.GetName().Name!;
+            ioc.Initialise(typeNamespace, typeAssemblyName);
         }
 
         [TestCase]
@@ -66,7 +70,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
         [TestCase]
         public void Test_TheInstance_Null()
         {
-            String errorMessage = "Foundation.Core has not been initialised";
+            String errorMessage = $"{typeof(global::Foundation.Core.Core)} has not been initialised";
             InvalidOperationException actualException = Assert.Throws<InvalidOperationException>(() =>
             {
                 _ = global::Foundation.Core.Core.TheInstance;
@@ -77,7 +81,24 @@ namespace Foundation.Tests.Unit.Foundation.Core
         }
 
         [TestCase]
-        public void Test_Get_Type()
+        public void Test_Get_Type_MenuItem()
+        {
+            HostApplicationBuilderSettings settings = new HostApplicationBuilderSettings();
+
+            HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
+
+            IoC ioc = new IoC(hostApplicationBuilder.Services);
+            ioc.Initialise();
+            IHost host = hostApplicationBuilder.Build();
+            ioc.ServiceProvider = host.Services;
+
+            IMenuItem menuItem = ioc.Get<IMenuItem>();
+
+            Assert.That(menuItem, Is.Not.EqualTo(null));
+        }
+
+        [TestCase]
+        public void Test_Get_Type_TransientOperation()
         {
             HostApplicationBuilderSettings settings = new HostApplicationBuilderSettings();
 
@@ -94,8 +115,13 @@ namespace Foundation.Tests.Unit.Foundation.Core
         }
 
         [TestCase]
-        public void Test_Get_String()
+        public void Test_Get_String_MenuItem()
         {
+            String typeName = typeof(MenuItem).FullName!;
+            String typeNamespace = typeof(MenuItem).Namespace!;
+            String typeAssemblyName = typeof(MenuItem).Assembly.GetName().Name!;
+            String assemblyQualifiedName = typeof(MenuItem).AssemblyQualifiedName!;
+
             HostApplicationBuilderSettings settings = new HostApplicationBuilderSettings();
 
             HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
@@ -105,13 +131,33 @@ namespace Foundation.Tests.Unit.Foundation.Core
             IHost host = hostApplicationBuilder.Build();
             ioc.ServiceProvider = host.Services;
 
-            ITransientOperation transientOperation = ioc.Get<ITransientOperation>(typeof(TransientOperation).AssemblyQualifiedName!);
+            IMenuItem menuItem = ioc.Get<IMenuItem>(assemblyQualifiedName);
+            Assert.That(menuItem, Is.Not.EqualTo(null));
+        }
 
+        [TestCase]
+        public void Test_Get_String_TransientOperation()
+        {
+            String typeName = typeof(TransientOperation).FullName!;
+            String typeNamespace = typeof(TransientOperation).Namespace!;
+            String typeAssemblyName = typeof(TransientOperation).Assembly.GetName().Name!;
+            String assemblyQualifiedName = typeof(TransientOperation).AssemblyQualifiedName!;
+
+            HostApplicationBuilderSettings settings = new HostApplicationBuilderSettings();
+
+            HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
+
+            IoC ioc = new IoC(hostApplicationBuilder.Services);
+            ioc.Initialise();
+            IHost host = hostApplicationBuilder.Build();
+            ioc.ServiceProvider = host.Services;
+
+            ITransientOperation transientOperation = ioc.Get<ITransientOperation>(assemblyQualifiedName);
             Assert.That(transientOperation, Is.Not.EqualTo(null));
         }
 
         [TestCase]
-        public void Test_GetAll_Type()
+        public void Test_GetAll_IMultipleInstances()
         {
             List<String> expectedList = [typeof(MultipleInstance1).FullName!, typeof(MultipleInstance2).FullName!];
 
@@ -133,10 +179,31 @@ namespace Foundation.Tests.Unit.Foundation.Core
         }
 
         [TestCase]
-        public void Test_Get_String_Assembly_Type()
+        public void Test_Get_String_Assembly_MenuItem()
         {
-            String assemblyName = "Foundation.Tests.Unit";
-            String typeName = "Foundation.Tests.Unit.Support.TransientOperation";
+            String typeName = typeof(MenuItem).FullName!;
+            String typeNamespace = typeof(MenuItem).Namespace!;
+            String typeAssemblyName = typeof(MenuItem).Assembly.GetName().Name!;
+            HostApplicationBuilderSettings settings = new HostApplicationBuilderSettings();
+
+            HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(settings);
+
+            IoC ioc = new IoC(hostApplicationBuilder.Services);
+            ioc.Initialise();
+            IHost host = hostApplicationBuilder.Build();
+            ioc.ServiceProvider = host.Services;
+
+            IMenuItem menuItem = ioc.Get<IMenuItem>(typeAssemblyName, typeName);
+
+            Assert.That(menuItem, Is.Not.EqualTo(null));
+        }
+
+        [TestCase]
+        public void Test_Get_String_Assembly_TransientOperation()
+        {
+            String typeName = typeof(TransientOperation).FullName!;
+            String typeNamespace = typeof(TransientOperation).Namespace!;
+            String typeAssemblyName = typeof(TransientOperation).Assembly.GetName().Name!;
 
             HostApplicationBuilderSettings settings = new HostApplicationBuilderSettings();
 
@@ -147,7 +214,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
             IHost host = hostApplicationBuilder.Build();
             ioc.ServiceProvider = host.Services;
 
-            ITransientOperation transientOperation = ioc.Get<ITransientOperation>(assemblyName, typeName);
+            ITransientOperation transientOperation = ioc.Get<ITransientOperation>(typeAssemblyName, typeName);
 
             Assert.That(transientOperation, Is.Not.EqualTo(null));
         }

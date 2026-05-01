@@ -14,7 +14,6 @@ using Foundation.Interfaces;
 using Foundation.Resources;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
-using Foundation.Interfaces.Helpers;
 
 namespace Foundation.BusinessProcess.Core
 {

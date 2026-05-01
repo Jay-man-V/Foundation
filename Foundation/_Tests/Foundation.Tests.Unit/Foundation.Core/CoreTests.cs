@@ -81,7 +81,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
         [TestCase]
         public void Test_TheInstance_Null()
         {
-            String errorMessage = "Foundation.Core has not been initialised";
+            String errorMessage = $"{typeof(global::Foundation.Core.Core)} has not been initialised";
             InvalidOperationException actualException = Assert.Throws<InvalidOperationException>(() =>
             {
                 _ = global::Foundation.Core.Core.TheInstance;

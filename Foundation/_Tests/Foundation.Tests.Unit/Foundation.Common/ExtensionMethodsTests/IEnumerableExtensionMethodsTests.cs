@@ -18,11 +18,26 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
     public class IEnumerableExtensionMethodsTests : UnitTestBase
     {
         [TestCase]
+        public void Test_SerializeToString_IEnumerable_Null()
+        {
+            IEnumerable<Int32>? aList1 = null;
+            Assert.That(aList1.Serialise(), Is.EqualTo(String.Empty));
+        }
+
+        [TestCase]
+        public void Test_SerializeToString_IEnumerable_Items()
+        {
+            IEnumerable<Int32>? aList1 = [1, 2, 3, 4, 5, 6];
+            Assert.That(aList1.Serialise(), Is.EqualTo("'1', '2', '3', '4', '5', '6'"));
+        }
+
+        [TestCase]
         public void Test_HasItems_IEnumerable_Null()
         {
             IEnumerable<Int32>? aList1 = null;
             Assert.That(aList1.HasItems(), Is.EqualTo(false));
         }
+
         [TestCase]
         public void Test_HasItems_IEnumerable_Null_Predicate()
         {

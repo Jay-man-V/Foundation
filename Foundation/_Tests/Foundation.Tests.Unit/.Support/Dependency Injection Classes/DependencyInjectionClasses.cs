@@ -68,13 +68,13 @@ namespace Foundation.Tests.Unit.Support
     }
 
     [DependencyInjectionTransient]
-    public class MultipleInstance1 : IMultipleInstances
+    public class MultipleInstance1 : IMultipleInstances, IInstance1
     {
         public String GetOperationType() { return GetType().ToString(); }
     }
 
     [DependencyInjectionTransient]
-    public class MultipleInstance2 : IMultipleInstances
+    public class MultipleInstance2 : IMultipleInstances, IInstance2
     {
         public String GetOperationType() { return GetType().ToString(); }
     }

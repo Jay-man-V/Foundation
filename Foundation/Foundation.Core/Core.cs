@@ -44,7 +44,7 @@ namespace Foundation.Core
             {
                 if (CoreInstance is null)
                 {
-                    String message = "Foundation.Core has not been initialised";
+                    String message = $"{typeof(Core)} has not been initialised";
                     throw new InvalidOperationException(message);
                 }
 

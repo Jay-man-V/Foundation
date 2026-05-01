@@ -8,7 +8,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 
-using Foundation.Interfaces;
 using Foundation.Resources;
 
 namespace Foundation.DataAccess.Csv
@@ -16,7 +15,6 @@ namespace Foundation.DataAccess.Csv
     /// <summary>
     /// Defines the CsvRecord class
     /// </summary>
-    [DependencyInjectionTransient]
     public class CsvReader<TCsvRecord> : IDisposable
         where TCsvRecord : CsvRecord
     {

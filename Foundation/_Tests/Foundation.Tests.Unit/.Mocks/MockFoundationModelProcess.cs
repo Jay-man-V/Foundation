@@ -9,7 +9,6 @@ using System.Drawing;
 using Foundation.BusinessProcess;
 using Foundation.Common;
 using Foundation.Interfaces;
-using Foundation.Interfaces.Helpers;
 using Foundation.Resources;
 
 namespace Foundation.Tests.Unit.Mocks

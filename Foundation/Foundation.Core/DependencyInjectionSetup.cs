@@ -20,12 +20,13 @@ namespace Foundation.Core
     /// </summary>
     public static class DependencyInjectionSetup
     {
-        private static readonly Object SyncLock = new Object();
+        private static readonly Lock SyncLock = new Lock();
         internal static IServiceCollection? ServiceCollection { get; private set; }
 
         /// <summary>
         /// Loads the list of assembly types from file system.
         /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
         private static List<Type> LoadListOfAssemblyTypesFromFileSystem(String searchPattern)
         {
@@ -55,7 +56,7 @@ namespace Foundation.Core
                                                                    t.GetCustomAttributes<DependencyInjectionTransientAttribute>().Any() ||  // Include Transient classes
                                                                    t.GetCustomAttributes<DependencyInjectionScopedAttribute>().Any()        // Include scoped classes
                                                                )
-                                                         ).ToList();
+                                                        ).OrderBy(t => t.Name).ToList();
 
                 retVal.AddRange(requiredTypes);
             }
@@ -70,9 +71,33 @@ namespace Foundation.Core
         {
             get
             {
-                List<String> excludedTypesList = ["UnitTests.NetFramework.ExcludedMe"];
+                List<String> excludedTypesList =
+                [
+                    "UnitTests.NetFramework.ExcludedMe"
+                ];
 
                 return excludedTypesList;
+            }
+        }
+
+        /// <summary>
+        /// List of excluded interfaces, interfaces that will be removed from consideration of Dependency Injection
+        /// </summary>
+        private static List<String> ExcludedInterfaces
+        {
+            get
+            {
+                List<String> excludedInterfacesList =
+                [
+                    "ICloneable",
+                    "IDisposable",
+                    "IExcludedMe",
+                    "IEquatable",
+                    "Microsoft",
+                    "System",
+                ];
+
+                return excludedInterfacesList;
             }
         }
 
@@ -94,7 +119,7 @@ namespace Foundation.Core
         /// <returns></returns>
         public static void SetupDependencyInjection(IServiceCollection serviceCollection, String typeNamespacePrefix, String searchPattern)
         {
-            lock (SyncLock)
+            using (SyncLock.EnterScope())
             {
                 ServiceCollection = serviceCollection;
 
@@ -108,7 +133,7 @@ namespace Foundation.Core
                                                                 at.Namespace.StartsWith(typeNamespacePrefix, StringComparison.InvariantCulture) &&
                                                                 at.GetInterfaces().Length > 0 &&
                                                                 !ExcludedTypes.Any(el => at.Namespace.StartsWith(el, StringComparison.InvariantCulture))
-                                                         ).ToList();
+                                                        ).OrderBy(ft => ft.Name).ToList();
 
                 const Boolean searchInherited = false;
 
