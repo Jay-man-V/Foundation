@@ -60,6 +60,7 @@
     <Compile Include=".Mocks\ViewModels\MockGenericDataGridViewModel.cs" />
     <Compile Include=".Mocks\ViewModels\MockModelViewModel.cs" />
     <Compile Include=".Mocks\ViewModels\MockViewModel.cs" />
+    <Compile Include=".NetFramework\LoggerTests.cs" />
     <Compile Include=".Support\Dependency Injection Classes\ITypeNotImplemented.cs" />
     <Compile Include=".NetFramework\CredentialsTests.cs" />
     <Compile Include=".NetFramework\CustomClaimsPrincipalTests.cs" />
