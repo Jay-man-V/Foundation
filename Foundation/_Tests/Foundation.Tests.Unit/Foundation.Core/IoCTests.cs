@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.IO;
 using Microsoft.Extensions.Hosting;
 
 using Foundation.Core;
