@@ -4,8 +4,11 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Diagnostics;
+
 using Foundation.Common;
 using Foundation.Interfaces;
+using Foundation.Resources;
 
 namespace Foundation.BusinessProcess.Core.Schedulers
 {
@@ -40,10 +43,19 @@ namespace Foundation.BusinessProcess.Core.Schedulers
         {
             LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService);
 
+            JobStartTime = DateTimeService.SystemUtcDateTimeNow;
+
             ProcessJobCalled = null;
 
             LoggingHelpers.TraceCallReturn();
         }
+
+        protected abstract String BatchName { get; }
+        protected virtual String ProcessName => this.GetType().Name;
+        protected abstract String TaskName { get; }
+
+        /// <inheritdoc cref="IScheduledTask.JobStartTime"/>
+        public DateTime JobStartTime { get; }
 
         /// <inheritdoc cref="IScheduledTask.ProcessJobCalled"/>
         public EventHandler? ProcessJobCalled { get; set; }
@@ -56,6 +68,13 @@ namespace Foundation.BusinessProcess.Core.Schedulers
             {
                 handler(this, EventArgs.Empty);
             }
+
+            DateTime currentDateTime = DateTimeService.SystemUtcDateTimeNow;
+            String message = $"ProcessJob running at: {currentDateTime.ToString(Formats.DotNet.DateTimeSeconds)}";
+
+            LoggingService.CreateLogEntry(logId, Core.ApplicationId, "batchName", "processName", "taskName", LogSeverity.Information, message);
+
+            Debug.WriteLine(message);
         }
     }
 }

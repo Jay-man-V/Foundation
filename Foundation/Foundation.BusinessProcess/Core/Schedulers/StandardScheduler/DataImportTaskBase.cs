@@ -1,20 +1,20 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="MockScheduledTask.cs" company="JDV Software Ltd">
+// <copyright file="DataImportTaskBase.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
 using System.Diagnostics;
 
-using Foundation.BusinessProcess.Core.Schedulers;
 using Foundation.Interfaces;
 using Foundation.Resources;
 
-namespace Foundation.Tests.Unit.Mocks
+namespace Foundation.BusinessProcess.Core.Schedulers.StandardScheduler
 {
-    public class MockScheduledTask : ScheduledTaskBase
+    [DependencyInjectionTransient]
+    public abstract class DataImportTaskBase : ScheduledTaskBase
     {
-        public MockScheduledTask
+        protected DataImportTaskBase
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
@@ -31,10 +31,6 @@ namespace Foundation.Tests.Unit.Mocks
         {
         }
 
-        protected override String BatchName => "MockBatch";
-        protected override String ProcessName => this.GetType().Name;
-        protected override String TaskName => "MockTask";
-
         /// <inheritdoc cref="IScheduledTask.Process(LogId, String)"/>
         public override void Process(LogId logId, String taskParameters)
         {
@@ -43,7 +39,7 @@ namespace Foundation.Tests.Unit.Mocks
             DateTime currentDateTime = DateTimeService.SystemUtcDateTimeNow;
             String message = $"ProcessJob running at: {currentDateTime.ToString(Formats.DotNet.DateTimeSeconds)}";
 
-            LoggingService.CreateLogEntry(logId, Core.ApplicationId, BatchName, ProcessName, TaskName, LogSeverity.Information, message);
+            LoggingService.CreateLogEntry(logId, Core.ApplicationId, "batchName", "processName", "taskName", LogSeverity.Information, message);
             
             Debug.WriteLine(message);
         }

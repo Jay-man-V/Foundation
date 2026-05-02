@@ -12,6 +12,14 @@ namespace Foundation.Interfaces
     /// </summary>
     public interface IScheduledTask
     {
+        /// <summary>
+        /// The Date/Time the Scheduled Task was started. This is set when the scheduled task is initialized.
+        /// </summary>
+        DateTime JobStartTime { get; }
+
+        /// <summary>
+        /// Gets or sets the event handler that is invoked when a job processing operation is called.
+        /// </summary>
         EventHandler? ProcessJobCalled { get; set; }
 
         /// <summary>

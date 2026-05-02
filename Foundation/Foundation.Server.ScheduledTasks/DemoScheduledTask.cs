@@ -24,7 +24,6 @@ namespace Foundation.Server.ScheduledTasks
         /// <param name="runTimeEnvironmentSettings"></param>
         /// <param name="dateTimeService">The date/time service.</param>
         /// <param name="loggingService"></param>
-        /// <param name="calendarProcess"></param>
         public DemoScheduledTask
         (
             ICore core,
@@ -44,6 +43,9 @@ namespace Foundation.Server.ScheduledTasks
 
             LoggingHelpers.TraceCallReturn();
         }
+
+        protected override String BatchName => "DemoBatch";
+        protected override String TaskName => "DemoTask";
 
         /// <inheritdoc cref="IScheduledTask.Process(LogId, String)"/>
         public override void Process(LogId logId, String taskParameters)
