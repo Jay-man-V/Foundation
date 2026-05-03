@@ -53,11 +53,11 @@ namespace Foundation.Models.Core.EnumModels
         {
             Object? retVal = base.GetPropertyValue(propertyName);
 
-            switch (propertyName)
-            {
-                //case nameof(Name): retVal = Name; break;
-                //case nameof(Description): retVal = Description; break;
-            }
+            //switch (propertyName)
+            //{
+            //    case nameof(Name): retVal = Name; break;
+            //    case nameof(Description): retVal = Description; break;
+            //}
 
             return retVal;
         }
@@ -100,7 +100,7 @@ namespace Foundation.Models.Core.EnumModels
         /// <inheritdoc cref="Object.GetHashCode"/>
         public override Int32 GetHashCode()
         {
-            Int32 constant = -1521134295;
+            //Int32 constant = -1521134295;
             Int32 hashCode = base.GetHashCode();
 
             //hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(Name);

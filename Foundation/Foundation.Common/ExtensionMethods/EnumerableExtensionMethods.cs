@@ -22,7 +22,7 @@ namespace Foundation.Common
         /// <param name="separator">The separator to use between elements.</param>
         /// <param name="indicator">The indicator to enclose each element.</param>
         /// <returns>A string representation of the list.</returns>
-        public static String Serialise<TValue>(this IEnumerable<TValue>? val, String separator = ", ", String indicator = "'")
+        public static String Serialise<TValue>(this IEnumerable<TValue> val, String separator = ", ", String indicator = "'")
         {
             String retVal = String.Empty;
 

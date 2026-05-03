@@ -50,6 +50,16 @@ namespace Foundation.DocumentGenerator
                 // Add a WorkbookPart to the document.
                 WorkbookPart workbookPart = AddWorkbookPart(excel);
                 WorksheetPart worksheetPart = AddWorksheet(workbookPart, "Sheet 1");
+
+                if (workbookPart.Workbook is null)
+                {
+                    throw new Exception("Workbook is null");
+                }
+
+                if (worksheetPart.Worksheet is null)
+                {
+                    throw new Exception("Worksheet is null");
+                }
                 
                 SheetData = new SheetData();
                 AddBasicStylesheet(workbookPart);
@@ -88,6 +98,11 @@ namespace Foundation.DocumentGenerator
             // Add a WorksheetPart to the WorkbookPart.
             WorksheetPart worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
             worksheetPart.Worksheet = new Worksheet();
+
+            if (workbookPart.Workbook is null)
+            {
+                throw new Exception("Workbook is null");
+            }
 
             // Add Sheets to the Workbook.
             Sheets sheets = workbookPart.Workbook.AppendChild(new Sheets());
