@@ -61,6 +61,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             SchedulerSupport.RunTimeEnvironmentSettings = RunTimeEnvironmentSettings;
             SchedulerSupport.DateTimeService = DateTimeService;
             SchedulerSupport.LoggingService = LoggingService;
+            SchedulerSupport.ApplicationConfigurationService = ApplicationConfigurationService;
 
             IScheduleIntervalProcess scheduleIntervalProcess = Substitute.For<IScheduleIntervalProcess>();
             ICalendarService calendarService = Substitute.For<ICalendarService>();
@@ -191,7 +192,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             scheduledJob.ScheduledTask = TheProcess!.CreateScheduledTask(scheduledJob);
 
             Boolean processJobCalled = false;
-            scheduledJob.ScheduledTask.ProcessJobCalled += (_, _) =>
+            scheduledJob.ScheduledTask.RunTaskStarting += (_, _) =>
             {
                 processJobCalled = true;
             };
@@ -215,7 +216,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             scheduledJob.ScheduledTask = TheProcess!.CreateScheduledTask(scheduledJob);
 
             Boolean processJobCalled = false;
-            scheduledJob.ScheduledTask.ProcessJobCalled += (_, _) =>
+            scheduledJob.ScheduledTask.RunTaskStarting += (_, _) =>
             {
                 processJobCalled = true;
             };
@@ -257,7 +258,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             //Assert.That(serverProcessTimer.Enabled, Is.EqualTo(false));
 
             Boolean processJobCalled = false;
-            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.RunTaskStarting += (_, _) =>
             {
                 processJobCalled = true;
             };
@@ -315,7 +316,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             Assert.That(serverProcessTimer.Enabled, Is.EqualTo(false));
 
             Boolean processJobCalled = false;
-            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.RunTaskStarting += (_, _) =>
             {
                 processJobCalled = true;
             };
@@ -356,7 +357,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             Assert.That(serverProcessTimer.Enabled, Is.EqualTo(false));
 
             Boolean processJobCalled = false;
-            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.RunTaskStarting += (_, _) =>
             {
                 processJobCalled = true;
             };
@@ -398,7 +399,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
             Boolean exceptionRaisedDuringTest = false;
 
-            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.RunTaskStarting += (_, _) =>
             {
                 exceptionRaisedDuringTest = true;
                 String errorMessage = "Exception raised during checking CanExecute";
@@ -441,7 +442,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             Assert.That(serverProcessTimer.Enabled, Is.EqualTo(false));
 
             Boolean processJobCalled = false;
-            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.RunTaskStarting += (_, _) =>
             {
                 processJobCalled = true;
             };
@@ -511,7 +512,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             Assert.That(serverProcessTimer.Enabled, Is.EqualTo(false));
 
             Boolean processJobCalled = false;
-            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.RunTaskStarting += (_, _) =>
             {
                 processJobCalled = true;
             };
@@ -554,7 +555,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             Assert.That(serverProcessTimer.Enabled, Is.EqualTo(false));
 
             Boolean processJobCalled1 = false;
-            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.RunTaskStarting += (_, _) =>
             {
                 processJobCalled1 = true;
             };
@@ -577,7 +578,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             Assert.That(serverProcessTimer.Enabled, Is.EqualTo(false));
 
             Boolean processJobCalled2 = false;
-            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.RunTaskStarting += (_, _) =>
             {
                 processJobCalled2 = true;
             };
@@ -619,7 +620,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             Assert.That(serverProcessTimer.Enabled, Is.EqualTo(false));
 
             Boolean processJobCalled = false;
-            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.RunTaskStarting += (_, _) =>
             {
                 processJobCalled = true;
 
@@ -671,7 +672,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             ServerProcessTimer serverProcessTimer = scheduledJobProcess.ScheduledTimers[scheduledJob.Name];
 
             Boolean processJobCalled1 = false;
-            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.RunTaskStarting += (_, _) =>
             {
                 processJobCalled1 = true;
             };
@@ -695,7 +696,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             Assert.That(serverProcessTimer.Enabled, Is.EqualTo(false));
 
             Boolean processJobCalled2 = false;
-            serverProcessTimer.ScheduledJob.ScheduledTask!.ProcessJobCalled += (_, _) =>
+            serverProcessTimer.ScheduledJob.ScheduledTask!.RunTaskStarting += (_, _) =>
             {
                 processJobCalled2 = true;
             };
@@ -1093,6 +1094,8 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             SchedulerSupport.RunTimeEnvironmentSettings = RunTimeEnvironmentSettings;
             SchedulerSupport.DateTimeService = DateTimeService;
             SchedulerSupport.LoggingService = LoggingService;
+            SchedulerSupport.ApplicationConfigurationService = ApplicationConfigurationService;
+
             scheduledJobProcess.AlternateCreateScheduledTaskCalled -= SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
             scheduledJobProcess.AlternateCreateScheduledTaskCalled += SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
 
@@ -1147,6 +1150,8 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             SchedulerSupport.RunTimeEnvironmentSettings = RunTimeEnvironmentSettings;
             SchedulerSupport.DateTimeService = DateTimeService;
             SchedulerSupport.LoggingService = LoggingService;
+            SchedulerSupport.ApplicationConfigurationService = ApplicationConfigurationService;
+
             scheduledJobProcess.AlternateCreateScheduledTaskCalled -= SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
             scheduledJobProcess.AlternateCreateScheduledTaskCalled += SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
 
@@ -1201,6 +1206,8 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             SchedulerSupport.RunTimeEnvironmentSettings = RunTimeEnvironmentSettings;
             SchedulerSupport.DateTimeService = DateTimeService;
             SchedulerSupport.LoggingService = LoggingService;
+            SchedulerSupport.ApplicationConfigurationService = ApplicationConfigurationService;
+
             scheduledJobProcess.AlternateCreateScheduledTaskCalled -= SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
             scheduledJobProcess.AlternateCreateScheduledTaskCalled += SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
 
@@ -1238,6 +1245,8 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             SchedulerSupport.RunTimeEnvironmentSettings = RunTimeEnvironmentSettings;
             SchedulerSupport.DateTimeService = DateTimeService;
             SchedulerSupport.LoggingService = LoggingService;
+            SchedulerSupport.ApplicationConfigurationService = ApplicationConfigurationService;
+
             scheduledJobProcess.AlternateCreateScheduledTaskCalled -= SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
             scheduledJobProcess.AlternateCreateScheduledTaskCalled += SchedulerSupport.OnAlternateCreateScheduledTaskCalled;
 

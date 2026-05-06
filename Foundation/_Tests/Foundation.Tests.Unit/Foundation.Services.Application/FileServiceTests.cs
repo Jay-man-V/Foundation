@@ -82,7 +82,6 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-
         [TestCase]
         public void Test_GetNewTempFilePath()
         {
@@ -101,6 +100,30 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 
             Assert.That(Path.Combine(systemTempFolderPath, baseFolder), Is.EqualTo(tempFolderPath));
             Assert.That(tempFileName.StartsWith(filePrefix, StringComparison.InvariantCulture));
+        }
+
+        [TestCase]
+        public void Test_GetListOfFiles_EmptyFolder()
+        {
+            DirectoryInfo di = TheService!.CreateDirectory(".ExpectedResults", Guid.NewGuid().ToString(), false);
+
+            List<String> files = TheService!.GetListOfFiles(di.FullName, "*.*", false);
+
+            Assert.That(files, Is.Not.Null);
+            Assert.That(files.Count, Is.EqualTo(0));
+        }
+
+        [TestCase]
+        public void Test_GetListOfFiles_Files()
+        {
+            DirectoryInfo di = TheService!.CreateDirectory(".ExpectedResults", Guid.NewGuid().ToString(), false);
+            String baseFolder = di.FullName;
+            TheService!.WriteFileContent(Path.Combine(baseFolder, "TestFile.txt"), "Test content");
+
+            List<String> files = TheService!.GetListOfFiles(baseFolder, "*.*", false);
+
+            Assert.That(files, Is.Not.Null);
+            Assert.That(files.Count, Is.EqualTo(1));
         }
 
         [TestCase]
@@ -496,7 +519,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             String filePath = Guid.NewGuid().ToString();
             Encoding encoding = Encoding.UTF8;
             String errorMessage = $"The file '{filePath}' already exists and cannot be created";
-            UnauthorizedAccessException actualException = Assert.Throws<UnauthorizedAccessException>(() =>
+            FileAlreadyExistsException actualException = Assert.Throws<FileAlreadyExistsException>(() =>
             {
                 TheService!.OpenFileForWriting(filePath, encoding);
 
@@ -505,6 +528,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 
             Assert.That(actualException, Is.Not.EqualTo(null));
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException.FilePath, Is.EqualTo(filePath));
         }
 
         [TestCase]
@@ -867,7 +891,59 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         }
 
         [TestCase]
-        public void Test_WriteFileContent()
+        public void Test_WriteFileContent_String()
+        {
+            String systemTempFolderPath = Path.GetTempPath();
+            String tempFolderName = Guid.NewGuid().ToString();
+            String outputFile = Guid.NewGuid().ToString();
+            String outputPath = Path.Combine(systemTempFolderPath, tempFolderName, outputFile);
+            String fileContent1 = "Sample text";
+            String fileContent2 = "New data";
+
+            TheService!.CreateDirectory(systemTempFolderPath, tempFolderName, false);
+
+            TheService!.WriteFileContent(outputPath, fileContent1);
+            Boolean fileWrite1FileExists = TheService!.DoesFileExist(outputPath);
+            Assert.That(fileWrite1FileExists, Is.EqualTo(true));
+
+            String errorMessage = $"The file '{outputPath}' already exists and cannot be created";
+
+            FileAlreadyExistsException actualException = Assert.Throws<FileAlreadyExistsException>(() =>
+            {
+                TheService!.WriteFileContent(outputPath, fileContent2, overwriteIfFileExists: false);
+            });
+
+            Assert.That(actualException, Is.Not.EqualTo(null));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException.FilePath, Is.EqualTo(outputPath));
+        }
+
+        [TestCase]
+        public void Test_WriteFileContent_String_Overwrite()
+        {
+            String systemTempFolderPath = Path.GetTempPath();
+            String tempFolderName = Guid.NewGuid().ToString();
+            String outputFile = Guid.NewGuid().ToString();
+            String outputPath = Path.Combine(systemTempFolderPath, tempFolderName, outputFile);
+            String fileContent1 = "Sample text";
+            String fileContent2 = "New data";
+
+            TheService!.CreateDirectory(systemTempFolderPath, tempFolderName, false);
+
+            TheService!.WriteFileContent(outputPath, fileContent1);
+            Boolean fileWrite1FileExists = TheService!.DoesFileExist(outputPath);
+            Assert.That(fileWrite1FileExists, Is.EqualTo(true));
+
+            TheService!.WriteFileContent(outputPath, fileContent2, overwriteIfFileExists: true);
+            Boolean fileWrite2FileExists = TheService!.DoesFileExist(outputPath);
+            Assert.That(fileWrite2FileExists, Is.EqualTo(true));
+
+            String fileContent = TheService!.GetFileContentsAsText(outputPath, Encoding.Default);
+            Assert.That(fileContent, Is.EqualTo(fileContent2));
+        }
+
+        [TestCase]
+        public void Test_WriteFileContent_Stream()
         {
             String systemTempFolderPath = Path.GetTempPath();
             String outputFile = Guid.NewGuid().ToString();
@@ -889,16 +965,20 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             sw2.Write(fileOutput2);
             sw2.Flush();
 
-            TheService!.WriteFileContent(outputPath, memoryStream2, overwriteIfFileExists: true);
-            Boolean fileWrite2FileExists = TheService!.DoesFileExist(outputPath);
-            Assert.That(fileWrite2FileExists, Is.EqualTo(true));
+            String errorMessage = $"The file '{outputPath}' already exists and cannot be created";
 
-            String fileContent = TheService!.GetFileContentsAsText(outputPath, Encoding.Default);
-            Assert.That(fileContent, Is.EqualTo(fileOutput2));
+            FileAlreadyExistsException actualException = Assert.Throws<FileAlreadyExistsException>(() =>
+            {
+                TheService!.WriteFileContent(outputPath, memoryStream2, overwriteIfFileExists: false);
+            });
+
+            Assert.That(actualException, Is.Not.EqualTo(null));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException.FilePath, Is.EqualTo(outputPath));
         }
 
         [TestCase]
-        public void Test_WriteFileContent_Overwrite()
+        public void Test_WriteFileContent_Stream_Overwrite()
         {
             String systemTempFolderPath = Path.GetTempPath();
             String outputFile = Guid.NewGuid().ToString();

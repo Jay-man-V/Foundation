@@ -15,8 +15,8 @@ namespace Foundation.Common
     [DependencyInjectionTransient]
     public class ArchiveTransferSettings : FileTransferSettings, IArchiveTransferSettings
     {
-        /// <inheritdoc cref="IArchiveTransferSettings.FileTransferArchiveAction"/>
-        public FileTransferArchiveAction FileTransferArchiveAction { get; set; }
+        /// <inheritdoc cref="IArchiveTransferSettings.FileTransferAction"/>
+        public FileTransferAction FileTransferAction { get; set; }
 
         /// <inheritdoc cref="IArchiveTransferSettings.DeleteSourceFile"/>
         public Boolean DeleteSourceFile { get; set; }

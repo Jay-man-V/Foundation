@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Common;
 using Foundation.Interfaces;
 
 namespace Foundation.Tests.Unit.Mocks
@@ -15,23 +16,25 @@ namespace Foundation.Tests.Unit.Mocks
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
-            ILoggingService loggingService
+            ILoggingService loggingService,
+            IApplicationConfigurationService applicationConfigurationService
         )
             : base
             (
                 core,
                 runTimeEnvironmentSettings,
                 dateTimeService,
-                loggingService
+                loggingService,
+                applicationConfigurationService
             )
         {
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, applicationConfigurationService);
+
+            LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="IScheduledTask.Process(LogId, String)"/>
-        public override void Process(LogId logId, String taskParameters)
+        protected override void ProcessTask(LogId parentLogId, String taskParameters)
         {
-            base.Process(logId, taskParameters);
-
             throw new Exception("Forced exception to test code");
         }
     }

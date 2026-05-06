@@ -50,6 +50,19 @@ namespace Foundation.Interfaces
         String GetNewTempFilePath(String baseFolder, String filePrefix);
 
         /// <summary>
+        /// Retrieves a list of file names from the specified folder that match the given search pattern.
+        /// </summary>
+        /// <param name="folderPath">The full path to the folder in which to search for files. Cannot be null or empty.</param>
+        /// <param name="searchPattern">The search string to match against the names of files in the folder. May include wildcards such as '*' and
+        /// '?'.</param>
+        /// <param name="includeSubdirectories">true to include files in all subdirectories of the specified folder; otherwise, false to search only the
+        /// top-level folder.</param>
+        /// <returns>
+        /// A list of file names that match the search pattern. The list is empty if no matching files are found.
+        /// </returns>
+        List<String> GetListOfFiles(String folderPath, String searchPattern, Boolean includeSubdirectories);
+
+        /// <summary>
         /// Ensures the file exists.
         /// </summary>
         /// <param name="filePath">The file path.</param>
@@ -154,6 +167,15 @@ namespace Foundation.Interfaces
         /// <param name="appendToFile">If the file should be appended to or overwritten</param>
         /// <returns></returns>
         TextWriter OpenFileForWriting(String filePath, Encoding encoding, Boolean appendToFile = false);
+
+        /// <summary>
+        /// Writes the stream content to the file
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <param name="fileContent">The file content</param>
+        /// <param name="overwriteIfFileExists"></param>
+        /// <returns>The file contents</returns>
+        String WriteFileContent(String filePath, String fileContent, Boolean overwriteIfFileExists = false);
 
         /// <summary>
         /// Writes the stream content to the file

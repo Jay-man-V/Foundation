@@ -7,7 +7,6 @@
 using Foundation.BusinessProcess.Core.Schedulers;
 using Foundation.Common;
 using Foundation.Interfaces;
-using Foundation.Resources;
 
 namespace Foundation.Server.ScheduledTasks
 {
@@ -24,37 +23,47 @@ namespace Foundation.Server.ScheduledTasks
         /// <param name="runTimeEnvironmentSettings"></param>
         /// <param name="dateTimeService">The date/time service.</param>
         /// <param name="loggingService"></param>
+        /// <param name="applicationConfigurationService"></param>
         public DemoScheduledTask
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
-            ILoggingService loggingService
+            ILoggingService loggingService,
+            IApplicationConfigurationService applicationConfigurationService
         ) :
             base
             (
                 core,
                 runTimeEnvironmentSettings,
                 dateTimeService,
-                loggingService
+                loggingService,
+                applicationConfigurationService
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, applicationConfigurationService);
+
+            ApplicationName = "UnitTest";
+            BatchName = "DemoBatch";
+            TaskName = "DemoTask";
 
             LoggingHelpers.TraceCallReturn();
         }
 
-        protected override String BatchName => "DemoBatch";
-        protected override String TaskName => "DemoTask";
-
-        /// <inheritdoc cref="IScheduledTask.Process(LogId, String)"/>
-        public override void Process(LogId logId, String taskParameters)
+        protected override void InitialiseRunTimeParameters(String taskParameters)
         {
-            base.Process(logId, taskParameters);
+            // Does nothing
+        }
 
-            DateTime currentDateTime = DateTimeService.SystemUtcDateTimeNow;
-            String message = $"{GetType()}::ProcessJob running at: {currentDateTime.ToString(Formats.DotNet.DateTimeSeconds)} with Task Parameters: '{taskParameters}'";
-            LoggingHelpers.LogInformationMessage(message);
+        protected override String GetRunTimeParametersForLogging()
+        {
+            // Does nothing
+            return String.Empty;
+        }
+
+        protected override void ProcessTask(LogId parentLogId, String taskParameters)
+        {
+            // Does nothing
         }
     }
 }

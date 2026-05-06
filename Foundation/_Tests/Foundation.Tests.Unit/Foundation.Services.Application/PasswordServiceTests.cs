@@ -22,7 +22,6 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
     public class PasswordServiceTests : UnitTestBase
     {
         private IPasswordGeneratorService? TheService { get; set; }
-        private IApplicationConfigurationService? ApplicationConfigurationService { get; set; }
         private IRestApi? RestApi { get; set; }
         private IRandomService? RandomService { get; set; }
 
@@ -31,7 +30,6 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             base.TestInitialise();
 
             ICore core = Substitute.For<ICore>();
-            ApplicationConfigurationService = Substitute.For<IApplicationConfigurationService>();
             RestApi = Substitute.For<IRestApi>();
             RandomService = Substitute.For<IRandomService>();
 

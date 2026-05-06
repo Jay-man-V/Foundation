@@ -40,6 +40,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.ComponentsTests
             SchedulerSupport.RunTimeEnvironmentSettings = RunTimeEnvironmentSettings;
             SchedulerSupport.DateTimeService = DateTimeService;
             SchedulerSupport.LoggingService = LoggingService;
+            SchedulerSupport.ApplicationConfigurationService = ApplicationConfigurationService;
         }
 
         [TestCase]

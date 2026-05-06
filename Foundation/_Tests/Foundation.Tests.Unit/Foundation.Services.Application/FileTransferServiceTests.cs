@@ -124,7 +124,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 
             IArchiveTransferSettings archiveFileTransferSettings = new ArchiveTransferSettings
             {
-                FileTransferArchiveAction = FileTransferArchiveAction.Move,
+                FileTransferAction = FileTransferAction.Move,
                 FileTransferMethod = fileTransferMethod,
                 Location = Guid.NewGuid().ToString(),
             };
@@ -220,7 +220,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 
             IArchiveTransferSettings archiveFileTransferSettings = new ArchiveTransferSettings
             {
-                FileTransferArchiveAction = FileTransferArchiveAction.Move,
+                FileTransferAction = FileTransferAction.Move,
                 FileTransferMethod = fileTransferMethod,
                 Location = Guid.NewGuid().ToString(),
             };

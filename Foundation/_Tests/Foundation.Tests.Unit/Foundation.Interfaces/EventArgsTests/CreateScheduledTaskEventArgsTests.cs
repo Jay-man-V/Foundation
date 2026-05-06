@@ -31,7 +31,7 @@ namespace Foundation.Tests.Unit.Foundation.Interfaces.EventArgsTests
         {
             FullyQualifiedTypeName fullyQualifiedTypeName = new FullyQualifiedTypeName(_fullyQualifiedTypeNameString);
             ICore core = Substitute.For<ICore>();
-            IScheduledTask serviceTask = new MockScheduledTask(core, RunTimeEnvironmentSettings, DateTimeService, LoggingService);
+            IScheduledTask serviceTask = new MockScheduledTask(core, RunTimeEnvironmentSettings, DateTimeService, LoggingService, ApplicationConfigurationService);
 
             CreateScheduledTaskEventArgs eventArgs = new CreateScheduledTaskEventArgs(fullyQualifiedTypeName)
             {

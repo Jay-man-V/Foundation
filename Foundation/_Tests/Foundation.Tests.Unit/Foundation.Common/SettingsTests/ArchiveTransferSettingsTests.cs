@@ -31,7 +31,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.SettingsTests
             PropertyInfo[] propertyInfos = GetInstancePropertyInfosForType(typeof(ArchiveTransferSettings));
             Int32 index = 0;
 
-            Assert.That(propertyInfos[index++].Name, Is.EqualTo(nameof(ArchiveTransferSettings.FileTransferArchiveAction)));
+            Assert.That(propertyInfos[index++].Name, Is.EqualTo(nameof(ArchiveTransferSettings.FileTransferAction)));
             Assert.That(propertyInfos[index++].Name, Is.EqualTo(nameof(ArchiveTransferSettings.DeleteSourceFile)));
             Assert.That(propertyInfos[index++].Name, Is.EqualTo(nameof(ArchiveTransferSettings.FileTransferMethod)));
             Assert.That(propertyInfos[index++].Name, Is.EqualTo(nameof(ArchiveTransferSettings.Location)));
@@ -51,7 +51,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.SettingsTests
             Assert.That(obj.FileTransferMethod, Is.EqualTo(FileTransferMethod.NotSet));
             Assert.That(obj.Location, Is.EqualTo(String.Empty));
             Assert.That(obj.Credentials, Is.EqualTo(null));
-            Assert.That(obj.FileTransferArchiveAction, Is.EqualTo(FileTransferArchiveAction.NotSet));
+            Assert.That(obj.FileTransferAction, Is.EqualTo(FileTransferAction.NotSet));
             Assert.That(obj.DeleteSourceFile, Is.EqualTo(false));
         }
 
@@ -64,14 +64,14 @@ namespace Foundation.Tests.Unit.Foundation.Common.SettingsTests
             FileTransferMethod fileTransferType = FileTransferMethod.Rest;
             String location = Guid.NewGuid().ToString();
             ICredentials credentials = new NetworkCredential(Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
-            FileTransferArchiveAction fileTransferArchiveAction = FileTransferArchiveAction.Move;
+            FileTransferAction fileTransferArchiveAction = FileTransferAction.Move;
 
             IArchiveTransferSettings obj = new ArchiveTransferSettings
             {
                 FileTransferMethod = fileTransferType,
                 Location = location,
                 Credentials = credentials,
-                FileTransferArchiveAction = FileTransferArchiveAction.Move,
+                FileTransferAction = FileTransferAction.Move,
                 DeleteSourceFile = true,
             };
 
@@ -81,7 +81,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.SettingsTests
             Assert.That(obj.FileTransferMethod, Is.EqualTo(fileTransferType));
             Assert.That(obj.Location, Is.EqualTo(location));
             Assert.That(obj.Credentials, Is.EqualTo(credentials));
-            Assert.That(obj.FileTransferArchiveAction, Is.EqualTo(fileTransferArchiveAction));
+            Assert.That(obj.FileTransferAction, Is.EqualTo(fileTransferArchiveAction));
             Assert.That(obj.DeleteSourceFile, Is.EqualTo(true));
         }
     }

@@ -4,14 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.Diagnostics;
-
 using Foundation.Interfaces;
-using Foundation.Resources;
 
 namespace Foundation.BusinessProcess.Core.Schedulers.StandardScheduler
 {
-    [DependencyInjectionTransient]
     public abstract class DataExportTaskBase : ScheduledTaskBase
     {
         protected DataExportTaskBase
@@ -19,29 +15,23 @@ namespace Foundation.BusinessProcess.Core.Schedulers.StandardScheduler
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
             IDateTimeService dateTimeService,
-            ILoggingService loggingService
+            ILoggingService loggingService,
+            IApplicationConfigurationService applicationConfigurationService
         )
             : base
             (
                 core,
                 runTimeEnvironmentSettings,
                 dateTimeService,
-                loggingService
+                loggingService,
+                applicationConfigurationService
             )
         {
         }
 
-        /// <inheritdoc cref="IScheduledTask.Process(LogId, String)"/>
-        public override void Process(LogId logId, String taskParameters)
+        protected override void ProcessTask(LogId parentLogId, string taskParameters)
         {
-            base.Process(logId, taskParameters);
-
-            DateTime currentDateTime = DateTimeService.SystemUtcDateTimeNow;
-            String message = $"ProcessJob running at: {currentDateTime.ToString(Formats.DotNet.DateTimeSeconds)}";
-
-            LoggingService.CreateLogEntry(logId, Core.ApplicationId, "batchName", "processName", "taskName", LogSeverity.Information, message);
-            
-            Debug.WriteLine(message);
+            // Does nothing
         }
     }
 }

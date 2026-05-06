@@ -4,8 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using NSubstitute;
-
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Server.ScheduledTasks;
@@ -30,6 +28,7 @@ namespace Foundation.Tests.Unit.Support
         public static IRunTimeEnvironmentSettings? RunTimeEnvironmentSettings { get; set; }
         public static IDateTimeService? DateTimeService { get; set; }
         public static ILoggingService? LoggingService { get; set; }
+        public static IApplicationConfigurationService? ApplicationConfigurationService { get; set; }
 
         public static DateTime AdjustForWeekend(DateTime dateTime)
         {
@@ -133,15 +132,15 @@ namespace Foundation.Tests.Unit.Support
 
             if (fullyQualifiedTypeName.TypeName == TaskImplementationType)
             {
-                eventArgs.ServiceInstance = new MockScheduledTask(Core!, RunTimeEnvironmentSettings!, DateTimeService!, LoggingService!);
+                eventArgs.ServiceInstance = new MockScheduledTask(Core!, RunTimeEnvironmentSettings!, DateTimeService!, LoggingService!, ApplicationConfigurationService!);
             }
             else if (fullyQualifiedTypeName.TypeName == TaskImplementationTypeWithError)
             {
-                eventArgs.ServiceInstance = new MockScheduledTaskWithError(Core!, RunTimeEnvironmentSettings!, DateTimeService!, LoggingService!);
+                eventArgs.ServiceInstance = new MockScheduledTaskWithError(Core!, RunTimeEnvironmentSettings!, DateTimeService!, LoggingService!, ApplicationConfigurationService!);
             }
             else if (fullyQualifiedTypeName.TypeName == DemoTaskImplementationType)
             {
-                eventArgs.ServiceInstance = new DemoScheduledTask(Core!, RunTimeEnvironmentSettings!, DateTimeService!, LoggingService!);
+                eventArgs.ServiceInstance = new DemoScheduledTask(Core!, RunTimeEnvironmentSettings!, DateTimeService!, LoggingService!, ApplicationConfigurationService!);
             }
         }
     }

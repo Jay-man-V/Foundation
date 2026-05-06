@@ -209,7 +209,7 @@ namespace Foundation.Services.Application
                 case FileTransferMethod.FileSystem:
                 {
                     // Ignore all other options as they will preserve the original file
-                    if (archiveTransferSettings.FileTransferArchiveAction == FileTransferArchiveAction.Move)
+                    if (archiveTransferSettings.FileTransferAction == FileTransferAction.Move)
                     {
                         FileApi.DeleteFile(sourceFileTransferSettings);
                     }

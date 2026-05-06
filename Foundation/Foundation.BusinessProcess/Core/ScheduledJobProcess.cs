@@ -651,7 +651,7 @@ namespace Foundation.BusinessProcess.Core
                     scheduledJob.IsRunning = true;
                     scheduledJob.LastRunDateTime = DateTimeService.SystemUtcDateTimeNowWithoutMilliseconds;
 
-                    scheduledTask.Process(logId, scheduledJob.TaskParameters);
+                    scheduledTask.RunTask(logId, scheduledJob.TaskParameters);
                     LoggingService.EndTask(logId, LogSeverity.Success, "Job completed");
 
                     scheduledJob.FirstRun = false;

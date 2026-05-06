@@ -85,6 +85,23 @@ namespace Foundation.Services.Application
         }
 
         /// <inheritdoc cref="IFileApi.EnsureFileExists(String)"/>
+        public List<String> GetListOfFiles(String folderPath, String searchPattern, Boolean includeSubdirectories)
+        {
+            LoggingHelpers.TraceCallEnter(folderPath, searchPattern, includeSubdirectories);
+
+            EnsureDirectoryExists(folderPath);
+
+            SearchOption searchOption = includeSubdirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
+
+            DirectoryInfo directoryInfo = new DirectoryInfo(folderPath);
+            List<String> retVal = directoryInfo.GetFiles(searchPattern, searchOption).ToList().Select(f => f.FullName).ToList();
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IFileApi.EnsureFileExists(String)"/>
         public void EnsureFileExists(String filePath)
         {
             LoggingHelpers.TraceCallEnter(filePath);
@@ -305,11 +322,37 @@ namespace Foundation.Services.Application
                 if (fileExists)
                 {
                     String exceptionMessage = $"The file '{filePath}' already exists and cannot be created";
-                    throw new UnauthorizedAccessException(exceptionMessage);
+                    throw new FileAlreadyExistsException(exceptionMessage, filePath);
                 }
             }
 
             TextWriter retVal = new StreamWriter(filePath, appendToFile, encoding);
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IFileApi.WriteFileContent(String, String, Boolean)"/>
+        public String WriteFileContent(String filePath, String fileContent, Boolean overwriteIfFileExists = false)
+        {
+            LoggingHelpers.TraceCallEnter(filePath, $"{nameof(fileContent)} not logged", overwriteIfFileExists);
+
+            String retVal = filePath;
+
+            Boolean fileExists = DoesFileExist(retVal);
+
+            if (fileExists && overwriteIfFileExists)
+            {
+                DeleteFile(retVal);
+            }
+
+            using (TextWriter textWriter = OpenFileForWriting(filePath, Encoding.UTF8))
+            {
+                textWriter.Write(fileContent);
+                textWriter.Flush();
+                textWriter.Close();
+            }
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -328,6 +371,11 @@ namespace Foundation.Services.Application
             if (fileExists && overwriteIfFileExists)
             {
                 DeleteFile(retVal);
+            }
+            else if (fileExists && !overwriteIfFileExists)
+            {
+                String exceptionMessage = $"The file '{filePath}' already exists and cannot be created";
+                throw new FileAlreadyExistsException(exceptionMessage, filePath);
             }
 
             using (FileStream fileStream = File.Create(retVal))

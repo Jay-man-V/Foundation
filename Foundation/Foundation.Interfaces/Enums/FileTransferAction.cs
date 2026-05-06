@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="FileTransferArchiveAction.cs" company="JDV Software Ltd">
+// <copyright file="FileTransferAction.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -10,12 +10,12 @@ using System.ComponentModel.DataAnnotations;
 namespace Foundation.Interfaces
 {
     /// <summary>
-    /// File Transfer Archive Action
+    /// File Transfer Action
     /// </summary>
     [Browsable(true),
      Category("Process"),
-     Description("Specifies the file transfer archive action")]
-    public enum FileTransferArchiveAction
+     Description("Specifies the file transfer action")]
+    public enum FileTransferAction
     {
         /// <summary>
         /// Value not set

@@ -10,13 +10,13 @@ using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
-using NSubstitute;
-
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Resources;
 
 using Foundation.Tests.Unit.Support;
+
+using NSubstitute;
 
 namespace Foundation.Tests.Unit.BaseClasses
 {
@@ -59,6 +59,7 @@ namespace Foundation.Tests.Unit.BaseClasses
         protected IDateTimeService DateTimeService { get; set; }
         protected IRunTimeEnvironmentSettings RunTimeEnvironmentSettings { get; set; }
         protected ILoggingService LoggingService { get; set; }
+        protected IApplicationConfigurationService ApplicationConfigurationService { get; set; }
 
         protected static class StandardErrorMessages
         {
@@ -100,6 +101,7 @@ namespace Foundation.Tests.Unit.BaseClasses
             DateTimeService.LocalDateTimeNow.Returns(SystemDateTimeMs);
 
             LoggingService = Substitute.For<ILoggingService>();
+            ApplicationConfigurationService = Substitute.For<IApplicationConfigurationService>();
 
             RunTimeEnvironmentSettings = Substitute.For<IRunTimeEnvironmentSettings>();
             RunTimeEnvironmentSettings.StandardCountryCode.Returns(StandardCountryCode);

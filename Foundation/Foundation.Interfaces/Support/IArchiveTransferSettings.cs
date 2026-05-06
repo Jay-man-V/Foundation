@@ -14,7 +14,7 @@ namespace Foundation.Interfaces
         /// <summary>
         /// The method to use to archive the file
         /// </summary>
-        FileTransferArchiveAction FileTransferArchiveAction { get; set; }
+        FileTransferAction FileTransferAction { get; set; }
 
         /// <summary>
         /// Whether the file should be removed from the source location

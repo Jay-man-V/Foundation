@@ -87,7 +87,7 @@ namespace Foundation.Tests.System.Foundation.Services.Application
 
             IArchiveTransferSettings archiveFileTransferSettings = new ArchiveTransferSettings
             {
-                FileTransferArchiveAction = FileTransferArchiveAction.Move,
+                FileTransferAction = FileTransferAction.Move,
                 FileTransferMethod = FileTransferMethod.FileSystem,
                 Location = Path.Combine(archiveFolder, Guid.NewGuid().ToString()),
             };
@@ -136,7 +136,7 @@ namespace Foundation.Tests.System.Foundation.Services.Application
 
             IArchiveTransferSettings archiveFileTransferSettings = new ArchiveTransferSettings
             {
-                FileTransferArchiveAction = FileTransferArchiveAction.Copy,
+                FileTransferAction = FileTransferAction.Copy,
                 FileTransferMethod = FileTransferMethod.FileSystem,
                 Location = Path.Combine(archiveFolder, Guid.NewGuid().ToString()),
             };
