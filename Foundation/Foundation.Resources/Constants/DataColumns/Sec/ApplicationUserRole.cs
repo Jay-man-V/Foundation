@@ -15,7 +15,7 @@ namespace Foundation.Resources.Constants.DataColumns
         /// <summary>
         /// 
         /// </summary>
-        public abstract class Lengths
+        public new abstract class Lengths
         {
             //public const Int32 Name = 25;
             //public const Int32 Description = 150;

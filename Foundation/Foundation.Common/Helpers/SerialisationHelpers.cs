@@ -108,10 +108,11 @@ namespace Foundation.Common
                 {
                     TObject? temp = JsonConvert.DeserializeObject<TObject>(value);
 
-                    //if (temp is null)
-                    //{
-                    //    throw new ArgumentNullException(nameof(value));
-                    //}
+                    if (temp is null)
+                    {
+                        String errorMessage = $"Supplied value '{value}' could not be deserialised to type '{typeof(TObject).FullName}'.";
+                        throw new ArgumentNullException(nameof(value), errorMessage);
+                    }
 
                     retVal = temp;
                 }

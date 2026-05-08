@@ -21,7 +21,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
         public void Test_SerializeToString_IEnumerable_Null()
         {
             IEnumerable<Int32>? aList1 = null;
-            Assert.That(aList1.Serialise(), Is.EqualTo(String.Empty));
+            Assert.That(aList1!.Serialise(), Is.EqualTo(String.Empty));
         }
 
         [TestCase]

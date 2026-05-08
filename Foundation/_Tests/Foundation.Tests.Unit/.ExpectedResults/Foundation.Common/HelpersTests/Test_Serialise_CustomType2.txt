@@ -1,0 +1,39 @@
+{
+  "AppId": {
+    "TheAppId": 0
+  },
+  "LogId": {
+    "TheLogId": 0
+  },
+  "EntityId": {
+    "TheEntityId": 0
+  },
+  "EmailAddress": {
+    "TheEmailAddress": null
+  },
+  "PostCode": {
+    "Value": null
+  },
+  "TelephoneNumber": {
+    "TheTelephoneNumber": null
+  },
+  "BooleanValue": false,
+  "TimeSpanValue": "00:00:00",
+  "DateTimeValue": "0001-01-01T00:00:00",
+  "GuidValue": "00000000-0000-0000-0000-000000000000",
+  "CharValue": "\u0000",
+  "StringValue": null,
+  "Int16Value": 0,
+  "UInt16Value": 0,
+  "Int32Value": 0,
+  "UInt32Value": 0,
+  "Int64Value": 0,
+  "UInt64Value": 0,
+  "DecimalValue": 0.0,
+  "DoubleValue": 0.0,
+  "SingleValue": 0.0,
+  "ByteValue": 0,
+  "SByteValue": 0,
+  "StringList": [],
+  "Int32List": []
+}

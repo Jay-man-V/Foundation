@@ -34,8 +34,8 @@ namespace Foundation.Interfaces
         /// <param name="postCode"></param>
         /// <param name="validatingRegEx"></param>
         public PostCode(String postCode, String validatingRegEx)
-            : this(postCode)
         {
+            Value = postCode;
             Match matches = Regex.Match(Value, validatingRegEx, RegexOptions.CultureInvariant);
             Parsed = matches.Success;
         }

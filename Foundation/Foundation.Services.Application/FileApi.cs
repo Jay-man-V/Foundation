@@ -17,7 +17,7 @@ namespace Foundation.Services.Application
 {
     /// <inheritdoc cref="IFileApi"/>
     [DependencyInjectionTransient]
-    public class FileService : ServiceBase, IFileApi
+    public class FileApi : ServiceBase, IFileApi
     {
         /// <inheritdoc cref="IFileApi.MakeDataPath(String, String)"/>
         public String MakeDataPath(String baseFolder, String targetFolder)
@@ -41,7 +41,16 @@ namespace Foundation.Services.Application
         {
             LoggingHelpers.TraceCallEnter(baseFolder, targetFolder, targetFileName);
 
-            String retVal = Path.Combine(baseFolder, targetFolder, targetFileName);
+            String retVal;
+
+            if (String.IsNullOrWhiteSpace(targetFolder))
+            {
+                retVal = Path.Combine(baseFolder, targetFileName);
+            }
+            else
+            {
+                retVal = Path.Combine(baseFolder, targetFolder, targetFileName);
+            }
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -72,7 +81,7 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IFileApi.GetNewTempFilePath(String, String)"/>
         public String GetNewTempFilePath(String baseFolder, String filePrefix)
         {
-            LoggingHelpers.TraceCallEnter(baseFolder);
+            LoggingHelpers.TraceCallEnter(baseFolder, filePrefix);
 
             String tempFileName = filePrefix + Path.GetRandomFileName();
             String tempPath = Path.GetTempPath();
@@ -198,7 +207,7 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IFileApi.GetFileContentsAsText(String, Encoding)"/>
         public String GetFileContentsAsText(String filePath, Encoding encoding)
         {
-            LoggingHelpers.TraceCallEnter(filePath);
+            LoggingHelpers.TraceCallEnter(filePath, encoding);
 
             EnsureFileExists(filePath);
 
@@ -257,7 +266,7 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IFileApi.GetFileContentsAsTextFromAssembly(Assembly, String, Encoding)"/>
         public String GetFileContentsAsTextFromAssembly(Assembly targetAssembly, String filePath, Encoding encoding)
         {
-            LoggingHelpers.TraceCallEnter(filePath);
+            LoggingHelpers.TraceCallEnter(targetAssembly, filePath, encoding);
 
             String retVal;
             using (Stream resourceStream = GetAssemblyResource(targetAssembly, filePath))
@@ -276,7 +285,7 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IFileApi.GetFileContentsAsByteArrayFromAssembly(Assembly, String)"/>
         public Byte[] GetFileContentsAsByteArrayFromAssembly(Assembly targetAssembly, String filePath)
         {
-            LoggingHelpers.TraceCallEnter(filePath);
+            LoggingHelpers.TraceCallEnter(targetAssembly, filePath);
 
             Byte[] retVal;
             using (Stream resourceStream = GetAssemblyResource(targetAssembly, filePath))
@@ -295,7 +304,7 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IFileApi.OpenFileForReading(String, Encoding)"/>
         public TextReader OpenFileForReading(String filePath, Encoding encoding)
         {
-            LoggingHelpers.TraceCallEnter(filePath);
+            LoggingHelpers.TraceCallEnter(filePath, encoding);
 
             EnsureFileExists(filePath);
 
@@ -362,7 +371,7 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IFileApi.WriteFileContent(String, Stream, Boolean)"/>
         public String WriteFileContent(String filePath, Stream fileContent, Boolean overwriteIfFileExists = false)
         {
-            LoggingHelpers.TraceCallEnter(filePath);
+            LoggingHelpers.TraceCallEnter(filePath, $"{nameof(fileContent)} not logged", overwriteIfFileExists);
 
             String retVal = filePath;
 

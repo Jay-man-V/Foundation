@@ -33,7 +33,7 @@ namespace Foundation.Tests.Unit.Mocks
             LoggingHelpers.TraceCallReturn();
         }
 
-        protected override void ProcessTask(LogId parentLogId, String taskParameters)
+        protected override void ProcessTask(LogId parentLogId)
         {
             throw new Exception("Forced exception to test code");
         }

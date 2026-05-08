@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="DataImportTaskBase.cs" company="JDV Software Ltd">
+// <copyright file="DataExtractTaskBase.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -8,9 +8,9 @@ using Foundation.Interfaces;
 
 namespace Foundation.BusinessProcess.Core.Schedulers.StandardScheduler
 {
-    public abstract class DataImportTaskBase : ScheduledTaskBase
+    public class DataExportTask : ScheduledTaskBase
     {
-        protected DataImportTaskBase
+        public DataExportTask
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
@@ -29,7 +29,17 @@ namespace Foundation.BusinessProcess.Core.Schedulers.StandardScheduler
         {
         }
 
-        protected override void ProcessTask(LogId parentLogId, string taskParameters)
+        protected override void InitialiseRunTimeParameters(String taskParameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override String GetRunTimeParametersForLogging()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void ProcessTask(LogId parentLogId)
         {
             // Does nothing
         }

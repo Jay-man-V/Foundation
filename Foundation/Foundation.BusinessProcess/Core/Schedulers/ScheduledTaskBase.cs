@@ -151,8 +151,7 @@ namespace Foundation.BusinessProcess.Core.Schedulers
         /// Base class does not implement this method, it must be implemented in the derived class.
         /// </summary>
         /// <param name="parentLogId"></param>
-        /// <param name="taskParameters"></param>
-        protected abstract void ProcessTask(LogId parentLogId, String taskParameters);
+        protected abstract void ProcessTask(LogId parentLogId);
 
         /// <inheritdoc cref="IScheduledTask.RunTask(LogId, String)"/>
         public void RunTask(LogId parentLogId, String taskParameters)
@@ -173,7 +172,7 @@ namespace Foundation.BusinessProcess.Core.Schedulers
 
             LoggingService.CreateLogEntry(parentLogId, Core.ApplicationId, BatchName, ProcessName, TaskName, LogSeverity.Information, message);
 
-            ProcessTask(parentLogId, taskParameters);
+            ProcessTask(parentLogId);
 
             LastRunDateTime = DateTimeService.SystemUtcDateTimeNow;
 

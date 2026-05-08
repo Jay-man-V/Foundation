@@ -32,10 +32,9 @@ namespace Foundation.Interfaces
         //    }
         //}
 
-        private String? _telephoneNumber { get; set; }
-        private String _localNumber { get; set; }
-        private String _areaCode { get; set; }
-        private String _internationalCode { get; set; }
+        private readonly String _localNumber;
+        private readonly String _areaCode;
+        private readonly String _internationalCode;
         private Boolean Parsed { get; set; }
 
         //public TelephoneNumber() : this(String.Empty) { }
@@ -80,11 +79,7 @@ namespace Foundation.Interfaces
         /// <summary>
         /// The encapsulated value
         /// </summary>
-        public String? TheTelephoneNumber
-        {
-            get => _telephoneNumber;
-            init => _telephoneNumber = value;
-        }
+        public String? TheTelephoneNumber { get; init; }
 
         /// <summary>
         /// Indicates whether the <seeref name="Value"/> has been parsed
@@ -147,7 +142,7 @@ namespace Foundation.Interfaces
             //Int32 constant = -1521134295;
             //Int32 hashCode = 746720419;
 
-            Int32 hashCode = EqualityComparer<String>.Default.GetHashCode(TheTelephoneNumber);
+            Int32 hashCode = EqualityComparer<String>.Default.GetHashCode(TheTelephoneNumber ?? String.Empty);
 
             return hashCode;
         }
@@ -158,7 +153,7 @@ namespace Foundation.Interfaces
         /// <returns></returns>
         public override String ToString()
         {
-            return TheTelephoneNumber;
+            return TheTelephoneNumber ?? String.Empty;
         }
     }
 }

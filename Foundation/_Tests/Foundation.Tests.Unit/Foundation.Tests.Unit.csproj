@@ -164,6 +164,9 @@
     <None Include=".ExpectedResults\FolderToDelete\SmallFile.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include=".ExpectedResults\Foundation.Common\HelpersTests\Test_Serialise_CustomType2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include=".ExpectedResults\Foundation.Common\HelpersTests\Test_Serialise_CustomType.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

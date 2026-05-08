@@ -29,6 +29,15 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
                 Int32List = [1, 2, 3, 4]
             };
 
+            retVal.Initialise();
+
+            return retVal;
+        }
+
+        private SerialiseTest CreateEmptyObjectForTesting()
+        {
+            SerialiseTest retVal = new SerialiseTest();
+
             return retVal;
         }
 
@@ -48,13 +57,43 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
         }
 
         [TestCase]
-        public void Test_Deserialise_Null()
+        [DeploymentItem(@"\.ExpectedResults\Foundation.Common\HelpersTests\Test_Serialise_CustomType2.txt")]
+        public void Test_Serialise_CustomType2()
         {
-            SerialiseTest? expected = null;
+            SerialiseTest value = CreateEmptyObjectForTesting();
+            String sourceFile = @".ExpectedResults\Foundation.Common\HelpersTests\Test_Serialise_CustomType2.txt";
+            String expected = File.ReadAllText(sourceFile, Encoding.Default);
 
-            SerialiseTest actual = SerialisationHelpers.Deserialise<SerialiseTest>("");
+            String serialised = SerialisationHelpers.Serialise(value);
+            Assert.That(serialised, Is.EqualTo(expected));
 
-            Assert.That(actual, Is.EqualTo(expected));
+            SerialiseTest deserialised = SerialisationHelpers.Deserialise<SerialiseTest>(serialised);
+            Assert.That(deserialised, Is.EqualTo(value));
+        }
+
+        [TestCase]
+        public void Test_Deserialise_Empty()
+        {
+            String parameterName = "value";
+            String errorMessage = $"Supplied value '' could not be deserialised to type '{typeof(SerialiseTest).FullName}'. (Parameter '{parameterName}')";
+
+            ArgumentNullException? actualException1 = Assert.Throws<ArgumentNullException>(() =>
+            {
+                SerialisationHelpers.Deserialise<SerialiseTest>("");
+            });
+
+            Assert.That(actualException1, Is.Not.Null);
+            Assert.That(actualException1.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException1.ParamName, Is.EqualTo(parameterName));
+
+            ArgumentNullException? actualException2 = Assert.Throws<ArgumentNullException>(() =>
+            {
+                SerialisationHelpers.Deserialise<SerialiseTest>(String.Empty);
+            });
+
+            Assert.That(actualException2, Is.Not.Null);
+            Assert.That(actualException2.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException2.ParamName, Is.EqualTo(parameterName));
         }
 
         [TestCase]
@@ -65,9 +104,18 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
 
             String serialised = SerialisationHelpers.Serialise(value);
             Assert.That(serialised, Is.EqualTo(expected));
-            
-            Object deserialised = SerialisationHelpers.Deserialise<Object>(serialised);
-            Assert.That(deserialised, Is.EqualTo(value));
+
+            String parameterName = "value";
+            String errorMessage = $"Supplied value '' could not be deserialised to type '{typeof(Object).FullName}'. (Parameter '{parameterName}')";
+
+            ArgumentNullException? actualException = Assert.Throws<ArgumentNullException>(() =>
+            {
+                SerialisationHelpers.Deserialise<Object>(serialised);
+            });
+
+            Assert.That(actualException, Is.Not.Null);
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException.ParamName, Is.EqualTo(parameterName));
         }
 
         [TestCase]
@@ -196,8 +244,17 @@ namespace Foundation.Tests.Unit.Foundation.Common.HelpersTests
             String serialised = SerialisationHelpers.Serialise(value);
             Assert.That(serialised, Is.EqualTo(expected));
 
-            Object deserialised = SerialisationHelpers.Deserialise<Object>(serialised);
-            Assert.That(deserialised, Is.EqualTo(value));
+            String parameterName = "value";
+            String errorMessage = $"Supplied value '' could not be deserialised to type '{typeof(Object).FullName}'. (Parameter '{parameterName}')";
+
+            ArgumentNullException? actualException = Assert.Throws<ArgumentNullException>(() =>
+            {
+                SerialisationHelpers.Deserialise<Object>(serialised);
+            });
+
+            Assert.That(actualException, Is.Not.Null);
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+            Assert.That(actualException.ParamName, Is.EqualTo(parameterName));
         }
 
         [TestCase]

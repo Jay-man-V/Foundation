@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.IO;
 using Foundation.BusinessProcess.Core.Schedulers.StandardScheduler.TaskParameters;
 using Foundation.Common;
 using Foundation.Interfaces;
@@ -26,7 +27,6 @@ namespace Foundation.BusinessProcess.Core.Schedulers.StandardScheduler
     /// </para>
     /// </para>
     /// </summary>
-    [DependencyInjectionTransient]
     public class FileCopyTask : ScheduledTaskBase
     {
         /// <summary>
@@ -74,10 +74,10 @@ namespace Foundation.BusinessProcess.Core.Schedulers.StandardScheduler
 
         private FileCopyTaskParameters FileCopyTaskParameters { get; set; }
 
-        /// <inheritdoc cref="ScheduledTaskBase.ProcessTask(LogId, String)"/>
-        protected override void ProcessTask(LogId parentLogId, String taskParameters)
+        /// <inheritdoc cref="ScheduledTaskBase.ProcessTask(LogId)"/>
+        protected override void ProcessTask(LogId parentLogId)
         {
-            LoggingHelpers.TraceCallEnter(parentLogId, taskParameters);
+            LoggingHelpers.TraceCallEnter(parentLogId);
 
             // The taskParameters are already deserialised in InitialiseRunTimeParameters, so we can use the FileCopyTaskParameters property directly.
             // Get the source, destination, and archive file transfer settings based on the task parameters.
@@ -88,13 +88,13 @@ namespace Foundation.BusinessProcess.Core.Schedulers.StandardScheduler
             // The FileCopyTaskParameters.SourceFileMask can be used to filter which files to copy from the source directory.
 
             Boolean includeSubDirectories = false; // Set to true if you want to include subdirectories in the file copy operation.
-            List<String> files = FileApi.GetListOfFiles(FileCopyTaskParameters.SourceFilePath, FileCopyTaskParameters.SourceFileMask, includeSubDirectories);
+            List<String> filenames = FileApi.GetListOfFiles(FileCopyTaskParameters.SourceFilePath, FileCopyTaskParameters.SourceFileMask, includeSubDirectories);
 
-            foreach (String file in files)
+            foreach (String filename in filenames)
             {
-                IFileTransferSettings sourceSettings = GetSourceFileSettings(file);
-                IFileTransferSettings destinationSettings = GetDestinationFileSettings(file);
-                IArchiveTransferSettings archiveSettings = GetArchiveFileSettings();
+                IFileTransferSettings sourceSettings = GetSourceFileSettings(filename);
+                IFileTransferSettings destinationSettings = GetDestinationFileSettings(filename);
+                IArchiveTransferSettings archiveSettings = GetArchiveFileSettings(filename);
 
                 FileTransferService.TransferFile(sourceSettings, destinationSettings, archiveSettings);
             }
@@ -102,7 +102,7 @@ namespace Foundation.BusinessProcess.Core.Schedulers.StandardScheduler
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="ScheduledTaskBase.ProcessTask(LogId, String)"/>
+        /// <inheritdoc cref="ScheduledTaskBase.ProcessTask(LogId)"/>
         protected override void InitialiseRunTimeParameters(String taskParameters)
         {
             LoggingHelpers.TraceCallEnter(taskParameters);
@@ -125,11 +125,13 @@ namespace Foundation.BusinessProcess.Core.Schedulers.StandardScheduler
 
         private IFileTransferSettings GetSourceFileSettings(String filename)
         {
-            LoggingHelpers.TraceCallEnter();
+            LoggingHelpers.TraceCallEnter(filename);
+
+            String targetFolder = String.Empty; // The target folder is not used for the source file settings, as we are only interested in the source file path.
 
             IFileTransferSettings retVal = Core.IoC.Get<IFileTransferSettings>();
             retVal.FileTransferMethod = FileTransferMethod.FileSystem;
-            retVal.Location = FileCopyTaskParameters.SourceFilePath;
+            retVal.Location = FileApi.MakeDataPath(FileCopyTaskParameters.SourceFilePath, targetFolder, filename);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -138,26 +140,30 @@ namespace Foundation.BusinessProcess.Core.Schedulers.StandardScheduler
 
         private IFileTransferSettings GetDestinationFileSettings(String filename)
         {
-            LoggingHelpers.TraceCallEnter();
+            LoggingHelpers.TraceCallEnter(filename);
+
+            String targetFolder = String.Empty; // The target folder is not used for the destination file settings, as we are only interested in the destination file path.
 
             IFileTransferSettings retVal = Core.IoC.Get<IFileTransferSettings>();
             retVal.FileTransferMethod = FileTransferMethod.FileSystem;
-            retVal.Location = FileCopyTaskParameters.DestinationFilePath;
+            retVal.Location = FileApi.MakeDataPath(FileCopyTaskParameters.DestinationFilePath, targetFolder, filename);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
 
-        private IArchiveTransferSettings GetArchiveFileSettings()
+        private IArchiveTransferSettings GetArchiveFileSettings(String filename)
         {
-            LoggingHelpers.TraceCallEnter();
+            LoggingHelpers.TraceCallEnter(filename);
+
+            String targetFolder = String.Empty; // The target folder is not used for the archive file settings, as we are only interested in the archive file path.
 
             IArchiveTransferSettings retVal = Core.IoC.Get<IArchiveTransferSettings>();
             retVal.DeleteSourceFile = true;
             retVal.FileTransferAction = FileCopyTaskParameters.FileArchiveTransferAction;
             retVal.FileTransferMethod = FileTransferMethod.FileSystem;
-            retVal.Location = FileCopyTaskParameters.ArchiveFilePath;
+            retVal.Location = FileApi.MakeDataPath(FileCopyTaskParameters.ArchiveFilePath, targetFolder, filename);
 
             LoggingHelpers.TraceCallReturn(retVal);
 

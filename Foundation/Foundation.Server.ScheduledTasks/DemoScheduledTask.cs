@@ -61,7 +61,7 @@ namespace Foundation.Server.ScheduledTasks
             return String.Empty;
         }
 
-        protected override void ProcessTask(LogId parentLogId, String taskParameters)
+        protected override void ProcessTask(LogId parentLogId)
         {
             // Does nothing
         }

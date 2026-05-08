@@ -13,31 +13,58 @@ namespace Foundation.Tests.Unit.Support
     /// </summary>
     public class SerialiseTest
     {
-        public AppId AppId { get; set; } = new AppId(123);
-        public LogId LogId { get; set; } = new LogId(456);
-        public EntityId EntityId { get; set; } = new EntityId(789);
-        public EmailAddress EmailAddress { get; set; } = new EmailAddress("info@jdvsoftware.com");
-        public PostCode PostCode { get; set; } = new PostCode("HP1 1aa");
-        public TelephoneNumber TelephoneNumber { get; set; } = new TelephoneNumber("0123 4567 9876");
-        public Boolean BooleanValue { get; set; } = true;
-        public TimeSpan TimeSpanValue { get; set; } = new TimeSpan(01, 02, 03, 04);
-        public DateTime DateTimeValue { get; set; } = new DateTime(2025, 04, 05, 18, 12, 14, 123);
-        public Guid GuidValue { get; set; } = Guid.Parse("{88701824-8375-4C0C-9D79-CEB5D3FC040D}");
-        public Char CharValue { get; set; } = 'Z';
-        public String StringValue { get; set; } = "{88701824-8375-4C0C-9D79-CEB5D3FC040D}";
-        public Int16 Int16Value { get; set; } = Int16.MaxValue;
-        public UInt16 UInt16Value { get; set; } = UInt16.MaxValue;
-        public Int32 Int32Value { get; set; } = Int32.MaxValue;
-        public UInt32 UInt32Value { get; set; } = UInt32.MaxValue;
-        public Int64 Int64Value { get; set; } = Int64.MaxValue;
-        public UInt64 UInt64Value { get; set; } = UInt64.MaxValue;
-        public Decimal DecimalValue { get; set; } = Decimal.MaxValue;
-        public Double DoubleValue { get; set; } = Double.MaxValue;
-        public Single SingleValue { get; set; } = Single.MaxValue;
-        public Byte ByteValue { get; set; } = Byte.MaxValue;
-        public SByte SByteValue { get; set; } = SByte.MaxValue;
+        public AppId AppId { get; set; }
+        public LogId LogId { get; set; }
+        public EntityId EntityId { get; set; }
+        public EmailAddress EmailAddress { get; set; }
+        public PostCode PostCode { get; set; }
+        public TelephoneNumber TelephoneNumber { get; set; }
+        public Boolean BooleanValue { get; set; }
+        public TimeSpan TimeSpanValue { get; set; }
+        public DateTime DateTimeValue { get; set; }
+        public Guid GuidValue { get; set; }
+        public Char CharValue { get; set; }
+        public String? StringValue { get; set; }
+        public Int16 Int16Value { get; set; }
+        public UInt16 UInt16Value { get; set; }
+        public Int32 Int32Value { get; set; }
+        public UInt32 UInt32Value { get; set; }
+        public Int64 Int64Value { get; set; }
+        public UInt64 UInt64Value { get; set; }
+        public Decimal DecimalValue { get; set; }
+        public Double DoubleValue { get; set; }
+        public Single SingleValue { get; set; }
+        public Byte ByteValue { get; set; }
+        public SByte SByteValue { get; set; }
         public List<String> StringList { get; set; } = new List<String>();
         public List<Int32> Int32List { get; set; } = new List<Int32>();
+
+        public void Initialise()
+        {
+            AppId  = new AppId(123);
+            LogId  = new LogId(456);
+            EntityId  = new EntityId(789);
+            EmailAddress  = new EmailAddress("info@jdvsoftware.com");
+            PostCode  = new PostCode("HP1 1aa");
+            TelephoneNumber  = new TelephoneNumber("0123 4567 9876");
+            BooleanValue  = true;
+            TimeSpanValue  = new TimeSpan(01, 02, 03, 04);
+            DateTimeValue  = new DateTime(2025, 04, 05, 18, 12, 14, 123);
+            GuidValue  = Guid.Parse("{88701824-8375-4C0C-9D79-CEB5D3FC040D}");
+            CharValue  = 'Z';
+            StringValue  = "{88701824-8375-4C0C-9D79-CEB5D3FC040D}";
+            Int16Value  = Int16.MaxValue;
+            UInt16Value  = UInt16.MaxValue;
+            Int32Value  = Int32.MaxValue;
+            UInt32Value  = UInt32.MaxValue;
+            Int64Value  = Int64.MaxValue;
+            UInt64Value  = UInt64.MaxValue;
+            DecimalValue  = Decimal.MaxValue;
+            DoubleValue  = Double.MaxValue;
+            SingleValue  = Single.MaxValue;
+            ByteValue  = Byte.MaxValue;
+            SByteValue  = SByte.MaxValue;
+        }
 
         /// <inheritdoc cref="Object.GetHashCode"/>
         public override Int32 GetHashCode()

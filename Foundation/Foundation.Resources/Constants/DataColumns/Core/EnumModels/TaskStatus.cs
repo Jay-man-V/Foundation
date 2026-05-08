@@ -13,22 +13,6 @@ namespace Foundation.Resources.Constants.DataColumns
     public abstract class TaskStatus : EnumModel
     {
         /// <summary>
-        /// 
-        /// </summary>
-        public abstract class Lengths
-        {
-            ///// <summary>
-            ///// The name
-            ///// </summary>
-            //public const Int32 Name = 25;
-
-            ///// <summary>
-            ///// The description
-            ///// </summary>
-            //public const Int32 Description = 150;
-        }
-
-        /// <summary>
         /// Gets the name of the entity.
         /// </summary>
         /// <value>

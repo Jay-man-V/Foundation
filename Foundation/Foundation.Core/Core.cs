@@ -222,7 +222,7 @@ namespace Foundation.Core
         public ICore Instance => TheInstance;
 
         /// <inheritdoc cref="ICore.SystemUserProfile"/>
-        public IUserProfile SystemUserProfile => TheSystemUserProfile; // Ignoring compiler warnings for Null Reference, set routines already check/raise for null
+        public IUserProfile SystemUserProfile => TheSystemUserProfile!; // Ignoring compiler warnings for Null Reference, set routines already check/raise for null
 
         /// <inheritdoc cref="ICore.CurrentLoggedOnUser"/>
         public ICurrentUser CurrentLoggedOnUser => TheCurrentLoggedOnUser!; // Ignoring compiler warnings for Null Reference, set routines already check/raise for null

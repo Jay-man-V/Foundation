@@ -7,81 +7,91 @@
 namespace Foundation.Interfaces
 {
     /// <summary>
-    /// Defines the behaviour of the Date/Time Service
+    /// Defines a contract for retrieving and manipulating date and time values, including current system times, week,
+    /// month, quarter, and year boundaries, as well as utility methods for constructing UTC date and time values.
     /// </summary>
+    /// <remarks>
+    /// This interface provides a comprehensive set of methods and properties for working with dates
+    /// and times in both local and UTC contexts. It is intended for scenarios where consistent and testable access to
+    /// date and time information is required, such as in business logic, scheduling, or reporting. Implementations
+    /// should ensure thread safety if used in multithreaded environments.
+    /// </remarks>
     public interface IDateTimeService
     {
         /// <summary>
-        /// Gets the start of the week. This is currently Monday
+        /// Gets the day of the week that is considered the start of the week for this context.
         /// </summary>
-        /// <value>
-        /// The start of the week.
-        /// </value>
         DayOfWeek StartOfWeek { get; }
 
         /// <summary>
-        /// Gets the UTC date time now.
+        /// Gets the current date and time in Coordinated Universal Time (UTC) as provided by the system clock.
         /// </summary>
-        /// <value>
-        /// The UTC date time now.
-        /// </value>
+        /// <returns>
+        /// A DateTime value representing the current date and time in UTC.
+        /// </returns>
         DateTime SystemUtcDateTimeNow { get; }
 
         /// <summary>
-        /// Gets the system date time now.
+        /// Gets the current system UTC date and time with the milliseconds component set to zero.
         /// </summary>
-        /// <value>
-        /// The system date time now.
-        /// </value>
+        /// <returns>
+        /// A DateTime value representing the current system UTC date and time with the milliseconds component set to zero.
+        /// </returns>
         DateTime SystemUtcDateTimeNowWithoutMilliseconds { get; }
 
         /// <summary>
-        /// Gets the local date time now.
+        /// Gets the local date and time as provided by the system clock.
         /// </summary>
-        /// <value>
-        /// The local date time now.
-        /// </value>
+        /// <returns>
+        /// A DateTime value representing the current local date and time.
+        /// </returns>
         DateTime LocalDateTimeNow { get; }
 
         /// <summary>
         /// Makes a UTC version of the supplied <paramref name="dateTime"/>
         /// </summary>
-        /// <param name="dateTime"></param>
-        /// <returns></returns>
+        /// <param name="dateTime">The date and time to convert to UTC.</param>
+        /// <returns>
+        /// A DateTime value representing the specified date and time in UTC.
+        /// </returns>
         DateTime MakeUtcDateTime(DateTime dateTime);
 
         /// <summary>
         /// Makes a UTC version of the supplied <paramref name="date"/> and <paramref name="time"/>
         /// </summary>
-        /// <param name="date"></param>
-        /// <param name="time"></param>
-        /// <returns></returns>
+        /// <param name="date">The date component.</param>
+        /// <param name="time">The time component.</param>
+        /// <returns>
+        /// A DateTime value representing the specified date and time in UTC.
+        /// </returns>
         DateTime MakeUtcDateTime(DateTime date, TimeSpan time);
 
         /// <summary>
-        /// Makes a UTC version of the supplied <paramref name="date"/> and <paramref name="hours"/>, <paramref name="minutes"/>, <paramref name="seconds"/>
+        /// Makes a UTC version of the supplied <paramref name="date"/> and time components (<paramref name="hours"/>, <paramref name="minutes"/>, <paramref name="seconds"/>).
         /// </summary>
-        /// <param name="date"></param>
-        /// <param name="hours"></param>
-        /// <param name="minutes"></param>
-        /// <param name="seconds"></param>
-        /// <returns></returns>
+        /// <param name="date">The date component.</param>
+        /// <param name="hours">The hours component.</param>
+        /// <param name="minutes">The minutes component.</param>
+        /// <param name="seconds">The seconds component.</param>
+        /// <returns>
+        /// A DateTime value representing the specified date and time in UTC.
+        /// </returns>
         DateTime MakeUtcDateTime(DateTime date, Int32 hours, Int32 minutes, Int32 seconds);
 
         /// <summary>
         /// Gets the start of last week.
         /// </summary>
-        /// <value>
-        /// The start of last week.
-        /// </value>
+        /// <returns>
+        /// A DateTime value representing the start of last week.
+        /// </returns>
         DateTime GetStartOfLastWeek();
 
         /// <summary>
         /// Gets the end of last week.
         /// </summary>
-        /// <value>
-        /// The end of last week.
-        /// </value>
+        /// <returns>
+        /// A DateTime value representing the end of last week.
+        /// </returns>
         DateTime GetEndOfLastWeek();
 
         /// <summary>

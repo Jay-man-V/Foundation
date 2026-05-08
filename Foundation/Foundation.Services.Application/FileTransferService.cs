@@ -188,7 +188,7 @@ namespace Foundation.Services.Application
             Stream fileContent
         )
         {
-            LoggingHelpers.TraceCallEnter(archiveTransferSettings);
+            LoggingHelpers.TraceCallEnter(sourceFileTransferSettings, archiveTransferSettings, $"{nameof(fileContent)} not logged");
 
             // Archive the file as required by the supplied settings
             SendFile(archiveTransferSettings, fileContent);

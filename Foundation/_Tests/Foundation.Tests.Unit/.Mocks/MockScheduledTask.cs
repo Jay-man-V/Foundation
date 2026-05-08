@@ -49,7 +49,7 @@ namespace Foundation.Tests.Unit.Mocks
             return String.Empty;
         }
 
-        protected override void ProcessTask(LogId parentLogId, String taskParameters)
+        protected override void ProcessTask(LogId parentLogId)
         {
             // Does nothing
         }

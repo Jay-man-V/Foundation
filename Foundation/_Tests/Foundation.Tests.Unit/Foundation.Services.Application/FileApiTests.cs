@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="FileServiceTests.cs" company="JDV Software Ltd">
+// <copyright file="FileApiTests.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -19,17 +19,17 @@ using Foundation.Tests.Unit.Support;
 namespace Foundation.Tests.Unit.Foundation.Services.Application
 {
     /// <summary>
-    /// UnitTests for FileServiceTests
+    /// UnitTests for FileApiTests
     /// </summary>
     [TestFixture]
-    public class FileServiceTests : BusinessProcessUnitTestsBase
+    public class FileApiTests : BusinessProcessUnitTestsBase
     {
         private IFileApi? TheService { get; set; }
         public override void TestInitialise()
         {
             base.TestInitialise();
 
-            TheService = new FileService();
+            TheService = new FileApi();
         }
 
         public override void TestCleanup()
@@ -71,12 +71,42 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         ///
         /// </summary>
         [TestCase]
-        public void Test_MakeDataPath_File()
+        public void Test_MakeDataPath_File_1()
         {
             String baseFolder = "baseFolder";
             String targetFolder = "targetFolder";
             String targetFileName = "NewFile.txt";
             String expected = @"baseFolder\targetFolder\NewFile.txt";
+            String actual = TheService!.MakeDataPath(baseFolder, targetFolder, targetFileName);
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [TestCase]
+        public void Test_MakeDataPath_File_2()
+        {
+            String baseFolder = "baseFolder";
+            String targetFolder = String.Empty;
+            String targetFileName = "NewFile.txt";
+            String expected = @"baseFolder\NewFile.txt";
+            String actual = TheService!.MakeDataPath(baseFolder, targetFolder, targetFileName);
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [TestCase]
+        public void Test_MakeDataPath_File_3()
+        {
+            String baseFolder = "baseFolder";
+            String targetFolder = "  ";
+            String targetFileName = "NewFile.txt";
+            String expected = @"baseFolder\NewFile.txt";
             String actual = TheService!.MakeDataPath(baseFolder, targetFolder, targetFileName);
 
             Assert.That(actual, Is.EqualTo(expected));
