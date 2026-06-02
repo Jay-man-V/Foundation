@@ -4,9 +4,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.BusinessProcess.Core.Schedulers;
 using Foundation.Common;
 using Foundation.Interfaces;
+using Foundation.Server.ScheduledTasks;
 
 namespace Foundation.Tests.Unit.Mocks
 {

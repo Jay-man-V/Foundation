@@ -50,6 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="EmailTemplates\Internal Template.html" />
     <EmbeddedResource Include="EmailTemplates\Formal Template.html" />
     <EmbeddedResource Include="Images\Logos\JDV Software Logo.png" />
     <EmbeddedResource Include="ReportTemplates\Excel Simple Report Template - Landscape.xltx" />

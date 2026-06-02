@@ -18,29 +18,32 @@ namespace Foundation.Interfaces
         /// </para>
         /// </summary>
         /// <param name="toAddress"></param>
-        void SendTestMail(String toAddress);
+        /// <param name="ccAddress"></param>
+        void SendTestMail(String toAddress, String ccAddress);
 
         /// <summary>
         /// Sends a simple email based on the supplied parameters
         /// </summary>
         /// <param name="toAddress"></param>
+        /// <param name="ccAddress"></param>
         /// <param name="fromAddress"></param>
         /// <param name="fromAddressDisplayName"></param>
         /// <param name="subject"></param>
         /// <param name="body"></param>
         /// <param name="mailAttachments"></param>
-        void SendSimpleEmail(String toAddress, String fromAddress, String fromAddressDisplayName, String subject, String body, List<IMailAttachment>? mailAttachments = null);
+        void SendSimpleEmail(String toAddress, String ccAddress, String fromAddress, String fromAddressDisplayName, String subject, String body, List<IMailAttachment>? mailAttachments = null);
 
         /// <summary>
         /// Sends a formal email based on the supplied parameters
         /// </summary>
         /// <param name="toAddress"></param>
+        /// <param name="ccAddress"></param>
         /// <param name="fromAddress"></param>
         /// <param name="fromAddressDisplayName"></param>
         /// <param name="subject"></param>
         /// <param name="body"></param>
         /// <param name="mailAttachments"></param>
-        void SendFormalEmail(String toAddress, String fromAddress, String fromAddressDisplayName, String subject, String body, List<IMailAttachment>? mailAttachments = null);
+        void SendFormalEmail(String toAddress, String ccAddress, String fromAddress, String fromAddressDisplayName, String subject, String body, List<IMailAttachment>? mailAttachments = null);
 
         /// <summary>
         /// Sends the mail based on <paramref name="mailMessage"/>

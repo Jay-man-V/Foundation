@@ -46,12 +46,16 @@ namespace Foundation.Tests.Unit.Foundation.Mail
             mailMessage.ToAddress.Add("Address 1");
             mailMessage.ToAddress.Add("Address 2");
             mailMessage.ToAddress.Add("Address 3");
+            mailMessage.CcAddress.Add("Address 1");
+            mailMessage.CcAddress.Add("Address 2");
+            mailMessage.CcAddress.Add("Address 3");
 
             IMailMessage clonedMailMessage = (IMailMessage)mailMessage.Clone();
 
             Assert.That(clonedMailMessage.Body, Is.EqualTo(mailMessage.Body));
             Assert.That(clonedMailMessage.IsBodyHtml, Is.EqualTo(mailMessage.IsBodyHtml));
             Assert.That(clonedMailMessage.ToAddress.Count, Is.EqualTo(mailMessage.ToAddress.Count));
+            Assert.That(clonedMailMessage.CcAddress.Count, Is.EqualTo(mailMessage.CcAddress.Count));
             Assert.That(clonedMailMessage.FromAddress, Is.EqualTo(mailMessage.FromAddress));
             Assert.That(clonedMailMessage.FromAddressDisplayName, Is.EqualTo(mailMessage.FromAddressDisplayName));
             Assert.That(clonedMailMessage.Subject, Is.EqualTo(mailMessage.Subject));

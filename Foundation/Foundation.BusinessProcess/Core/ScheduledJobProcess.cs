@@ -10,6 +10,7 @@ using System.Timers;
 using Foundation.BusinessProcess.Components;
 using Foundation.Common;
 using Foundation.Interfaces;
+using Foundation.Interfaces.ScheduledTasks;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;

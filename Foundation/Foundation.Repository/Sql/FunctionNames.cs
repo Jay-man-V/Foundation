@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Foundation.Repository
+namespace Foundation.Repository.Sql
 {
     /// <summary>
     /// Function Names

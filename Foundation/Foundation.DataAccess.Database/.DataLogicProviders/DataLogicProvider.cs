@@ -6,7 +6,6 @@
 
 using System.Data.Common;
 using System.Reflection;
-using System.Windows.Media;
 
 using Foundation.Interfaces;
 using Foundation.Resources;

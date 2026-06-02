@@ -38,7 +38,7 @@ namespace Foundation.Interfaces
         /// <summary>
         /// Error
         /// </summary>
-        [Id(4), Display(Order = 3, Name = "Error")]
-        Error = 4,
+        [Id(3), Display(Order = 3, Name = "Error")]
+        Error = 3,
     }
 }

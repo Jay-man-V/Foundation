@@ -86,20 +86,7 @@ namespace Foundation.Repository.Sec
         {
             LoggingHelpers.TraceCallEnter(authenticationToken);
 
-            StringBuilder sql = new StringBuilder();
-            sql.AppendLine("UPDATE");
-            sql.AppendLine($"    {TableName}");
-            sql.AppendLine("SET");
-            sql.AppendLine($"    {FDC.AuthenticationToken.LastUpdatedOn} = {DataLogicProvider.CurrentDateTimeFunction},");
-            sql.AppendLine($"    {FDC.AuthenticationToken.LastRefreshed} = {DataLogicProvider.CurrentDateTimeFunction}");
-            sql.AppendLine("WHERE ");
-            sql.AppendLine($"    {FDC.AuthenticationToken.StatusId} = {EntityStatus.Active.Id()} AND");
-            sql.AppendLine($"    {FDC.AuthenticationToken.Id} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.AuthenticationToken.Id}1");
-            sql.AppendLine();
-            sql.AppendLine("SELECT");
-            sql.AppendLine($"    {FDC.AuthenticationToken.LastRefreshed}");
-            sql.AppendLine("WHERE");
-            sql.AppendLine($"    {FDC.AuthenticationToken.Id} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.AuthenticationToken.Id}2");
+            String sql = GetSqlFromFile(FDC.TableNames.AuthenticationToken);
 
             DatabaseParameters databaseParameters =
             [
@@ -107,7 +94,7 @@ namespace Foundation.Repository.Sec
                 CreateParameter($"{EntityName}{FDC.AuthenticationToken.Id}2", authenticationToken.Id)
             ];
 
-            Object? result = ExecuteScalar(sql.ToString(), CommandType.Text, databaseParameters);
+            Object? result = ExecuteScalar(sql, CommandType.Text, databaseParameters);
 
             if (result != null &&
                 DateTime.TryParse(result.ToString(), out DateTime dt))
@@ -128,21 +115,14 @@ namespace Foundation.Repository.Sec
         {
             LoggingHelpers.TraceCallEnter(authenticationToken);
 
-            StringBuilder sql = new StringBuilder();
-            sql.AppendLine("UPDATE");
-            sql.AppendLine($"    {TableName}");
-            sql.AppendLine("SET");
-            sql.AppendLine($"    {FDC.AuthenticationToken.LastUpdatedOn} = {DataLogicProvider.CurrentDateTimeFunction},");
-            sql.AppendLine($"    {FDC.AuthenticationToken.StatusId} = {EntityStatus.Inactive.Id()}");
-            sql.AppendLine("WHERE ");
-            sql.AppendLine($"    {FDC.AuthenticationToken.Id} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.AuthenticationToken.Id}");
+            String sql = GetSqlFromFile(FDC.TableNames.AuthenticationToken);
 
             IDatabaseParameters databaseParameters = new DatabaseParameters
             {
                 CreateParameter($"{EntityName}{FDC.AuthenticationToken.Id}", authenticationToken.Id),
             };
 
-            Int32 rowCount = ExecuteGetRowCount(sql.ToString(), CommandType.Text, databaseParameters);
+            Int32 rowCount = ExecuteGetRowCount(sql, CommandType.Text, databaseParameters);
 
             if (rowCount == 1)
             {
@@ -170,28 +150,7 @@ namespace Foundation.Repository.Sec
 
             Boolean retVal;
 
-            StringBuilder sql = new StringBuilder();
-            sql.AppendLine("SELECT");
-            sql.AppendLine("    *");
-            sql.AppendLine("FROM");
-            sql.AppendLine($"    {FDC.TableNames.Application} a");
-            sql.AppendLine($"        INNER JOIN {FDC.TableNames.ApplicationUserRole} aur ON");
-            sql.AppendLine("         (");
-            sql.AppendLine($"              aur.{FDC.ApplicationUserRole.ApplicationId} = a.{FDC.Application.Id}");
-            sql.AppendLine("         )");
-            sql.AppendLine($"        INNER JOIN {FDC.TableNames.UserProfile} up ON");
-            sql.AppendLine("         (");
-            sql.AppendLine($"              up.{FDC.UserProfile.Id} = aur.{FDC.ApplicationUserRole.UserProfileId}");
-            sql.AppendLine("         )");
-            sql.AppendLine("WHERE");
-            sql.AppendLine($"    a.{FDC.Application.StatusId} IN ( {EntityStatus.Active.Id()}, {EntityStatus.Approved.Id()} ) AND");
-            sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction} BETWEEN a.{FDC.Application.ValidFrom} AND a.{FDC.Application.ValidTo} AND");
-            sql.AppendLine($"    aur.{FDC.ApplicationUserRole.StatusId} IN ( {EntityStatus.Active.Id()}, {EntityStatus.Approved.Id()} ) AND");
-            sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction} BETWEEN aur.{FDC.ApplicationUserRole.ValidFrom} AND aur.{FDC.ApplicationUserRole.ValidTo} AND");
-            sql.AppendLine($"    up.{FDC.UserProfile.StatusId} IN ( {EntityStatus.Active.Id()}, {EntityStatus.Approved.Id()} ) AND");
-            sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction} BETWEEN up.{FDC.UserProfile.ValidFrom} AND up.{FDC.UserProfile.ValidTo} AND");
-            sql.AppendLine($"    a.{FDC.Application.Id} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.Application.EntityName}{FDC.Application.Id} AND");
-            sql.AppendLine($"    up.{FDC.UserProfile.Id} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.UserProfile.EntityName}{FDC.UserProfile.Id}");
+            String sql = GetSqlFromFile(FDC.TableNames.Application);
 
             DatabaseParameters databaseParameters =
             [
@@ -199,7 +158,7 @@ namespace Foundation.Repository.Sec
                 CreateParameter($"{FDC.UserProfile.EntityName}{FDC.UserProfile.Id}", userProfile.Id),
             ];
 
-            Int32 rowCount = ExecuteGetRowCount(sql.ToString(), CommandType.Text, databaseParameters);
+            Int32 rowCount = ExecuteGetRowCount(sql, CommandType.Text, databaseParameters);
 
             retVal = (rowCount > 0);
 
@@ -220,41 +179,7 @@ namespace Foundation.Repository.Sec
 
             AuthenticationToken retVal;
 
-            StringBuilder sql = new StringBuilder();
-            sql.AppendLine("INSERT INTO");
-            sql.AppendLine(TableName);
-            sql.AppendLine("(");
-            sql.AppendLine($"    {FDC.AuthenticationToken.StatusId},");
-            sql.AppendLine($"    {FDC.AuthenticationToken.CreatedByUserProfileId},");
-            sql.AppendLine($"    {FDC.AuthenticationToken.LastUpdatedByUserProfileId},");
-            sql.AppendLine($"    {FDC.AuthenticationToken.CreatedOn},");
-            sql.AppendLine($"    {FDC.AuthenticationToken.LastUpdatedOn},");
-            sql.AppendLine($"    {FDC.AuthenticationToken.ApplicationId},");
-            sql.AppendLine($"    {FDC.AuthenticationToken.UserProfileId},");
-            sql.AppendLine($"    {FDC.AuthenticationToken.Token},");
-            sql.AppendLine($"    {FDC.AuthenticationToken.Acquired},");
-            sql.AppendLine($"    {FDC.AuthenticationToken.LastRefreshed}");
-            sql.AppendLine(")");
-            sql.AppendLine("VALUES");
-            sql.AppendLine("(");
-            sql.AppendLine($"    {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.AuthenticationToken.StatusId},");
-            sql.AppendLine($"    {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.AuthenticationToken.CreatedByUserProfileId},");
-            sql.AppendLine($"    {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.AuthenticationToken.LastUpdatedByUserProfileId},");
-            sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction},");
-            sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction},");
-            sql.AppendLine($"    {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.AuthenticationToken.ApplicationId},");
-            sql.AppendLine($"    {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.AuthenticationToken.UserProfileId},");
-            sql.AppendLine($"    {DataLogicProvider.UniqueIdFunction},");
-            sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction},");
-            sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction}");
-            sql.AppendLine(");");
-            sql.AppendLine();
-            sql.AppendLine("SELECT");
-            sql.AppendLine("    *");
-            sql.AppendLine("FROM");
-            sql.AppendLine(TableName);
-            sql.AppendLine("WHERE");
-            sql.AppendLine($"    {FDC.AuthenticationToken.Id} = {DataLogicProvider.IdentityOfLastInsertFunction}");
+            String sql = GetSqlFromFile(FDC.TableNames.AuthenticationToken);
 
             DatabaseParameters databaseParameters =
             [
@@ -265,7 +190,7 @@ namespace Foundation.Repository.Sec
                 CreateParameter($"{EntityName}{FDC.AuthenticationToken.UserProfileId}", userProfile.Id),
             ];
 
-            using (IDataReader dataReader = ExecuteReader(sql.ToString(), CommandType.Text, databaseParameters))
+            using (IDataReader dataReader = ExecuteReader(sql, CommandType.Text, databaseParameters))
             {
                 if (dataReader.Read())
                 {

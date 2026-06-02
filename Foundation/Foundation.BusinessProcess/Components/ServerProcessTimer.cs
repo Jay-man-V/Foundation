@@ -6,6 +6,7 @@
 
 using Foundation.Common;
 using Foundation.Interfaces;
+using Foundation.Interfaces.ScheduledTasks;
 
 namespace Foundation.BusinessProcess.Components
 {

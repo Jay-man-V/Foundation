@@ -25,6 +25,6 @@ namespace Foundation.Interfaces
         /// <param name="sourceFileTransferSettings"><see cref="IFileTransferSettings"/> for the source file location</param>
         /// <param name="destinationFileTransferSettings"><see cref="IFileTransferSettings"/> for the destination file location</param>
         /// <param name="archiveTransferSettings"><see cref="IArchiveTransferSettings"/> for the archive file location</param>
-        void TransferFile(IFileTransferSettings sourceFileTransferSettings, IFileTransferSettings destinationFileTransferSettings, IArchiveTransferSettings archiveTransferSettings);
+        void TransferFile(IFileTransferSettings sourceFileTransferSettings, IFileTransferSettings destinationFileTransferSettings, IArchiveTransferSettings? archiveTransferSettings);
     }
 }

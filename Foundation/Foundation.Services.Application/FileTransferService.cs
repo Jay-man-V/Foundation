@@ -113,7 +113,7 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
-        /// <inheritdoc cref="IFileTransferService.TransferFile(IFileTransferSettings, IFileTransferSettings, IArchiveTransferSettings)"/>
+        /// <inheritdoc cref="IFileTransferService.TransferFile(IFileTransferSettings, IFileTransferSettings, IArchiveTransferSettings?)"/>
         public void TransferFile
         (
             IFileTransferSettings sourceFileTransferSettings,

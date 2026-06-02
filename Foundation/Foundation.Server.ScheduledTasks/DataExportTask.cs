@@ -1,16 +1,16 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="DataImportTaskBase.cs" company="JDV Software Ltd">
+// <copyright file="DataExtractTaskBase.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
 using Foundation.Interfaces;
 
-namespace Foundation.BusinessProcess.Core.Schedulers.StandardScheduler
+namespace Foundation.Server.ScheduledTasks
 {
-    public class DataImportTask : ScheduledTaskBase
+    public class DataExportTask : ScheduledTaskBase
     {
-        public DataImportTask
+        public DataExportTask
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,

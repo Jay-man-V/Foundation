@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Interfaces.ScheduledTasks;
+
 namespace Foundation.Interfaces
 {
     /// <summary>

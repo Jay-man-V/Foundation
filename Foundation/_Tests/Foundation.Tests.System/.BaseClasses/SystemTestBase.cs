@@ -26,6 +26,8 @@ namespace Foundation.Tests.System.BaseClasses
             DateTimeService = CoreInstance.IoC.Get<IDateTimeService>();
             RunTimeEnvironmentSettings = CoreInstance.IoC.Get<IRunTimeEnvironmentSettings>();
             LoggingService = CoreInstance.IoC.Get<ILoggingService>();
+
+            RootLogId = LoggingService.StartTask(CoreInstance.ApplicationId, BatchName, ProcessName, TaskName);
         }
 
         public override void TestCleanup()

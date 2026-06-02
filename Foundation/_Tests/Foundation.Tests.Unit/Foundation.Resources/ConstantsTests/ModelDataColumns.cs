@@ -1119,6 +1119,7 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
 
             index++; Assert.That(FDC.TableNames.ApplicationConfiguration, Is.EqualTo($"[core].[{nameof(FDC.TableNames.ApplicationConfiguration)}]"));
             index++; Assert.That(FDC.TableNames.ApprovalStatus, Is.EqualTo($"[core].[{nameof(FDC.TableNames.ApprovalStatus)}]"));
+            index++; Assert.That(FDC.TableNames.Calendar, Is.EqualTo($"[core].[{nameof(FDC.TableNames.Calendar)}]"));
             index++; Assert.That(FDC.TableNames.ConfigurationScope, Is.EqualTo($"[core].[{nameof(FDC.TableNames.ConfigurationScope)}]"));
             index++; Assert.That(FDC.TableNames.ContactDetail, Is.EqualTo($"[core].[{nameof(FDC.TableNames.ContactDetail)}]"));
             index++; Assert.That(FDC.TableNames.ContactType, Is.EqualTo($"[core].[{nameof(FDC.TableNames.ContactType)}]"));

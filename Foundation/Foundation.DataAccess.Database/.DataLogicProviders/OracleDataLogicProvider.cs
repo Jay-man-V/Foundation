@@ -6,6 +6,8 @@
 
 using Foundation.Interfaces;
 
+using Oracle.ManagedDataAccess.Client;
+
 namespace Foundation.DataAccess.Database.DataLogicProviders
 {
     /// <summary>

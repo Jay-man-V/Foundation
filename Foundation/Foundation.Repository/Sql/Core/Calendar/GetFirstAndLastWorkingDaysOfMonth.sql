@@ -1,6 +1,6 @@
 ﻿/*
 -- DECLARE @countryIsoCode NVARCHAR(10) = 'GB'
-== DECLARE @startDate DATE = '2024-01-01'
+-- DECLARE @startDate DATE = '2024-01-01'
 -- DECLARE @endDate DATE = '2024-12-31'
 */
 

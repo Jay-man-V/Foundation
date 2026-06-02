@@ -7,6 +7,7 @@
 using System.IO;
 using System.Reflection;
 using System.Resources;
+using System.Security.AccessControl;
 using System.Text;
 
 using Foundation.Common;
@@ -110,6 +111,108 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             String actual = TheService!.MakeDataPath(baseFolder, targetFolder, targetFileName);
 
             Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [TestCase]
+        public void Test_EnsureCanWriteToFolderPath_True()
+        {
+            String folderPath = $@".ExpectedResults\SampleDocuments";
+            TheService!.EnsureCanWriteToFolderPath(folderPath);
+        }
+
+        [TestCase]
+        public void Test_EnsureCanWriteToFolderPath_False_NoPermissions()
+        {
+            String folderPath = $@".ExpectedResults\baseFolder\{Guid.NewGuid()}";
+            DirectoryInfo directoryInfo = Directory.CreateDirectory(folderPath);
+
+            DirectorySecurity directorySecurity = directoryInfo.GetAccessControl();
+            directorySecurity = RemoveSecurity(directorySecurity);
+            directoryInfo.SetAccessControl(directorySecurity);
+
+            String errorMessage = $"Access denied: Cannot write to the folder: '{folderPath}'.";
+            UnauthorizedAccessException actualException = Assert.Throws<UnauthorizedAccessException>(() =>
+            {
+                TheService!.EnsureCanWriteToFolderPath(folderPath);
+            });
+
+            Assert.That(actualException, Is.Not.EqualTo(null));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+        }
+
+        [TestCase]
+        public void Test_EnsureCanWriteToFolderPath_False_NoFolder()
+        {
+            String folderPath = $@".ExpectedResults\baseFolder\{Guid.NewGuid()}";
+
+            String errorMessage = $"Access denied: Cannot get permissions for the folder: '{folderPath}'.";
+            UnauthorizedAccessException actualException = Assert.Throws<UnauthorizedAccessException>(() =>
+            {
+                TheService!.EnsureCanWriteToFolderPath(folderPath);
+            });
+
+            Assert.That(actualException, Is.Not.EqualTo(null));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+        }
+
+
+        [TestCase]
+        public void Test_EnsureCanReadFromFolderPath_True()
+        {
+            String folderPath = $@".ExpectedResults\SampleDocuments";
+            TheService!.EnsureCanReadFromFolderPath(folderPath);
+        }
+
+        [TestCase]
+        public void Test_EnsureCanReadFromFolderPath_False_NoPermissions()
+        {
+            String folderPath = $@".ExpectedResults\baseFolder\{Guid.NewGuid()}";
+            DirectoryInfo directoryInfo = Directory.CreateDirectory(folderPath);
+
+            DirectorySecurity directorySecurity = directoryInfo.GetAccessControl();
+            directorySecurity = RemoveSecurity(directorySecurity);
+            directoryInfo.SetAccessControl(directorySecurity);
+
+            String errorMessage = $"Access denied: Cannot read from the folder: '{folderPath}'.";
+            UnauthorizedAccessException actualException = Assert.Throws<UnauthorizedAccessException>(() =>
+            {
+                TheService!.EnsureCanReadFromFolderPath(folderPath);
+            });
+
+            Assert.That(actualException, Is.Not.EqualTo(null));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
+
+            Directory.Delete(folderPath);
+        }
+
+        private DirectorySecurity RemoveSecurity(DirectorySecurity directorySecurity)
+        {
+            const Boolean includeExplicit = true;
+            const Boolean includeInherited = true;
+            Type targetType = typeof(System.Security.Principal.NTAccount);
+
+            AuthorizationRuleCollection rules = directorySecurity.GetAccessRules(includeExplicit, includeInherited, targetType);
+            foreach (FileSystemAccessRule rule in rules)
+            {
+                directorySecurity.RemoveAccessRule(rule);
+            }
+
+            return directorySecurity;
+        }
+
+        [TestCase]
+        public void Test_EnsureCanReadFromFolderPath_False_NoFolder()
+        {
+            String folderPath = $@".ExpectedResults\baseFolder\{Guid.NewGuid()}";
+
+            String errorMessage = $"Access denied: Cannot get permissions for the folder: '{folderPath}'.";
+            UnauthorizedAccessException actualException = Assert.Throws<UnauthorizedAccessException>(() =>
+            {
+                TheService!.EnsureCanReadFromFolderPath(folderPath);
+            });
+
+            Assert.That(actualException, Is.Not.EqualTo(null));
+            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
         [TestCase]

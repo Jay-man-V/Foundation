@@ -1,87 +1,82 @@
-﻿////-----------------------------------------------------------------------
-//// <copyright file="ObjectExtensionMethodsTests.cs" company="JDV Software Ltd">
-////     Copyright (c) JDV Software Ltd. All rights reserved.
-//// </copyright>
-////-----------------------------------------------------------------------
+﻿//-----------------------------------------------------------------------
+// <copyright file="ObjectExtensionMethodsTests.cs" company="JDV Software Ltd">
+//     Copyright (c) JDV Software Ltd. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
 
-//using System;
+using Foundation.Common;
+using Foundation.Tests.Unit.BaseClasses;
 
-//using NUnit.Framework;
+namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.ObjectExtensionMethodsTests
+{
+    /// <summary>
+    /// The Object Extension tests
+    /// </summary>
+    [TestFixture]
+    public class ObjectExtensionMethodsTests : UnitTestBase
+    {
+        [TestCase]
+        public void Test_IsNull_Null_True()
+        {
+            const Object? anObject = null;
 
-//using Foundation.Common;
+            Boolean actualResult = anObject.IsNull();
 
-//using Foundation.Tests.Unit.Support;
+            Assert.That(actualResult, Is.EqualTo(true));
+        }
 
-//namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests.ObjectExtensionMethodsTests
-//{
-//    /// <summary>
-//    /// The Object Extension tests
-//    /// </summary>
-//    [TestFixture]
-//    public class ObjectExtensionMethodsTests : UnitTestBase
-//    {
-//        [TestCase]
-//        public void TestIsNull_Null_True()
-//        {
-//            const Object anObject = null;
+        [TestCase]
+        public void Test_IsNull_DbNull_True()
+        {
+            Object anObject = DBNull.Value;
 
-//            Boolean actualResult = anObject.IsNull();
+            Boolean actualResult = anObject.IsNull();
 
-//            Assert.That(actualResult, Is.EqualTo(true));
-//        }
+            Assert.That(actualResult, Is.EqualTo(true));
+        }
 
-//        [TestCase]
-//        public void TestIsNull_DbNull_True()
-//        {
-//            Object anObject = DBNull.Value;
+        [TestCase]
+        public void Test_IsNull_False()
+        {
+            Object anObject = new Object();
 
-//            Boolean actualResult = anObject.IsNull();
+            Boolean actualResult = anObject.IsNull();
 
-//            Assert.That(actualResult, Is.EqualTo(true));
-//        }
+            Assert.That(actualResult, Is.EqualTo(false));
+        }
 
-//        [TestCase]
-//        public void TestIsNull_False()
-//        {
-//            Object anObject = new Object();
+        /// <summary>
+        /// Tests the is null.
+        /// </summary>
+        [TestCase]
+        public void Test_IsNull()
+        {
+            const Object? nullObject = null;
+            Object dbNullObject = DBNull.Value;
 
-//            Boolean actualResult = anObject.IsNull();
+            Assert.That(nullObject.IsNull());
+            Assert.That(dbNullObject.IsNull());
 
-//            Assert.That(actualResult, Is.EqualTo(false));
-//        }
+            Object valueObject = new Object();
 
-//        /// <summary>
-//        /// Tests the is null.
-//        /// </summary>
-//        [TestCase]
-//        public void TestIsNull()
-//        {
-//            const Object nullObject = null;
-//            Object dbNullObject = DBNull.Value;
+            Assert.That(valueObject.IsNull(), Is.EqualTo(false));
+        }
 
-//            Assert.That(nullObject.IsNull());
-//            Assert.That(dbNullObject.IsNull());
+        /// <summary>
+        /// Tests the is null.
+        /// </summary>
+        [TestCase]
+        public void Test_IsNotNull()
+        {
+            const Object? nullObject = null;
+            Object dbNullObject = DBNull.Value;
 
-//            Object valueObject = new Object();
+            Assert.That(nullObject.IsNotNull(), Is.EqualTo(false));
+            Assert.That(dbNullObject.IsNotNull(), Is.EqualTo(false));
 
-//            Assert.That(valueObject.IsNull(), Is.EqualTo(false));
-//        }
+            Object valueObject = new Object();
 
-//        /// <summary>
-//        /// Tests the is null.
-//        /// </summary>
-//        [TestCase]
-//        public void TestIsNotNull()
-//        {
-//            const Object nullObject = null;
-//            Object dbNullObject = DBNull.Value;
-
-//            Assert.That(nullObject.IsNotNull(), Is.EqualTo(false));
-//            Assert.That(dbNullObject.IsNotNull(), Is.EqualTo(false));
-
-//            Object valueObject = new Object();
-
-//            Assert.That(valueObject.IsNotNull());
-//        }
-//    }
-//}
+            Assert.That(valueObject.IsNotNull());
+        }
+    }
+}

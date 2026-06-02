@@ -45,10 +45,10 @@ namespace Foundation.Services.Mail
         IApplicationConfigurationService ApplicationConfigurationService { get; }
         IMailWrapper MailWrapper { get; }
 
-        /// <inheritdoc cref="IEmailApi.SendTestMail(String)"/>
-        public void SendTestMail(String toAddress)
+        /// <inheritdoc cref="IEmailApi.SendTestMail(String, String)"/>
+        public void SendTestMail(String toAddress, String ccAddress)
         {
-            LoggingHelpers.TraceCallEnter(toAddress);
+            LoggingHelpers.TraceCallEnter(toAddress, ccAddress);
 
             String mailFrom = ApplicationConfigurationService.Get<String>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ApplicationConfigurationKeys.EmailFromAddress);
             String mailSubject = "Test email";
@@ -66,6 +66,7 @@ namespace Foundation.Services.Mail
                     Body = mailBody,
                 };
                 toAddress.Split(';').ToList().ForEach(s => mailMessage.ToAddress.Add(s));
+                ccAddress.Split(';').ToList().ForEach(s => mailMessage.CcAddress.Add(s));
                 mailMessage.Attachments.Add(new MailAttachment
                 {
                     Filename = "Sample file.txt",
@@ -78,10 +79,10 @@ namespace Foundation.Services.Mail
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="IEmailApi.SendSimpleEmail(String, String, String, String, String, List{IMailAttachment})"/>
-        public void SendSimpleEmail(String toAddress, String fromAddress, String fromAddressDisplayName, String subject, String body, List<IMailAttachment>? mailAttachments = null)
+        /// <inheritdoc cref="IEmailApi.SendSimpleEmail(String, String, String, String, String, String, List{IMailAttachment})"/>
+        public void SendSimpleEmail(String toAddress, String ccAddress, String fromAddress, String fromAddressDisplayName, String subject, String body, List<IMailAttachment>? mailAttachments = null)
         {
-            LoggingHelpers.TraceCallEnter(toAddress, fromAddress, subject, body, mailAttachments);
+            LoggingHelpers.TraceCallEnter(toAddress, ccAddress, fromAddress, subject, body, mailAttachments);
 
             MailMessage mailMessage = new MailMessage
             {
@@ -91,6 +92,7 @@ namespace Foundation.Services.Mail
                 Body = body,
             };
             mailMessage.ToAddress.AddRange(toAddress.Split(';'));
+            mailMessage.CcAddress.AddRange(ccAddress.Split(';'));
 
             if (mailAttachments != null &&
                 mailAttachments.HasItems())
@@ -103,10 +105,10 @@ namespace Foundation.Services.Mail
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="IEmailApi.SendFormalEmail(String, String, String, String, String, List{IMailAttachment})"/>
-        public void SendFormalEmail(String toAddress, String fromAddress, String fromAddressDisplayName, String subject, String body, List<IMailAttachment>? mailAttachments = null)
+        /// <inheritdoc cref="IEmailApi.SendFormalEmail(String, String, String, String, String, String, List{IMailAttachment})"/>
+        public void SendFormalEmail(String toAddress, String ccAddress, String fromAddress, String fromAddressDisplayName, String subject, String body, List<IMailAttachment>? mailAttachments = null)
         {
-            LoggingHelpers.TraceCallEnter(toAddress, fromAddress, subject, body, mailAttachments);
+            LoggingHelpers.TraceCallEnter(toAddress, ccAddress, fromAddress, subject, body, mailAttachments);
 
             String mailTemplateHtml = ResourceLoader.GetResourceFileAsText(ResourceNames.EMailTemplates.FormalEmailTemplate);
             String newBody = mailTemplateHtml;
@@ -122,6 +124,7 @@ namespace Foundation.Services.Mail
                 IsBodyHtml = true,
             };
             mailMessage.ToAddress.AddRange(toAddress.Split(';'));
+            mailMessage.CcAddress.AddRange(ccAddress.Split(';'));
 
             if (mailAttachments != null &&
                 mailAttachments.HasItems())

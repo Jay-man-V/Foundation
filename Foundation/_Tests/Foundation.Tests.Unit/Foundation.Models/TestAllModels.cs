@@ -18,6 +18,7 @@ using Foundation.Tests.Unit.BaseClasses;
 
 using FEnums = Foundation.Interfaces;
 using FModels = Foundation.Models;
+using Foundation.Interfaces.ScheduledTasks;
 
 namespace Foundation.Tests.Unit.Foundation.Models
 {

@@ -22,6 +22,7 @@ namespace Foundation.Services.Mail
         {
             Attachments = new List<IMailAttachment>();
             ToAddress = new List<String>();
+            CcAddress = new List<String>();
 
             FromAddress = String.Empty;
             FromAddressDisplayName = String.Empty;
@@ -37,6 +38,9 @@ namespace Foundation.Services.Mail
 
         /// <inheritdoc cref="IMailMessage.ToAddress"/>
         public List<String> ToAddress { get; set; }
+
+        /// <inheritdoc cref="IMailMessage.CcAddress"/>
+        public List<String> CcAddress { get; set; }
 
         /// <inheritdoc cref="IMailMessage.Body"/>
         public String Body { get; set; }
@@ -66,6 +70,7 @@ namespace Foundation.Services.Mail
             retVal.Subject = this.Subject;
 
             retVal.ToAddress = this.ToAddress.Clone();
+            retVal.CcAddress = this.CcAddress.Clone();
             retVal.Attachments = this.Attachments.Clone();
 
             return retVal;

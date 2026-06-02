@@ -4,12 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Foundation.BusinessProcess.Core.Schedulers.StandardScheduler.TaskParameters;
 using Foundation.Common;
 using Foundation.Interfaces;
+using Foundation.Interfaces.ScheduledTasks;
 using Foundation.Resources;
 
-namespace Foundation.BusinessProcess.Core.Schedulers
+namespace Foundation.Server.ScheduledTasks
 {
     /// <summary>
     /// Provides an abstract base class for implementing scheduled tasks with common process management, configuration,
@@ -22,7 +22,7 @@ namespace Foundation.BusinessProcess.Core.Schedulers
     /// logging services to support audit and diagnostic scenarios. It is intended to be subclassed for concrete
     /// scheduled task implementations.
     /// </remarks>
-    public abstract class ScheduledTaskBase : CommonProcess, IScheduledTask
+    public abstract class ScheduledTaskBase : IScheduledTask
     {
         /// <inheritdoc cref="IScheduledTask.RunTaskStarting"/>
         public EventHandler<TaskEventArgs>? RunTaskStarting { get; set; }
@@ -48,17 +48,14 @@ namespace Foundation.BusinessProcess.Core.Schedulers
             IDateTimeService dateTimeService,
             ILoggingService loggingService,
             IApplicationConfigurationService applicationConfigurationService
-        ) :
-            base
-            (
-                core,
-                runTimeEnvironmentSettings,
-                dateTimeService,
-                loggingService
-            )
+        )
         {
             LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService);
 
+            Core = core;
+            RunTimeEnvironmentSettings = runTimeEnvironmentSettings;
+            LoggingService = loggingService;
+            DateTimeService = dateTimeService;
             ApplicationConfigurationService = applicationConfigurationService;
 
             JobStartTime = DateTimeService.SystemUtcDateTimeNow;
@@ -69,9 +66,15 @@ namespace Foundation.BusinessProcess.Core.Schedulers
 
             RunTaskStarting = null;
 
+            TaskParameters = null;
+
             LoggingHelpers.TraceCallReturn();
         }
 
+        protected ICore Core { get; }
+        protected IRunTimeEnvironmentSettings RunTimeEnvironmentSettings { get; }
+        protected IDateTimeService DateTimeService { get; }
+        protected ILoggingService LoggingService { get; }
         protected IApplicationConfigurationService ApplicationConfigurationService { get; }
 
         /// <summary>
@@ -121,6 +124,8 @@ namespace Foundation.BusinessProcess.Core.Schedulers
         /// <inheritdoc cref="IScheduledTask.LastRunDateTime"/>
         public DateTime LastRunDateTime { get; private set; }
 
+        protected TaskParameters.TaskParameters? TaskParameters { get; set; }
+
         /// <summary>
         /// Initializes run-time parameters for the task using the specified parameter string.
         /// </summary>
@@ -130,7 +135,15 @@ namespace Foundation.BusinessProcess.Core.Schedulers
         /// </remarks>
         /// <param name="taskParameters">A string containing the parameters required to configure the task at run time. The format and required
         /// content are defined by the derived class.</param>
-        protected abstract void InitialiseRunTimeParameters(String taskParameters);
+        protected virtual void InitialiseRunTimeParameters(String taskParameters)
+        {
+            if (TaskParameters is not null)
+            {
+                ApplicationName = TaskParameters.ApplicationName;
+                BatchName = TaskParameters.BatchName;
+                TaskName = TaskParameters.TaskName;
+            }
+        }
 
         /// <summary>
         /// Retrieves a string representation of the runtime parameters for logging purposes.
@@ -159,7 +172,7 @@ namespace Foundation.BusinessProcess.Core.Schedulers
             RaiseRunTaskStarting(parentLogId, taskParameters);
 
             TaskStartTime = DateTimeService.SystemUtcDateTimeNow;
-            LastRunDateTime = ApplicationConfigurationService.Get<DateTime>(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, LastRunDateKey);
+            LastRunDateTime = ApplicationConfigurationService.Get(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, LastRunDateKey, TaskStartTime.AddMonths(-1));
 
             InitialiseRunTimeParameters(taskParameters);
 

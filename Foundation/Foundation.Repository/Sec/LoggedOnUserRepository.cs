@@ -98,58 +98,7 @@ namespace Foundation.Repository.Sec
         {
             LoggingHelpers.TraceCallEnter(applicationId, userProfile);
 
-            StringBuilder sql = new StringBuilder();
-            sql.AppendLine("MERGE INTO");
-            sql.AppendLine($"    {FDC.TableNames.LoggedOnUser} AS target");
-            sql.AppendLine("USING");
-            sql.AppendLine("    (");
-            sql.AppendLine("        SELECT");
-            sql.AppendLine($"            {EntityStatus.Active.Id()} AS {FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.StatusId},");
-            sql.AppendLine($"            {DataLogicProvider.DatabaseParameterPrefix}{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.CreatedByUserProfileId} AS {FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.CreatedByUserProfileId},");
-            sql.AppendLine($"            {DataLogicProvider.DatabaseParameterPrefix}{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.LastUpdatedByUserProfileId} AS {FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.LastUpdatedByUserProfileId},");
-            sql.AppendLine($"            {DataLogicProvider.CurrentDateTimeFunction} AS {FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.CreatedOn},");
-            sql.AppendLine($"            {DataLogicProvider.CurrentDateTimeFunction} AS {FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.LastUpdatedOn},");
-            sql.AppendLine();
-            sql.AppendLine($"            {DataLogicProvider.DatabaseParameterPrefix}{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.ApplicationId} AS {FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.ApplicationId},");
-            sql.AppendLine($"            {DataLogicProvider.DatabaseParameterPrefix}{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.UserProfileId} AS {FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.UserProfileId},");
-            sql.AppendLine($"            {DataLogicProvider.CurrentDateTimeFunction} AS {FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.LoggedOn},");
-            sql.AppendLine($"            {DataLogicProvider.CurrentDateTimeFunction} AS {FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.LastActive}");
-            sql.AppendLine("    ) AS source");
-            sql.AppendLine("ON");
-            sql.AppendLine("    (");
-            sql.AppendLine($"        target.{FDC.LoggedOnUser.ApplicationId} = source.{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.ApplicationId} AND");
-            sql.AppendLine($"        target.{FDC.LoggedOnUser.UserProfileId} = source.{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.UserProfileId}");
-            sql.AppendLine("    )");
-            sql.AppendLine("WHEN MATCHED THEN UPDATE SET");
-            sql.AppendLine($"       target.{FDC.LoggedOnUser.LastUpdatedOn} = source.{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.LastUpdatedOn},");
-            sql.AppendLine($"       target.{FDC.LoggedOnUser.LastActive} = source.{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.LastActive},");
-            sql.AppendLine($"       target.{FDC.LoggedOnUser.LoggedOn} = source.{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.LoggedOn}");
-            sql.AppendLine("WHEN NOT MATCHED THEN INSERT");
-            sql.AppendLine("   (");
-            sql.AppendLine($"       {FDC.LoggedOnUser.StatusId},");
-            sql.AppendLine($"       {FDC.LoggedOnUser.CreatedByUserProfileId},");
-            sql.AppendLine($"       {FDC.LoggedOnUser.LastUpdatedByUserProfileId},");
-            sql.AppendLine($"       {FDC.LoggedOnUser.CreatedOn},");
-            sql.AppendLine($"       {FDC.LoggedOnUser.LastUpdatedOn},");
-            sql.AppendLine();
-            sql.AppendLine($"       {FDC.LoggedOnUser.ApplicationId},");
-            sql.AppendLine($"       {FDC.LoggedOnUser.UserProfileId},");
-            sql.AppendLine($"       {FDC.LoggedOnUser.LoggedOn},");
-            sql.AppendLine($"       {FDC.LoggedOnUser.LastActive}");
-            sql.AppendLine("   )");
-            sql.AppendLine("   VALUES");
-            sql.AppendLine("   (");
-            sql.AppendLine($"       source.{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.StatusId},");
-            sql.AppendLine($"       source.{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.CreatedByUserProfileId},");
-            sql.AppendLine($"       source.{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.LastUpdatedByUserProfileId},");
-            sql.AppendLine($"       source.{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.CreatedOn},");
-            sql.AppendLine($"       source.{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.LastUpdatedOn},");
-            sql.AppendLine();
-            sql.AppendLine($"       source.{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.ApplicationId},");
-            sql.AppendLine($"       source.{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.UserProfileId},");
-            sql.AppendLine($"       source.{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.LoggedOn},");
-            sql.AppendLine($"       source.{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.LastActive}");
-            sql.AppendLine("   );");
+            String sql = GetSqlFromFile();
 
             DatabaseParameters databaseParameters =
             [
@@ -159,7 +108,7 @@ namespace Foundation.Repository.Sec
                 FoundationDataAccess.CreateParameter($"{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.UserProfileId}", userProfile.Id),
             ];
 
-            FoundationDataAccess.ExecuteNonQuery(sql.ToString(), CommandType.Text, databaseParameters);
+            FoundationDataAccess.ExecuteNonQuery(sql, CommandType.Text, databaseParameters);
 
             LoggingHelpers.TraceCallReturn();
         }
@@ -169,15 +118,7 @@ namespace Foundation.Repository.Sec
         {
             LoggingHelpers.TraceCallEnter(applicationId, userProfile);
 
-            StringBuilder sql = new StringBuilder();
-            sql.AppendLine("UPDATE");
-            sql.AppendLine($"    {FDC.TableNames.LoggedOnUser}");
-            sql.AppendLine("SET");
-            sql.AppendLine($"    {FDC.LoggedOnUser.LastUpdatedOn} = {DataLogicProvider.CurrentDateTimeFunction},");
-            sql.AppendLine($"    {FDC.LoggedOnUser.LastActive} = {DataLogicProvider.CurrentDateTimeFunction}");
-            sql.AppendLine("WHERE");
-            sql.AppendLine($"    {FDC.LoggedOnUser.ApplicationId} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.ApplicationId} AND");
-            sql.AppendLine($"    {FDC.LoggedOnUser.UserProfileId} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.UserProfileId}");
+            String sql = GetSqlFromFile();
 
             DatabaseParameters databaseParameters =
             [
@@ -185,7 +126,7 @@ namespace Foundation.Repository.Sec
                 FoundationDataAccess.CreateParameter($"{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.UserProfileId}", userProfile.Id)
             ];
 
-            FoundationDataAccess.ExecuteNonQuery(sql.ToString(), CommandType.Text, databaseParameters);
+            FoundationDataAccess.ExecuteNonQuery(sql, CommandType.Text, databaseParameters);
 
             LoggingHelpers.TraceCallReturn();
         }
@@ -197,54 +138,14 @@ namespace Foundation.Repository.Sec
 
             List<ILoggedOnUser> retVal = [];
 
-            StringBuilder sql = new StringBuilder();
-            sql.AppendLine("SELECT ");
-            sql.AppendLine("    lou.*, ");
-            sql.AppendLine($"    up.{FDC.UserProfile.DisplayName} AS {FDC.UserProfile.DisplayName}, ");
-            sql.AppendLine($"    up.{FDC.UserProfile.Username} AS {FDC.UserProfile.Username}, ");
-            sql.AppendLine($"    r.{FDC.Role.Id} AS {FDC.LoggedOnUser.RoleId}, ");
-            sql.AppendLine($"    r.{FDC.Role.Description} AS {FDC.LoggedOnUser.RoleDescription}, ");
-            sql.AppendLine($"    r.{FDC.Role.SystemSupportOnly} AS {FDC.LoggedOnUser.IsSystemSupport}");
-            sql.AppendLine("FROM ");
-            sql.AppendLine($"    {FDC.TableNames.LoggedOnUser} lou ");
-            sql.AppendLine($"        INNER JOIN {FDC.TableNames.UserProfile} up ON");
-            sql.AppendLine("        (");
-            sql.AppendLine($"             up.{FDC.UserProfile.Id} = lou.{FDC.LoggedOnUser.UserProfileId} ");
-            sql.AppendLine("        )");
-            sql.AppendLine($"        INNER JOIN {FDC.TableNames.Application} a ON");
-            sql.AppendLine("        (");
-            sql.AppendLine($"             a.{FDC.Application.Id} = lou.{FDC.LoggedOnUser.ApplicationId} ");
-            sql.AppendLine("        )");
-            sql.AppendLine($"        INNER JOIN {FDC.TableNames.ApplicationUserRole} aur ON");
-            sql.AppendLine("        (");
-            sql.AppendLine($"             aur.{FDC.ApplicationUserRole.ApplicationId} = lou.{FDC.LoggedOnUser.ApplicationId} AND");
-            sql.AppendLine($"             aur.{FDC.ApplicationUserRole.UserProfileId} = lou.{FDC.LoggedOnUser.CreatedByUserProfileId} ");
-            sql.AppendLine("        )");
-            sql.AppendLine($"        INNER JOIN {FDC.TableNames.Role} r ON");
-            sql.AppendLine("        (");
-            sql.AppendLine($"             r.{FDC.Role.Id} = aur.{FDC.ApplicationUserRole.RoleId} ");
-            sql.AppendLine("        )");
-            sql.AppendLine("WHERE ");
-            sql.AppendLine($"    lou.{FDC.LoggedOnUser.StatusId} IN ( {EntityStatus.Active.Id()}, {EntityStatus.Approved.Id()} ) AND ");
-            sql.AppendLine($"    up.{FDC.Application.StatusId} IN ( {EntityStatus.Active.Id()}, {EntityStatus.Approved.Id()} ) AND ");
-            sql.AppendLine($"    a.{FDC.Application.StatusId} IN ( {EntityStatus.Active.Id()}, {EntityStatus.Approved.Id()} ) AND ");
-            sql.AppendLine($"    aur.{FDC.ApplicationUserRole.StatusId} IN ( {EntityStatus.Active.Id()}, {EntityStatus.Approved.Id()} ) AND ");
-            sql.AppendLine($"    r.{FDC.Role.StatusId} IN ( {EntityStatus.Active.Id()}, {EntityStatus.Approved.Id()} ) AND ");
-            sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction} BETWEEN up.{FDC.UserProfile.ValidFrom} AND up.{FDC.UserProfile.ValidTo} AND ");
-            sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction} BETWEEN a.{FDC.Application.ValidFrom} AND a.{FDC.Application.ValidTo} AND ");
-            sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction} BETWEEN aur.{FDC.ApplicationUserRole.ValidFrom} AND aur.{FDC.ApplicationUserRole.ValidTo} AND ");
-            sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction} BETWEEN r.{FDC.Role.ValidFrom} AND r.{FDC.Role.ValidTo} AND ");
-            sql.AppendLine($"    lou.{FDC.LoggedOnUser.ApplicationId} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.ApplicationId} AND ");
-            sql.AppendLine($"    {DataLogicProvider.GetMinuteComparisonSql("lou." + FDC.FoundationEntity.LastUpdatedOn, DataLogicProvider.CurrentDateTimeFunction, "<= 1")}");
-            sql.AppendLine("ORDER BY");
-            sql.AppendLine($"    aur.{FDC.LoggedOnUser.RoleId} DESC, lou.{FDC.LoggedOnUser.LoggedOn} ASC");
+            String sql = GetSqlFromFile();
 
             DatabaseParameters databaseParameters =
             [
                 FoundationDataAccess.CreateParameter($"{FDC.LoggedOnUser.EntityName}{FDC.LoggedOnUser.ApplicationId}", applicationId),
             ];
 
-            using (IDataReader dataReader = FoundationDataAccess.ExecuteReader(sql.ToString(), CommandType.Text, databaseParameters))
+            using (IDataReader dataReader = FoundationDataAccess.ExecuteReader(sql, CommandType.Text, databaseParameters))
             {
                 while (dataReader.Read())
                 {

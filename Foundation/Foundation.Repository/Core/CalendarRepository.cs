@@ -10,6 +10,7 @@ using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 using Foundation.Repository.LocalModels;
+using Foundation.Repository.Sql;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 
@@ -61,7 +62,7 @@ namespace Foundation.Repository.Core
 
             Boolean retVal;
 
-            String sql = GetSqlFromFile("[core].[Calendar]");
+            String sql = GetSqlFromFile(FDC.TableNames.Calendar);
 
             IDatabaseParameters databaseParameters = new DatabaseParameters
             {
@@ -85,7 +86,7 @@ namespace Foundation.Repository.Core
 
             DateTime retVal = date.Date;
 
-            String sql = GetSqlFromFile("[core].[Calendar]");
+            String sql = GetSqlFromFile(FDC.TableNames.Calendar);
 
             DatabaseParameters databaseParameters =
             [
@@ -114,7 +115,7 @@ namespace Foundation.Repository.Core
 
             DateTime retVal = date.Date;
 
-            String sql = GetSqlFromFile("[core].[Calendar]");
+            String sql = GetSqlFromFile(FDC.TableNames.Calendar);
 
             DatabaseParameters databaseParameters =
             [
@@ -198,7 +199,7 @@ namespace Foundation.Repository.Core
                 LastWorkingDay = endOfMonth,
             };
 
-            String sql = GetSqlFromFile("[core].[Calendar]");
+            String sql = GetSqlFromFile(FDC.TableNames.Calendar);
 
             DatabaseParameters databaseParameters =
             [
@@ -209,12 +210,12 @@ namespace Foundation.Repository.Core
 
             DataTable dt = ExecuteDataTable(sql, CommandType.Text, databaseParameters);
 
-            if (dt.Rows.Count > 0)
+            if (dt.Rows.Count > 0 && dt.Rows[0] is { } dataRow)
             {
                 retVal = new FirstAndLastWorkingDays
                 {
-                    FirstWorkingDay = Convert.ToDateTime(dt.Rows[0]["FirstWorkingDayOfMonth"]),
-                    LastWorkingDay = Convert.ToDateTime(dt.Rows[0]["LastWorkingDayOfMonth"]),
+                    FirstWorkingDay = Convert.ToDateTime(dataRow[ResultColumns.GetFirstAndLastWorkingDaysOfMonth.Columns.FirstWorkingDayOfMonth]),
+                    LastWorkingDay = Convert.ToDateTime(dataRow[ResultColumns.GetFirstAndLastWorkingDaysOfMonth.Columns.LastWorkingDayOfMonth]),
                 };
             }
 

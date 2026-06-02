@@ -36,6 +36,14 @@ namespace Foundation.Interfaces
         List<String> ToAddress { get; set; }
 
         /// <summary>
+        /// Gets or sets Cc address.
+        /// </summary>
+        /// <value>
+        /// Cc address.
+        /// </value>
+        List<String> CcAddress { get; set; }
+
+        /// <summary>
         /// Gets or sets the body.
         /// </summary>
         /// <value>

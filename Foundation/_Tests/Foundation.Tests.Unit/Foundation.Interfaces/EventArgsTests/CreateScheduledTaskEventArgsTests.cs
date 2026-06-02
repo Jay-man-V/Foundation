@@ -10,6 +10,7 @@ using Foundation.Interfaces;
 
 using Foundation.Tests.Unit.BaseClasses;
 using Foundation.Tests.Unit.Mocks;
+using Foundation.Interfaces.ScheduledTasks;
 
 namespace Foundation.Tests.Unit.Foundation.Interfaces.EventArgsTests
 {

@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Core\Schedulers\StandardScheduler\" />
     <Folder Include="Core\Services\" />
   </ItemGroup>
 

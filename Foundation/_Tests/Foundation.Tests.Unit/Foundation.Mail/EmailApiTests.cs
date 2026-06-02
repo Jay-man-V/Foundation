@@ -60,6 +60,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
                 Body = EmailBody,
             };
             mailMessage.ToAddress.Add(EmailToAddress);
+            mailMessage.CcAddress.Add(EmailCcAddress);
 
             return mailMessage;
         }
@@ -99,7 +100,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
         [TestCase]
         public void Test_SendTestMail()
         {
-            TheService!.SendTestMail(EmailToAddress);
+            TheService!.SendTestMail(EmailToAddress, EmailCcAddress);
         }
 
         [TestCase]
@@ -129,7 +130,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
         {
             String functionName = LocationUtils.GetFunctionName();
 
-            TheService!.SendFormalEmail(EmailToAddress, EmailFromAddress, EmailFromDisplayName, EmailSubject + " " + functionName, EmailBody);
+            TheService!.SendFormalEmail(EmailToAddress, EmailCcAddress, EmailFromAddress, EmailFromDisplayName, EmailSubject + " " + functionName, EmailBody);
         }
 
         [TestCase]
@@ -139,8 +140,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
 
             List<IMailAttachment> mailAttachments = CreateMailMessageAttachments();
 
-            TheService!.SendFormalEmail(EmailToAddress, EmailFromAddress, EmailFromDisplayName, EmailSubject + " " + functionName, EmailBody,
-                mailAttachments);
+            TheService!.SendFormalEmail(EmailToAddress, EmailCcAddress, EmailFromAddress, EmailFromDisplayName, EmailSubject + " " + functionName, EmailBody, mailAttachments);
         }
 
         [TestCase]
@@ -148,7 +148,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
         {
             String functionName = LocationUtils.GetFunctionName();
 
-            TheService!.SendSimpleEmail(EmailToAddress, EmailFromAddress, EmailFromDisplayName, EmailSubject + " " + functionName, EmailBody);
+            TheService!.SendSimpleEmail(EmailToAddress, EmailCcAddress, EmailFromAddress, EmailFromDisplayName, EmailSubject + " " + functionName, EmailBody);
         }
 
         [TestCase]
@@ -158,8 +158,7 @@ namespace Foundation.Tests.Unit.Foundation.Mail
 
             List<IMailAttachment> mailAttachments = CreateMailMessageAttachments();
 
-            TheService!.SendSimpleEmail(EmailToAddress, EmailFromAddress, EmailFromDisplayName, EmailSubject + " " + functionName, EmailBody,
-                mailAttachments);
+            TheService!.SendSimpleEmail(EmailToAddress, EmailCcAddress, EmailFromAddress, EmailFromDisplayName, EmailSubject + " " + functionName, EmailBody, mailAttachments);
         }
 
         [TestCase]

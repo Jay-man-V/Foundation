@@ -58,5 +58,11 @@ namespace Foundation.Interfaces
         /// </summary>
         [Id(6), Display(Order = 6, Name = "Error")]
         Error = 6,
+
+        /// <summary>
+        /// Testing
+        /// </summary>
+        [Id(999), Display(Order = 999, Name = "Testing")]
+        Testing = 999,
     }
 }

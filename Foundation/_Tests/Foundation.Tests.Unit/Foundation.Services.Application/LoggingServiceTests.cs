@@ -18,8 +18,6 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 {
     public class LoggingServiceTests : UnitTestBase
     {
-        private String BatchName => "UnitTesting";
-
         private ILoggingService? TheService { get; set; }
         private IEventLogRepository? TheRepository { get; set; }
 

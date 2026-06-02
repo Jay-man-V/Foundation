@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Foundation.BusinessProcess.Core.Schedulers.StandardScheduler.TaskParameters
+namespace Foundation.Server.ScheduledTasks.TaskParameters
 {
     /// <summary>
     /// Represents the base class for parameter objects used to configure tasks.

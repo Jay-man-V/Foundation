@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Foundation.Interfaces
+namespace Foundation.Interfaces.ScheduledTasks
 {
     /// <summary>
     /// Defines the behaviour of the Scheduled task

@@ -8,6 +8,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Resources;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using System.Text;
 
 using Foundation.Common;
@@ -91,6 +93,68 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
+        }
+
+        /// <inheritdoc cref="IFileApi.EnsureCanWriteToFolderPath(String)"/>
+        public void EnsureCanWriteToFolderPath(String folderPath)
+        {
+            LoggingHelpers.TraceCallEnter(folderPath);
+
+            try
+            {
+                DirectoryInfo di = new DirectoryInfo(folderPath);
+                DirectorySecurity acl = di.GetAccessControl(AccessControlSections.All);
+                Boolean includeExplicit = true;
+                Boolean includeInherited = true;
+                Type targetType = typeof(NTAccount);
+                var authorizationRules = acl.GetAccessRules(includeExplicit, includeInherited, targetType).Cast<FileSystemAccessRule>();
+
+                Boolean result = authorizationRules.Any(rule => (rule.FileSystemRights & FileSystemRights.Write) != 0);
+
+                if (!result)
+                {
+                    String message = $"Access denied: Cannot write to the folder: '{folderPath}'.";
+                    throw new UnauthorizedAccessException(message);
+                }
+            }
+            catch (Exception exception)
+            {
+                String message = $"Access denied: Cannot get permissions for the folder: '{folderPath}'.";
+                throw new UnauthorizedAccessException(message, exception);
+            }
+
+            LoggingHelpers.TraceCallReturn();
+        }
+
+        /// <inheritdoc cref="IFileApi.EnsureCanReadFromFolderPath(String)"/>
+        public void EnsureCanReadFromFolderPath(String folderPath)
+        {
+            LoggingHelpers.TraceCallEnter(folderPath);
+
+            try
+            {
+                DirectoryInfo di = new DirectoryInfo(folderPath);
+                DirectorySecurity acl = di.GetAccessControl(AccessControlSections.All);
+                Boolean includeExplicit = true;
+                Boolean includeInherited = true;
+                Type targetType = typeof(NTAccount);
+                var authorizationRules = acl.GetAccessRules(includeExplicit, includeInherited, targetType).Cast<FileSystemAccessRule>();
+
+                Boolean result = authorizationRules.Any(rule => (rule.FileSystemRights & FileSystemRights.Read) != 0);
+
+                if (!result)
+                {
+                    String message = $"Access denied: Cannot read from the folder: '{folderPath}'.";
+                    throw new UnauthorizedAccessException(message);
+                }
+            }
+            catch (Exception exception)
+            {
+                String message = $"Access denied: Cannot get permissions for the folder: '{folderPath}'.";
+                throw new UnauthorizedAccessException(message, exception);
+            }
+
+            LoggingHelpers.TraceCallReturn();
         }
 
         /// <inheritdoc cref="IFileApi.EnsureFileExists(String)"/>

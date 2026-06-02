@@ -542,6 +542,27 @@ namespace Foundation.DataAccess.Database
             return retVal;
         }
 
+        /// <inheritdoc cref="IFoundationDataAccess.CreateParameter(String, EntityId)"/>
+        public IDbDataParameter CreateParameter(String parameterName, EntityId? parameterValue)
+        {
+            LoggingHelpers.TraceCallEnter(parameterName, parameterValue);
+
+            IDbDataParameter retVal;
+
+            if (parameterValue is null)
+            {
+                retVal = CreateParameter(parameterName, EntityId.DbType, DBNull.Value);
+            }
+            else
+            {
+                retVal = CreateParameter(parameterName, parameterValue.Value.TheEntityId);
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
         /// <inheritdoc cref="IFoundationDataAccess.CreateParameter(String, AppId)"/>
         public IDbDataParameter CreateParameter(String parameterName, AppId parameterValue)
         {
@@ -563,6 +584,26 @@ namespace Foundation.DataAccess.Database
             return retVal;
         }
 
+        public IDbDataParameter CreateParameter(String parameterName, AppId? parameterValue)
+        {
+            LoggingHelpers.TraceCallEnter(parameterName, parameterValue);
+
+            IDbDataParameter retVal;
+
+            if (parameterValue is null)
+            {
+                retVal = CreateParameter(parameterName, AppId.DbType, DBNull.Value);
+            }
+            else
+            {
+                retVal = CreateParameter(parameterName, parameterValue.Value.TheAppId);
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
         /// <inheritdoc cref="IFoundationDataAccess.CreateParameter(String, LogId)"/>
         public IDbDataParameter CreateParameter(String parameterName, LogId parameterValue)
         {
@@ -577,6 +618,27 @@ namespace Foundation.DataAccess.Database
             else
             {
                 retVal = InternalCreateParameter(parameterName, parameterValue.TheLogId);
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IFoundationDataAccess.CreateParameter(String, LogId?)"/>
+        public IDbDataParameter CreateParameter(String parameterName, LogId? parameterValue)
+        {
+            LoggingHelpers.TraceCallEnter(parameterName, parameterValue);
+
+            IDbDataParameter retVal;
+
+            if (parameterValue is null)
+            {
+                retVal = CreateParameter(parameterName, LogId.DbType, DBNull.Value);
+            }
+            else
+            {
+                retVal = CreateParameter(parameterName, parameterValue.Value.TheLogId);
             }
 
             LoggingHelpers.TraceCallReturn(retVal);

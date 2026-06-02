@@ -28,7 +28,10 @@ namespace Foundation.Tests.Unit.BaseClasses
     {
         protected static Object SyncLock = new Object();
         protected virtual String TestingApplicationName => "UnitTesting";
-        protected AppId TestingApplicationId => new AppId(1);
+        protected virtual String BatchName => "UnitTestingBatch";
+        protected virtual String ProcessName => "TestProcess";
+        protected virtual String TaskName => "TestTask";
+        protected AppId TestingApplicationId => new AppId(999);
         protected String DatabaseServer => "Callisto";
         protected String BaseTemporaryOutputsPath => @"D:\Projects\JDVSoftware\TempOutputs\";
 
@@ -48,7 +51,8 @@ namespace Foundation.Tests.Unit.BaseClasses
         protected String EmailFromAddress => "no.reply.test@datalore.me.uk";
         protected String EmailFromDisplayName => "Automated Unit Test Program";
 
-        protected String EmailToAddress => "Unit.Testing@datalore.me.uk";
+        protected String EmailToAddress => "Unit.Testing.To@datalore.me.uk";
+        protected String EmailCcAddress => "Unit.Testing.Cc@datalore.me.uk";
         protected String EmailSubject => $"Test Email Subject - {DateTime.Now.ToString(Formats.DotNet.DateTimeSeconds)}";
         protected String EmailBody => $"Test Email Body - {DateTime.Now.ToString(Formats.DotNet.DateTimeSeconds)}";
 
@@ -60,6 +64,8 @@ namespace Foundation.Tests.Unit.BaseClasses
         protected IRunTimeEnvironmentSettings RunTimeEnvironmentSettings { get; set; }
         protected ILoggingService LoggingService { get; set; }
         protected IApplicationConfigurationService ApplicationConfigurationService { get; set; }
+
+        protected LogId RootLogId { get; set; }
 
         protected static class StandardErrorMessages
         {
@@ -101,6 +107,8 @@ namespace Foundation.Tests.Unit.BaseClasses
             DateTimeService.LocalDateTimeNow.Returns(SystemDateTimeMs);
 
             LoggingService = Substitute.For<ILoggingService>();
+            RootLogId = LoggingService.StartTask(CoreInstance.ApplicationId, BatchName, ProcessName, TaskName);
+
             ApplicationConfigurationService = Substitute.For<IApplicationConfigurationService>();
 
             RunTimeEnvironmentSettings = Substitute.For<IRunTimeEnvironmentSettings>();

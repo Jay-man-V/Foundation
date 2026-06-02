@@ -27,7 +27,7 @@ namespace Foundation.Resources
         public static String EmailFromAddress => "email.from.address";
 
         /// <summary>
-        /// email.from.address
+        /// email.from.display.name
         /// </summary>
         public static String EmailFromDisplayName => "email.from.display.name";
 

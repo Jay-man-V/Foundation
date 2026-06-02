@@ -251,6 +251,14 @@ namespace Foundation.Interfaces
         /// <param name="parameterName">Name of the parameter.</param>
         /// <param name="parameterValue">The parameter value.</param>
         /// <returns>Instance of DbParameter</returns>
+        IDbDataParameter CreateParameter(String parameterName, EntityId? parameterValue);
+
+        /// <summary>
+        /// Creates the parameter.
+        /// </summary>
+        /// <param name="parameterName">Name of the parameter.</param>
+        /// <param name="parameterValue">The parameter value.</param>
+        /// <returns>Instance of DbParameter</returns>
         IDbDataParameter CreateParameter(String parameterName, AppId parameterValue);
 
         /// <summary>
@@ -259,7 +267,23 @@ namespace Foundation.Interfaces
         /// <param name="parameterName">Name of the parameter.</param>
         /// <param name="parameterValue">The parameter value.</param>
         /// <returns>Instance of DbParameter</returns>
+        IDbDataParameter CreateParameter(String parameterName, AppId? parameterValue);
+
+        /// <summary>
+        /// Creates the parameter.
+        /// </summary>
+        /// <param name="parameterName">Name of the parameter.</param>
+        /// <param name="parameterValue">The parameter value.</param>
+        /// <returns>Instance of DbParameter</returns>
         IDbDataParameter CreateParameter(String parameterName, LogId parameterValue);
+
+        /// <summary>
+        /// Creates the parameter.
+        /// </summary>
+        /// <param name="parameterName">Name of the parameter.</param>
+        /// <param name="parameterValue">The parameter value.</param>
+        /// <returns>Instance of DbParameter</returns>
+        IDbDataParameter CreateParameter(String parameterName, LogId? parameterValue);
 
         /// <summary>
         /// Creates the parameter.

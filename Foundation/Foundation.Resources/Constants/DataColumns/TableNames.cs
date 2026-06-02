@@ -79,6 +79,14 @@ namespace Foundation.Resources.Constants.DataColumns
         public static String ApprovalStatus => "[core].[ApprovalStatus]";
 
         /// <summary>
+        /// Gets the calendar.
+        /// </summary>
+        /// <value>
+        /// The calendar.
+        /// </value>
+        public static String Calendar => "[core].[Calendar]";
+
+        /// <summary>
         /// Gets the configuration scope.
         /// </summary>
         /// <value>

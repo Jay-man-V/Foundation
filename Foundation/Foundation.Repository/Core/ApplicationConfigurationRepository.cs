@@ -109,7 +109,9 @@ namespace Foundation.Repository.Core
             {
                 while (dataReader.Read())
                 {
+                    // TODO: Consider whether an exception should be thrown if more than one record is returned, as this would indicate a data integrity issue.
                     retVal = PopulateEntity<IApplicationConfiguration>(dataReader);
+                    break;
                 }
 
                 dataReader.Close();

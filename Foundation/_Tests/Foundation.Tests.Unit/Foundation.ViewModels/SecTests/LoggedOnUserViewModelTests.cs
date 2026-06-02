@@ -43,7 +43,7 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.SecTests
             ILoggedOnUser retVal = base.CreateModel(entityId);
             LoggedOnUser loggedOnUser = (LoggedOnUser)retVal;
 
-            retVal.ApplicationId = new AppId(1);
+            retVal.ApplicationId = new AppId(TestingApplicationId);
             retVal.UserProfileId = new EntityId(2);
             retVal.LoggedOn = DateTimeService.SystemUtcDateTimeNow;
             retVal.LastActive = DateTimeService.SystemUtcDateTimeNow;

@@ -50,6 +50,18 @@ namespace Foundation.Interfaces
         String GetNewTempFilePath(String baseFolder, String filePrefix);
 
         /// <summary>
+        /// Ensures that the specified folder path is writable.
+        /// </summary>
+        /// <param name="folderPath">The folder path.</param>
+        void EnsureCanWriteToFolderPath(String folderPath);
+
+        /// <summary>
+        /// Ensures that the specified folder path is readable.
+        /// </summary>
+        /// <param name="folderPath">The folder path.</param>
+        void EnsureCanReadFromFolderPath(String folderPath);
+
+        /// <summary>
         /// Retrieves a list of file names from the specified folder that match the given search pattern.
         /// </summary>
         /// <param name="folderPath">The full path to the folder in which to search for files. Cannot be null or empty.</param>

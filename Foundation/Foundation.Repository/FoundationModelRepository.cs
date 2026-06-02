@@ -17,6 +17,7 @@ using Foundation.Common;
 using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 using Foundation.Models;
+using Foundation.Repository.Sql;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;
