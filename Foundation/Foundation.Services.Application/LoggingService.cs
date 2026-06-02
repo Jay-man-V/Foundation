@@ -58,15 +58,15 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
-        /// <inheritdoc cref="ILoggingService.StartTask(AppId, String, String, String)"/>
-        public LogId StartTask(AppId applicationId, String batchName, String processName, String taskName)
+        /// <inheritdoc cref="ILoggingService.StartTask(String, String, String)"/>
+        public LogId StartTask(String batchName, String processName, String taskName)
         {
-            LoggingHelpers.TraceCallEnter(applicationId, batchName, processName, taskName);
+            LoggingHelpers.TraceCallEnter(batchName, processName, taskName);
 
             LogId retVal;
 
             IEventLog entity = Core.IoC.Get<IEventLog>();
-            entity.ApplicationId = applicationId;
+            entity.ApplicationId = Core.ApplicationId;
             entity.BatchName = batchName;
             entity.ProcessName = processName;
             entity.LogSeverityId = new EntityId(LogSeverity.Information.Id());
@@ -74,7 +74,8 @@ namespace Foundation.Services.Application
             entity.StartedOn = DateTimeService.SystemUtcDateTimeNow;
 
             IEventLog savedEventLog = Repository.Save(entity);
-            entity.Id = savedEventLog.Id;
+            IFoundationModel foundationModel = savedEventLog;
+            entity.Id = new LogId(foundationModel.Id.TheEntityId);
 
             retVal = entity.Id;
 
@@ -125,25 +126,26 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="ILoggingService.CreateLogEntry(LogId, AppId, String, String, String, LogSeverity, String)" />
-        public LogId CreateLogEntry(LogId parentLogId, AppId applicationId, String batchName, String processName, String taskName, LogSeverity logSeverity, String information)
+        /// <inheritdoc cref="ILoggingService.CreateLogEntry(LogId, String, String, String, LogSeverity, String)" />
+        public LogId CreateLogEntry(LogId parentLogId, String batchName, String processName, String taskName, LogSeverity logSeverity, String information)
         {
             LoggingHelpers.TraceCallEnter(parentLogId, batchName, processName, taskName, logSeverity, information);
 
             LogId retVal;
 
             IEventLog entity = Core.IoC.Get<IEventLog>();
-            entity.ApplicationId = applicationId;
-            entity.ParentId = parentLogId;
+            entity.ApplicationId = Core.ApplicationId;
             entity.BatchName = batchName;
             entity.ProcessName = processName;
-            entity.LogSeverityId = new EntityId(logSeverity.Id());
             entity.TaskName = taskName;
+            entity.ParentId = parentLogId;
+            entity.LogSeverityId = new EntityId(logSeverity.Id());
             entity.StartedOn = DateTimeService.SystemUtcDateTimeNow;
             entity.Information = information;
 
             IEventLog savedEventLog = Repository.Save(entity);
-            entity.Id = savedEventLog.Id;
+            IFoundationModel foundationModel = savedEventLog;
+            entity.Id = new LogId(foundationModel.Id.TheEntityId);
 
             retVal = entity.Id;
 
@@ -152,26 +154,16 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
-        /// <inheritdoc cref="ILoggingService.CreateLogEntry(LogId, AppId, LogSeverity, Exception)" />
-        public LogId CreateLogEntry(LogId parentLogId, AppId applicationId, LogSeverity logSeverity, Exception exception)
+        /// <inheritdoc cref="ILoggingService.CreateLogEntry(LogId, String, String, String, LogSeverity, Exception)" />
+        public LogId CreateLogEntry(LogId parentLogId, String batchName, String processName, String taskName, LogSeverity logSeverity, Exception exception)
         {
-            LoggingHelpers.TraceCallEnter(parentLogId, logSeverity, exception);
+            LoggingHelpers.TraceCallEnter(parentLogId, batchName, processName, taskName, logSeverity, exception);
 
             LogId retVal;
 
             ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, exception);
 
-            IEventLog entity = Core.IoC.Get<IEventLog>();
-            entity.ApplicationId = applicationId;
-            entity.ParentId = parentLogId;
-            entity.LogSeverityId = new EntityId(logSeverity.Id());
-            entity.StartedOn = DateTimeService.SystemUtcDateTimeNow;
-            entity.Information = exceptionOutput.ToString();
-
-            IEventLog savedEventLog = Repository.Save(entity);
-            entity.Id = savedEventLog.Id;
-
-            retVal = entity.Id;
+            retVal = CreateLogEntry(parentLogId, batchName, processName, taskName, logSeverity, exceptionOutput.ToString());
 
             LoggingHelpers.TraceCallReturn(retVal);
 

@@ -62,6 +62,7 @@ namespace Foundation.Server.ScheduledTasks
 
             ApplicationName = String.Empty;
             BatchName = String.Empty;
+            ProcessName = String.Empty;
             TaskName = String.Empty;
 
             RunTaskStarting = null;
@@ -95,11 +96,7 @@ namespace Foundation.Server.ScheduledTasks
         /// <summary>
         /// Gets the name of the process associated with the current instance.
         /// </summary>
-        /// <remarks>
-        /// The default implementation returns the name of the derived class. Override this
-        /// property to provide a custom process name if needed.
-        /// </remarks>
-        protected String ProcessName => this.GetType().Name;
+        protected String ProcessName { get; set; }
 
         /// <summary>
         /// Gets the name of the task represented by the derived class.
@@ -141,6 +138,7 @@ namespace Foundation.Server.ScheduledTasks
             {
                 ApplicationName = TaskParameters.ApplicationName;
                 BatchName = TaskParameters.BatchName;
+                ProcessName = TaskParameters.ProcessName;
                 TaskName = TaskParameters.TaskName;
             }
         }
@@ -171,28 +169,34 @@ namespace Foundation.Server.ScheduledTasks
         {
             RaiseRunTaskStarting(parentLogId, taskParameters);
 
+            InitialiseRunTimeParameters(taskParameters);
+
+            LogId taskLogId = LoggingService.CreateLogEntry(parentLogId, TaskParameters.BatchName, TaskParameters.ProcessName, TaskParameters.TaskName, LogSeverity.Information, $"Running '{TaskName}'");
+
             TaskStartTime = DateTimeService.SystemUtcDateTimeNow;
             LastRunDateTime = ApplicationConfigurationService.Get(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, LastRunDateKey, TaskStartTime.AddMonths(-1));
 
-            InitialiseRunTimeParameters(taskParameters);
-
             String runTimeParametersForLogging = GetRunTimeParametersForLogging();
             String message = String.Empty;
-            message += $"{BatchName}::{ProcessName}::{TaskName} running at: {TaskStartTime.ToString(Formats.DotNet.DateTimeSeconds)}." + Environment.NewLine;
-            message += $"LastRunDateTime: {LastRunDateTime}" + Environment.NewLine;
+            message += $"{BatchName}::{ProcessName}::{TaskName} running at: {TaskStartTime.ToString(Formats.DotNet.DateTimeMilliseconds)}." + Environment.NewLine;
+            message += $"LastRunDateTime: {LastRunDateTime.ToString(Formats.DotNet.DateTimeMilliseconds)}" + Environment.NewLine;
             message += $"Task parameters: '{taskParameters}'." + Environment.NewLine;
             message += $"Run time parameters: {runTimeParametersForLogging}" + Environment.NewLine;
 
-            LoggingService.CreateLogEntry(parentLogId, Core.ApplicationId, BatchName, ProcessName, TaskName, LogSeverity.Information, message);
+            LogId processTaskId = LoggingService.CreateLogEntry(taskLogId, BatchName, ProcessName, TaskName, LogSeverity.Information, message);
 
-            ProcessTask(parentLogId);
+            ProcessTask(processTaskId);
 
             LastRunDateTime = DateTimeService.SystemUtcDateTimeNow;
 
             Boolean isEncrypted = false;
             ApplicationConfigurationService.SetValue(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ConfigurationScope.Application, isEncrypted, LastRunDateKey, LastRunDateTime);
 
+            LoggingService.EndTask(processTaskId, LogSeverity.Information, $"LastRunDateTime: {LastRunDateTime.ToString(Formats.DotNet.DateTimeMilliseconds)}");
+
             RaiseRunTaskEnding(parentLogId, taskParameters);
+
+            LoggingService.EndTask(taskLogId, LogSeverity.Information, "Finished");
         }
 
         private void RaiseRunTaskStarting(LogId parentLogId, String taskParameters)

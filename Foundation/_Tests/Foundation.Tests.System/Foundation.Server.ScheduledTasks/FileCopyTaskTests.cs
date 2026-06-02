@@ -39,39 +39,119 @@ namespace Foundation.Tests.System.Foundation.Server.ScheduledTasks
         public void Test_RunTask_NoArchive()
         {
             String functionName = LocationUtils.GetFunctionName();
-            LogId parentLogId = LoggingService!.CreateLogEntry(RootLogId, CoreInstance.ApplicationId, BatchName, ClassName, functionName, LogSeverity.Testing, String.Empty);
 
             FileCopyTaskParameters fileCopyTaskParameters = new FileCopyTaskParameters
             {
                 ApplicationName = ClassName,
                 BatchName = BatchName,
+                ProcessName = ProcessName,
                 TaskName = functionName,
 
-                SourceFilePath = $@".ExpectedResults\FileManagement\{Guid.NewGuid()}",
-                DestinationFilePath = $@".ExpectedResults\FolderToDelete\{Guid.NewGuid()}",
+                SourceFilePath = $@"{BaseTemporaryOutputsPath}\Source\{Guid.NewGuid()}",
+                DestinationFilePath = $@"{BaseTemporaryOutputsPath}\Destination\{Guid.NewGuid()}",
             };
 
             // Setup - Create source folder and add files to it
+            String[] filesToCopy = ["ExistingFile.txt", "FileToDelete.txt", "SmallFile.txt"];
             Directory.CreateDirectory(fileCopyTaskParameters.SourceFilePath);
-            File.Copy(@".ExpectedResults\FileManagement\ExistingFile.txt", Path.Combine(fileCopyTaskParameters.SourceFilePath, "ExistingFile.txt"));
-            File.Copy(@".ExpectedResults\FileManagement\FileToDelete.txt", Path.Combine(fileCopyTaskParameters.SourceFilePath, "FileToDelete.txt"));
-            File.Copy(@".ExpectedResults\FileManagement\SmallFile.txt", Path.Combine(fileCopyTaskParameters.SourceFilePath, "SmallFile.txt"));
+            foreach (String fileToCopy in filesToCopy)
+            {
+                File.Copy($@".ExpectedResults\FileManagement\{fileToCopy}", Path.Combine(fileCopyTaskParameters.SourceFilePath, fileToCopy));
+            }
 
             // Create the Destination Folder
             Directory.CreateDirectory(fileCopyTaskParameters.DestinationFilePath);
 
             // Get list of files in source folder before task is run
             List<String> sourceFilesBefore = Directory.GetFiles(fileCopyTaskParameters.SourceFilePath).ToList();
-            Assert.That(sourceFilesBefore.Count, Is.EqualTo(3));
+            Assert.That(sourceFilesBefore.Count, Is.EqualTo(filesToCopy.Length));
 
             List<String> destinationFolderBefore = Directory.GetFiles(fileCopyTaskParameters.DestinationFilePath).ToList();
             Assert.That(destinationFolderBefore.Count, Is.EqualTo(0));
 
             String taskParameters = SerialisationHelpers.Serialise(fileCopyTaskParameters);
-
-            TheService!.RunTask(parentLogId, taskParameters);
+            TheService!.RunTask(RootLogId, taskParameters);
 
             // Get list of files in source folder after task is run and compare with list before task is run to ensure files have been copied
+            List<String> destinationFolderAfter = Directory.GetFiles(fileCopyTaskParameters.DestinationFilePath).ToList();
+            Assert.That(destinationFolderAfter.Count, Is.EqualTo(filesToCopy.Length));
+
+            foreach (String fileToCopy in filesToCopy)
+            {
+                String sourceFileContent = File.ReadAllText($@".ExpectedResults\FileManagement\{fileToCopy}");
+                String destinationFileContent = File.ReadAllText(Path.Combine(fileCopyTaskParameters.DestinationFilePath, fileToCopy));
+
+                Assert.That(destinationFileContent, Is.EqualTo(sourceFileContent), $"Content of '{fileToCopy}' does not match");
+            }
+        }
+
+        [TestCase]
+        public void Test_RunTask_WithArchive()
+        {
+            String functionName = LocationUtils.GetFunctionName();
+
+            FileCopyTaskParameters fileCopyTaskParameters = new FileCopyTaskParameters
+            {
+                ApplicationName = ClassName,
+                BatchName = BatchName,
+                ProcessName = ProcessName,
+                TaskName = functionName,
+
+                SourceFilePath = $@"{BaseTemporaryOutputsPath}\Source\{Guid.NewGuid()}",
+                DestinationFilePath = $@"{BaseTemporaryOutputsPath}\Destination\{Guid.NewGuid()}",
+                ArchiveFilePath = $@"{BaseTemporaryOutputsPath}\Archive\{Guid.NewGuid()}",
+            };
+
+            // Setup - Create source folder and add files to it
+            String[] filesToCopy = ["ExistingFile.txt", "FileToDelete.txt", "SmallFile.txt"];
+            Directory.CreateDirectory(fileCopyTaskParameters.SourceFilePath);
+            foreach (String fileToCopy in filesToCopy)
+            {
+                File.Copy($@".ExpectedResults\FileManagement\{fileToCopy}", Path.Combine(fileCopyTaskParameters.SourceFilePath, fileToCopy));
+            }
+
+            // Create the Destination and Archive Folders
+            Directory.CreateDirectory(fileCopyTaskParameters.DestinationFilePath);
+            Directory.CreateDirectory(fileCopyTaskParameters.ArchiveFilePath);
+
+            // Get list of files in source folder before task is run
+            List<String> sourceFilesBefore = Directory.GetFiles(fileCopyTaskParameters.SourceFilePath).ToList();
+            Assert.That(sourceFilesBefore.Count, Is.EqualTo(filesToCopy.Length));
+
+            List<String> destinationFolderBefore = Directory.GetFiles(fileCopyTaskParameters.DestinationFilePath).ToList();
+            Assert.That(destinationFolderBefore.Count, Is.EqualTo(0));
+
+            String taskParameters = SerialisationHelpers.Serialise(fileCopyTaskParameters);
+            TheService!.RunTask(RootLogId, taskParameters);
+
+            // Get list of files in source folder after task is run and compare with list before task is run to ensure files have been copied
+
+            // With archiving enabled, source folder should be empty after task is run as files should have been moved to destination folder and archived
+            List<String> sourceFolderAfter = Directory.GetFiles(fileCopyTaskParameters.SourceFilePath).ToList();
+            Assert.That(sourceFolderAfter.Count, Is.EqualTo(0));
+
+            List<String> destinationFolderAfter = Directory.GetFiles(fileCopyTaskParameters.DestinationFilePath).ToList();
+            Assert.That(destinationFolderAfter.Count, Is.EqualTo(filesToCopy.Length));
+
+            foreach (String fileToCopy in filesToCopy)
+            {
+                String sourceFileContent = File.ReadAllText($@".ExpectedResults\FileManagement\{fileToCopy}");
+                String destinationFileContent = File.ReadAllText(Path.Combine(fileCopyTaskParameters.DestinationFilePath, fileToCopy));
+
+                Assert.That(destinationFileContent, Is.EqualTo(sourceFileContent), $"Content of '{fileToCopy}' does not match");
+            }
+
+            // Get list of files in source folder after task is run and compare with list before task is run to ensure files have been copied
+            List<String> archiveFolderAfter = Directory.GetFiles(fileCopyTaskParameters.ArchiveFilePath).ToList();
+            Assert.That(archiveFolderAfter.Count, Is.EqualTo(filesToCopy.Length));
+
+            foreach (String fileToCopy in filesToCopy)
+            {
+                String sourceFileContent = File.ReadAllText($@".ExpectedResults\FileManagement\{fileToCopy}");
+                String destinationFileContent = File.ReadAllText(Path.Combine(fileCopyTaskParameters.DestinationFilePath, fileToCopy));
+
+                Assert.That(destinationFileContent, Is.EqualTo(sourceFileContent), $"Content of '{fileToCopy}' does not match");
+            }
         }
     }
 }

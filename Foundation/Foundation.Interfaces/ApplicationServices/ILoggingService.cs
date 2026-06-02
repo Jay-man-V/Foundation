@@ -30,12 +30,11 @@ namespace Foundation.Interfaces
         /// <summary>
         /// Logs a Start Task message with the supplied parameters
         /// </summary>
-        /// <param name="applicationId"></param>
         /// <param name="batchName"></param>
         /// <param name="processName"></param>
         /// <param name="taskName"></param>
         /// <returns></returns>
-        LogId StartTask(AppId applicationId, String batchName, String processName, String taskName);
+        LogId StartTask(String batchName, String processName, String taskName);
 
         /// <summary>
         /// Logs an End Task message with the supplied parameters
@@ -57,24 +56,25 @@ namespace Foundation.Interfaces
         /// Creates a log entry with the supplied parameters
         /// </summary>
         /// <param name="parentLogId"></param>
-        /// <param name="applicationId"></param>
         /// <param name="batchName"></param>
         /// <param name="processName"></param>
         /// <param name="taskName"></param>
         /// <param name="logSeverity"></param>
         /// <param name="information"></param>
         /// <returns></returns>
-        LogId CreateLogEntry(LogId parentLogId, AppId applicationId, String batchName, String processName, String taskName, LogSeverity logSeverity, String information);
+        LogId CreateLogEntry(LogId parentLogId, String batchName, String processName, String taskName, LogSeverity logSeverity, String information);
 
         /// <summary>
         /// Creates a log entry with the supplied parameters
         /// </summary>
         /// <param name="parentLogId"></param>
-        /// <param name="applicationId"></param>
+        /// <param name="batchName"></param>
+        /// <param name="processName"></param>
+        /// <param name="taskName"></param>
         /// <param name="logSeverity"></param>
         /// <param name="exception"></param>
         /// <returns></returns>
-        LogId CreateLogEntry(LogId parentLogId, AppId applicationId, LogSeverity logSeverity, Exception exception);
+        LogId CreateLogEntry(LogId parentLogId, String batchName, String processName, String taskName, LogSeverity logSeverity, Exception exception);
 
         /// <summary>
         /// Updates an existing log entry

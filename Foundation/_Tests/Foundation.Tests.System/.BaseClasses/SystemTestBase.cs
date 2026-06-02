@@ -27,11 +27,12 @@ namespace Foundation.Tests.System.BaseClasses
             RunTimeEnvironmentSettings = CoreInstance.IoC.Get<IRunTimeEnvironmentSettings>();
             LoggingService = CoreInstance.IoC.Get<ILoggingService>();
 
-            RootLogId = LoggingService.StartTask(CoreInstance.ApplicationId, BatchName, ProcessName, TaskName);
+            RootLogId = LoggingService.StartTask(BatchName, ProcessName, TaskName);
         }
 
         public override void TestCleanup()
         {
+            LoggingService.EndTask(RootLogId, LogSeverity.Information, "Finished testing");
             base.TestCleanup();
         }
     }

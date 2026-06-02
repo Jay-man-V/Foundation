@@ -890,7 +890,7 @@ namespace Foundation.Repository
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            if (entity.CreatedByUserProfileId == -1)
+            if (entity.CreatedByUserProfileId.TheEntityId is -1 or 0)
             {
                 entity.CreatedByUserProfileId = Core.CurrentLoggedOnUser.UserProfile.Id;
             }

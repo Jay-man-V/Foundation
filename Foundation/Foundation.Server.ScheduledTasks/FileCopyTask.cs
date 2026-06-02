@@ -132,21 +132,10 @@ namespace Foundation.Server.ScheduledTasks
             if (!String.IsNullOrWhiteSpace(FileCopyTaskParameters.ArchiveFilePath) &&
                 !Directory.Exists(FileCopyTaskParameters.ArchiveFilePath))
             {
-                throw new DirectoryNotFoundException($"Archive file path '{FileCopyTaskParameters.ArchiveFilePath}' does not exist.");
-            }
-            // Validate that we can write to the archive file path if archiving is enabled.
-            if (!String.IsNullOrWhiteSpace(FileCopyTaskParameters.ArchiveFilePath))
-            {
-                try
-                {
-                    String testFilePath = Path.Combine(FileCopyTaskParameters.ArchiveFilePath, "test.txt");
-                    File.WriteAllText(testFilePath, "Test");
-                    File.Delete(testFilePath);
-                }
-                catch (Exception ex)
-                {
-                    throw new IOException($"Unable to access archive file path '{FileCopyTaskParameters.ArchiveFilePath}'.", ex);
-                }
+                FileApi.EnsureDirectoryExists(FileCopyTaskParameters.ArchiveFilePath);
+
+                // Validate that we can write to the archive file path if archiving is enabled.
+                FileApi.EnsureCanWriteToFolderPath(FileCopyTaskParameters.ArchiveFilePath);
             }
 
             Boolean includeSubDirectories = false; // Set to true if you want to include subdirectories in the file copy operation.
@@ -160,12 +149,7 @@ namespace Foundation.Server.ScheduledTasks
 
                 IFileTransferSettings sourceSettings = GetSourceFileSettings(fileInfo.Name);
                 IFileTransferSettings destinationSettings = GetDestinationFileSettings(fileInfo.Name);
-                IArchiveTransferSettings? archiveSettings = null;
-                
-                if (!String.IsNullOrWhiteSpace(FileCopyTaskParameters.ArchiveFilePath))
-                {
-                    archiveSettings = GetArchiveFileSettings(fileInfo.Name);
-                }
+                IArchiveTransferSettings? archiveSettings = GetArchiveFileSettings(fileInfo.Name);
 
                 IMailAttachment mailAttachment = GetFileContentForAttachment(sourceSettings);
                 mailMessage.Attachments.Add(mailAttachment);
@@ -287,17 +271,22 @@ namespace Foundation.Server.ScheduledTasks
             return retVal;
         }
 
-        private IArchiveTransferSettings GetArchiveFileSettings(String filename)
+        private IArchiveTransferSettings? GetArchiveFileSettings(String filename)
         {
             LoggingHelpers.TraceCallEnter(filename);
 
-            String targetFolder = String.Empty; // The target folder is not used for the archive file settings, as we are only interested in the archive file path.
+            IArchiveTransferSettings? retVal = null;
 
-            IArchiveTransferSettings retVal = Core.IoC.Get<IArchiveTransferSettings>();
-            retVal.DeleteSourceFile = true;
-            retVal.FileTransferAction = FileCopyTaskParameters.FileArchiveTransferAction;
-            retVal.FileTransferMethod = FileTransferMethod.FileSystem;
-            retVal.Location = FileApi.MakeDataPath(FileCopyTaskParameters.ArchiveFilePath, targetFolder, filename);
+            if (!String.IsNullOrWhiteSpace(FileCopyTaskParameters.ArchiveFilePath))
+            {
+                String targetFolder = String.Empty; // The target folder is not used for the archive file settings, as we are only interested in the archive file path.
+
+                retVal = Core.IoC.Get<IArchiveTransferSettings>();
+                retVal.DeleteSourceFile = true;
+                retVal.FileTransferAction = FileCopyTaskParameters.FileArchiveTransferAction;
+                retVal.FileTransferMethod = FileTransferMethod.FileSystem;
+                retVal.Location = FileApi.MakeDataPath(FileCopyTaskParameters.ArchiveFilePath, targetFolder, filename);
+            }
 
             LoggingHelpers.TraceCallReturn(retVal);
 

@@ -16,7 +16,7 @@ namespace Foundation.Server.ScheduledTasks.TaskParameters
     public abstract class TaskParameters
     {
         /// <summary>
-        /// Gets or sets the name of the application associated with the current context.
+        /// Gets or sets the name of the application associated with the operation.
         /// </summary>
         public String ApplicationName { get; set; } = String.Empty;
 
@@ -24,6 +24,11 @@ namespace Foundation.Server.ScheduledTasks.TaskParameters
         /// Gets or sets the name of the batch associated with the operation.
         /// </summary>
         public String BatchName { get; set; } = String.Empty;
+
+        /// <summary>
+        /// Gets or sets the name of the process associated with the operation.
+        /// </summary>
+        public String ProcessName { get; set; } = String.Empty;
 
         /// <summary>
         /// Gets or sets the name of the task.

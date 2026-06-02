@@ -186,7 +186,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
             Int32 interval = 1;
 
-            LoggingService.StartTask(Arg.Any<AppId>(), Arg.Any<String>(), Arg.Any<String>(), Arg.Any<String>()).Returns(new LogId(1));
+            LoggingService.StartTask(Arg.Any<String>(), Arg.Any<String>(), Arg.Any<String>()).Returns(new LogId(1));
 
             IScheduledJob scheduledJob = SchedulerSupport.CreateScheduledJob(CoreInstance, false, currentDate, scheduleInterval, interval);
             scheduledJob.ScheduledTask = TheProcess!.CreateScheduledTask(scheduledJob);
@@ -210,7 +210,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
             ScheduleInterval scheduleInterval = ScheduleInterval.Seconds;
             Int32 interval = 1;
 
-            LoggingService.StartTask(Arg.Any<AppId>(), Arg.Any<String>(), Arg.Any<String>(), Arg.Any<String>()).Returns(new LogId(1));
+            LoggingService.StartTask(Arg.Any<String>(), Arg.Any<String>(), Arg.Any<String>()).Returns(new LogId(1));
 
             IScheduledJob scheduledJob = SchedulerSupport.CreateScheduledDemoJob(CoreInstance, false, currentDate, scheduleInterval, interval);
             scheduledJob.ScheduledTask = TheProcess!.CreateScheduledTask(scheduledJob);
@@ -289,7 +289,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
             String batchName = "Batch Scheduler";
             String processName = nameof(ScheduledJobProcess);
-            LoggingService.Received(1).CreateLogEntry(logId, CoreInstance.ApplicationId, batchName, processName, Arg.Any<String>(), LogSeverity.Information, "No jobs found to start");
+            LoggingService.Received(1).CreateLogEntry(logId, batchName, processName, nameof(Test_StartJobs_NoJobs), LogSeverity.Information, "No jobs found to start");
 
         }
 

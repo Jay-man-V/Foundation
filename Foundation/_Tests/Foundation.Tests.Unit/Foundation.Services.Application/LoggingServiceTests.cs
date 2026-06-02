@@ -76,7 +76,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
                 return entity;
             });
 
-            LogId logId = TheService!.StartTask(applicationId, batchName, processName, taskName);
+            LogId logId = TheService!.StartTask(batchName, processName, taskName);
 
             Assert.That(logId.TheLogId, Is.EqualTo(expected.TheLogId));
         }
@@ -194,7 +194,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             IEventLog? savedEventLog = null;
             TheRepository!.Save(Arg.Do<IEventLog>(e => savedEventLog = e));
 
-            TheService!.CreateLogEntry(parentLogId, applicationId, batchName, processName, taskName, logSeverity, information);
+            TheService!.CreateLogEntry(parentLogId, batchName, processName, taskName, logSeverity, information);
 
             Assert.That(savedEventLog!.ApplicationId.TheAppId, Is.EqualTo(applicationId.TheAppId));
             Assert.That(savedEventLog!.BatchName, Is.EqualTo(batchName));
@@ -226,7 +226,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             }
             catch (Exception loggedException)
             {
-                TheService!.CreateLogEntry(parentLogId, applicationId, logSeverity, loggedException);
+                TheService!.CreateLogEntry(parentLogId, batchName, processName, taskName, logSeverity, loggedException);
             }
 
             Assert.That(savedEventLog!.ApplicationId.TheAppId, Is.EqualTo(applicationId.TheAppId));
