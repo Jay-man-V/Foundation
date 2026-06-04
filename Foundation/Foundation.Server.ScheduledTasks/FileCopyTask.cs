@@ -174,20 +174,28 @@ namespace Foundation.Server.ScheduledTasks
             List<String> ccAddresses = ccAddressTemp.Split(";").ToList();
 
             mailMessage.IsBodyHtml = true;
-            mailMessage.Subject = FileCopyTaskParameters.EmailSubject;
+            mailMessage.Subject = ApplicationConfigurationService.Get<String>(Core.ApplicationId, Core.SystemUserProfile, FileCopyTaskParameters.EmailSubjectConfigKey);
             mailMessage.FromAddress = ApplicationConfigurationService.Get<String>(Core.ApplicationId, Core.SystemUserProfile, FileCopyTaskParameters.EmailFromAddressesConfigKey);
             mailMessage.ToAddress = toAddresses;
             mailMessage.CcAddress = ccAddresses;
 
             mailMessage.Body = String.Empty;
+            if (!String.IsNullOrWhiteSpace(FileCopyTaskParameters.EmailAdditionalText))
+            {
+                mailMessage.Body += $"<p>{FileCopyTaskParameters.EmailAdditionalText}</p><br/>" + Environment.NewLine;
+            }
             mailMessage.Body += "<p>" + Environment.NewLine;
             mailMessage.Body += "The following files have been copied successfully.<br/>" + Environment.NewLine;
-            mailMessage.Body += $"From: {FileCopyTaskParameters.SourceFilePath}<br/>" + Environment.NewLine;
-            mailMessage.Body += $"To: {FileCopyTaskParameters.DestinationFilePath}<br/>" + Environment.NewLine;
 
-            if (!String.IsNullOrWhiteSpace(FileCopyTaskParameters.ArchiveFilePath))
+            if (FileCopyTaskParameters.EmailAddFilePathsToEmail)
             {
-                mailMessage.Body += $"Archive: {FileCopyTaskParameters.ArchiveFilePath}<br/>" + Environment.NewLine;
+                mailMessage.Body += $"From: {FileCopyTaskParameters.SourceFilePath}<br/>" + Environment.NewLine;
+                mailMessage.Body += $"To: {FileCopyTaskParameters.DestinationFilePath}<br/>" + Environment.NewLine;
+
+                if (!String.IsNullOrWhiteSpace(FileCopyTaskParameters.ArchiveFilePath))
+                {
+                    mailMessage.Body += $"Archive: {FileCopyTaskParameters.ArchiveFilePath}<br/>" + Environment.NewLine;
+                }
             }
 
             mailMessage.Body += "</p>" + Environment.NewLine;

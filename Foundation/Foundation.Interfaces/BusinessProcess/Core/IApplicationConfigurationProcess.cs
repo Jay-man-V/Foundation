@@ -21,5 +21,12 @@ namespace Foundation.Interfaces
         /// <param name="userProfile">The <see cref="IUserProfile"/> to filter by</param>
         /// <returns>Filtered <see cref="List{TValue}"/></returns>
         List<IApplicationConfiguration> ApplyFilter(List<IApplicationConfiguration> applicationConfigurations, IConfigurationScope? configurationScope, IApplication? application, IUserProfile? userProfile);
+
+        /// <summary>
+        /// Gets the <see cref="IApplicationConfiguration"/> for the given <paramref name="key"/>
+        /// </summary>
+        /// <param name="key">The key of the configuration to retrieve</param>
+        /// <returns>The matching <see cref="IApplicationConfiguration"/>, or null if not found</returns>
+        IApplicationConfiguration? Get(String key);
     }
 }

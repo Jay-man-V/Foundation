@@ -225,5 +225,17 @@ namespace Foundation.BusinessProcess.Core
 
             return retVal;
         }
+
+        /// <inheritdoc cref="IApplicationConfigurationProcess.Get(String)" />
+        public IApplicationConfiguration? Get(String key)
+        {
+            LoggingHelpers.TraceCallEnter(key);
+
+            IApplicationConfiguration? retVal = EntityRepository.Get(key);
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
     }
 }

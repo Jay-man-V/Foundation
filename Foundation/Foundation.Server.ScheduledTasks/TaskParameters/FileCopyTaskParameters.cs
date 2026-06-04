@@ -43,9 +43,14 @@ namespace Foundation.Server.ScheduledTasks.TaskParameters
         public Boolean EmailAfterCopy { get; set; } = false;
 
         /// <summary>
-        /// Gets or sets the subject line for the email notification.
+        /// Gets or sets additional text to include in the email body when sending notifications after the file copy operation.
         /// </summary>
-        public String EmailSubject { get; set; } = String.Empty;
+        public String EmailAdditionalText { get; set; } = String.Empty;
+
+        /// <summary>
+        /// Gets or sets the configuration key for the email subject line.
+        /// </summary>
+        public String EmailSubjectConfigKey { get; set; } = String.Empty;
 
         /// <summary>
         /// Gets or sets the configuration key for the email addresses to which notifications should be sent.
@@ -61,6 +66,11 @@ namespace Foundation.Server.ScheduledTasks.TaskParameters
         /// Gets or sets the configuration key for the email addresses to which notifications should be sent as carbon copies.
         /// </summary>
         public String EmailCcAddressesConfigKey { get; set; } = String.Empty;
+
+        /// <summary>
+        /// Gets or sets the configuration key for the email addresses to which notifications should be sent as carbon copies.
+        /// </summary>
+        public Boolean EmailAddFilePathsToEmail { get; set; }
 
         /// <summary>
         /// Gets or sets the configuration key for the email addresses to which notifications should be sent as carbon copies.

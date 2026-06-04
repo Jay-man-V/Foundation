@@ -270,7 +270,7 @@ namespace Foundation.Repository
             {
                 if (String.IsNullOrEmpty(_entityInsertColumns))
                 {
-                    _entityInsertColumns = String.Join(", ", EntityProperties.Where(ep => !ep.Name.Equals(FDC.FoundationEntity.Id)).Select(ep => ep.Name));
+                    _entityInsertColumns = String.Join(", ", EntityProperties.Where(ep => !ep.Name.Equals(FDC.FoundationEntity.Id)).Select(ep => $"[{ep.Name}]"));
                 }
 
                 return _entityInsertColumns;
@@ -340,7 +340,7 @@ namespace Foundation.Repository
                         if (propertyInfo.GetCustomAttribute<ColumnAttribute>() is { } columnAttribute &&
                             !String.IsNullOrEmpty(columnAttribute.Name))
                         {
-                            sb.Append($"{columnAttribute.Name} = {DataLogicProvider.DatabaseParameterPrefix}{columnAttribute.Name}");
+                            sb.Append($"[{columnAttribute.Name}] = {DataLogicProvider.DatabaseParameterPrefix}{columnAttribute.Name}");
                             valueAdded = true;
                         }
                     }
@@ -684,7 +684,7 @@ namespace Foundation.Repository
             sql.AppendLine("FROM");
             sql.AppendLine(TableName);
             sql.AppendLine("WHERE");
-            sql.AppendLine($"    {EntityKey} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}entityKey");
+            sql.AppendLine($"    [{EntityKey}] = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}entityKey");
 
             DatabaseParameters databaseParameters =
             [
@@ -942,7 +942,7 @@ namespace Foundation.Repository
                 }
             }
 
-            if (recordCount <= 0)
+            if (recordCount <= 0 && entity.EntityLife != EntityLife.Loaded)
             {
                 if (FoundationDataAccess.DatabaseTransaction is null)
                 {
@@ -1012,16 +1012,16 @@ namespace Foundation.Repository
             sql.AppendLine("INSERT INTO");
             sql.AppendLine(TableName);
             sql.AppendLine("(");
-            sql.AppendLine($"    {FDC.FoundationEntity.StatusId},");
-            sql.AppendLine($"    {FDC.FoundationEntity.CreatedByUserProfileId},");
-            sql.AppendLine($"    {FDC.FoundationEntity.LastUpdatedByUserProfileId},");
-            sql.AppendLine($"    {FDC.FoundationEntity.CreatedOn},");
-            sql.AppendLine($"    {FDC.FoundationEntity.LastUpdatedOn},");
+            sql.AppendLine($"    [{FDC.FoundationEntity.StatusId}],");
+            sql.AppendLine($"    [{FDC.FoundationEntity.CreatedByUserProfileId}],");
+            sql.AppendLine($"    [{FDC.FoundationEntity.LastUpdatedByUserProfileId}],");
+            sql.AppendLine($"    [{FDC.FoundationEntity.CreatedOn}],");
+            sql.AppendLine($"    [{FDC.FoundationEntity.LastUpdatedOn}],");
 
             if (HasValidityPeriodColumns)
             {
-                sql.AppendLine($"    {FDC.FoundationEntity.ValidFrom},");
-                sql.AppendLine($"    {FDC.FoundationEntity.ValidTo},");
+                sql.AppendLine($"    [{FDC.FoundationEntity.ValidFrom}],");
+                sql.AppendLine($"    [{FDC.FoundationEntity.ValidTo}],");
             }
 
             sql.AppendLine(EntityInsertColumns);
@@ -1048,8 +1048,8 @@ namespace Foundation.Repository
             DatabaseParameters databaseParameters =
             [
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.StatusId}", entity.EntityStatus),
-                FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.CreatedByUserProfileId}", Core.CurrentLoggedOnUser.Id),
-                FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedByUserProfileId}", Core.CurrentLoggedOnUser.Id),
+                FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.CreatedByUserProfileId}", entity.CreatedByUserProfileId),
+                FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedByUserProfileId}", entity.LastUpdatedByUserProfileId),
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.CreatedOn}", entity.CreatedOn),
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedOn}", entity.LastUpdatedOn)
             ];
@@ -1101,25 +1101,25 @@ namespace Foundation.Repository
             sql.AppendLine("UPDATE");
             sql.AppendLine(TableName);
             sql.AppendLine("SET");
-            sql.AppendLine($"    {FDC.FoundationEntity.StatusId} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.StatusId},");
-            sql.AppendLine($"    {FDC.FoundationEntity.LastUpdatedByUserProfileId} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.LastUpdatedByUserProfileId},");
-            sql.AppendLine($"    {FDC.FoundationEntity.LastUpdatedOn} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.LastUpdatedOn},");
+            sql.AppendLine($"    [{FDC.FoundationEntity.StatusId}] = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.StatusId},");
+            sql.AppendLine($"    [{FDC.FoundationEntity.LastUpdatedByUserProfileId}] = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.LastUpdatedByUserProfileId},");
+            sql.AppendLine($"    [{FDC.FoundationEntity.LastUpdatedOn}] = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.LastUpdatedOn},");
 
             if (HasValidityPeriodColumns)
             {
-                sql.AppendLine($"    {FDC.FoundationEntity.ValidFrom} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.ValidFrom},");
-                sql.AppendLine($"    {FDC.FoundationEntity.ValidTo} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.ValidTo},");
+                sql.AppendLine($"    [{FDC.FoundationEntity.ValidFrom}] = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.ValidFrom},");
+                sql.AppendLine($"    [{FDC.FoundationEntity.ValidTo}] = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.ValidTo},");
             }
 
             sql.AppendLine(EntityUpdateColumnParameters);
             sql.AppendLine("WHERE");
-            sql.AppendLine($"    {FDC.FoundationEntity.Id} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.Id} AND");
-            sql.AppendLine($"    {FDC.FoundationEntity.Timestamp} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.Timestamp} ");
+            sql.AppendLine($"    [{FDC.FoundationEntity.Id}] = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.Id} AND");
+            sql.AppendLine($"    [{FDC.FoundationEntity.Timestamp}] = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.Timestamp} ");
 
             DatabaseParameters databaseParameters =
             [
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.StatusId}", entity.EntityStatus),
-                FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedByUserProfileId}", Core.CurrentLoggedOnUser.Id),
+                FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedByUserProfileId}", entity.LastUpdatedByUserProfileId),
                 FoundationDataAccess.CreateParameter($"{EntityName}{FDC.FoundationEntity.LastUpdatedOn}", DateTimeService.SystemUtcDateTimeNow)
             ];
 
@@ -1168,19 +1168,19 @@ namespace Foundation.Repository
             sql.AppendLine("UPDATE");
             sql.AppendLine(TableName);
             sql.AppendLine("SET");
-            sql.AppendLine($"    {FDC.FoundationEntity.StatusId} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.StatusId},");
-            sql.AppendLine($"    {FDC.FoundationEntity.LastUpdatedByUserProfileId} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.LastUpdatedByUserProfileId},");
-            sql.AppendLine($"    {FDC.FoundationEntity.LastUpdatedOn} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.LastUpdatedOn}");
+            sql.AppendLine($"    [{FDC.FoundationEntity.StatusId}] = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.StatusId},");
+            sql.AppendLine($"    [{FDC.FoundationEntity.LastUpdatedByUserProfileId}] = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.LastUpdatedByUserProfileId},");
+            sql.AppendLine($"    [{FDC.FoundationEntity.LastUpdatedOn}] = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.LastUpdatedOn}");
 
             if (HasValidityPeriodColumns)
             {
                 sql.AppendLine(",");
-                sql.AppendLine($"    {FDC.FoundationEntity.ValidTo} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.ValidTo}");
+                sql.AppendLine($"    [{FDC.FoundationEntity.ValidTo}] = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.ValidTo}");
             }
 
             sql.AppendLine("WHERE");
-            sql.AppendLine($"    {FDC.FoundationEntity.Id} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.Id}");
-            //sql.AppendLine($"    {FDC.Entity.Timestamp} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.Entity.Timestamp} ");
+            sql.AppendLine($"    [{FDC.FoundationEntity.Id}] = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.Id}");
+            //sql.AppendLine($"    [{FDC.Entity.Timestamp}] = {DataLogicProvider.DatabaseParameterPrefix}{FDC.Entity.Timestamp} ");
 
             DatabaseParameters databaseParameters =
             [
@@ -1233,20 +1233,20 @@ namespace Foundation.Repository
             sql.AppendLine("UPDATE");
             sql.AppendLine(TableName);
             sql.AppendLine("SET");
-            sql.AppendLine($"    {FDC.FoundationEntity.StatusId} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.StatusId},");
-            sql.AppendLine($"    {FDC.FoundationEntity.LastUpdatedByUserProfileId} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.LastUpdatedByUserProfileId},");
-            sql.AppendLine($"    {FDC.FoundationEntity.LastUpdatedOn} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.LastUpdatedOn}");
+            sql.AppendLine($"    [{FDC.FoundationEntity.StatusId}] = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.StatusId},");
+            sql.AppendLine($"    [{FDC.FoundationEntity.LastUpdatedByUserProfileId}] = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.LastUpdatedByUserProfileId},");
+            sql.AppendLine($"    [{FDC.FoundationEntity.LastUpdatedOn}] = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.LastUpdatedOn}");
 
             if (HasValidityPeriodColumns)
             {
                 sql.AppendLine(",");
-                sql.AppendLine($"    {FDC.FoundationEntity.ValidTo} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.ValidTo}");
+                sql.AppendLine($"    [{FDC.FoundationEntity.ValidTo}] = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.ValidTo}");
             }
 
             sql.AppendLine("WHERE");
-            sql.AppendLine($"    {FDC.FoundationEntity.Id} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.Id} AND");
+            sql.AppendLine($"    [{FDC.FoundationEntity.Id}] = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.Id} AND");
             sql.AppendLine(
-                $"    {FDC.FoundationEntity.Timestamp} = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.Timestamp} ");
+                $"    [{FDC.FoundationEntity.Timestamp}] = {DataLogicProvider.DatabaseParameterPrefix}{EntityName}{FDC.FoundationEntity.Timestamp} ");
 
             DatabaseParameters databaseParameters =
             [
