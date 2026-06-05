@@ -109,6 +109,8 @@ namespace Foundation.Server.ScheduledTasks
         {
             LoggingHelpers.TraceCallEnter(parentLogId);
 
+            LogId copyLogId = LoggingService.CreateLogEntry(parentLogId, FileCopyTaskParameters.BatchName, FileCopyTaskParameters.ProcessName, FileCopyTaskParameters.TaskName, LogSeverity.Information, "Starting file copy operation.");
+
             // Get the source, destination, and archive file transfer settings based on the task parameters.
             // These settings will be used to perform the file transfer operation.
             // Need to ensure that the source file exists and the destination path is valid before attempting the transfer.
@@ -140,6 +142,7 @@ namespace Foundation.Server.ScheduledTasks
 
             Boolean includeSubDirectories = false; // Set to true if you want to include subdirectories in the file copy operation.
             List<String> filenames = FileApi.GetListOfFiles(FileCopyTaskParameters.SourceFilePath, FileCopyTaskParameters.SourceFileMask, includeSubDirectories);
+            LoggingService.CreateLogEntry(copyLogId, FileCopyTaskParameters.BatchName, FileCopyTaskParameters.ProcessName, FileCopyTaskParameters.TaskName, LogSeverity.Information, $"Files found to copy: {filenames.Count}.");
 
             IMailMessage mailMessage = Core.IoC.Get<IMailMessage>();
 
@@ -155,13 +158,17 @@ namespace Foundation.Server.ScheduledTasks
                 mailMessage.Attachments.Add(mailAttachment);
 
                 FileTransferService.TransferFile(sourceSettings, destinationSettings, archiveSettings);
+                LoggingService.CreateLogEntry(copyLogId, FileCopyTaskParameters.BatchName, FileCopyTaskParameters.ProcessName, FileCopyTaskParameters.TaskName, LogSeverity.Information, $"File copied: {fileInfo.Name}");
             }
 
             // Send email notification
             if (FileCopyTaskParameters.EmailAfterCopy)
             {
                 SendEmailNotification(mailMessage, filenames);
+                LoggingService.CreateLogEntry(copyLogId, FileCopyTaskParameters.BatchName, FileCopyTaskParameters.ProcessName, FileCopyTaskParameters.TaskName, LogSeverity.Information, "Email notification sent.");
             }
+
+            LoggingService.EndTask(copyLogId, LogSeverity.Information, "File copy operation completed.");
 
             LoggingHelpers.TraceCallReturn();
         }

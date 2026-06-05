@@ -158,5 +158,121 @@ namespace Foundation.Tests.System.Foundation.Server.ScheduledTasks
                 }
             }
         }
+
+        [TestCase(true, "")]
+        [TestCase(true, "*.txt")]
+        [TestCase(true, "*.xml")]
+        [TestCase(false, "")]
+        [TestCase(false, "*.txt")]
+        [TestCase(false, "*.xml")]
+        public void Test_RunTask_FileMask(Boolean archiveFiles, String fileMask)
+        {
+            String functionName = LocationUtils.GetFunctionName();
+
+            FileCopyTaskParameters fileCopyTaskParameters = new FileCopyTaskParameters
+            {
+                ApplicationName = ClassName,
+                BatchName = BatchName,
+                ProcessName = ProcessName,
+                TaskName = functionName,
+
+                SourceFileMask = fileMask,
+                CopyFilesSinceLastRun = false,
+                SourceFilePath = Path.Combine(BaseTemporaryOutputsPath, "Source", Guid.NewGuid().ToString()),
+                DestinationFilePath = Path.Combine(BaseTemporaryOutputsPath, "Destination", Guid.NewGuid().ToString()),
+
+                EmailAfterCopy = false, //emailAfterCopy,
+                EmailAdditionalText = $"Additional text for {functionName}, (FileMask: {fileMask}.)",
+                EmailSubjectConfigKey = $"{ClassName}.{BatchName}.{ProcessName}.{TaskName}.EmailSubject",
+                EmailFromAddressesConfigKey = $"{ClassName}.{BatchName}.{ProcessName}.{TaskName}.EmailFromAddresses",
+                EmailToAddressesConfigKey = $"{ClassName}.{BatchName}.{ProcessName}.{TaskName}.EmailToAddresses",
+                EmailCcAddressesConfigKey = $"{ClassName}.{BatchName}.{ProcessName}.{TaskName}.EmailCcAddresses",
+                AttachFilesToEmail = true,
+                EmailAddFilePathsToEmail = true,
+            };
+
+            if (archiveFiles)
+            {
+                fileCopyTaskParameters.ArchiveFilePath = Path.Combine(BaseTemporaryOutputsPath, "Archive", Guid.NewGuid().ToString());
+            }
+
+            // Setup - Create source folder and add files to it
+            String[] filesToCopy = ["ExistingFile1.xml", "ExistingFile2.xml", "ExistingFile.txt", "FileToDelete.txt", "SmallFile.txt"];
+            Directory.CreateDirectory(fileCopyTaskParameters.SourceFilePath);
+            Int32 fileToCopyCount = 0;
+            foreach (String fileToCopy in filesToCopy)
+            {
+                String fileMaskExtension = (fileMask.Length > 2) ? fileMask.Substring(2) : String.Empty;
+                String fileToCopyExtension = Path.GetExtension(fileToCopy);
+                Boolean copyFile = (String.IsNullOrWhiteSpace(fileMask)) || ("." + fileMaskExtension == fileToCopyExtension);
+
+                if (copyFile)
+                {
+                    File.Copy($@".ExpectedResults\FileManagement\{fileToCopy}", Path.Combine(fileCopyTaskParameters.SourceFilePath, fileToCopy));
+                    fileToCopyCount++;
+                }
+            }
+
+            // Create the Destination and Archive Folders
+            Directory.CreateDirectory(fileCopyTaskParameters.DestinationFilePath);
+
+            if (archiveFiles)
+            {
+                Directory.CreateDirectory(fileCopyTaskParameters.ArchiveFilePath);
+            }
+
+            // Get list of files in source folder before task is run
+            List<String> sourceFilesBefore = Directory.GetFiles(fileCopyTaskParameters.SourceFilePath).ToList();
+            Assert.That(sourceFilesBefore.Count, Is.EqualTo(fileToCopyCount));
+
+            List<String> destinationFolderBefore = Directory.GetFiles(fileCopyTaskParameters.DestinationFilePath).ToList();
+            Assert.That(destinationFolderBefore.Count, Is.EqualTo(0));
+
+            String taskParameters = SerialisationHelpers.Serialise(fileCopyTaskParameters);
+            TheService!.RunTask(RootLogId, taskParameters);
+
+            // Get list of files in source folder after task is run and compare with list before task is run to ensure files have been copied
+            List<String> destinationFolderAfter = Directory.GetFiles(fileCopyTaskParameters.DestinationFilePath).ToList();
+            Assert.That(destinationFolderAfter.Count, Is.EqualTo(fileToCopyCount));
+
+            foreach (String fileToCopy in filesToCopy)
+            {
+                String fileMaskExtension = (fileMask.Length > 2) ? fileMask.Substring(2) : String.Empty;
+                String fileToCopyExtension = Path.GetExtension(fileToCopy);
+                Boolean copyFile = (String.IsNullOrWhiteSpace(fileMask)) || ("." + fileMaskExtension == fileToCopyExtension);
+
+                if (copyFile)
+                {
+                    String sourceFileContent = File.ReadAllText($@".ExpectedResults\FileManagement\{fileToCopy}");
+                    String destinationFileContent = File.ReadAllText(Path.Combine(fileCopyTaskParameters.DestinationFilePath, fileToCopy));
+
+                    Assert.That(destinationFileContent, Is.EqualTo(sourceFileContent), $"Content of '{fileToCopy}' does not match");
+                }
+            }
+
+            if (archiveFiles)
+            {
+                // Get list of files in source folder after task is run and compare with list before task is run to ensure files have been copied
+                List<String> archiveFolderAfter = Directory.GetFiles(fileCopyTaskParameters.ArchiveFilePath).ToList();
+                Assert.That(archiveFolderAfter.Count, Is.EqualTo(fileToCopyCount));
+
+                Thread.Sleep(1500); // Wait for 1 second to ensure all files are copied
+
+                foreach (String fileToCopy in filesToCopy)
+                {
+                    String fileMaskExtension = (fileMask.Length > 2) ? fileMask.Substring(2) : String.Empty;
+                    String fileToCopyExtension = Path.GetExtension(fileToCopy);
+                    Boolean copyFile = (String.IsNullOrWhiteSpace(fileMask)) || (fileMaskExtension == fileToCopyExtension);
+
+                    if (copyFile)
+                    {
+                        String sourceFileContent = File.ReadAllText($@".ExpectedResults\FileManagement\{fileToCopy}");
+                        String destinationFileContent = File.ReadAllText(Path.Combine(fileCopyTaskParameters.DestinationFilePath, fileToCopy));
+
+                        Assert.That(destinationFileContent, Is.EqualTo(sourceFileContent), $"Content of '{fileToCopy}' does not match");
+                    }
+                }
+            }
+        }
     }
 }

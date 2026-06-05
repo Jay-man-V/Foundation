@@ -146,6 +146,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include=".ExpectedResults\FileManagement\ExistingFile2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".ExpectedResults\FileManagement\ExistingFile1.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include=".ExpectedResults\FileManagement\ExistingFile.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
