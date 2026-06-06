@@ -58,8 +58,8 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
-        /// <inheritdoc cref="ILoggingService.StartTask(String, String, String)"/>
-        public LogId StartTask(String batchName, String processName, String taskName)
+        /// <inheritdoc cref="ILoggingService.CreateLogEntry(String, String, String, String?)"/>
+        public LogId CreateLogEntry(String batchName, String processName, String taskName, String? information = null)
         {
             LoggingHelpers.TraceCallEnter(batchName, processName, taskName);
 
@@ -71,6 +71,7 @@ namespace Foundation.Services.Application
             entity.ProcessName = processName;
             entity.LogSeverityId = new EntityId(LogSeverity.Information.Id());
             entity.TaskName = taskName;
+            entity.Information = information ?? String.Empty;
 
             IEventLog savedEventLog = Repository.Save(entity);
             IFoundationModel foundationModel = savedEventLog;
@@ -81,47 +82,6 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
-        }
-
-        /// <inheritdoc cref="ILoggingService.EndTask(LogId, LogSeverity, String)" />
-        public void EndTask(LogId logId, LogSeverity logSeverity, String information)
-        {
-            LoggingHelpers.TraceCallEnter(logId, logSeverity, information);
-
-            IEventLog? entity = Repository.Get(logId);
-
-            if (entity is null)
-            {
-                throw new UnknownEntityIdException(logId);
-            }
-
-            entity.LogSeverityId = new EntityId(logSeverity.Id());
-
-            if (!String.IsNullOrWhiteSpace(information))
-            {
-                if (!String.IsNullOrWhiteSpace(entity.Information))
-                {
-                    entity.Information += Environment.NewLine;
-                }
-
-                entity.Information += information;
-            }
-
-            Repository.Save(entity);
-
-            LoggingHelpers.TraceCallReturn();
-        }
-
-        /// <inheritdoc cref="ILoggingService.EndTask(LogId, LogSeverity, Exception)"/>
-        public void EndTask(LogId logId, LogSeverity logSeverity, Exception exception)
-        {
-            LoggingHelpers.TraceCallEnter(logId, logSeverity, exception);
-
-            ExceptionOutput exceptionOutput = MessageFormatter.FormatMessage(RunTimeEnvironmentSettings, exception);
-
-            EndTask(logId, logSeverity, exceptionOutput.ToString());
-
-            LoggingHelpers.TraceCallReturn();
         }
 
         /// <inheritdoc cref="ILoggingService.CreateLogEntry(LogId, String, String, String, LogSeverity, String)" />
@@ -165,30 +125,6 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
-        }
-
-        /// <inheritdoc cref="ILoggingService.UpdateLogEntry(LogId, String)" />
-        public void UpdateLogEntry(LogId logId, String information)
-        {
-            LoggingHelpers.TraceCallEnter(logId, information);
-
-            IEventLog? entity = Repository.Get(logId);
-
-            if (entity is null)
-            {
-                throw new UnknownEntityIdException(logId);
-            }
-
-            if (!String.IsNullOrWhiteSpace(entity.Information))
-            {
-                entity.Information += Environment.NewLine;
-            }
-
-            entity.Information += information;
-
-            Repository.Save(entity);
-
-            LoggingHelpers.TraceCallReturn();
         }
     }
 }

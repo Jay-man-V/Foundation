@@ -107,7 +107,7 @@ namespace Foundation.Tests.Unit.BaseClasses
             DateTimeService.LocalDateTimeNow.Returns(SystemDateTimeMs);
 
             LoggingService = Substitute.For<ILoggingService>();
-            RootLogId = LoggingService.StartTask(BatchName, ProcessName, TaskName);
+            RootLogId = LoggingService.CreateLogEntry(BatchName, ProcessName, TaskName, "Test job starting");
 
             ApplicationConfigurationService = Substitute.For<IApplicationConfigurationService>();
 

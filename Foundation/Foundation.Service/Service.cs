@@ -52,7 +52,7 @@ namespace Foundation.Service
 
             LoggingHelpers.LogInformationMessage("Service starting");
 
-            ParentLogId = LoggingService.StartTask("Scheduler Service", "Scheduler Service", "Start");
+            ParentLogId = LoggingService.CreateLogEntry("Scheduler Service", "Scheduler Service", "Start");
 
             ScheduledJobProcess.InitialiseJobs(ParentLogId);
 
@@ -71,7 +71,7 @@ namespace Foundation.Service
 
             ScheduledJobProcess.StopJobs(ParentLogId);
 
-            LoggingService.EndTask(ParentLogId, LogSeverity.Information, "Scheduler stopped");
+            LoggingService.CreateLogEntry(ParentLogId, "Scheduler Service", "Scheduler Service", "Stop", LogSeverity.Information, "Scheduler stopped");
 
             LoggingHelpers.LogInformationMessage("Service stopped");
 

@@ -592,13 +592,13 @@ namespace Foundation.BusinessProcess.Core
 
                 if (canExecute)
                 {
-                    logId = LoggingService.StartTask(batchName, processName, taskName);
+                    logId = LoggingService.CreateLogEntry(batchName, processName, taskName);
 
                     scheduledJob.IsRunning = true;
                     scheduledJob.LastRunDateTime = DateTimeService.SystemUtcDateTimeNowWithoutMilliseconds;
 
                     InternalRunJob(logId, scheduledJob);
-                    LoggingService.EndTask(logId, LogSeverity.Success, "Job completed");
+                    LoggingService.CreateLogEntry(logId, batchName, processName, taskName, LogSeverity.Success, "Job completed");
 
                     scheduledJob.FirstRun = false;
                 }
@@ -617,7 +617,7 @@ namespace Foundation.BusinessProcess.Core
                 rescheduleInterval = (Int32)(new TimeSpan(0, 0, 60).TotalMilliseconds);
 #endif
 
-                LoggingService.EndTask(logId, LogSeverity.Error, exception);
+                LoggingService.CreateLogEntry(logId, batchName, processName, taskName, LogSeverity.Error, exception);
             }
             finally
             {
@@ -645,7 +645,7 @@ namespace Foundation.BusinessProcess.Core
                 String processName = scheduledTask.GetType().ToString();
                 String taskName = "Task starting";
 
-                logId = LoggingService.StartTask(batchName, processName, taskName);
+                logId = LoggingService.CreateLogEntry(parentLogId, batchName, processName, taskName, LogSeverity.Information, "Job starting");
 
                 if (scheduledJob.IsEnabled)
                 {
@@ -653,7 +653,7 @@ namespace Foundation.BusinessProcess.Core
                     scheduledJob.LastRunDateTime = DateTimeService.SystemUtcDateTimeNowWithoutMilliseconds;
 
                     scheduledTask.RunTask(logId, scheduledJob.TaskParameters);
-                    LoggingService.EndTask(logId, LogSeverity.Success, "Job completed");
+                    LoggingService.CreateLogEntry(logId, batchName, processName, taskName, LogSeverity.Success, "Job completed");
 
                     scheduledJob.FirstRun = false;
 
@@ -661,7 +661,7 @@ namespace Foundation.BusinessProcess.Core
                 }
                 else
                 {
-                    LoggingService.EndTask(logId, LogSeverity.Success, "Job is disabled in configuration");
+                    LoggingService.CreateLogEntry(logId, batchName, processName, taskName, LogSeverity.Success, "Job is disabled in configuration");
                 }
             }
 

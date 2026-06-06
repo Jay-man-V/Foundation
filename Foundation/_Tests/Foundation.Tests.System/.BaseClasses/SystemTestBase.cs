@@ -30,7 +30,7 @@ namespace Foundation.Tests.System.BaseClasses
             RunTimeEnvironmentSettings = CoreInstance.IoC.Get<IRunTimeEnvironmentSettings>();
             LoggingService = CoreInstance.IoC.Get<ILoggingService>();
 
-            RootLogId = LoggingService.StartTask(BatchName, ProcessName, TaskName);
+            RootLogId = LoggingService.CreateLogEntry(BatchName, ProcessName, TaskName);
 
             ApplicationConfigurationProcess = CoreInstance.IoC.Get<IApplicationConfigurationProcess>();
 
@@ -39,7 +39,7 @@ namespace Foundation.Tests.System.BaseClasses
 
         public override void TestCleanup()
         {
-            LoggingService.EndTask(RootLogId, LogSeverity.Information, "Finished testing");
+            LoggingService.CreateLogEntry(RootLogId, BatchName, ProcessName, TaskName, LogSeverity.Information, "Finished testing");
 
             ApplicationConfigurationProcess = null;
 

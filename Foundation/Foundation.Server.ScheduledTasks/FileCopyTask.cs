@@ -168,7 +168,7 @@ namespace Foundation.Server.ScheduledTasks
                 LoggingService.CreateLogEntry(copyLogId, FileCopyTaskParameters.BatchName, FileCopyTaskParameters.ProcessName, FileCopyTaskParameters.TaskName, LogSeverity.Information, "Email notification sent.");
             }
 
-            LoggingService.EndTask(copyLogId, LogSeverity.Information, "File copy operation completed.");
+            LoggingService.CreateLogEntry(copyLogId, FileCopyTaskParameters.BatchName, FileCopyTaskParameters.ProcessName, FileCopyTaskParameters.TaskName, LogSeverity.Information, "File copy operation completed.");
 
             LoggingHelpers.TraceCallReturn();
         }

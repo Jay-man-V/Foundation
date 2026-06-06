@@ -33,24 +33,9 @@ namespace Foundation.Interfaces
         /// <param name="batchName"></param>
         /// <param name="processName"></param>
         /// <param name="taskName"></param>
-        /// <returns></returns>
-        LogId StartTask(String batchName, String processName, String taskName);
-
-        /// <summary>
-        /// Logs an End Task message with the supplied parameters
-        /// </summary>
-        /// <param name="logId"></param>
-        /// <param name="logSeverity"></param>
         /// <param name="information"></param>
-        void EndTask(LogId logId, LogSeverity logSeverity, String information);
-
-        /// <summary>
-        /// Logs an End Task message with the supplied parameters
-        /// </summary>
-        /// <param name="logId"></param>
-        /// <param name="logSeverity"></param>
-        /// <param name="exception"></param>
-        void EndTask(LogId logId, LogSeverity logSeverity, Exception exception);
+        /// <returns></returns>
+        LogId CreateLogEntry(String batchName, String processName, String taskName, String? information = null);
 
         /// <summary>
         /// Creates a log entry with the supplied parameters
@@ -75,12 +60,5 @@ namespace Foundation.Interfaces
         /// <param name="exception"></param>
         /// <returns></returns>
         LogId CreateLogEntry(LogId parentLogId, String batchName, String processName, String taskName, LogSeverity logSeverity, Exception exception);
-
-        /// <summary>
-        /// Updates an existing log entry
-        /// </summary>
-        /// <param name="logId"></param>
-        /// <param name="information"></param>
-        void UpdateLogEntry(LogId logId, String information);
     }
 }

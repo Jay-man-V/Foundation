@@ -192,11 +192,11 @@ namespace Foundation.Server.ScheduledTasks
             Boolean isEncrypted = false;
             ApplicationConfigurationService.SetValue(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, ConfigurationScope.Application, isEncrypted, LastRunDateKey, LastRunDateTime);
 
-            LoggingService.EndTask(processTaskId, LogSeverity.Information, $"LastRunDateTime: {LastRunDateTime.ToString(Formats.DotNet.DateTimeMilliseconds)}");
+            LoggingService.CreateLogEntry(processTaskId, BatchName, ProcessName, TaskName, LogSeverity.Information, $"LastRunDateTime: {LastRunDateTime.ToString(Formats.DotNet.DateTimeMilliseconds)}");
 
             RaiseRunTaskEnding(parentLogId, taskParameters);
 
-            LoggingService.EndTask(taskLogId, LogSeverity.Information, "Finished");
+            LoggingService.CreateLogEntry(taskLogId, BatchName, ProcessName, TaskName, LogSeverity.Information, "Finished");
         }
 
         private void RaiseRunTaskStarting(LogId parentLogId, String taskParameters)

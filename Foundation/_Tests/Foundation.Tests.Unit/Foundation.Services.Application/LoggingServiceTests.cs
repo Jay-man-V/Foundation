@@ -59,7 +59,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         }
 
         [TestCase]
-        public void Test_StartTask()
+        public void Test_CreateLogEntry_FirstEntry()
         {
             AppId applicationId = TestingApplicationId;
             String batchName = BatchName;
@@ -78,106 +78,9 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
                 return eventLog;
             });
 
-            LogId logId = TheService!.StartTask(batchName, processName, taskName);
+            LogId logId = TheService!.CreateLogEntry(batchName, processName, taskName);
 
             Assert.That(logId.TheLogId, Is.EqualTo(expected.TheLogId));
-        }
-
-        [TestCase("")]
-        [TestCase("A - B - C")]
-        public void Test_EndTask(String initialEntry)
-        {
-            LogId logId = new LogId(123);
-            LogSeverity logSeverity = LogSeverity.Error;
-            String batchName = BatchName;
-            String processName = LocationUtils.GetClassName();
-            String taskName = LocationUtils.GetFunctionName();
-            String information = initialEntry;
-
-            IEventLog entity = new EventLog();
-            entity.Id = logId;
-            entity.ApplicationId = TestingApplicationId;
-            entity.BatchName = batchName;
-            entity.ProcessName = processName;
-            entity.TaskName = taskName;
-            entity.LogSeverityId = new EntityId(logSeverity.Id());
-            entity.Information = information;
-
-            TheRepository!.Get(Arg.Any<LogId>()).Returns(entity);
-
-            IEventLog? savedEventLog = null;
-            TheRepository!.Save(Arg.Do<IEventLog>(e => savedEventLog = e));
-
-            String updateMessage = "End Task Called";
-            TheService!.EndTask(logId, logSeverity, updateMessage);
-
-            String expected = updateMessage;
-            if (!String.IsNullOrEmpty(initialEntry))
-            {
-                expected = initialEntry + Environment.NewLine + updateMessage;
-            }
-
-            Assert.That(savedEventLog!.Information, Is.EqualTo(expected));
-        }
-
-        [TestCase]
-        public void Test_EndTask_Log_Exception()
-        {
-            LogId logId = new LogId(123);
-            LogSeverity logSeverity = LogSeverity.Error;
-            String batchName = BatchName;
-            String processName = LocationUtils.GetClassName();
-            String taskName = LocationUtils.GetFunctionName();
-            String information = String.Empty;
-
-            IEventLog entity = new EventLog();
-            entity.Id = logId;
-            entity.ApplicationId = TestingApplicationId;
-            entity.BatchName = batchName;
-            entity.ProcessName = processName;
-            entity.TaskName = taskName;
-            entity.LogSeverityId = new EntityId(logSeverity.Id());
-            entity.Information = information;
-
-            TheRepository!.Get(Arg.Any<LogId>()).Returns(entity);
-
-            String updateMessage = String.Empty;
-            try
-            {
-                updateMessage = $"{batchName} - {processName} - {taskName}";
-                throw new Exception(updateMessage);
-            }
-            catch (Exception loggedException)
-            {
-                TheService!.EndTask(logId, logSeverity, loggedException);
-            }
-
-            IEventLog? savedEventLog = null;
-            TheRepository!.Save(Arg.Do<IEventLog>(e => savedEventLog = e));
-
-            TheService!.EndTask(logId, logSeverity, updateMessage);
-
-            Assert.That(savedEventLog!.Information.Contains(updateMessage), Is.EqualTo(true));
-        }
-
-        [TestCase]
-        public void Test_EndTask_Exception()
-        {
-            LogId logId = new LogId(123);
-
-            String errorMessage = String.Format(UnknownEntityIdException.ErrorMessageTemplate1, logId.TheLogId, typeof(IEventLog));
-            UnknownEntityIdException actualException = Assert.Throws<UnknownEntityIdException>(() =>
-            {
-                IEventLog? eventLog = null;
-                TheRepository!.Get(logId).Returns(eventLog);
-
-                LogSeverity logSeverity = LogSeverity.Error;
-                String updateMessage = "End Task Called";
-                TheService!.EndTask(logId, logSeverity, updateMessage);
-            });
-
-            Assert.That(actualException, Is.Not.EqualTo(null));
-            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
         }
 
         [TestCase]
@@ -234,68 +137,6 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(savedEventLog!.TaskName, Is.EqualTo(taskName));
             Assert.That(savedEventLog!.LogSeverityId.TheEntityId, Is.EqualTo(logSeverity.Id()));
             Assert.That(savedEventLog!.Information.Contains(updateMessage), Is.EqualTo(true));
-        }
-
-        [TestCase("")]
-        [TestCase("A - B - C")]
-        public void Test_UpdateLogEntry(String initialEntry)
-        {
-            LogId logId = new LogId(123);
-            LogSeverity logSeverity = LogSeverity.Error;
-            String batchName = BatchName;
-            String processName = LocationUtils.GetClassName();
-            String taskName = LocationUtils.GetFunctionName();
-            String information = initialEntry;
-
-            IEventLog entity = new EventLog();
-            entity.Id = logId;
-            entity.ApplicationId = TestingApplicationId;
-            entity.BatchName = batchName;
-            entity.ProcessName = processName;
-            entity.TaskName = taskName;
-            entity.LogSeverityId = new EntityId(logSeverity.Id());
-            entity.Information = information;
-
-            TheRepository!.Get(Arg.Any<LogId>()).Returns(entity);
-
-            IEventLog? savedEventLog = null;
-            TheRepository!.Save(Arg.Do<IEventLog>(e => savedEventLog = e));
-
-            String updateMessage = Guid.NewGuid().ToString();
-            TheService!.UpdateLogEntry(logId, updateMessage);
-
-            String expected = updateMessage;
-            if (!String.IsNullOrEmpty(initialEntry))
-            {
-                expected = initialEntry + Environment.NewLine + updateMessage;
-            }
-
-            Assert.That(savedEventLog!.ApplicationId.TheAppId, Is.EqualTo(TestingApplicationId.TheAppId));
-            Assert.That(savedEventLog!.BatchName, Is.EqualTo(batchName));
-            Assert.That(savedEventLog!.ProcessName, Is.EqualTo(processName));
-            Assert.That(savedEventLog!.TaskName, Is.EqualTo(taskName));
-            Assert.That(savedEventLog!.LogSeverityId.TheEntityId, Is.EqualTo(logSeverity.Id()));
-            Assert.That(savedEventLog!.Information, Is.EqualTo(expected));
-        }
-
-        [TestCase]
-        public void Test_UpdateLogEntry_Exception()
-        {
-            LogId logId = new LogId(123);
-
-            String errorMessage = String.Format(UnknownEntityIdException.ErrorMessageTemplate1, logId.TheLogId, typeof(IEventLog));
-            UnknownEntityIdException actualException = Assert.Throws<UnknownEntityIdException>(() =>
-            {
-                IEventLog? eventLog = null;
-                TheRepository!.Get(logId).Returns(eventLog);
-
-                String updateMessage = "End Task Called";
-                TheService!.UpdateLogEntry(logId, updateMessage);
-            });
-
-            Assert.That(actualException, Is.Not.EqualTo(null));
-            Assert.That(actualException.Message, Is.EqualTo(errorMessage));
-
         }
     }
 }
