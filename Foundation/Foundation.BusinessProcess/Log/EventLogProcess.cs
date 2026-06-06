@@ -125,12 +125,6 @@ namespace Foundation.BusinessProcess.Log
             ;
             retVal.Add(gridColumnDefinition);
 
-            gridColumnDefinition = new GridColumnDefinition(170, FDC.EventLog.StartedOn, "Start On", typeof(DateTime));
-            retVal.Add(gridColumnDefinition);
-
-            gridColumnDefinition = new GridColumnDefinition(170, FDC.EventLog.FinishedOn, "Finished On", typeof(DateTime));
-            retVal.Add(gridColumnDefinition);
-
             gridColumnDefinition = new GridColumnDefinition(150, FDC.EventLog.Information, "Information", typeof(String));
             retVal.Add(gridColumnDefinition);
 

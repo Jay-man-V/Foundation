@@ -31,7 +31,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             TheRepository.ClearReceivedCalls();
             TheRepository.ClearSubstitute();
 
-            TheService = new LoggingService(core, RunTimeEnvironmentSettings, DateTimeService, TheRepository);
+            TheService = new LoggingService(CoreInstance, RunTimeEnvironmentSettings, DateTimeService, TheRepository);
         }
 
         public override void TestCleanup()
@@ -69,11 +69,13 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
 
             TheRepository!.Save(Arg.Any<IEventLog>()).Returns(args =>
             {
-                IEventLog entity = (IEventLog)args[0];
-                entity.Id = new LogId(expected);
-                entity.ApplicationId = new AppId(1);
+                IEventLog eventLog = (IEventLog)args[0];
+                IFoundationModel entity = eventLog;
+                entity.Id = new EntityId(expected.TheLogId);
+                eventLog.Id = new LogId(expected);
+                eventLog.ApplicationId = new AppId(1);
 
-                return entity;
+                return eventLog;
             });
 
             LogId logId = TheService!.StartTask(batchName, processName, taskName);
@@ -100,7 +102,6 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             entity.TaskName = taskName;
             entity.LogSeverityId = new EntityId(logSeverity.Id());
             entity.Information = information;
-            entity.StartedOn = SystemDateTimeMs;
 
             TheRepository!.Get(Arg.Any<LogId>()).Returns(entity);
 
@@ -137,7 +138,6 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             entity.TaskName = taskName;
             entity.LogSeverityId = new EntityId(logSeverity.Id());
             entity.Information = information;
-            entity.StartedOn = SystemDateTimeMs;
 
             TheRepository!.Get(Arg.Any<LogId>()).Returns(entity);
 
@@ -201,7 +201,6 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(savedEventLog!.ProcessName, Is.EqualTo(processName));
             Assert.That(savedEventLog!.TaskName, Is.EqualTo(taskName));
             Assert.That(savedEventLog!.LogSeverityId.TheEntityId, Is.EqualTo(logSeverity.Id()));
-            Assert.That(savedEventLog!.StartedOn, Is.EqualTo(DateTimeService.SystemUtcDateTimeNow));
         }
 
         [TestCase]
@@ -230,11 +229,10 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             }
 
             Assert.That(savedEventLog!.ApplicationId.TheAppId, Is.EqualTo(applicationId.TheAppId));
-            Assert.That(savedEventLog!.BatchName, Is.EqualTo(String.Empty));
-            Assert.That(savedEventLog!.ProcessName, Is.EqualTo(String.Empty));
-            Assert.That(savedEventLog!.TaskName, Is.EqualTo(String.Empty));
+            Assert.That(savedEventLog!.BatchName, Is.EqualTo(batchName));
+            Assert.That(savedEventLog!.ProcessName, Is.EqualTo(processName));
+            Assert.That(savedEventLog!.TaskName, Is.EqualTo(taskName));
             Assert.That(savedEventLog!.LogSeverityId.TheEntityId, Is.EqualTo(logSeverity.Id()));
-            Assert.That(savedEventLog!.StartedOn, Is.EqualTo(DateTimeService.SystemUtcDateTimeNow));
             Assert.That(savedEventLog!.Information.Contains(updateMessage), Is.EqualTo(true));
         }
 
@@ -257,7 +255,6 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             entity.TaskName = taskName;
             entity.LogSeverityId = new EntityId(logSeverity.Id());
             entity.Information = information;
-            entity.StartedOn = SystemDateTimeMs;
 
             TheRepository!.Get(Arg.Any<LogId>()).Returns(entity);
 
@@ -278,7 +275,6 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             Assert.That(savedEventLog!.ProcessName, Is.EqualTo(processName));
             Assert.That(savedEventLog!.TaskName, Is.EqualTo(taskName));
             Assert.That(savedEventLog!.LogSeverityId.TheEntityId, Is.EqualTo(logSeverity.Id()));
-            Assert.That(savedEventLog!.StartedOn, Is.EqualTo(DateTimeService.SystemUtcDateTimeNow));
             Assert.That(savedEventLog!.Information, Is.EqualTo(expected));
         }
 

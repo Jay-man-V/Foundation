@@ -48,8 +48,6 @@ namespace Foundation.Tests.Unit.Foundation.ViewModels.LogTests
             retVal.ProcessName = Guid.NewGuid().ToString();
             retVal.TaskName = Guid.NewGuid().ToString();
             retVal.TaskStatusId = new EntityId(1);
-            retVal.StartedOn = DateTimeService.SystemUtcDateTimeNow;
-            retVal.FinishedOn = DateTimeService.SystemUtcDateTimeNow;
             retVal.Information = Guid.NewGuid().ToString();
 
             return retVal;

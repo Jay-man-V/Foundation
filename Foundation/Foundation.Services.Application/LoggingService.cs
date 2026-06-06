@@ -71,7 +71,6 @@ namespace Foundation.Services.Application
             entity.ProcessName = processName;
             entity.LogSeverityId = new EntityId(LogSeverity.Information.Id());
             entity.TaskName = taskName;
-            entity.StartedOn = DateTimeService.SystemUtcDateTimeNow;
 
             IEventLog savedEventLog = Repository.Save(entity);
             IFoundationModel foundationModel = savedEventLog;
@@ -96,7 +95,6 @@ namespace Foundation.Services.Application
                 throw new UnknownEntityIdException(logId);
             }
 
-            entity.FinishedOn = DateTimeService.SystemUtcDateTimeNow;
             entity.LogSeverityId = new EntityId(logSeverity.Id());
 
             if (!String.IsNullOrWhiteSpace(information))
@@ -140,7 +138,6 @@ namespace Foundation.Services.Application
             entity.TaskName = taskName;
             entity.ParentId = parentLogId;
             entity.LogSeverityId = new EntityId(logSeverity.Id());
-            entity.StartedOn = DateTimeService.SystemUtcDateTimeNow;
             entity.Information = information;
 
             IEventLog savedEventLog = Repository.Save(entity);

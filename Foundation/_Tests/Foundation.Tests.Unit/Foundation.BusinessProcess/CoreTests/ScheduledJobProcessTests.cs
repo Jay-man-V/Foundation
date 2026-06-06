@@ -7,16 +7,17 @@
 using System.Globalization;
 using System.ServiceProcess;
 
-using NSubstitute;
-using NSubstitute.ClearExtensions;
-
 using Foundation.BusinessProcess.Components;
 using Foundation.BusinessProcess.Core;
 using Foundation.Common;
 using Foundation.Interfaces;
-
 using Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses;
 using Foundation.Tests.Unit.Support;
+
+using Microsoft.VisualBasic;
+
+using NSubstitute;
+using NSubstitute.ClearExtensions;
 
 using FDC = Foundation.Resources.Constants.DataColumns;
 using FEnums = Foundation.Interfaces;
@@ -289,8 +290,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.CoreTests
 
             String batchName = "Batch Scheduler";
             String processName = nameof(ScheduledJobProcess);
-            LoggingService.Received(1).CreateLogEntry(logId, batchName, processName, nameof(Test_StartJobs_NoJobs), LogSeverity.Information, "No jobs found to start");
-
+            LoggingService.Received(1).CreateLogEntry(logId, batchName, processName, "StartJobs", LogSeverity.Information, "No jobs found to start");
         }
 
         [TestCase]

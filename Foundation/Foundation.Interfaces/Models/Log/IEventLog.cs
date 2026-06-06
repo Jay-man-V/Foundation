@@ -54,14 +54,6 @@ namespace Foundation.Interfaces
         /// <value>The task status id.</value>
         EntityId TaskStatusId { get; set; }
 
-        /// <summary>Gets or sets the started on.</summary>
-        /// <value>The started on.</value>
-        DateTime StartedOn { get; set; }
-
-        /// <summary>Gets or sets the finished on.</summary>
-        /// <value>The finished on.</value>
-        DateTime FinishedOn { get; set; }
-
         /// <summary>Gets or sets the information.</summary>
         /// <value>The information.</value>
         String Information { get; set; }

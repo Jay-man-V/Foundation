@@ -648,8 +648,6 @@ namespace Foundation.Tests.Unit.Foundation.Resources.ConstantsTests
             index++; Assert.That(FDC.EventLog.ProcessName, Is.EqualTo(nameof(FDC.EventLog.ProcessName)));
             index++; Assert.That(FDC.EventLog.TaskName, Is.EqualTo(nameof(FDC.EventLog.TaskName)));
             index++; Assert.That(FDC.EventLog.TaskStatusId, Is.EqualTo(nameof(FDC.EventLog.TaskStatusId)));
-            index++; Assert.That(FDC.EventLog.StartedOn, Is.EqualTo(nameof(FDC.EventLog.StartedOn)));
-            index++; Assert.That(FDC.EventLog.FinishedOn, Is.EqualTo(nameof(FDC.EventLog.FinishedOn)));
             index++; Assert.That(FDC.EventLog.Information, Is.EqualTo(nameof(FDC.EventLog.Information)));
 
             Assert.That(propertyInfos.Length, Is.EqualTo(index));

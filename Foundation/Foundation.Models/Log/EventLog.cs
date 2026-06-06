@@ -32,8 +32,6 @@ namespace Foundation.Models.Log
         private String _processName = String.Empty;
         private String _taskName = String.Empty;
         private EntityId _taskStatusId;
-        private DateTime _startedOn;
-        private DateTime _finishedOn;
         private String _information = String.Empty;
 
         /// <inheritdoc cref="IEventLog.LogSeverity"/>
@@ -131,22 +129,6 @@ namespace Foundation.Models.Log
             set => this.SetPropertyValue(ref _taskStatusId, value);
         }
 
-        /// <inheritdoc cref="IEventLog.StartedOn"/>
-        [Column(nameof(FDC.EventLog.StartedOn))]
-        public DateTime StartedOn
-        {
-            get => this._startedOn;
-            set => this.SetPropertyValue(ref _startedOn, value);
-        }
-
-        /// <inheritdoc cref="IEventLog.FinishedOn"/>
-        [Column(nameof(FDC.EventLog.FinishedOn))]
-        public DateTime FinishedOn
-        {
-            get => this._finishedOn;
-            set => this.SetPropertyValue(ref _finishedOn, value);
-        }
-
         /// <inheritdoc cref="IEventLog.Information"/>
         [Column(nameof(FDC.EventLog.Information)), MaxLength(FDC.EventLog.Lengths.Information)]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Information must be provided")]
@@ -171,8 +153,6 @@ namespace Foundation.Models.Log
                 case nameof(ProcessName): retVal = ProcessName; break;
                 case nameof(TaskName): retVal = TaskName; break;
                 case nameof(TaskStatusId): retVal = TaskStatusId; break;
-                case nameof(StartedOn): retVal = StartedOn; break;
-                case nameof(FinishedOn): retVal = FinishedOn; break;
                 case nameof(Information): retVal = Information; break;
             }
 
@@ -194,8 +174,6 @@ namespace Foundation.Models.Log
             retVal._processName = this._processName;
             retVal._taskName = this._taskName;
             retVal._taskStatusId = this._taskStatusId;
-            retVal._startedOn = this._startedOn;
-            retVal._finishedOn = this._finishedOn;
             retVal._information = this._information;
 
             retVal.Initialising = false;
@@ -239,8 +217,6 @@ namespace Foundation.Models.Log
             hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(ProcessName);
             hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(TaskName);
             hashCode = hashCode * constant + EqualityComparer<EntityId>.Default.GetHashCode(TaskStatusId);
-            hashCode = hashCode * constant + EqualityComparer<DateTime>.Default.GetHashCode(StartedOn);
-            hashCode = hashCode * constant + EqualityComparer<DateTime>.Default.GetHashCode(FinishedOn);
             hashCode = hashCode * constant + EqualityComparer<String>.Default.GetHashCode(Information);
 
             return hashCode;
@@ -266,8 +242,6 @@ namespace Foundation.Models.Log
                 retVal &= EqualityComparer<String>.Default.Equals(this.ProcessName, right.ProcessName);
                 retVal &= EqualityComparer<String>.Default.Equals(this.TaskName, right.TaskName);
                 retVal &= EqualityComparer<EntityId>.Default.Equals(this.TaskStatusId, right.TaskStatusId);
-                retVal &= EqualityComparer<DateTime>.Default.Equals(this.StartedOn, right.StartedOn);
-                retVal &= EqualityComparer<DateTime>.Default.Equals(this.FinishedOn, right.FinishedOn);
                 retVal &= EqualityComparer<String>.Default.Equals(this.Information, right.Information);
             }
 

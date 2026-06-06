@@ -117,22 +117,6 @@ namespace Foundation.Resources.Constants.DataColumns
         public static String TaskStatusId => "TaskStatusId";
 
         /// <summary>
-        /// Gets the started on.
-        /// </summary>
-        /// <value>
-        /// The started on.
-        /// </value>
-        public static String StartedOn => "StartedOn";
-
-        /// <summary>
-        /// Gets the finished on.
-        /// </summary>
-        /// <value>
-        /// The finished on.
-        /// </value>
-        public static String FinishedOn => "FinishedOn";
-
-        /// <summary>
         /// Gets the information.
         /// </summary>
         /// <value>

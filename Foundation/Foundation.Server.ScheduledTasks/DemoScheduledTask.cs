@@ -6,6 +6,7 @@
 
 using Foundation.Common;
 using Foundation.Interfaces;
+using Foundation.Server.ScheduledTasks.TaskParameters;
 
 namespace Foundation.Server.ScheduledTasks
 {
@@ -51,7 +52,7 @@ namespace Foundation.Server.ScheduledTasks
 
         protected override void InitialiseRunTimeParameters(String taskParameters)
         {
-            // Does nothing
+            TaskParameters = new FileCopyTaskParameters();
         }
 
         protected override String GetRunTimeParametersForLogging()

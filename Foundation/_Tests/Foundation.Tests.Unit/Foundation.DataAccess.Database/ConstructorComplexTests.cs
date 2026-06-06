@@ -34,8 +34,6 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
         [TestCase]
         public void Test_Constructor_Exception()
         {
-            ICore core = Substitute.For<ICore>();
-
             String connectionStringKey = "Made up connection string key";
             String parameterName = nameof(connectionStringKey);
             String errorMessage = $"Cannot load Connection named '{connectionStringKey}'. Check to make sure the connection is defined in the Configuration File. (Parameter '{parameterName}')";
@@ -44,9 +42,9 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             {
                 ISystemConfigurationService systemConfigurationService = Substitute.For<ISystemConfigurationService>();
 
-                IUnitTestingDataProvider dataProvider = new UnitTestingDataProvider(core, systemConfigurationService, connectionStringKey);
+                IUnitTestingDataProvider dataProvider = new UnitTestingDataProvider(CoreInstance, systemConfigurationService, connectionStringKey);
 
-                _ = new ComplexTestEntityRepository(core, RunTimeEnvironmentSettings, systemConfigurationService, dataProvider, DateTimeService);
+                _ = new ComplexTestEntityRepository(CoreInstance, RunTimeEnvironmentSettings, systemConfigurationService, dataProvider, DateTimeService);
             });
 
             Assert.That(actualException.Message, Is.EqualTo(errorMessage));

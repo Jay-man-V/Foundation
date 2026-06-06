@@ -7,6 +7,7 @@
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Server.ScheduledTasks;
+using Foundation.Server.ScheduledTasks.TaskParameters;
 
 namespace Foundation.Tests.Unit.Mocks
 {
@@ -40,7 +41,7 @@ namespace Foundation.Tests.Unit.Mocks
 
         protected override void InitialiseRunTimeParameters(String taskParameters)
         {
-            // Does nothing
+            TaskParameters = new FileCopyTaskParameters();
         }
 
         protected override String GetRunTimeParametersForLogging()
