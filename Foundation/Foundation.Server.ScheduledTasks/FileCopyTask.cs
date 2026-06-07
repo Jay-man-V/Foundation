@@ -17,15 +17,11 @@ namespace Foundation.Server.ScheduledTasks
     /// This class provides the base functionality for copying files from a source path to a destination path
     /// <para>
     /// It is designed to be extended by concrete implementations that specify the
-    /// <para>
-    /// source path
-    /// </para>
-    /// <para>
-    /// destination path
-    /// </para>
-    /// <para>
+    /// <list type="bullet">
+    ///     <item>source path</item>
+    ///     <item>destination path</item>
+    /// </list>
     /// copy files since the last run
-    /// </para>
     /// </para>
     /// </summary>
     [DependencyInjectionTransient]
@@ -63,7 +59,7 @@ namespace Foundation.Server.ScheduledTasks
                 applicationConfigurationService
             )
         {
-            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, applicationConfigurationService, fileApi, fileTransferService);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, loggingService, applicationConfigurationService, mailWrapper, fileApi, fileTransferService);
 
             FileApi = fileApi;
             FileTransferService = fileTransferService;
@@ -118,6 +114,8 @@ namespace Foundation.Server.ScheduledTasks
             // The FileTransferService will handle the actual file transfer operation based on the provided settings.
             // The FileCopyTaskParameters.SourceFileMask can be used to filter which files to copy from the source directory.
 
+            LoggingService.CreateLogEntry(copyLogId, FileCopyTaskParameters.BatchName, FileCopyTaskParameters.ProcessName, FileCopyTaskParameters.TaskName, LogSeverity.Information, "Validating folders");
+
             // Validate that the source file path exists and is accessible.
             FileApi.EnsureDirectoryExists(FileCopyTaskParameters.SourceFilePath);
 
@@ -140,9 +138,11 @@ namespace Foundation.Server.ScheduledTasks
                 FileApi.EnsureCanWriteToFolderPath(FileCopyTaskParameters.ArchiveFilePath);
             }
 
+            LogId fileCopyLogId = LoggingService.CreateLogEntry(copyLogId, FileCopyTaskParameters.BatchName, FileCopyTaskParameters.ProcessName, FileCopyTaskParameters.TaskName, LogSeverity.Information, "Validated folders");
+
             Boolean includeSubDirectories = false; // Set to true if you want to include subdirectories in the file copy operation.
             List<String> filenames = FileApi.GetListOfFiles(FileCopyTaskParameters.SourceFilePath, FileCopyTaskParameters.SourceFileMask, includeSubDirectories);
-            LoggingService.CreateLogEntry(copyLogId, FileCopyTaskParameters.BatchName, FileCopyTaskParameters.ProcessName, FileCopyTaskParameters.TaskName, LogSeverity.Information, $"Files found to copy: {filenames.Count}.");
+            LoggingService.CreateLogEntry(fileCopyLogId, FileCopyTaskParameters.BatchName, FileCopyTaskParameters.ProcessName, FileCopyTaskParameters.TaskName, LogSeverity.Information, $"Files found to copy: {filenames.Count}.");
 
             IMailMessage mailMessage = Core.IoC.Get<IMailMessage>();
 
@@ -158,7 +158,7 @@ namespace Foundation.Server.ScheduledTasks
                 mailMessage.Attachments.Add(mailAttachment);
 
                 FileTransferService.TransferFile(sourceSettings, destinationSettings, archiveSettings);
-                LoggingService.CreateLogEntry(copyLogId, FileCopyTaskParameters.BatchName, FileCopyTaskParameters.ProcessName, FileCopyTaskParameters.TaskName, LogSeverity.Information, $"File copied: {fileInfo.Name}");
+                LoggingService.CreateLogEntry(fileCopyLogId, FileCopyTaskParameters.BatchName, FileCopyTaskParameters.ProcessName, FileCopyTaskParameters.TaskName, LogSeverity.Information, $"File copied: {fileInfo.Name}");
             }
 
             // Send email notification
