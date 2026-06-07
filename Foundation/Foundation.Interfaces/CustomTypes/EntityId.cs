@@ -15,7 +15,7 @@ namespace Foundation.Interfaces
     /// A struct to hold an Entity Id alongside validation routines
     /// </summary>
     [DebuggerDisplay("{TheEntityId}")]
-    public readonly struct EntityId : IEquatable<EntityId>, IComparable<EntityId>//, IConvertible
+    public readonly struct EntityId : IEquatable<EntityId>, IComparable<EntityId>
     {
         /// <summary>
         /// The underlying type of the Entity Id
@@ -193,94 +193,6 @@ namespace Foundation.Interfaces
             return retVal;
         }
 
-        ///// <summary>
-        ///// Implicit cast from an Int64 to EntityId Object
-        ///// </summary>
-        ///// <param name="x">The x.</param>
-        ///// <returns>
-        ///// The result of the conversion.
-        ///// </returns>
-        //public static implicit operator EntityId(Int64 x)
-        //{
-        //    EntityId retVal = new EntityId(x);
-
-        //    return retVal;
-        //}
-
-        ///// <summary>
-        ///// Implicit cast from EntityId Object to Int64
-        ///// </summary>
-        ///// <param name="x">The x.</param>
-        ///// <returns>
-        ///// The result of the conversion.
-        ///// </returns>
-        //public static implicit operator Int64(EntityId x)
-        //{
-        //    Int64 retVal = x.TheEntityId;
-
-        //    return retVal;
-        //}
-
-        ///// <summary>
-        ///// == (equals) operator for EntityId Object with an Int64
-        ///// </summary>
-        ///// <param name="x">The x.</param>
-        ///// <param name="y">The y.</param>
-        ///// <returns>
-        ///// The result of the operator.
-        ///// </returns>
-        //public static Boolean operator ==(EntityId x, Int64 y)
-        //{
-        //    Boolean retVal = (x.TheEntityId == y);
-
-        //    return retVal;
-        //}
-
-        ///// <summary>
-        ///// == (equals) operator for EntityId Object with an Int64
-        ///// </summary>
-        ///// <param name="x">The x.</param>
-        ///// <param name="y">The y.</param>
-        ///// <returns>
-        ///// The result of the operator.
-        ///// </returns>
-        //public static Boolean operator ==(Int64 x, EntityId y)
-        //{
-        //    Boolean retVal = (y == x);
-
-        //    return retVal;
-        //}
-
-        ///// <summary>
-        ///// != (not equals) operator for EntityId Object with an Int64
-        ///// </summary>
-        ///// <param name="x">The x.</param>
-        ///// <param name="y">The y.</param>
-        ///// <returns>
-        ///// The result of the operator.
-        ///// </returns>
-        //public static Boolean operator !=(EntityId x, Int64 y)
-        //{
-        //    Boolean retVal = !(x == y);
-
-        //    return retVal;
-        //}
-
-        ///// <summary>
-        ///// != (not equals) operator for EntityId Object with an Int64
-        ///// </summary>
-        ///// <param name="x">The x.</param>
-        ///// <param name="y">The y.</param>
-        ///// <returns>
-        ///// The result of the operator.
-        ///// </returns>
-        //public static Boolean operator !=(Int64 x, EntityId y)
-        //{
-        //    Boolean retVal = !(x == y);
-
-        //    return retVal;
-        //}
-
         /// <summary>
         /// Determines whether the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />.
         /// </summary>
@@ -352,95 +264,6 @@ namespace Foundation.Interfaces
             Int32 retVal = TheEntityId.CompareTo(other.TheEntityId);
 
             return retVal;
-        }
-
-        public TypeCode GetTypeCode()
-        {
-            return TypeCode.Int64;
-        }
-
-        public Boolean ToBoolean(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Byte ToByte(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Char ToChar(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DateTime ToDateTime(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Decimal ToDecimal(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Double ToDouble(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Int16 ToInt16(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Int32 ToInt32(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Int64 ToInt64(IFormatProvider? provider)
-        {
-            return TheEntityId;
-        }
-
-        public SByte ToSByte(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Single ToSingle(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public String ToString(IFormatProvider? provider)
-        {
-            String retVal = TheEntityId.ToString();
-
-            return retVal;
-        }
-
-        public Object ToType(Type conversionType, IFormatProvider? provider)
-        {
-            Object retVal = TheEntityId;
-
-            return retVal;
-        }
-
-        public UInt16 ToUInt16(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public UInt32 ToUInt32(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public UInt64 ToUInt64(IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
