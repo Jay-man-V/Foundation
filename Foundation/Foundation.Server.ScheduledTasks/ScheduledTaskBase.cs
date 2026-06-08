@@ -121,7 +121,7 @@ namespace Foundation.Server.ScheduledTasks
         /// <inheritdoc cref="IScheduledTask.LastRunDateTime"/>
         public DateTime LastRunDateTime { get; private set; }
 
-        protected TaskParameters.TaskParameters? TaskParameters { get; set; }
+        protected TaskParameters? TaskParameters { get; set; }
 
         /// <summary>
         /// Initializes run-time parameters for the task using the specified parameter string.

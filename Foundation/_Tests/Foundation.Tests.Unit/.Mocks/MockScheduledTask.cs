@@ -7,7 +7,6 @@
 using Foundation.Common;
 using Foundation.Interfaces;
 using Foundation.Server.ScheduledTasks;
-using Foundation.Server.ScheduledTasks.TaskParameters;
 
 namespace Foundation.Tests.Unit.Mocks
 {

@@ -6,7 +6,7 @@
 
 using Foundation.Interfaces;
 
-namespace Foundation.Server.ScheduledTasks.TaskParameters
+namespace Foundation.Server.ScheduledTasks
 {
     /// <summary>
     /// Represents the set of parameters required to configure a file copy task.

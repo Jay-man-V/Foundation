@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Foundation.Server.ScheduledTasks.TaskParameters
+namespace Foundation.Server.ScheduledTasks
 {
     /// <summary>
     /// Represents the base class for parameter objects used to configure tasks.
@@ -13,7 +13,7 @@ namespace Foundation.Server.ScheduledTasks.TaskParameters
     /// Inherit from this class to define strongly typed parameters for specific task
     /// implementations. This class is intended to be extended and does not contain any members itself.
     /// </remarks>
-    public abstract class TaskParameters
+    public class TaskParameters
     {
         /// <summary>
         /// Gets or sets the name of the application associated with the operation.

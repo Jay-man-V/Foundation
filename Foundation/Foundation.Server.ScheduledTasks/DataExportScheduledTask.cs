@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="DataImportTaskBase.cs" company="JDV Software Ltd">
+// <copyright file="DataExportScheduledTask.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -8,9 +8,9 @@ using Foundation.Interfaces;
 
 namespace Foundation.Server.ScheduledTasks
 {
-    public class DataImportTask : ScheduledTaskBase
+    public class DataExportScheduledTask : ScheduledTaskBase, IDataExportScheduledTask
     {
-        public DataImportTask
+        public DataExportScheduledTask
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,

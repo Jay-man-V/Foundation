@@ -6,10 +6,7 @@
 
 using Foundation.Common;
 using Foundation.Interfaces;
-using Foundation.Models.Core;
-using Foundation.Resources;
-using Foundation.Server.ScheduledTasks.TaskParameters;
-
+using Foundation.Server.ScheduledTasks;
 using Foundation.Tests.System.BaseClasses;
 
 namespace Foundation.Tests.System.Foundation.Server.ScheduledTasks
@@ -21,13 +18,13 @@ namespace Foundation.Tests.System.Foundation.Server.ScheduledTasks
     public class FileCopyTaskTests : SystemTestBase
     {
         private String ClassName => LocationUtils.GetClassName();
-        private IFileCopyTask? TheService { get; set; }
+        private IFileCopyScheduledTask? TheService { get; set; }
 
         public override void TestInitialise()
         {
             base.TestInitialise();
 
-            TheService = CoreInstance.IoC.Get<IFileCopyTask>();
+            TheService = CoreInstance.IoC.Get<IFileCopyScheduledTask>();
         }
 
         public override void TestCleanup()

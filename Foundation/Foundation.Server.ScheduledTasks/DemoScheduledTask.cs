@@ -6,7 +6,6 @@
 
 using Foundation.Common;
 using Foundation.Interfaces;
-using Foundation.Server.ScheduledTasks.TaskParameters;
 
 namespace Foundation.Server.ScheduledTasks
 {
@@ -14,7 +13,7 @@ namespace Foundation.Server.ScheduledTasks
     /// Demo Scheduled Task
     /// </summary>
     [DependencyInjectionTransient]
-    public class DemoScheduledTask : ScheduledTaskBase
+    public class DemoScheduledTask : ScheduledTaskBase, IDemoScheduledTask
     {
         /// <summary>
         /// Demo Scheduled Task
@@ -52,7 +51,7 @@ namespace Foundation.Server.ScheduledTasks
 
         protected override void InitialiseRunTimeParameters(String taskParameters)
         {
-            TaskParameters = new FileCopyTaskParameters();
+            TaskParameters = new TaskParameters();
         }
 
         protected override String GetRunTimeParametersForLogging()

@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="FileCopyTask.cs" company="JDV Software Ltd">
+// <copyright file="FileCopyScheduledTask.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -8,7 +8,6 @@ using System.IO;
 
 using Foundation.Common;
 using Foundation.Interfaces;
-using Foundation.Server.ScheduledTasks.TaskParameters;
 
 namespace Foundation.Server.ScheduledTasks
 {
@@ -25,7 +24,7 @@ namespace Foundation.Server.ScheduledTasks
     /// </para>
     /// </summary>
     [DependencyInjectionTransient]
-    public class FileCopyTask : ScheduledTaskBase, IFileCopyTask
+    public class FileCopyScheduledTask : ScheduledTaskBase, IFileCopyScheduledTask
     {
         /// <summary>
         /// Initializes a new instance of the FileCopyTask class with the specified core services and file transfer
@@ -39,7 +38,7 @@ namespace Foundation.Server.ScheduledTasks
         /// <param name="mailWrapper">The mail wrapper service used for sending email notifications.</param>
         /// <param name="fileApi">The file API service used for file system operations.</param>
         /// <param name="fileTransferService">The file transfer service responsible for handling file copy operations.</param>
-        public FileCopyTask
+        public FileCopyScheduledTask
         (
             ICore core,
             IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
