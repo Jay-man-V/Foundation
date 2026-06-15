@@ -12,7 +12,7 @@ namespace Foundation.FileData.Client
     public sealed class FileParameterCollection : DbParameterCollection
     {
         public override Int32 Count { get; }
-        public override Object SyncRoot { get; }
+        public override Object SyncRoot { get; } = new Object();
 
         public override Int32 Add(Object value)
         {

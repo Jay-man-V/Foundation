@@ -20,7 +20,7 @@ namespace Foundation.Tests.Unit.Foundation.Common.ExtensionMethodsTests
         public void Test_IsNullOrEmptyOrWhiteSpace_Null()
         {
             String? val = null;
-            Boolean actualResult = val.IsNullOrEmptyOrWhiteSpace();
+            Boolean actualResult = val!.IsNullOrEmptyOrWhiteSpace();
             Assert.That(actualResult, Is.EqualTo(true));
         }
 

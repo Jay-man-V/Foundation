@@ -24,7 +24,7 @@ namespace Foundation.Tests.Unit.Support
         public DateTime DateTimeValue { get; set; }
         public Guid GuidValue { get; set; }
         public Char CharValue { get; set; }
-        public String? StringValue { get; set; }
+        public String StringValue { get; set; } = String.Empty;
         public Int16 Int16Value { get; set; }
         public UInt16 UInt16Value { get; set; }
         public Int32 Int32Value { get; set; }
@@ -36,8 +36,8 @@ namespace Foundation.Tests.Unit.Support
         public Single SingleValue { get; set; }
         public Byte ByteValue { get; set; }
         public SByte SByteValue { get; set; }
-        public List<String> StringList { get; set; } = new List<String>();
-        public List<Int32> Int32List { get; set; } = new List<Int32>();
+        public List<String> StringList { get; set; } = [];
+        public List<Int32> Int32List { get; set; } = [];
 
         public void Initialise()
         {
