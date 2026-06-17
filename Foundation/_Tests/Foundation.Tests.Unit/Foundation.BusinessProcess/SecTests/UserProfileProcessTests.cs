@@ -132,7 +132,7 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
             expectedUserProfile.ExternalKeyId = Guid.NewGuid().ToString();
             expectedUserProfile.IsSystemSupport = false;
 
-            TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<String>(), Arg.Any<String>()).Returns(expectedUserProfile);
+            TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<String>()).Returns(expectedUserProfile);
 
             IUserProfile actualUserProfile = TheProcess!.GetLoggedOnUserProfile(appId);
 
@@ -191,14 +191,15 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.SecTests
         public void Test_GetUserProfile_Exception()
         {
             AppId appId = new AppId(1);
+            String securityIdentifier = String.Empty;
             String domainName = $"{UserSecuritySupport.UnitTestAccountDomain}";
             String username = $"{UserSecuritySupport.UnitTestAccountUserName}";
 
             IUserProfile? expectedUserProfile = null;
 
-            TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<String>(), Arg.Any<String>()).Returns(expectedUserProfile);
+            TheRepository!.Get(Arg.Any<AppId>(), Arg.Any<String>()).Returns(expectedUserProfile);
 
-            String errorMessage = $"Unable to locate the User Profile with details: Application Id: '{appId.TheAppId}'. Logon Domain: '{domainName}'. User name: '{username}'.";
+            String errorMessage = $"Unable to locate the User Profile with details: Application Id: '{appId.TheAppId}'. Security Identifier: '{securityIdentifier}'. (Other - Logon Domain: '{domainName}'. User name: '{username}').";
 
             InvalidOperationException actualException = Assert.Throws<InvalidOperationException>(() =>
             {

@@ -12,7 +12,16 @@ namespace Foundation.Interfaces
     public interface IUserProfileRepository : IFoundationModelDataAccess<IUserProfile>
     {
         /// <summary>
-        /// Gets the specified application identifier.
+        /// Retrieves the UserProfile for the specified application and security identifier.
+        /// </summary>
+        /// <param name="applicationId">The application identifier.</param>
+        /// <param name="securityIdentifier">The security identifier.</param>
+        /// <returns>
+        /// </returns>
+        IUserProfile? Get(AppId applicationId, String securityIdentifier);
+
+        /// <summary>
+        /// Retrieves the UserProfile for the specified application, domain name, and username.
         /// </summary>
         /// <param name="applicationId">The application identifier.</param>
         /// <param name="domainName">The domainName.</param>
@@ -22,7 +31,7 @@ namespace Foundation.Interfaces
         IUserProfile? Get(AppId applicationId, String domainName, String username);
 
         /// <summary>
-        /// Gets the specified application identifier.
+        /// Retrieves the UserProfile for the specified application and user profile identifier.
         /// </summary>
         /// <param name="applicationId">The application identifier.</param>
         /// <param name="userProfileId">The user profile identifier.</param>

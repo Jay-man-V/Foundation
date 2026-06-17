@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------
 
 using System.Data;
-using System.Text;
 
 using Foundation.Common;
 using Foundation.DataAccess.Database;
@@ -67,6 +66,28 @@ namespace Foundation.Repository.Sec
         /// <inheritdoc cref="FoundationModelRepository{TModel}.RequiredMinimumEditRole"/>
         protected override ApplicationRole RequiredMinimumEditRole => ApplicationRole.SystemDataAdministrator;
 
+        /// <inheritdoc cref="IUserProfileRepository.Get(AppId, String)"/>
+        public IUserProfile? Get(AppId applicationId, String securityIdentifier)
+        {
+            LoggingHelpers.TraceCallEnter(applicationId, securityIdentifier);
+
+            IUserProfile? retVal = null;
+
+            String sql = GetSqlFromFile("GetBySecurityIdentifier");
+
+            DatabaseParameters databaseParameters =
+            [
+                FoundationDataAccess.CreateParameter($"{FDC.UserProfile.EntityName}{FDC.UserProfile.ExternalKeyId}", securityIdentifier),
+                FoundationDataAccess.CreateParameter($"{FDC.ApplicationUserRole.EntityName}{FDC.ApplicationUserRole.ApplicationId}", applicationId)
+            ];
+
+            DataTable dataTable = FoundationDataAccess.ExecuteDataTable(sql, CommandType.Text, databaseParameters);
+
+            retVal = PopulateUserProfileEntity(dataTable);
+
+            return retVal;
+        }
+
         /// <inheritdoc cref="IUserProfileRepository.Get(AppId, String, String)"/>
         public IUserProfile? Get(AppId applicationId, String domainName, String username)
         {
@@ -74,22 +95,7 @@ namespace Foundation.Repository.Sec
 
             IUserProfile? retVal = null;
 
-            StringBuilder sql = new StringBuilder();
-            sql.AppendLine("SELECT");
-            sql.AppendLine("    up.*,");
-            sql.AppendLine($"    aur.{FDC.ApplicationUserRole.RoleId}");
-            sql.AppendLine("FROM");
-            sql.AppendLine($"    {FDC.TableNames.UserProfile} up");
-            sql.AppendLine($"        INNER JOIN {FDC.TableNames.ApplicationUserRole} aur ON");
-            sql.AppendLine("        (");
-            sql.AppendLine($"             up.{FDC.UserProfile.Id} = aur.{FDC.ApplicationUserRole.UserProfileId}");
-            sql.AppendLine("        )");
-            sql.AppendLine("WHERE");
-            sql.AppendLine($"    up.{FDC.UserProfile.DomainName} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.UserProfile.EntityName}{FDC.UserProfile.DomainName} AND");
-            sql.AppendLine($"    up.{FDC.UserProfile.Username} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.UserProfile.EntityName}{FDC.UserProfile.Username} AND");
-            sql.AppendLine($"    aur.{FDC.ApplicationUserRole.ApplicationId} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.ApplicationUserRole.EntityName}{FDC.ApplicationUserRole.ApplicationId} AND");
-            sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction} BETWEEN up.{FDC.UserProfile.ValidFrom} AND up.{FDC.UserProfile.ValidTo} AND");
-            sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction} BETWEEN aur.{FDC.UserProfile.ValidFrom} AND aur.{FDC.UserProfile.ValidTo}");
+            String sql = GetSqlFromFile("GetByDomainUsername");
 
             DatabaseParameters databaseParameters =
             [
@@ -98,20 +104,9 @@ namespace Foundation.Repository.Sec
                 FoundationDataAccess.CreateParameter($"{FDC.ApplicationUserRole.EntityName}{FDC.ApplicationUserRole.ApplicationId}", applicationId)
             ];
 
-            DataTable dataTable = FoundationDataAccess.ExecuteDataTable(sql.ToString(), CommandType.Text, databaseParameters);
+            DataTable dataTable = FoundationDataAccess.ExecuteDataTable(sql, CommandType.Text, databaseParameters);
 
-            if (dataTable.Rows.Count > 0)
-            {
-                DataRow dr = dataTable.Rows[0];
-                retVal = base.PopulateEntity<IUserProfile>(dr);
-                IRoleRepository roleRepository = Core.IoC.Get<IRoleRepository>();
-                EntityId roleId = DataHelpers.GetValue(dr[FDC.ApplicationUserRole.RoleId], new EntityId());
-                IRole? role = roleRepository.Get(roleId);
-                if (role != null)
-                {
-                    retVal.Roles.Add(role);
-                }
-            }
+            retVal = PopulateUserProfileEntity(dataTable);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -125,21 +120,7 @@ namespace Foundation.Repository.Sec
 
             IUserProfile? retVal = null;
 
-            StringBuilder sql = new StringBuilder();
-            sql.AppendLine("SELECT");
-            sql.AppendLine("    up.*,");
-            sql.AppendLine($"    aur.{FDC.ApplicationUserRole.RoleId}");
-            sql.AppendLine("FROM");
-            sql.AppendLine($"    {FDC.TableNames.UserProfile} up");
-            sql.AppendLine($"        INNER JOIN {FDC.TableNames.ApplicationUserRole} aur ON");
-            sql.AppendLine("        (");
-            sql.AppendLine($"             up.{FDC.UserProfile.Id} = aur.{FDC.ApplicationUserRole.UserProfileId}");
-            sql.AppendLine("        )");
-            sql.AppendLine("WHERE");
-            sql.AppendLine($"    up.{FDC.UserProfile.Id} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.UserProfile.EntityName}{FDC.UserProfile.Id} AND");
-            sql.AppendLine($"    aur.{FDC.ApplicationUserRole.ApplicationId} = {DataLogicProvider.DatabaseParameterPrefix}{FDC.ApplicationUserRole.EntityName}{FDC.ApplicationUserRole.ApplicationId} AND");
-            sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction} BETWEEN up.{FDC.UserProfile.ValidFrom} AND up.{FDC.UserProfile.ValidTo} AND");
-            sql.AppendLine($"    {DataLogicProvider.CurrentDateTimeFunction} BETWEEN aur.{FDC.UserProfile.ValidFrom} AND aur.{FDC.UserProfile.ValidTo}");
+            String sql = GetSqlFromFile("GetByUserProfileId");
 
             DatabaseParameters databaseParameters =
             [
@@ -147,20 +128,9 @@ namespace Foundation.Repository.Sec
                 FoundationDataAccess.CreateParameter($"{FDC.ApplicationUserRole.EntityName}{FDC.ApplicationUserRole.ApplicationId}", applicationId),
             ];
 
-            DataTable dataTable = FoundationDataAccess.ExecuteDataTable(sql.ToString(), CommandType.Text, databaseParameters);
+            DataTable dataTable = FoundationDataAccess.ExecuteDataTable(sql, CommandType.Text, databaseParameters);
 
-            if (dataTable.Rows.Count > 0)
-            {
-                DataRow dr = dataTable.Rows[0];
-                retVal = base.PopulateEntity<IUserProfile>(dr);
-                IRoleRepository roleRepository = Core.IoC.Get<IRoleRepository>();
-                EntityId roleId = DataHelpers.GetValue(dr[FDC.ApplicationUserRole.RoleId], new EntityId());
-                IRole? role = roleRepository.Get(roleId);
-                if (role != null)
-                {
-                    retVal.Roles.Add(role);
-                }
-            }
+            retVal = PopulateUserProfileEntity(dataTable);
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -195,5 +165,32 @@ namespace Foundation.Repository.Sec
 
             LoggingHelpers.TraceCallReturn();
         }
-    }
+
+        private IUserProfile? PopulateUserProfileEntity(DataTable dataTable)
+        {
+            LoggingHelpers.TraceCallEnter(dataTable);
+
+            IUserProfile? retVal = Core.IoC.Get<IUserProfile>();
+
+            if (dataTable.Rows.Count > 0)
+            {
+                DataRow dr = dataTable.Rows[0];
+                retVal = base.PopulateEntity<IUserProfile>(dr);
+                foreach (DataRow rolesDataRow in dataTable.Rows)
+                {
+                    IRoleRepository roleRepository = Core.IoC.Get<IRoleRepository>();
+                    EntityId roleId = DataHelpers.GetValue(rolesDataRow[FDC.ApplicationUserRole.RoleId], new EntityId());
+                    IRole? role = roleRepository.Get(roleId);
+                    if (role != null)
+                    {
+                        retVal.Roles.Add(role);
+                    }
+                }
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+}
 }

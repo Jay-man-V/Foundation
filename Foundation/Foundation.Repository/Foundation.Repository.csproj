@@ -73,5 +73,14 @@
     <None Update="Sql\Sec\LoggedOnUser\LogUserOn.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Sql\Sec\UserProfile\GetByUserProfileId.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sql\Sec\UserProfile\GetByDomainUsername.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sql\Sec\UserProfile\GetBySecurityIdentifier.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

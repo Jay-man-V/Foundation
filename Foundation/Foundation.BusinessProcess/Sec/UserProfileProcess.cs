@@ -102,12 +102,13 @@ namespace Foundation.BusinessProcess.Sec
 
             String domainName = RunTimeEnvironmentSettings.UserDomainName;
             String username = RunTimeEnvironmentSettings.UserName;
+            String securityIdentifier = RunTimeEnvironmentSettings.SecurityIdentifier;
 
-            IUserProfile? retVal = EntityRepository.Get(applicationId, domainName, username);
+            IUserProfile? retVal = EntityRepository.Get(applicationId, securityIdentifier);
 
             if (retVal == null)
             {
-                String message = $"Unable to locate the User Profile with details: Application Id: '{applicationId}'. Logon Domain: '{domainName}'. User name: '{username}'.";
+                String message = $"Unable to locate the User Profile with details: Application Id: '{applicationId}'. Security Identifier: '{securityIdentifier}'. (Other - Logon Domain: '{domainName}'. User name: '{username}').";
                 throw new InvalidOperationException(message);
             }
 

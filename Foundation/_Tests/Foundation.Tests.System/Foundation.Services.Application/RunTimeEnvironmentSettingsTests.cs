@@ -59,6 +59,9 @@ namespace Foundation.Tests.System.Foundation.Services.Application
             String machineName = TheService.MachineName;
             Assert.That(machineName, Is.Not.EqualTo(null));
             Assert.That(machineName, Is.EqualTo(Environment.MachineName));
+
+            String securityIdentifier = TheService.SecurityIdentifier;
+            Assert.That(securityIdentifier, Is.Not.EqualTo(null));
         }
     }
 }

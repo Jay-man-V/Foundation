@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 
 using System.Diagnostics;
+using System.Security.Principal;
 
 using Foundation.Interfaces;
 
@@ -34,5 +35,20 @@ namespace Foundation.Services.Application
 
         /// <inheritdoc cref="IRunTimeEnvironmentSettings.TraceSwitch"/>
         public TraceSwitch TraceSwitch => new TraceSwitch("TraceLevelSwitch", String.Empty);
+
+        public String SecurityIdentifier
+        {
+            get
+            {
+                //// Set up domain context
+                //PrincipalContext ctx = new PrincipalContext(ContextType.Domain);
+                //// Find user
+                //UserPrincipal user = UserPrincipal.FindByIdentity(ctx, "<Username>");
+
+                WindowsIdentity identity = WindowsIdentity.GetCurrent();
+
+                return identity.User.Value;
+            }
+        }
     }
 }

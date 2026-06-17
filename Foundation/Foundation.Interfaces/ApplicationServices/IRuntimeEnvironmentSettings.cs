@@ -55,5 +55,10 @@ namespace Foundation.Interfaces
         /// Gets the trace switch for controlling logging output
         /// </summary>
         TraceSwitch TraceSwitch { get; }
+
+        /// <summary>
+        /// Gets the security identifier (SID) for the current user.
+        /// </summary>
+        String SecurityIdentifier { get; }
     }
 }

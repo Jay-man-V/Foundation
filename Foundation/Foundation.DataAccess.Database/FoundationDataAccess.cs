@@ -168,7 +168,12 @@ namespace Foundation.DataAccess.Database
         public String GetSqlFromFile(String folderPath, [CallerMemberName] String? sqlFileName = null)
         {
             String[] className = folderPath.Split(".");
-            String functionName = sqlFileName + ".sql";
+            String functionName = sqlFileName!;
+            
+            if (!functionName.ToUpper().EndsWith(".SQL"))
+            {
+                functionName += ".sql";
+            }
 
             String fileName = Path.Combine("Sql", String.Join(Path.DirectorySeparatorChar, className), functionName);
             fileName = fileName.Replace("[", String.Empty);
