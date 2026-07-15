@@ -30,6 +30,11 @@ namespace Foundation.Services.WebApi
                 new HttpClientHandler()
             )
         {
+            LoggingHelpers.TraceCallEnter();
+
+            // Does nothing
+
+            LoggingHelpers.TraceCallReturn();
         }
 
         /// <summary>
@@ -41,8 +46,12 @@ namespace Foundation.Services.WebApi
             HttpMessageHandler httpMessageHandler
         )
         {
+            LoggingHelpers.TraceCallEnter();
+
             //Core = core;
             HttpMessageHandler = httpMessageHandler;
+
+            LoggingHelpers.TraceCallReturn();
         }
 
         //private ICore Core { get; }

@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Common;
 using Foundation.Interfaces;
 
 namespace Foundation.Security
@@ -17,7 +18,11 @@ namespace Foundation.Security
         /// <inheritdoc cref="ICrossSiteScriptingIdentifier.CheckInput(String)"/>
         public Boolean CheckInput(String input)
         {
+            LoggingHelpers.TraceCallEnter(input);
+
             Boolean retVal = true;
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }

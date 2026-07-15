@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Common;
 using Foundation.Interfaces;
 
 namespace Foundation.Repository.DataProvider
@@ -28,6 +29,11 @@ namespace Foundation.Repository.DataProvider
                 "Schema"
             )
         {
+            LoggingHelpers.TraceCallEnter();
+
+            // Does nothing
+
+            LoggingHelpers.TraceCallReturn();
         }
     }
 }

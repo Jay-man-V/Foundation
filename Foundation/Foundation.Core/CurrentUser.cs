@@ -13,7 +13,10 @@ namespace Foundation.Core
     /// </summary>
     public class CurrentUser : ICurrentUser
     {
-        internal CurrentUser(IUserProfile userProfile)
+        internal CurrentUser
+        (
+            IUserProfile userProfile
+        )
         {
             UserProfile = userProfile;
         }
@@ -32,13 +35,5 @@ namespace Foundation.Core
 
         /// <inheritdoc cref="ICurrentUser.IsSystemSupport"/>
         public Boolean IsSystemSupport => UserProfile.IsSystemSupport;
-
-#if DEBUG
-        ///// <inheritdoc cref="ICurrentUser.SetCurrentUser"/>
-        //public void SetCurrentUser(IUserProfile userProfile)
-        //{
-        //    UserProfile = userProfile;
-        //}
-#endif
     }
 }

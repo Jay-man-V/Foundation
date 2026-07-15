@@ -44,8 +44,8 @@ namespace Foundation.ViewModels.Dialogs
         {
             LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, dateTimeService, wpfApplicationObjects, targetWindow, parentViewModel);
 
-            List<string> t1 = new List<string> { "1", "2", "3", "4", "5", "6" };
-            List<string> t2 = new List<string> { "A", "B", "C", "D", "E", "F" };
+            List<String> t1 = ["1", "2", "3", "4", "5", "6"];
+            List<String> t2 = ["A", "B", "C", "D", "E", "F"];
 
             _selectedListItems = t1;
             _availableListItems = t2;

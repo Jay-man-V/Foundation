@@ -19,7 +19,7 @@ namespace Foundation.DataAccess.Database
         /// <inheritdoc cref="IFoundationDataAccess.ExecuteGetRowCount(String, CommandType, IDatabaseParameters)"/>
         public Int32 ExecuteGetRowCount(String sql, CommandType commandType = CommandType.Text, IDatabaseParameters? databaseParameters = null)
         {
-            LoggingHelpers.TraceCallEnter();
+            LoggingHelpers.TraceCallEnter(sql, commandType, databaseParameters);
 
             Object result = ExecuteNonQuery(sql, commandType, databaseParameters);
 

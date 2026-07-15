@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Common;
 using Foundation.Interfaces;
 
 namespace Foundation.Repository.DataProvider
@@ -28,7 +29,11 @@ namespace Foundation.Repository.DataProvider
                 //connectionName
             )
         {
+            LoggingHelpers.TraceCallEnter();
+
             ConnectionName = connectionName;
+
+            LoggingHelpers.TraceCallReturn();
         }
 
         /// <inheritdoc cref="IDataProvider.ConnectionName"/>

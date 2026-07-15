@@ -92,31 +92,5 @@ namespace Foundation.Services.Application
 
             return retVal;
         }
-
-        //public Byte[] GenerateHash(Byte[] input, Byte[] salt)
-        //{
-        //    Byte[] retVal = null;
-
-        //    using (MemoryStream ms = new MemoryStream(input))
-        //    {
-        //        retVal = GenerateHash(ms, salt);
-        //    }
-
-        //    return retVal;
-        //}
-
-        //public Byte[] GenerateHash(Stream input, Byte[] salt)
-        //{
-        //    Byte[] retVal = null;
-
-        //    input.Position = 0;
-
-        //    using (HashAlgorithm hashAlgorithm = SHA512.Create())
-        //    {
-        //        retVal = hashAlgorithm.ComputeHash(input);
-        //    }
-
-        //    return retVal;
-        //}
     }
 }

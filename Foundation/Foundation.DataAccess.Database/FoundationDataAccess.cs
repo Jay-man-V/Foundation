@@ -9,6 +9,7 @@ using System.Data.Common;
 using System.Drawing;
 using System.IO;
 using System.Runtime.CompilerServices;
+
 using Foundation.Common;
 using Foundation.DataAccess.Database.DataLogicProviders;
 using Foundation.Interfaces;
@@ -167,6 +168,8 @@ namespace Foundation.DataAccess.Database
         /// <inheritdoc cref="IFoundationDataAccess.GetSqlFromFile(String, String)"/>
         public String GetSqlFromFile(String folderPath, [CallerMemberName] String? sqlFileName = null)
         {
+            LoggingHelpers.TraceCallEnter(folderPath, sqlFileName);
+
             String[] className = folderPath.Split(".");
             String functionName = sqlFileName!;
             
@@ -180,6 +183,8 @@ namespace Foundation.DataAccess.Database
             fileName = fileName.Replace("]", String.Empty);
 
             String retVal = File.ReadAllText(fileName);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -217,6 +222,8 @@ namespace Foundation.DataAccess.Database
         /// <exception cref="NotSupportedException"></exception>
         private DbType GetParameterType(String parameterName, Type parameterType)
         {
+            LoggingHelpers.TraceCallEnter(parameterName, parameterType);
+
             DbType retVal;
 
             if (parameterType == typeof(String)) retVal = DbType.String;
@@ -245,6 +252,8 @@ namespace Foundation.DataAccess.Database
                 String errorMessage = $"The type ({parameterType}) of the parameter is unhandled/unknown. Name: '{parameterName}'";
                 throw new NotSupportedException(errorMessage);
             }
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -560,7 +569,7 @@ namespace Foundation.DataAccess.Database
             }
             else
             {
-                retVal = CreateParameter(parameterName, parameterValue.Value.TheEntityId);
+                retVal = InternalCreateParameter(parameterName, parameterValue.Value.TheEntityId);
             }
 
             LoggingHelpers.TraceCallReturn(retVal);
@@ -643,7 +652,7 @@ namespace Foundation.DataAccess.Database
             }
             else
             {
-                retVal = CreateParameter(parameterName, parameterValue.Value.TheLogId);
+                retVal = InternalCreateParameter(parameterName, parameterValue.Value.TheLogId);
             }
 
             LoggingHelpers.TraceCallReturn(retVal);

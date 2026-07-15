@@ -17,7 +17,14 @@ namespace Foundation.Core
     /// </summary>
     public class IoC : IIoC
     {
-        public IoC(IServiceCollection serviceCollection)
+        /// <summary>
+        /// Initialises a new instance of the <see cref="IoC"/> class.
+        /// </summary>
+        /// <param name="serviceCollection"></param>
+        public IoC
+        (
+            IServiceCollection serviceCollection
+        )
         {
             ServiceCollection = serviceCollection;
         }

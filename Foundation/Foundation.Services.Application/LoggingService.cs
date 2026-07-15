@@ -61,7 +61,7 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="ILoggingService.CreateLogEntry(String, String, String, String?)"/>
         public LogId CreateLogEntry(String batchName, String processName, String taskName, String? information = null)
         {
-            LoggingHelpers.TraceCallEnter(batchName, processName, taskName);
+            LoggingHelpers.TraceCallEnter(batchName, processName, taskName, information);
 
             LogId retVal;
 

@@ -28,4 +28,6 @@
     <Folder Include="Core\Services\" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties core_4nonworkingdaysupport_4bankholidays_1schema_1json__JsonSchema="https://acp-protocol.dev/schemas/v1/attempts.schema.json" /></VisualStudio></ProjectExtensions>
+
 </Project>

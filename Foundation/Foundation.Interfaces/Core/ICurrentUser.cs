@@ -50,13 +50,5 @@ namespace Foundation.Interfaces
         ///   <c>true</c> if they are System Support; otherwise, <c>false</c>.
         /// </value>
         Boolean IsSystemSupport { get; }
-
-#if DEBUG
-        ///// <summary>
-        ///// For Debug and Testing purposes, allows the Current User to be changed
-        ///// </summary>
-        ///// <param name="userProfile"></param>
-        //void SetCurrentUser(IUserProfile userProfile);
-#endif
     }
 }

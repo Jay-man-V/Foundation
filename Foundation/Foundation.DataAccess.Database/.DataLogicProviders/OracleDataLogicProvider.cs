@@ -16,6 +16,10 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
     [DependencyInjectionTransient]
     internal class OracleDataLogicProvider : DataLogicProvider, IDataLogicProvider
     {
+        /// <summary>
+        /// Initialises a new instance of the <see cref="OracleDataLogicProvider"/> class.
+        /// </summary>
+        /// <param name="core"></param>
         public OracleDataLogicProvider
         (
             ICore core

@@ -217,7 +217,7 @@ namespace Foundation.BusinessProcess.Sec
         /// <inheritdoc cref="ILoggedOnUserProcess.SendMessageCommand(AppId, ILoggedOnUser, String)" />
         public void SendMessageCommand(AppId applicationId, ILoggedOnUser loggedOnUser, String message)
         {
-            LoggingHelpers.TraceCallEnter(applicationId, loggedOnUser);
+            LoggingHelpers.TraceCallEnter(applicationId, loggedOnUser, message);
 
             CommandFormatter commandFormatter = new CommandFormatter(CommandNames.Message, DateTimeService.SystemUtcDateTimeNow, message);
             String command = commandFormatter.ToString();

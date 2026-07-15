@@ -270,7 +270,7 @@ namespace Foundation.BusinessProcess.Core
         /// <inheritdoc cref="IScheduledJobProcess.ResumeJobs(LogId)"/>
         public void ResumeJobs(LogId parentLogId)
         {
-            LoggingHelpers.TraceCallEnter();
+            LoggingHelpers.TraceCallEnter(parentLogId);
 
             foreach (var kvpScheduledJob in ScheduledTimers)
             {
@@ -285,7 +285,7 @@ namespace Foundation.BusinessProcess.Core
         /// <inheritdoc cref="IScheduledJobProcess.StopJobs(LogId)"/>
         public void StopJobs(LogId parentLogId)
         {
-            LoggingHelpers.TraceCallEnter();
+            LoggingHelpers.TraceCallEnter(parentLogId);
 
             String batchName = "Batch Scheduler";
             String processName = nameof(ScheduledJobProcess);
@@ -355,6 +355,8 @@ namespace Foundation.BusinessProcess.Core
         /// <inheritdoc cref="IScheduledJobProcess.GetServiceStatus(String, String?)"/>
         public ServiceStatus GetServiceStatus(String serverName, String? serviceName)
         {
+            LoggingHelpers.TraceCallEnter(serverName, serviceName);
+
             ServiceStatus retVal = ServiceStatus.NotSet;
 
             if (String.IsNullOrEmpty(serviceName))
@@ -380,12 +382,17 @@ namespace Foundation.BusinessProcess.Core
 
                 case ServiceControllerStatus.Paused: retVal = ServiceStatus.Paused; break;
             }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
             return retVal;
         }
 
         /// <inheritdoc cref="IScheduledJobProcess.GetServiceStatus(IScheduledJob?)"/>
         public ServiceStatus GetServiceStatus(IScheduledJob? scheduledJob)
         {
+            LoggingHelpers.TraceCallEnter(scheduledJob);
+
             ServiceStatus retVal;
 
             if (scheduledJob == null)
@@ -422,12 +429,16 @@ namespace Foundation.BusinessProcess.Core
                 throw new ArgumentException(errorMessage, nameof(scheduledJob));
             }
 
+            LoggingHelpers.TraceCallReturn(retVal);
+
             return retVal;
         }
 
         /// <inheritdoc cref="IScheduledJobProcess.GetJobLastRunStatus(IScheduledJob?)"/>
         public FEnums.TaskStatus GetJobLastRunStatus(IScheduledJob? scheduledJob)
         {
+            LoggingHelpers.TraceCallEnter(scheduledJob);
+
             FEnums.TaskStatus retVal = FEnums.TaskStatus.NotSet;
 
             if (scheduledJob == null)
@@ -461,6 +472,8 @@ namespace Foundation.BusinessProcess.Core
                 throw new ArgumentException(errorMessage, nameof(scheduledJob));
             }
 
+            LoggingHelpers.TraceCallReturn(retVal);
+
             return retVal;
         }
 
@@ -483,7 +496,7 @@ namespace Foundation.BusinessProcess.Core
         /// <param name="scheduleInterval"></param>
         protected virtual void ScheduleNextRun(IScheduledJob scheduledJob, Int32 scheduleInterval)
         {
-            LoggingHelpers.TraceCallEnter(scheduledJob);
+            LoggingHelpers.TraceCallEnter(scheduledJob, scheduleInterval);
 
             DateTime lastRunDateTime = scheduledJob.LastRunDateTime;
             DateTime nextRunDateTime = scheduledJob.NextRunDateTime;
@@ -529,7 +542,7 @@ namespace Foundation.BusinessProcess.Core
 
         private Boolean CanExecute(IScheduledJob scheduledJob)
         {
-            LoggingHelpers.TraceCallEnter();
+            LoggingHelpers.TraceCallEnter(scheduledJob);
 
             Boolean retVal;
 
@@ -565,13 +578,6 @@ namespace Foundation.BusinessProcess.Core
             LoggingHelpers.TraceCallEnter(sender, e);
 
             ServerProcessTimer? serverProcessTimer = (ServerProcessTimer?)sender;
-
-            //if (serverProcessTimer == null ||
-            //    //serverProcessTimer.ScheduledJob == null ||
-            //    serverProcessTimer.ScheduledJob.ScheduledTask == null)
-            //{
-            //    return;
-            //}
 
             IScheduledJob scheduledJob = serverProcessTimer!.ScheduledJob;
 
@@ -633,7 +639,7 @@ namespace Foundation.BusinessProcess.Core
 
         private LogId InternalRunJob(LogId parentLogId, IScheduledJob scheduledJob)
         {
-            LoggingHelpers.TraceCallEnter(scheduledJob);
+            LoggingHelpers.TraceCallEnter(parentLogId, scheduledJob);
 
             LogId logId = new LogId(0);
 

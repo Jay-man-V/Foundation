@@ -167,8 +167,12 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetStartOfLastWeek()"/>
         public DateTime GetStartOfLastWeek()
         {
+            LoggingHelpers.TraceCallEnter();
+
             DateTime lastWeek = SystemUtcDateTimeNow.AddWeeks(-1);
             DateTime retVal = GetStartOfWeek(lastWeek);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -176,8 +180,12 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetEndOfLastWeek()"/>
         public DateTime GetEndOfLastWeek()
         {
+            LoggingHelpers.TraceCallEnter();
+
             DateTime lastWeek = SystemUtcDateTimeNow.AddWeeks(-1);
             DateTime retVal = GetEndOfWeek(lastWeek);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -185,8 +193,12 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetStartOfCurrentWeek()"/>
         public DateTime GetStartOfCurrentWeek()
         {
+            LoggingHelpers.TraceCallEnter();
+
             DateTime currentDateTime = SystemUtcDateTimeNow;
             DateTime retVal = GetStartOfWeek(currentDateTime);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -194,8 +206,12 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetEndOfCurrentWeek()"/>
         public DateTime GetEndOfCurrentWeek()
         {
+            LoggingHelpers.TraceCallEnter();
+
             DateTime currentDateTime = SystemUtcDateTimeNow;
             DateTime retVal = GetEndOfWeek(currentDateTime);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -203,8 +219,12 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetStartOfNextWeek()"/>
         public DateTime GetStartOfNextWeek()
         {
+            LoggingHelpers.TraceCallEnter();
+
             DateTime lastWeek = SystemUtcDateTimeNow.AddWeeks(1);
             DateTime retVal = GetStartOfWeek(lastWeek);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -212,8 +232,12 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetEndOfNextWeek()"/>
         public DateTime GetEndOfNextWeek()
         {
+            LoggingHelpers.TraceCallEnter();
+
             DateTime lastWeek = SystemUtcDateTimeNow.AddWeeks(1);
             DateTime retVal = GetEndOfWeek(lastWeek);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -276,8 +300,12 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetStartOfLastMonth"/>
         public DateTime GetStartOfLastMonth()
         {
+            LoggingHelpers.TraceCallEnter();
+
             DateTime lastMonth = SystemUtcDateTimeNow.AddMonths(-1);
             DateTime retVal = GetStartOfMonth(lastMonth);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -285,8 +313,12 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetEndOfLastMonth"/>
         public DateTime GetEndOfLastMonth()
         {
+            LoggingHelpers.TraceCallEnter();
+
             DateTime lastMonth = SystemUtcDateTimeNow.AddMonths(-1);
             DateTime retVal = GetEndOfMonth(lastMonth);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -294,8 +326,12 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetStartOfCurrentMonth()"/>
         public DateTime GetStartOfCurrentMonth()
         {
+            LoggingHelpers.TraceCallEnter();
+
             DateTime currentDateTime = SystemUtcDateTimeNow;
             DateTime retVal = GetStartOfMonth(currentDateTime);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -303,8 +339,12 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetEndOfCurrentMonth"/>
         public DateTime GetEndOfCurrentMonth()
         {
+            LoggingHelpers.TraceCallEnter();
+
             DateTime currentDateTime = SystemUtcDateTimeNow;
             DateTime retVal = GetEndOfMonth(currentDateTime);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -312,8 +352,12 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetStartOfNextMonth"/>
         public DateTime GetStartOfNextMonth()
         {
+            LoggingHelpers.TraceCallEnter();
+
             DateTime lastMonth = SystemUtcDateTimeNow.AddMonths(1);
             DateTime retVal = GetStartOfMonth(lastMonth);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -321,8 +365,12 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetEndOfNextMonth"/>
         public DateTime GetEndOfNextMonth()
         {
+            LoggingHelpers.TraceCallEnter();
+
             DateTime lastMonth = SystemUtcDateTimeNow.AddMonths(1);
             DateTime retVal = GetEndOfMonth(lastMonth);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -386,8 +434,12 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetStartOfLastYear"/>
         public DateTime GetStartOfLastYear()
         {
+            LoggingHelpers.TraceCallEnter();
+
             DateTime lastYear = SystemUtcDateTimeNow.AddYears(-1);
             DateTime retVal = GetStartOfYear(lastYear);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -395,8 +447,12 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetEndOfLastYear"/>
         public DateTime GetEndOfLastYear()
         {
+            LoggingHelpers.TraceCallEnter();
+
             DateTime lastYear = SystemUtcDateTimeNow.AddYears(-1);
             DateTime retVal = GetEndOfYear(lastYear);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -404,8 +460,12 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetStartOfCurrentYear()"/>
         public DateTime GetStartOfCurrentYear()
         {
+            LoggingHelpers.TraceCallEnter();
+
             DateTime currentDateTime = SystemUtcDateTimeNow;
             DateTime retVal = GetStartOfYear(currentDateTime);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -413,8 +473,12 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetEndOfCurrentYear"/>
         public DateTime GetEndOfCurrentYear()
         {
+            LoggingHelpers.TraceCallEnter();
+
             DateTime currentDateTime = SystemUtcDateTimeNow;
             DateTime retVal = GetEndOfYear(currentDateTime);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -422,8 +486,12 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetStartOfNextYear"/>
         public DateTime GetStartOfNextYear()
         {
+            LoggingHelpers.TraceCallEnter();
+
             DateTime lastYear = SystemUtcDateTimeNow.AddYears(1);
             DateTime retVal = GetStartOfYear(lastYear);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -431,8 +499,12 @@ namespace Foundation.Services.Application
         /// <inheritdoc cref="IDateTimeService.GetEndOfNextYear"/>
         public DateTime GetEndOfNextYear()
         {
+            LoggingHelpers.TraceCallEnter();
+
             DateTime lastYear = SystemUtcDateTimeNow.AddYears(1);
             DateTime retVal = GetEndOfYear(lastYear);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }

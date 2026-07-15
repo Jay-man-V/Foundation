@@ -20,7 +20,10 @@ namespace Foundation.DocumentGenerator
         /// 
         /// </summary>
         /// <param name="gridColumnDefinition"></param>
-        public DocGenNumberingFormat(IGridColumnDefinition gridColumnDefinition)
+        public DocGenNumberingFormat
+        (
+            IGridColumnDefinition gridColumnDefinition
+        )
         {
             GridColumnDefinition = gridColumnDefinition;
 

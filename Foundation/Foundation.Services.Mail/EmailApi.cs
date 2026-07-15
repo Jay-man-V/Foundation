@@ -41,9 +41,9 @@ namespace Foundation.Services.Mail
             LoggingHelpers.TraceCallReturn();
         }
 
-        ICore Core { get; }
-        IApplicationConfigurationService ApplicationConfigurationService { get; }
-        IMailWrapper MailWrapper { get; }
+        private ICore Core { get; }
+        private IApplicationConfigurationService ApplicationConfigurationService { get; }
+        private IMailWrapper MailWrapper { get; }
 
         /// <inheritdoc cref="IEmailApi.SendTestMail(String, String)"/>
         public void SendTestMail(String toAddress, String ccAddress)
@@ -80,9 +80,18 @@ namespace Foundation.Services.Mail
         }
 
         /// <inheritdoc cref="IEmailApi.SendSimpleEmail(String, String, String, String, String, String, List{IMailAttachment})"/>
-        public void SendSimpleEmail(String toAddress, String ccAddress, String fromAddress, String fromAddressDisplayName, String subject, String body, List<IMailAttachment>? mailAttachments = null)
+        public void SendSimpleEmail
+        (
+            String toAddress,
+            String ccAddress,
+            String fromAddress,
+            String fromAddressDisplayName,
+            String subject,
+            String body,
+            List<IMailAttachment>? mailAttachments = null
+        )
         {
-            LoggingHelpers.TraceCallEnter(toAddress, ccAddress, fromAddress, subject, body, mailAttachments);
+            LoggingHelpers.TraceCallEnter(toAddress, ccAddress, fromAddress, fromAddressDisplayName, subject, body, mailAttachments);
 
             MailMessage mailMessage = new MailMessage
             {
@@ -106,9 +115,18 @@ namespace Foundation.Services.Mail
         }
 
         /// <inheritdoc cref="IEmailApi.SendFormalEmail(String, String, String, String, String, String, List{IMailAttachment})"/>
-        public void SendFormalEmail(String toAddress, String ccAddress, String fromAddress, String fromAddressDisplayName, String subject, String body, List<IMailAttachment>? mailAttachments = null)
+        public void SendFormalEmail
+        (
+            String toAddress,
+            String ccAddress,
+            String fromAddress,
+            String fromAddressDisplayName,
+            String subject,
+            String body,
+            List<IMailAttachment>? mailAttachments = null
+        )
         {
-            LoggingHelpers.TraceCallEnter(toAddress, ccAddress, fromAddress, subject, body, mailAttachments);
+            LoggingHelpers.TraceCallEnter(toAddress, ccAddress, fromAddress, fromAddressDisplayName, subject, body, mailAttachments);
 
             String mailTemplateHtml = ResourceLoader.GetResourceFileAsText(ResourceNames.EMailTemplates.FormalEmailTemplate);
             String newBody = mailTemplateHtml;

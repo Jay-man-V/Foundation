@@ -99,7 +99,7 @@ namespace Foundation.BusinessProcess
         protected IReportGenerator ReportGenerator { get; }
 
 
-            /// <inheritdoc cref="ICommonBusinessProcess.ScreenTitle"/>
+        /// <inheritdoc cref="ICommonBusinessProcess.ScreenTitle"/>
         public virtual String ScreenTitle => String.Empty;
 
         /// <inheritdoc cref="ICommonBusinessProcess.StatusBarText"/>
@@ -368,17 +368,23 @@ namespace Foundation.BusinessProcess
         /// <inheritdoc cref="ICommonBusinessProcess{TModel}.ValidateEntity(TModel, Boolean)"/>
         public void ValidateEntity(TModel entity, Boolean validateAllProperties = true)
         {
+            LoggingHelpers.TraceCallEnter(entity, validateAllProperties);
+
             List<ValidationException> validationExceptions = IsValidEntity(entity, validateAllProperties);
 
             if (validationExceptions.Any())
             {
                 throw new AggregateException(validationExceptions);
             }
+
+            LoggingHelpers.TraceCallReturn();
         }
 
         /// <inheritdoc cref="ICommonBusinessProcess{TModel}.IsValidEntity(TModel, Boolean)"/>
         public List<ValidationException> IsValidEntity(TModel entity, Boolean validateAllProperties = false)
         {
+            LoggingHelpers.TraceCallEnter(entity, validateAllProperties);
+
             List<ValidationException> retVal = new List<ValidationException>();
 
             const IServiceProvider? serviceProvider = null;
@@ -402,6 +408,8 @@ namespace Foundation.BusinessProcess
                     retVal.Add(validationException);
                 }
             }
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -747,7 +755,11 @@ namespace Foundation.BusinessProcess
         /// <inheritdoc cref="ICommonBusinessProcess{TModel}.Get(List{EntityId})"/>
         public List<TModel> Get(List<EntityId> entityIds)
         {
+            LoggingHelpers.TraceCallEnter(entityIds);
+
             List<TModel> retVal = EntityRepository.Get(entityIds);
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
@@ -777,9 +789,9 @@ namespace Foundation.BusinessProcess
             return retVal;
         }
 
-        /// <inheritdoc cref="ICommonBusinessProcess.ExportToExcel(List{IGridColumnDefinition}, IEnumerable?)"/>
+        /// <inheritdoc cref="ICommonBusinessProcess.ExportToExcel(List{IGridColumnDefinition}?, IEnumerable?)"/>
         // TODO: Not properly implemented/tested. Looks like it is the CSV function just copy/pasted
-        public void ExportToExcel(List<IGridColumnDefinition> gridColumnDefinitions, IEnumerable? sourceData)
+        public void ExportToExcel(List<IGridColumnDefinition>? gridColumnDefinitions, IEnumerable? sourceData)
         {
             LoggingHelpers.TraceCallEnter(gridColumnDefinitions, sourceData);
 
@@ -822,7 +834,7 @@ namespace Foundation.BusinessProcess
         /// <inheritdoc cref="ICommonBusinessProcess.ExportToCsv(TextWriter, List{IGridColumnDefinition}?, IEnumerable?)"/>
         public void ExportToCsv(TextWriter outputStream, List<IGridColumnDefinition>? gridColumnDefinitions, IEnumerable? sourceData)
         {
-            LoggingHelpers.TraceCallEnter(gridColumnDefinitions, sourceData);
+            LoggingHelpers.TraceCallEnter(outputStream, gridColumnDefinitions, sourceData);
 
             if (gridColumnDefinitions == null)
             {
@@ -961,10 +973,9 @@ namespace Foundation.BusinessProcess
         /// Gets the standard entity column definitions.
         /// </summary>
         /// <returns>List of <see cref="GridColumnDefinition"/></returns>
-        protected virtual List<IGridColumnDefinition> GetStandardEntityColumnDefinitions(Boolean includeStatusColumn = false,
-            Type? idColumnType = null)
+        protected virtual List<IGridColumnDefinition> GetStandardEntityColumnDefinitions(Boolean includeStatusColumn = false, Type? idColumnType = null)
         {
-            LoggingHelpers.TraceCallEnter(includeStatusColumn);
+            LoggingHelpers.TraceCallEnter(includeStatusColumn, idColumnType);
 
             List<IGridColumnDefinition> retVal = [];
             IGridColumnDefinition gridColumnDefinition;

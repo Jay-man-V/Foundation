@@ -16,6 +16,10 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
     [DependencyInjectionTransient]
     internal class MySqlDataLogicProvider : DataLogicProvider, IDataLogicProvider
     {
+        /// <summary>
+        /// Initialises a new instance of the <see cref="MySqlDataLogicProvider"/> class.
+        /// </summary>
+        /// <param name="core"></param>
         public MySqlDataLogicProvider
         (
             ICore core

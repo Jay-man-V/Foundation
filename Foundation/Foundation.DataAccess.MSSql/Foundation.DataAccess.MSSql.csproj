@@ -11,11 +11,16 @@
     <ItemGroup>
         <Compile Include="..\..\JDV.Software.AssemblyInfo.cs" Link="JDV.Software.AssemblyInfo.cs" />
         <Compile Include="..\Foundation.AssemblyInfo.cs" Link="Foundation.AssemblyInfo.cs" />
+        <Compile Include=".Reference for Fast Data Saving.txt" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
-        <ProjectReference Include="..\Foundation.Resources\Foundation.Resources.csproj" />
+      <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Foundation.Common\Foundation.Common.csproj" />
+      <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
     </ItemGroup>
 
 </Project>

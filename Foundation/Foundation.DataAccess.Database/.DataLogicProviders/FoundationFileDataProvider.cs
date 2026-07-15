@@ -18,6 +18,10 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
     [DependencyInjectionTransient]
     internal class FoundationFileDataProvider : DataLogicProvider, IDataLogicProvider
     {
+        /// <summary>
+        /// Initialises a new instance of the <see cref="FoundationFileDataProvider"/> class.
+        /// </summary>
+        /// <param name="core"></param>
         public FoundationFileDataProvider
         (
             ICore core

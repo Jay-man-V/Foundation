@@ -17,6 +17,11 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
     /// </summary>
     internal abstract class DataLogicProvider : IDataLogicProvider
     {
+        /// <summary>
+        /// Initialises a new instance of the <see cref="DataLogicProvider"/> class.
+        /// </summary>
+        /// <param name="core"></param>
+        /// <param name="databaseProviders"></param>
         internal DataLogicProvider
         (
             ICore core,
@@ -28,6 +33,13 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
             DatabaseProviderName = databaseProviders[0];
         }
 
+        /// <summary>
+        /// Initialises a new instance of the <see cref="DataLogicProvider"/> class.
+        /// </summary>
+        /// <param name="core"></param>
+        /// <param name="databaseProviders"></param>
+        /// <param name="assemblyName"></param>
+        /// <param name="typeName"></param>
         internal DataLogicProvider
         (
             ICore core,

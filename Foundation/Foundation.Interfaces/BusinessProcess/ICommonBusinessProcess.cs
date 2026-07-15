@@ -332,7 +332,7 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <param name="gridColumnDefinitions"></param>
         /// <param name="sourceData"></param>
-        void ExportToExcel(List<IGridColumnDefinition> gridColumnDefinitions, IEnumerable? sourceData);
+        void ExportToExcel(List<IGridColumnDefinition>? gridColumnDefinitions, IEnumerable? sourceData);
 
         /// <summary>
         /// Exports the supplied data to Csv

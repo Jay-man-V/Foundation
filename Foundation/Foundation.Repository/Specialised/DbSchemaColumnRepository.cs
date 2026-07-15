@@ -95,8 +95,7 @@ namespace Foundation.Repository.Specialised
 
             DatabaseParameters databaseParameters =
             [
-                CreateParameter($"{FDC.Specialised.DatabaseSchemaColumn.EntityName}{FDC.Specialised.DatabaseSchemaColumn.TableCatalog}",
-                    tableCatalog),
+                CreateParameter($"{FDC.Specialised.DatabaseSchemaColumn.EntityName}{FDC.Specialised.DatabaseSchemaColumn.TableCatalog}", tableCatalog),
                 CreateParameter($"{FDC.Specialised.DatabaseSchemaColumn.EntityName}{FDC.Specialised.DatabaseSchemaColumn.TableSchema}", tableSchema),
                 CreateParameter($"{FDC.Specialised.DatabaseSchemaColumn.EntityName}{FDC.Specialised.DatabaseSchemaColumn.TableName}", tableName)
             ];

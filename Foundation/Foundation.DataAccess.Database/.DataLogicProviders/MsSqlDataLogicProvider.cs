@@ -16,6 +16,10 @@ namespace Foundation.DataAccess.Database.DataLogicProviders
     [DependencyInjectionTransient]
     internal class MsSqlDataLogicProvider : DataLogicProvider, IDataLogicProvider
     {
+        /// <summary>
+        /// Initialises a new instance of the <see cref="MsSqlDataLogicProvider"/> class.
+        /// </summary>
+        /// <param name="core"></param>
         public MsSqlDataLogicProvider
         (
             ICore core

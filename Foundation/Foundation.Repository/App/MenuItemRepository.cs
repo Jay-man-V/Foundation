@@ -62,18 +62,26 @@ namespace Foundation.Repository.App
         /// <inheritdoc cref="FoundationModelRepository{IMenuItem}.GetAllSql(Boolean, Boolean)"/>
         protected override String GetAllSql(Boolean excludeDeleted, Boolean useValidityPeriod)
         {
+            LoggingHelpers.TraceCallEnter(excludeDeleted, useValidityPeriod);
+
             String retVal = File.ReadAllText(@"Sql\App\MenuItem\GetAll.sql");
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }
 
         protected override IDatabaseParameters GetAllDatabaseParameters(Boolean excludeDeleted, Boolean useValidityPeriod)
         {
+            LoggingHelpers.TraceCallEnter(excludeDeleted, useValidityPeriod);
+
             IDatabaseParameters retVal = base.GetAllDatabaseParameters(excludeDeleted, useValidityPeriod);
 
             retVal.Add(FoundationDataAccess.CreateParameter("applicationId", Core.ApplicationId));
             retVal.Add(FoundationDataAccess.CreateParameter("useValidityPeriod", useValidityPeriod));
             retVal.Add(FoundationDataAccess.CreateParameter("excludeDeleted", excludeDeleted));
+
+            LoggingHelpers.TraceCallReturn(retVal);
 
             return retVal;
         }

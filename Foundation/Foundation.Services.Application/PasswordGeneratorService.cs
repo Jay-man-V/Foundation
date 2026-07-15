@@ -36,7 +36,7 @@ namespace Foundation.Services.Application
             (
             )
         {
-            LoggingHelpers.TraceCallEnter(core, applicationConfigurationService, restApi);
+            LoggingHelpers.TraceCallEnter(core, applicationConfigurationService, restApi, randomService);
 
             Core = core;
             ApplicationConfigurationService = applicationConfigurationService;

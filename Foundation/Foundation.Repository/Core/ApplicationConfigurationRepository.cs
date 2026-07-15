@@ -94,7 +94,7 @@ namespace Foundation.Repository.Core
         {
             LoggingHelpers.TraceCallEnter(applicationId, userProfile, key);
 
-            IApplicationConfiguration? retVal = default;
+            IApplicationConfiguration? retVal = null;
 
             String sql = GetSqlFromFile();
 

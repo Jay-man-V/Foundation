@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Common;
 using Foundation.Interfaces;
 
 namespace Foundation.BusinessProcess.Main
@@ -23,7 +24,11 @@ namespace Foundation.BusinessProcess.Main
             ICore core
         )
         {
+            LoggingHelpers.TraceCallEnter(core);
+
             Core = core;
+
+            LoggingHelpers.TraceCallReturn();
         }
 
         private ICore Core { get; }

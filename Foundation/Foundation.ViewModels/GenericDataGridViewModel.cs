@@ -99,7 +99,7 @@ namespace Foundation.ViewModels
         }
 
         /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.RefreshCommand"/>
-        public virtual ICommand RefreshCommand { get { return RelayCommandFactory.New(OnRefreshCommand_Execute, () => RefreshCommandEnabled); } }
+        public virtual ICommand RefreshCommand => RelayCommandFactory.New(OnRefreshCommand_Execute, () => RefreshCommandEnabled);
 
         /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.CanViewRecord"/>
         public virtual Boolean CanViewRecord => CommonBusinessProcess.CanViewRecord();
@@ -116,7 +116,7 @@ namespace Foundation.ViewModels
         }
 
         /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.ViewRecordCommand"/>
-        public ICommand ViewRecordCommand { get { return RelayCommandFactory.New<TModel>(OnViewRecordCommand_Execute, () => ViewRecordCommandEnabled); } }
+        public ICommand ViewRecordCommand => RelayCommandFactory.New<TModel>(OnViewRecordCommand_Execute, () => ViewRecordCommandEnabled);
 
         /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.CanAddRecord"/>
         public virtual Boolean CanAddRecord => CommonBusinessProcess.CanAddRecord();
@@ -133,7 +133,7 @@ namespace Foundation.ViewModels
         }
 
         /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.AddRecordCommand"/>
-        public ICommand AddRecordCommand { get { return RelayCommandFactory.New(OnAddRecordCommand_Execute, () => AddRecordCommandEnabled); } }
+        public ICommand AddRecordCommand => RelayCommandFactory.New(OnAddRecordCommand_Execute, () => AddRecordCommandEnabled);
 
         /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.CanEditRecord"/>
         public virtual Boolean CanEditRecord => CommonBusinessProcess.CanEditRecord();
@@ -150,7 +150,7 @@ namespace Foundation.ViewModels
         }
 
         /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.EditRecordCommand"/>
-        public ICommand EditRecordCommand { get { return RelayCommandFactory.New<TModel>(OnEditRecordCommand_Execute, () => EditRecordCommandEnabled); } }
+        public ICommand EditRecordCommand => RelayCommandFactory.New<TModel>(OnEditRecordCommand_Execute, () => EditRecordCommandEnabled);
 
         /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.CanDeleteRecord"/>
         public virtual Boolean CanDeleteRecord => CommonBusinessProcess.CanDeleteRecord();
@@ -167,7 +167,7 @@ namespace Foundation.ViewModels
         }
 
         /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.DeleteRecordCommand"/>
-        public ICommand DeleteRecordCommand { get { return RelayCommandFactory.New<TModel>(OnDeleteRecordCommand_Execute, () => DeleteRecordCommandEnabled); } }
+        public ICommand DeleteRecordCommand => RelayCommandFactory.New<TModel>(OnDeleteRecordCommand_Execute, () => DeleteRecordCommandEnabled);
 
         /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.HasOptionalAction1"/>
         public virtual Boolean HasOptionalAction1 => CommonBusinessProcess.HasOptionalAction1;
@@ -184,7 +184,7 @@ namespace Foundation.ViewModels
         }
 
         /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Action1Command"/>
-        public virtual ICommand Action1Command { get { return RelayCommandFactory.New(OnAction1Command_Execute, () => Action1CommandEnabled); } }
+        public virtual ICommand Action1Command => RelayCommandFactory.New(OnAction1Command_Execute, () => Action1CommandEnabled);
 
         /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.HasOptionalAction2"/>
         public virtual Boolean HasOptionalAction2 => CommonBusinessProcess.HasOptionalAction2;
@@ -201,7 +201,7 @@ namespace Foundation.ViewModels
         }
 
         /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Action2Command"/>
-        public virtual ICommand Action2Command { get { return RelayCommandFactory.New(OnAction2Command_Execute, () => Action2CommandEnabled); } }
+        public virtual ICommand Action2Command => RelayCommandFactory.New(OnAction2Command_Execute, () => Action2CommandEnabled);
 
         /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.HasOptionalAction3"/>
         public virtual Boolean HasOptionalAction3 => CommonBusinessProcess.HasOptionalAction3;
@@ -218,7 +218,7 @@ namespace Foundation.ViewModels
         }
 
         /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Action3Command"/>
-        public virtual ICommand Action3Command { get { return RelayCommandFactory.New(OnAction3Command_Execute, () => Action3CommandEnabled); } }
+        public virtual ICommand Action3Command => RelayCommandFactory.New(OnAction3Command_Execute, () => Action3CommandEnabled);
 
         /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.HasOptionalAction4"/>
         public virtual Boolean HasOptionalAction4 => CommonBusinessProcess.HasOptionalAction4;
@@ -235,7 +235,7 @@ namespace Foundation.ViewModels
         }
 
         /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.Action4Command"/>
-        public virtual ICommand Action4Command { get { return RelayCommandFactory.New(OnAction4Command_Execute, () => Action4CommandEnabled); } }
+        public virtual ICommand Action4Command => RelayCommandFactory.New(OnAction4Command_Execute, () => Action4CommandEnabled);
 
         /// <inheritdoc cref="IGenericDataGridViewModel{TModel}.ActionsVisible"/>
         public virtual Boolean ActionsVisible =>

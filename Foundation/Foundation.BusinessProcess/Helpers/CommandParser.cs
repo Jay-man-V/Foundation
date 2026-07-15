@@ -42,12 +42,12 @@ namespace Foundation.BusinessProcess.Helpers
             String commandText
         )
         {
-            LoggingHelpers.TraceCallEnter(dateTimeService);
+            LoggingHelpers.TraceCallEnter(dateTimeService, commandText);
 
             DateTimeService = dateTimeService;
             FullCommandText = commandText;
 
-            Int32 pos = FullCommandText.IndexOf("=", StringComparison.InvariantCulture);
+            Int32 pos = FullCommandText.IndexOf('=', StringComparison.InvariantCulture);
 
             IsValid = (pos > 0);
 
@@ -113,7 +113,7 @@ namespace Foundation.BusinessProcess.Helpers
 
         public ICommandParser ParseCommand(String commandText)
         {
-            LoggingHelpers.TraceCallEnter(DateTimeService, commandText);
+            LoggingHelpers.TraceCallEnter(commandText);
 
             ICommandParser retVal = new CommandParser(DateTimeService, commandText);
 

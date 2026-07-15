@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Foundation.Common;
 using Foundation.Interfaces;
 
 namespace Foundation.Server.ScheduledTasks
@@ -27,21 +28,40 @@ namespace Foundation.Server.ScheduledTasks
                 applicationConfigurationService
             )
         {
+            LoggingHelpers.TraceCallEnter();
+
+            // Does nothing
+
+            LoggingHelpers.TraceCallReturn();
         }
 
         protected override void InitialiseRunTimeParameters(String taskParameters)
         {
-            throw new NotImplementedException();
+            LoggingHelpers.TraceCallEnter(taskParameters);
+
+            TaskParameters = new TaskParameters();
+
+            LoggingHelpers.TraceCallReturn();
         }
 
         protected override String GetRunTimeParametersForLogging()
         {
-            throw new NotImplementedException();
+            LoggingHelpers.TraceCallEnter();
+
+            String retVal = String.Empty;
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
         }
 
         protected override void ProcessTask(LogId parentLogId)
         {
+            LoggingHelpers.TraceCallEnter(parentLogId);
+
             // Does nothing
+
+            LoggingHelpers.TraceCallReturn();
         }
     }
 }

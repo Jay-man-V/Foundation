@@ -29,7 +29,11 @@ namespace Foundation.Services.Application
             IFileApi fileApi
         )
         {
+            LoggingHelpers.TraceCallEnter(fileApi);
+
             FileApi = fileApi;
+
+            LoggingHelpers.TraceCallReturn();
         }
 
         /// <summary>

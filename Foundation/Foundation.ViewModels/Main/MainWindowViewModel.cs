@@ -421,8 +421,7 @@ namespace Foundation.ViewModels.Main
         {
             Visibility continueVisibility = Visibility.Visible;
             MessageDialogForm theForm = new MessageDialogForm();
-            ErrorDialogViewModel errorDialogViewModel = new ErrorDialogViewModel(Core, RunTimeEnvironmentSettings, DateTimeService,
-                WpfApplicationObjects, theForm, this, exception, continueVisibility);
+            ErrorDialogViewModel errorDialogViewModel = new ErrorDialogViewModel(Core, RunTimeEnvironmentSettings, DateTimeService, WpfApplicationObjects, theForm, this, exception, continueVisibility);
 
             // Show a message before closing application
             theForm.DataContext = errorDialogViewModel;

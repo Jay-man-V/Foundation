@@ -15,7 +15,14 @@ namespace Foundation.Core
     /// </summary>
     public class ConfigurationWrapper : IConfigurationWrapper
     {
-        internal ConfigurationWrapper(ConfigurationManager configurationManager)
+        /// <summary>
+        /// Initialises a new instance of the <see cref="ConfigurationWrapper"/> class.
+        /// </summary>
+        /// <param name="configurationManager"></param>
+        internal ConfigurationWrapper
+        (
+            ConfigurationManager configurationManager
+        )
         {
             ConfigurationManager = configurationManager;
         }

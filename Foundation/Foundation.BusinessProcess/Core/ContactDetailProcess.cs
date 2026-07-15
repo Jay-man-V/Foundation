@@ -140,7 +140,6 @@ namespace Foundation.BusinessProcess.Core
         /// <inheritdoc cref="ICommonBusinessProcess.GetColumnDefinitions()" />
         public override List<IGridColumnDefinition> GetColumnDefinitions()
         {
-
             LoggingHelpers.TraceCallEnter();
 
             List<IGridColumnDefinition> retVal = GetStandardEntityColumnDefinitions();

@@ -26,7 +26,13 @@ namespace Foundation.ViewModels.Services
         /// <summary>
         /// 
         /// </summary>
-        private DispatcherTimerWrapper(TimeSpan interval, DispatcherPriority priority, EventHandler callback, Dispatcher dispatcher)
+        private DispatcherTimerWrapper
+        (
+            TimeSpan interval,
+            DispatcherPriority priority,
+            EventHandler callback,
+            Dispatcher dispatcher
+        )
         {
             DispatcherTimer = new DispatcherTimer(interval, priority, callback, dispatcher);
         }
@@ -34,7 +40,12 @@ namespace Foundation.ViewModels.Services
         private DispatcherTimer? DispatcherTimer  {  get; }
 
         /// <inheritdoc cref="IDispatcherTimerWrapper.NewTimer(TimeSpan, DispatcherPriority, EventHandler)"/>
-        public IDispatcherTimerWrapper NewTimer(TimeSpan interval, DispatcherPriority priority, EventHandler callback)
+        public IDispatcherTimerWrapper NewTimer
+        (
+            TimeSpan interval,
+            DispatcherPriority priority,
+            EventHandler callback
+        )
         {
             Dispatcher currentDispatcher = Application.Current.Dispatcher;
 

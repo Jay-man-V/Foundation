@@ -24,11 +24,11 @@ namespace Foundation.ViewModels.Main
         /// </summary>
         private static class Constants
         {
-            public const string Yes = "YES";
-            public const string No = "NO";
-            public const string Cancel = "CANCEL";
-            public const string Okay = "OKAY";
-            public const string Close = "CLOSE";
+            public const String Yes = "YES";
+            public const String No = "NO";
+            public const String Cancel = "CANCEL";
+            public const String Okay = "OKAY";
+            public const String Close = "CLOSE";
         }
 
         /// <summary>Initialises a new instance of the <see cref="MessageDialogViewModel" /> class.</summary>
@@ -47,7 +47,7 @@ namespace Foundation.ViewModels.Main
             IWpfApplicationObjects wpfApplicationObjects,
             IViewForm targetWindow,
             IViewModel parentViewModel,
-            string formTitle = "Information"
+            String formTitle = "Information"
         ) :
             base
             (
@@ -109,7 +109,7 @@ namespace Foundation.ViewModels.Main
             IViewModel parentViewModel,
             FEnums.MessageBoxImage messageBoxImage,
             Exception exception,
-            string formTitle
+            String formTitle
         ) :
         this
             (
@@ -253,15 +253,15 @@ namespace Foundation.ViewModels.Main
 
         /// <summary>Gets the copy to clipboard command.</summary>
         /// <value>The copy to clipboard command.</value>
-        public ICommand CopyToClipboardCommand => RelayCommandFactory.New<object>(OnCopyToClipboardCommand_Execute);
+        public ICommand CopyToClipboardCommand => RelayCommandFactory.New<Object>(OnCopyToClipboardCommand_Execute);
 
         /// <summary>Gets the expanded collapsed event command.</summary>
         /// <value>The expanded collapsed event command.</value>
-        public ICommand ExpandedCollapsedEventCommand => RelayCommandFactory.New<object>(OnExpandedCollapsedEventCommand_Execute);
+        public ICommand ExpandedCollapsedEventCommand => RelayCommandFactory.New<Object>(OnExpandedCollapsedEventCommand_Execute);
 
         /// <summary>Called when [expanded collapsed event command execute].</summary>
         /// <param name="o">The o.</param>
-        private void OnExpandedCollapsedEventCommand_Execute(object? o)
+        private void OnExpandedCollapsedEventCommand_Execute(Object? o)
         {
             LoggingHelpers.TraceCallEnter(o);
 
@@ -278,7 +278,7 @@ namespace Foundation.ViewModels.Main
 
         /// <summary>Called when [copy to clipboard command execute].</summary>
         /// <param name="o">The o.</param>
-        private void OnCopyToClipboardCommand_Execute(object? o)
+        private void OnCopyToClipboardCommand_Execute(Object? o)
         {
             LoggingHelpers.TraceCallEnter(o);
 
@@ -294,7 +294,7 @@ namespace Foundation.ViewModels.Main
         /// <param name="window">The window.</param>
         /// <param name="buttonText">The button text.</param>
         /// <exception cref="ArgumentException"></exception>
-        private void OnButtonCommand_Execute(IViewForm? window, string buttonText)
+        private void OnButtonCommand_Execute(IViewForm? window, String buttonText)
         {
             LoggingHelpers.TraceCallEnter(window);
 
@@ -308,7 +308,7 @@ namespace Foundation.ViewModels.Main
                     case Constants.Okay: MessageBoxResult = MessageBoxResult.OK; break;
                     case Constants.Close: MessageBoxResult = MessageBoxResult.OK; break;
                     default:
-                        string message = $"{this}.{window} Command Button '{buttonText}' is unknown. Cannot process Message Box Result";
+                        String message = $"{this}.{window} Command Button '{buttonText}' is unknown. Cannot process Message Box Result";
                         throw new ArgumentException(message);
                 }
             }

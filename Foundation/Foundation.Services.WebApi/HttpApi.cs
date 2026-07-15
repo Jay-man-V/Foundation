@@ -30,6 +30,11 @@ namespace Foundation.Services.WebApi
                 new HttpClientHandler()
             )
         {
+            LoggingHelpers.TraceCallEnter();
+
+            // Does nothing
+
+            LoggingHelpers.TraceCallReturn();
         }
 
         /// <summary>
@@ -41,8 +46,11 @@ namespace Foundation.Services.WebApi
             HttpMessageHandler httpMessageHandler
         )
         {
-            //Core = core;
+            LoggingHelpers.TraceCallEnter();
+
             HttpMessageHandler = httpMessageHandler;
+
+            LoggingHelpers.TraceCallReturn();
         }
 
         //private ICore Core { get; }
@@ -105,8 +113,7 @@ namespace Foundation.Services.WebApi
             await using Stream? stream = await DownloadFileAsync(fileTransferSettings).ConfigureAwait(false);
             if (stream != null)
             {
-                if (stream.CanSeek &&
-                    stream.Length > 0)
+                if (stream is { CanSeek: true, Length: > 0 })
                 {
                     stream.Position = 0;
                 }
