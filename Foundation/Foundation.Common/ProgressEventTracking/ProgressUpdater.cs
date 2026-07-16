@@ -136,11 +136,11 @@ namespace Foundation.Common
             StringBuilder line = new StringBuilder();
 
             line.Append(item.TimeOfEntry.ToString(Formats.DotNet.DateTimeMilliseconds));
-            line.Append(" ");
+            line.Append(' ');
             line.Append(item.Action);
-            line.Append(" ");
+            line.Append(' ');
             line.Append(item.Status);
-            line.Append(" ");
+            line.Append(' ');
             line.Append(item.Message);
             line.Append(Environment.NewLine);
 

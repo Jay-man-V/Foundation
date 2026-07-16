@@ -58,7 +58,7 @@ namespace Foundation.Common
         /// <returns>The description</returns>
         public static Int32 DisplayOrder(this Enum val)
         {
-            return DisplayOrder(val, 0);
+            return val.DisplayOrder(0);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Foundation.Common
         /// <returns>The description</returns>
         public static String DisplayName(this Enum val)
         {
-            return DisplayName(val, val.ToString());
+            return val.DisplayName(val.ToString());
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace Foundation.Common
         /// <returns>The description</returns>
         public static String Description(this Enum val)
         {
-            return Description(val, val.ToString());
+            return val.Description(val.ToString());
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace Foundation.Common
         /// <returns>The display format</returns>
         public static String DisplayFormat(this Enum val)
         {
-            return DisplayFormat(val, String.Empty);
+            return val.DisplayFormat(String.Empty);
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace Foundation.Common
         /// <returns>The default value</returns>
         public static Object? DefaultValue(this Enum val)
         {
-            return DefaultValue(val, null);
+            return val.DefaultValue(null);
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace Foundation.Common
         /// <returns>The index</returns>
         public static Int32 Index(this Enum val)
         {
-            return Index(val, 0);
+            return val.Index(0);
         }
 
         /// <summary>

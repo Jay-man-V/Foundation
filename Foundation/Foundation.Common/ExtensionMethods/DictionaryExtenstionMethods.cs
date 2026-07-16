@@ -21,7 +21,7 @@ namespace Foundation.Common
         /// </returns>
         public static Boolean HasItems<TKey, TValue>(this Dictionary<TKey, TValue>? val) where TKey : notnull
         {
-            return (val != null && val.Count > 0);
+            return val is { Count: > 0 };
         }
 
         /// <summary>

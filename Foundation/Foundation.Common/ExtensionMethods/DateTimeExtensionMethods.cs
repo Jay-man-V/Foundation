@@ -101,7 +101,7 @@ namespace Foundation.Common
         {
             /// <summary>
             /// <para>
-            ///  Returns a new <see cref="System.DateTime"/> that adds the specified number of weeks to the value of this instance.
+            /// Returns a new <see cref="System.DateTime"/> that adds the specified number of weeks to the value of this instance.
             /// </para>
             /// <para>
             /// Routine will multiply the <paramref name="value"/> by 7 and then <see cref="DateTime.AddDays(Double)"/>
