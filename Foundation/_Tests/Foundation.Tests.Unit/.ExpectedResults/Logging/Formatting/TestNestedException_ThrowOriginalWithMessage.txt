@@ -35,4 +35,4 @@ Stack trace
    at Foundation.Tests.Unit.Foundation.Common.LoggingTests.Common.NestedExceptionSecondMethod(Boolean throwAsNew) in D:\Projects\JDVSoftware\Foundation\_Tests\Foundation.Tests.Unit\Foundation.Common\LoggingTests\Common.cs:line 37
    at Foundation.Tests.Unit.Foundation.Common.LoggingTests.Common.NestedExceptionFirstMethod(Boolean throwAsNew) in D:\Projects\JDVSoftware\Foundation\_Tests\Foundation.Tests.Unit\Foundation.Common\LoggingTests\Common.cs:line 18
    at Foundation.Tests.Unit.Foundation.Common.LoggingTests.FormattingTests.ExceptionOutputTests.<>c.<TestNestedException_ThrowOriginalWithMessage>b__5_0() in D:\Projects\JDVSoftware\Foundation\_Tests\Foundation.Tests.Unit\Foundation.Common\LoggingTests\FormattingTests\ExceptionOutputTests.cs:line 111
-   at NUnit.Framework.Assert.Throws(IResolveConstraint expression, TestDelegate code, String message, Object[] args)
+   at NUnit.Framework.Assert.Throws(IResolveConstraint expression, Action code, String message, Object[] args)

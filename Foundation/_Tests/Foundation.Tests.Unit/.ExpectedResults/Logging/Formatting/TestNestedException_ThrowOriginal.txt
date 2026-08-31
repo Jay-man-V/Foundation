@@ -35,7 +35,7 @@ Help link:
 Stack trace
    at Foundation.Tests.Unit.Foundation.Common.LoggingTests.Common.NestedExceptionFirstMethod(Boolean throwAsNew) in D:\Projects\JDVSoftware\Foundation\_Tests\Foundation.Tests.Unit\Foundation.Common\LoggingTests\Common.cs:line 24
    at Foundation.Tests.Unit.Foundation.Common.LoggingTests.FormattingTests.ExceptionOutputTests.<>c.<TestNestedException_ThrowOriginal>b__4_0() in D:\Projects\JDVSoftware\Foundation\_Tests\Foundation.Tests.Unit\Foundation.Common\LoggingTests\FormattingTests\ExceptionOutputTests.cs:line 91
-   at NUnit.Framework.Assert.Throws(IResolveConstraint expression, TestDelegate code, String message, Object[] args)
+   at NUnit.Framework.Assert.Throws(IResolveConstraint expression, Action code, String message, Object[] args)
 
 ************************* Inner Exception Error Text **************************
 Error message: NestedExceptionSecondMethod
