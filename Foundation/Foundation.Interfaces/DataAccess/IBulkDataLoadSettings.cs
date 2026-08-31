@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Data;
 using System.IO;
 
 namespace Foundation.Interfaces
@@ -18,5 +19,7 @@ namespace Foundation.Interfaces
         String SourceFilePath { get; }
         String DestinationTable { get; }
         String ProcedureName { get; }
+
+        List<IDbDataParameter> DataLoadParameters { get; }
     }
 }

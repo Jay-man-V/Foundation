@@ -5,12 +5,12 @@
 //-----------------------------------------------------------------------
 
 using System.Data;
-using System.Diagnostics;
 using System.IO;
-using Foundation.Common;
+
 using Microsoft.Data.SqlClient;
 using Microsoft.Data.SqlClient.Server;
 
+using Foundation.Common;
 using Foundation.Interfaces;
 
 namespace Foundation.DataAccess.MSSql
@@ -41,7 +41,7 @@ namespace Foundation.DataAccess.MSSql
 
             using (IDbConnection connection = DataAccess.GetConnection())
             {
-                IEnumerable<SqlDataRecord> dt = GetData(bulkDataLoadSettings.SourceFilePath);
+                IEnumerable<SqlDataRecord> dt = GetData(bulkDataLoadSettings);
 
                 connection.Open();
 
@@ -63,38 +63,29 @@ namespace Foundation.DataAccess.MSSql
             LoggingHelpers.TraceCallReturn();
         }
 
-        private IEnumerable<SqlDataRecord> GetData(String fileName)
+        private IEnumerable<SqlDataRecord> GetData(IBulkDataLoadSettings bulkDataLoadSettings)
         {
-            LoggingHelpers.TraceCallEnter(fileName);
+            LoggingHelpers.TraceCallEnter(bulkDataLoadSettings);
 
             // TODO: Query the database to get the column names and types from the destination table.
-            List<SqlMetaData> schema = CommonCode.SetupDataTable();
+            List<SqlMetaData> schema = SetupDataTable(bulkDataLoadSettings);
 
             SqlDataRecord dataRecord = new SqlDataRecord(schema.ToArray());
-            StreamReader reader = new StreamReader(fileName);
-            Int32 rowCounter = 0;
+            StreamReader reader = new StreamReader(bulkDataLoadSettings.SourceFilePath);
+
             try
             {
                 while (!reader.EndOfStream)
                 {
-                    rowCounter++;
-
-                    if (rowCounter % CommonCode.DebugCount == 0)
-                    {
-                        Debug.WriteLine($"Progress: {rowCounter}");
-                    }
-
                     String? fileRow = reader.ReadLine();
-                    var values = fileRow.Split(',');
+                    if (!String.IsNullOrEmpty(fileRow))
+                    {
+                        String[] values = fileRow.Split(',');
 
-                    dataRecord.SetValues(values);
+                        dataRecord.SetValues(values);
 
-                    //for (Int32 counter = 0; counter < CommonCode.ColumnCount; counter++)
-                    //{
-                    //    dataRecord.SetString(counter, values[counter]);
-                    //}
-
-                    yield return dataRecord;
+                        yield return dataRecord;
+                    }
                 }
             }
             finally
@@ -104,6 +95,23 @@ namespace Foundation.DataAccess.MSSql
 
             LoggingHelpers.TraceCallReturn();
         }
+
+        private List<SqlMetaData> SetupDataTable(IBulkDataLoadSettings bulkDataLoadSettings)
+        {
+            LoggingHelpers.TraceCallEnter(bulkDataLoadSettings);
+
+            List<SqlMetaData> retVal = [];
+
+            foreach(IDbDataParameter dbDataParameter in bulkDataLoadSettings.DataLoadParameters)
+            {
+                SqlDbType dbType = Utils.MapFromDbType(dbDataParameter.DbType);
+                SqlMetaData sqlMetaData = new SqlMetaData(dbDataParameter.ParameterName, dbType, dbDataParameter.Size);
+                retVal.Add(sqlMetaData);
+            }
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
     }
-}
 }
