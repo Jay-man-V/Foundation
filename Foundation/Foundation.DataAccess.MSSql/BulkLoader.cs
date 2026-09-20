@@ -11,6 +11,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Data.SqlClient.Server;
 
 using Foundation.Common;
+using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 
 namespace Foundation.DataAccess.MSSql
@@ -18,41 +19,74 @@ namespace Foundation.DataAccess.MSSql
     /// <summary>
     /// 
     /// </summary>
-    public class BulkLoader : IFoundationBulkLoader
+    [DependencyInjectionTransient]
+    public class BulkLoader : IMsSqlBulkLoader
     {
+        /// <summary>
+        /// Initialises a new instance of the <see cref="BulkLoader"/> class.
+        /// </summary>
+        /// <param name="core">The Foundation Core service.</param>
+        /// <param name="runTimeEnvironmentSettings">The run time environment settings.</param>
+        /// <param name="systemConfigurationService">The system configuration service.</param>
+        /// <param name="coreDataProvider">The core data provider.</param>
+        /// <param name="dateTimeService">The date/time service.</param>
+        /// <param name="fileApi">The file API.</param>
         public BulkLoader
         (
-            IFoundationDataAccess dataAccess
+            ICore core,
+            IRunTimeEnvironmentSettings runTimeEnvironmentSettings,
+            ISystemConfigurationService systemConfigurationService,
+            ICoreDataProvider coreDataProvider,
+            IDateTimeService dateTimeService,
+            IFileApi fileApi
         )
         {
-            LoggingHelpers.TraceCallEnter(dataAccess);
+            LoggingHelpers.TraceCallEnter(core, runTimeEnvironmentSettings, systemConfigurationService, coreDataProvider, dateTimeService);
 
-            DataAccess = dataAccess;
+            Core = core;
+            RunTimeEnvironmentSettings = runTimeEnvironmentSettings;
+            SystemConfigurationService = systemConfigurationService;
+            CoreDataProvider = coreDataProvider;
+            DateTimeService = dateTimeService;
+
+            FileApi = fileApi;
+
+            FoundationDataAccess = new FoundationDataAccess(Core, SystemConfigurationService, CoreDataProvider.ConnectionName);
 
             LoggingHelpers.TraceCallReturn();
         }
 
-        private IFoundationDataAccess DataAccess { get; }
+        private ICore Core { get; }
+        private IRunTimeEnvironmentSettings RunTimeEnvironmentSettings { get; }
+        private ISystemConfigurationService SystemConfigurationService { get; }
+        private ICoreDataProvider CoreDataProvider { get; }
+        private IDateTimeService DateTimeService { get; }
+        private IFileApi FileApi { get; }
 
-        /// <inheritdoc cref="IFoundationBulkLoader.BulkDataLoad"/>
+        private IFoundationDataAccess FoundationDataAccess { get; }
+
+        public const String BulkLoadProcedureName = "usp_BulkLoaderTests_Test_BulkDataLoad";
+
+            /// <inheritdoc cref="IFoundationBulkLoader.BulkDataLoad"/>
         public void BulkDataLoad(IBulkDataLoadSettings bulkDataLoadSettings)
         {
             LoggingHelpers.TraceCallEnter(bulkDataLoadSettings);
 
-            using (IDbConnection connection = DataAccess.GetConnection())
+            // Check the file exists
+            FileApi.EnsureFileExists(bulkDataLoadSettings.SourceFilePath);
+
+            using (IDbConnection connection = FoundationDataAccess.GetConnection())
             {
                 IEnumerable<SqlDataRecord> dt = GetData(bulkDataLoadSettings);
 
-                connection.Open();
-
                 using (IDbCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = bulkDataLoadSettings.ProcedureName;
+                    command.CommandText = BulkLoadProcedureName;
                     command.CommandTimeout = 0;
                     command.CommandType = CommandType.StoredProcedure;
-                    SqlParameter p1 = new(bulkDataLoadSettings.DestinationTable, SqlDbType.Structured)
+                    SqlParameter p1 = new("loadValues", SqlDbType.Structured)
                     {
-                        TypeName = $"{bulkDataLoadSettings.DestinationTable}",
+                        TypeName = "[dbo].[LoadTestValues]",
                         Value = dt,
                     };
                     command.Parameters.Add(p1);
@@ -63,11 +97,15 @@ namespace Foundation.DataAccess.MSSql
             LoggingHelpers.TraceCallReturn();
         }
 
+        /// <summary>
+        /// Loads the data from the source file and returns an IEnumerable of SqlDataRecord objects.
+        /// </summary>
+        /// <param name="bulkDataLoadSettings"></param>
+        /// <returns></returns>
         private IEnumerable<SqlDataRecord> GetData(IBulkDataLoadSettings bulkDataLoadSettings)
         {
             LoggingHelpers.TraceCallEnter(bulkDataLoadSettings);
 
-            // TODO: Query the database to get the column names and types from the destination table.
             List<SqlMetaData> schema = SetupDataTable(bulkDataLoadSettings);
 
             SqlDataRecord dataRecord = new SqlDataRecord(schema.ToArray());

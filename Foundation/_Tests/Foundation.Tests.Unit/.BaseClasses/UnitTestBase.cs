@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 
 using Foundation.Common;
@@ -584,6 +585,37 @@ namespace Foundation.Tests.Unit.BaseClasses
             Type thisType = this.GetType();
             IEnumerable<MethodInfo> testMethods = thisType.GetMethods().Where(m => m.Name.StartsWith("Test_"));
             return testMethods;
+        }
+
+        protected void CreateFileWithData(Int32 requiredRowCount, Int32 requiredColumnCount, String filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+
+            StringBuilder csvData = new StringBuilder();
+            Boolean moreColumnLines = false;
+            for (Int32 columnCounter = 1; columnCounter <= requiredColumnCount; columnCounter++)
+            {
+                if (moreColumnLines) csvData.Append(",");
+                csvData.Append($"{columnCounter:D3} {Guid.NewGuid()}");
+                moreColumnLines = true;
+            }
+
+            using (StreamWriter writer = new StreamWriter(filePath, append: false))
+            {
+                writer.AutoFlush = true;
+                for (Int32 rowCounter = 1; rowCounter <= requiredRowCount; rowCounter++)
+                {
+                    writer.Write($"{rowCounter:D7} {csvData}");
+                    writer.WriteLine();
+
+                    writer.Flush();
+                }
+
+                writer.Close();
+            }
         }
     }
 }

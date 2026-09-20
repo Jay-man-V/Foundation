@@ -28,6 +28,7 @@ namespace Foundation.DataAccess.MSSql
                 DbType.DateTime2 => SqlDbType.DateTime2,
                 DbType.Int32 => SqlDbType.Int,
                 DbType.String => SqlDbType.NVarChar,
+                DbType.Object => SqlDbType.Variant,
                 _ => throw new ArgumentOutOfRangeException(nameof(dbType), dbType, null)
             };
         }

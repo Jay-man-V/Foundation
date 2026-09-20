@@ -1,20 +1,15 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="IBulkDataLoadSettings.cs" company="JDV Software Ltd">
+// <copyright file="IMsSqlBulkLoader.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.Data;
-
 namespace Foundation.Interfaces
 {
     /// <summary>
-    /// Defines the IBulkDataLoadSettings behaviours
+    /// Defines the IMsSqlBulkLoader behaviours
     /// </summary>
-    public interface IBulkDataLoadSettings
+    public interface IMsSqlBulkLoader : IFoundationBulkLoader
     {
-        String SourceFilePath { get; set; }
-
-        List<IDbDataParameter> DataLoadParameters { get; }
     }
 }

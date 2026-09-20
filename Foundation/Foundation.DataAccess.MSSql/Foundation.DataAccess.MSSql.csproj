@@ -20,6 +20,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Foundation.Common\Foundation.Common.csproj" />
+      <ProjectReference Include="..\Foundation.DataAccess.Database\Foundation.DataAccess.Database.csproj" />
       <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
     </ItemGroup>
 

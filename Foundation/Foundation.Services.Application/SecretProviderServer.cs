@@ -39,12 +39,24 @@ namespace Foundation.Services.Application
         private ICore Core { get; }
         private ISecretProviderRepository SecretProviderRepository { get; }
 
-        /// <inheritdoc cref="ISecretProviderService.GetSecret(String, String)"/>
-        public String GetSecret(String applicationCode, String secretName)
+        /// <inheritdoc cref="ISecretProviderService.GetSecretString(String, String)"/>
+        public String GetSecretString(String applicationCode, String secretName)
         {
             LoggingHelpers.TraceCallEnter(applicationCode, secretName);
 
-            String retVal = SecretProviderRepository.GetSecret(applicationCode, secretName);
+            String retVal = SecretProviderRepository.GetSecretString(applicationCode, secretName);
+
+            LoggingHelpers.TraceCallReturn($"{nameof(retVal)} not logged");
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="ISecretProviderService.GetSecretBytes(String, String)"/>
+        public Byte[] GetSecretBytes(String applicationCode, String secretName)
+        {
+            LoggingHelpers.TraceCallEnter(applicationCode, secretName);
+
+            Byte[] retVal = SecretProviderRepository.GetSecretBytes(applicationCode, secretName);
 
             LoggingHelpers.TraceCallReturn($"{nameof(retVal)} not logged");
 

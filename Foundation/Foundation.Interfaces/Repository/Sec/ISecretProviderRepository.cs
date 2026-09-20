@@ -17,6 +17,14 @@ namespace Foundation.Interfaces.Repository.Sec
         /// <param name="applicationCode"></param>
         /// <param name="secretName"></param>
         /// <returns></returns>
-        String GetSecret(String applicationCode, String secretName);
+        String GetSecretString(String applicationCode, String secretName);
+
+        /// <summary>
+        /// Retrieves a secret by its name and application code
+        /// </summary>
+        /// <param name="applicationCode"></param>
+        /// <param name="secretName"></param>
+        /// <returns></returns>
+        Byte[] GetSecretBytes(String applicationCode, String secretName);
     }
 }

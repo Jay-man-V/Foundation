@@ -51,12 +51,24 @@ namespace Foundation.Repository.Sec
         private IDateTimeService DateTimeService { get; }
         private ISecretDataProvider SecretDataProvider { get; }
 
-        /// <inheritdoc cref="ISecretProviderRepository.GetSecret(String, String)"/>
-        public String GetSecret(String applicationCode, String secretName)
+        /// <inheritdoc cref="ISecretProviderRepository.GetSecretString(String, String)"/>
+        public String GetSecretString(String applicationCode, String secretName)
         {
             LoggingHelpers.TraceCallEnter(applicationCode, secretName);
 
             String retVal = "<Not implemented>";
+
+            LoggingHelpers.TraceCallReturn($"{nameof(retVal)} not logged");
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="ISecretProviderRepository.GetSecretBytes(String, String)"/>
+        public Byte[] GetSecretBytes(String applicationCode, String secretName)
+        {
+            LoggingHelpers.TraceCallEnter(applicationCode, secretName);
+
+            Byte[] retVal = [0];
 
             LoggingHelpers.TraceCallReturn($"{nameof(retVal)} not logged");
 

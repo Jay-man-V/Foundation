@@ -44,6 +44,8 @@
     <ProjectReference Include="..\..\Foundation.DataAccess.Csv\Foundation.DataAccess.Csv.csproj" />
     <ProjectReference Include="..\..\Foundation.DataAccess.Database\Foundation.DataAccess.Database.csproj" />
     <ProjectReference Include="..\..\Foundation.DataAccess.FileData\Foundation.FileData.Client.csproj" />
+    <ProjectReference Include="..\..\Foundation.DataAccess.MSSql\Foundation.DataAccess.MSSql.csproj" />
+    <ProjectReference Include="..\..\Foundation.DataAccess.Oracle\Foundation.DataAccess.Oracle.csproj" />
     <ProjectReference Include="..\..\Foundation.DocumentGenerator\Foundation.DocumentGenerator.csproj" />
     <ProjectReference Include="..\..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
     <ProjectReference Include="..\..\Foundation.Models\Foundation.Models.csproj" />
