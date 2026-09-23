@@ -65,8 +65,6 @@ namespace Foundation.DataAccess.MSSql
 
         private IFoundationDataAccess FoundationDataAccess { get; }
 
-        public const String BulkLoadProcedureName = "usp_BulkLoaderTests_Test_BulkDataLoad";
-
             /// <inheritdoc cref="IFoundationBulkLoader.BulkDataLoad"/>
         public void BulkDataLoad(IBulkDataLoadSettings bulkDataLoadSettings)
         {
@@ -81,12 +79,12 @@ namespace Foundation.DataAccess.MSSql
 
                 using (IDbCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = BulkLoadProcedureName;
+                    command.CommandText = bulkDataLoadSettings.ProcedureName;
                     command.CommandTimeout = 0;
                     command.CommandType = CommandType.StoredProcedure;
-                    SqlParameter p1 = new("loadValues", SqlDbType.Structured)
+                    SqlParameter p1 = new(bulkDataLoadSettings.ProcedureParameterName, SqlDbType.Structured)
                     {
-                        TypeName = "[dbo].[LoadTestValues]",
+                        TypeName = bulkDataLoadSettings.ProcedureCustomTypeName,
                         Value = dt,
                     };
                     command.Parameters.Add(p1);

@@ -40,6 +40,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database
             Assert.That(bulkDataLoadSettings.DataLoadParameters, Is.Not.Null);
 
             Assert.That(bulkDataLoadSettings.SourceFilePath, Is.EqualTo(expectedSourceFilePath));
+            Assert.That(bulkDataLoadSettings.ProcedureName, Is.EqualTo(expectedProcedureName));
         }
 
         [TestCase]

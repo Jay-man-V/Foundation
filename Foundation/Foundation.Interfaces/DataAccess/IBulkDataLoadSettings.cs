@@ -14,7 +14,10 @@ namespace Foundation.Interfaces
     public interface IBulkDataLoadSettings
     {
         String SourceFilePath { get; set; }
-
         List<IDbDataParameter> DataLoadParameters { get; }
+
+        String ProcedureName { get; set; }
+        String ProcedureParameterName { get; set; }
+        String ProcedureCustomTypeName { get; set; }
     }
 }

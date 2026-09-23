@@ -5,8 +5,11 @@
 //-----------------------------------------------------------------------
 
 using System.Data;
+using System.Diagnostics;
 using System.Text;
 
+using Foundation.Common;
+using Foundation.DataAccess.Database;
 using Foundation.Interfaces;
 using Foundation.Repository;
 
@@ -17,9 +20,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database.Support
 {
     public interface IComplexTestEntityRepository : IFoundationModelDataAccess<IMockFoundationModel>
     {
-        List<IDbDataParameter> SetupDataTable(Int32 requiredColumnCount);
-
-        void SetupDatabase(Int32 requiredColumnCount, String bulkLoadProcedureName);
+        void BulkLoadData(String fileToLoad, Int32 requiredColumnCount);
     }
 
     [DependencyInjectionTransient]
@@ -86,7 +87,33 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database.Support
             base.RefreshCacheData();
         }
 
-        public List<IDbDataParameter> SetupDataTable(Int32 requiredColumnCount)
+        public void BulkLoadData(String fileToLoad, Int32 requiredColumnCount)
+        {
+            String bulkLoadProcedureName = "usp_BulkLoaderTests_Test_BulkDataLoad";
+            
+            SetupDatabase(requiredColumnCount, bulkLoadProcedureName);
+
+            ExecutionTimer setupDataTableTimer = new ExecutionTimer("SetupDataTable");
+            List<IDbDataParameter> parameters = SetupDataTable(requiredColumnCount);
+            setupDataTableTimer.StopTimer();
+            Debug.WriteLine($"Duration: {setupDataTableTimer.Duration}");
+
+            IBulkDataLoadSettings bulkDataLoadSettings = Core.IoC.Get<IBulkDataLoadSettings>();
+            bulkDataLoadSettings.DataLoadParameters.AddRange(parameters);
+            bulkDataLoadSettings.SourceFilePath = fileToLoad;
+            bulkDataLoadSettings.ProcedureName = bulkLoadProcedureName;
+            bulkDataLoadSettings.ProcedureParameterName = "loadValues";
+            bulkDataLoadSettings.ProcedureCustomTypeName = "[dbo].[LoadTestValues]";
+            
+            ExecutionTimer bulkDataLoadTimer = new ExecutionTimer("BulkDataLoad");
+            IMsSqlBulkLoader theService = Core.IoC.Get<IMsSqlBulkLoader>();
+            theService?.BulkDataLoad(bulkDataLoadSettings);
+            bulkDataLoadTimer.StopTimer();
+            Debug.WriteLine($"Duration: {bulkDataLoadTimer.Duration}");
+
+        }
+
+        private List<IDbDataParameter> SetupDataTable(Int32 requiredColumnCount)
         {
             List<IDbDataParameter> retVal = [];
 
@@ -100,7 +127,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database.Support
             return retVal;
         }
 
-        public void SetupDatabase(Int32 requiredColumnCount, String bulkLoadProcedureName)
+        private void SetupDatabase(Int32 requiredColumnCount, String bulkLoadProcedureName)
         {
             ResetTestTable();
 
@@ -111,7 +138,7 @@ namespace Foundation.Tests.Unit.Foundation.DataAccess.Database.Support
             CreateStoredProcedure(requiredColumnCount, bulkLoadProcedureName);
         }
 
-        public void ResetTestTable()
+        private void ResetTestTable()
         {
             FoundationDataAccess.ExecuteNonQuery("TRUNCATE TABLE LoadTest;");
             FoundationDataAccess.ExecuteNonQuery("DBCC CHECKIDENT('[LoadTest]', RESEED, 1);");

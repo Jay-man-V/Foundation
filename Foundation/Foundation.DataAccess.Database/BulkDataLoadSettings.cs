@@ -19,6 +19,8 @@ namespace Foundation.DataAccess.Database
         public String SourceFilePath { get; set; } = String.Empty;
         public String DestinationTable { get; set; } = String.Empty;
         public String ProcedureName { get; set; } = String.Empty;
+        public String ProcedureParameterName { get; set; } = String.Empty;
+        public String ProcedureCustomTypeName { get; set; } = String.Empty;
         public List<IDbDataParameter> DataLoadParameters { get; private set; } = [];
 
         /// <inheritdoc cref="ICloneable.Clone()"/>
@@ -29,6 +31,8 @@ namespace Foundation.DataAccess.Database
             retVal.SourceFilePath = this.SourceFilePath;
             retVal.DestinationTable = this.DestinationTable;
             retVal.ProcedureName = this.ProcedureName;
+            retVal.ProcedureParameterName = this.ProcedureParameterName;
+            retVal.ProcedureCustomTypeName = this.ProcedureCustomTypeName;
             retVal.DataLoadParameters = new List<IDbDataParameter>(this.DataLoadParameters);
 
             return retVal;

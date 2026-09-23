@@ -1,17 +1,13 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="BulkLoaderTests.cs" company="JDV Software Ltd">
+// <copyright file="MsSqlBulkLoaderTests.cs" company="JDV Software Ltd">
 //     Copyright (c) JDV Software Ltd. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
 using System.Data;
 using System.Diagnostics;
-using System.Text;
-
-using Microsoft.Data.SqlClient;
 
 using Foundation.Common;
-using Foundation.DataAccess.MSSql;
 using Foundation.Interfaces;
 
 using Foundation.Tests.System.BaseClasses;
@@ -23,7 +19,7 @@ namespace Foundation.Tests.System.Foundation.DataAccess.MsSql
     /// System Tests for BulkLoaderTests
     /// </summary>
     [TestFixture]
-    public class BulkLoaderTests : SystemTestBase
+    public class MsSqlBulkLoaderTests : SystemTestBase
     {
         private String ClassName => LocationUtils.GetClassName();
         private IMsSqlBulkLoader? TheService { get; set; }
@@ -71,19 +67,12 @@ namespace Foundation.Tests.System.Foundation.DataAccess.MsSql
             Int32 requiredColumnCount = 10;
             String dataFile = $@"D:\Data - {functionName}.txt";
 
-            IComplexTestEntityRepository foundationDataAccess = CoreInstance.IoC.Get<IComplexTestEntityRepository>();
-            foundationDataAccess.SetupDatabase(requiredColumnCount, BulkLoader.BulkLoadProcedureName);
+            IComplexTestEntityRepository complexTestEntityRepository = CoreInstance.IoC.Get<IComplexTestEntityRepository>();
             CreateFileWithData(requiredRowCount, requiredColumnCount, dataFile);
 
             // Act
-            List<IDbDataParameter> parameters = foundationDataAccess.SetupDataTable(requiredColumnCount);
-
-            IBulkDataLoadSettings bulkDataLoadSettings = CoreInstance.IoC.Get<IBulkDataLoadSettings>();
-            bulkDataLoadSettings.DataLoadParameters.AddRange(parameters);
-            bulkDataLoadSettings.SourceFilePath = dataFile;
-
-            ExecutionTimer executionTimer = new ExecutionTimer();
-            TheService?.BulkDataLoad(bulkDataLoadSettings);
+            ExecutionTimer executionTimer = new ExecutionTimer("Test_BulkDataLoad");
+            complexTestEntityRepository.BulkLoadData(dataFile, requiredColumnCount);
             executionTimer.StopTimer();
             Debug.WriteLine($"Duration: {executionTimer.Duration}");
         }
