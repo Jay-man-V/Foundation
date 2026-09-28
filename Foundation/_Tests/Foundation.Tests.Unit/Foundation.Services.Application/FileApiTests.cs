@@ -240,7 +240,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
         {
             DirectoryInfo di = TheService!.CreateDirectory(".ExpectedResults", Guid.NewGuid().ToString(), false);
 
-            List<String> files = TheService!.GetListOfFiles(di.FullName, "*.*", false);
+            List<String> files = TheService!.GetListOfFilenames(di.FullName, "*.*", false);
 
             Assert.That(files, Is.Not.Null);
             Assert.That(files.Count, Is.EqualTo(0));
@@ -253,7 +253,7 @@ namespace Foundation.Tests.Unit.Foundation.Services.Application
             String baseFolder = di.FullName;
             TheService!.WriteFileContent(Path.Combine(baseFolder, "TestFile.txt"), "Test content");
 
-            List<String> files = TheService!.GetListOfFiles(baseFolder, "*.*", false);
+            List<String> files = TheService!.GetListOfFilenames(baseFolder, "*.*", false);
 
             Assert.That(files, Is.Not.Null);
             Assert.That(files.Count, Is.EqualTo(1));

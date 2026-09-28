@@ -137,10 +137,12 @@ namespace Foundation.Server.ScheduledTasks
                 FileApi.EnsureCanWriteToFolderPath(FileCopyTaskParameters.ArchiveFilePath);
             }
 
+            DateTime sinceDateTime = (FileCopyTaskParameters.CopyFilesSinceLastRun) ? LastRunDateTime : DateTime.MinValue;
+
             LogId fileCopyLogId = LoggingService.CreateLogEntry(copyLogId, FileCopyTaskParameters.BatchName, FileCopyTaskParameters.ProcessName, FileCopyTaskParameters.TaskName, LogSeverity.Information, "Validated folders");
 
             Boolean includeSubDirectories = false; // Set to true if you want to include subdirectories in the file copy operation.
-            List<String> filenames = FileApi.GetListOfFiles(FileCopyTaskParameters.SourceFilePath, FileCopyTaskParameters.SourceFileMask, includeSubDirectories);
+            List<String> filenames = FileApi.GetListOfFilenames(FileCopyTaskParameters.SourceFilePath, FileCopyTaskParameters.SourceFileMask, includeSubDirectories, sinceDateTime);
             LoggingService.CreateLogEntry(fileCopyLogId, FileCopyTaskParameters.BatchName, FileCopyTaskParameters.ProcessName, FileCopyTaskParameters.TaskName, LogSeverity.Information, $"Files found to copy: {filenames.Count}.");
 
             IMailMessage mailMessage = Core.IoC.Get<IMailMessage>();

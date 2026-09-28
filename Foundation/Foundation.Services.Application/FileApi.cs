@@ -157,17 +157,58 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="IFileApi.EnsureFileExists(String)"/>
-        public List<String> GetListOfFiles(String folderPath, String searchPattern, Boolean includeSubdirectories)
+        /// <inheritdoc cref="IFileApi.GetListOfFilenames(String, String, Boolean)"/>
+        public List<String> GetListOfFilenames(String folderPath, String searchPattern, Boolean includeSubdirectories)
         {
             LoggingHelpers.TraceCallEnter(folderPath, searchPattern, includeSubdirectories);
+
+            DateTime sinceDateTime = DateTime.MinValue;
+            List<String> retVal = GetListOfFilenames(folderPath, searchPattern, includeSubdirectories, sinceDateTime);
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IFileApi.GetListOfFilenames(String, String, Boolean, DateTime)"/>
+        public List<String> GetListOfFilenames(String folderPath, String searchPattern, Boolean includeSubdirectories, DateTime sinceDateTime)
+        {
+            LoggingHelpers.TraceCallEnter(folderPath, searchPattern, includeSubdirectories, sinceDateTime);
+
+            List<FileInfo> listOfFiles = GetListOfFiles(folderPath, searchPattern, includeSubdirectories, sinceDateTime);
+            List<String> retVal = listOfFiles.Select(f => f.FullName).ToList();
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IFileApi.GetListOfFiles(String, String, Boolean)"/>
+        public List<FileInfo> GetListOfFiles(String folderPath, String searchPattern, Boolean includeSubdirectories)
+        {
+            LoggingHelpers.TraceCallEnter(folderPath, searchPattern, includeSubdirectories);
+
+            DateTime sinceDateTime = DateTime.MinValue;
+            List<FileInfo> retVal = GetListOfFiles(folderPath, searchPattern, includeSubdirectories, sinceDateTime);
+
+            LoggingHelpers.TraceCallReturn(retVal);
+
+            return retVal;
+        }
+
+        /// <inheritdoc cref="IFileApi.GetListOfFiles(String, String, Boolean, DateTime)"/>
+        public List<FileInfo> GetListOfFiles(String folderPath, String searchPattern, Boolean includeSubdirectories, DateTime sinceDateTime)
+        {
+            LoggingHelpers.TraceCallEnter(folderPath, searchPattern, includeSubdirectories, sinceDateTime);
 
             EnsureDirectoryExists(folderPath);
 
             SearchOption searchOption = includeSubdirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
 
             DirectoryInfo directoryInfo = new DirectoryInfo(folderPath);
-            List<String> retVal = directoryInfo.GetFiles(searchPattern, searchOption).ToList().Select(f => f.FullName).ToList();
+            List<FileInfo> fileList = directoryInfo.GetFiles(searchPattern, searchOption).ToList();
+            List<FileInfo> retVal = fileList.Where(f => f.LastWriteTime > sinceDateTime ||
+                                                        f.CreationTime > sinceDateTime).ToList();
 
             LoggingHelpers.TraceCallReturn(retVal);
 
@@ -565,7 +606,7 @@ namespace Foundation.Services.Application
             LoggingHelpers.TraceCallReturn();
         }
 
-        /// <inheritdoc cref="IRemoteServiceApi.DeleteFile(IFileTransferSettings)"/>
+        /// <inheritdoc cref="IRemoteServiceApi.DeleteFileAsync(IFileTransferSettings)"/>
         public async Task DeleteFileAsync(IFileTransferSettings fileTransferSettings)
         {
             LoggingHelpers.TraceCallEnter(fileTransferSettings);
@@ -634,7 +675,7 @@ namespace Foundation.Services.Application
             return retVal;
         }
 
-        /// <inheritdoc cref="IRemoteServiceApi.UploadFile(IFileTransferSettings, String)"/>
+        /// <inheritdoc cref="IRemoteServiceApi.UploadFileAsync(IFileTransferSettings, String)"/>
         public async Task<String> UploadFileAsync(IFileTransferSettings fileTransferSettings, String filePath)
         {
             LoggingHelpers.TraceCallEnter(fileTransferSettings, filePath);

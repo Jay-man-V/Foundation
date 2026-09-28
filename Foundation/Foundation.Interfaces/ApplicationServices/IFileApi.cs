@@ -72,7 +72,48 @@ namespace Foundation.Interfaces
         /// <returns>
         /// A list of file names that match the search pattern. The list is empty if no matching files are found.
         /// </returns>
-        List<String> GetListOfFiles(String folderPath, String searchPattern, Boolean includeSubdirectories);
+        List<String> GetListOfFilenames(String folderPath, String searchPattern, Boolean includeSubdirectories);
+
+        /// <summary>
+        /// Retrieves a list of file names from the specified folder that match the given search pattern.
+        /// </summary>
+        /// <param name="folderPath">The full path to the folder in which to search for files. Cannot be null or empty.</param>
+        /// <param name="searchPattern">The search string to match against the names of files in the folder. May include wildcards such as '*' and
+        /// '?'.</param>
+        /// <param name="includeSubdirectories">true to include files in all subdirectories of the specified folder; otherwise, false to search only the
+        /// top-level folder.</param>
+        /// <param name="sinceDateTime">The date and time since which to include files.</param>
+        /// <returns>
+        /// A list of file names that match the search pattern. The list is empty if no matching files are found.
+        /// </returns>
+        List<String> GetListOfFilenames(String folderPath, String searchPattern, Boolean includeSubdirectories, DateTime sinceDateTime);
+
+        /// <summary>
+        /// Retrieves a list of file info objects from the specified folder that match the given search pattern.
+        /// </summary>
+        /// <param name="folderPath">The full path to the folder in which to search for files. Cannot be null or empty.</param>
+        /// <param name="searchPattern">The search string to match against the names of files in the folder. May include wildcards such as '*' and
+        /// '?'.</param>
+        /// <param name="includeSubdirectories">true to include files in all subdirectories of the specified folder; otherwise, false to search only the
+        /// top-level folder.</param>
+        /// <returns>
+        /// A list of file info objects that match the search pattern. The list is empty if no matching files are found.
+        /// </returns>
+        List<FileInfo> GetListOfFiles(String folderPath, String searchPattern, Boolean includeSubdirectories);
+
+        /// <summary>
+        /// Retrieves a list of file info objects from the specified folder that match the given search pattern.
+        /// </summary>
+        /// <param name="folderPath">The full path to the folder in which to search for files. Cannot be null or empty.</param>
+        /// <param name="searchPattern">The search string to match against the names of files in the folder. May include wildcards such as '*' and
+        /// '?'.</param>
+        /// <param name="includeSubdirectories">true to include files in all subdirectories of the specified folder; otherwise, false to search only the
+        /// top-level folder.</param>
+        /// <param name="sinceDateTime">The date and time since which to include files.</param>
+        /// <returns>
+        /// A list of file info objects that match the search pattern. The list is empty if no matching files are found.
+        /// </returns>
+        List<FileInfo> GetListOfFiles(String folderPath, String searchPattern, Boolean includeSubdirectories, DateTime sinceDateTime);
 
         /// <summary>
         /// Ensures the file exists.
