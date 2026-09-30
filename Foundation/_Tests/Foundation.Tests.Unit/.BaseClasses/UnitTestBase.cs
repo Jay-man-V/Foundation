@@ -147,8 +147,8 @@ namespace Foundation.Tests.Unit.BaseClasses
         protected String ReplaceDateTimeWithConstant(String inputString)
         {
             String retVal = inputString;
-            String pattern1 = @"\d\d-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4} \d\d:\d\d:\d\d.\d\d\d";
-            String pattern2 = @"\d\d-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4} \d\d:\d\d:\d\d";
+            String pattern1 = @"\d\d-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)-\d{4} \d\d:\d\d:\d\d.\d\d\d";
+            String pattern2 = @"\d\d-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)-\d{4} \d\d:\d\d:\d\d";
             String pattern3 = @"([\d]{8}T[\d]{6})|([\d]{4}-[\d]{2}-[\d]{2} [\d]{2}_[\d]{2}_[\d]{2})";
             String pattern4 = @"([\d]{8}T[\d]{6})|([\d]{4}-[\d]{2}-[\d]{2}T[\d]{2}:[\d]{2}:[\d]{2}\.[\d]{3})";
 
@@ -500,6 +500,7 @@ namespace Foundation.Tests.Unit.BaseClasses
         protected String FixUpStringWithReplacements(String inputString)
         {
             String retVal = inputString;
+            //retVal = ReplaceGuidWithConstant(retVal);
             retVal = ReplaceDateTimeWithConstant(retVal);
             retVal = ReplaceFilePathWithConstant(retVal);
             retVal = ReplaceLineNumberWithConstant(retVal);
@@ -509,7 +510,6 @@ namespace Foundation.Tests.Unit.BaseClasses
             retVal = ReplaceAssemblyVersionWithConstant(retVal);
             retVal = ReplaceAssemblyTargetFrameworkWithConstant(retVal);
             retVal = ReplaceServerNameWithConstant(retVal);
-            retVal = ReplaceGuidWithConstant(retVal);
             retVal = ReplaceDotNetVersionWithConstant(retVal);
 
             return retVal;
