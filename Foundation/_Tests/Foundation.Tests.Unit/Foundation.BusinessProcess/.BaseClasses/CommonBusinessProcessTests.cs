@@ -1054,9 +1054,11 @@ namespace Foundation.Tests.Unit.Foundation.BusinessProcess.BaseClasses
             List<IGridColumnDefinition> gridColumnDefinitions = TheProcess!.GetColumnDefinitions();
             String actualCsvData = TheProcess!.ExportToCsv(gridColumnDefinitions, sourceData);
             actualCsvData = FixUpStringWithReplacements(actualCsvData);
+            actualCsvData = ReplaceGuidWithConstant(actualCsvData);
 
             String sampleCsvData = GetCsvSampleData();
             sampleCsvData = FixUpStringWithReplacements(sampleCsvData);
+            sampleCsvData = ReplaceGuidWithConstant(sampleCsvData);
 
             Assert.That(actualCsvData, Is.EqualTo(sampleCsvData));
         }
