@@ -73,7 +73,7 @@ namespace Foundation.Core
         {
             TService? retVal = default;
 
-            if (ServiceProvider == null)
+            if (ServiceProvider is null)
             {
                 String message = "IoC Service Provider has not been initialised.";
                 throw new ArgumentNullException(nameof(ServiceProvider), message);
@@ -81,14 +81,17 @@ namespace Foundation.Core
 
             Type? type = Type.GetType(typeName);
 
-            if (type != null)
+            if (type is null)
             {
-                retVal = (TService?)ServiceProvider.GetService(type);
+                String errorMessage = $"Unable to load assembly type: '{typeName}'";
+                throw new InvalidOperationException(errorMessage);
             }
 
-            if (retVal == null)
+            Object? o = ServiceProvider.GetService(type);
+
+            if (retVal is null)
             {
-                String errorMessage = $"Unable to get instance of '{typeName}'";
+                String errorMessage = $"Unable to get instance of '{typeof(TService)}' ('{typeName}') from '{type.Assembly.FullName}'";
                 throw new InvalidOperationException(errorMessage);
             }
 

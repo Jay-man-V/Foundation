@@ -29,9 +29,11 @@ namespace Foundation.Tests.Unit.Foundation.Core
 
             hostApplicationBuilder.Services.AddTransient(typeof(IMenuItem), typeof(MenuItem));
 
+            hostApplicationBuilder.Services.AddTransient(typeof(MultipleInstance1));
             hostApplicationBuilder.Services.AddTransient(typeof(IMultipleInstances), typeof(MultipleInstance1));
             hostApplicationBuilder.Services.AddTransient(typeof(IInstance1), typeof(MultipleInstance1));
 
+            hostApplicationBuilder.Services.AddTransient(typeof(MultipleInstance2));
             hostApplicationBuilder.Services.AddTransient(typeof(IMultipleInstances), typeof(MultipleInstance2));
             hostApplicationBuilder.Services.AddTransient(typeof(IInstance2), typeof(MultipleInstance2));
 
@@ -46,10 +48,14 @@ namespace Foundation.Tests.Unit.Foundation.Core
             Assert.That(multipleInstances, Is.Not.Null);
             Assert.That(multipleInstances.Count(), Is.EqualTo(2));
 
+            MultipleInstance1? multipleInstance1 = theHost.Services.GetService<MultipleInstance1>();
             IInstance1 instance1 = theHost.Services.GetService<IInstance1>()!;
+            Assert.That(multipleInstance1, Is.Not.Null);
             Assert.That(instance1, Is.Not.Null);
 
+            MultipleInstance2? multipleInstance2 = theHost.Services.GetService<MultipleInstance2>();
             IInstance2 instance2 = theHost.Services.GetService<IInstance2>()!;
+            Assert.That(multipleInstance2, Is.Not.Null);
             Assert.That(instance2, Is.Not.Null);
 
             ITransientOperation transientOperation = theHost.Services.GetService<ITransientOperation>()!;
@@ -69,15 +75,23 @@ namespace Foundation.Tests.Unit.Foundation.Core
             IHost theHost = hostApplicationBuilder.Build();
 
             IMenuItem? menuItem = theHost.Services.GetService<IMenuItem>();
-            Assert.That(menuItem, Is.Not.Null);
-
-            IInstance1? instance1 = theHost.Services.GetService<IInstance1>();
-            Assert.That(instance1, Is.Not.Null);
-
-            IInstance2? instance2 = theHost.Services.GetService<IInstance2>();
-            Assert.That(instance2, Is.Not.Null);
 
             List<IMultipleInstances>? multipleInstances = theHost.Services.GetServices<IMultipleInstances>().ToList();
+
+            MultipleInstance1? multipleInstance1 = theHost.Services.GetService<MultipleInstance1>();
+            IInstance1? instance1 = theHost.Services.GetService<IInstance1>();
+
+            MultipleInstance2? multipleInstance2 = theHost.Services.GetService<MultipleInstance2>();
+            IInstance2? instance2 = theHost.Services.GetService<IInstance2>();
+
+            Assert.That(menuItem, Is.Not.Null);
+
+            Assert.That(multipleInstance1, Is.Null);
+            Assert.That(instance1, Is.Not.Null);
+
+            Assert.That(multipleInstance2, Is.Null);
+            Assert.That(instance2, Is.Not.Null);
+            
             Assert.That(multipleInstances, Is.Not.Null);
             Assert.That(multipleInstances.Count(), Is.EqualTo(2));
         }

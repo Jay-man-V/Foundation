@@ -20,6 +20,7 @@ namespace Foundation.Core
     /// </summary>
     public static class DependencyInjectionSetup
     {
+        private static List<Type> AddedTypes { get; set; } = [];
         private static readonly Lock SyncLock = new Lock();
         internal static IServiceCollection? ServiceCollection { get; private set; }
 
@@ -45,10 +46,10 @@ namespace Foundation.Core
             foreach (String assemblyPath in foundationAssemblyFilePaths)
             {
 #if(DEBUG)
-                if (assemblyPath.Contains("Foundation.Tests.Unit.dll", StringComparison.InvariantCultureIgnoreCase))
-                {
-
-                }
+                //if (!assemblyPath.Contains("Foundation.Tests.Unit.dll", StringComparison.InvariantCultureIgnoreCase))
+                //{
+                //    continue;
+                //}
 #endif
                 Assembly loadedAssembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(assemblyPath);
 
@@ -113,6 +114,7 @@ namespace Foundation.Core
         /// <returns></returns>
         public static void ResetDependencyInjection()
         {
+            AddedTypes = [];
             if (ServiceCollection is not null)
             {
                 ServiceCollection.Clear();
@@ -158,7 +160,6 @@ namespace Foundation.Core
                 AddTypesToCollection
                 (
                     typeNamespacePrefix,
-                    ServiceCollection,
                     singletonTypes,
                     //(implementationType) => Debug.Print($"hostApplicationBuilder.Services.AddSingleton(typeof(global::{implementationType}));"),
                     //(interfaceType, implementationType) => Debug.Print($"hostApplicationBuilder.Services.AddSingleton(typeof({interfaceType}), typeof(global::{implementationType}));")
@@ -169,7 +170,6 @@ namespace Foundation.Core
                 AddTypesToCollection
                 (
                     typeNamespacePrefix,
-                    ServiceCollection,
                     scopedTypes,
                     //(implementationType) => Debug.Print($"hostApplicationBuilder.Services.AddScoped(typeof(global::{implementationType}));"),
                     //(interfaceType, implementationType) => Debug.Print($"hostApplicationBuilder.Services.AddScoped(typeof({interfaceType}), typeof(global::{implementationType}));")
@@ -180,7 +180,6 @@ namespace Foundation.Core
                 AddTypesToCollection
                 (
                     typeNamespacePrefix,
-                    ServiceCollection,
                     transientTypes,
                     //(implementationType) => Debug.Print($"hostApplicationBuilder.Services.AddTransient(typeof(global::{implementationType}));"),
                     //(interfaceType, implementationType) => Debug.Print($"hostApplicationBuilder.Services.AddTransient(typeof({interfaceType}), typeof(global::{implementationType}));")
@@ -198,7 +197,6 @@ namespace Foundation.Core
         private static void AddTypesToCollection
         (
             String typeNamespacePrefix,
-            IServiceCollection targetServiceCollection,
             List<Type> sourceCollection,
             Action<Type> addImplementationAction,
             Action<Type, Type> addInterfaceWithImplementationAction
@@ -210,22 +208,24 @@ namespace Foundation.Core
                 if (!String.IsNullOrEmpty(implementationTypeName))
                 {
 #if (DEBUG)
-                    if (implementationTypeName.Contains("MultipleInstance1", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                    }
+                    //if (!(implementationTypeName.Contains("MultipleInstance1", StringComparison.InvariantCultureIgnoreCase) ||
+                    //      implementationTypeName.Contains("MultipleInstance2", StringComparison.InvariantCultureIgnoreCase) ||
+                    //      implementationTypeName.Contains("IInstance1", StringComparison.InvariantCultureIgnoreCase) ||
+                    //      implementationTypeName.Contains("IInstance2", StringComparison.InvariantCultureIgnoreCase)))
+                    //{
+                    //    continue;
+                    //}
 #endif
-                    //List<Type> interfaceTypes = implementationType.GetInterfaces().ToList();
-                    List<Type> allInterfaceTypes = implementationType.GetInterfaces().ToList();
-                    List<Type> baseInterfaceTypes;
 
-                    if (implementationType.BaseType != null)
+                    List<Type> allInterfaceTypes = implementationType.GetInterfaces().ToList();
+                    List<Type> baseInterfaceTypes = [];
+
+                    if (implementationType.BaseType != null &&
+                        implementationType.BaseType.GetInterfaces().Any())
                     {
                         baseInterfaceTypes = implementationType.BaseType.GetInterfaces().ToList();
                     }
-                    else
-                    {
-                        baseInterfaceTypes = [];
-                    }
+
                     List<Type> interfaceTypes = allInterfaceTypes.Except(baseInterfaceTypes).ToList();
 
                     foreach (Type interfaceType in interfaceTypes)
@@ -249,16 +249,14 @@ namespace Foundation.Core
                                 typeFullNameCheck)
                             {
 #if (DEBUG)
-                                //Debug.WriteLine($"Service Ty,pe: {interfaceType}. Implementation Type: {implementationType}");
-                                //Debug.WriteLine($"hostApplicationBuilder.Services.AddTransient(typeof({interfaceType}), typeof({implementationType}));");
-                                //Debug.WriteLine($"hostApplicationBuilder.Services.AddTransient(typeof({implementationType}));");
+                                Debug.WriteLine($"Service Type: {interfaceType}. Implementation Type: {implementationType}");
 #endif
-                                ServiceDescriptor sd = new ServiceDescriptor(interfaceType, implementationType);
-                                if (!targetServiceCollection.Contains(sd))
+                                if (!AddedTypes.Exists(at => at == implementationType))
                                 {
                                     addImplementationAction(implementationType);
-                                    addInterfaceWithImplementationAction(interfaceType, implementationType);
+                                    AddedTypes.Add(implementationType);
                                 }
+                                addInterfaceWithImplementationAction(interfaceType, implementationType);
                             }
                         }
                     }

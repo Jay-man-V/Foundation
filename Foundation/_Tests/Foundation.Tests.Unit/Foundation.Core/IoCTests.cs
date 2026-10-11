@@ -313,7 +313,7 @@ namespace Foundation.Tests.Unit.Foundation.Core
         public void Test_Get_String_Exception_UnableToGetInstance()
         {
             String typeName = "Foundation.Tests.Unit.Support.TypeNotImplemented, Foundation.Tests.Unit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
-            String errorMessage = $"Unable to get instance of '{typeName}'";
+            String errorMessage = $"Unable to load assembly type: '{typeName}'";
             InvalidOperationException actualException = Assert.Throws<InvalidOperationException>(() =>
             {
                 HostApplicationBuilderSettings settings = new HostApplicationBuilderSettings();
