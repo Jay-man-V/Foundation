@@ -171,7 +171,11 @@ namespace Foundation.Server.ScheduledTasks
 
             InitialiseRunTimeParameters(taskParameters);
 
-            LogId taskLogId = LoggingService.CreateLogEntry(parentLogId, TaskParameters.BatchName, TaskParameters.ProcessName, TaskParameters.TaskName, LogSeverity.Information, $"Running '{TaskName}'");
+            String batchName = TaskParameters?.BatchName ?? "<Unknown>";
+            String processName = TaskParameters?.ProcessName ?? "<Unknown>";
+            String taskName = TaskParameters?.TaskName ?? "<Unknown>";
+
+            LogId taskLogId = LoggingService.CreateLogEntry(parentLogId, batchName, processName, taskName, LogSeverity.Information, $"Running '{TaskName}'");
 
             TaskStartTime = DateTimeService.SystemUtcDateTimeNow;
             LastRunDateTime = ApplicationConfigurationService.Get(Core.ApplicationId, Core.CurrentLoggedOnUser.UserProfile, LastRunDateKey, TaskStartTime.AddMonths(-1));

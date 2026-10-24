@@ -14,7 +14,7 @@ namespace Foundation.Interfaces
     /// A struct to hold a Postcode alongside validation routines
     /// </summary>
     [DebuggerDisplay("{Value}")]
-    public struct PostCode
+    public readonly struct PostCode
     {
         private Boolean Parsed { get; init; }
 
@@ -101,7 +101,7 @@ namespace Foundation.Interfaces
         /// </summary>
         /// <returns></returns>
 
-        public override String ToString()
+        public override String? ToString()
         {
             return Value;
         }

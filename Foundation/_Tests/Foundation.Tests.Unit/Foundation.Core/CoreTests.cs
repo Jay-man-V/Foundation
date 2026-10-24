@@ -146,16 +146,12 @@ namespace Foundation.Tests.Unit.Foundation.Core
             userProfileProcess.GetLoggedOnUserProfile(Arg.Any<AppId>()).Returns(UserProfile);
 
             _ = global::Foundation.Core.Core.Initialise(ApplicationId, RunTimeEnvironmentSettings, applicationProcess, userProfileProcess, LoggedOnUserProcess, SharedVariables, Cache, Crypto);
+            List<IApplicationStartup> applicationStartups = global::Foundation.Core.Core.TheInstance.IoC.GetAll<IApplicationStartup>().ToList();
 
-            Boolean applicationStartupCalled = false;
-            MockApplicationStartup.ApplicationStartingCalled += (_, _) =>
-            {
-                applicationStartupCalled = true;
-            };
+            IApplicationStartup applicationStartupInterface = applicationStartups[1];
+            IMockApplicationStartup mockApplicationStartupInterface = applicationStartupInterface as IMockApplicationStartup;
 
-            global::Foundation.Core.Core.ExecuteApplicationStartups();
-
-            Assert.That(applicationStartupCalled, Is.EqualTo(true));
+            Assert.That(mockApplicationStartupInterface.ApplicationStartupCalled, Is.EqualTo(true));
         }
 
         [TestCase]

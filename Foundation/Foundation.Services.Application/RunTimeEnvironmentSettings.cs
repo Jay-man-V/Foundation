@@ -46,8 +46,9 @@ namespace Foundation.Services.Application
                 //UserPrincipal user = UserPrincipal.FindByIdentity(ctx, "<Username>");
 
                 WindowsIdentity identity = WindowsIdentity.GetCurrent();
+                SecurityIdentifier? securityIdentifier = identity.User;
 
-                return identity.User.Value;
+                return securityIdentifier?.Value ?? String.Empty;
             }
         }
     }

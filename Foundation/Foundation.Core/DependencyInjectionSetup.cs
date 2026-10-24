@@ -96,12 +96,12 @@ namespace Foundation.Core
             {
                 List<String> excludedInterfacesList =
                 [
-                    "ICloneable",
-                    "IDisposable",
+                    nameof(ICloneable),
+                    nameof(IDisposable),
+                    nameof(Microsoft),
+                    nameof(System),
                     "IExcludedMe",
                     "IEquatable",
-                    "Microsoft",
-                    "System",
                 ];
 
                 return excludedInterfacesList;

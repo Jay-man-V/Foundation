@@ -8,11 +8,6 @@ using Foundation.Interfaces;
 
 namespace Foundation.Tests.Unit.Mocks
 {
-    public interface IMockApplicationStartup : IApplicationStartup
-    {
-        Boolean ApplicationStartupCalled { get; set; }
-    }
-
     [DependencyInjectionSingleton]
     public class MockApplicationStartup : IMockApplicationStartup
     {

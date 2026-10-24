@@ -60,11 +60,11 @@ namespace Foundation.Tests.Unit.BaseClasses
         protected String StandardCountryCode = "GB";
         protected String MachineName = "MachineName";
 
-        protected ICore CoreInstance { get; set; }
-        protected IDateTimeService DateTimeService { get; set; }
-        protected IRunTimeEnvironmentSettings RunTimeEnvironmentSettings { get; set; }
-        protected ILoggingService LoggingService { get; set; }
-        protected IApplicationConfigurationService ApplicationConfigurationService { get; set; }
+        protected ICore CoreInstance { get; set; } = Substitute.For<ICore>();
+        protected IDateTimeService DateTimeService { get; set; } = Substitute.For<IDateTimeService>();
+        protected IRunTimeEnvironmentSettings RunTimeEnvironmentSettings { get; set; } = Substitute.For<IRunTimeEnvironmentSettings>();
+        protected ILoggingService LoggingService { get; set; } = Substitute.For<ILoggingService>();
+        protected IApplicationConfigurationService ApplicationConfigurationService { get; set; } = Substitute.For<IApplicationConfigurationService>();
 
         protected LogId RootLogId { get; set; }
 
