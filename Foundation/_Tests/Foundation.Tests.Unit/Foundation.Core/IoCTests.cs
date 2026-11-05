@@ -404,7 +404,8 @@ namespace Foundation.Tests.Unit.Foundation.Core
             ioc.ServiceProvider = host.Services;
 
             String paramName = nameof(assemblyType);
-            String errorMessage = $"Cannot create type: '{assemblyType}' from the Assembly: '{assemblyNameInMessage}' (Parameter '{paramName}')";
+            //String errorMessage = $"Cannot load assembly type: '{assemblyType}' from the Assembly: '{assemblyNameInMessage}' (Parameter 'assemblyType')";
+            String errorMessage = $"Cannot create type: '{assemblyType}' from the Assembly: '{assemblyNameInMessage}' (Parameter 'assemblyType')";
             ArgumentNullException actualException = Assert.Throws<ArgumentNullException>(() =>
             {
                 _ = ioc.Get<ITransientOperation>(assemblyName, assemblyType);

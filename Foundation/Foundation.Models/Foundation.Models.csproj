@@ -1,21 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-      <TargetFramework>net10.0-Windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-    <ImplicitUsings>enable</ImplicitUsings>
-      <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net10.0-Windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="..\..\JDV.Software.AssemblyInfo.cs" Link="JDV.Software.AssemblyInfo.cs" />
-    <Compile Include="..\Foundation.AssemblyInfo.cs" Link="Foundation.AssemblyInfo.cs" />
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Include="..\..\JDV.Software.AssemblyInfo.cs" Link="JDV.Software.AssemblyInfo.cs" />
+        <Compile Include="..\Foundation.AssemblyInfo.cs" Link="Foundation.AssemblyInfo.cs" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Foundation.Common\Foundation.Common.csproj" />
-    <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Foundation.Common\Foundation.Common.csproj" />
+        <ProjectReference Include="..\Foundation.Interfaces\Foundation.Interfaces.csproj" />
+    </ItemGroup>
 
 </Project>

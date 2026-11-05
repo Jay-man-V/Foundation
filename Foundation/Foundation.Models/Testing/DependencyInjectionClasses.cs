@@ -1,0 +1,92 @@
+﻿////-----------------------------------------------------------------------
+//// <copyright file="DependencyInjectionClasses.cs" company="JDV Software Ltd">
+////     Copyright (c) JDV Software Ltd. All rights reserved.
+//// </copyright>
+////-----------------------------------------------------------------------
+
+//using Foundation.Interfaces;
+
+//#if(DEBUG)
+//namespace Foundation.Models.Testing
+//{
+//    [DependencyInjectionIgnore]
+//    public class NonDependencyInjectionStandardClass : IStandardClass
+//    {
+//        private Int32 Count { get; set; }
+
+//        public String OperationGuid => $"{GetType()}{Guid.NewGuid()}";
+//        public String OperationName => $"{GetType()}";
+
+//        public Int32 CountAndGet()
+//        {
+//            Count++;
+
+//            return Count;
+//        }
+//    }
+
+//    [DependencyInjectionScoped]
+//    public class StandardClass : IStandardClass
+//    {
+//        private Int32 Count { get; set; }
+
+//        public String OperationGuid => $"{GetType()}{Guid.NewGuid()}";
+//        public String OperationName => $"{GetType()}";
+
+//        public Int32 CountAndGet()
+//        {
+//            Count++;
+
+//            return Count;
+//        }
+//    }
+
+//    public abstract class DefaultOperation : IDefaultOperation
+//    {
+//        protected Int32 Count { get; set; }
+
+//        public String OperationGuid => $"{GetType()}{Guid.NewGuid()}";
+//        public String OperationName => $"{GetType()}";
+
+//        public Int32 CountAndGet()
+//        {
+//            Count++;
+
+//            return Count;
+//        }
+//    }
+
+//    [DependencyInjectionTransient]
+//    public class TransientOperation : DefaultOperation, ITransientOperation
+//    {
+//        public String? Value { get; set; }
+//    }
+
+//    [DependencyInjectionTransient]
+//    public class TypeWithGenerics<TValue> : ITypeWithGenerics<TValue?>
+//    {
+//        public TValue? Value { get; set; }
+//    }
+
+//    [DependencyInjectionTransient]
+//    public class MultipleInstance1 : IMultipleInstances, IInstance1
+//    {
+//        public String GetOperationType() { return GetType().ToString(); }
+//    }
+
+//    [DependencyInjectionTransient]
+//    public class MultipleInstance2 : IMultipleInstances, IInstance2
+//    {
+//        public String GetOperationType() { return GetType().ToString(); }
+//    }
+
+//    //[DependencyInjectionTransient]
+//    //public class TransientOperationWithParameters : DefaultOperation, ITransientOperationWithParameters
+//    //{
+//    //    public TransientOperationWithParameters(Int32 initialCount)
+//    //    {
+//    //        Count = initialCount;
+//    //    }
+//    //}
+//}
+//#endif

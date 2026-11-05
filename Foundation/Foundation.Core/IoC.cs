@@ -89,6 +89,9 @@ namespace Foundation.Core
 
             Object? o = ServiceProvider.GetService(type);
 
+
+            retVal = (TService)ServiceProvider.GetService(type);
+
             if (retVal is null)
             {
                 String errorMessage = $"Unable to get instance of '{typeof(TService)}' ('{typeName}') from '{type.Assembly.FullName}'";

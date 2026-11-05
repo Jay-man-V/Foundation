@@ -9,6 +9,7 @@ namespace Foundation.Interfaces
     /// <summary>
     /// The generic Enum model interface
     /// </summary>
+    [DependencyInjectionIgnore]
     public interface IEnumModel : IFoundationModel
     {
         /// <summary>
